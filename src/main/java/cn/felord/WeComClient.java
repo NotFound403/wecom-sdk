@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -25,7 +24,20 @@ import java.util.Collections;
  * @since 2021 /6/16 9:58
  */
 public class WeComClient {
-    private final RestOperations restOperations = restOperations();
+    private final RestOperations restOperations;
+
+    public WeComClient() {
+        this(true);
+    }
+
+    public WeComClient(boolean hasToken) {
+        this.restOperations = restOperations(hasToken);
+    }
+
+
+    public WeComClient(RestOperations restOperations) {
+        this.restOperations = restOperations;
+    }
 
     /**
      * Post
@@ -52,12 +64,15 @@ public class WeComClient {
         return restOperations.exchange(RequestEntity.get(uri).build(), responseType).getBody();
     }
 
-    private RestOperations restOperations() {
+    private RestOperations restOperations(boolean hasToken) {
         ObjectMapper objectMapper = new ObjectMapper();
         this.objectMapperCustomize(objectMapper);
         MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
         RestTemplate restTemplate = new RestTemplate(Collections.singletonList(mappingJackson2HttpMessageConverter));
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+        if (hasToken) {
+            restTemplate.setInterceptors(Collections.singletonList(new AccessTokenClientHttpRequestInterceptor()));
+        }
         DefaultResponseErrorHandler errorHandler = new WeComResponseErrorHandler();
         restTemplate.setErrorHandler(errorHandler);
         return restTemplate;

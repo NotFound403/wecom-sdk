@@ -1,5 +1,6 @@
-package cn.felord.domain;
+package cn.felord.domain.authentication;
 
+import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

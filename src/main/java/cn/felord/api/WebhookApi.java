@@ -1,8 +1,8 @@
 package cn.felord.api;
 
+import cn.felord.WeComClient;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.webhook.WebhookBody;
-import cn.felord.domain.webhook.WebhookTextBody;
 import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,24 +20,24 @@ public class WebhookApi extends AbstractApi {
 
     /**
      * Instantiates a new Webhook api.
-     *
-     * @param key the key
      */
-    public WebhookApi(String key) {
-        super(UriComponentsBuilder.fromHttpUrl(WeComEndpoint.WEBHOOK_SEND.endpoint(WeComDomain.CGI_BIN))
-                .queryParam("key", key)
-                .build()
-                .toUri());
+    public WebhookApi() {
+        super(UriComponentsBuilder.fromHttpUrl(WeComEndpoint.WEBHOOK_SEND.endpoint(WeComDomain.CGI_BIN)));
+        setWeComClient(new WeComClient(false));
     }
 
     /**
      * Send text we com response.
      *
      * @param <T>  the type parameter
+     * @param key  the key
      * @param body the body
      * @return the we com response
      */
-    public <T extends WebhookBody> WeComResponse sendText(T body) {
-        return this.getWeComClient().post(this.getUri(), body, WeComResponse.class);
+    public <T extends WebhookBody> WeComResponse send(String key, T body) {
+        URI uri = this.getUriComponentsBuilder().queryParam("key", key)
+                .build()
+                .toUri();
+        return this.getWeComClient().post(uri, body, WeComResponse.class);
     }
 }

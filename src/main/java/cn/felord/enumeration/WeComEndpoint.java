@@ -11,6 +11,13 @@ public enum WeComEndpoint {
      * Get token we com endpoint.
      */
     GET_TOKEN("/gettoken"),
+    /**
+     * Ex contacts we com endpoint.
+     */
+    EX_CONTACTS("/externalcontact/list"),
+    /**
+     * Webhook send we com endpoint.
+     */
     WEBHOOK_SEND("/webhook/send");
     private final String pattern;
 
