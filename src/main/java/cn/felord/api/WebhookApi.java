@@ -16,14 +16,14 @@ import java.net.URI;
  * @since 2021 /6/16 17:35
  */
 public class WebhookApi extends AbstractApi {
-
+    private final UriComponentsBuilder componentsBuilder;
 
     /**
      * Instantiates a new Webhook api.
      */
     public WebhookApi() {
-        super(UriComponentsBuilder.fromHttpUrl(WeComEndpoint.WEBHOOK_SEND.endpoint(WeComDomain.CGI_BIN)));
         setWeComClient(new WeComClient(false));
+        this.componentsBuilder = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.WEBHOOK_SEND.endpoint(WeComDomain.CGI_BIN));
     }
 
     /**
@@ -35,7 +35,7 @@ public class WebhookApi extends AbstractApi {
      * @return the we com response
      */
     public <T extends WebhookBody> WeComResponse send(String key, T body) {
-        URI uri = this.getUriComponentsBuilder().queryParam("key", key)
+        URI uri = this.componentsBuilder.queryParam("key", key)
                 .build()
                 .toUri();
         return this.getWeComClient().post(uri, body, WeComResponse.class);

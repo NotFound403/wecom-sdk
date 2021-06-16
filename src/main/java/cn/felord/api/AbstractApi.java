@@ -1,7 +1,6 @@
 package cn.felord.api;
 
 import cn.felord.WeComClient;
-import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * @author n1
@@ -9,11 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 public abstract class AbstractApi {
     private WeComClient weComClient = new WeComClient();
-    private final UriComponentsBuilder uriComponentsBuilder;
 
-    public AbstractApi(UriComponentsBuilder uriComponentsBuilder) {
-        this.uriComponentsBuilder = uriComponentsBuilder;
-    }
 
     public void setWeComClient(WeComClient weComClient) {
         this.weComClient = weComClient;
@@ -23,7 +18,4 @@ public abstract class AbstractApi {
         return weComClient;
     }
 
-    public UriComponentsBuilder getUriComponentsBuilder() {
-        return uriComponentsBuilder;
-    }
 }

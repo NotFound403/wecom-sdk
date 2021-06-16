@@ -12,13 +12,12 @@ import java.net.URI;
  * @since 1.0.8.RELEASE
  */
 public class ContactsApi extends AbstractApi {
-    public ContactsApi() {
-        super(UriComponentsBuilder.fromHttpUrl(WeComEndpoint.EX_CONTACTS.endpoint(WeComDomain.CGI_BIN)));
-    }
+
 
 
     public ExternalContactResponse getContactList(String userId) {
-        URI uri = this.getUriComponentsBuilder().queryParam("userid", userId)
+        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.EX_CONTACTS.endpoint(WeComDomain.CGI_BIN))
+                .queryParam("userid", userId)
                 .build()
                 .toUri();
         return this.getWeComClient().get(uri, ExternalContactResponse.class);

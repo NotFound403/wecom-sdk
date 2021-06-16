@@ -31,14 +31,14 @@ public class Test {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        contactsApi();
+       sendHook();
     }
 
 
     public static void contactsApi() {
         ContactsApi contactsApi = new ContactsApi();
 
-        ExternalContactResponse contactList = contactsApi.getContactList("XiaFangFang");
+        ExternalContactResponse contactList = contactsApi.getContactList(" ");
 
         System.out.println("contactList = " + contactList);
     }
