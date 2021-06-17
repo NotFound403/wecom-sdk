@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -28,10 +29,18 @@ public class WeComClient {
     private boolean needToken;
     private final RestOperations restOperations;
 
+    /**
+     * Instantiates a new We com client.
+     */
     public WeComClient() {
         this.restOperations = restOperations(null);
     }
 
+    /**
+     * Instantiates a new We com client.
+     *
+     * @param agentDetails the agent details
+     */
     public WeComClient(AgentDetails agentDetails) {
         Assert.notNull(agentDetails, "agentDetails is required");
         this.needToken = true;
@@ -41,9 +50,10 @@ public class WeComClient {
     /**
      * Post
      *
-     * @param <T>  the type parameter
-     * @param uri  the uri
-     * @param body the body
+     * @param <T>          the type parameter
+     * @param uri          the uri
+     * @param body         the body
+     * @param responseType the response type
      * @return the t
      */
     public <T extends WeComResponse> T post(URI uri, Object body, Class<T> responseType) {
@@ -53,14 +63,42 @@ public class WeComClient {
     }
 
     /**
+     * Post t.
+     *
+     * @param <T>                        the type parameter
+     * @param uri                        the uri
+     * @param body                       the body
+     * @param parameterizedTypeReference the parameterized type reference
+     * @return the t
+     */
+    public <T extends WeComResponse> T post(URI uri, Object body,  ParameterizedTypeReference<T> parameterizedTypeReference) {
+        RequestEntity<Object> requestEntity = RequestEntity.post(uri)
+                .body(body);
+        return restOperations.exchange(requestEntity, parameterizedTypeReference).getBody();
+    }
+
+    /**
      * Get
      *
-     * @param <T> the type parameter
-     * @param uri the uri
+     * @param <T>          the type parameter
+     * @param uri          the uri
+     * @param responseType the response type
      * @return the t
      */
     public <T extends WeComResponse> T get(URI uri, Class<T> responseType) {
         return restOperations.exchange(RequestEntity.get(uri).build(), responseType).getBody();
+    }
+
+    /**
+     * Get t.
+     *
+     * @param <T>                        the type parameter
+     * @param uri                        the uri
+     * @param parameterizedTypeReference the parameterized type reference
+     * @return the t
+     */
+    public <T extends WeComResponse> T get(URI uri, ParameterizedTypeReference<T> parameterizedTypeReference) {
+        return restOperations.exchange(RequestEntity.get(uri).build(), parameterizedTypeReference).getBody();
     }
 
     private RestOperations restOperations(AgentDetails agentDetails) {

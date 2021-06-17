@@ -7,7 +7,7 @@ import lombok.Data;
  * @author n1
  */
 @Data
-public class CreateDeptRequest {
+public class DeptRequest {
     private String name;
     private Integer id;
     private Integer parentid;

@@ -68,6 +68,17 @@ public enum WeComEndpoint {
      */
     DEPT_CREATE("/department/create"),
     /**
+     * 更新部门，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90206">文档</a>
+     */
+    DEPT_UPDATE("/department/update"),
+    /**
+     * 删除部门，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90207">文档</a>
+     */
+    DEPT_DELETE("/department/update"),    /**
+     * 获取部门列表，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90208">文档</a>
+     */
+    DEPT_LIST("/department/list"),
+    /**
      * 获取企业微信API域名IP段，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
      */
     EX_CONTACTS("/externalcontact/list"),

@@ -1,13 +1,14 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComClient;
-import cn.felord.domain.customer.ExternalContactResponse;
+import cn.felord.domain.GenericResponse;
 import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * @author felord.cn
@@ -19,12 +20,12 @@ public class ContactsApi extends AbstractApi {
         super(agentDetails);
     }
 
-    public ExternalContactResponse getContactList(String userId) {
+    public GenericResponse<List<String>> getContactList(String userId) {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.EX_CONTACTS.endpoint(WeComDomain.CGI_BIN))
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, ExternalContactResponse.class);
+        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {});
     }
 
 }

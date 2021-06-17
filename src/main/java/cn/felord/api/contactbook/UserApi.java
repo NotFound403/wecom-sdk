@@ -1,13 +1,14 @@
 package cn.felord.api.contactbook;
 
 import cn.felord.api.AbstractApi;
-import cn.felord.domain.OpenIdResponse;
+import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.user.*;
 import cn.felord.enumeration.DeptUserFetchType;
 import cn.felord.enumeration.UserQrcodeSize;
 import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -124,13 +125,14 @@ public class UserApi extends AbstractApi {
      * @return SimpleUserResponse
      * @see WeComEndpoint#USER_DEPT_LIST
      */
-    public SimpleUserResponse getDeptUsers(String departmentId, DeptUserFetchType type) {
+    public GenericResponse<List<SimpleUser>> getDeptUsers(String departmentId, DeptUserFetchType type) {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_DEPT_LIST.endpoint(WeComDomain.CGI_BIN))
                 .queryParam("department_id", departmentId)
                 .queryParam("fetch_child", type.type())
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, SimpleUserResponse.class);
+        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<List<SimpleUser>>>() {
+        });
     }
 
     /**
@@ -143,13 +145,14 @@ public class UserApi extends AbstractApi {
      * @return UserDetailResponse
      * @see WeComEndpoint#USER_DEPT_LIST_DETAIL
      */
-    public UserDetailResponse getDeptUserDetails(String departmentId, DeptUserFetchType type) {
+    public GenericResponse<List<UserDetail>> getDeptUserDetails(String departmentId, DeptUserFetchType type) {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_DEPT_LIST_DETAIL.endpoint(WeComDomain.CGI_BIN))
                 .queryParam("department_id", departmentId)
                 .queryParam("fetch_child", type.type())
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, UserDetailResponse.class);
+        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<List<UserDetail>>>() {
+        });
     }
 
     /**
@@ -164,11 +167,12 @@ public class UserApi extends AbstractApi {
      * @return OpenIdResponse
      * @see WeComEndpoint#USER_BATCH_DELETE
      */
-    public OpenIdResponse converTopenid(String userId) {
+    public GenericResponse<String> converTopenid(String userId) {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USERID_TO_OPENID.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, Collections.singletonMap("userid", userId), OpenIdResponse.class);
+        return this.weComClient().post(uri, Collections.singletonMap("userid", userId), new ParameterizedTypeReference<GenericResponse<String>>() {
+        });
     }
 
     /**
@@ -213,12 +217,13 @@ public class UserApi extends AbstractApi {
      * @return WeComResponse
      * @see WeComEndpoint#USER_JOIN_QRCODE
      */
-    public QrcodeResponse getJoinQrcode(UserQrcodeSize size) {
+    public GenericResponse<String> getJoinQrcode(UserQrcodeSize size) {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_JOIN_QRCODE.endpoint(WeComDomain.CGI_BIN))
                 .queryParam("size_type", size.type())
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, QrcodeResponse.class);
+        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<String>>() {
+        });
     }
 
     /**
@@ -228,10 +233,11 @@ public class UserApi extends AbstractApi {
      * @return WeComResponse
      * @see WeComEndpoint#USER_JOIN_QRCODE
      */
-    public UserActiveResponse getActiveStat(LocalDate date) {
+    public GenericResponse<Integer> getActiveStat(LocalDate date) {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_ACTIVE_STAT.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, Collections.singletonMap("data", date.toString()), UserActiveResponse.class);
+        return this.weComClient().post(uri, Collections.singletonMap("date", date.toString()), new ParameterizedTypeReference<GenericResponse<Integer>>() {
+        });
     }
 }

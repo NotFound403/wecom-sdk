@@ -5,18 +5,14 @@ import cn.felord.api.WebhookApi;
 import cn.felord.api.contactbook.ContactBookAgent;
 import cn.felord.api.contactbook.DepartmentApi;
 import cn.felord.api.contactbook.UserApi;
+import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.authentication.AccessTokenResponse;
-import cn.felord.domain.contactbook.department.CreateDeptRequest;
-import cn.felord.domain.contactbook.department.CreateDeptResponse;
-import cn.felord.domain.contactbook.user.QrcodeResponse;
+import cn.felord.domain.contactbook.department.DeptRequest;
 import cn.felord.domain.contactbook.user.UserInfoRequest;
-import cn.felord.domain.contactbook.user.UserInfoResponse;
-import cn.felord.domain.customer.ExternalContactResponse;
 import cn.felord.domain.webhook.WebhookMarkdownBody;
 import cn.felord.domain.webhook.WebhookNewsBody;
 import cn.felord.domain.webhook.WebhookTextBody;
-import cn.felord.enumeration.UserQrcodeSize;
 import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.web.util.UriComponents;
@@ -42,9 +38,16 @@ public class Test {
     public static void main(String[] args) {
         ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
                 "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
-        UserApi userApi = new UserApi(agent);
-        QrcodeResponse joinQrcode = userApi.getJoinQrcode(UserQrcodeSize.SIZE_399);
-        System.out.println("joinQrcode = " + joinQrcode);
+//        DepartmentApi departmentApi = new DepartmentApi(agent);
+//        GenericResponse<List<DeptRequest>> deptRequestListResponse = departmentApi.deptList("2");
+//        System.out.println("deptRequestListResponse = " + deptRequestListResponse);
+//        UserApi userApi = new UserApi(agent);
+//        GenericResponse<Integer> activeStat = userApi.getActiveStat(LocalDate.now());
+//        System.out.println("activeStat = " + activeStat);
+//        ListResponse<SimpleUser> deptUsers = userApi.getDeptUsers("2", DeptUserFetchType.THIS);
+//        System.out.println("deptUsers = " + deptUsers);
+//        GenericResponse<String> joinQrcode = userApi.getJoinQrcode(UserQrcodeSize.SIZE_399);
+//        System.out.println("joinQrcode = " + joinQrcode);
 //        UserInfoResponse x334454655 = userApi.getUser("x334454655");
 //        System.out.println("x334454655 = " + x334454655);
     }
@@ -55,12 +58,12 @@ public class Test {
                 "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
         DepartmentApi departmentApi = new DepartmentApi(agent);
 
-        CreateDeptRequest createDeptRequest = new CreateDeptRequest();
-        createDeptRequest.setNameEn("NMC");
-        createDeptRequest.setParentid(1);
-        createDeptRequest.setName("新媒体中心");
+        DeptRequest deptRequest = new DeptRequest();
+        deptRequest.setNameEn("NMC");
+        deptRequest.setParentid(1);
+        deptRequest.setName("新媒体中心");
 
-        CreateDeptResponse dept = departmentApi.createDept(createDeptRequest);
+        GenericResponse<String> dept = departmentApi.createDept(deptRequest);
         System.out.println("dept = " + dept);
     }
 
@@ -92,7 +95,7 @@ public class Test {
 
         ContactsApi contactsApi = new ContactsApi(agent);
 
-        ExternalContactResponse contactList = contactsApi.getContactList("XiaFangFang");
+        GenericResponse<List<String>> contactList = contactsApi.getContactList("XiaFangFang");
 
         System.out.println("contactList = " + contactList);
     }
