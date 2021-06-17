@@ -1,5 +1,6 @@
 package cn.felord.api;
 
+import cn.felord.AgentDetails;
 import cn.felord.WeComClient;
 
 /**
@@ -7,14 +8,18 @@ import cn.felord.WeComClient;
  * @since 2021/6/16 17:36
  */
 public abstract class AbstractApi {
-    private WeComClient weComClient = new WeComClient();
+    private final WeComClient weComClient;
 
 
-    public void setWeComClient(WeComClient weComClient) {
-        this.weComClient = weComClient;
+    public AbstractApi(AgentDetails agentDetails) {
+        this.weComClient = new WeComClient(agentDetails);
     }
 
-    public WeComClient getWeComClient() {
+    public AbstractApi() {
+        this.weComClient = new WeComClient();
+    }
+
+    public WeComClient weComClient() {
         return weComClient;
     }
 

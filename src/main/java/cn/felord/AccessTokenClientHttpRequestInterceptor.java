@@ -1,10 +1,15 @@
 package cn.felord;
 
+import cn.felord.api.AbstractApi;
+import cn.felord.domain.authentication.AccessTokenResponse;
+import cn.felord.enumeration.WeComDomain;
+import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
@@ -15,16 +20,40 @@ import java.net.URI;
  * @since 1.0.8.RELEASE
  */
 public class AccessTokenClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
+    private final AccessTokenApi accessTokenApi = new AccessTokenApi();
+    private final AgentDetails agentDetails;
+
+    public AccessTokenClientHttpRequestInterceptor(AgentDetails agentDetails) {
+        this.agentDetails = agentDetails;
+    }
+
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         MutableHttpRequest mutableHttpRequest = new MutableHttpRequest(request);
 
+        AccessTokenResponse tokenResponse = accessTokenApi.getTokenResponse(agentDetails);
+        if (!tokenResponse.isSuccessful()) {
+            throw new RuntimeException("failed to obtain access token");
+        }
+        String accessToken = tokenResponse.getAccessToken();
         URI uri = UriComponentsBuilder.fromUri(request.getURI())
-                .queryParam("access_token", "0V0POBxjCwYQYXc-aWf_Q8SlhUaOKeNmva7PqKc-SGahAqqJiQaB9IKS67_FRkgpcC4yVGJxlAo73z6SwwQJDWMXtGQ--RwPTlQTVoY_syH2SLoQDey2bTeVTzaqfK2FKadDDIBbfUFvXEl6-PSEpoJhu8H2cDmAMeSn2SvNP-2S9TSBJIDrak7XFrSBAflXAIBX5q_4yt9cMXSkddSKaA")
+                .queryParam("access_token", accessToken)
                 .build()
                 .toUri();
         mutableHttpRequest.setUri(uri);
         return execution.execute(mutableHttpRequest, body);
+    }
+
+    private static class AccessTokenApi extends AbstractApi {
+
+
+        AccessTokenResponse getTokenResponse(AgentDetails agentDetails) {
+            UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.GET_TOKEN.endpoint(WeComDomain.CGI_BIN))
+                    .queryParam("corpid", agentDetails.getCorpId())
+                    .queryParam("corpsecret", agentDetails.getSecret())
+                    .build();
+            return this.weComClient().get(uriComponents.toUri(), AccessTokenResponse.class);
+        }
     }
 
 

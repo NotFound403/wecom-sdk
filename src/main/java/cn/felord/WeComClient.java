@@ -10,6 +10,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.util.Assert;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
@@ -24,19 +25,17 @@ import java.util.Collections;
  * @since 2021 /6/16 9:58
  */
 public class WeComClient {
+    private boolean needToken;
     private final RestOperations restOperations;
 
     public WeComClient() {
-        this(true);
+        this.restOperations = restOperations(null);
     }
 
-    public WeComClient(boolean hasToken) {
-        this.restOperations = restOperations(hasToken);
-    }
-
-
-    public WeComClient(RestOperations restOperations) {
-        this.restOperations = restOperations;
+    public WeComClient(AgentDetails agentDetails) {
+        Assert.notNull(agentDetails, "agentDetails is required");
+        this.needToken = true;
+        this.restOperations = restOperations(agentDetails);
     }
 
     /**
@@ -64,14 +63,14 @@ public class WeComClient {
         return restOperations.exchange(RequestEntity.get(uri).build(), responseType).getBody();
     }
 
-    private RestOperations restOperations(boolean hasToken) {
+    private RestOperations restOperations(AgentDetails agentDetails) {
         ObjectMapper objectMapper = new ObjectMapper();
         this.objectMapperCustomize(objectMapper);
         MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
         RestTemplate restTemplate = new RestTemplate(Collections.singletonList(mappingJackson2HttpMessageConverter));
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        if (hasToken) {
-            restTemplate.setInterceptors(Collections.singletonList(new AccessTokenClientHttpRequestInterceptor()));
+        if (needToken) {
+            restTemplate.setInterceptors(Collections.singletonList(new AccessTokenClientHttpRequestInterceptor(agentDetails)));
         }
         DefaultResponseErrorHandler errorHandler = new WeComResponseErrorHandler();
         restTemplate.setErrorHandler(errorHandler);

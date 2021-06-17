@@ -2,12 +2,21 @@ package cn.felord;
 
 import cn.felord.api.ContactsApi;
 import cn.felord.api.WebhookApi;
+import cn.felord.api.contactbook.ContactBookAgent;
+import cn.felord.api.contactbook.DepartmentApi;
+import cn.felord.api.contactbook.UserApi;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.authentication.AccessTokenResponse;
+import cn.felord.domain.contactbook.department.CreateDeptRequest;
+import cn.felord.domain.contactbook.department.CreateDeptResponse;
+import cn.felord.domain.contactbook.user.QrcodeResponse;
+import cn.felord.domain.contactbook.user.UserInfoRequest;
+import cn.felord.domain.contactbook.user.UserInfoResponse;
 import cn.felord.domain.customer.ExternalContactResponse;
 import cn.felord.domain.webhook.WebhookMarkdownBody;
 import cn.felord.domain.webhook.WebhookNewsBody;
 import cn.felord.domain.webhook.WebhookTextBody;
+import cn.felord.enumeration.UserQrcodeSize;
 import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.web.util.UriComponents;
@@ -31,14 +40,59 @@ public class Test {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-       sendHook();
+        ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
+                "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
+        UserApi userApi = new UserApi(agent);
+        QrcodeResponse joinQrcode = userApi.getJoinQrcode(UserQrcodeSize.SIZE_399);
+        System.out.println("joinQrcode = " + joinQrcode);
+//        UserInfoResponse x334454655 = userApi.getUser("x334454655");
+//        System.out.println("x334454655 = " + x334454655);
+    }
+
+
+    public static void creatDept() {
+        ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
+                "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
+        DepartmentApi departmentApi = new DepartmentApi(agent);
+
+        CreateDeptRequest createDeptRequest = new CreateDeptRequest();
+        createDeptRequest.setNameEn("NMC");
+        createDeptRequest.setParentid(1);
+        createDeptRequest.setName("新媒体中心");
+
+        CreateDeptResponse dept = departmentApi.createDept(createDeptRequest);
+        System.out.println("dept = " + dept);
+    }
+
+    public static void creatUser() {
+        ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
+                "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
+        UserApi userApi = new UserApi(agent);
+
+        UserInfoRequest request = new UserInfoRequest();
+
+        request.setUserid("x334454655");
+        request.setName("张三");
+        request.setDepartment(Collections.singletonList(2));
+        request.setEmail("felord@qq.com");
+
+        WeComResponse user = userApi.createUser(request);
+
+        System.out.println("user = " + user);
     }
 
 
     public static void contactsApi() {
-        ContactsApi contactsApi = new ContactsApi();
 
-        ExternalContactResponse contactList = contactsApi.getContactList(" ");
+
+        Agent agent = new Agent("wwa70dc5b6e56936e1",
+                "nVtCCnhlJ0tIMdNMQ0BkheQQVvvy1lHoQBISuREyi-4",
+                "", "", "");
+
+
+        ContactsApi contactsApi = new ContactsApi(agent);
+
+        ExternalContactResponse contactList = contactsApi.getContactList("XiaFangFang");
 
         System.out.println("contactList = " + contactList);
     }
@@ -50,9 +104,10 @@ public class Test {
         WeComClient accessTokenResponseWeComClient = new WeComClient();
 
 
-        String webhook = WeComEndpoint.GET_TOKEN.endpoint(WeComDomain.CGI_BIN);
-
-        UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(webhook).queryParam("corpid", "wwa70dc5b6e56936e1").queryParam("corpsecret", "Y7R73gG_xSgbNmFR32x2AmOdxdH0pcn4HVNpjbhfybs").build();
+        UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.GET_TOKEN.endpoint(WeComDomain.CGI_BIN))
+                .queryParam("corpid", "wwa70dc5b6e56936e1")
+                .queryParam("corpsecret", "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo")
+                .build();
         AccessTokenResponse weComResponse = accessTokenResponseWeComClient.get(uriComponents.toUri(), AccessTokenResponse.class);
 
         System.out.println("weComResponse = " + weComResponse);
