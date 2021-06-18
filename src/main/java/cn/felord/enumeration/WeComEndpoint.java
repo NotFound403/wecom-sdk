@@ -74,10 +74,39 @@ public enum WeComEndpoint {
     /**
      * 删除部门，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90207">文档</a>
      */
-    DEPT_DELETE("/department/update"),    /**
+    DEPT_DELETE("/department/delete"),
+    /**
      * 获取部门列表，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90208">文档</a>
      */
     DEPT_LIST("/department/list"),
+    /**
+     * 创建标签，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90210">文档</a>
+     */
+    TAG_CREATE("/tag/create"),
+    /**
+     * 更新标签名字，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90211">文档</a>
+     */
+    TAG_UPDATE("/tag/update"),
+    /**
+     * 删除标签，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90212">文档</a>
+     */
+    TAG_DELETE("/tag/delete"),
+    /**
+     * 获取标签成员，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90213">文档</a>
+     */
+    TAG_GET_USERS("/tag/get"),
+    /**
+     * 增加标签成员，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90214">文档</a>
+     */
+    TAG_CREATE_USERS("/tag/addtagusers"),
+    /**
+     * 删除标签成员，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90215">文档</a>
+     */
+    TAG_DELETE_USERS("/tag/deltagusers"),
+    /**
+     * 获取标签列表，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90216">文档</a>
+     */
+    TAG_LIST("/tag/list"),
     /**
      * 获取企业微信API域名IP段，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
      */

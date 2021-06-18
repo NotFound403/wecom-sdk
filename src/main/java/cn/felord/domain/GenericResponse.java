@@ -19,6 +19,9 @@ public class GenericResponse<T> extends WeComResponse {
             "userlist",
             "department",
             "active_cnt",
-            "external_userid"})
+            "tagid",
+            "taglist",
+            "external_userid"
+    })
     private T data;
 }

@@ -4,11 +4,13 @@ import cn.felord.api.ContactsApi;
 import cn.felord.api.WebhookApi;
 import cn.felord.api.contactbook.ContactBookAgent;
 import cn.felord.api.contactbook.DepartmentApi;
+import cn.felord.api.contactbook.TagApi;
 import cn.felord.api.contactbook.UserApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.authentication.AccessTokenResponse;
 import cn.felord.domain.contactbook.department.DeptRequest;
+import cn.felord.domain.contactbook.tag.TagUserResponse;
 import cn.felord.domain.contactbook.user.UserInfoRequest;
 import cn.felord.domain.webhook.WebhookMarkdownBody;
 import cn.felord.domain.webhook.WebhookNewsBody;
@@ -37,7 +39,13 @@ public class Test {
      */
     public static void main(String[] args) {
         ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
-                "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
+                "nVtCCnhlJ0tIMdNMQ0BkheQQVvvy1lHoQBISuREyi-4", "");
+
+        TagApi tagApi = new TagApi(agent);
+
+        TagUserResponse tags = tagApi.getTagUsers(2);
+        System.out.println("tags = " + tags);
+
 //        DepartmentApi departmentApi = new DepartmentApi(agent);
 //        GenericResponse<List<DeptRequest>> deptRequestListResponse = departmentApi.deptList("2");
 //        System.out.println("deptRequestListResponse = " + deptRequestListResponse);

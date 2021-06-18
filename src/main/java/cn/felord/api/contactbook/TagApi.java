@@ -2,18 +2,21 @@ package cn.felord.api.contactbook;
 
 import cn.felord.AgentDetails;
 import cn.felord.api.AbstractApi;
+import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.contactbook.tag.TagUserRequest;
+import cn.felord.domain.contactbook.tag.TagUserActionResponse;
 import cn.felord.domain.contactbook.tag.Tag;
-import cn.felord.domain.contactbook.user.UserInfoRequest;
-import cn.felord.domain.contactbook.user.UserInfoResponse;
+import cn.felord.domain.contactbook.tag.TagUserResponse;
 import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
 /**
- * 标签管理
+ * 通讯录管理-标签管理
  * <p>
  * 标签属于应用
  *
@@ -26,51 +29,102 @@ public class TagApi extends AbstractApi {
     }
 
     /**
-     * 创建成员
-     * <p>
-     * 仅通讯录同步助手或第三方通讯录应用可调用。
+     * 创建标签
+     *
+     * @param request the request
+     * @return GenericResponse
+     * @see WeComEndpoint#TAG_CREATE
+     */
+    public GenericResponse<String> createTag(Tag request) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_CREATE.endpoint(WeComDomain.CGI_BIN))
+                .build()
+                .toUri();
+        return this.weComClient().post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        });
+    }
+
+    /**
+     * 更新标签名字
      *
      * @param request the request
      * @return WeComResponse
-     * @see WeComEndpoint#USER_CREATE
+     * @see WeComEndpoint#TAG_UPDATE
      */
-    public WeComResponse createTag(Tag request) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_CREATE.endpoint(WeComDomain.CGI_BIN))
+    public WeComResponse updateTag(Tag request) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_UPDATE.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
         return this.weComClient().post(uri, request, WeComResponse.class);
     }
 
     /**
-     * 读取成员
-     * <p>
-     * 在通讯录同步助手中此接口可以读取企业通讯录的所有成员的信息，而自建应用可以读取该应用设置的可见范围内的成员信息。
+     * 删除标签
      *
-     * @param userId the user id
+     * @param tagId tagId
+     * @return WeComResponse
+     * @see WeComEndpoint#TAG_DELETE
+     */
+    public WeComResponse deleteTag(Integer tagId) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_DELETE.endpoint(WeComDomain.CGI_BIN))
+                .queryParam("tagid", tagId)
+                .build()
+                .toUri();
+        return this.weComClient().get(uri, WeComResponse.class);
+    }
+
+    /**
+     * 获取标签成员
+     *
+     * @param tagId tagId
      * @return UserInfoResponse
-     * @see WeComEndpoint#USER_GET
+     * @see WeComEndpoint#TAG_GET_USERS
      */
-    public UserInfoResponse getUser(String userId) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_GET.endpoint(WeComDomain.CGI_BIN))
-                .queryParam("userid", userId)
+    public TagUserResponse getTagUsers(Integer tagId) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_GET_USERS.endpoint(WeComDomain.CGI_BIN))
+                .queryParam("tagid", tagId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, UserInfoResponse.class);
+        return this.weComClient().get(uri, TagUserResponse.class);
     }
 
     /**
-     * 更新成员，这里建议userid不可更改，虽然微信支持修改一次。
-     * <p>
-     * 仅通讯录同步助手或第三方通讯录应用可调用。
+     * 增加标签成员
      *
      * @param request the request
      * @return WeComResponse
-     * @see WeComEndpoint#USER_UPDATE
+     * @see WeComEndpoint#TAG_CREATE_USERS
      */
-    public WeComResponse updateUser(UserInfoRequest request) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_UPDATE.endpoint(WeComDomain.CGI_BIN))
+    public TagUserActionResponse addTagUsers(TagUserRequest request) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_CREATE_USERS.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, request, WeComResponse.class);
+        return this.weComClient().post(uri, request, TagUserActionResponse.class);
+    }
+
+    /**
+     * 删除标签成员
+     *
+     * @param request the request
+     * @return WeComResponse
+     * @see WeComEndpoint#TAG_DELETE_USERS
+     */
+    public TagUserActionResponse deleteTagUsers(TagUserRequest request) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_DELETE_USERS.endpoint(WeComDomain.CGI_BIN))
+                .build()
+                .toUri();
+        return this.weComClient().post(uri, request, TagUserActionResponse.class);
+    }
+
+    /**
+     * 获取标签列表
+     *
+     * @return UserInfoResponse
+     * @see WeComEndpoint#TAG_LIST
+     */
+    public GenericResponse<Tag> getTags() {
+        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_LIST.endpoint(WeComDomain.CGI_BIN))
+                .build()
+                .toUri();
+        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<Tag>>() {});
     }
 }
