@@ -4,19 +4,18 @@ import cn.felord.api.ContactsApi;
 import cn.felord.api.WebhookApi;
 import cn.felord.api.contactbook.ContactBookAgent;
 import cn.felord.api.contactbook.DepartmentApi;
-import cn.felord.api.contactbook.TagApi;
 import cn.felord.api.contactbook.UserApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.authentication.AccessTokenResponse;
 import cn.felord.domain.contactbook.department.DeptRequest;
-import cn.felord.domain.contactbook.tag.TagUserResponse;
 import cn.felord.domain.contactbook.user.UserInfoRequest;
 import cn.felord.domain.webhook.WebhookMarkdownBody;
 import cn.felord.domain.webhook.WebhookNewsBody;
 import cn.felord.domain.webhook.WebhookTextBody;
 import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
+import lombok.SneakyThrows;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -37,14 +36,17 @@ public class Test {
      *
      * @param args the input arguments
      */
+    @SneakyThrows
     public static void main(String[] args) {
         ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
-                "nVtCCnhlJ0tIMdNMQ0BkheQQVvvy1lHoQBISuREyi-4", "");
+                "Y7R73gG_xSgbNmFR32x2AmOdxdH0pcn4HVNpjbhfybs", "");
 
-        TagApi tagApi = new TagApi(agent);
 
-        TagUserResponse tags = tagApi.getTagUsers(2);
-        System.out.println("tags = " + tags);
+// 3zwpcJy82HOuOj9twJFkfBJFp8CP7UVx9K4NxDDXc06x8JksF7i9PR95jHJ8_iaEJ
+//        TagApi tagApi = new TagApi(agent);
+//
+//        TagUserResponse tags = tagApi.getTagUsers(2);
+//        System.out.println("tags = " + tags);
 
 //        DepartmentApi departmentApi = new DepartmentApi(agent);
 //        GenericResponse<List<DeptRequest>> deptRequestListResponse = departmentApi.deptList("2");

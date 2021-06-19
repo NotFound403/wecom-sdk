@@ -112,6 +112,14 @@ public enum WeComEndpoint {
      */
     EX_CONTACTS("/externalcontact/list"),
     /**
+     * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
+     */
+    MEDIA_UPLOAD("/media/upload"),
+    /**
+     * 上传永久图片，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
+     */
+    MEDIA_UPLOAD_IMG("/media/uploadimg"),
+    /**
      * 获取企业微信API域名IP段，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
      */
     WEBHOOK_SEND("/webhook/send");

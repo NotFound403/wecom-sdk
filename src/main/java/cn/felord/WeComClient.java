@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -18,6 +18,7 @@ import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -58,7 +59,21 @@ public class WeComClient {
      * @return the t
      */
     public <T extends WeComResponse> T post(URI uri, Object body, Class<T> responseType) {
-        RequestEntity<Object> requestEntity = RequestEntity.post(uri)
+        return post(uri, body, null, responseType);
+    }
+
+    /**
+     * Post t.
+     *
+     * @param <T>          the type parameter
+     * @param uri          the uri
+     * @param body         the body
+     * @param headers      the headers
+     * @param responseType the response type
+     * @return the t
+     */
+    public <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, Class<T> responseType) {
+        RequestEntity<Object> requestEntity = RequestEntity.post(uri).headers(headers)
                 .body(body);
         return restOperations.exchange(requestEntity, responseType).getBody();
     }
@@ -72,8 +87,22 @@ public class WeComClient {
      * @param parameterizedTypeReference the parameterized type reference
      * @return the t
      */
-    public <T extends WeComResponse> T post(URI uri, Object body,  ParameterizedTypeReference<T> parameterizedTypeReference) {
-        RequestEntity<Object> requestEntity = RequestEntity.post(uri)
+    public <T extends WeComResponse> T post(URI uri, Object body, ParameterizedTypeReference<T> parameterizedTypeReference) {
+        return post(uri, body, null, parameterizedTypeReference);
+    }
+
+    /**
+     * Post t.
+     *
+     * @param <T>                        the type parameter
+     * @param uri                        the uri
+     * @param body                       the body
+     * @param headers                    the headers
+     * @param parameterizedTypeReference the parameterized type reference
+     * @return the t
+     */
+    public <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, ParameterizedTypeReference<T> parameterizedTypeReference) {
+        RequestEntity<Object> requestEntity = RequestEntity.post(uri).headers(headers)
                 .body(body);
         return restOperations.exchange(requestEntity, parameterizedTypeReference).getBody();
     }
@@ -89,9 +118,7 @@ public class WeComClient {
     public <T extends WeComResponse> T get(URI uri, Class<T> responseType) {
         return restOperations.exchange(RequestEntity.get(uri).build(), responseType).getBody();
     }
-    public String get(URI uri) {
-        return restOperations.exchange(RequestEntity.get(uri).build(), ObjectNode.class).getBody().toPrettyString();
-    }
+
     /**
      * Get t.
      *
@@ -108,7 +135,8 @@ public class WeComClient {
         ObjectMapper objectMapper = new ObjectMapper();
         this.objectMapperCustomize(objectMapper);
         MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
-        RestTemplate restTemplate = new RestTemplate(Collections.singletonList(mappingJackson2HttpMessageConverter));
+        ExtensionFormHttpMessageConverter extensionFormHttpMessageConverter = new ExtensionFormHttpMessageConverter();
+        RestTemplate restTemplate = new RestTemplate(Arrays.asList(extensionFormHttpMessageConverter, mappingJackson2HttpMessageConverter));
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
         if (needToken) {
             restTemplate.setInterceptors(Collections.singletonList(new AccessTokenClientHttpRequestInterceptor(agentDetails)));
@@ -131,7 +159,6 @@ public class WeComClient {
      * The type We com response error handler.
      */
     public static class WeComResponseErrorHandler extends DefaultResponseErrorHandler {
-
         @Override
         public boolean hasError(ClientHttpResponse response) {
             return false;
