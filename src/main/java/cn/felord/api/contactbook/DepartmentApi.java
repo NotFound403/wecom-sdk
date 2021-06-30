@@ -25,7 +25,7 @@ public class DepartmentApi extends AbstractApi {
      * @param contactBookAgent the contact book agent
      */
     public DepartmentApi(ContactBookAgent contactBookAgent) {
-        super(contactBookAgent);
+        this.weComClient().withToken(contactBookAgent);
     }
 
     /**

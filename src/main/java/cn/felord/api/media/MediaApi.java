@@ -34,7 +34,7 @@ public class MediaApi extends AbstractApi {
      * @param agentDetails the agent details
      */
     public MediaApi(AgentDetails agentDetails) {
-        super(agentDetails);
+        this.weComClient().withToken(agentDetails);
     }
 
     /**

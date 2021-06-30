@@ -30,7 +30,7 @@ public class UserApi extends AbstractApi {
      * @param contactBookAgent contactBookAgent
      */
     public UserApi(ContactBookAgent contactBookAgent) {
-        super(contactBookAgent);
+        this.weComClient().withToken(contactBookAgent);
     }
 
     /**

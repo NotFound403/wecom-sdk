@@ -25,7 +25,7 @@ import java.net.URI;
  */
 public class TagApi extends AbstractApi {
     public TagApi(AgentDetails agentDetails) {
-        super(agentDetails);
+        this.weComClient().withToken(agentDetails);
     }
 
     /**
@@ -125,6 +125,7 @@ public class TagApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_LIST.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<Tag>>() {});
+        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<Tag>>() {
+        });
     }
 }

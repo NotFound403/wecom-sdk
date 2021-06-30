@@ -1,6 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
 import cn.felord.WeComClient;
 
 /**
@@ -9,12 +8,6 @@ import cn.felord.WeComClient;
  */
 public abstract class AbstractApi {
     private final WeComClient weComClient;
-
-
-    public AbstractApi(AgentDetails agentDetails) {
-        this.weComClient = new WeComClient(agentDetails);
-    }
-
     public AbstractApi() {
         this.weComClient = new WeComClient();
     }

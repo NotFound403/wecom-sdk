@@ -17,7 +17,7 @@ import java.util.List;
 public class ContactsApi extends AbstractApi {
 
     public ContactsApi(AgentDetails agentDetails) {
-        super(agentDetails);
+        this.weComClient().withToken(agentDetails);
     }
 
     public GenericResponse<List<String>> getContactList(String userId) {
@@ -25,7 +25,8 @@ public class ContactsApi extends AbstractApi {
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {});
+        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
+        });
     }
 
 }
