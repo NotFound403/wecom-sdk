@@ -49,7 +49,7 @@ import java.util.Map;
  * @see AllEncompassingFormHttpMessageConverter
  * @since 1.0.0.RELEASE
  */
-final class ExtensionFormHttpMessageConverter extends FormHttpMessageConverter {
+public final class ExtensionFormHttpMessageConverter extends FormHttpMessageConverter {
     /**
      * The constant BOUNDARY.
      */

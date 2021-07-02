@@ -9,6 +9,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,10 +21,11 @@ import java.net.URI;
  * @since 1.0.8.RELEASE
  */
 public class AccessTokenClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
-    private final AccessTokenApi accessTokenApi = new AccessTokenApi();
+    private final AccessTokenApi accessTokenApi  ;
     private final AgentDetails agentDetails;
 
-    public AccessTokenClientHttpRequestInterceptor(AgentDetails agentDetails) {
+    public AccessTokenClientHttpRequestInterceptor(AgentDetails agentDetails, RestTemplate restTemplate) {
+        this.accessTokenApi = new AccessTokenApi(restTemplate);
         this.agentDetails = agentDetails;
     }
 
@@ -45,14 +47,16 @@ public class AccessTokenClientHttpRequestInterceptor implements ClientHttpReques
     }
 
     private static class AccessTokenApi extends AbstractApi {
-
+        public AccessTokenApi(RestTemplate restTemplate) {
+            super(restTemplate);
+        }
 
         AccessTokenResponse getTokenResponse(AgentDetails agentDetails) {
             UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.GET_TOKEN.endpoint(WeComDomain.CGI_BIN))
                     .queryParam("corpid", agentDetails.getCorpId())
                     .queryParam("corpsecret", agentDetails.getSecret())
                     .build();
-            return this.weComClient().get(uriComponents.toUri(), AccessTokenResponse.class);
+            return this.get(uriComponents.toUri(), AccessTokenResponse.class);
         }
     }
 

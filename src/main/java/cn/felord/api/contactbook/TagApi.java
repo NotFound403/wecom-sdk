@@ -4,9 +4,9 @@ import cn.felord.AgentDetails;
 import cn.felord.api.AbstractApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.contactbook.tag.TagUserRequest;
-import cn.felord.domain.contactbook.tag.TagUserActionResponse;
 import cn.felord.domain.contactbook.tag.Tag;
+import cn.felord.domain.contactbook.tag.TagUserActionResponse;
+import cn.felord.domain.contactbook.tag.TagUserRequest;
 import cn.felord.domain.contactbook.tag.TagUserResponse;
 import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
@@ -24,8 +24,10 @@ import java.net.URI;
  * @since 1.0.8.RELEASE
  */
 public class TagApi extends AbstractApi {
-    public TagApi(AgentDetails agentDetails) {
-        this.weComClient().withToken(agentDetails);
+
+    public TagApi withAgent(AgentDetails agentDetails) {
+        this.withToken(agentDetails);
+        return this;
     }
 
     /**
@@ -39,7 +41,7 @@ public class TagApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_CREATE.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -54,7 +56,7 @@ public class TagApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_UPDATE.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, request, WeComResponse.class);
+        return this.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -69,7 +71,7 @@ public class TagApi extends AbstractApi {
                 .queryParam("tagid", tagId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, WeComResponse.class);
+        return this.get(uri, WeComResponse.class);
     }
 
     /**
@@ -84,7 +86,7 @@ public class TagApi extends AbstractApi {
                 .queryParam("tagid", tagId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, TagUserResponse.class);
+        return this.get(uri, TagUserResponse.class);
     }
 
     /**
@@ -98,7 +100,7 @@ public class TagApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_CREATE_USERS.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, request, TagUserActionResponse.class);
+        return this.post(uri, request, TagUserActionResponse.class);
     }
 
     /**
@@ -112,7 +114,7 @@ public class TagApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_DELETE_USERS.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, request, TagUserActionResponse.class);
+        return this.post(uri, request, TagUserActionResponse.class);
     }
 
     /**
@@ -125,7 +127,7 @@ public class TagApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.TAG_LIST.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<Tag>>() {
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<Tag>>() {
         });
     }
 }

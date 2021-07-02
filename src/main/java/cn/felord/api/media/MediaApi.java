@@ -28,15 +28,10 @@ import java.util.Objects;
  */
 public class MediaApi extends AbstractApi {
 
-    /**
-     * Instantiates a new Media api.
-     *
-     * @param agentDetails the agent details
-     */
-    public MediaApi(AgentDetails agentDetails) {
-        this.weComClient().withToken(agentDetails);
+    public MediaApi withAgent(AgentDetails agentDetails) {
+        this.withToken(agentDetails);
+        return this;
     }
-
     /**
      * 上传临时素材
      *
@@ -75,7 +70,7 @@ public class MediaApi extends AbstractApi {
                 .build());
         MultiValueMap<Object, Object> body = new LinkedMultiValueMap<>();
         body.add(name, media.getOriginalFilename());
-        return this.weComClient().post(uri, body, headers, new ParameterizedTypeReference<T>() {
+        return this.post(uri, body, headers, new ParameterizedTypeReference<T>() {
         });
     }
 

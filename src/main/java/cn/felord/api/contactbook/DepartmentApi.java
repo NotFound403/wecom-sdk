@@ -19,13 +19,10 @@ import java.util.List;
  * @since 2021 /6/17 14:58
  */
 public class DepartmentApi extends AbstractApi {
-    /**
-     * Instantiates a new Department api.
-     *
-     * @param contactBookAgent the contact book agent
-     */
-    public DepartmentApi(ContactBookAgent contactBookAgent) {
-        this.weComClient().withToken(contactBookAgent);
+
+    public DepartmentApi withAgent(ContactBookAgent contactBookAgent) {
+        this.withToken(contactBookAgent);
+        return this;
     }
 
     /**
@@ -39,7 +36,7 @@ public class DepartmentApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.DEPT_CREATE.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {});
+        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {});
     }
 
     /**
@@ -53,7 +50,7 @@ public class DepartmentApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.DEPT_UPDATE.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, request, WeComResponse.class);
+        return this.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -70,7 +67,7 @@ public class DepartmentApi extends AbstractApi {
                 .queryParam("id", departmentId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, WeComResponse.class);
+        return this.get(uri, WeComResponse.class);
     }
 
     /**
@@ -85,7 +82,7 @@ public class DepartmentApi extends AbstractApi {
                 .queryParam("id", departmentId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptRequest>>>() {
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptRequest>>>() {
         });
     }
 }

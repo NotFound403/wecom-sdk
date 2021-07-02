@@ -30,6 +30,6 @@ public class WebhookApi extends AbstractApi {
                 .queryParam("key", key)
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, body, WeComResponse.class);
+        return this.post(uri, body, WeComResponse.class);
     }
 }

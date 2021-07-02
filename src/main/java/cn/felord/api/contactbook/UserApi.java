@@ -24,13 +24,10 @@ import java.util.List;
  */
 public class UserApi extends AbstractApi {
 
-    /**
-     * Instantiates
-     *
-     * @param contactBookAgent contactBookAgent
-     */
-    public UserApi(ContactBookAgent contactBookAgent) {
-        this.weComClient().withToken(contactBookAgent);
+
+    public UserApi withAgent(ContactBookAgent contactBookAgent) {
+        this.withToken(contactBookAgent);
+        return this;
     }
 
     /**
@@ -46,7 +43,7 @@ public class UserApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_CREATE.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, request, WeComResponse.class);
+        return this.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -63,7 +60,7 @@ public class UserApi extends AbstractApi {
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, UserInfoResponse.class);
+        return this.get(uri, UserInfoResponse.class);
     }
 
     /**
@@ -79,7 +76,7 @@ public class UserApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_UPDATE.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, request, WeComResponse.class);
+        return this.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -96,7 +93,7 @@ public class UserApi extends AbstractApi {
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, WeComResponse.class);
+        return this.get(uri, WeComResponse.class);
     }
 
     /**
@@ -112,7 +109,7 @@ public class UserApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_BATCH_DELETE.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, Collections.singletonMap("useridlist", userIdList), WeComResponse.class);
+        return this.post(uri, Collections.singletonMap("useridlist", userIdList), WeComResponse.class);
     }
 
     /**
@@ -131,7 +128,7 @@ public class UserApi extends AbstractApi {
                 .queryParam("fetch_child", type.type())
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<List<SimpleUser>>>() {
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<SimpleUser>>>() {
         });
     }
 
@@ -151,7 +148,7 @@ public class UserApi extends AbstractApi {
                 .queryParam("fetch_child", type.type())
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<List<UserDetail>>>() {
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<UserDetail>>>() {
         });
     }
 
@@ -171,7 +168,7 @@ public class UserApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USERID_TO_OPENID.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, Collections.singletonMap("userid", userId), new ParameterizedTypeReference<GenericResponse<String>>() {
+        return this.post(uri, Collections.singletonMap("userid", userId), new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -189,7 +186,7 @@ public class UserApi extends AbstractApi {
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, WeComResponse.class);
+        return this.get(uri, WeComResponse.class);
     }
 
     /**
@@ -205,7 +202,7 @@ public class UserApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_BATCH_INVITE.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, request, BatchInviteResponse.class);
+        return this.post(uri, request, BatchInviteResponse.class);
     }
 
     /**
@@ -222,7 +219,7 @@ public class UserApi extends AbstractApi {
                 .queryParam("size_type", size.type())
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -237,7 +234,7 @@ public class UserApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_ACTIVE_STAT.endpoint(WeComDomain.CGI_BIN))
                 .build()
                 .toUri();
-        return this.weComClient().post(uri, Collections.singletonMap("date", date.toString()), new ParameterizedTypeReference<GenericResponse<Integer>>() {
+        return this.post(uri, Collections.singletonMap("date", date.toString()), new ParameterizedTypeReference<GenericResponse<Integer>>() {
         });
     }
 }

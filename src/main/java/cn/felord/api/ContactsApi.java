@@ -11,21 +11,36 @@ import java.net.URI;
 import java.util.List;
 
 /**
+ * The type Contacts api.
+ *
  * @author felord.cn
  * @since 1.0.8.RELEASE
  */
 public class ContactsApi extends AbstractApi {
 
-    public ContactsApi(AgentDetails agentDetails) {
-        this.weComClient().withToken(agentDetails);
+    /**
+     * With agent contacts api.
+     *
+     * @param agentDetails the agent details
+     * @return the contacts api
+     */
+    public ContactsApi withAgent(AgentDetails agentDetails) {
+        this.withToken(agentDetails);
+        return this;
     }
 
+    /**
+     * Gets contact list.
+     *
+     * @param userId the user id
+     * @return the contact list
+     */
     public GenericResponse<List<String>> getContactList(String userId) {
         URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.EX_CONTACTS.endpoint(WeComDomain.CGI_BIN))
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.weComClient().get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
         });
     }
 
