@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 /**
  * @author n1
@@ -76,7 +77,9 @@ public abstract class AbstractApi {
     public <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, Class<T> responseType) {
         RequestEntity<Object> requestEntity = RequestEntity.post(uri).headers(headers)
                 .body(body);
-        return restTemplate.exchange(requestEntity, responseType).getBody();
+        T responseBody = restTemplate.exchange(requestEntity, responseType).getBody();
+        this.checkSuccessful(responseBody);
+        return responseBody;
     }
 
     /**
@@ -105,7 +108,9 @@ public abstract class AbstractApi {
     public <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, ParameterizedTypeReference<T> parameterizedTypeReference) {
         RequestEntity<Object> requestEntity = RequestEntity.post(uri).headers(headers)
                 .body(body);
-        return restTemplate.exchange(requestEntity, parameterizedTypeReference).getBody();
+        T responseBody = restTemplate.exchange(requestEntity, parameterizedTypeReference).getBody();
+        this.checkSuccessful(responseBody);
+        return responseBody;
     }
 
     /**
@@ -117,7 +122,9 @@ public abstract class AbstractApi {
      * @return the t
      */
     public <T extends WeComResponse> T get(URI uri, Class<T> responseType) {
-        return restTemplate.exchange(RequestEntity.get(uri).build(), responseType).getBody();
+        T responseBody = restTemplate.exchange(RequestEntity.get(uri).build(), responseType).getBody();
+        this.checkSuccessful(responseBody);
+        return responseBody;
     }
 
     /**
@@ -129,7 +136,18 @@ public abstract class AbstractApi {
      * @return the t
      */
     public <T extends WeComResponse> T get(URI uri, ParameterizedTypeReference<T> parameterizedTypeReference) {
-        return restTemplate.exchange(RequestEntity.get(uri).build(), parameterizedTypeReference).getBody();
+        T responseBody = restTemplate.exchange(RequestEntity.get(uri).build(), parameterizedTypeReference).getBody();
+        this.checkSuccessful(responseBody);
+        return responseBody;
+    }
+
+    private <T extends WeComResponse> void checkSuccessful(T response) {
+        if (Objects.isNull(response)) {
+
+
+        } else if (!response.isSuccessful()) {
+
+        }
     }
 
     private RestTemplate restOperations() {

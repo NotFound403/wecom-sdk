@@ -3,6 +3,7 @@ package cn.felord.api.contactbook;
 import cn.felord.ContactBookAgent;
 import cn.felord.api.AbstractApi;
 import cn.felord.domain.GenericResponse;
+import cn.felord.domain.contactbook.async.BatchPartyRequest;
 import cn.felord.domain.contactbook.async.BatchUserRequest;
 import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
@@ -44,4 +45,31 @@ public class AsynchronousBatchApi extends AbstractApi {
         });
     }
 
+    /**
+     * Batch sync replace user generic response.
+     *
+     * @param request the request
+     * @return the generic response
+     */
+    public GenericResponse<String> batchSyncReplaceUser(BatchUserRequest request){
+        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.BATCH_REPLACE_USER.endpoint(WeComDomain.CGI_BIN))
+                .build()
+                .toUri();
+        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        });
+    }
+
+    /**
+     * Batch sync replace party generic response.
+     *
+     * @param request the request
+     * @return the generic response
+     */
+    public GenericResponse<String> batchSyncReplaceParty(BatchPartyRequest request){
+        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.BATCH_REPLACE_PARTY.endpoint(WeComDomain.CGI_BIN))
+                .build()
+                .toUri();
+        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        });
+    }
 }

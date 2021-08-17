@@ -112,6 +112,14 @@ public enum WeComEndpoint {
      */
     BATCH_SYNC_USER("/batch/syncuser"),
     /**
+     * 全量覆盖成员，详见<a target= "_blank" href= "https://open.work.weixin.qq.com/api/doc/90000/90135/90981">文档</a>
+     */
+    BATCH_REPLACE_USER("/batch/replaceuser"),
+    /**
+     * 全量覆盖部门，详见<a target= "_blank" href= "https://open.work.weixin.qq.com/api/doc/90000/90135/90982">文档</a>
+     */
+    BATCH_REPLACE_PARTY("/batch/replaceparty"),
+    /**
      * 获取企业微信API域名IP段，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
      */
     EX_CONTACTS("/externalcontact/list"),
