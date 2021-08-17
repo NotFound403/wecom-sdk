@@ -1,5 +1,6 @@
 package cn.felord.api.contactbook;
 
+import cn.felord.ContactBookAgent;
 import cn.felord.api.AbstractApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;

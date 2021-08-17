@@ -1,6 +1,4 @@
-package cn.felord.api.contactbook;
-
-import cn.felord.Agent;
+package cn.felord;
 
 /**
  * 通讯录Agent,参见文档中关于通讯录管理的<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90193">概述</a>

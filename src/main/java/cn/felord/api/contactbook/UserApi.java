@@ -1,5 +1,6 @@
 package cn.felord.api.contactbook;
 
+import cn.felord.ContactBookAgent;
 import cn.felord.api.AbstractApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
@@ -25,7 +26,7 @@ import java.util.List;
 public class UserApi extends AbstractApi {
 
 
-    public UserApi withAgent(ContactBookAgent contactBookAgent) {
+    public UserApi agent(ContactBookAgent contactBookAgent) {
         this.withAgent(contactBookAgent);
         return this;
     }

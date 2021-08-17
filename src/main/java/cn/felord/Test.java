@@ -2,7 +2,6 @@ package cn.felord;
 
 import cn.felord.api.ContactsApi;
 import cn.felord.api.WebhookApi;
-import cn.felord.api.contactbook.ContactBookAgent;
 import cn.felord.api.contactbook.DepartmentApi;
 import cn.felord.api.contactbook.UserApi;
 import cn.felord.domain.GenericResponse;
@@ -62,7 +61,6 @@ public class Test {
         ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
                 "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
         DepartmentApi departmentApi = new DepartmentApi().agent(agent);
-
         DeptRequest deptRequest = new DeptRequest();
         deptRequest.setNameEn("NMC");
         deptRequest.setParentid(1);
@@ -75,7 +73,7 @@ public class Test {
     public static void creatUser() {
         ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
                 "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
-        UserApi userApi = new UserApi().withAgent(agent);
+        UserApi userApi = new UserApi().agent(agent);
 
         UserInfoRequest request = new UserInfoRequest();
 
