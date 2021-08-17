@@ -39,7 +39,8 @@ public class MediaApi extends AbstractApi {
      * @return the media response
      */
     public MediaResponse uploadMedia(MultipartFile media, MediaTypeEnum mediaType) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.MEDIA_UPLOAD.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.MEDIA_UPLOAD.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("type", mediaType.name().toLowerCase())
                 .build()
                 .toUri();
@@ -53,7 +54,8 @@ public class MediaApi extends AbstractApi {
      * @return the media response
      */
     public MediaResponse uploadMedia(MultipartFile media) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.MEDIA_UPLOAD_IMG.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.MEDIA_UPLOAD_IMG.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return doUpload(media, media.getName(), uri);

@@ -41,7 +41,8 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_CREATE
      */
     public WeComResponse createUser(UserInfoRequest request) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_CREATE.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_CREATE.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, request, WeComResponse.class);
@@ -57,7 +58,8 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_GET
      */
     public UserInfoResponse getUser(String userId) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_GET.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_GET.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
@@ -74,7 +76,8 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_UPDATE
      */
     public WeComResponse updateUser(UserInfoRequest request) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_UPDATE.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_UPDATE.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, request, WeComResponse.class);
@@ -90,7 +93,8 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_DELETE
      */
     public WeComResponse deleteUser(String userId) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_DELETE.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_DELETE.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
@@ -107,7 +111,8 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_BATCH_DELETE
      */
     public WeComResponse batchDelUser(List<String> userIdList) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_BATCH_DELETE.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_BATCH_DELETE.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, Collections.singletonMap("useridlist", userIdList), WeComResponse.class);
@@ -124,7 +129,8 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_DEPT_LIST
      */
     public GenericResponse<List<SimpleUser>> getDeptUsers(String departmentId, DeptUserFetchType type) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_DEPT_LIST.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_DEPT_LIST.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("department_id", departmentId)
                 .queryParam("fetch_child", type.type())
                 .build()
@@ -144,7 +150,8 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_DEPT_LIST_DETAIL
      */
     public GenericResponse<List<UserDetail>> getDeptUserDetails(String departmentId, DeptUserFetchType type) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_DEPT_LIST_DETAIL.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_DEPT_LIST_DETAIL.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("department_id", departmentId)
                 .queryParam("fetch_child", type.type())
                 .build()
@@ -166,10 +173,12 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_BATCH_DELETE
      */
     public GenericResponse<String> converTopenid(String userId) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USERID_TO_OPENID.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USERID_TO_OPENID.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("userid", userId), new ParameterizedTypeReference<GenericResponse<String>>() {
+        return this.post(uri, Collections.singletonMap("userid", userId),
+                new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -183,7 +192,8 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_AUTH
      */
     public WeComResponse userAuth(String userId) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_AUTH.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_AUTH.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
@@ -200,7 +210,8 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_BATCH_INVITE
      */
     public BatchInviteResponse batchInviteUser(BatchInviteRequest request) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_BATCH_INVITE.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_BATCH_INVITE.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, request, BatchInviteResponse.class);
@@ -216,7 +227,8 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_JOIN_QRCODE
      */
     public GenericResponse<String> getJoinQrcode(UserQrcodeSize size) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_JOIN_QRCODE.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_JOIN_QRCODE.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("size_type", size.type())
                 .build()
                 .toUri();
@@ -232,10 +244,12 @@ public class UserApi extends AbstractApi {
      * @see WeComEndpoint#USER_JOIN_QRCODE
      */
     public GenericResponse<Integer> getActiveStat(LocalDate date) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.USER_ACTIVE_STAT.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.USER_ACTIVE_STAT.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("date", date.toString()), new ParameterizedTypeReference<GenericResponse<Integer>>() {
+        return this.post(uri, Collections.singletonMap("date", date.toString()),
+                new ParameterizedTypeReference<GenericResponse<Integer>>() {
         });
     }
 }

@@ -3,12 +3,14 @@ package cn.felord.api;
 import cn.felord.AccessTokenClientHttpRequestInterceptor;
 import cn.felord.AgentDetails;
 import cn.felord.ExtensionFormHttpMessageConverter;
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.RequestEntity;
@@ -27,6 +29,7 @@ import java.util.Objects;
  * @author n1
  * @since 2021/6/16 17:36
  */
+@Slf4j
 public abstract class AbstractApi {
     private final RestTemplate restTemplate;
 
@@ -143,10 +146,12 @@ public abstract class AbstractApi {
 
     private <T extends WeComResponse> void checkSuccessful(T response) {
         if (Objects.isNull(response)) {
-
-
+          throw new WeComException("response is null");
         } else if (!response.isSuccessful()) {
-
+             if (log.isDebugEnabled()){
+                 log.debug("unsuccessful response : {}",response);
+             }
+             throw new WeComException("unsuccessful response");
         }
     }
 

@@ -26,7 +26,8 @@ public class WebhookApi extends AbstractApi {
      * @return the we com response
      */
     public <T extends WebhookBody> WeComResponse send(String key, T body) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.WEBHOOK_SEND.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.WEBHOOK_SEND.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("key", key)
                 .build()
                 .toUri();

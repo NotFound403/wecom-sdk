@@ -36,7 +36,8 @@ public class ContactsApi extends AbstractApi {
      * @return the contact list
      */
     public GenericResponse<List<String>> getContactList(String userId) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.EX_CONTACTS.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.EX_CONTACTS.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("userid", userId)
                 .build()
                 .toUri();

@@ -37,8 +37,9 @@ public class AsynchronousBatchApi extends AbstractApi {
      * @param request the request
      * @return the generic response
      */
-    public GenericResponse<String> batchSyncUser(BatchUserRequest request){
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.BATCH_SYNC_USER.endpoint(WeComDomain.CGI_BIN))
+    public GenericResponse<String> batchSyncUser(BatchUserRequest request) {
+        String endpoint = WeComEndpoint.BATCH_SYNC_USER.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
@@ -51,8 +52,9 @@ public class AsynchronousBatchApi extends AbstractApi {
      * @param request the request
      * @return the generic response
      */
-    public GenericResponse<String> batchSyncReplaceUser(BatchUserRequest request){
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.BATCH_REPLACE_USER.endpoint(WeComDomain.CGI_BIN))
+    public GenericResponse<String> batchSyncReplaceUser(BatchUserRequest request) {
+        String endpoint = WeComEndpoint.BATCH_REPLACE_USER.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
@@ -65,11 +67,22 @@ public class AsynchronousBatchApi extends AbstractApi {
      * @param request the request
      * @return the generic response
      */
-    public GenericResponse<String> batchSyncReplaceParty(BatchPartyRequest request){
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.BATCH_REPLACE_PARTY.endpoint(WeComDomain.CGI_BIN))
+    public GenericResponse<String> batchSyncReplaceParty(BatchPartyRequest request) {
+        String endpoint = WeComEndpoint.BATCH_REPLACE_PARTY.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        });
+    }
+
+    public GenericResponse<String> getResult(String jobId) {
+        String endpoint = WeComEndpoint.BATCH_GET_RESULT.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .queryParam("jobid", jobId)
+                .build()
+                .toUri();
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 }

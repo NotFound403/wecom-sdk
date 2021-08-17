@@ -34,7 +34,8 @@ public class DepartmentApi extends AbstractApi {
      * @see WeComEndpoint#DEPT_CREATE
      */
     public GenericResponse<String> createDept(DeptRequest request) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.DEPT_CREATE.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.DEPT_CREATE.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {});
@@ -48,7 +49,8 @@ public class DepartmentApi extends AbstractApi {
      * @see WeComEndpoint#DEPT_UPDATE
      */
     public WeComResponse updateDept(DeptRequest request) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.DEPT_UPDATE.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.DEPT_UPDATE.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, request, WeComResponse.class);
@@ -64,7 +66,8 @@ public class DepartmentApi extends AbstractApi {
      * @see WeComEndpoint#DEPT_DELETE
      */
     public WeComResponse deleteDept(String departmentId) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.DEPT_DELETE.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.DEPT_DELETE.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("id", departmentId)
                 .build()
                 .toUri();
@@ -79,7 +82,8 @@ public class DepartmentApi extends AbstractApi {
      * @see WeComEndpoint#DEPT_LIST
      */
     public GenericResponse<List<DeptRequest>> deptList(String departmentId) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.DEPT_LIST.endpoint(WeComDomain.CGI_BIN))
+        String endpoint = WeComEndpoint.DEPT_LIST.endpoint(WeComDomain.CGI_BIN);
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("id", departmentId)
                 .build()
                 .toUri();
