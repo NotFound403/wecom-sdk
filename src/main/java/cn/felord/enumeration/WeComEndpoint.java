@@ -108,6 +108,10 @@ public enum WeComEndpoint {
      */
     TAG_LIST("/tag/list"),
     /**
+     * 增量更新成员，详见<a target= "_blank" href= "https://open.work.weixin.qq.com/api/doc/90000/90135/90980">文档</a>
+     */
+    BATCH_SYNC_USER("/batch/syncuser"),
+    /**
      * 获取企业微信API域名IP段，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
      */
     EX_CONTACTS("/externalcontact/list"),

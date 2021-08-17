@@ -35,7 +35,7 @@ public class Test {
     public static void main(String[] args) {
         ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
                 "Y7R73gG_xSgbNmFR32x2AmOdxdH0pcn4HVNpjbhfybs", "");
-
+         sendHook();
 
 // 3zwpcJy82HOuOj9twJFkfBJFp8CP7UVx9K4NxDDXc06x8JksF7i9PR95jHJ8_iaEJ
 //        TagApi tagApi = new TagApi(agent);
@@ -61,7 +61,7 @@ public class Test {
     public static void creatDept() {
         ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
                 "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
-        DepartmentApi departmentApi = new DepartmentApi().withAgent(agent);
+        DepartmentApi departmentApi = new DepartmentApi().agent(agent);
 
         DeptRequest deptRequest = new DeptRequest();
         deptRequest.setNameEn("NMC");
@@ -98,7 +98,7 @@ public class Test {
                 "", "", "");
 
 
-        ContactsApi contactsApi = new ContactsApi().withAgent(agent);
+        ContactsApi contactsApi = new ContactsApi().agent(agent);
 
         GenericResponse<List<String>> contactList = contactsApi.getContactList("XiaFangFang");
 

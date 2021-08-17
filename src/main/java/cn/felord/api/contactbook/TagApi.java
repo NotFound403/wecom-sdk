@@ -25,8 +25,8 @@ import java.net.URI;
  */
 public class TagApi extends AbstractApi {
 
-    public TagApi withAgent(AgentDetails agentDetails) {
-        this.withToken(agentDetails);
+    public TagApi agent(AgentDetails agentDetails) {
+        this.withAgent(agentDetails);
         return this;
     }
 

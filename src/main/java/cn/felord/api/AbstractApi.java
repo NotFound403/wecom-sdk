@@ -41,11 +41,11 @@ public abstract class AbstractApi {
     }
 
     /**
-     * With token.
+     * With agent.
      *
      * @param agentDetails the agent details
      */
-    public void withToken(AgentDetails agentDetails) {
+    public void withAgent(AgentDetails agentDetails) {
         AccessTokenClientHttpRequestInterceptor requestInterceptor = new AccessTokenClientHttpRequestInterceptor(agentDetails, this.restTemplate);
         this.restTemplate.setInterceptors(Collections.singletonList(requestInterceptor));
     }

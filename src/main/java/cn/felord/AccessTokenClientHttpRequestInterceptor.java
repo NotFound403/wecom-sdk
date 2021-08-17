@@ -22,18 +22,17 @@ import java.net.URI;
  */
 public class AccessTokenClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
     private final AccessTokenApi accessTokenApi  ;
-    private final AgentDetails agentDetails;
+
 
     public AccessTokenClientHttpRequestInterceptor(AgentDetails agentDetails, RestTemplate restTemplate) {
-        this.accessTokenApi = new AccessTokenApi(restTemplate);
-        this.agentDetails = agentDetails;
+        this.accessTokenApi = new AccessTokenApi(restTemplate,agentDetails);
     }
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         MutableHttpRequest mutableHttpRequest = new MutableHttpRequest(request);
 
-        AccessTokenResponse tokenResponse = accessTokenApi.getTokenResponse(agentDetails);
+        AccessTokenResponse tokenResponse = accessTokenApi.getTokenResponse();
         if (!tokenResponse.isSuccessful()) {
             throw new RuntimeException("failed to obtain access token");
         }
@@ -47,11 +46,13 @@ public class AccessTokenClientHttpRequestInterceptor implements ClientHttpReques
     }
 
     private static class AccessTokenApi extends AbstractApi {
-        public AccessTokenApi(RestTemplate restTemplate) {
+        private final AgentDetails agentDetails;
+        public AccessTokenApi(RestTemplate restTemplate,AgentDetails agentDetails) {
             super(restTemplate);
+            this.agentDetails=agentDetails;
         }
 
-        AccessTokenResponse getTokenResponse(AgentDetails agentDetails) {
+        AccessTokenResponse getTokenResponse() {
             UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.GET_TOKEN.endpoint(WeComDomain.CGI_BIN))
                     .queryParam("corpid", agentDetails.getCorpId())
                     .queryParam("corpsecret", agentDetails.getSecret())

@@ -26,7 +26,7 @@ public class UserApi extends AbstractApi {
 
 
     public UserApi withAgent(ContactBookAgent contactBookAgent) {
-        this.withToken(contactBookAgent);
+        this.withAgent(contactBookAgent);
         return this;
     }
 

@@ -1,7 +1,6 @@
-package cn.felord.api.media;
+package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.api.AbstractApi;
 import cn.felord.domain.MediaResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.enumeration.MediaTypeEnum;
@@ -28,8 +27,8 @@ import java.util.Objects;
  */
 public class MediaApi extends AbstractApi {
 
-    public MediaApi withAgent(AgentDetails agentDetails) {
-        this.withToken(agentDetails);
+    public MediaApi agent(AgentDetails agentDetails) {
+        this.withAgent(agentDetails);
         return this;
     }
     /**

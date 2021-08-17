@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class DepartmentApi extends AbstractApi {
 
-    public DepartmentApi withAgent(ContactBookAgent contactBookAgent) {
-        this.withToken(contactBookAgent);
+    public DepartmentApi agent(ContactBookAgent contactBookAgent) {
+        this.withAgent(contactBookAgent);
         return this;
     }
 

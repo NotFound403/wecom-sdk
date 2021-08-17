@@ -24,8 +24,8 @@ public class ContactsApi extends AbstractApi {
      * @param agentDetails the agent details
      * @return the contacts api
      */
-    public ContactsApi withAgent(AgentDetails agentDetails) {
-        this.withToken(agentDetails);
+    public ContactsApi agent(AgentDetails agentDetails) {
+        this.withAgent(agentDetails);
         return this;
     }
 
