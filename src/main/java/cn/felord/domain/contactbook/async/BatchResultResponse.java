@@ -12,10 +12,10 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CallbackResponse<T> extends WeComResponse {
+public class BatchResultResponse extends WeComResponse {
     private Integer status;
     private String type;
     private Integer total;
     private Integer percentage;
-    private List<T> result;
+    private List<Result> result;
 }

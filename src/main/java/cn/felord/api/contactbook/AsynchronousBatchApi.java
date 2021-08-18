@@ -4,6 +4,7 @@ import cn.felord.ContactBookAgent;
 import cn.felord.api.AbstractApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.contactbook.async.BatchPartyRequest;
+import cn.felord.domain.contactbook.async.BatchResultResponse;
 import cn.felord.domain.contactbook.async.BatchUserRequest;
 import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
@@ -76,13 +77,18 @@ public class AsynchronousBatchApi extends AbstractApi {
         });
     }
 
-    public GenericResponse<String> getResult(String jobId) {
+    /**
+     * Gets result.
+     *
+     * @param jobId the job id
+     * @return the result
+     */
+    public BatchResultResponse getResult(String jobId) {
         String endpoint = WeComEndpoint.BATCH_GET_RESULT.endpoint(WeComDomain.CGI_BIN);
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("jobid", jobId)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<String>>() {
-        });
+        return this.get(uri, BatchResultResponse.class);
     }
 }
