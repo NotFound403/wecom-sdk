@@ -2,7 +2,6 @@ package cn.felord;
 
 import cn.felord.api.AbstractApi;
 import cn.felord.domain.authentication.AccessTokenResponse;
-import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
@@ -21,15 +20,18 @@ import java.net.URI;
  * @since 1.0.8.RELEASE
  */
 public class AccessTokenClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
-    private final AccessTokenApi accessTokenApi  ;
+    private final AccessTokenApi accessTokenApi;
 
 
     public AccessTokenClientHttpRequestInterceptor(AgentDetails agentDetails, RestTemplate restTemplate) {
-        this.accessTokenApi = new AccessTokenApi(restTemplate,agentDetails);
+        this.accessTokenApi = new AccessTokenApi(restTemplate, agentDetails);
     }
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+        String path = request.getURI().getPath();
+        System.out.println("path = " + path);
+
         MutableHttpRequest mutableHttpRequest = new MutableHttpRequest(request);
 
         AccessTokenResponse tokenResponse = accessTokenApi.getTokenResponse();
@@ -47,13 +49,14 @@ public class AccessTokenClientHttpRequestInterceptor implements ClientHttpReques
 
     private static class AccessTokenApi extends AbstractApi {
         private final AgentDetails agentDetails;
-        public AccessTokenApi(RestTemplate restTemplate,AgentDetails agentDetails) {
+
+        public AccessTokenApi(RestTemplate restTemplate, AgentDetails agentDetails) {
             super(restTemplate);
-            this.agentDetails=agentDetails;
+            this.agentDetails = agentDetails;
         }
 
         AccessTokenResponse getTokenResponse() {
-            UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.GET_TOKEN.endpoint(WeComDomain.CGI_BIN))
+            UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.GET_TOKEN.endpoint())
                     .queryParam("corpid", agentDetails.getCorpId())
                     .queryParam("corpsecret", agentDetails.getSecret())
                     .build();

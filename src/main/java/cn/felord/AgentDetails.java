@@ -22,26 +22,10 @@ public interface AgentDetails {
     String getSecret();
 
     /**
-     * 企业名称
-     *
-     * @return the corp name
-     */
-    String getCorpName();
-
-    /**
      * 应用ID
      *
      * @return the agent id
      */
     String getAgentId();
-
-
-
-    /**
-     * 应用名称
-     *
-     * @return the description
-     */
-    String getAgentName();
 
 }

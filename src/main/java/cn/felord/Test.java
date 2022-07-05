@@ -1,6 +1,7 @@
 package cn.felord;
 
 import cn.felord.api.ContactsApi;
+import cn.felord.api.JsSdkTicketApi;
 import cn.felord.api.WebhookApi;
 import cn.felord.api.contactbook.DepartmentApi;
 import cn.felord.api.contactbook.UserApi;
@@ -8,6 +9,7 @@ import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.department.DeptRequest;
 import cn.felord.domain.contactbook.user.UserInfoRequest;
+import cn.felord.domain.jssdk.JSignature;
 import cn.felord.domain.webhook.WebhookMarkdownBody;
 import cn.felord.domain.webhook.WebhookNewsBody;
 import cn.felord.domain.webhook.WebhookTextBody;
@@ -32,9 +34,16 @@ public class Test {
      */
     @SneakyThrows
     public static void main(String[] args) {
-        ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
-                "Y7R73gG_xSgbNmFR32x2AmOdxdH0pcn4HVNpjbhfybs", "");
-         sendHook();
+        Agent agent = new Agent("wwa70dc5b6e56936e1",
+                "Y7R73gG_xSgbNmFR32x2AmOdxdH0pcn4HVNpjbhfybs","");
+
+        JsSdkTicketApi jsSdkTicketApi = new JsSdkTicketApi().agent(agent);
+
+
+        JSignature jSignature = jsSdkTicketApi.agentTicket("https://felord.cn");
+
+        System.out.println("jSignature = " + jSignature);
+
 
 // 3zwpcJy82HOuOj9twJFkfBJFp8CP7UVx9K4NxDDXc06x8JksF7i9PR95jHJ8_iaEJ
 //        TagApi tagApi = new TagApi(agent);
@@ -58,8 +67,8 @@ public class Test {
 
 
     public static void creatDept() {
-        ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
-                "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
+        Agent agent = new Agent("wwa70dc5b6e56936e1",
+                "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo","");
         DepartmentApi departmentApi = new DepartmentApi().agent(agent);
         DeptRequest deptRequest = new DeptRequest();
         deptRequest.setNameEn("NMC");
@@ -71,8 +80,8 @@ public class Test {
     }
 
     public static void creatUser() {
-        ContactBookAgent agent = new ContactBookAgent("wwa70dc5b6e56936e1",
-                "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo", "");
+        Agent agent = new Agent("wwa70dc5b6e56936e1",
+                "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo","");
         UserApi userApi = new UserApi().agent(agent);
 
         UserInfoRequest request = new UserInfoRequest();
@@ -93,7 +102,7 @@ public class Test {
 
         Agent agent = new Agent("wwa70dc5b6e56936e1",
                 "nVtCCnhlJ0tIMdNMQ0BkheQQVvvy1lHoQBISuREyi-4",
-                "", "", "");
+                "");
 
 
         ContactsApi contactsApi = new ContactsApi().agent(agent);

@@ -2,7 +2,6 @@ package cn.felord.api;
 
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.webhook.WebhookBody;
-import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -26,7 +25,7 @@ public class WebhookApi extends AbstractApi {
      * @return the we com response
      */
     public <T extends WebhookBody> WeComResponse send(String key, T body) {
-        String endpoint = WeComEndpoint.WEBHOOK_SEND.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.WEBHOOK_SEND.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("key", key)
                 .build()

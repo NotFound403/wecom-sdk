@@ -138,7 +138,16 @@ public enum WeComEndpoint {
     /**
      * 获取企业微信API域名IP段，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
      */
-    WEBHOOK_SEND("/webhook/send");
+    WEBHOOK_SEND("/webhook/send"),
+    /**
+     * 获取企业的jsapi_ticket.
+     */
+    CORP_JSAPI_TICKET("/get_jsapi_ticket"),
+
+    /**
+     * 获取应用的jsapi_ticket.
+     */
+    AGENT_JSAPI_TICKET("/ticket/get");
     private final String pattern;
 
     WeComEndpoint(String pattern) {
@@ -148,10 +157,9 @@ public enum WeComEndpoint {
     /**
      * Endpoint string.
      *
-     * @param weComDomain the we com domain
      * @return the string
      */
-    public String endpoint(WeComDomain weComDomain) {
-        return weComDomain.domain() + pattern;
+    public String endpoint() {
+        return "https://qyapi.weixin.qq.com/cgi-bin" + pattern;
     }
 }

@@ -1,7 +1,6 @@
 package cn.felord;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -15,7 +14,5 @@ import lombok.Getter;
 public class Agent implements AgentDetails {
     private final String corpId;
     private final String secret;
-    private final String corpName;
     private final String agentId;
-    private final String agentName;
 }

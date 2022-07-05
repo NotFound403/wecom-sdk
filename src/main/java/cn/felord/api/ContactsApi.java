@@ -2,7 +2,6 @@ package cn.felord.api;
 
 import cn.felord.AgentDetails;
 import cn.felord.domain.GenericResponse;
-import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -36,7 +35,7 @@ public class ContactsApi extends AbstractApi {
      * @return the contact list
      */
     public GenericResponse<List<String>> getContactList(String userId) {
-        String endpoint = WeComEndpoint.EX_CONTACTS.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.EX_CONTACTS.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("userid", userId)
                 .build()

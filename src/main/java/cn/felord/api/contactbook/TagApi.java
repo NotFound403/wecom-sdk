@@ -8,7 +8,6 @@ import cn.felord.domain.contactbook.tag.Tag;
 import cn.felord.domain.contactbook.tag.TagUserActionResponse;
 import cn.felord.domain.contactbook.tag.TagUserRequest;
 import cn.felord.domain.contactbook.tag.TagUserResponse;
-import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -38,7 +37,7 @@ public class TagApi extends AbstractApi {
      * @see WeComEndpoint#TAG_CREATE
      */
     public GenericResponse<String> createTag(Tag request) {
-        String endpoint = WeComEndpoint.TAG_CREATE.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.TAG_CREATE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -54,7 +53,7 @@ public class TagApi extends AbstractApi {
      * @see WeComEndpoint#TAG_UPDATE
      */
     public WeComResponse updateTag(Tag request) {
-        String endpoint = WeComEndpoint.TAG_UPDATE.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.TAG_UPDATE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -69,7 +68,7 @@ public class TagApi extends AbstractApi {
      * @see WeComEndpoint#TAG_DELETE
      */
     public WeComResponse deleteTag(Integer tagId) {
-        String endpoint = WeComEndpoint.TAG_DELETE.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.TAG_DELETE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("tagid", tagId)
                 .build()
@@ -85,7 +84,7 @@ public class TagApi extends AbstractApi {
      * @see WeComEndpoint#TAG_GET_USERS
      */
     public TagUserResponse getTagUsers(Integer tagId) {
-        String endpoint = WeComEndpoint.TAG_GET_USERS.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.TAG_GET_USERS.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("tagid", tagId)
                 .build()
@@ -101,7 +100,7 @@ public class TagApi extends AbstractApi {
      * @see WeComEndpoint#TAG_CREATE_USERS
      */
     public TagUserActionResponse addTagUsers(TagUserRequest request) {
-        String endpoint = WeComEndpoint.TAG_CREATE_USERS.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.TAG_CREATE_USERS.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -116,7 +115,7 @@ public class TagApi extends AbstractApi {
      * @see WeComEndpoint#TAG_DELETE_USERS
      */
     public TagUserActionResponse deleteTagUsers(TagUserRequest request) {
-        String endpoint = WeComEndpoint.TAG_DELETE_USERS.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.TAG_DELETE_USERS.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -130,7 +129,7 @@ public class TagApi extends AbstractApi {
      * @see WeComEndpoint#TAG_LIST
      */
     public GenericResponse<Tag> getTags() {
-        String endpoint = WeComEndpoint.TAG_LIST.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.TAG_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();

@@ -4,7 +4,6 @@ import cn.felord.AgentDetails;
 import cn.felord.domain.MediaResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.enumeration.MediaTypeEnum;
-import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ContentDisposition;
@@ -39,7 +38,7 @@ public class MediaApi extends AbstractApi {
      * @return the media response
      */
     public MediaResponse uploadMedia(MultipartFile media, MediaTypeEnum mediaType) {
-        String endpoint = WeComEndpoint.MEDIA_UPLOAD.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.MEDIA_UPLOAD.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("type", mediaType.name().toLowerCase())
                 .build()
@@ -54,7 +53,7 @@ public class MediaApi extends AbstractApi {
      * @return the media response
      */
     public MediaResponse uploadMedia(MultipartFile media) {
-        String endpoint = WeComEndpoint.MEDIA_UPLOAD_IMG.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.MEDIA_UPLOAD_IMG.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();

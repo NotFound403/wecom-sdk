@@ -1,13 +1,12 @@
 package cn.felord.api.contactbook;
 
-import cn.felord.ContactBookAgent;
+import cn.felord.Agent;
 import cn.felord.api.AbstractApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.user.*;
 import cn.felord.enumeration.DeptUserFetchType;
 import cn.felord.enumeration.UserQrcodeSize;
-import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -26,8 +25,14 @@ import java.util.List;
 public class UserApi extends AbstractApi {
 
 
-    public UserApi agent(ContactBookAgent contactBookAgent) {
-        this.withAgent(contactBookAgent);
+    /**
+     * Agent user api.
+     *
+     * @param agent the agent
+     * @return the user api
+     */
+    public UserApi agent(Agent agent) {
+        this.withAgent(agent);
         return this;
     }
 
@@ -37,11 +42,11 @@ public class UserApi extends AbstractApi {
      * 仅通讯录同步助手或第三方通讯录应用可调用。
      *
      * @param request the request
-     * @return WeComResponse
-     * @see WeComEndpoint#USER_CREATE
+     * @return WeComResponse we com response
+     * @see WeComEndpoint#USER_CREATE WeComEndpoint#USER_CREATE
      */
     public WeComResponse createUser(UserInfoRequest request) {
-        String endpoint = WeComEndpoint.USER_CREATE.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_CREATE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -54,11 +59,11 @@ public class UserApi extends AbstractApi {
      * 在通讯录同步助手中此接口可以读取企业通讯录的所有成员的信息，而自建应用可以读取该应用设置的可见范围内的成员信息。
      *
      * @param userId the user id
-     * @return UserInfoResponse
-     * @see WeComEndpoint#USER_GET
+     * @return UserInfoResponse user
+     * @see WeComEndpoint#USER_GET WeComEndpoint#USER_GET
      */
     public UserInfoResponse getUser(String userId) {
-        String endpoint = WeComEndpoint.USER_GET.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_GET.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("userid", userId)
                 .build()
@@ -72,11 +77,11 @@ public class UserApi extends AbstractApi {
      * 仅通讯录同步助手或第三方通讯录应用可调用。
      *
      * @param request the request
-     * @return WeComResponse
-     * @see WeComEndpoint#USER_UPDATE
+     * @return WeComResponse we com response
+     * @see WeComEndpoint#USER_UPDATE WeComEndpoint#USER_UPDATE
      */
     public WeComResponse updateUser(UserInfoRequest request) {
-        String endpoint = WeComEndpoint.USER_UPDATE.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_UPDATE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -89,11 +94,11 @@ public class UserApi extends AbstractApi {
      * 若是绑定了腾讯企业邮，则会同时删除邮箱帐号。
      *
      * @param userId the user id
-     * @return WeComResponse
-     * @see WeComEndpoint#USER_DELETE
+     * @return WeComResponse we com response
+     * @see WeComEndpoint#USER_DELETE WeComEndpoint#USER_DELETE
      */
     public WeComResponse deleteUser(String userId) {
-        String endpoint = WeComEndpoint.USER_DELETE.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_DELETE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("userid", userId)
                 .build()
@@ -107,11 +112,11 @@ public class UserApi extends AbstractApi {
      * 若是绑定了腾讯企业邮，则会同时删除邮箱帐号。
      *
      * @param userIdList the user id list
-     * @return WeComResponse
-     * @see WeComEndpoint#USER_BATCH_DELETE
+     * @return WeComResponse we com response
+     * @see WeComEndpoint#USER_BATCH_DELETE WeComEndpoint#USER_BATCH_DELETE
      */
     public WeComResponse batchDelUser(List<String> userIdList) {
-        String endpoint = WeComEndpoint.USER_BATCH_DELETE.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_BATCH_DELETE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -125,11 +130,11 @@ public class UserApi extends AbstractApi {
      *
      * @param departmentId departmentId
      * @param type         the type
-     * @return SimpleUserResponse
-     * @see WeComEndpoint#USER_DEPT_LIST
+     * @return SimpleUserResponse dept users
+     * @see WeComEndpoint#USER_DEPT_LIST WeComEndpoint#USER_DEPT_LIST
      */
     public GenericResponse<List<SimpleUser>> getDeptUsers(String departmentId, DeptUserFetchType type) {
-        String endpoint = WeComEndpoint.USER_DEPT_LIST.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_DEPT_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("department_id", departmentId)
                 .queryParam("fetch_child", type.type())
@@ -146,11 +151,11 @@ public class UserApi extends AbstractApi {
      *
      * @param departmentId departmentId
      * @param type         the type
-     * @return UserDetailResponse
-     * @see WeComEndpoint#USER_DEPT_LIST_DETAIL
+     * @return UserDetailResponse dept user details
+     * @see WeComEndpoint#USER_DEPT_LIST_DETAIL WeComEndpoint#USER_DEPT_LIST_DETAIL
      */
     public GenericResponse<List<UserDetail>> getDeptUserDetails(String departmentId, DeptUserFetchType type) {
-        String endpoint = WeComEndpoint.USER_DEPT_LIST_DETAIL.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_DEPT_LIST_DETAIL.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("department_id", departmentId)
                 .queryParam("fetch_child", type.type())
@@ -169,11 +174,11 @@ public class UserApi extends AbstractApi {
      * 如果是外部联系人，请使用<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90001/90143/92292">外部联系人openid转换接口</a>转换{@code openid}
      *
      * @param userId userId
-     * @return OpenIdResponse
-     * @see WeComEndpoint#USER_BATCH_DELETE
+     * @return OpenIdResponse generic response
+     * @see WeComEndpoint#USER_BATCH_DELETE WeComEndpoint#USER_BATCH_DELETE
      */
     public GenericResponse<String> converTopenid(String userId) {
-        String endpoint = WeComEndpoint.USERID_TO_OPENID.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USERID_TO_OPENID.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -188,11 +193,11 @@ public class UserApi extends AbstractApi {
      * 企业在开启二次验证时，必须在管理端填写企业二次验证页面的url。
      *
      * @param userId userId
-     * @return WeComResponse
-     * @see WeComEndpoint#USER_AUTH
+     * @return WeComResponse we com response
+     * @see WeComEndpoint#USER_AUTH WeComEndpoint#USER_AUTH
      */
     public WeComResponse userAuth(String userId) {
-        String endpoint = WeComEndpoint.USER_AUTH.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_AUTH.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("userid", userId)
                 .build()
@@ -206,11 +211,11 @@ public class UserApi extends AbstractApi {
      * 企业可通过接口批量邀请成员使用企业微信，邀请后将通过短信或邮件下发通知。
      *
      * @param request batchInviteRequest
-     * @return BatchInviteResponse
-     * @see WeComEndpoint#USER_BATCH_INVITE
+     * @return BatchInviteResponse batch invite response
+     * @see WeComEndpoint#USER_BATCH_INVITE WeComEndpoint#USER_BATCH_INVITE
      */
     public BatchInviteResponse batchInviteUser(BatchInviteRequest request) {
-        String endpoint = WeComEndpoint.USER_BATCH_INVITE.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_BATCH_INVITE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -223,11 +228,11 @@ public class UserApi extends AbstractApi {
      * 支持企业用户获取实时成员加入二维码。
      *
      * @param size size
-     * @return WeComResponse
-     * @see WeComEndpoint#USER_JOIN_QRCODE
+     * @return WeComResponse join qrcode
+     * @see WeComEndpoint#USER_JOIN_QRCODE WeComEndpoint#USER_JOIN_QRCODE
      */
     public GenericResponse<String> getJoinQrcode(UserQrcodeSize size) {
-        String endpoint = WeComEndpoint.USER_JOIN_QRCODE.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_JOIN_QRCODE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("size_type", size.type())
                 .build()
@@ -240,11 +245,11 @@ public class UserApi extends AbstractApi {
      * 获取企业活跃成员数
      *
      * @param date date
-     * @return WeComResponse
-     * @see WeComEndpoint#USER_JOIN_QRCODE
+     * @return WeComResponse active stat
+     * @see WeComEndpoint#USER_JOIN_QRCODE WeComEndpoint#USER_JOIN_QRCODE
      */
     public GenericResponse<Integer> getActiveStat(LocalDate date) {
-        String endpoint = WeComEndpoint.USER_ACTIVE_STAT.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.USER_ACTIVE_STAT.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();

@@ -37,7 +37,7 @@ public abstract class AbstractApi {
      * Instantiates a new We com client.
      */
     public AbstractApi() {
-        this.restTemplate = restOperations();
+        this.restTemplate = this.restOperations();
     }
 
     public AbstractApi(RestTemplate restTemplate) {
@@ -50,7 +50,7 @@ public abstract class AbstractApi {
      * @param agentDetails the agent details
      */
     public <A extends AgentDetails> void withAgent(A agentDetails) {
-        AccessTokenClientHttpRequestInterceptor requestInterceptor = new AccessTokenClientHttpRequestInterceptor(agentDetails, this.restTemplate);
+        AccessTokenClientHttpRequestInterceptor requestInterceptor = new AccessTokenClientHttpRequestInterceptor(agentDetails, this.restOperations());
         this.restTemplate.setInterceptors(Collections.singletonList(requestInterceptor));
     }
 

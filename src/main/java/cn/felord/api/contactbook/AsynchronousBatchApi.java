@@ -1,12 +1,11 @@
 package cn.felord.api.contactbook;
 
-import cn.felord.ContactBookAgent;
+import cn.felord.Agent;
 import cn.felord.api.AbstractApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.contactbook.async.BatchPartyRequest;
 import cn.felord.domain.contactbook.async.BatchResultResponse;
 import cn.felord.domain.contactbook.async.BatchUserRequest;
-import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,11 +23,11 @@ public class AsynchronousBatchApi extends AbstractApi {
     /**
      * Agent asynchronous batch api.
      *
-     * @param contactBookAgent the contact book agent
+     * @param agent the agent
      * @return the asynchronous batch api
      */
-    public AsynchronousBatchApi agent(ContactBookAgent contactBookAgent) {
-        this.withAgent(contactBookAgent);
+    public AsynchronousBatchApi agent(Agent agent) {
+        this.withAgent(agent);
         return this;
     }
 
@@ -39,7 +38,7 @@ public class AsynchronousBatchApi extends AbstractApi {
      * @return the generic response
      */
     public GenericResponse<String> batchSyncUser(BatchUserRequest request) {
-        String endpoint = WeComEndpoint.BATCH_SYNC_USER.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.BATCH_SYNC_USER.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -54,7 +53,7 @@ public class AsynchronousBatchApi extends AbstractApi {
      * @return the generic response
      */
     public GenericResponse<String> batchSyncReplaceUser(BatchUserRequest request) {
-        String endpoint = WeComEndpoint.BATCH_REPLACE_USER.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.BATCH_REPLACE_USER.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -69,7 +68,7 @@ public class AsynchronousBatchApi extends AbstractApi {
      * @return the generic response
      */
     public GenericResponse<String> batchSyncReplaceParty(BatchPartyRequest request) {
-        String endpoint = WeComEndpoint.BATCH_REPLACE_PARTY.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.BATCH_REPLACE_PARTY.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -84,7 +83,7 @@ public class AsynchronousBatchApi extends AbstractApi {
      * @return the result
      */
     public BatchResultResponse getResult(String jobId) {
-        String endpoint = WeComEndpoint.BATCH_GET_RESULT.endpoint(WeComDomain.CGI_BIN);
+        String endpoint = WeComEndpoint.BATCH_GET_RESULT.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("jobid", jobId)
                 .build()
