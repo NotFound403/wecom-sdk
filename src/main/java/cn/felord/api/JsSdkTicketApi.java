@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.SneakyThrows;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.util.AlternativeJdkIdGenerator;
+import org.springframework.util.Assert;
 import org.springframework.util.IdGenerator;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -28,6 +29,7 @@ import java.time.Instant;
 public class JsSdkTicketApi extends AbstractApi {
     private static final String SIGNATURE_FORMATTER="jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}";
     private final IdGenerator nonceStrGenerator = new AlternativeJdkIdGenerator();
+    private AgentDetails agentDetails;
     /**
      * Agent js sdk ticket api.
      *
@@ -36,6 +38,7 @@ public class JsSdkTicketApi extends AbstractApi {
      */
     public JsSdkTicketApi agent(AgentDetails agentDetails) {
         this.withAgent(agentDetails);
+        this.agentDetails = agentDetails;
         return this;
     }
 
@@ -62,6 +65,8 @@ public class JsSdkTicketApi extends AbstractApi {
      * @return the js ticket response
      */
     public JSignature agentTicket(String url) {
+        String agentId = agentDetails.getAgentId();
+        Assert.notNull(agentId,"agentId must not be null");
         String endpoint = WeComEndpoint.AGENT_JSAPI_TICKET.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("type", "agent_config")
@@ -71,7 +76,9 @@ public class JsSdkTicketApi extends AbstractApi {
         if (!jsTicketResponse.isSuccessful()||jsTicketResponse.getTicket()==null) {
             throw new WeComException("fail to obtain the ticket");
         }
-        return this.sha1(jsTicketResponse,url);
+        JSignature jSignature = this.sha1(jsTicketResponse, url);
+        jSignature.setAgentId(agentId);
+        return jSignature;
     }
 
 
@@ -87,9 +94,7 @@ public class JsSdkTicketApi extends AbstractApi {
         MessageDigest digest = MessageDigest.getInstance("SHA-1");
         digest.update(format.getBytes(StandardCharsets.UTF_8));
         byte[] bytes = digest.digest();
-
         String signature = Hex.encodeHexString(bytes);
-
 
         JSignature jSignature = new JSignature();
 

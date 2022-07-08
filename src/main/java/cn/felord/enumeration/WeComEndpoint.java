@@ -147,7 +147,15 @@ public enum WeComEndpoint {
     /**
      * 获取应用的jsapi_ticket.
      */
-    AGENT_JSAPI_TICKET("/ticket/get");
+    AGENT_JSAPI_TICKET("/ticket/get"),
+    /**
+     * 获取指定的应用详情.
+     */
+    AGENT_DETAILS("/agent/get"),
+    /**
+     * 设置应用.
+     */
+    AGENT_SETTINGS("/agent/set");
     private final String pattern;
 
     WeComEndpoint(String pattern) {

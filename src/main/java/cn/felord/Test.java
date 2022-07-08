@@ -1,5 +1,6 @@
 package cn.felord;
 
+import cn.felord.api.AgentManagerApi;
 import cn.felord.api.ContactsApi;
 import cn.felord.api.JsSdkTicketApi;
 import cn.felord.api.WebhookApi;
@@ -7,6 +8,8 @@ import cn.felord.api.contactbook.DepartmentApi;
 import cn.felord.api.contactbook.UserApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.agent.AgentDetailsResponse;
+import cn.felord.domain.agent.AgentSettingRequest;
 import cn.felord.domain.contactbook.department.DeptRequest;
 import cn.felord.domain.contactbook.user.UserInfoRequest;
 import cn.felord.domain.jssdk.JSignature;
@@ -19,6 +22,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type Test.
@@ -35,14 +39,26 @@ public class Test {
     @SneakyThrows
     public static void main(String[] args) {
         Agent agent = new Agent("wwa70dc5b6e56936e1",
-                "Y7R73gG_xSgbNmFR32x2AmOdxdH0pcn4HVNpjbhfybs","");
+                "Y7R73gG_xSgbNmFR32x2AmOdxdH0pcn4HVNpjbhfybs","1000002");
 
-        JsSdkTicketApi jsSdkTicketApi = new JsSdkTicketApi().agent(agent);
+
+        AgentManagerApi managerApi = new AgentManagerApi().agent(agent);
+
+/*        AgentSettingRequest request = new AgentSettingRequest();
+        request.setDescription("用来测试企业微信的应用");
+        WeComResponse response = managerApi.settings(request);
+        System.out.println("response = " + response);*/
+
+        AgentDetailsResponse agentDetails = managerApi.getAgentDetails();
+
+        System.out.println("agentDetails = " + agentDetails);
+
+/*        JsSdkTicketApi jsSdkTicketApi = new JsSdkTicketApi().agent(agent);
 
 
         JSignature jSignature = jsSdkTicketApi.agentTicket("https://felord.cn");
 
-        System.out.println("jSignature = " + jSignature);
+        System.out.println("jSignature = " + jSignature);*/
 
 
 // 3zwpcJy82HOuOj9twJFkfBJFp8CP7UVx9K4NxDDXc06x8JksF7i9PR95jHJ8_iaEJ

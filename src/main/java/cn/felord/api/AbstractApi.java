@@ -49,7 +49,7 @@ public abstract class AbstractApi {
      *
      * @param agentDetails the agent details
      */
-    public <A extends AgentDetails> void withAgent(A agentDetails) {
+    protected <A extends AgentDetails> void withAgent(A agentDetails) {
         AccessTokenClientHttpRequestInterceptor requestInterceptor = new AccessTokenClientHttpRequestInterceptor(agentDetails, this.restOperations());
         this.restTemplate.setInterceptors(Collections.singletonList(requestInterceptor));
     }
@@ -63,7 +63,7 @@ public abstract class AbstractApi {
      * @param responseType the response type
      * @return the t
      */
-    public <T extends WeComResponse> T post(URI uri, Object body, Class<T> responseType) {
+    protected <T extends WeComResponse> T post(URI uri, Object body, Class<T> responseType) {
         return post(uri, body, null, responseType);
     }
 
@@ -77,7 +77,7 @@ public abstract class AbstractApi {
      * @param responseType the response type
      * @return the t
      */
-    public <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, Class<T> responseType) {
+    protected <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, Class<T> responseType) {
         RequestEntity<Object> requestEntity = RequestEntity.post(uri).headers(headers)
                 .body(body);
         T responseBody = restTemplate.exchange(requestEntity, responseType).getBody();
@@ -94,7 +94,7 @@ public abstract class AbstractApi {
      * @param parameterizedTypeReference the parameterized type reference
      * @return the t
      */
-    public <T extends WeComResponse> T post(URI uri, Object body, ParameterizedTypeReference<T> parameterizedTypeReference) {
+    protected <T extends WeComResponse> T post(URI uri, Object body, ParameterizedTypeReference<T> parameterizedTypeReference) {
         return post(uri, body, null, parameterizedTypeReference);
     }
 
@@ -108,7 +108,7 @@ public abstract class AbstractApi {
      * @param parameterizedTypeReference the parameterized type reference
      * @return the t
      */
-    public <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, ParameterizedTypeReference<T> parameterizedTypeReference) {
+    protected <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, ParameterizedTypeReference<T> parameterizedTypeReference) {
         RequestEntity<Object> requestEntity = RequestEntity.post(uri).headers(headers)
                 .body(body);
         T responseBody = restTemplate.exchange(requestEntity, parameterizedTypeReference).getBody();
@@ -124,7 +124,7 @@ public abstract class AbstractApi {
      * @param responseType the response type
      * @return the t
      */
-    public <T extends WeComResponse> T get(URI uri, Class<T> responseType) {
+    protected <T extends WeComResponse> T get(URI uri, Class<T> responseType) {
         T responseBody = restTemplate.exchange(RequestEntity.get(uri).build(), responseType).getBody();
         this.checkSuccessful(responseBody);
         return responseBody;
@@ -138,7 +138,7 @@ public abstract class AbstractApi {
      * @param parameterizedTypeReference the parameterized type reference
      * @return the t
      */
-    public <T extends WeComResponse> T get(URI uri, ParameterizedTypeReference<T> parameterizedTypeReference) {
+    protected <T extends WeComResponse> T get(URI uri, ParameterizedTypeReference<T> parameterizedTypeReference) {
         T responseBody = restTemplate.exchange(RequestEntity.get(uri).build(), parameterizedTypeReference).getBody();
         this.checkSuccessful(responseBody);
         return responseBody;
@@ -146,12 +146,12 @@ public abstract class AbstractApi {
 
     private <T extends WeComResponse> void checkSuccessful(T response) {
         if (Objects.isNull(response)) {
-          throw new WeComException("response is null");
+            throw new WeComException("response is null");
         } else if (!response.isSuccessful()) {
-             if (log.isDebugEnabled()){
-                 log.debug("unsuccessful response : {}",response);
-             }
-             throw new WeComException("unsuccessful response");
+            if (log.isDebugEnabled()) {
+                log.debug("unsuccessful response : {}", response);
+            }
+            throw new WeComException("unsuccessful response");
         }
     }
 

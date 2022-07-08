@@ -5,7 +5,6 @@ import cn.felord.AgentDetails;
 import cn.felord.ExtensionFormHttpMessageConverter;
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
-import cn.felord.enumeration.WeComDomain;
 import cn.felord.enumeration.WeComEndpoint;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -70,7 +69,7 @@ public class WeComRestTemplate extends RestTemplate {
         }
 
         public <T extends WeComResponse> T post(WeComEndpoint weComEndpoint, Object body, HttpHeaders headers, Class<T> responseType) {
-            String endpoint = weComEndpoint.endpoint(WeComDomain.CGI_BIN);
+            String endpoint = weComEndpoint.endpoint();
             RequestEntity<Object> requestEntity = RequestEntity.post(endpoint).headers(headers)
                     .body(body);
             T responseBody = weComRestTemplate.exchange(requestEntity, responseType).getBody();
@@ -83,7 +82,7 @@ public class WeComRestTemplate extends RestTemplate {
         }
 
         public <T extends WeComResponse> T post(WeComEndpoint weComEndpoint, Object body, HttpHeaders headers, ParameterizedTypeReference<T> parameterizedTypeReference) {
-            String endpoint = weComEndpoint.endpoint(WeComDomain.CGI_BIN);
+            String endpoint = weComEndpoint.endpoint();
             RequestEntity<Object> requestEntity = RequestEntity.post(endpoint).headers(headers)
                     .body(body);
             T responseBody = weComRestTemplate.exchange(requestEntity, parameterizedTypeReference).getBody();
