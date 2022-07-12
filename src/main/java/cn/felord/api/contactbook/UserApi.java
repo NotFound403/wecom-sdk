@@ -6,15 +6,17 @@ import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.user.*;
 import cn.felord.enumeration.DeptUserFetchType;
+import cn.felord.enumeration.EmailType;
 import cn.felord.enumeration.UserQrcodeSize;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 通讯录管理-成员管理
@@ -24,6 +26,8 @@ import java.util.List;
  */
 public class UserApi extends AbstractApi {
 
+    protected UserApi() {
+    }
 
     /**
      * Agent user api.
@@ -31,9 +35,10 @@ public class UserApi extends AbstractApi {
      * @param agent the agent
      * @return the user api
      */
-    public UserApi agent(Agent agent) {
-        this.withAgent(agent);
-        return this;
+    protected static UserApi agent(Agent agent) {
+        UserApi userApi = new UserApi();
+        userApi.withAgent(agent);
+        return userApi;
     }
 
     /**
@@ -177,14 +182,14 @@ public class UserApi extends AbstractApi {
      * @return OpenIdResponse generic response
      * @see WeComEndpoint#USER_BATCH_DELETE WeComEndpoint#USER_BATCH_DELETE
      */
-    public GenericResponse<String> converTopenid(String userId) {
+    public GenericResponse<String> converToOpenid(String userId) {
         String endpoint = WeComEndpoint.USERID_TO_OPENID.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, Collections.singletonMap("userid", userId),
                 new ParameterizedTypeReference<GenericResponse<String>>() {
-        });
+                });
     }
 
     /**
@@ -214,7 +219,7 @@ public class UserApi extends AbstractApi {
      * @return BatchInviteResponse batch invite response
      * @see WeComEndpoint#USER_BATCH_INVITE WeComEndpoint#USER_BATCH_INVITE
      */
-    public BatchInviteResponse batchInviteUser(BatchInviteRequest request) {
+    public BatchInviteResponse inviteUsers(BatchInviteRequest request) {
         String endpoint = WeComEndpoint.USER_BATCH_INVITE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
@@ -223,7 +228,7 @@ public class UserApi extends AbstractApi {
     }
 
     /**
-     * 二次验证
+     * 获取加入企业二维码
      * <p>
      * 支持企业用户获取实时成员加入二维码。
      *
@@ -242,19 +247,40 @@ public class UserApi extends AbstractApi {
     }
 
     /**
-     * 获取企业活跃成员数
+     * 手机号获取userid
      *
-     * @param date date
+     * @param mobile mobile
      * @return WeComResponse active stat
-     * @see WeComEndpoint#USER_JOIN_QRCODE WeComEndpoint#USER_JOIN_QRCODE
+     * @see WeComEndpoint#USER_ID_BY_MOBILE WeComEndpoint#USER_ID_BY_MOBILE
      */
-    public GenericResponse<Integer> getActiveStat(LocalDate date) {
-        String endpoint = WeComEndpoint.USER_ACTIVE_STAT.endpoint();
+    public GenericResponse<String> getUserIdByMobile(String mobile) {
+        String endpoint = WeComEndpoint.USER_ID_BY_MOBILE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("date", date.toString()),
-                new ParameterizedTypeReference<GenericResponse<Integer>>() {
-        });
+        return this.post(uri, Collections.singletonMap("mobile", mobile),
+                new ParameterizedTypeReference<GenericResponse<String>>() {
+                });
+    }
+
+    /**
+     * 邮箱获取userid
+     *
+     * @param email email
+     * @param emailType emailType
+     * @return WeComResponse active stat
+     * @see WeComEndpoint#USER_ID_BY_EMAIL WeComEndpoint#USER_ID_BY_EMAIL
+     */
+    public GenericResponse<String> getUserIdByEmail(String email, EmailType emailType) {
+        String endpoint = WeComEndpoint.USER_ID_BY_EMAIL.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        Map<String, Object> request = new HashMap<>(2);
+        request.put("email", email);
+        request.put("email_type", emailType.type());
+        return this.post(uri, request,
+                new ParameterizedTypeReference<GenericResponse<String>>() {
+                });
     }
 }

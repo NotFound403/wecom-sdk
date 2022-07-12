@@ -15,6 +15,7 @@ import lombok.EqualsAndHashCode;
 public class GenericResponse<T> extends WeComResponse {
     @JsonAlias({"openid",
             "id",
+            "userid",
             "join_qrcode",
             "userlist",
             "department",

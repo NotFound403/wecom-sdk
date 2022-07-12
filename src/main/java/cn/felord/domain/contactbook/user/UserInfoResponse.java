@@ -1,10 +1,10 @@
 package cn.felord.domain.contactbook.user;
 
-import java.util.List;
-
 import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 /**
  * @author n1
@@ -12,25 +12,27 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class UserInfoResponse extends WeComResponse {
-	private String address;
-	private String gender;
-	private String externalPosition;
-	private String mobile;
-	private List<Integer> isLeaderInDept;
-	private String telephone;
-	private String avatar;
-	private Integer mainDepartment;
 	private String userid;
-	private String thumbAvatar;
 	private String name;
+	private String mobile;
+	private List<Integer> department;
+	private List<Integer> order;
+	private String position;
+	private String gender;
+	private String email;
+	private String bizEmail;
+	private List<Integer> isLeaderInDept;
+	private List<String> directLeader;
+	private String avatar;
+	private String thumbAvatar;
+	private String telephone;
 	private String alias;
 	private Extattr extattr;
-	private String qrCode;
-	private String position;
-	private List<Integer> department;
-	private String openUserid;
-	private ExternalProfile externalProfile;
-	private String email;
-	private List<Integer> order;
 	private Integer status;
+	private String qrCode;
+	private ExternalProfile externalProfile;
+	private String externalPosition;
+	private String address;
+	private String openUserid;
+	private Integer mainDepartment;
 }

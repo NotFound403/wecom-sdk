@@ -7,8 +7,8 @@ import lombok.Data;
  */
 @Data
 public class AttrsItem {
-    private Web web;
-    private String name;
     private Integer type;
+    private String name;
+    private Web web;
     private Text text;
 }

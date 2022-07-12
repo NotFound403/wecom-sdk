@@ -1,7 +1,8 @@
 package cn.felord.domain.contactbook.user;
 
-import java.util.List;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author n1
@@ -10,21 +11,24 @@ import lombok.Data;
 public class UserInfoRequest {
 	private String userid;
 	private String name;
-	private String address;
-	private String gender;
-	private String externalPosition;
-	private String mobile;
-	private List<Integer> isLeaderInDept;
-	private String telephone;
-	private Boolean toInvite;
-	private Integer mainDepartment;
-	private Integer enable;
-	private String avatarMediaid;
 	private String alias;
-	private Extattr extattr;
-	private String position;
+	private String mobile;
 	private List<Integer> department;
-	private ExternalProfile externalProfile;
-	private String email;
 	private List<Integer> order;
+	private String position;
+	private String gender;
+	private String email;
+	private String bizEmail;
+	private String telephone;
+	private List<Integer> isLeaderInDept;
+	private List<String> directLeader;
+	private String avatarMediaid;
+	private Integer enable;
+	private Extattr extattr;
+	private Boolean toInvite;
+	private ExternalProfile externalProfile;
+	private String externalPosition;
+	private String nickname;
+	private String address;
+	private Integer mainDepartment;
 }

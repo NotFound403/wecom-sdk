@@ -1,14 +1,20 @@
 package cn.felord.domain.contactbook.user;
 
-import java.util.List;
-
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author n1
  */
 @Data
 public class ExternalProfile {
-    private List<ExternalAttrItem> externalAttr;
     private String externalCorpName;
+    private WechatChannels wechatChannels;
+    private List<ExternalAttrItem> externalAttr;
+
+    @Data
+    public static class WechatChannels{
+        private String nickName;
+    }
 }

@@ -20,15 +20,19 @@ import java.util.List;
  */
 public class DepartmentApi extends AbstractApi {
 
+    protected DepartmentApi() {
+    }
+
     /**
      * Agent department api.
      *
      * @param agent the agent
      * @return the department api
      */
-    public DepartmentApi agent(Agent agent) {
-        this.withAgent(agent);
-        return this;
+    protected static DepartmentApi agent(Agent agent) {
+        DepartmentApi departmentApi = new DepartmentApi();
+        departmentApi.withAgent(agent);
+        return departmentApi;
     }
 
     /**

@@ -6,8 +6,8 @@ import lombok.Data;
  */
 @Data
 public class ExternalAttrItem{
-	private String name;
 	private Integer type;
+	private String name;
 	private Miniprogram miniprogram;
 	private Web web;
 	private Text text;

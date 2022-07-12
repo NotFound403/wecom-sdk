@@ -1,6 +1,6 @@
 package cn.felord.api.contactbook;
 
-import cn.felord.AgentDetails;
+import cn.felord.Agent;
 import cn.felord.api.AbstractApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
@@ -23,10 +23,13 @@ import java.net.URI;
  * @since 1.0.8.RELEASE
  */
 public class TagApi extends AbstractApi {
+    protected TagApi() {
+    }
 
-    public TagApi agent(AgentDetails agentDetails) {
-        this.withAgent(agentDetails);
-        return this;
+    protected static TagApi agent(Agent agent) {
+        TagApi tagApi = new TagApi();
+        tagApi.withAgent(agent);
+        return tagApi;
     }
 
     /**

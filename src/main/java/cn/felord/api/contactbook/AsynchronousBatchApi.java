@@ -20,15 +20,19 @@ import java.net.URI;
  */
 public class AsynchronousBatchApi extends AbstractApi {
 
+    protected AsynchronousBatchApi() {
+    }
+
     /**
      * Agent asynchronous batch api.
      *
      * @param agent the agent
      * @return the asynchronous batch api
      */
-    public AsynchronousBatchApi agent(Agent agent) {
-        this.withAgent(agent);
-        return this;
+    protected static AsynchronousBatchApi agent(Agent agent) {
+        AsynchronousBatchApi asynchronousBatchApi = new AsynchronousBatchApi();
+        asynchronousBatchApi.withAgent(agent);
+        return asynchronousBatchApi;
     }
 
     /**

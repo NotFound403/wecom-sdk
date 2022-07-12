@@ -60,9 +60,13 @@ public enum WeComEndpoint {
      */
     USER_JOIN_QRCODE("/corp/get_join_qrcode"),
     /**
-     * 获取企业活跃成员数，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92714">文档</a>
+     * 手机号获取userid，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95402">文档</a>
      */
-    USER_ACTIVE_STAT("/user/get_active_stat"),
+    USER_ID_BY_MOBILE("/user/getuserid"),
+    /**
+     * email获取userid，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95895">文档</a>
+     */
+    USER_ID_BY_EMAIL("/user/get_userid_by_email"),
     /**
      * 创建部门，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90205">文档</a>
      */

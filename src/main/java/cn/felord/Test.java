@@ -2,17 +2,15 @@ package cn.felord;
 
 import cn.felord.api.AgentManagerApi;
 import cn.felord.api.ContactsApi;
-import cn.felord.api.JsSdkTicketApi;
 import cn.felord.api.WebhookApi;
+import cn.felord.api.contactbook.ContactManager;
 import cn.felord.api.contactbook.DepartmentApi;
 import cn.felord.api.contactbook.UserApi;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
-import cn.felord.domain.agent.AgentSettingRequest;
 import cn.felord.domain.contactbook.department.DeptRequest;
 import cn.felord.domain.contactbook.user.UserInfoRequest;
-import cn.felord.domain.jssdk.JSignature;
 import cn.felord.domain.webhook.WebhookMarkdownBody;
 import cn.felord.domain.webhook.WebhookNewsBody;
 import cn.felord.domain.webhook.WebhookTextBody;
@@ -22,7 +20,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The type Test.
@@ -85,7 +82,7 @@ public class Test {
     public static void creatDept() {
         Agent agent = new Agent("wwa70dc5b6e56936e1",
                 "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo","");
-        DepartmentApi departmentApi = new DepartmentApi().agent(agent);
+        DepartmentApi departmentApi = new ContactManager().departmentApi(agent);
         DeptRequest deptRequest = new DeptRequest();
         deptRequest.setNameEn("NMC");
         deptRequest.setParentid(1);
@@ -98,7 +95,7 @@ public class Test {
     public static void creatUser() {
         Agent agent = new Agent("wwa70dc5b6e56936e1",
                 "DsO2JAHSzn4u7Oj-Gxc9wrzO9lkARRCD2OFkuJ6-WEo","");
-        UserApi userApi = new UserApi().agent(agent);
+        UserApi userApi = new ContactManager().userApi(agent);
 
         UserInfoRequest request = new UserInfoRequest();
 
