@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="data:;base64,=">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在跳转中...</title>
+    <meta name="description" content="">
+    <link href="" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css"></link>
+    <script src="https://n.stcfile.com/inner/wlh5/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://n.stcfile.com/inner/wlh5/home_links.css">
+    <script>
+        window.onerror = e => {
+            console.error(e)
+        }
+    </script>
+</head>
+<body>
+<div class="page full">
+    <div id="public-web-container" class="public-container">
+        <div id="safe-notice" style="display:none;">
+            <div class="safe-notice">
+                <img src="https://n.stcfile.com/inner/wlh5/safe.png">
+                <p>本链接经过<font style="font-weight: 500;color: #333333;">SSL安全加密</font>,请放心点击!</p>
+            </div>
+        </div>
+        <div id="style_normal" style="display:none;">
+            <img class="logo" src="">
+            <p class="notice-msg"><small style="font-weight: 500;">正在跳转中...</small><br>如未自动打开微信请点击下方按钮</p>
+            <div class="button-container" onclick="getInfos()">
+                <a id="public-web-jump-button" type="button" class="default" style="width: 66%; margin-top: 20px;">
+                    <span id="public-web-jump-button-loading" class="weui-primary-loading weui-primary-loading_transparent">
+                        <i class="weui-primary-loading__dot"></i>
+                    </span>
+                    <span style="font-weight: 500;">正在打开微信</span>
+                </a>
+            </div>
+            <a id="dianjiimg_links" href="">
+            </a>
+            <div class="qrcodes-container" id="qrcodes"></div>
+        </div>
+        <div id="style_full" style="display:none;">
+            <a id="dianjiimg_links_full" href="">
+                <img class="fullimg" src="">
+            </a>
+            <div id="button_container_full" class="button-container-none">
+                <a id="public-web-jump-button-full" href="" style="">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        htmlInfo()
+        getInfos()
+    })
+
+    function htmlInfo() {
+        if (isMobile()) {
+            $("#safe-notice").show();
+            $("#style_normal").show();
+            $(".logo").attr("src","https://n.stcfile.com/inner/wlh5/wx_202204.png")
+        } else {
+            $("#safe-notice").hide();
+            $("#style_normal").hide();
+            $(".public-container").html('请使用手机访问本链接'+'</p>');
+        }
+    }
+
+    function getInfos() {
+        console.log('getInfos')
+        var weixin = isWeiXin()
+        //todo 生成微信Url Scheme  weixin:\/\/dl\/business\/?t=RJz5nAXOHof
+        $.ajax({
+            url: "https://a0.aifabu.com/v1/getAppletScheme",
+            data: {
+                "chain": "aTQvTD",
+                "domain": "eturl.cn",
+                "cookie":"5dcf51fe93d96dea308358055d98a8e7"
+            },
+            success: function(res) {
+                if (res.status === 1) {
+                    if (!weixin) {
+                        $("#dianjiimg_links").attr('href', res.result.openlink)
+                        // $("#public-web-jump-button").attr("href", res.result.openlink)
+                        jsUpdate(res)
+                    }
+                } else {
+                    $(".public-container").html('<p class="error-msg">'+res.msg+'</p>');
+                }
+            }
+        })
+    }
+
+    function jsUpdate(res) {
+        var mobile_flag = isMobile();
+        var weixin = isWeiXin();
+        if(mobile_flag){
+            var baidu = isBaidu();
+            var uc = isUc();
+            var weibo = isWeibo();
+            var douyin = isDouyin();
+            if (weixin) {
+            } else if (uc) {
+                $("#public-web-jump-button").html("点击立即前往微信");
+                $("#dianjiimg").show();
+                window.location.href = res.result.openlink;
+            } else if (douyin) {
+                if (res.result.openlink !== '') {
+                    window.location.href = res.result.openlink;
+                    // $("#public-web-jump-button span").click();
+                }
+            } else {
+                $("#dianjiimg").show();
+                if (res.result.openlink !== '') {
+                    window.location.href = res.result.openlink;
+                    // $("#public-web-jump-button span").click();
+                }
+                setTimeout(function (){
+                    $("#public-web-jump-button").html("点击立即前往微信");
+                    $("#dianjiimg").show();
+                }, 3000);
+            }
+        } else {
+            // 强行调用一波URLScheme
+            if (res.result.openlink !== '') {
+                window.location.href = res.result.openlink;
+            }
+            $(".notice-msg").html("请使用手机访问本网页！");
+        }
+    }
+
+    function isWeiXin(){
+        var ua = navigator.userAgent.toLowerCase()
+        var isWXWork = ua.match(/wxwork/i) === 'wxwork'
+        var isWeixin = !isWXWork && ua.match(/micromessenger/i) === 'micromessenger'
+        return isWeixin;
+    }
+
+    function isDouyin(){
+        ua = navigator.userAgent.toLowerCase();
+        return ua.indexOf('aweme') > -1;
+    }
+
+    function isBaidu(){
+        ua = navigator.userAgent.toLowerCase();
+        return ua.indexOf('baiduboxapp/') > -1;
+    }
+
+    function isUc() {
+        if (navigator.userAgent.match(/(UCBrowser|Quark)/i)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isWeibo() {
+        return navigator.userAgent.indexOf('Weibo') > -1;
+    }
+
+    function getQueryVariable(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] === variable){return pair[1];}
+        }
+        return false;
+    }
+
+    function isMobile() {
+        var  mobile_flag = !!navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|XiaoMi|IEMobile)/i);
+        var screen_width = window.screen.availWidth;
+        if(screen_width < 700){
+            mobile_flag = true;
+        }
+        return mobile_flag;
+    }
+
+    function isIphone() {
+        return !!navigator.userAgent.match(/(iPhone|iPod|ios|iPad)/i);
+    }
+</script>
+</body>
+</html>
