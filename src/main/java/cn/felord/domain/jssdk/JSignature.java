@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
  */
 @Data
 public class JSignature {
+    private String corpId;
     @Nullable
     private String agentId;
     private String timestamp;

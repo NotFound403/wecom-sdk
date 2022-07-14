@@ -26,7 +26,7 @@ import java.time.Instant;
  * @author felord.cn
  * @since 1.0.14.RELEASE
  */
-public class JsSdkTicketApi extends AbstractApi {
+public class SdkTicketApi extends AbstractApi {
     private static final String SIGNATURE_FORMATTER="jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}";
     private final IdGenerator nonceStrGenerator = new AlternativeJdkIdGenerator();
     private AgentDetails agentDetails;
@@ -36,7 +36,7 @@ public class JsSdkTicketApi extends AbstractApi {
      * @param agentDetails the agent details
      * @return the js sdk ticket api
      */
-    public JsSdkTicketApi agent(AgentDetails agentDetails) {
+    public SdkTicketApi agent(AgentDetails agentDetails) {
         this.withAgent(agentDetails);
         this.agentDetails = agentDetails;
         return this;
