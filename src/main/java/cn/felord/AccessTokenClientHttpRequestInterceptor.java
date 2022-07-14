@@ -17,16 +17,17 @@ import java.net.URI;
  */
 public class AccessTokenClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
     private final AccessTokenApi accessTokenApi;
+    private  AgentDetails agentDetails;
 
-    public AccessTokenClientHttpRequestInterceptor(AgentDetails agentDetails) {
-        this.accessTokenApi = AccessTokenApi.agent(agentDetails);
+    public AccessTokenClientHttpRequestInterceptor(AccessTokenApi accessTokenApi) {
+        this.accessTokenApi = accessTokenApi;
     }
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
 
         MutableHttpRequest mutableHttpRequest = new MutableHttpRequest(request);
-        String accessToken = accessTokenApi.getTokenResponse();
+        String accessToken = accessTokenApi.getTokenResponse(agentDetails);
 
         URI uri = UriComponentsBuilder.fromUri(request.getURI())
                 .queryParam("access_token", accessToken)
@@ -34,6 +35,10 @@ public class AccessTokenClientHttpRequestInterceptor implements ClientHttpReques
                 .toUri();
         mutableHttpRequest.setUri(uri);
         return execution.execute(mutableHttpRequest, body);
+    }
+
+    public void setAgentDetails(AgentDetails agentDetails) {
+        this.agentDetails = agentDetails;
     }
 
     static class MutableHttpRequest implements HttpRequest {

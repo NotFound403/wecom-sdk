@@ -1,5 +1,6 @@
 package cn.felord.api;
 
+import cn.felord.Cacheable;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.webhook.WebhookBody;
 import cn.felord.enumeration.WeComEndpoint;
@@ -15,6 +16,15 @@ import java.net.URI;
  */
 public class WebhookApi extends AbstractApi {
 
+
+    /**
+     * Instantiates a new We com client.
+     *
+     * @param cacheable
+     */
+    WebhookApi(Cacheable cacheable) {
+        super(cacheable);
+    }
 
     /**
      * Send text we com response.

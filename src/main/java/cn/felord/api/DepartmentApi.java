@@ -1,7 +1,7 @@
-package cn.felord.api.contactbook;
+package cn.felord.api;
 
 import cn.felord.Agent;
-import cn.felord.api.AbstractApi;
+import cn.felord.Cacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.department.DeptRequest;
@@ -20,7 +20,8 @@ import java.util.List;
  */
 public class DepartmentApi extends AbstractApi {
 
-    protected DepartmentApi() {
+    DepartmentApi(Cacheable cacheable) {
+        super(cacheable);
     }
 
     /**
@@ -29,10 +30,9 @@ public class DepartmentApi extends AbstractApi {
      * @param agent the agent
      * @return the department api
      */
-    protected static DepartmentApi agent(Agent agent) {
-        DepartmentApi departmentApi = new DepartmentApi();
-        departmentApi.withAgent(agent);
-        return departmentApi;
+    DepartmentApi agent(Agent agent) {
+        this.withAgent(agent);
+        return this;
     }
 
     /**
@@ -47,7 +47,8 @@ public class DepartmentApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {});
+        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        });
     }
 
     /**

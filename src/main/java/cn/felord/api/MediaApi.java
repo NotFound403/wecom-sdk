@@ -1,6 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
+import cn.felord.Cacheable;
 import cn.felord.domain.MediaResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.enumeration.MediaTypeEnum;
@@ -26,6 +27,13 @@ import java.util.Objects;
  */
 public class MediaApi extends AbstractApi {
 
+    /**
+     * Instantiates a new We com client.
+     */
+    public MediaApi(Cacheable cacheable) {
+        super(cacheable);
+    }
+
     public MediaApi agent(AgentDetails agentDetails) {
         this.withAgent(agentDetails);
         return this;
@@ -47,12 +55,12 @@ public class MediaApi extends AbstractApi {
     }
 
     /**
-     * 上传临时素材
+     * 上传图片
      *
      * @param media the media
      * @return the media response
      */
-    public MediaResponse uploadMedia(MultipartFile media) {
+    public MediaResponse uploadImage(MultipartFile media) {
         String endpoint = WeComEndpoint.MEDIA_UPLOAD_IMG.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()

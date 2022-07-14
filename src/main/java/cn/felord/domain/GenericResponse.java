@@ -23,6 +23,7 @@ public class GenericResponse<T> extends WeComResponse {
             "tagid",
             "taglist",
             "jobid",
+            "ip_list",
             "external_userid"
     })
     private T data;

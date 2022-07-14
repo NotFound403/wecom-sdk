@@ -1,6 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
+import cn.felord.Cacheable;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;
@@ -14,10 +15,19 @@ import java.net.URI;
  * @author felord.cn
  * @since 1.0.14.RELEASE
  */
-public class AgentManagerApi extends AbstractApi {
+public class AgentManager extends AbstractApi {
     private String agentId;
 
-    public AgentManagerApi agent(AgentDetails agentDetails) {
+    /**
+     * Instantiates a new We com client.
+     *
+     * @param cacheable
+     */
+    public AgentManager(Cacheable cacheable) {
+        super(cacheable);
+    }
+
+    public AgentManager agent(AgentDetails agentDetails) {
         String agentId = agentDetails.getAgentId();
         Assert.hasText(agentId, "agentid must not be null");
         this.withAgent(agentDetails);

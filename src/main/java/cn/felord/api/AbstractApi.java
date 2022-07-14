@@ -1,9 +1,6 @@
 package cn.felord.api;
 
-import cn.felord.AccessTokenClientHttpRequestInterceptor;
-import cn.felord.AgentDetails;
-import cn.felord.RestTemplateFactory;
-import cn.felord.WeComException;
+import cn.felord.*;
 import cn.felord.domain.WeComResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
@@ -22,16 +19,14 @@ import java.util.Objects;
 @Slf4j
 public abstract class AbstractApi {
     private final RestTemplate restTemplate;
+    private final AccessTokenClientHttpRequestInterceptor requestInterceptor;
 
     /**
      * Instantiates a new We com client.
      */
-    public AbstractApi() {
+    public AbstractApi(Cacheable cacheable) {
         this.restTemplate = RestTemplateFactory.restOperations();
-    }
-
-    public AbstractApi(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+        this.requestInterceptor = new AccessTokenClientHttpRequestInterceptor(new AccessTokenApi(cacheable));
     }
 
     /**
@@ -40,7 +35,7 @@ public abstract class AbstractApi {
      * @param agentDetails the agent details
      */
     protected <A extends AgentDetails> void withAgent(A agentDetails) {
-        AccessTokenClientHttpRequestInterceptor requestInterceptor = new AccessTokenClientHttpRequestInterceptor(agentDetails);
+        requestInterceptor.setAgentDetails(agentDetails);
         this.restTemplate.setInterceptors(Collections.singletonList(requestInterceptor));
     }
 

@@ -1,7 +1,7 @@
-package cn.felord.api.contactbook;
+package cn.felord.api;
 
 import cn.felord.Agent;
-import cn.felord.api.AbstractApi;
+import cn.felord.Cacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.user.*;
@@ -26,7 +26,8 @@ import java.util.Map;
  */
 public class UserApi extends AbstractApi {
 
-    protected UserApi() {
+    UserApi(Cacheable cacheable) {
+        super(cacheable);
     }
 
     /**
@@ -35,10 +36,9 @@ public class UserApi extends AbstractApi {
      * @param agent the agent
      * @return the user api
      */
-    protected static UserApi agent(Agent agent) {
-        UserApi userApi = new UserApi();
-        userApi.withAgent(agent);
-        return userApi;
+    UserApi agent(Agent agent) {
+        this.withAgent(agent);
+        return this;
     }
 
     /**
@@ -266,7 +266,7 @@ public class UserApi extends AbstractApi {
     /**
      * 邮箱获取userid
      *
-     * @param email email
+     * @param email     email
      * @param emailType emailType
      * @return WeComResponse active stat
      * @see WeComEndpoint#USER_ID_BY_EMAIL WeComEndpoint#USER_ID_BY_EMAIL
