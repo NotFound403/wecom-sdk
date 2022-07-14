@@ -2,26 +2,16 @@ package cn.felord.api;
 
 import cn.felord.AccessTokenClientHttpRequestInterceptor;
 import cn.felord.AgentDetails;
-import cn.felord.ExtensionFormHttpMessageConverter;
+import cn.felord.RestTemplateFactory;
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.RequestEntity;
-import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -37,7 +27,7 @@ public abstract class AbstractApi {
      * Instantiates a new We com client.
      */
     public AbstractApi() {
-        this.restTemplate = this.restOperations();
+        this.restTemplate = RestTemplateFactory.restOperations();
     }
 
     public AbstractApi(RestTemplate restTemplate) {
@@ -50,7 +40,7 @@ public abstract class AbstractApi {
      * @param agentDetails the agent details
      */
     protected <A extends AgentDetails> void withAgent(A agentDetails) {
-        AccessTokenClientHttpRequestInterceptor requestInterceptor = new AccessTokenClientHttpRequestInterceptor(agentDetails, this.restOperations());
+        AccessTokenClientHttpRequestInterceptor requestInterceptor = new AccessTokenClientHttpRequestInterceptor(agentDetails);
         this.restTemplate.setInterceptors(Collections.singletonList(requestInterceptor));
     }
 
@@ -155,35 +145,4 @@ public abstract class AbstractApi {
         }
     }
 
-    private RestTemplate restOperations() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        this.objectMapperCustomize(objectMapper);
-        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
-        ExtensionFormHttpMessageConverter extensionFormHttpMessageConverter = new ExtensionFormHttpMessageConverter();
-        RestTemplate restTemplate = new RestTemplate(Arrays.asList(extensionFormHttpMessageConverter, mappingJackson2HttpMessageConverter));
-        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        DefaultResponseErrorHandler errorHandler = new WeComResponseErrorHandler();
-        restTemplate.setErrorHandler(errorHandler);
-        return restTemplate;
-    }
-
-
-    private void objectMapperCustomize(ObjectMapper mapper) {
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                // empty string error
-                .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .registerModule(new JavaTimeModule());
-    }
-
-    /**
-     * The type We com response error handler.
-     */
-    public static class WeComResponseErrorHandler extends DefaultResponseErrorHandler {
-        @Override
-        public boolean hasError(ClientHttpResponse response) {
-            return false;
-        }
-    }
 }
