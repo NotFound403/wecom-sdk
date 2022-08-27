@@ -3,9 +3,9 @@ package cn.felord;
 /**
  * @author xiafang
  */
-public interface Cacheable {
+public interface TokenCacheable {
 
-    void put(String key, String value);
+    String put(String key, String token);
 
     String get(String key);
 }

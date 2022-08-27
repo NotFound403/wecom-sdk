@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URI;
 
 /**
- * @author felord.cn
+ * @author dax
  * @since 1.0.8.RELEASE
  */
 public class AccessTokenClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
@@ -39,6 +39,14 @@ public class AccessTokenClientHttpRequestInterceptor implements ClientHttpReques
 
     public void setAgentDetails(AgentDetails agentDetails) {
         this.agentDetails = agentDetails;
+    }
+
+    public AgentDetails getAgentDetails() {
+        return agentDetails;
+    }
+
+    public AccessTokenApi getAccessTokenApi() {
+        return accessTokenApi;
     }
 
     static class MutableHttpRequest implements HttpRequest {

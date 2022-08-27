@@ -1,6 +1,7 @@
 package cn.felord.api;
 
-import cn.felord.Cacheable;
+import cn.felord.AgentDetails;
+import cn.felord.TokenCacheable;
 import lombok.AllArgsConstructor;
 
 /**
@@ -8,33 +9,33 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 public final class WorkWeChatApi {
-    private final Cacheable cacheable;
+    private final TokenCacheable tokenCacheable;
 
-    public DomainApi domainApi() {
-        return new DomainApi(cacheable);
+    public DomainApi domainApi(AgentDetails agent) {
+        return new DomainApi(tokenCacheable).agent(agent);
     }
 
     public ContactManager contactManager() {
-        return new ContactManager(cacheable);
+        return new ContactManager(tokenCacheable);
     }
 
-    public AgentManager agentManager() {
-        return new AgentManager(cacheable);
+    public AgentManager agentManager(AgentDetails agent) {
+        return new AgentManager(tokenCacheable).agent(agent);
     }
 
-    public SdkTicketApi ticketApi() {
-        return new SdkTicketApi(cacheable);
+    public SdkTicketApi sdkTicketApi(AgentDetails agent) {
+        return new SdkTicketApi(tokenCacheable).agent(agent);
     }
 
     public WebhookApi webhookApi() {
-        return new WebhookApi(cacheable);
+        return new WebhookApi(tokenCacheable);
     }
 
-    public MediaApi mediaApi() {
-        return new MediaApi(cacheable);
+    public MediaApi mediaApi(AgentDetails agent) {
+        return new MediaApi(tokenCacheable).agent(agent);
     }
 
     public AccessTokenApi accessTokenApi() {
-        return new AccessTokenApi(cacheable);
+        return new AccessTokenApi(tokenCacheable);
     }
 }

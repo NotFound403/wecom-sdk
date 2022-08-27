@@ -1,10 +1,13 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.TokenCacheable;
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.jssdk.JSignature;
+import cn.felord.domain.jssdk.AgentConfigResponse;
+import cn.felord.domain.jssdk.CorpConfigResponse;
+import cn.felord.domain.jssdk.JSignatureResponse;
+import cn.felord.enumeration.TicketType;
 import cn.felord.enumeration.WeComEndpoint;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +19,6 @@ import org.springframework.util.IdGenerator;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.text.MessageFormat;
 import java.time.Instant;
@@ -24,7 +26,7 @@ import java.time.Instant;
 /**
  * The type Js sdk ticket api.
  *
- * @author felord.cn
+ * @author dax
  * @since 1.0.14.RELEASE
  */
 public class SdkTicketApi extends AbstractApi {
@@ -33,17 +35,17 @@ public class SdkTicketApi extends AbstractApi {
     private static final String AGENT_TICKET_FORMATTER = "qywx::ticket::agent::{0}::{1}";
     private final IdGenerator nonceStrGenerator = new AlternativeJdkIdGenerator();
     private AgentDetails agentDetails;
-    private final Cacheable cacheable;
+    private final TokenCacheable tokenCacheable;
 
 
     /**
      * Instantiates a new We com client.
      *
-     * @param cacheable
+     * @param tokenCacheable
      */
-    SdkTicketApi(Cacheable cacheable) {
-        super(cacheable);
-        this.cacheable = cacheable;
+    SdkTicketApi(TokenCacheable tokenCacheable) {
+        super(tokenCacheable);
+        this.tokenCacheable = tokenCacheable;
     }
 
     /**
@@ -63,9 +65,18 @@ public class SdkTicketApi extends AbstractApi {
      *
      * @return the js ticket response
      */
-    public JSignature corpTicket(String url) {
-        String corpTicket = ticket(CORP_TICKET_FORMATTER, WeComEndpoint.CORP_JSAPI_TICKET);
-        return this.sha1(corpTicket, url);
+    public CorpConfigResponse corpTicket(String url) {
+        String corpTicket = this.ticket(CORP_TICKET_FORMATTER, WeComEndpoint.CORP_JSAPI_TICKET, null);
+
+        JSignatureResponse jSignatureResponse = this.sha1(corpTicket, url);
+
+        CorpConfigResponse corpConfigResponse = new CorpConfigResponse();
+        corpConfigResponse.setAppId(agentDetails.getCorpId());
+        corpConfigResponse.setNonceStr(jSignatureResponse.getNonceStr());
+        corpConfigResponse.setTimestamp(jSignatureResponse.getTimestamp());
+        corpConfigResponse.setSignature(jSignatureResponse.getSignature());
+
+        return corpConfigResponse;
     }
 
     /**
@@ -73,21 +84,30 @@ public class SdkTicketApi extends AbstractApi {
      *
      * @return the js ticket response
      */
-    public JSignature agentTicket(String url) {
+    public AgentConfigResponse agentTicket(String url) {
         String agentId = agentDetails.getAgentId();
         Assert.notNull(agentId, "agentId must not be null");
-        String agentTicket = ticket(AGENT_TICKET_FORMATTER, WeComEndpoint.AGENT_JSAPI_TICKET);
-        JSignature jSignature = this.sha1(agentTicket, url);
-        jSignature.setAgentId(agentId);
-        return jSignature;
+        String agentTicket = this.ticket(AGENT_TICKET_FORMATTER, WeComEndpoint.AGENT_JSAPI_TICKET, TicketType.AGENT_CONFIG);
+        JSignatureResponse jSignatureResponse = this.sha1(agentTicket, url);
+        AgentConfigResponse agentConfigResponse = new AgentConfigResponse();
+        agentConfigResponse.setCorpid(agentDetails.getCorpId());
+        agentConfigResponse.setAgentid(agentId);
+        agentConfigResponse.setNonceStr(jSignatureResponse.getNonceStr());
+        agentConfigResponse.setTimestamp(jSignatureResponse.getTimestamp());
+        agentConfigResponse.setSignature(jSignatureResponse.getSignature());
+        return agentConfigResponse;
     }
 
-    private String ticket(String formatter, WeComEndpoint weComEndpoint) {
+    private String ticket(String formatter, WeComEndpoint weComEndpoint, TicketType ticketType) {
         String key = MessageFormat.format(formatter, this.agentDetails.getCorpId(), this.agentDetails.getAgentId());
-        String ticket = cacheable.get(key);
+        String ticket = tokenCacheable.get(key);
         if (ticket == null) {
             String endpoint = weComEndpoint.endpoint();
-            URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+            UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(endpoint);
+            if (ticketType != null) {
+                uriComponentsBuilder.queryParam("type", ticketType.type());
+            }
+            URI uri = uriComponentsBuilder
                     .build()
                     .toUri();
             JsTicketResponse jsTicketResponse = this.get(uri, JsTicketResponse.class);
@@ -95,31 +115,29 @@ public class SdkTicketApi extends AbstractApi {
                 throw new WeComException("fail to obtain the ticket");
             }
             ticket = jsTicketResponse.ticket;
-            cacheable.put(key, ticket);
+            tokenCacheable.put(key, ticket);
         }
 
         return ticket;
     }
 
     @SneakyThrows
-    private JSignature sha1(String ticket, String url) {
+    private JSignatureResponse sha1(String ticket, String url) {
         String nonceStr = nonceStrGenerator.generateId()
                 .toString()
                 .replaceAll("-", "");
-
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
         String format = MessageFormat.format(SIGNATURE_FORMATTER, ticket, nonceStr, timestamp, url);
         MessageDigest digest = MessageDigest.getInstance("SHA-1");
-        digest.update(format.getBytes(StandardCharsets.UTF_8));
+        digest.update(format.getBytes());
         byte[] bytes = digest.digest();
         String signature = Hex.encodeHexString(bytes);
+        JSignatureResponse jSignature = new JSignatureResponse();
 
-        JSignature jSignature = new JSignature();
-
-        jSignature.setNoncestr(nonceStr);
+        jSignature.setNonceStr(nonceStr);
         jSignature.setTimestamp(timestamp);
         jSignature.setSignature(signature);
-        jSignature.setUrl(url);
+
         return jSignature;
 
     }

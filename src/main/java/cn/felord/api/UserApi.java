@@ -1,7 +1,7 @@
 package cn.felord.api;
 
-import cn.felord.Agent;
-import cn.felord.Cacheable;
+import cn.felord.AgentDetails;
+import cn.felord.TokenCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.user.*;
@@ -26,8 +26,8 @@ import java.util.Map;
  */
 public class UserApi extends AbstractApi {
 
-    UserApi(Cacheable cacheable) {
-        super(cacheable);
+    UserApi(TokenCacheable tokenCacheable) {
+        super(tokenCacheable);
     }
 
     /**
@@ -36,7 +36,7 @@ public class UserApi extends AbstractApi {
      * @param agent the agent
      * @return the user api
      */
-    UserApi agent(Agent agent) {
+    UserApi agent(AgentDetails agent) {
         this.withAgent(agent);
         return this;
     }
@@ -282,5 +282,39 @@ public class UserApi extends AbstractApi {
         return this.post(uri, request,
                 new ParameterizedTypeReference<GenericResponse<String>>() {
                 });
+    }
+
+    /**
+     * 获取访问用户身份
+     * <p>
+     * 该接口用于根据code获取成员信息，适用于自建应用与代开发应用
+     *
+     * @param code 通过成员授权获取到的code
+     * @return UserDetailResponse
+     */
+    public UserDetailResponse getUserInfo(String code){
+        String endpoint = WeComEndpoint.USER_INFO_BY_CODE.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .queryParam("code", code)
+                .build()
+                .toUri();
+        return this.get(uri,UserDetailResponse.class);
+    }
+    /**
+     * 获取访问用户敏感信息
+     * <p>
+     * 自建应用与代开发应用可通过该接口获取成员授权的敏感字段
+     *
+     * @param userTicket 成员票据
+     * @return UserSensitiveInfoResponse
+     */
+    public UserSensitiveInfoResponse getUserDetail(String userTicket){
+        String endpoint = WeComEndpoint.USER_DETAIL_BY_USER_TICKET.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return this.post(uri,
+                Collections.singletonMap("user_ticket",userTicket),
+                UserSensitiveInfoResponse.class);
     }
 }

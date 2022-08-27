@@ -3,6 +3,7 @@ package cn.felord;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.http.client.ClientHttpResponse;
@@ -35,7 +36,7 @@ public final class RestTemplateFactory {
 
 
     private static void objectMapperCustomize(ObjectMapper mapper) {
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 // empty string error
                 .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)

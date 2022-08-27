@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @author felord.cn
+ * @author dax
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

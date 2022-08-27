@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.TokenCacheable;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;
@@ -12,7 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 /**
- * @author felord.cn
+ * @author dax
  * @since 1.0.14.RELEASE
  */
 public class AgentManager extends AbstractApi {
@@ -21,16 +21,16 @@ public class AgentManager extends AbstractApi {
     /**
      * Instantiates a new We com client.
      *
-     * @param cacheable
+     * @param tokenCacheable
      */
-    public AgentManager(Cacheable cacheable) {
-        super(cacheable);
+    AgentManager(TokenCacheable tokenCacheable) {
+        super(tokenCacheable);
     }
 
-    public AgentManager agent(AgentDetails agentDetails) {
-        String agentId = agentDetails.getAgentId();
+    AgentManager agent(AgentDetails agent) {
+        String agentId = agent.getAgentId();
         Assert.hasText(agentId, "agentid must not be null");
-        this.withAgent(agentDetails);
+        this.withAgent(agent);
         this.agentId = agentId;
         return this;
     }

@@ -12,10 +12,6 @@ public enum WeComEndpoint {
      */
     GET_TOKEN("/gettoken"),
     /**
-     * 获取企业微信API域名IP段，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
-     */
-    DOMAIN_IP("/get_api_domain_ip"),
-    /**
      * 创建成员，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90195">文档</a>
      */
     USER_CREATE("/user/create"),
@@ -31,6 +27,14 @@ public enum WeComEndpoint {
      * 删除成员，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90198">文档</a>
      */
     USER_DELETE("/user/delete"),
+    /**
+     * 获取访问用户身份，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/91023">文档</a>
+     */
+    USER_INFO_BY_CODE("/user/getuserinfo"),
+    /**
+     * 获取访问用户敏感信息，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95833">文档</a>
+     */
+    USER_DETAIL_BY_USER_TICKET("/user/getuserdetail"),
     /**
      * 批量删除成员，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90199">文档</a>
      */
@@ -48,7 +52,7 @@ public enum WeComEndpoint {
      */
     USERID_TO_OPENID("/user/convert_to_openid"),
     /**
-     * 二次验证，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90203">文档</a>
+     * 二次验证，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/90339">文档</a>
      */
     USER_AUTH("/user/authsucc"),
     /**

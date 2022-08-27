@@ -1,7 +1,7 @@
 package cn.felord.api;
 
-import cn.felord.Agent;
-import cn.felord.Cacheable;
+import cn.felord.AgentDetails;
+import cn.felord.TokenCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.contactbook.async.BatchPartyRequest;
 import cn.felord.domain.contactbook.async.BatchResultResponse;
@@ -23,10 +23,10 @@ public class AsynchronousBatchApi extends AbstractApi {
     /**
      * Instantiates a new We com client.
      *
-     * @param cacheable
+     * @param tokenCacheable
      */
-    public AsynchronousBatchApi(Cacheable cacheable) {
-        super(cacheable);
+    AsynchronousBatchApi(TokenCacheable tokenCacheable) {
+        super(tokenCacheable);
     }
 
     /**
@@ -35,7 +35,7 @@ public class AsynchronousBatchApi extends AbstractApi {
      * @param agent the agent
      * @return the asynchronous batch api
      */
-    AsynchronousBatchApi agent(Agent agent) {
+    AsynchronousBatchApi agent(AgentDetails agent) {
         this.withAgent(agent);
         return this;
     }

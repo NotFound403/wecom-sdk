@@ -1,7 +1,7 @@
 package cn.felord.enumeration;
 
 /**
- * @author felord.cn
+ * @author dax
  * @since 1.0.14.RELEASE
  */
 public enum EmailType {

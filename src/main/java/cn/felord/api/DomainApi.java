@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.TokenCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
@@ -13,13 +13,13 @@ import java.util.List;
 /**
  * The type Contacts api.
  *
- * @author felord.cn
+ * @author dax
  * @since 1.0.8.RELEASE
  */
 public class DomainApi extends AbstractApi {
 
-    public DomainApi(Cacheable cacheable) {
-        super(cacheable);
+    DomainApi(TokenCacheable tokenCacheable) {
+        super(tokenCacheable);
     }
 
     /**
@@ -28,7 +28,7 @@ public class DomainApi extends AbstractApi {
      * @param agentDetails the agent details
      * @return the contacts api
      */
-    public DomainApi agent(AgentDetails agentDetails) {
+    DomainApi agent(AgentDetails agentDetails) {
         this.withAgent(agentDetails);
         return this;
     }

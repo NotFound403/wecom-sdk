@@ -1,6 +1,6 @@
 package cn.felord.api;
 
-import cn.felord.Cacheable;
+import cn.felord.TokenCacheable;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.webhook.WebhookBody;
 import cn.felord.enumeration.WeComEndpoint;
@@ -20,10 +20,10 @@ public class WebhookApi extends AbstractApi {
     /**
      * Instantiates a new We com client.
      *
-     * @param cacheable
+     * @param tokenCacheable the token cacheable
      */
-    WebhookApi(Cacheable cacheable) {
-        super(cacheable);
+    WebhookApi(TokenCacheable tokenCacheable) {
+        super(tokenCacheable);
     }
 
     /**

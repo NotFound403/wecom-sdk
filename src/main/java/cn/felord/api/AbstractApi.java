@@ -1,6 +1,11 @@
 package cn.felord.api;
 
-import cn.felord.*;
+import cn.felord.AccessTokenClientHttpRequestInterceptor;
+import cn.felord.AgentDetails;
+import cn.felord.TokenCacheable;
+import cn.felord.ErrorCode;
+import cn.felord.RestTemplateFactory;
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
@@ -24,9 +29,9 @@ public abstract class AbstractApi {
     /**
      * Instantiates a new We com client.
      */
-    public AbstractApi(Cacheable cacheable) {
+    public AbstractApi(TokenCacheable tokenCacheable) {
         this.restTemplate = RestTemplateFactory.restOperations();
-        this.requestInterceptor = new AccessTokenClientHttpRequestInterceptor(new AccessTokenApi(cacheable));
+        this.requestInterceptor = new AccessTokenClientHttpRequestInterceptor(new AccessTokenApi(tokenCacheable));
     }
 
     /**
@@ -63,8 +68,8 @@ public abstract class AbstractApi {
      * @return the t
      */
     protected <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, Class<T> responseType) {
-        RequestEntity<Object> requestEntity = RequestEntity.post(uri).headers(headers)
-                .body(body);
+        RequestEntity<Object> requestEntity = this.build(uri, body, headers);
+
         T responseBody = restTemplate.exchange(requestEntity, responseType).getBody();
         this.checkSuccessful(responseBody);
         return responseBody;
@@ -94,12 +99,21 @@ public abstract class AbstractApi {
      * @return the t
      */
     protected <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, ParameterizedTypeReference<T> parameterizedTypeReference) {
-        RequestEntity<Object> requestEntity = RequestEntity.post(uri).headers(headers)
-                .body(body);
+        RequestEntity<Object> requestEntity = this.build(uri, body, headers);
         T responseBody = restTemplate.exchange(requestEntity, parameterizedTypeReference).getBody();
         this.checkSuccessful(responseBody);
         return responseBody;
     }
+
+
+    private RequestEntity<Object> build(URI uri, Object body, HttpHeaders headers) {
+        RequestEntity.BodyBuilder bodyBuilder = RequestEntity.post(uri);
+        if (headers != null) {
+            headers.forEach((key, values) -> bodyBuilder.header(key, values.toArray(new String[]{})));
+        }
+        return bodyBuilder.body(body);
+    }
+
 
     /**
      * Get
@@ -136,7 +150,18 @@ public abstract class AbstractApi {
             if (log.isDebugEnabled()) {
                 log.debug("unsuccessful response : {}", response);
             }
-            throw new WeComException("unsuccessful response");
+            if (ErrorCode.INVALID_ACCESS_TOKEN.equals(response.getErrcode())) {
+                // 刷新
+                this.restTemplate.getInterceptors()
+                        .stream()
+                        .filter(clientHttpRequestInterceptor -> clientHttpRequestInterceptor instanceof AccessTokenClientHttpRequestInterceptor)
+                        .findAny().ifPresent(clientHttpRequestInterceptor -> {
+                            AccessTokenClientHttpRequestInterceptor interceptor = (AccessTokenClientHttpRequestInterceptor) clientHttpRequestInterceptor;
+                            interceptor.getAccessTokenApi().getTokenResponse(interceptor.getAgentDetails());
+                        });
+                return;
+            }
+            throw new WeComException("unsuccessful response, hint: https://open.work.weixin.qq.com/devtool/query?e=" + response.getErrcode());
         }
     }
 

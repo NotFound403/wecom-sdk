@@ -4,8 +4,6 @@ import cn.felord.enumeration.MsgType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 /**
  * The type Webhook text body.
  *

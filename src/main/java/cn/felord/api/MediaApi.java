@@ -1,12 +1,10 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.TokenCacheable;
 import cn.felord.domain.MediaResponse;
-import cn.felord.domain.WeComResponse;
 import cn.felord.enumeration.MediaTypeEnum;
 import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.Optional;
 
 /**
  * The type Media api.
@@ -30,14 +27,15 @@ public class MediaApi extends AbstractApi {
     /**
      * Instantiates a new We com client.
      */
-    public MediaApi(Cacheable cacheable) {
-        super(cacheable);
+    MediaApi(TokenCacheable tokenCacheable) {
+        super(tokenCacheable);
     }
 
-    public MediaApi agent(AgentDetails agentDetails) {
+    MediaApi agent(AgentDetails agentDetails) {
         this.withAgent(agentDetails);
         return this;
     }
+
     /**
      * 上传临时素材
      *
@@ -51,7 +49,7 @@ public class MediaApi extends AbstractApi {
                 .queryParam("type", mediaType.name().toLowerCase())
                 .build()
                 .toUri();
-        return doUpload(media, "media", uri);
+        return doUpload(media, uri);
     }
 
     /**
@@ -65,21 +63,22 @@ public class MediaApi extends AbstractApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return doUpload(media, media.getName(), uri);
+        return doUpload(media, uri);
     }
 
-    private <T extends WeComResponse> T doUpload(MultipartFile media, String name, URI uri) {
+    private MediaResponse doUpload(MultipartFile media, URI uri) {
+        String name = Optional.ofNullable(media.getOriginalFilename())
+                .orElse(media.getName());
         HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.MULTIPART_FORM_DATA));
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        headers.setContentDisposition(ContentDisposition.formData()
-                .name(name)
-                .filename(Objects.requireNonNull(media.getOriginalFilename()))
-                .build());
+        ContentDisposition contentDisposition = ContentDisposition.builder("form-data")
+                .name("media")
+                .filename(name)
+                .build();
+        headers.setContentDisposition(contentDisposition);
         MultiValueMap<Object, Object> body = new LinkedMultiValueMap<>();
-        body.add(name, media.getOriginalFilename());
-        return this.post(uri, body, headers, new ParameterizedTypeReference<T>() {
-        });
+        body.add("media", media.getResource());
+        return this.post(uri, body, headers, MediaResponse.class);
     }
 
 }

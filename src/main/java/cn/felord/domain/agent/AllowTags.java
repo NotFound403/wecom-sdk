@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author felord.cn
+ * @author dax
  */
 @Data
 public class AllowTags {
