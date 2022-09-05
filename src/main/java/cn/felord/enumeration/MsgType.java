@@ -8,23 +8,27 @@ package cn.felord.enumeration;
  */
 public enum MsgType {
     /**
-     * Text msg type.
+     * 文本
      */
     TEXT,
     /**
-     * Markdown msg type.
+     * Markdown
      */
     MARKDOWN,
     /**
-     * File msg type.
+     * 文件
      */
     FILE,
     /**
-     * Image msg type.
+     * 图片
      */
     IMAGE,
     /**
-     * News msg type.
+     * 图文
      */
-    NEWS
+    NEWS,
+    /**
+     * 文本通知模板卡片
+     */
+    TEMPLATE_CARD
 }

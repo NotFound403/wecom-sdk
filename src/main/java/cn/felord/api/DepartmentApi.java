@@ -1,10 +1,11 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.TokenCacheable;
+import cn.felord.Cacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.contactbook.department.DeptRequest;
+import cn.felord.domain.contactbook.department.DeptInfo;
+import cn.felord.domain.contactbook.department.DeptSimpleInfo;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,8 +21,13 @@ import java.util.List;
  */
 public class DepartmentApi extends AbstractApi {
 
-    DepartmentApi(TokenCacheable tokenCacheable) {
-        super(tokenCacheable);
+    /**
+     * Instantiates a new Department api.
+     *
+     * @param cacheable the cacheable
+     */
+    DepartmentApi(Cacheable cacheable) {
+        super(cacheable);
     }
 
     /**
@@ -40,9 +46,9 @@ public class DepartmentApi extends AbstractApi {
      *
      * @param request the request
      * @return CreateDeptResponse generic response
-     * @see WeComEndpoint#DEPT_CREATE WeComEndpoint#DEPT_CREATE
+     * @see WeComEndpoint#DEPT_CREATE WeComEndpoint#DEPT_CREATEWeComEndpoint#DEPT_CREATE
      */
-    public GenericResponse<String> createDept(DeptRequest request) {
+    public GenericResponse<String> createDept(DeptInfo request) {
         String endpoint = WeComEndpoint.DEPT_CREATE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
@@ -56,9 +62,9 @@ public class DepartmentApi extends AbstractApi {
      *
      * @param request the request
      * @return the we com response
-     * @see WeComEndpoint#DEPT_UPDATE WeComEndpoint#DEPT_UPDATE
+     * @see WeComEndpoint#DEPT_UPDATE WeComEndpoint#DEPT_UPDATEWeComEndpoint#DEPT_UPDATE
      */
-    public WeComResponse updateDept(DeptRequest request) {
+    public WeComResponse updateDept(DeptInfo request) {
         String endpoint = WeComEndpoint.DEPT_UPDATE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
@@ -73,7 +79,7 @@ public class DepartmentApi extends AbstractApi {
      *
      * @param departmentId departmentId
      * @return WeComResponse we com response
-     * @see WeComEndpoint#DEPT_DELETE WeComEndpoint#DEPT_DELETE
+     * @see WeComEndpoint#DEPT_DELETE WeComEndpoint#DEPT_DELETEWeComEndpoint#DEPT_DELETE
      */
     public WeComResponse deleteDept(String departmentId) {
         String endpoint = WeComEndpoint.DEPT_DELETE.endpoint();
@@ -89,15 +95,33 @@ public class DepartmentApi extends AbstractApi {
      *
      * @param departmentId departmentId
      * @return DeptResponse generic response
-     * @see WeComEndpoint#DEPT_LIST WeComEndpoint#DEPT_LIST
+     * @see WeComEndpoint#DEPT_LIST WeComEndpoint#DEPT_LISTWeComEndpoint#DEPT_LIST
      */
-    public GenericResponse<List<DeptRequest>> deptList(String departmentId) {
+    @Deprecated
+    public GenericResponse<List<DeptInfo>> deptList(String departmentId) {
         String endpoint = WeComEndpoint.DEPT_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("id", departmentId)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptRequest>>>() {
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptInfo>>>() {
         });
     }
+
+    /**
+     * Get generic response.
+     *
+     * @param departmentId the department id
+     * @return the generic response
+     */
+    public GenericResponse<List<DeptSimpleInfo>> getSimpleList(String departmentId) {
+        String endpoint = WeComEndpoint.DEPT_SIMPLE_LIST.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .queryParam("id", departmentId)
+                .build()
+                .toUri();
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptSimpleInfo>>>() {
+        });
+    }
+
 }

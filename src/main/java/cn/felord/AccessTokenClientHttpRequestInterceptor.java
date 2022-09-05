@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URI;
 
 /**
- * @author dax
+ * @author felord.cn
  * @since 1.0.8.RELEASE
  */
 public class AccessTokenClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {

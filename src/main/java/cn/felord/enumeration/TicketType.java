@@ -1,7 +1,7 @@
 package cn.felord.enumeration;
 
 /**
- * @author dax
+ * @author felord.cn
  */
 public enum TicketType {
     AGENT_CONFIG("agent_config");

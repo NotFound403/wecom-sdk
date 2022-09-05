@@ -3,7 +3,7 @@ package cn.felord.domain.agent;
 import lombok.Data;
 
 /**
- * @author dax
+ * @author felord.cn
  */
 @Data
 public class QwUser {

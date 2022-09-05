@@ -1,41 +1,83 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.TokenCacheable;
+import cn.felord.Cacheable;
 import lombok.AllArgsConstructor;
 
 /**
- * @author xiafang
+ * The type Work we chat api.
+ *
+ * @author felord.cn
  */
 @AllArgsConstructor
 public final class WorkWeChatApi {
-    private final TokenCacheable tokenCacheable;
+    private final Cacheable cacheable;
 
+    /**
+     * 获取企业微信API域名IP段
+     *
+     * @param agent the agent
+     * @return the domain api
+     */
     public DomainApi domainApi(AgentDetails agent) {
-        return new DomainApi(tokenCacheable).agent(agent);
+        return new DomainApi(cacheable).agent(agent);
     }
 
+    /**
+     * 通讯录管理
+     *
+     * @return the contact manager
+     */
     public ContactManager contactManager() {
-        return new ContactManager(tokenCacheable);
+        return new ContactManager(cacheable);
     }
 
+    /**
+     * 身份验证
+     *
+     * @param agent the agent
+     * @return the auth api
+     */
+    public AuthApi authApi(AgentDetails agent) {
+        return new AuthApi(cacheable).agent(agent);
+    }
+
+    /**
+     * 应用管理
+     *
+     * @param agent the agent
+     * @return the agent manager
+     */
     public AgentManager agentManager(AgentDetails agent) {
-        return new AgentManager(tokenCacheable).agent(agent);
+        return new AgentManager(cacheable).agent(agent);
     }
 
+    /**
+     * SDK ticket相关接口
+     *
+     * @param agent the agent
+     * @return the sdk ticket api
+     */
     public SdkTicketApi sdkTicketApi(AgentDetails agent) {
-        return new SdkTicketApi(tokenCacheable).agent(agent);
+        return new SdkTicketApi(cacheable).agent(agent);
     }
 
+    /**
+     * Webhook相关接口
+     *
+     * @return the webhook api
+     */
     public WebhookApi webhookApi() {
-        return new WebhookApi(tokenCacheable);
+        return new WebhookApi();
     }
 
+    /**
+     * 素材接口
+     *
+     * @param agent the agent
+     * @return the media api
+     */
     public MediaApi mediaApi(AgentDetails agent) {
-        return new MediaApi(tokenCacheable).agent(agent);
-    }
-
-    public AccessTokenApi accessTokenApi() {
-        return new AccessTokenApi(tokenCacheable);
+        return new MediaApi(cacheable).agent(agent);
     }
 }

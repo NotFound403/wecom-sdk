@@ -30,11 +30,11 @@ public enum WeComEndpoint {
     /**
      * 获取访问用户身份，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/91023">文档</a>
      */
-    USER_INFO_BY_CODE("/user/getuserinfo"),
+    USER_AUTH_BY_CODE("/auth/getuserinfo"),
     /**
      * 获取访问用户敏感信息，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95833">文档</a>
      */
-    USER_DETAIL_BY_USER_TICKET("/user/getuserdetail"),
+    USER_DETAIL_BY_USER_TICKET("/auth/getuserdetail"),
     /**
      * 批量删除成员，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90199">文档</a>
      */
@@ -88,6 +88,10 @@ public enum WeComEndpoint {
      */
     DEPT_LIST("/department/list"),
     /**
+     * 获取子部门ID列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95350">文档</a>
+     */
+    DEPT_SIMPLE_LIST("/department/simplelist"),
+    /**
      * 创建标签，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90210">文档</a>
      */
     TAG_CREATE("/tag/create"),
@@ -136,6 +140,18 @@ public enum WeComEndpoint {
      */
     API_DOMAIN_IP("/get_api_domain_ip"),
     /**
+     * 自建应用与第三方应用的对接，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95884">文档</a>
+     */
+    OPENUSERID_TO_USERID("/batch/openuserid_to_userid"),
+    /**
+     * 获取应用的可见范围，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93172">文档</a>
+     */
+    LINKED_CORP_PERM_LIST("/linkedcorp/agent/get_perm_list"),
+    /**
+     * 获取互联企业成员详细信息，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93171">文档</a>
+     */
+    LINKED_CORP_USER("/linkedcorp/user/get"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),
@@ -144,7 +160,7 @@ public enum WeComEndpoint {
      */
     MEDIA_UPLOAD_IMG("/media/uploadimg"),
     /**
-     * 获取企业微信API域名IP段，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
+     * 企业微信 Webhook API，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
      */
     WEBHOOK_SEND("/webhook/send"),
     /**

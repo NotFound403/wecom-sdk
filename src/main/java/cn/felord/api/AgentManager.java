@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.TokenCacheable;
+import cn.felord.Cacheable;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;
@@ -12,7 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 /**
- * @author dax
+ * @author felord.cn
  * @since 1.0.14.RELEASE
  */
 public class AgentManager extends AbstractApi {
@@ -21,10 +21,10 @@ public class AgentManager extends AbstractApi {
     /**
      * Instantiates a new We com client.
      *
-     * @param tokenCacheable
+     * @param cacheable
      */
-    AgentManager(TokenCacheable tokenCacheable) {
-        super(tokenCacheable);
+    AgentManager(Cacheable cacheable) {
+        super(cacheable);
     }
 
     AgentManager agent(AgentDetails agent) {

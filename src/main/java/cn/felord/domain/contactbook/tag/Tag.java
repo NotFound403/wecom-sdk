@@ -3,7 +3,7 @@ package cn.felord.domain.contactbook.tag;
 import lombok.Data;
 
 /**
- * @author dax
+ * @author felord.cn
  * @since 1.0.8.RELEASE
  */
 @Data

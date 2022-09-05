@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author xiafang
+ * @author felord.cn
  * @see MultipartFile
  */
 public class WeChatMultipartFile implements MultipartFile {

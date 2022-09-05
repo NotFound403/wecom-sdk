@@ -10,9 +10,9 @@ import lombok.Getter;
  */
 @Getter
 public abstract class WebhookBody {
-    private String msgtype;
+    private final String msgtype;
 
-    void setMsgtype(MsgType msgtype) {
+    protected WebhookBody(MsgType msgtype) {
         this.msgtype = msgtype.name().toLowerCase();
     }
 }

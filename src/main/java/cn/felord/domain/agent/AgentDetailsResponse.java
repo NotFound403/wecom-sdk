@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @author dax
+ * @author felord.cn
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -22,6 +22,5 @@ public class AgentDetailsResponse extends WeComResponse {
     private Integer reportLocationFlag;
     private Integer isreportenter;
     private String homeUrl;
-
     private Integer customizedPublishStatus;
 }

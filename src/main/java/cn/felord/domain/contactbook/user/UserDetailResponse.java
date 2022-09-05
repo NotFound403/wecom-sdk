@@ -1,7 +1,7 @@
 package cn.felord.domain.contactbook.user;
 
-import cn.felord.domain.WeComResponse;
 import com.fasterxml.jackson.annotation.JsonAlias;
+import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

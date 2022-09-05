@@ -45,7 +45,7 @@ import java.util.Map;
 /**
  * 用于处理上传的自定义消息转换器.
  *
- * @author dax
+ * @author felord.cn
  * @see AllEncompassingFormHttpMessageConverter
  * @since 1.0.0.RELEASE
  */

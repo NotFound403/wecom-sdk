@@ -3,7 +3,8 @@ package cn.felord.domain.jssdk;
 import lombok.Data;
 
 /**
- * @author dax
+ * @author felord.cn
+ * @since 1.0.14.RELEASE
  */
 @Data
 public class JSignatureResponse {

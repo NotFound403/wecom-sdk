@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.TokenCacheable;
+import cn.felord.Cacheable;
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.jssdk.AgentConfigResponse;
@@ -26,26 +26,24 @@ import java.time.Instant;
 /**
  * The type Js sdk ticket api.
  *
- * @author dax
+ * @author felord.cn
  * @since 1.0.14.RELEASE
  */
 public class SdkTicketApi extends AbstractApi {
     private static final String SIGNATURE_FORMATTER = "jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}";
-    private static final String CORP_TICKET_FORMATTER = "qywx::ticket::corp::{0}::{1}";
-    private static final String AGENT_TICKET_FORMATTER = "qywx::ticket::agent::{0}::{1}";
     private final IdGenerator nonceStrGenerator = new AlternativeJdkIdGenerator();
     private AgentDetails agentDetails;
-    private final TokenCacheable tokenCacheable;
+    private final Cacheable cacheable;
 
 
     /**
      * Instantiates a new We com client.
      *
-     * @param tokenCacheable
+     * @param cacheable the cacheable
      */
-    SdkTicketApi(TokenCacheable tokenCacheable) {
-        super(tokenCacheable);
-        this.tokenCacheable = tokenCacheable;
+    SdkTicketApi(Cacheable cacheable) {
+        super(cacheable);
+        this.cacheable = cacheable;
     }
 
     /**
@@ -63,13 +61,12 @@ public class SdkTicketApi extends AbstractApi {
     /**
      * Corp ticket js ticket response.
      *
+     * @param url the url
      * @return the js ticket response
      */
     public CorpConfigResponse corpTicket(String url) {
-        String corpTicket = this.ticket(CORP_TICKET_FORMATTER, WeComEndpoint.CORP_JSAPI_TICKET, null);
-
+        String corpTicket = this.corpTicket();
         JSignatureResponse jSignatureResponse = this.sha1(corpTicket, url);
-
         CorpConfigResponse corpConfigResponse = new CorpConfigResponse();
         corpConfigResponse.setAppId(agentDetails.getCorpId());
         corpConfigResponse.setNonceStr(jSignatureResponse.getNonceStr());
@@ -82,12 +79,13 @@ public class SdkTicketApi extends AbstractApi {
     /**
      * Agent ticket js ticket response.
      *
+     * @param url the url
      * @return the js ticket response
      */
     public AgentConfigResponse agentTicket(String url) {
         String agentId = agentDetails.getAgentId();
         Assert.notNull(agentId, "agentId must not be null");
-        String agentTicket = this.ticket(AGENT_TICKET_FORMATTER, WeComEndpoint.AGENT_JSAPI_TICKET, TicketType.AGENT_CONFIG);
+        String agentTicket = this.agentTicket();
         JSignatureResponse jSignatureResponse = this.sha1(agentTicket, url);
         AgentConfigResponse agentConfigResponse = new AgentConfigResponse();
         agentConfigResponse.setCorpid(agentDetails.getCorpId());
@@ -98,26 +96,38 @@ public class SdkTicketApi extends AbstractApi {
         return agentConfigResponse;
     }
 
-    private String ticket(String formatter, WeComEndpoint weComEndpoint, TicketType ticketType) {
-        String key = MessageFormat.format(formatter, this.agentDetails.getCorpId(), this.agentDetails.getAgentId());
-        String ticket = tokenCacheable.get(key);
+    private String corpTicket() {
+        String corpId = this.agentDetails.getCorpId();
+        String agentId = this.agentDetails.getAgentId();
+        String ticket = cacheable.getCorpTicket(corpId, agentId);
         if (ticket == null) {
-            String endpoint = weComEndpoint.endpoint();
-            UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(endpoint);
-            if (ticketType != null) {
-                uriComponentsBuilder.queryParam("type", ticketType.type());
-            }
-            URI uri = uriComponentsBuilder
+            URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.CORP_JSAPI_TICKET.endpoint())
                     .build()
                     .toUri();
             JsTicketResponse jsTicketResponse = this.get(uri, JsTicketResponse.class);
             if (!jsTicketResponse.isSuccessful() || jsTicketResponse.getTicket() == null) {
-                throw new WeComException("fail to obtain the ticket");
+                throw new WeComException("fail to obtain the corp ticket");
             }
-            ticket = jsTicketResponse.ticket;
-            tokenCacheable.put(key, ticket);
+            ticket = cacheable.putCorpTicket(corpId, agentId, jsTicketResponse.ticket);
         }
+        return ticket;
+    }
 
+    private String agentTicket() {
+        String corpId = this.agentDetails.getCorpId();
+        String agentId = this.agentDetails.getAgentId();
+        String ticket = cacheable.getAgentTicket(corpId, agentId);
+        if (ticket == null) {
+            URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.AGENT_JSAPI_TICKET.endpoint())
+                    .queryParam("type", TicketType.AGENT_CONFIG.type())
+                    .build()
+                    .toUri();
+            JsTicketResponse jsTicketResponse = this.get(uri, JsTicketResponse.class);
+            if (!jsTicketResponse.isSuccessful() || jsTicketResponse.getTicket() == null) {
+                throw new WeComException("fail to obtain the agent ticket");
+            }
+            ticket = cacheable.putAgentTicket(corpId, agentId, jsTicketResponse.ticket);
+        }
         return ticket;
     }
 
@@ -139,10 +149,12 @@ public class SdkTicketApi extends AbstractApi {
         jSignature.setSignature(signature);
 
         return jSignature;
-
     }
 
 
+    /**
+     * The type Js ticket response.
+     */
     @EqualsAndHashCode(callSuper = true)
     @Data
     static class JsTicketResponse extends WeComResponse {

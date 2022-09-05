@@ -10,25 +10,30 @@ import java.util.List;
  */
 @Data
 public class UserDetail {
-    private String address;
-    private String gender;
-    private String externalPosition;
-    private String mobile;
-    private List<Integer> isLeaderInDept;
-    private String telephone;
-    private String avatar;
-    private Integer mainDepartment;
     private String userid;
-    private String thumbAvatar;
     private String name;
+    private String mobile;
+    private List<Integer> department;
+    private List<Integer> order;
+    private String position;
+    private String gender;
+    private String email;
+    private String bizMail;
+    private List<Integer> isLeaderInDept;
+    private List<String> directLeader;
+    private String avatar;
+    private String thumbAvatar;
+    private String telephone;
     private String alias;
+    private Integer status;
     private Extattr extattr;
     private String qrCode;
-    private String position;
-    private List<Integer> department;
-    private String openUserid;
     private ExternalProfile externalProfile;
-    private String email;
-    private List<Integer> order;
-    private Integer status;
+    private String externalPosition;
+    private String address;
+    private String openUserid;
+    private Integer mainDepartment;
+    private Integer hideMobile;
+    private String englishName;
+
 }

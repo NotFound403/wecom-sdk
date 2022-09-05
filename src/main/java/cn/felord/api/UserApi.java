@@ -1,11 +1,10 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.TokenCacheable;
+import cn.felord.Cacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.user.*;
-import cn.felord.enumeration.DeptUserFetchType;
 import cn.felord.enumeration.EmailType;
 import cn.felord.enumeration.UserQrcodeSize;
 import cn.felord.enumeration.WeComEndpoint;
@@ -26,8 +25,13 @@ import java.util.Map;
  */
 public class UserApi extends AbstractApi {
 
-    UserApi(TokenCacheable tokenCacheable) {
-        super(tokenCacheable);
+    /**
+     * Instantiates a new User api.
+     *
+     * @param cacheable the cacheable
+     */
+    UserApi(Cacheable cacheable) {
+        super(cacheable);
     }
 
     /**
@@ -42,13 +46,26 @@ public class UserApi extends AbstractApi {
     }
 
     /**
+     * 自建应用与第三方应用的对接
+     *
+     * @param request the request
+     * @return the user id convert response
+     */
+    public UserIdConvertResponse batchOpenUserIdToUserId(UserIdConvertRequest request){
+        String endpoint = WeComEndpoint.OPENUSERID_TO_USERID.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return this.post(uri, request, UserIdConvertResponse.class);
+    }
+
+    /**
      * 创建成员
      * <p>
      * 仅通讯录同步助手或第三方通讯录应用可调用。
      *
      * @param request the request
      * @return WeComResponse we com response
-     * @see WeComEndpoint#USER_CREATE WeComEndpoint#USER_CREATE
      */
     public WeComResponse createUser(UserInfoRequest request) {
         String endpoint = WeComEndpoint.USER_CREATE.endpoint();
@@ -65,8 +82,8 @@ public class UserApi extends AbstractApi {
      *
      * @param userId the user id
      * @return UserInfoResponse user
-     * @see WeComEndpoint#USER_GET WeComEndpoint#USER_GET
      */
+    @Deprecated
     public UserInfoResponse getUser(String userId) {
         String endpoint = WeComEndpoint.USER_GET.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
@@ -83,7 +100,6 @@ public class UserApi extends AbstractApi {
      *
      * @param request the request
      * @return WeComResponse we com response
-     * @see WeComEndpoint#USER_UPDATE WeComEndpoint#USER_UPDATE
      */
     public WeComResponse updateUser(UserInfoRequest request) {
         String endpoint = WeComEndpoint.USER_UPDATE.endpoint();
@@ -100,7 +116,6 @@ public class UserApi extends AbstractApi {
      *
      * @param userId the user id
      * @return WeComResponse we com response
-     * @see WeComEndpoint#USER_DELETE WeComEndpoint#USER_DELETE
      */
     public WeComResponse deleteUser(String userId) {
         String endpoint = WeComEndpoint.USER_DELETE.endpoint();
@@ -118,7 +133,6 @@ public class UserApi extends AbstractApi {
      *
      * @param userIdList the user id list
      * @return WeComResponse we com response
-     * @see WeComEndpoint#USER_BATCH_DELETE WeComEndpoint#USER_BATCH_DELETE
      */
     public WeComResponse batchDelUser(List<String> userIdList) {
         String endpoint = WeComEndpoint.USER_BATCH_DELETE.endpoint();
@@ -134,15 +148,13 @@ public class UserApi extends AbstractApi {
      * 应用须拥有指定部门的查看权限。
      *
      * @param departmentId departmentId
-     * @param type         the type
      * @return SimpleUserResponse dept users
-     * @see WeComEndpoint#USER_DEPT_LIST WeComEndpoint#USER_DEPT_LIST
      */
-    public GenericResponse<List<SimpleUser>> getDeptUsers(String departmentId, DeptUserFetchType type) {
+    @Deprecated
+    public GenericResponse<List<SimpleUser>> getDeptUsers(String departmentId) {
         String endpoint = WeComEndpoint.USER_DEPT_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("department_id", departmentId)
-                .queryParam("fetch_child", type.type())
                 .build()
                 .toUri();
         return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<SimpleUser>>>() {
@@ -155,15 +167,13 @@ public class UserApi extends AbstractApi {
      * 应用须拥有指定部门的查看权限。
      *
      * @param departmentId departmentId
-     * @param type         the type
      * @return UserDetailResponse dept user details
-     * @see WeComEndpoint#USER_DEPT_LIST_DETAIL WeComEndpoint#USER_DEPT_LIST_DETAIL
      */
-    public GenericResponse<List<UserDetail>> getDeptUserDetails(String departmentId, DeptUserFetchType type) {
+    @Deprecated
+    public GenericResponse<List<UserDetail>> getDeptUserDetails(String departmentId) {
         String endpoint = WeComEndpoint.USER_DEPT_LIST_DETAIL.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("department_id", departmentId)
-                .queryParam("fetch_child", type.type())
                 .build()
                 .toUri();
         return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<UserDetail>>>() {
@@ -180,7 +190,6 @@ public class UserApi extends AbstractApi {
      *
      * @param userId userId
      * @return OpenIdResponse generic response
-     * @see WeComEndpoint#USER_BATCH_DELETE WeComEndpoint#USER_BATCH_DELETE
      */
     public GenericResponse<String> converToOpenid(String userId) {
         String endpoint = WeComEndpoint.USERID_TO_OPENID.endpoint();
@@ -199,7 +208,6 @@ public class UserApi extends AbstractApi {
      *
      * @param userId userId
      * @return WeComResponse we com response
-     * @see WeComEndpoint#USER_AUTH WeComEndpoint#USER_AUTH
      */
     public WeComResponse userAuth(String userId) {
         String endpoint = WeComEndpoint.USER_AUTH.endpoint();
@@ -217,7 +225,6 @@ public class UserApi extends AbstractApi {
      *
      * @param request batchInviteRequest
      * @return BatchInviteResponse batch invite response
-     * @see WeComEndpoint#USER_BATCH_INVITE WeComEndpoint#USER_BATCH_INVITE
      */
     public BatchInviteResponse inviteUsers(BatchInviteRequest request) {
         String endpoint = WeComEndpoint.USER_BATCH_INVITE.endpoint();
@@ -234,7 +241,6 @@ public class UserApi extends AbstractApi {
      *
      * @param size size
      * @return WeComResponse join qrcode
-     * @see WeComEndpoint#USER_JOIN_QRCODE WeComEndpoint#USER_JOIN_QRCODE
      */
     public GenericResponse<String> getJoinQrcode(UserQrcodeSize size) {
         String endpoint = WeComEndpoint.USER_JOIN_QRCODE.endpoint();
@@ -251,7 +257,6 @@ public class UserApi extends AbstractApi {
      *
      * @param mobile mobile
      * @return WeComResponse active stat
-     * @see WeComEndpoint#USER_ID_BY_MOBILE WeComEndpoint#USER_ID_BY_MOBILE
      */
     public GenericResponse<String> getUserIdByMobile(String mobile) {
         String endpoint = WeComEndpoint.USER_ID_BY_MOBILE.endpoint();
@@ -269,7 +274,6 @@ public class UserApi extends AbstractApi {
      * @param email     email
      * @param emailType emailType
      * @return WeComResponse active stat
-     * @see WeComEndpoint#USER_ID_BY_EMAIL WeComEndpoint#USER_ID_BY_EMAIL
      */
     public GenericResponse<String> getUserIdByEmail(String email, EmailType emailType) {
         String endpoint = WeComEndpoint.USER_ID_BY_EMAIL.endpoint();
@@ -282,39 +286,5 @@ public class UserApi extends AbstractApi {
         return this.post(uri, request,
                 new ParameterizedTypeReference<GenericResponse<String>>() {
                 });
-    }
-
-    /**
-     * 获取访问用户身份
-     * <p>
-     * 该接口用于根据code获取成员信息，适用于自建应用与代开发应用
-     *
-     * @param code 通过成员授权获取到的code
-     * @return UserDetailResponse
-     */
-    public UserDetailResponse getUserInfo(String code){
-        String endpoint = WeComEndpoint.USER_INFO_BY_CODE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("code", code)
-                .build()
-                .toUri();
-        return this.get(uri,UserDetailResponse.class);
-    }
-    /**
-     * 获取访问用户敏感信息
-     * <p>
-     * 自建应用与代开发应用可通过该接口获取成员授权的敏感字段
-     *
-     * @param userTicket 成员票据
-     * @return UserSensitiveInfoResponse
-     */
-    public UserSensitiveInfoResponse getUserDetail(String userTicket){
-        String endpoint = WeComEndpoint.USER_DETAIL_BY_USER_TICKET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return this.post(uri,
-                Collections.singletonMap("user_ticket",userTicket),
-                UserSensitiveInfoResponse.class);
     }
 }

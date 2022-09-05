@@ -3,6 +3,8 @@ package cn.felord.domain.webhook;
 import cn.felord.enumeration.MsgType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -13,12 +15,13 @@ import java.util.List;
  * @since 2021 /6/16 15:02
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 public class WebhookNewsBody extends WebhookBody {
     private WebhookNews news;
 
     public WebhookNewsBody() {
-        setMsgtype(MsgType.NEWS);
+        super(MsgType.NEWS);
     }
 
     /**

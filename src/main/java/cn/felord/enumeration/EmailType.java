@@ -1,13 +1,21 @@
 package cn.felord.enumeration;
 
 /**
- * @author dax
+ * The enum Email type.
+ *
+ * @author felord.cn
  * @since 1.0.14.RELEASE
  */
 public enum EmailType {
 
+    /**
+     * 企业邮箱.
+     */
     CORP(1,"企业邮箱（默认）"),
-    PERSONAL(1,"企业邮箱（默认）");
+    /**
+     * 个人邮箱.
+     */
+    PERSONAL(2,"个人邮箱");
 
 
     private final Integer type;
@@ -18,10 +26,20 @@ public enum EmailType {
         this.description = description;
     }
 
+    /**
+     * Type integer.
+     *
+     * @return the integer
+     */
     public Integer type(){
         return this.type;
     }
 
+    /**
+     * Description string.
+     *
+     * @return the string
+     */
     public String description(){
         return this.description;
     }

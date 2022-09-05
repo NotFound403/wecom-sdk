@@ -1,8 +1,8 @@
 package cn.felord.api;
 
-import cn.felord.RestTemplateFactory;
 import cn.felord.AgentDetails;
-import cn.felord.TokenCacheable;
+import cn.felord.Cacheable;
+import cn.felord.RestTemplateFactory;
 import cn.felord.domain.authentication.AccessTokenResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.web.client.RestTemplate;
@@ -12,35 +12,35 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.text.MessageFormat;
 
 /**
- * @author xiafang
+ * @author felord.cn
  */
 public class AccessTokenApi {
-    private static final String KEY_FORMATTER = "qywx::token::{0}::{1}";
     private final RestTemplate restTemplate;
-    private final TokenCacheable tokenCacheable;
+    private final Cacheable cacheable;
 
 
-    AccessTokenApi(TokenCacheable tokenCacheable) {
+    AccessTokenApi(Cacheable cacheable) {
         this.restTemplate = RestTemplateFactory.restOperations();
-        this.tokenCacheable = tokenCacheable;
+        this.cacheable = cacheable;
     }
 
 
     public synchronized String getTokenResponse(AgentDetails agentDetails) {
-        String key = MessageFormat.format(KEY_FORMATTER, agentDetails.getCorpId(), agentDetails.getAgentId());
-        String tokenCache = tokenCacheable.get(key);
+        String corpId = agentDetails.getCorpId();
+        String agentId = agentDetails.getAgentId();
+        String tokenCache = cacheable.getToken(corpId,agentId);
         if (tokenCache == null) {
             UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.GET_TOKEN.endpoint())
-                    .queryParam("corpid", agentDetails.getCorpId())
+                    .queryParam("corpid", corpId)
                     .queryParam("corpsecret", agentDetails.getSecret())
                     .build();
             AccessTokenResponse tokenResponse = this.restTemplate.getForObject(uriComponents.toUri(), AccessTokenResponse.class);
             if (tokenResponse == null || !tokenResponse.isSuccessful()) {
                 throw new RuntimeException("failed to obtain access token");
             }
-            tokenCache = tokenCacheable.put(key, tokenResponse.getAccessToken());
-        }
+            tokenCache = cacheable.putToken(corpId,agentId, tokenResponse.getAccessToken());
 
+        }
         return tokenCache;
     }
 

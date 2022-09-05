@@ -3,6 +3,8 @@ package cn.felord.domain.webhook;
 import cn.felord.enumeration.MsgType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The type Webhook text body.
@@ -11,12 +13,13 @@ import lombok.EqualsAndHashCode;
  * @since 2021 /6/16 15:02
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 public class WebhookFileBody extends WebhookBody {
     private WebhookFile file;
 
     public WebhookFileBody() {
-        setMsgtype(MsgType.FILE);
+        super(MsgType.FILE);
     }
 
     /**

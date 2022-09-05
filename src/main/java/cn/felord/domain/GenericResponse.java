@@ -18,6 +18,8 @@ public class GenericResponse<T> extends WeComResponse {
             "userid",
             "join_qrcode",
             "userlist",
+            "user_info",
+            "department_id",
             "department",
             "active_cnt",
             "tagid",

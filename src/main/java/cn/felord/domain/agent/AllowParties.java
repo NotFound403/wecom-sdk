@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author dax
+ * @author felord.cn
  */
 @Data
 public class AllowParties {

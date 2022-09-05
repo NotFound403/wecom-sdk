@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.TokenCacheable;
+import cn.felord.Cacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.tag.Tag;
@@ -19,12 +19,12 @@ import java.net.URI;
  * <p>
  * 标签属于应用
  *
- * @author dax
+ * @author felord.cn
  * @since 1.0.8.RELEASE
  */
 public class TagApi extends AbstractApi {
-    TagApi(TokenCacheable tokenCacheable) {
-        super(tokenCacheable);
+    TagApi(Cacheable cacheable) {
+        super(cacheable);
     }
 
     TagApi agent(AgentDetails agent) {

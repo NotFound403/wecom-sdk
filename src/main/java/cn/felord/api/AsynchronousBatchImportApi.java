@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.TokenCacheable;
+import cn.felord.Cacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.contactbook.async.BatchPartyRequest;
 import cn.felord.domain.contactbook.async.BatchResultResponse;
@@ -13,20 +13,20 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 /**
- * 异步
+ * 异步导入接口
  *
  * @author n1
  * @since 2021 /6/18 16:25
  */
-public class AsynchronousBatchApi extends AbstractApi {
+public class AsynchronousBatchImportApi extends AbstractApi {
 
     /**
      * Instantiates a new We com client.
      *
-     * @param tokenCacheable
+     * @param cacheable
      */
-    AsynchronousBatchApi(TokenCacheable tokenCacheable) {
-        super(tokenCacheable);
+    AsynchronousBatchImportApi(Cacheable cacheable) {
+        super(cacheable);
     }
 
     /**
@@ -35,7 +35,7 @@ public class AsynchronousBatchApi extends AbstractApi {
      * @param agent the agent
      * @return the asynchronous batch api
      */
-    AsynchronousBatchApi agent(AgentDetails agent) {
+    AsynchronousBatchImportApi agent(AgentDetails agent) {
         this.withAgent(agent);
         return this;
     }

@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 
 /**
- * @author xiafang
+ * @author felord.cn
  */
 public final class RestTemplateFactory {
     private RestTemplateFactory() {
