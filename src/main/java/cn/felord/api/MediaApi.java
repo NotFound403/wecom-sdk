@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.WeComCacheable;
 import cn.felord.domain.MediaResponse;
 import cn.felord.enumeration.MediaTypeEnum;
 import cn.felord.enumeration.WeComEndpoint;
@@ -27,8 +27,8 @@ public class MediaApi extends AbstractApi {
     /**
      * Instantiates a new We com client.
      */
-    MediaApi(Cacheable cacheable) {
-        super(cacheable);
+    MediaApi(WeComCacheable wecomCacheable) {
+        super(wecomCacheable);
     }
 
     MediaApi agent(AgentDetails agentDetails) {

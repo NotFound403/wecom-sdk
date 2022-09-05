@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.linkedcorp.CorpDept;
@@ -29,10 +29,10 @@ public class LinkedCorpApi extends AbstractApi {
     /**
      * LinkedCorpApi
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the cacheable
      */
-    LinkedCorpApi(Cacheable cacheable) {
-        super(cacheable);
+    LinkedCorpApi(WeComCacheable wecomCacheable) {
+        super(wecomCacheable);
     }
 
     /**

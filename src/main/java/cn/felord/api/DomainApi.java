@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class DomainApi extends AbstractApi {
 
-    DomainApi(Cacheable cacheable) {
-        super(cacheable);
+    DomainApi(WeComCacheable wecomCacheable) {
+        super(wecomCacheable);
     }
 
     /**

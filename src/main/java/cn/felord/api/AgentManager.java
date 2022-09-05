@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.WeComCacheable;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;
@@ -21,10 +21,10 @@ public class AgentManager extends AbstractApi {
     /**
      * Instantiates a new We com client.
      *
-     * @param cacheable
+     * @param wecomCacheable
      */
-    AgentManager(Cacheable cacheable) {
-        super(cacheable);
+    AgentManager(WeComCacheable wecomCacheable) {
+        super(wecomCacheable);
     }
 
     AgentManager agent(AgentDetails agent) {

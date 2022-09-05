@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.WeComCacheable;
 import cn.felord.domain.contactbook.user.UserDetailResponse;
 import cn.felord.domain.contactbook.user.UserSensitiveInfoResponse;
 import cn.felord.enumeration.WeComEndpoint;
@@ -20,10 +20,10 @@ public class AuthApi extends AbstractApi {
     /**
      * Instantiates a new We com client.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the cacheable
      */
-    public AuthApi(Cacheable cacheable) {
-        super(cacheable);
+    public AuthApi(WeComCacheable wecomCacheable) {
+        super(wecomCacheable);
     }
 
     AuthApi agent(AgentDetails agent) {

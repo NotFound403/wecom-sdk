@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.department.DeptInfo;
@@ -24,10 +24,10 @@ public class DepartmentApi extends AbstractApi {
     /**
      * Instantiates a new Department api.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the cacheable
      */
-    DepartmentApi(Cacheable cacheable) {
-        super(cacheable);
+    DepartmentApi(WeComCacheable wecomCacheable) {
+        super(wecomCacheable);
     }
 
     /**

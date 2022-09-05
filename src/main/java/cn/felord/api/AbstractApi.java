@@ -28,9 +28,9 @@ public abstract class AbstractApi {
     /**
      * Instantiates a new We com client.
      */
-    public AbstractApi(Cacheable cacheable) {
+    public AbstractApi(WeComCacheable wecomCacheable) {
         this.restTemplate = RestTemplateFactory.restOperations();
-        this.requestInterceptor = new AccessTokenClientHttpRequestInterceptor(new AccessTokenApi(cacheable));
+        this.requestInterceptor = new AccessTokenClientHttpRequestInterceptor(new AccessTokenApi(wecomCacheable));
     }
 
     /**

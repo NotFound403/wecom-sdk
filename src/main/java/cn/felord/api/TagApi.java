@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.tag.Tag;
@@ -23,8 +23,8 @@ import java.net.URI;
  * @since 1.0.8.RELEASE
  */
 public class TagApi extends AbstractApi {
-    TagApi(Cacheable cacheable) {
-        super(cacheable);
+    TagApi(WeComCacheable wecomCacheable) {
+        super(wecomCacheable);
     }
 
     TagApi agent(AgentDetails agent) {

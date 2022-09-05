@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.contactbook.async.BatchPartyRequest;
 import cn.felord.domain.contactbook.async.BatchResultResponse;
@@ -23,10 +23,10 @@ public class AsynchronousBatchImportApi extends AbstractApi {
     /**
      * Instantiates a new We com client.
      *
-     * @param cacheable
+     * @param wecomCacheable
      */
-    AsynchronousBatchImportApi(Cacheable cacheable) {
-        super(cacheable);
+    AsynchronousBatchImportApi(WeComCacheable wecomCacheable) {
+        super(wecomCacheable);
     }
 
     /**

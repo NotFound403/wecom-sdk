@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.user.*;
@@ -28,10 +28,10 @@ public class UserApi extends AbstractApi {
     /**
      * Instantiates a new User api.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the cacheable
      */
-    UserApi(Cacheable cacheable) {
-        super(cacheable);
+    UserApi(WeComCacheable wecomCacheable) {
+        super(wecomCacheable);
     }
 
     /**

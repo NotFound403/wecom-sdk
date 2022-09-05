@@ -2,7 +2,7 @@ package cn.felord.api;
 
 import cn.felord.Agent;
 import cn.felord.AgentDetails;
-import cn.felord.Cacheable;
+import cn.felord.WeComCacheable;
 
 /**
  * The type Contact manager.
@@ -11,15 +11,15 @@ import cn.felord.Cacheable;
  * @since 1.0.14.RELEASE
  */
 public class ContactManager {
-    private final Cacheable cacheable;
+    private final WeComCacheable wecomCacheable;
 
     /**
      * Instantiates a new Contact manager.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the cacheable
      */
-    ContactManager(Cacheable cacheable) {
-        this.cacheable = cacheable;
+    ContactManager(WeComCacheable wecomCacheable) {
+        this.wecomCacheable = wecomCacheable;
     }
 
     /**
@@ -29,7 +29,7 @@ public class ContactManager {
      * @return the user api
      */
     public UserApi userApi(AgentDetails agent) {
-        return new UserApi(cacheable).agent(agent);
+        return new UserApi(wecomCacheable).agent(agent);
     }
 
     /**
@@ -39,7 +39,7 @@ public class ContactManager {
      * @return the department api
      */
     public DepartmentApi departmentApi(AgentDetails agent) {
-        return new DepartmentApi(cacheable).agent(agent);
+        return new DepartmentApi(wecomCacheable).agent(agent);
     }
 
     /**
@@ -49,7 +49,7 @@ public class ContactManager {
      * @return the tag api
      */
     public TagApi tagApi(AgentDetails agent) {
-        return new TagApi(cacheable).agent(agent);
+        return new TagApi(wecomCacheable).agent(agent);
     }
 
     /**
@@ -59,7 +59,7 @@ public class ContactManager {
      * @return the asynchronous batch import api
      */
     public AsynchronousBatchImportApi asynchronousBatchApi(Agent agent) {
-        return new AsynchronousBatchImportApi(cacheable).agent(agent);
+        return new AsynchronousBatchImportApi(wecomCacheable).agent(agent);
     }
 
     /**
@@ -69,6 +69,6 @@ public class ContactManager {
      * @return the linked corp api
      */
     public LinkedCorpApi linkedCorpApi(Agent agent) {
-        return new LinkedCorpApi(cacheable).agent(agent);
+        return new LinkedCorpApi(wecomCacheable).agent(agent);
     }
 }
