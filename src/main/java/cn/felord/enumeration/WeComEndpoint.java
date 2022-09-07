@@ -152,6 +152,14 @@ public enum WeComEndpoint {
      */
     LINKED_CORP_USER("/linkedcorp/user/get"),
     /**
+     * 获取互联企业部门成员，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93168">文档</a>
+     */
+    LINKED_CORP_USER_SIMPLELIST("/linkedcorp/user/simplelist"),
+    /**
+     * 获取互联企业部门列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93170">文档</a>
+     */
+    LINKED_CORP_DEPT_LIST("/linkedcorp/department/list"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),
