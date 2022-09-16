@@ -19,14 +19,21 @@ public class GenericResponse<T> extends WeComResponse {
             "join_qrcode",
             "userlist",
             "user_info",
+            "follow_user",
             "department_id",
+            "department_list",
             "department",
             "active_cnt",
             "tagid",
             "taglist",
             "jobid",
             "ip_list",
-            "external_userid"
+            "external_userid",
+            "contact_way",
+            "strategy_id",
+            "tag_group",
+            "chat_id",
+            "failed_chat_list"
     })
     private T data;
 }

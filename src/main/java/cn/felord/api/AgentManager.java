@@ -2,6 +2,7 @@ package cn.felord.api;
 
 import cn.felord.AgentDetails;
 import cn.felord.WeComCacheable;
+
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;

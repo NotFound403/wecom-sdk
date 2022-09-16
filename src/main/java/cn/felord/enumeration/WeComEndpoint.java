@@ -160,6 +160,134 @@ public enum WeComEndpoint {
      */
     LINKED_CORP_DEPT_LIST("/linkedcorp/department/list"),
     /**
+     * 获取配置了客户联系功能的成员列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92571">文档</a>
+     */
+    EXTERNALCONTACT_FOLLOW_USER_LIST("/externalcontact/get_follow_user_list"),
+    /**
+     * 配置客户联系「联系我」方式，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92572">文档</a>
+     */
+    EXTERNALCONTACT_ADD_CONTACT_WAY("/externalcontact/add_contact_way"),
+    /**
+     * 获取企业已配置的「联系我」方式，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92572">文档</a>
+     */
+    EXTERNALCONTACT_GET_CONTACT_WAY("/externalcontact/get_contact_way"),
+    /**
+     * 获取企业已配置的「联系我」列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92572">文档</a>
+     */
+    EXTERNALCONTACT_LIST_CONTACT_WAY("/externalcontact/list_contact_way"),
+    /**
+     * 更新企业已配置的「联系我」方式，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92572">文档</a>
+     */
+    EXTERNALCONTACT_UPDATE_CONTACT_WAY("/externalcontact/update_contact_way"),
+    /**
+     * 更新企业已配置的「联系我」方式，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92572">文档</a>
+     */
+    EXTERNALCONTACT_DEL_CONTACT_WAY("/externalcontact/del_contact_way"),
+    /**
+     * 结束临时会话，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92572">文档</a>
+     */
+    EXTERNALCONTACT_CLOSE_TEMP_CHAT("/externalcontact/close_temp_chat"),
+    /**
+     * 获取客户列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92264">文档</a>
+     */
+    EXTERNALCONTACT_LIST_USERID("/externalcontact/list"),
+    /**
+     * 获取客户详情，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92114">文档</a>
+     */
+    EXTERNALCONTACT_GET_USERID("/externalcontact/get"),
+    /**
+     * 批量获取客户详情，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92994">文档</a>
+     */
+    EXTERNALCONTACT_BATCH_USERID("/externalcontact/batch/get_by_user"),
+    /**
+     * 修改客户备注信息，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92115">文档</a>
+     */
+    EXTERNALCONTACT_REMARK("/externalcontact/remark"),
+    /**
+     * 获取规则组列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94883">文档</a>
+     */
+    CUSTOMER_STRATEGY_LIST("/externalcontact/customer_strategy/list"),
+    /**
+     * 获取规则组详情，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94883">文档</a>
+     */
+    CUSTOMER_STRATEGY_GET("/externalcontact/customer_strategy/get"),
+    /**
+     * 获取规则组管理范围，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94883">文档</a>
+     */
+    CUSTOMER_STRATEGY_GET_RANGE("/externalcontact/customer_strategy/get_range"),
+    /**
+     * 创建新的规则组，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94883">文档</a>
+     */
+    CUSTOMER_STRATEGY_CREATE("/externalcontact/customer_strategy/create"),
+    /**
+     * 编辑规则组及其管理范围，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94883">文档</a>
+     */
+    CUSTOMER_STRATEGY_EDIT("/externalcontact/customer_strategy/edit"),
+    /**
+     * 删除规则组，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94883">文档</a>
+     */
+    CUSTOMER_STRATEGY_DEL("/externalcontact/customer_strategy/del"),
+    /**
+     * 获取企业标签库，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92117">文档</a>
+     */
+    CORP_TAG_LIST("/externalcontact/get_corp_tag_list"),
+    /**
+     * 添加企业客户标签，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92117">文档</a>
+     */
+    CORP_TAG_ADD("/externalcontact/add_corp_tag"),
+    /**
+     * 编辑企业客户标签，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92117">文档</a>
+     */
+    CORP_TAG_EDIT("/externalcontact/edit_corp_tag"),
+    /**
+     * 删除企业客户标签，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92117">文档</a>
+     */
+    CORP_TAG_DEL("/externalcontact/del_corp_tag"),
+    /**
+     * 获取指定规则组下的企业客户标签，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94882">文档</a>
+     */
+    CORP_TAG_STRATEGY_LIST("/externalcontact/get_corp_tag_list"),
+    /**
+     * 为指定规则组创建企业客户标签，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94882">文档</a>
+     */
+    CORP_TAG_STRATEGY_ADD("/externalcontact/add_strategy_tag"),
+    /**
+     * 编辑指定规则组下的企业客户标签，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94882">文档</a>
+     */
+    CORP_TAG_STRATEGY_EDIT("/externalcontact/edit_strategy_tag"),
+    /**
+     * 删除指定规则组下的企业客户标签，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94882">文档</a>
+     */
+    CORP_TAG_STRATEGY_DEL("/externalcontact/del_strategy_tag"),
+    /**
+     * 编辑客户企业标签，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92118">文档</a>
+     */
+    CORP_TAG_MARK("/externalcontact/mark_tag"),
+    /**
+     * 分配在职成员的客户，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92125">文档</a>
+     */
+    TRANSFER_CUSTOMER("/externalcontact/transfer_customer"),
+    /**
+     * 查询客户接替状态，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94088">文档</a>
+     */
+    TRANSFER_RESULT("/externalcontact/transfer_result"),
+    /**
+     * 分配在职成员的客户群，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95703">文档</a>
+     */
+    TRANSFER_GROUP_CHAT("/externalcontact/groupchat/onjob_transfer"),
+    /**
+     * 获取客户群列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92120">文档</a>
+     */
+    GROUP_CHAT_LIST("/externalcontact/groupchat/list"),
+    /**
+     * 获取客户群详情，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92122">文档</a>
+     */
+    GROUP_CHAT_GET("/externalcontact/groupchat/get"),
+    /**
+     * 客户群opengid转换，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94822">文档</a>
+     */
+    OPENGID_TO_CHATID("/externalcontact/opengid_to_chatid"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),

@@ -20,10 +20,10 @@ public class AuthApi extends AbstractApi {
     /**
      * Instantiates a new We com client.
      *
-     * @param wecomCacheable the cacheable
+     * @param cacheable the cacheable
      */
-    public AuthApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
+    public AuthApi(WeComCacheable cacheable) {
+        super(cacheable);
     }
 
     AuthApi agent(AgentDetails agent) {

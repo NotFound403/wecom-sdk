@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 public final class WorkWeChatApi {
-    private final WeComCacheable wecomCacheable;
+    private final WeComCacheable cacheable;
 
     /**
      * 获取企业微信API域名IP段
@@ -20,7 +20,7 @@ public final class WorkWeChatApi {
      * @return the domain api
      */
     public DomainApi domainApi(AgentDetails agent) {
-        return new DomainApi(wecomCacheable).agent(agent);
+        return new DomainApi(cacheable).agent(agent);
     }
 
     /**
@@ -29,7 +29,16 @@ public final class WorkWeChatApi {
      * @return the contact manager
      */
     public ContactManager contactManager() {
-        return new ContactManager(wecomCacheable);
+        return new ContactManager(cacheable);
+    }
+
+    /**
+     * 客户联系
+     *
+     * @return the external contact manager
+     */
+    public ExternalContactManager externalContactManager() {
+        return new ExternalContactManager(cacheable);
     }
 
     /**
@@ -39,7 +48,7 @@ public final class WorkWeChatApi {
      * @return the auth api
      */
     public AuthApi authApi(AgentDetails agent) {
-        return new AuthApi(wecomCacheable).agent(agent);
+        return new AuthApi(cacheable).agent(agent);
     }
 
     /**
@@ -49,7 +58,7 @@ public final class WorkWeChatApi {
      * @return the agent manager
      */
     public AgentManager agentManager(AgentDetails agent) {
-        return new AgentManager(wecomCacheable).agent(agent);
+        return new AgentManager(cacheable).agent(agent);
     }
 
     /**
@@ -59,7 +68,7 @@ public final class WorkWeChatApi {
      * @return the sdk ticket api
      */
     public SdkTicketApi sdkTicketApi(AgentDetails agent) {
-        return new SdkTicketApi(wecomCacheable).agent(agent);
+        return new SdkTicketApi(cacheable).agent(agent);
     }
 
     /**
@@ -67,7 +76,7 @@ public final class WorkWeChatApi {
      *
      * @return the webhook api
      */
-    public WebhookApi webhookApi() {
+    public static WebhookApi webhookApi() {
         return new WebhookApi();
     }
 
@@ -78,6 +87,6 @@ public final class WorkWeChatApi {
      * @return the media api
      */
     public MediaApi mediaApi(AgentDetails agent) {
-        return new MediaApi(wecomCacheable).agent(agent);
+        return new MediaApi(cacheable).agent(agent);
     }
 }

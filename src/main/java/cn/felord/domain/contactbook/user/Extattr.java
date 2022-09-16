@@ -1,7 +1,8 @@
 package cn.felord.domain.contactbook.user;
 
-import java.util.List;
 import lombok.Data;
+
+import java.util.List;
 /**
  * @author n1
  */

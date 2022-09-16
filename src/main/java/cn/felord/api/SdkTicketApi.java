@@ -33,17 +33,17 @@ public class SdkTicketApi extends AbstractApi {
     private static final String SIGNATURE_FORMATTER = "jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}";
     private final IdGenerator nonceStrGenerator = new AlternativeJdkIdGenerator();
     private AgentDetails agentDetails;
-    private final WeComCacheable wecomCacheable;
+    private final WeComCacheable cacheable;
 
 
     /**
      * Instantiates a new We com client.
      *
-     * @param wecomCacheable the cacheable
+     * @param cacheable the cacheable
      */
-    SdkTicketApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
-        this.wecomCacheable = wecomCacheable;
+    SdkTicketApi(WeComCacheable cacheable) {
+        super(cacheable);
+        this.cacheable = cacheable;
     }
 
     /**
@@ -99,7 +99,7 @@ public class SdkTicketApi extends AbstractApi {
     private String corpTicket() {
         String corpId = this.agentDetails.getCorpId();
         String agentId = this.agentDetails.getAgentId();
-        String ticket = wecomCacheable.getCorpTicket(corpId, agentId);
+        String ticket = cacheable.getCorpTicket(corpId, agentId);
         if (ticket == null) {
             URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.CORP_JSAPI_TICKET.endpoint())
                     .build()
@@ -108,7 +108,7 @@ public class SdkTicketApi extends AbstractApi {
             if (!jsTicketResponse.isSuccessful() || jsTicketResponse.getTicket() == null) {
                 throw new WeComException("fail to obtain the corp ticket");
             }
-            ticket = wecomCacheable.putCorpTicket(corpId, agentId, jsTicketResponse.ticket);
+            ticket = cacheable.putCorpTicket(corpId, agentId, jsTicketResponse.ticket);
         }
         return ticket;
     }
@@ -116,7 +116,7 @@ public class SdkTicketApi extends AbstractApi {
     private String agentTicket() {
         String corpId = this.agentDetails.getCorpId();
         String agentId = this.agentDetails.getAgentId();
-        String ticket = wecomCacheable.getAgentTicket(corpId, agentId);
+        String ticket = cacheable.getAgentTicket(corpId, agentId);
         if (ticket == null) {
             URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.AGENT_JSAPI_TICKET.endpoint())
                     .queryParam("type", TicketType.AGENT_CONFIG.type())
@@ -126,7 +126,7 @@ public class SdkTicketApi extends AbstractApi {
             if (!jsTicketResponse.isSuccessful() || jsTicketResponse.getTicket() == null) {
                 throw new WeComException("fail to obtain the agent ticket");
             }
-            ticket = wecomCacheable.putAgentTicket(corpId, agentId, jsTicketResponse.ticket);
+            ticket = cacheable.putAgentTicket(corpId, agentId, jsTicketResponse.ticket);
         }
         return ticket;
     }

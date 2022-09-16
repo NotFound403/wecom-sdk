@@ -45,9 +45,15 @@ public class WeChatMultipartFile implements MultipartFile {
 
 
     @SneakyThrows
-    public static MultipartFile fromResource(Resource resource){
+    public static WeChatMultipartFile fromResource(Resource resource){
         return new WeChatMultipartFile(resource.getFilename(),resource.getInputStream());
     }
+
+    @SneakyThrows
+    public static WeChatMultipartFile fromMultipartFile(MultipartFile file){
+        return new WeChatMultipartFile(file.getName(),file.getOriginalFilename(),file.getContentType(),file.getInputStream());
+    }
+
 
     public String getName() {
         return this.name;

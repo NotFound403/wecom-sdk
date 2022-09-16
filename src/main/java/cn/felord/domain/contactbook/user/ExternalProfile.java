@@ -16,5 +16,6 @@ public class ExternalProfile {
     @Data
     public static class WechatChannels{
         private String nickName;
+        private Integer status;
     }
 }

@@ -27,8 +27,8 @@ public class MediaApi extends AbstractApi {
     /**
      * Instantiates a new We com client.
      */
-    MediaApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
+    MediaApi(WeComCacheable cacheable) {
+        super(cacheable);
     }
 
     MediaApi agent(AgentDetails agentDetails) {
@@ -76,6 +76,11 @@ public class MediaApi extends AbstractApi {
                 .filename(name)
                 .build();
         headers.setContentDisposition(contentDisposition);
+        return this.doUpload(media, headers, uri);
+    }
+
+    private MediaResponse doUpload(MultipartFile media, HttpHeaders headers, URI uri) {
+
         MultiValueMap<Object, Object> body = new LinkedMultiValueMap<>();
         body.add("media", media.getResource());
         return this.post(uri, body, headers, MediaResponse.class);

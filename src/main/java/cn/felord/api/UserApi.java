@@ -28,10 +28,10 @@ public class UserApi extends AbstractApi {
     /**
      * Instantiates a new User api.
      *
-     * @param wecomCacheable the cacheable
+     * @param cacheable the cacheable
      */
-    UserApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
+    UserApi(WeComCacheable cacheable) {
+        super(cacheable);
     }
 
     /**

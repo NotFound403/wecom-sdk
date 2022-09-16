@@ -24,10 +24,10 @@ public class DepartmentApi extends AbstractApi {
     /**
      * Instantiates a new Department api.
      *
-     * @param wecomCacheable the cacheable
+     * @param cacheable the cacheable
      */
-    DepartmentApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
+    DepartmentApi(WeComCacheable cacheable) {
+        super(cacheable);
     }
 
     /**

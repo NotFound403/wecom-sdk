@@ -23,8 +23,8 @@ import java.net.URI;
  * @since 1.0.8.RELEASE
  */
 public class TagApi extends AbstractApi {
-    TagApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
+    TagApi(WeComCacheable cacheable) {
+        super(cacheable);
     }
 
     TagApi agent(AgentDetails agent) {

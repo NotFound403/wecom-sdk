@@ -23,10 +23,10 @@ public class AsynchronousBatchImportApi extends AbstractApi {
     /**
      * Instantiates a new We com client.
      *
-     * @param wecomCacheable
+     * @param cacheable
      */
-    AsynchronousBatchImportApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
+    AsynchronousBatchImportApi(WeComCacheable cacheable) {
+        super(cacheable);
     }
 
     /**

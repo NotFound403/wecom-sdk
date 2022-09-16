@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class DomainApi extends AbstractApi {
 
-    DomainApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
+    DomainApi(WeComCacheable cacheable) {
+        super(cacheable);
     }
 
     /**

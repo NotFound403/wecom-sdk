@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author felord.cn
- * @since 2022/9/7 11:26
+ * @author dax
+ * @since 2021/7/7 11:26
  */
 @Data
 public class CorpSimpleUserInfo {

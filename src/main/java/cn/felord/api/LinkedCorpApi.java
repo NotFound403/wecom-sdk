@@ -3,20 +3,17 @@ package cn.felord.api;
 import cn.felord.AgentDetails;
 import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
-import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.department.DeptInfo;
-import cn.felord.domain.contactbook.linkedcorp.*;
+import cn.felord.domain.contactbook.linkedcorp.CorpSimpleUserInfo;
+import cn.felord.domain.contactbook.linkedcorp.CorpUserInfo;
+import cn.felord.domain.contactbook.linkedcorp.PermListResponse;
 import cn.felord.enumeration.WeComEndpoint;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * The type Linked corp api.
@@ -28,10 +25,10 @@ public class LinkedCorpApi extends AbstractApi {
     /**
      * LinkedCorpApi
      *
-     * @param wecomCacheable the cacheable
+     * @param cacheable the cacheable
      */
-    LinkedCorpApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
+    LinkedCorpApi(WeComCacheable cacheable) {
+        super(cacheable);
     }
 
     /**
