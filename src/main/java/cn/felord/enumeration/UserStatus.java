@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * The enum User status.
  *
- * @author xiafang
+ * @author dax
  * @since 2022 /9/17 11:14
  */
 public enum UserStatus {

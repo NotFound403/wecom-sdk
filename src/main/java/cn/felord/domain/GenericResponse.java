@@ -33,7 +33,9 @@ public class GenericResponse<T> extends WeComResponse {
             "strategy_id",
             "tag_group",
             "chat_id",
-            "failed_chat_list"
+            "failed_chat_list",
+            "join_way",
+            "config_id"
     })
     private T data;
 }

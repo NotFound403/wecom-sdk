@@ -288,6 +288,22 @@ public enum WeComEndpoint {
      */
     OPENGID_TO_CHATID("/externalcontact/opengid_to_chatid"),
     /**
+     * 配置客户群进群方式，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92229">文档</a>
+     */
+    GROUP_CHAT_ADD_JOIN_WAY("/externalcontact/groupchat/add_join_way"),
+    /**
+     * 获取客户群进群方式配置，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92229">文档</a>
+     */
+    GROUP_CHAT_GET_JOIN_WAY("/externalcontact/groupchat/get_join_way"),
+    /**
+     * 更新客户群进群方式配置，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92229">文档</a>
+     */
+    GROUP_CHAT_UPDATE_JOIN_WAY("/externalcontact/groupchat/update_join_way"),
+    /**
+     * 删除客户群进群方式配置，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92229">文档</a>
+     */
+    GROUP_CHAT_DEL_JOIN_WAY("/externalcontact/groupchat/del_join_way"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),

@@ -22,13 +22,13 @@ public class ExternalContactManager {
     }
 
     /**
-     * 企业服务人员管理
+     * 客户联系「联系我」管理
      *
      * @param agent the agent
      * @return the corp service user api
      */
-    public ContactWayApi contactWayApi(AgentDetails agent) {
-        return new ContactWayApi(cacheable).agent(agent);
+    public ContactMeWayApi contactMeWayApi(AgentDetails agent) {
+        return new ContactMeWayApi(cacheable).agent(agent);
     }
 
     /**

@@ -21,13 +21,13 @@ import java.util.Set;
  * @author dax
  * @since 2021 /9/8 9:28
  */
-public class ContactWayApi extends AbstractApi {
+public class ContactMeWayApi extends AbstractApi {
     /**
      * Instantiates a new Corp service user api.
      *
      * @param cacheable the cacheable
      */
-    ContactWayApi(WeComCacheable cacheable) {
+    ContactMeWayApi(WeComCacheable cacheable) {
         super(cacheable);
     }
 
@@ -37,7 +37,7 @@ public class ContactWayApi extends AbstractApi {
      * @param agent the agent
      * @return the corp service user api
      */
-    ContactWayApi agent(AgentDetails agent) {
+    ContactMeWayApi agent(AgentDetails agent) {
         this.withAgent(agent);
         return this;
     }
