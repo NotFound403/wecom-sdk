@@ -1,5 +1,6 @@
 package cn.felord.domain.contactbook.user;
 
+import cn.felord.enumeration.UserStatus;
 import lombok.Data;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class UserDetail {
     private String thumbAvatar;
     private String telephone;
     private String alias;
-    private Integer status;
+    private UserStatus status;
     private Extattr extattr;
     private String qrCode;
     private ExternalProfile externalProfile;

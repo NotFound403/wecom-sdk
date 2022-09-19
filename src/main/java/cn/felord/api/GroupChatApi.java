@@ -75,7 +75,7 @@ public class GroupChatApi extends AbstractApi {
 
     public GenericResponse<String> opengidToChatid(String opengid) {
 
-        String endpoint = WeComEndpoint.GROUP_CHAT_LIST.endpoint();
+        String endpoint = WeComEndpoint.OPENGID_TO_CHATID.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
