@@ -1,7 +1,6 @@
 package cn.felord.domain;
 
-import lombok.SneakyThrows;
-import org.springframework.core.io.Resource;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.FileCopyUtils;
@@ -23,37 +22,13 @@ public class WeChatMultipartFile implements MultipartFile {
     private final String contentType;
     private final byte[] content;
 
-    public WeChatMultipartFile(String name, @Nullable byte[] content) {
-        this(name, "", null, content);
-    }
-
-    public WeChatMultipartFile(String name, InputStream contentStream) throws IOException {
-        this(name, "", null, FileCopyUtils.copyToByteArray(contentStream));
-    }
-
-    public WeChatMultipartFile(String name, @Nullable String originalFilename, @Nullable String contentType, @Nullable byte[] content) {
+    public WeChatMultipartFile(@NonNull String name, @NonNull String originalFilename, @Nullable String contentType, InputStream contentStream) throws IOException {
         Assert.hasLength(name, "Name must not be null");
         this.name = name;
-        this.originalFilename = originalFilename != null ? originalFilename : "";
+        this.originalFilename = originalFilename;
         this.contentType = contentType;
-        this.content = content != null ? content : new byte[0];
+        this.content = FileCopyUtils.copyToByteArray(contentStream);
     }
-
-    public WeChatMultipartFile(String name, @Nullable String originalFilename, @Nullable String contentType, InputStream contentStream) throws IOException {
-        this(name, originalFilename, contentType, FileCopyUtils.copyToByteArray(contentStream));
-    }
-
-
-    @SneakyThrows
-    public static WeChatMultipartFile fromResource(Resource resource){
-        return new WeChatMultipartFile(resource.getFilename(),resource.getInputStream());
-    }
-
-    @SneakyThrows
-    public static WeChatMultipartFile fromMultipartFile(MultipartFile file){
-        return new WeChatMultipartFile(file.getName(),file.getOriginalFilename(),file.getContentType(),file.getInputStream());
-    }
-
 
     public String getName() {
         return this.name;

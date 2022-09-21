@@ -22,7 +22,7 @@ public interface AgentDetails {
     String getSecret();
 
     /**
-     * 应用ID
+     * 应用ID，内置应用需要虚拟化一个ID
      *
      * @return the agent id
      */

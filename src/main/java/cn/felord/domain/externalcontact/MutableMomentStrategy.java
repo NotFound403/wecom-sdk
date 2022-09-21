@@ -10,11 +10,11 @@ import java.util.Set;
  * @since 2021/7/12 15:17
  */
 @Data
-public class MutableCustomerStrategy {
+public class MutableMomentStrategy {
     private Integer strategyId;
     private String strategyName;
     private List<String> adminList;
-    private CustomerStrategyPrivilege privilege;
+    private MomentStrategyPrivilege privilege;
     private Set<StrategyRange> rangeAdd;
     private Set<StrategyRange> rangeDel;
 

@@ -1,3 +1,4 @@
+
 package cn.felord.domain.externalcontact;
 
 import lombok.Data;
@@ -11,6 +12,6 @@ import java.util.Set;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CustomerStrategyRequest extends CustomerStrategyDetail{
+public class MomentStrategyRequest extends MomentStrategyDetail{
     private Set<StrategyRange> range;
 }

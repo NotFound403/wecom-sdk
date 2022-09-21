@@ -10,14 +10,13 @@ import java.util.List;
  * @since 2021/7/12 13:38
  */
 @Data
-public class CustomerStrategyDetail {
+public class MomentStrategyDetail {
     private Integer strategyId;
     private Integer parentId;
     private String strategyName;
     private Instant createTime;
     private List<String> adminList;
-    private CustomerStrategyPrivilege privilege;
-
+    private MomentStrategyPrivilege privilege;
 
 
     void setStrategyId(Integer strategyId) {

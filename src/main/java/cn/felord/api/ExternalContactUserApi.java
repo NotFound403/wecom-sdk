@@ -129,20 +129,16 @@ public class ExternalContactUserApi extends AbstractApi {
      * @param limit  the limit
      * @return the external user list detail response
      */
-    public CustomerStrategyListResponse customerStrategyList(String cursor, int limit) {
+    public StrategyListResponse customerStrategyList(String cursor, int limit) {
 
         String endpoint = WeComEndpoint.CUSTOMER_STRATEGY_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         Map<String, Object> body = new HashMap<>(2);
-        if (StringUtils.hasText(cursor)) {
-            body.put("cursor", cursor);
-        }
-        if (limit != 0) {
+             body.put("cursor", cursor);
             body.put("limit", limit);
-        }
-        return this.post(uri, body, CustomerStrategyListResponse.class);
+        return this.post(uri, body, StrategyListResponse.class);
     }
 
     /**
@@ -164,26 +160,15 @@ public class ExternalContactUserApi extends AbstractApi {
     /**
      * 获取规则组管理范围
      *
-     * @param strategyId the strategy id
-     * @param cursor     the cursor
-     * @param limit      the limit
+     * @param request the request
      * @return the external user list detail response
      */
-    public CustomerStrategyRangeResponse getCustomerStrategyRange(int strategyId, String cursor, int limit) {
-
+    public StrategyRangeResponse getCustomerStrategyRange(StrategyRangeRequest request) {
         String endpoint = WeComEndpoint.CUSTOMER_STRATEGY_GET_RANGE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        Map<String, Object> body = new HashMap<>(3);
-        body.put("strategy_id", strategyId);
-        if (StringUtils.hasText(cursor)) {
-            body.put("cursor", cursor);
-        }
-        if (limit != 0) {
-            body.put("limit", limit);
-        }
-        return this.post(uri, body, CustomerStrategyRangeResponse.class);
+        return this.post(uri, request, StrategyRangeResponse.class);
     }
 
     /**

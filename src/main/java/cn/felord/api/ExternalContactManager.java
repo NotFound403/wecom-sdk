@@ -80,4 +80,14 @@ public class ExternalContactManager {
     public GroupChatApi groupchatApi(AgentDetails agent) {
         return new GroupChatApi(cacheable).agent(agent);
     }
+
+    /**
+     * 客户朋友圈
+     *
+     * @param agent the agent
+     * @return the moment api
+     */
+    public MomentApi momentApi(AgentDetails agent) {
+        return new MomentApi(cacheable).agent(agent);
+    }
 }

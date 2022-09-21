@@ -304,6 +304,58 @@ public enum WeComEndpoint {
      */
     GROUP_CHAT_DEL_JOIN_WAY("/externalcontact/groupchat/del_join_way"),
     /**
+     * 创建发表任务，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95094">文档</a>
+     */
+    MOMENT_TASK_ADD("/externalcontact/add_moment_task"),
+    /**
+     * 获取任务创建结果，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95094">文档</a>
+     */
+    MOMENT_TASK_JOB_RESULT("/externalcontact/get_moment_task_result"),
+    /**
+     * 获取企业全部的发表列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93333">文档</a>
+     */
+    MOMENT_LIST("/externalcontact/get_moment_list"),
+    /**
+     * 获取客户朋友圈企业发表的列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93333">文档</a>
+     */
+    MOMENT_TASK_GET("/externalcontact/get_moment_task"),
+    /**
+     * 获取客户朋友圈发表时选择的可见范围，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93333">文档</a>
+     */
+    MOMENT_CUSTOMER_LIST("/externalcontact/get_moment_customer_list"),
+    /**
+     * 获取客户朋友圈发表后的可见客户列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93333">文档</a>
+     */
+    MOMENT_SEND_RESULT("/externalcontact/get_moment_send_result"),
+    /**
+     * 获取客户朋友圈的互动数据，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93333">文档</a>
+     */
+    MOMENT_COMMENTS("/externalcontact/get_moment_comments"),
+    /**
+     * 获取客户朋友圈规则组列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94890">文档</a>
+     */
+    MOMENT_STRATEGY_LIST("/externalcontact/moment_strategy/list"),
+    /**
+     * 获取客户朋友圈规则组详情，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94890">文档</a>
+     */
+    MOMENT_STRATEGY_GET("/externalcontact/moment_strategy/get"),
+    /**
+     * 获取客户朋友圈管理范围，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94890">文档</a>
+     */
+    MOMENT_STRATEGY_RANGE("/externalcontact/moment_strategy/get_range"),
+    /**
+     * 创建新的客户朋友圈规则组，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94890">文档</a>
+     */
+    MOMENT_STRATEGY_CREATE("/externalcontact/moment_strategy/create"),
+    /**
+     * 编辑客户朋友圈规则组及其管理范围，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94890">文档</a>
+     */
+    MOMENT_STRATEGY_EDIT("/externalcontact/moment_strategy/edit"),
+    /**
+     * 删除客户朋友圈规则组，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94890">文档</a>
+     */
+    MOMENT_STRATEGY_DEL("/externalcontact/moment_strategy/del"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),
@@ -311,6 +363,10 @@ public enum WeComEndpoint {
      * 上传永久图片，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD_IMG("/media/uploadimg"),
+    /**
+     * 上传附件资源，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95098">文档</a>
+     */
+    MEDIA_UPLOAD_ATTACHMENT("/media/upload_attachment"),
     /**
      * 企业微信 Webhook API，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
      */

@@ -8,16 +8,11 @@ import java.util.Set;
 
 /**
  * @author dax
- * @since 2021/7/12 11:47
+ * @since 2021/10/19 17:58
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CustomerStrategyListResponse extends WeComResponse {
-    private Set<StrategyId> strategy;
+public class MomentListResponse extends WeComResponse {
     private String nextCursor;
-
-    @Data
-    public static class StrategyId {
-        private Integer strategyId;
-    }
+    private Set<MomentDetail> momentList;
 }

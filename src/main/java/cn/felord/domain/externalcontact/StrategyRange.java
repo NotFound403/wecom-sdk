@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 2021/7/12 15:03
  */
 @Data
-public class CustomerStrategyRange {
+public class StrategyRange {
     private RangeType type;
     private String userid;
     private Integer partyid;
