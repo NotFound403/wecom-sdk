@@ -392,6 +392,18 @@ public enum WeComEndpoint {
      */
     GROUP_MSG_WELCOME_TEMPLATE_DEL("/externalcontact/group_welcome_template/del"),
     /**
+     * 获取「联系客户统计」数据，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92132">文档</a>
+     */
+    STATISTIC_USER_BEHAVIOR_DATA("/externalcontact/get_user_behavior_data"),
+    /**
+     * 获取「群聊数据统计」数据-按群主聚合的方式，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92133">文档</a>
+     */
+    STATISTIC_GROUP_CHAT_BY_OWNER("/externalcontact/groupchat/statistic"),
+    /**
+     * 获取「群聊数据统计」数据-按自然日聚合的方式，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92133">文档</a>
+     */
+    STATISTIC_GROUP_CHAT_BY_DAY("/externalcontact/groupchat/statistic_group_by_day"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),

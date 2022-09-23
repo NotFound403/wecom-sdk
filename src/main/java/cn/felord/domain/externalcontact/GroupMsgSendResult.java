@@ -6,8 +6,8 @@ import lombok.Data;
 import java.time.Instant;
 
 /**
- * @author xiafang
- * @since 2022/9/22 17:29
+ * @author dax
+ * @since 2021/9/22 17:29
  */
 @Data
 public class GroupMsgSendResult {

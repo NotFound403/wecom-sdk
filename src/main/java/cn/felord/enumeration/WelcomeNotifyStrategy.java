@@ -8,8 +8,8 @@ import java.util.Arrays;
 /**
  * The enum Welcome notify strategy.
  *
- * @author xiafang
- * @since 2022 /9/23 11:08
+ * @author dax
+ * @since 2021 /9/23 11:08
  */
 public enum WelcomeNotifyStrategy {
 

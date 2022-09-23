@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.Set;
 
 /**
- * @author xiafang
- * @since 2022/9/23 9:35
+ * @author dax
+ * @since 2021/9/23 9:35
  */
 @Data
 public class WelcomeCodeRequest {

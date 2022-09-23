@@ -100,4 +100,14 @@ public class ExternalContactManager {
     public GroupMessageApi messageApi(AgentDetails agent) {
         return new GroupMessageApi(cacheable).agent(agent);
     }
+
+    /**
+     * 统计管理
+     *
+     * @param agent the agent
+     * @return the statistic api
+     */
+    public StatisticApi statisticApi(AgentDetails agent) {
+        return new StatisticApi(cacheable).agent(agent);
+    }
 }
