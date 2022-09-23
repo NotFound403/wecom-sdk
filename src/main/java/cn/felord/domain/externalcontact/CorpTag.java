@@ -1,7 +1,6 @@
 package cn.felord.domain.externalcontact;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.Instant;
 
@@ -9,10 +8,11 @@ import java.time.Instant;
  * @author dax
  * @since 2021/7/12 16:52
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class CorpTag extends CorpTagBase {
+public class CorpTag {
     private String id;
+    private String name;
     private Instant createTime;
+    private Long order;
     private Boolean deleted;
 }

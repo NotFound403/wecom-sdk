@@ -6,24 +6,23 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Moment create type.
+ * The enum Welcome notify strategy.
  *
- * @author dax
- * @since 2021 /9/8 10:47
+ * @author xiafang
+ * @since 2022 /9/23 11:08
  */
-public enum MomentCreateType {
+public enum WelcomeNotifyStrategy {
+
     /**
-     * Corp moment create type.
+     * Off welcome notify strategy.
      */
-    CORP(0),
-    /**
-     * Personal moment create type.
-     */
-    PERSONAL(1);
+    OFF(0),
+
+    ON(1);
 
     private final int type;
 
-    MomentCreateType(int type) {
+    WelcomeNotifyStrategy(int type) {
         this.type = type;
     }
 
@@ -44,11 +43,10 @@ public enum MomentCreateType {
      * @return the moment create type
      */
     @JsonCreator
-    public static MomentCreateType deserialize(int type) {
-        return Arrays.stream(MomentCreateType.values())
+    public static WelcomeNotifyStrategy deserialize(int type) {
+        return Arrays.stream(WelcomeNotifyStrategy.values())
                 .filter(contactType -> contactType.type == type)
                 .findFirst()
                 .orElse(null);
     }
-
 }

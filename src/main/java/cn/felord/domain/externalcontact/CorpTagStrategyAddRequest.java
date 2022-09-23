@@ -15,6 +15,6 @@ public class CorpTagStrategyAddRequest {
     private final Integer strategyId;
     private String groupId;
     private String groupName;
-    private Integer order;
+    private Long order;
     private Set<CorpTagBase> tag;
 }

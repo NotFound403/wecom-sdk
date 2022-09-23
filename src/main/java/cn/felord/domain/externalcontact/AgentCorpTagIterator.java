@@ -9,6 +9,6 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public abstract class AgentCorpTagIterator implements CorpTagIterator {
+public abstract class AgentCorpTagIterator {
     private String agentid;
 }

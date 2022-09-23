@@ -8,34 +8,9 @@ import lombok.Data;
  */
 @Data
 public class Conclusions {
-    private ContactText text;
-    private ContactImage image;
-    private ContactLink link;
-    private ContactMiniprogram miniprogram;
+    private Text text;
+    private ImageUrl image;
+    private Link link;
+    private Miniprogram miniprogram;
 
-    @Data
-    public static class ContactText {
-        private String content;
-    }
-
-    @Data
-    public static class ContactImage {
-        private String picUrl;
-    }
-
-    @Data
-    public static class ContactLink {
-        private String title;
-        private String picurl;
-        private String desc;
-        private String url;
-    }
-
-    @Data
-    public static class ContactMiniprogram {
-        private String title;
-        private String picMediaId;
-        private String appid;
-        private String page;
-    }
 }

@@ -356,6 +356,42 @@ public enum WeComEndpoint {
      */
     MOMENT_STRATEGY_DEL("/externalcontact/moment_strategy/del"),
     /**
+     * 创建企业群发，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92135">文档</a>
+     */
+    GROUP_MSG_ADD("/externalcontact/add_msg_template"),
+    /**
+     * 获取群发记录列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93338">文档</a>
+     */
+    GROUP_MSG_LIST_V2("/externalcontact/get_groupmsg_list_v2"),
+    /**
+     * 获取群发成员发送任务列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93338">文档</a>
+     */
+    GROUP_MSG_TASK("/externalcontact/get_groupmsg_task"),
+    /**
+     * 获取企业群发成员执行结果，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93338">文档</a>
+     */
+    GROUP_MSG_SEND_RESULT("/externalcontact/get_groupmsg_send_result"),
+    /**
+     * 发送新客户欢迎语，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93338">文档</a>
+     */
+    GROUP_MSG_SEND_WELCOME("/externalcontact/send_welcome_msg"),
+    /**
+     * 添加入群欢迎语素材，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92366">文档</a>
+     */
+    GROUP_MSG_WELCOME_TEMPLATE_ADD("/externalcontact/group_welcome_template/add"),
+    /**
+     * 修改入群欢迎语素材，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92366">文档</a>
+     */
+    GROUP_MSG_WELCOME_TEMPLATE_EDIT("/externalcontact/group_welcome_template/edit"),
+    /**
+     * 获取入群欢迎语素材，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92366">文档</a>
+     */
+    GROUP_MSG_WELCOME_TEMPLATE_GET("/externalcontact/group_welcome_template/get"),
+    /**
+     * 删除入群欢迎语素材，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92366">文档</a>
+     */
+    GROUP_MSG_WELCOME_TEMPLATE_DEL("/externalcontact/group_welcome_template/del"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),

@@ -1,7 +1,7 @@
 package cn.felord.domain.webhook;
 
+import cn.felord.domain.externalcontact.MediaId;
 import cn.felord.enumeration.MsgType;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,18 +16,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WebhookFileBody extends WebhookBody {
-    private WebhookFile file;
+    private MediaId file;
 
     public WebhookFileBody() {
         super(MsgType.FILE);
-    }
-
-    /**
-     * The type Text.
-     */
-    @Data
-    public static class WebhookFile {
-        private String mediaId;
     }
 
 }

@@ -1,7 +1,6 @@
 package cn.felord.domain.externalcontact;
 
 import cn.felord.enumeration.MomentAttachmentType;
-import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -10,15 +9,10 @@ import lombok.Getter;
  */
 @Getter
 public class VideoMomentAttachment extends MomentAttachment {
-    private final Video video;
+    private final MediaId video;
 
-    public VideoMomentAttachment(Video video) {
+    public VideoMomentAttachment(MediaId video) {
         super(MomentAttachmentType.VIDEO);
         this.video = video;
-    }
-
-    @Data
-    public static class Video {
-        private final String mediaId;
     }
 }

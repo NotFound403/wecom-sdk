@@ -9,5 +9,5 @@ import lombok.Data;
 @Data
 public class CorpTagBase {
     private String name;
-    private Integer order;
+    private Long order;
 }

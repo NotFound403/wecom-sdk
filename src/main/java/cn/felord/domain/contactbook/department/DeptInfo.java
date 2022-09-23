@@ -1,15 +1,16 @@
 package cn.felord.domain.contactbook.department;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  *
  * @author n1
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class DeptInfo extends DeptSimpleInfo {
+public class DeptInfo{
+    private Integer id;
+    private Integer parentid;
     private String name;
     private String nameEn;
+    private Long order;
 }

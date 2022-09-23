@@ -76,13 +76,13 @@ public class ContactMeWayApi extends AbstractApi {
      * @param configId the config id
      * @return the we com response
      */
-    public GenericResponse<ContactWayBodyResponse> getContactWay(String configId) {
+    public GenericResponse<ContactWayBodyDetail> getContactWay(String configId) {
         String endpoint = WeComEndpoint.EXTERNALCONTACT_GET_CONTACT_WAY.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return this.post(uri, Collections.singletonMap("config_id", configId),
-                new ParameterizedTypeReference<GenericResponse<ContactWayBodyResponse>>() {
+                new ParameterizedTypeReference<GenericResponse<ContactWayBodyDetail>>() {
                 });
     }
 

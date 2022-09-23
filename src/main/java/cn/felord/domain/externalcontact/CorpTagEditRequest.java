@@ -10,7 +10,7 @@ import lombok.Data;
 public class CorpTagEditRequest {
     private final String id;
     private String name;
-    private Integer order;
+    private Long order;
     private String agentid;
 
 }

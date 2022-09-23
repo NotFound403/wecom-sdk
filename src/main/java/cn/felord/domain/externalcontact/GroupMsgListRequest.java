@@ -1,5 +1,6 @@
 package cn.felord.domain.externalcontact;
 
+import cn.felord.enumeration.ChatType;
 import cn.felord.enumeration.ListFilterType;
 import lombok.Data;
 
@@ -10,9 +11,10 @@ import java.time.Instant;
  * @since 2021/10/19 17:43
  */
 @Data
-public class MomentListRequest {
+public class GroupMsgListRequest {
     private final Instant startTime;
     private final Instant endTime;
+    private final ChatType chatType;
     private String creator;
     private String cursor;
     private ListFilterType filterType;

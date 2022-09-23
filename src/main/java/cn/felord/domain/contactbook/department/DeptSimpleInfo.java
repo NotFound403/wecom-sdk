@@ -10,5 +10,5 @@ import lombok.Data;
 public class DeptSimpleInfo {
     private Integer id;
     private Integer parentid;
-    private Integer order;
+    private Long order;
 }

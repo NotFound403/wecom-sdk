@@ -3,8 +3,8 @@ package cn.felord.domain.externalcontact;
 import lombok.Data;
 
 /**
- * @author xiafang
- * @since 2022/9/21 15:24
+ * @author dax
+ * @since 2021/7/21 15:24
  */
 @Data
 public class StrategyRangeRequest {

@@ -12,7 +12,7 @@ import java.util.Set;
 public class CorpTagAddRequest {
     private String groupId;
     private String groupName;
-    private Integer order;
+    private Long order;
     private Set<CorpTagBase> tag;
     private String agentid;
 }

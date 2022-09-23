@@ -40,7 +40,7 @@ public class CorpTagApi extends AbstractApi {
     }
 
     /**
-     * Corp tag list customer strategy detail response.
+     * 获取企业标签库
      *
      * @param <R>     the type parameter
      * @param request the request

@@ -90,4 +90,14 @@ public class ExternalContactManager {
     public MomentApi momentApi(AgentDetails agent) {
         return new MomentApi(cacheable).agent(agent);
     }
+
+    /**
+     * 消息推送
+     *
+     * @param agent the agent
+     * @return the message api
+     */
+    public GroupMessageApi messageApi(AgentDetails agent) {
+        return new GroupMessageApi(cacheable).agent(agent);
+    }
 }

@@ -14,7 +14,7 @@ public class CorpTagGroup {
     private String groupId;
     private String groupName;
     private Instant createTime;
-    private Integer order;
+    private Long order;
     private Boolean deleted;
     private List<CorpTag> tag;
 }

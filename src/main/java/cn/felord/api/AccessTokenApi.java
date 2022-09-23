@@ -1,8 +1,9 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.RestTemplateFactory;
+import cn.felord.WeComCacheable;
+import cn.felord.WeComException;
 import cn.felord.domain.authentication.AccessTokenResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.web.client.RestTemplate;
@@ -23,21 +24,25 @@ public class AccessTokenApi {
     }
 
 
-    public synchronized String getTokenResponse(AgentDetails agentDetails) {
+    public String getTokenResponse(AgentDetails agentDetails) {
         String corpId = agentDetails.getCorpId();
         String agentId = agentDetails.getAgentId();
-        String tokenCache = wecomCacheable.getToken(corpId,agentId);
+        String tokenCache = wecomCacheable.getToken(corpId, agentId);
         if (tokenCache == null) {
-            UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.GET_TOKEN.endpoint())
-                    .queryParam("corpid", corpId)
-                    .queryParam("corpsecret", agentDetails.getSecret())
-                    .build();
-            AccessTokenResponse tokenResponse = this.restTemplate.getForObject(uriComponents.toUri(), AccessTokenResponse.class);
-            if (tokenResponse == null || !tokenResponse.isSuccessful()) {
-                throw new RuntimeException("failed to obtain access token");
+            synchronized (this) {
+                tokenCache = wecomCacheable.getToken(corpId, agentId);
+                if (tokenCache==null){
+                    UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.GET_TOKEN.endpoint())
+                            .queryParam("corpid", corpId)
+                            .queryParam("corpsecret", agentDetails.getSecret())
+                            .build();
+                    AccessTokenResponse tokenResponse = this.restTemplate.getForObject(uriComponents.toUri(), AccessTokenResponse.class);
+                    if (tokenResponse == null || !tokenResponse.isSuccessful()) {
+                        throw new WeComException("failed to obtain access token");
+                    }
+                    tokenCache = wecomCacheable.putToken(corpId, agentId, tokenResponse.getAccessToken());
+                }
             }
-            tokenCache = wecomCacheable.putToken(corpId,agentId, tokenResponse.getAccessToken());
-
         }
         return tokenCache;
     }

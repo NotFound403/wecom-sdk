@@ -12,11 +12,11 @@ import java.util.Set;
  * @since 2021/7/8 14:42
  */
 @Data
-public class ContactWayBodyResponse {
+public class ContactWayBodyDetail {
     private String configId;
     private ContactType type;
     private ContactScene scene;
-    private MiniProgramStyle style;
+    private Integer style;
     private String remark;
     private Boolean skipVerify;
     private String state;

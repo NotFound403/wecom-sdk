@@ -11,7 +11,7 @@ import java.util.Arrays;
  * @author dax
  * @since 2022 /9/19 17:47
  */
-public enum MomentListFilterType {
+public enum ListFilterType {
     /**
      * Corp moment list filter type.
      */
@@ -27,7 +27,7 @@ public enum MomentListFilterType {
 
     private final int type;
 
-    MomentListFilterType(int type) {
+    ListFilterType(int type) {
         this.type = type;
     }
 
@@ -48,8 +48,8 @@ public enum MomentListFilterType {
      * @return the moment list filter type
      */
     @JsonCreator
-    public static MomentListFilterType deserialize(int type) {
-        return Arrays.stream(MomentListFilterType.values())
+    public static ListFilterType deserialize(int type) {
+        return Arrays.stream(ListFilterType.values())
                 .filter(contactType -> contactType.type == type)
                 .findFirst()
                 .orElse(null);

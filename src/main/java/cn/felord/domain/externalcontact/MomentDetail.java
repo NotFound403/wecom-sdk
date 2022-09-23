@@ -1,6 +1,6 @@
 package cn.felord.domain.externalcontact;
 
-import cn.felord.enumeration.MomentCreateType;
+import cn.felord.enumeration.CreateType;
 import cn.felord.enumeration.MomentVisibleType;
 import lombok.Data;
 
@@ -17,8 +17,8 @@ public class MomentDetail {
      private String creator;
      private Instant createTime;
      private MomentVisibleType visibleType;
-     private MomentCreateType createType;
-     private MomentText text;
+     private CreateType createType;
+     private Text text;
      private Set<MomentImage> image;
      private MomentDetailVideo video;
      private MomentLink link;
