@@ -10,7 +10,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Set;
+import java.util.List;
 
 /**
  * The type Corp tag api.
@@ -46,14 +46,14 @@ public class CorpTagApi extends AbstractApi {
      * @param request the request
      * @return the customer strategy detail response
      */
-    public <R extends CorpTagIterator> GenericResponse<Set<CorpTagGroup>> corpTagList(R request) {
+    public <R extends CorpTagIterator> GenericResponse<List<CorpTagGroup>> corpTagList(R request) {
 
         String endpoint = WeComEndpoint.CORP_TAG_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
 
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<Set<CorpTagGroup>>>() {
+        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<CorpTagGroup>>>() {
         });
     }
 
@@ -111,14 +111,14 @@ public class CorpTagApi extends AbstractApi {
      * @param request the request
      * @return the generic response
      */
-    public <R extends StrategyCorpTagIterator> GenericResponse<Set<CorpTagGroup>> strategyCorpTagList(R request) {
+    public <R extends StrategyCorpTagIterator> GenericResponse<List<CorpTagGroup>> strategyCorpTagList(R request) {
 
         String endpoint = WeComEndpoint.CORP_TAG_STRATEGY_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
 
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<Set<CorpTagGroup>>>() {
+        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<CorpTagGroup>>>() {
         });
     }
 

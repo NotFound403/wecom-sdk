@@ -4,7 +4,7 @@ import cn.felord.enumeration.AddWays;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -16,9 +16,9 @@ public class FollowInfo  {
     private String remark;
     private String description;
     private Instant createtime;
-    private Set<String> tagId;
+    private List<String> tagId;
     private String remarkCorpName;
-    private Set<String> remarkMobiles;
+    private List<String> remarkMobiles;
     private WechatChannels wechatChannels;
     private String operUserid;
     private AddWays addWay;

@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -15,7 +15,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class TransferResultResponse extends WeComResponse {
-    private Set<Customer> customer;
+    private List<Customer> customer;
     private String nextCursor;
 
     @Data

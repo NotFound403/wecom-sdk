@@ -4,7 +4,7 @@ import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -14,5 +14,5 @@ import java.util.Set;
 @Data
 public class GroupMsgTaskResponse extends WeComResponse {
     private String nextCursor;
-    private Set<GroupMsgTaskDetail> taskList;
+    private List<GroupMsgTaskDetail> taskList;
 }

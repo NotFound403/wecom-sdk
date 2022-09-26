@@ -37,7 +37,7 @@ public class AccessTokenApi {
                             .queryParam("corpsecret", agentDetails.getSecret())
                             .build();
                     AccessTokenResponse tokenResponse = this.restTemplate.getForObject(uriComponents.toUri(), AccessTokenResponse.class);
-                    if (tokenResponse == null || !tokenResponse.isSuccessful()) {
+                    if (tokenResponse == null || tokenResponse.isError()) {
                         throw new WeComException("failed to obtain access token");
                     }
                     tokenCache = wecomCacheable.putToken(corpId, agentId, tokenResponse.getAccessToken());

@@ -26,10 +26,10 @@ public final class WorkWeChatApi {
     /**
      * 通讯录管理
      *
-     * @return the contact manager
+     * @return the Address book Manager
      */
-    public ContactManager contactManager() {
-        return new ContactManager(cacheable);
+    public ContactBookManager contactBookManager() {
+        return new ContactBookManager(cacheable);
     }
 
     /**
@@ -39,6 +39,15 @@ public final class WorkWeChatApi {
      */
     public ExternalContactManager externalContactManager() {
         return new ExternalContactManager(cacheable);
+    }
+
+    /**
+     * 微信客服
+     *
+     * @return the call center manager
+     */
+    public CallCenterManager callCenterManager() {
+        return new CallCenterManager(cacheable);
     }
 
     /**

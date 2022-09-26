@@ -2,7 +2,7 @@ package cn.felord.domain.externalcontact;
 
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -12,5 +12,5 @@ import java.util.Set;
 public class WelcomeCodeRequest {
     private final String welcomeCode;
     private Text text;
-    private Set<? extends MsgAttachment> attachments;
+    private List<? extends MsgAttachment> attachments;
 }

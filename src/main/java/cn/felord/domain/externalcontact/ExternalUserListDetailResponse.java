@@ -4,7 +4,7 @@ import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * The type External user detail response.
@@ -15,7 +15,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ExternalUserListDetailResponse extends WeComResponse {
-    private Set<Detail> externalContactList;
+    private List<Detail> externalContactList;
     private String nextCursor;
 
     @Data

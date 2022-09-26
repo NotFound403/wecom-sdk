@@ -145,7 +145,7 @@ public abstract class AbstractApi {
     private <T extends WeComResponse> void checkSuccessful(T response) {
         if (Objects.isNull(response)) {
             throw new WeComException("response is null");
-        } else if (!response.isSuccessful()) {
+        } else if (response.isError()) {
             if (log.isDebugEnabled()) {
                 log.debug("unsuccessful response : {}", response);
             }

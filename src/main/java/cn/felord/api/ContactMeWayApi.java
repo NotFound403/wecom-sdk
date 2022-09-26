@@ -10,10 +10,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The type Corp service user api.
@@ -47,12 +44,12 @@ public class ContactMeWayApi extends AbstractApi {
      *
      * @return the follow user list
      */
-    public GenericResponse<Set<String>> getFollowUserList() {
+    public GenericResponse<List<String>> getFollowUserList() {
         String endpoint = WeComEndpoint.EXTERNALCONTACT_FOLLOW_USER_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<Set<String>>>() {
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
         });
     }
 

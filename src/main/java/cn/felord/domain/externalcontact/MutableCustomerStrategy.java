@@ -3,7 +3,7 @@ package cn.felord.domain.externalcontact;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -15,7 +15,7 @@ public class MutableCustomerStrategy {
     private String strategyName;
     private List<String> adminList;
     private CustomerStrategyPrivilege privilege;
-    private Set<StrategyRange> rangeAdd;
-    private Set<StrategyRange> rangeDel;
+    private List<StrategyRange> rangeAdd;
+    private List<StrategyRange> rangeDel;
 
 }

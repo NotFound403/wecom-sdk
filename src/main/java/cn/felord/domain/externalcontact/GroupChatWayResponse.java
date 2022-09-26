@@ -4,7 +4,7 @@ import cn.felord.enumeration.ContactScene;
 import cn.felord.enumeration.CreateRoomMode;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -19,6 +19,6 @@ public class GroupChatWayResponse {
     private String roomBaseName;
     private String qrCode;
     private Integer roomBaseId;
-    private Set<String> chatIdList;
+    private List<String> chatIdList;
     private String state;
 }

@@ -4,7 +4,7 @@ import cn.felord.enumeration.CreateType;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -17,5 +17,5 @@ public class GroupMsgDetail {
      private Instant createTime;
      private CreateType createType;
      private Text text;
-     private Set<? extends MsgAttachment> attachments;
+     private List<? extends MsgAttachment> attachments;
 }

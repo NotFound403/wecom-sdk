@@ -3,7 +3,7 @@ package cn.felord.domain.externalcontact;
 import cn.felord.domain.WeComResponse;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -13,5 +13,5 @@ import java.util.Set;
 public class GroupChatDataResponse<D extends GroupChatData> extends WeComResponse {
     private Long total;
     private Long nextOffset;
-    private Set<D> items;
+    private List<D> items;
 }

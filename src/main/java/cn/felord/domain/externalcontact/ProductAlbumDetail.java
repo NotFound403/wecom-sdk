@@ -3,7 +3,7 @@ package cn.felord.domain.externalcontact;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -15,7 +15,7 @@ public class ProductAlbumDetail {
     private String description;
     private Instant createTime;
     private Long price;
-    private Set<ProductAlbumAttachment> attachments;
+    private List<ProductAlbumAttachment> attachments;
     private String productSn;
 
 }

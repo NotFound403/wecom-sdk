@@ -2,7 +2,7 @@ package cn.felord.domain.externalcontact;
 
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -13,6 +13,6 @@ public class CorpTagAddRequest {
     private String groupId;
     private String groupName;
     private Long order;
-    private Set<CorpTagBase> tag;
+    private List<CorpTagBase> tag;
     private String agentid;
 }

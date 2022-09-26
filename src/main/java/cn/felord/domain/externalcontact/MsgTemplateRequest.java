@@ -3,7 +3,7 @@ package cn.felord.domain.externalcontact;
 import cn.felord.enumeration.ChatType;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -12,8 +12,8 @@ import java.util.Set;
 @Data
 public class MsgTemplateRequest {
     private final ChatType type;
-    private Set<String> externalUserid;
+    private List<String> externalUserid;
     private String sender;
     private Text text;
-    private Set<? extends MsgAttachment> attachments;
+    private List<? extends MsgAttachment> attachments;
 }

@@ -4,7 +4,7 @@ import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author felord.cn
@@ -13,6 +13,6 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class PermListResponse extends WeComResponse {
-    private Set<String> userids;
-    private Set<String> departmentIds;
+    private List<String> userids;
+    private List<String> departmentIds;
 }

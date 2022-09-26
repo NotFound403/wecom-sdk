@@ -4,7 +4,7 @@ import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -13,6 +13,6 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class MsgTemplateResponse extends WeComResponse {
-    private Set<String> failList;
+    private List<String> failList;
     private String msgid;
 }

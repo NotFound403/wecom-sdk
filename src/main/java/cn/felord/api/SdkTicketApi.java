@@ -106,7 +106,7 @@ public class SdkTicketApi extends AbstractApi {
                             .build()
                             .toUri();
                     JsTicketResponse jsTicketResponse = this.get(uri, JsTicketResponse.class);
-                    if (!jsTicketResponse.isSuccessful() || jsTicketResponse.getTicket() == null) {
+                    if (jsTicketResponse.isError() || jsTicketResponse.getTicket() == null) {
                         throw new WeComException("fail to obtain the corp ticket");
                     }
                     ticket = cacheable.putCorpTicket(corpId, agentId, jsTicketResponse.ticket);
@@ -129,7 +129,7 @@ public class SdkTicketApi extends AbstractApi {
                             .build()
                             .toUri();
                     JsTicketResponse jsTicketResponse = this.get(uri, JsTicketResponse.class);
-                    if (!jsTicketResponse.isSuccessful() || jsTicketResponse.getTicket() == null) {
+                    if (jsTicketResponse.isError() || jsTicketResponse.getTicket() == null) {
                         throw new WeComException("fail to obtain the agent ticket");
                     }
                     ticket = cacheable.putAgentTicket(corpId, agentId, jsTicketResponse.ticket);

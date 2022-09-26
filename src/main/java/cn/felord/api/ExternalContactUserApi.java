@@ -13,10 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The type External contact user api.
@@ -51,13 +48,13 @@ public class ExternalContactUserApi extends AbstractApi {
      * @param userId the user id
      * @return the follow user list
      */
-    public GenericResponse<Set<String>> listByUserId(String userId) {
+    public GenericResponse<List<String>> listByUserId(String userId) {
         String endpoint = WeComEndpoint.EXTERNALCONTACT_LIST_USERID.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<Set<String>>>() {
+        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
         });
     }
 

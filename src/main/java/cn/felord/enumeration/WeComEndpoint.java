@@ -444,6 +444,38 @@ public enum WeComEndpoint {
      */
     INTERCEPT_RULE_DEL("/externalcontact/del_intercept_rule"),
     /**
+     * 添加客服账号，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94662">文档</a>
+     */
+    KF_ACCOUNT_CREATE("/kf/account/add"),
+    /**
+     * 删除客服账号，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94663">文档</a>
+     */
+    KF_ACCOUNT_DEL("/kf/account/del"),
+    /**
+     * 修改客服账号，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94664">文档</a>
+     */
+    KF_ACCOUNT_UPDATE("/kf/account/update"),
+    /**
+     * 获取客服账号列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94661">文档</a>
+     */
+    KF_ACCOUNT_LIST("/kf/account/list"),
+    /**
+     * 获取客服账号链接，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94665">文档</a>
+     */
+    KF_ADD_CONTACT_WAY("/kf/add_contact_way"),
+    /**
+     * 添加接待人员，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94646">文档</a>
+     */
+    KF_SERVICER_CREATE("/kf/servicer/add"),
+    /**
+     * 删除接待人员，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94647">文档</a>
+     */
+    KF_SERVICER_DEL("/kf/servicer/del"),
+    /**
+     * 获取接待人员列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94645">文档</a>
+     */
+    KF_SERVICER_LIST("/kf/servicer/list"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),

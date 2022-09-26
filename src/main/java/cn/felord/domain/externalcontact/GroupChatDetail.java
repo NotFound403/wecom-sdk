@@ -5,7 +5,7 @@ import cn.felord.enumeration.GroupChatMemberType;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -18,8 +18,8 @@ public class GroupChatDetail {
     private String owner;
     private Instant createTime;
     private String notice;
-    private Set<GroupChatMember> memberList;
-    private Set<GroupChatMemberInfo>  adminList;
+    private List<GroupChatMember> memberList;
+    private List<GroupChatMemberInfo>  adminList;
 
 
     @Data

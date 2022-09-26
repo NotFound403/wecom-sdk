@@ -3,7 +3,7 @@ package cn.felord.domain.externalcontact;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -13,6 +13,6 @@ import java.util.Set;
 public class UserBehaviorDataRequest {
      private final Instant startTime;
      private final Instant endTime;
-     private Set<String> userid;
-     private Set<Integer> partyid;
+     private List<String> userid;
+     private List<Integer> partyid;
 }

@@ -5,7 +5,7 @@ import cn.felord.enumeration.MomentVisibleType;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -19,7 +19,7 @@ public class MomentDetail {
      private MomentVisibleType visibleType;
      private CreateType createType;
      private Text text;
-     private Set<MediaId> image;
+     private List<MediaId> image;
      private MomentDetailVideo video;
      private MomentLink link;
      private MomentLocation location;

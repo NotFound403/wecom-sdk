@@ -4,7 +4,7 @@ import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -13,7 +13,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ContactListResponse extends WeComResponse {
-    private Set<ContactWayItem> contactWay;
+    private List<ContactWayItem> contactWay;
     private String nextCursor;
 
 

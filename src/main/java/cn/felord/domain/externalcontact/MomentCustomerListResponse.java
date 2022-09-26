@@ -4,7 +4,7 @@ import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -14,7 +14,7 @@ import java.util.Set;
 @Data
 public class MomentCustomerListResponse extends WeComResponse {
     private String nextCursor;
-    private Set<CustomerItem> customerList;
+    private List<CustomerItem> customerList;
 
     @Data
     public static class CustomerItem {

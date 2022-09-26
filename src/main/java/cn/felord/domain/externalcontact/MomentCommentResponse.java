@@ -4,7 +4,7 @@ import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -13,7 +13,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class MomentCommentResponse extends WeComResponse {
-    private Set<InteractionUser> commentList;
-    private Set<InteractionUser> likeList;
+    private List<InteractionUser> commentList;
+    private List<InteractionUser> likeList;
 
 }

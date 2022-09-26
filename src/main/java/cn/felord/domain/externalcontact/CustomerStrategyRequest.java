@@ -3,7 +3,7 @@ package cn.felord.domain.externalcontact;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -12,5 +12,5 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class CustomerStrategyRequest extends CustomerStrategyDetail{
-    private Set<StrategyRange> range;
+    private List<StrategyRange> range;
 }

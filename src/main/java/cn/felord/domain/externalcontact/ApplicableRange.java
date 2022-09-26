@@ -2,7 +2,7 @@ package cn.felord.domain.externalcontact;
 
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author xiafang
@@ -10,6 +10,6 @@ import java.util.Set;
  */
 @Data
 public class ApplicableRange {
-    private Set<String> userList;
-    private Set<Integer> departmentList;
+    private List<String> userList;
+    private List<Integer> departmentList;
 }

@@ -2,7 +2,7 @@ package cn.felord.domain.externalcontact;
 
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -15,7 +15,7 @@ public class CustomerRemarkRequest {
     private String remark;
     private String description;
     private String remarkCompany;
-    private Set<String> remarkMobiles;
+    private List<String> remarkMobiles;
     private String remarkPicMediaid;
 
 }

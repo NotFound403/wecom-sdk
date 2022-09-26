@@ -3,7 +3,7 @@ package cn.felord.domain.externalcontact;
 import lombok.Data;
 
 import java.time.Duration;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -17,8 +17,8 @@ public class MutableContactWay {
     private Boolean skipVerify;
     private String state;
     private String unionid;
-    private Set<String> user;
-    private Set<Integer> party;
+    private List<String> user;
+    private List<Integer> party;
     private Boolean isTemp;
     private Duration expiresIn;
     private Duration chatExpiresIn;

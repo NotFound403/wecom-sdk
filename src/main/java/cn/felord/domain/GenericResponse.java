@@ -36,11 +36,14 @@ public class GenericResponse<T> extends WeComResponse {
             "failed_chat_list",
             "join_way",
             "config_id",
+            "template_id",
             "product_id",
             "rule_id",
             "rule_list",
             "rule",
-            "template_id"
+            "url",
+            "account_list",
+            "open_kfid"
     })
     private T data;
 }

@@ -47,7 +47,7 @@ public final class RestTemplateFactory {
     }
 
     /**
-     * The type We com response error handler.
+     * The type Wecom response error handler.
      */
     public static class WeComResponseErrorHandler extends DefaultResponseErrorHandler {
         @Override

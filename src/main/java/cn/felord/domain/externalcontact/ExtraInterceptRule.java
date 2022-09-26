@@ -3,7 +3,7 @@ package cn.felord.domain.externalcontact;
 import cn.felord.enumeration.SemanticsRule;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author xiafang
@@ -11,5 +11,5 @@ import java.util.Set;
  */
 @Data
 public class ExtraInterceptRule {
-    private Set<SemanticsRule> semanticsList;
+    private List<SemanticsRule> semanticsList;
 }

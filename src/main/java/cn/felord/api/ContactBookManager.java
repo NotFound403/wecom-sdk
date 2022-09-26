@@ -5,12 +5,12 @@ import cn.felord.AgentDetails;
 import cn.felord.WeComCacheable;
 
 /**
- * The type Contact manager.
+ * 通讯录管理
  *
  * @author felord.cn
  * @since 1.0.14.RELEASE
  */
-public class ContactManager {
+public class ContactBookManager {
     private final WeComCacheable cacheable;
 
     /**
@@ -18,7 +18,7 @@ public class ContactManager {
      *
      * @param cacheable the cacheable
      */
-    ContactManager(WeComCacheable cacheable) {
+    ContactBookManager(WeComCacheable cacheable) {
         this.cacheable = cacheable;
     }
 

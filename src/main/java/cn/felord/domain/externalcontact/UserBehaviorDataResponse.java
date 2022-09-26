@@ -4,7 +4,7 @@ import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
@@ -13,5 +13,5 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class UserBehaviorDataResponse extends WeComResponse {
-    private Set<BehaviorData> behaviorData;
+    private List<BehaviorData> behaviorData;
 }

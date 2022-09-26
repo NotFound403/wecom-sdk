@@ -13,8 +13,9 @@ public class WeComResponse {
     private Integer errcode;
     private String errmsg;
 
+
     /**
-     * Is successful boolean.
+     * Is successful response.
      *
      * @return the boolean
      */
@@ -22,4 +23,12 @@ public class WeComResponse {
         return errcode == 0;
     }
 
+    /**
+     * Is error response.
+     *
+     * @return the boolean
+     */
+    public boolean isError() {
+        return errcode != 0;
+    }
 }
