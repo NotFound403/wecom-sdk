@@ -404,6 +404,26 @@ public enum WeComEndpoint {
      */
     STATISTIC_GROUP_CHAT_BY_DAY("/externalcontact/groupchat/statistic_group_by_day"),
     /**
+     * 创建商品图册，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95096">文档</a>
+     */
+    PRODUCT_ALBUM_CREATE("/externalcontact/add_product_album"),
+    /**
+     * 获取商品图册，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95096">文档</a>
+     */
+    PRODUCT_ALBUM_GET("/externalcontact/get_product_album"),
+    /**
+     * 获取商品图册列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95096">文档</a>
+     */
+    PRODUCT_ALBUM_LIST("/externalcontact/get_product_album_list"),
+    /**
+     * 编辑商品图册，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95096">文档</a>
+     */
+    PRODUCT_ALBUM_EDIT("/externalcontact/update_product_album"),
+    /**
+     * 获取商品图册列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95096">文档</a>
+     */
+    PRODUCT_ALBUM_DEL("/externalcontact/delete_product_album"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),

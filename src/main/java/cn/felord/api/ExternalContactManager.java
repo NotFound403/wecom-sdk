@@ -110,4 +110,14 @@ public class ExternalContactManager {
     public StatisticApi statisticApi(AgentDetails agent) {
         return new StatisticApi(cacheable).agent(agent);
     }
+
+    /**
+     * 商品图册管理
+     *
+     * @param agent the agent
+     * @return the product album api
+     */
+    public ProductAlbumApi productAlbumApi(AgentDetails agent) {
+        return new ProductAlbumApi(cacheable).agent(agent);
+    }
 }

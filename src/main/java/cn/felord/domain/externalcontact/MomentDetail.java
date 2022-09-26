@@ -19,7 +19,7 @@ public class MomentDetail {
      private MomentVisibleType visibleType;
      private CreateType createType;
      private Text text;
-     private Set<MomentImage> image;
+     private Set<MediaId> image;
      private MomentDetailVideo video;
      private MomentLink link;
      private MomentLocation location;

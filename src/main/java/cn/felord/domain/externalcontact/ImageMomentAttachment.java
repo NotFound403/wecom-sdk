@@ -9,9 +9,9 @@ import lombok.Getter;
  */
 @Getter
 public class ImageMomentAttachment extends MomentAttachment {
-    private final MomentImage image;
+    private final MediaId image;
 
-    public ImageMomentAttachment(MomentImage image) {
+    public ImageMomentAttachment(MediaId image) {
         super(MomentAttachmentType.IMAGE);
         this.image = image;
     }
