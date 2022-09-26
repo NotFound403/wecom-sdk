@@ -11,19 +11,19 @@ import java.util.Arrays;
  * @author dax
  * @since 2021 /9/8 10:47
  */
-public enum RangeType {
+public enum InterceptType {
     /**
      * User range type.
      */
-    USER(1),
+    WARNING_AND_SEND(1),
     /**
      * Party range type.
      */
-    PARTY(2);
+    WARNING(2);
 
     private final int type;
 
-    RangeType(int type) {
+    InterceptType(int type) {
         this.type = type;
     }
 
@@ -44,8 +44,8 @@ public enum RangeType {
      * @return the range type
      */
     @JsonCreator
-    public static RangeType deserialize(int type) {
-        return Arrays.stream(RangeType.values())
+    public static InterceptType deserialize(int type) {
+        return Arrays.stream(InterceptType.values())
                 .filter(contactType -> contactType.type == type)
                 .findFirst()
                 .orElse(null);

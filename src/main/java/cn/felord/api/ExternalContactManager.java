@@ -120,4 +120,14 @@ public class ExternalContactManager {
     public ProductAlbumApi productAlbumApi(AgentDetails agent) {
         return new ProductAlbumApi(cacheable).agent(agent);
     }
+
+    /**
+     * 管理聊天敏感词
+     *
+     * @param agent the agent
+     * @return the chat intercept rule api
+     */
+    public ChatInterceptRuleApi chatInterceptRuleApi(AgentDetails agent) {
+        return new ChatInterceptRuleApi(cacheable).agent(agent);
+    }
 }

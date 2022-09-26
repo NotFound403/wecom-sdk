@@ -37,6 +37,9 @@ public class GenericResponse<T> extends WeComResponse {
             "join_way",
             "config_id",
             "product_id",
+            "rule_id",
+            "rule_list",
+            "rule",
             "template_id"
     })
     private T data;

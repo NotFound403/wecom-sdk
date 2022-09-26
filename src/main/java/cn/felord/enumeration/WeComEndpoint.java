@@ -424,6 +424,26 @@ public enum WeComEndpoint {
      */
     PRODUCT_ALBUM_DEL("/externalcontact/delete_product_album"),
     /**
+     * 新建敏感词规则，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95097">文档</a>
+     */
+    INTERCEPT_RULE_CREATE("/externalcontact/add_intercept_rule"),
+    /**
+     * 获取敏感词规则列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95097">文档</a>
+     */
+    INTERCEPT_RULE_LIST("/externalcontact/get_intercept_rule_list"),
+    /**
+     * 获取敏感词规则详情，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95097">文档</a>
+     */
+    INTERCEPT_RULE_GET("/externalcontact/get_intercept_rule"),
+    /**
+     * 修改敏感词规则，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95097">文档</a>
+     */
+    INTERCEPT_RULE_UPDATE("/externalcontact/update_intercept_rule"),
+    /**
+     * 删除敏感词规则，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95097">文档</a>
+     */
+    INTERCEPT_RULE_DEL("/externalcontact/del_intercept_rule"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),

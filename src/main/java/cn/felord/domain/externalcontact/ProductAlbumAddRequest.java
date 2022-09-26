@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.Set;
 
 /**
- * @author xiafang
- * @since 2022/9/26 9:39
+ * @author dax
+ * @since 2021/8/17 9:39
  */
 @Data
 public class ProductAlbumAddRequest {

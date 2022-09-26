@@ -11,20 +11,27 @@ import java.util.Arrays;
  * @author dax
  * @since 2021 /9/8 10:47
  */
-public enum RangeType {
-    /**
-     * User range type.
-     */
-    USER(1),
-    /**
-     * Party range type.
-     */
-    PARTY(2);
+public enum SemanticsRule {
 
-    private final int type;
+    /**
+     * Phone semantics rule.
+     */
+    PHONE(1),
 
-    RangeType(int type) {
-        this.type = type;
+    /**
+     * Email semantics rule.
+     */
+    EMAIL(2),
+    /**
+     * Red envelope semantics rule.
+     */
+    RED_ENVELOPE(3),
+    ;
+
+    private final int rule;
+
+    SemanticsRule(int rule) {
+        this.rule = rule;
     }
 
     /**
@@ -33,20 +40,20 @@ public enum RangeType {
      * @return the type
      */
     @JsonValue
-    public int getType() {
-        return type;
+    public int getRule() {
+        return rule;
     }
 
     /**
      * Deserialize range type.
      *
-     * @param type the type
+     * @param rule the rule
      * @return the range type
      */
     @JsonCreator
-    public static RangeType deserialize(int type) {
-        return Arrays.stream(RangeType.values())
-                .filter(contactType -> contactType.type == type)
+    public static SemanticsRule deserialize(int rule) {
+        return Arrays.stream(SemanticsRule.values())
+                .filter(contactType -> contactType.rule == rule)
                 .findFirst()
                 .orElse(null);
     }
