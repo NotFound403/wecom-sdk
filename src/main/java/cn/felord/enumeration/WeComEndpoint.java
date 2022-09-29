@@ -444,6 +444,10 @@ public enum WeComEndpoint {
      */
     INTERCEPT_RULE_DEL("/externalcontact/del_intercept_rule"),
     /**
+     * 外部联系人openid转换，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92323">文档</a>
+     */
+    EXTERNAL_USER_TO_OPENID("/externalcontact/convert_to_openid"),
+    /**
      * 添加客服账号，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94662">文档</a>
      */
     KF_ACCOUNT_CREATE("/kf/account/add"),

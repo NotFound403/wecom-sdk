@@ -133,8 +133,8 @@ public class ExternalContactUserApi extends AbstractApi {
                 .build()
                 .toUri();
         Map<String, Object> body = new HashMap<>(2);
-             body.put("cursor", cursor);
-            body.put("limit", limit);
+        body.put("cursor", cursor);
+        body.put("limit", limit);
         return this.post(uri, body, StrategyListResponse.class);
     }
 
@@ -215,5 +215,29 @@ public class ExternalContactUserApi extends AbstractApi {
                 .toUri();
 
         return this.post(uri, Collections.singletonMap("strategy_id", strategyId), WeComResponse.class);
+    }
+
+    /**
+     * 家校沟通-外部联系人openid转换
+     * <p>
+     * 企业和服务商可通过此接口，将微信外部联系人的userid（如何获取?）转为微信openid，用于调用支付相关接口。
+     * 暂不支持企业微信外部联系人（ExternalUserid为wo开头）的userid转openid。
+     *
+     * @param externalUserid the external userid
+     * @return the generic response
+     */
+    public GenericResponse<String> convertToOpenid(String externalUserid) {
+
+        if (externalUserid.startsWith("wo")){
+            throw new WeComException("暂不支持以wo开头的externalUserid");
+        }
+        String endpoint = WeComEndpoint.EXTERNAL_USER_TO_OPENID.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+
+        return this.post(uri, Collections.singletonMap("external_userid", externalUserid),
+                new ParameterizedTypeReference<GenericResponse<String>>() {
+                });
     }
 }
