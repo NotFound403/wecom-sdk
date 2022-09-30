@@ -12,7 +12,7 @@ import lombok.NonNull;
  */
 @AllArgsConstructor
 @Getter
-public class Agent implements AgentDetails {
+public class DefaultAgent implements AgentDetails {
     @NonNull
     private final String corpId;
     @NonNull

@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author dax
- * @since 2021/7/15 17:52
+ * @since 2021/7/15 19:52
  */
 @Data
 public class GroupChatDetail {

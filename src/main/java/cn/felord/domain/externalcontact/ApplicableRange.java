@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author xiafang
- * @since 2022/9/26 11:03
+ * @author dax
+ * @since 2021/8/23 11:03
  */
 @Data
 public class ApplicableRange {

@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @author dax
- * @since 2021/7/15 17:46
+ * @since 2021/7/15 19:46
  */
 @Data
 public abstract class GroupChatDetailRequest {

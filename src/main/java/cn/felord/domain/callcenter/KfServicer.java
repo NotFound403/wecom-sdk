@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 
 /**
- * @author xiafang
- * @since 2022/9/26 16:57
+ * @author dax
+ * @since 2021/8/23 16:57
  */
 @Data
 public class KfServicer {

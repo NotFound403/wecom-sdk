@@ -19,7 +19,7 @@ import java.util.*;
  * The type External contact user api.
  *
  * @author dax
- * @since 2021 /9/8 17:05
+ * @since 2021 /9/8 19:05
  */
 public class ExternalContactUserApi extends AbstractApi {
     /**
@@ -110,13 +110,13 @@ public class ExternalContactUserApi extends AbstractApi {
      * @param request the request
      * @return the external user list detail response
      */
-    public ExternalUserListDetailResponse remark(CustomerRemarkRequest request) {
+    public WeComResponse remark(CustomerRemarkRequest request) {
 
         String endpoint = WeComEndpoint.EXTERNALCONTACT_REMARK.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, ExternalUserListDetailResponse.class);
+        return this.post(uri, request, WeComResponse.class);
     }
 
     /**

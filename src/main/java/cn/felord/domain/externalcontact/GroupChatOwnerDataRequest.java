@@ -6,7 +6,7 @@ import java.time.Instant;
 
 /**
  * @author dax
- * @since 2022/9/23 14:28
+ * @since 2021/9/23 14:28
  */
 @Data
 public class GroupChatOwnerDataRequest {

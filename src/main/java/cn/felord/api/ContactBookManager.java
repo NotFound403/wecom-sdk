@@ -1,6 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.Agent;
 import cn.felord.AgentDetails;
 import cn.felord.WeComCacheable;
 
@@ -58,7 +57,7 @@ public class ContactBookManager {
      * @param agent the agent
      * @return the asynchronous batch import api
      */
-    public AsynchronousBatchImportApi asynchronousBatchApi(Agent agent) {
+    public AsynchronousBatchImportApi asynchronousBatchApi(AgentDetails agent) {
         return new AsynchronousBatchImportApi(cacheable).agent(agent);
     }
 
@@ -68,7 +67,7 @@ public class ContactBookManager {
      * @param agent the agent
      * @return the linked corp api
      */
-    public LinkedCorpApi linkedCorpApi(Agent agent) {
+    public LinkedCorpApi linkedCorpApi(AgentDetails agent) {
         return new LinkedCorpApi(cacheable).agent(agent);
     }
 }

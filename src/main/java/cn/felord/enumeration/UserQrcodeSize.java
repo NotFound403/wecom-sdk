@@ -4,7 +4,7 @@ package cn.felord.enumeration;
  * The enum User qrcode size.
  *
  * @author n1
- * @since 2021 /6/17 17:52
+ * @since 2021 /6/17 19:52
  */
 public enum UserQrcodeSize {
     /**

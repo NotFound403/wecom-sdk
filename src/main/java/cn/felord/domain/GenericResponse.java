@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
  * 对于类似该结构的进行统一泛型封装
  *
  * @author n1
- * @since 2021/6/17 17:09
+ * @since 2021/6/17 19:09
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -43,6 +43,7 @@ public class GenericResponse<T> extends WeComResponse {
             "rule",
             "url",
             "account_list",
+            "msg_code",
             "open_kfid"
     })
     private T data;

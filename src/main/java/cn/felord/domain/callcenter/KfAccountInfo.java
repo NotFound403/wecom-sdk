@@ -3,8 +3,8 @@ package cn.felord.domain.callcenter;
 import lombok.Data;
 
 /**
- * @author xiafang
- * @since 2022/9/26 14:24
+ * @author dax
+ * @since 2021/8/23 14:24
  */
 @Data
 public class KfAccountInfo {

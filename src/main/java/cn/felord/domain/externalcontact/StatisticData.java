@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @author dax
- * @since 2022/9/23 14:36
+ * @since 2021/9/23 14:36
  */
 @Data
 public class StatisticData {

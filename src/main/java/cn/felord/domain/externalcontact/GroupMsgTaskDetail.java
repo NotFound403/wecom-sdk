@@ -7,7 +7,7 @@ import java.time.Instant;
 
 /**
  * @author dax
- * @since 2021/7/22 17:08
+ * @since 2021/7/22 19:08
  */
 @Data
 public class GroupMsgTaskDetail {

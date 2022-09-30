@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * @author dax
- * @since 2021/9/26 11:28
+ * @since 2021/8/23 11:28
  */
 @Data
 public class InterceptRuleDetail {

@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author dax
- * @since 2022/9/23 14:46
+ * @since 2021/9/23 14:46
  */
 @Data
 public class GroupChatDataResponse<D extends GroupChatData> extends WeComResponse {

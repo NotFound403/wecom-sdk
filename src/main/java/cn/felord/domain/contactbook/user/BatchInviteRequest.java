@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author n1
- * @since 2021/6/17 17:38
+ * @since 2021/6/17 19:38
  */
 @Data
 public class BatchInviteRequest {

@@ -480,6 +480,18 @@ public enum WeComEndpoint {
      */
     KF_SERVICER_LIST("/kf/servicer/list"),
     /**
+     * 获取会话状态，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94669">文档</a>
+     */
+    KF_SERVICE_STATE_GET("/kf/service_state/get"),
+    /**
+     * 变更会话状态，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94669">文档</a>
+     */
+    KF_SERVICE_STATE_TRANS("/kf/service_state/trans"),
+    /**
+     * 读取消息，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94670">文档</a>
+     */
+    KF_SYNC_MSG("/kf/sync_msg"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),

@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * @author dax
- * @since 2021/7/15 17:32
+ * @since 2021/7/15 19:32
  */
 @Data
 public class ChatListItem {
