@@ -173,11 +173,10 @@ public class CorpTagApi extends AbstractApi {
     /**
      * 编辑客户企业标签
      *
-     * @param <R>     the type parameter
      * @param request the request
      * @return the we com response
      */
-    public <R extends CorpTagOptRequest> WeComResponse markTag(R request) {
+    public WeComResponse markTag(CorpTagOptRequest request) {
 
         String endpoint = WeComEndpoint.CORP_TAG_MARK.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)

@@ -12,7 +12,7 @@ public interface WeComCacheable {
     /**
      * 存入accessToken
      * <p>
-     * 推荐缓存组织格式 {@code qywx::token::{corpId}::{agentId}}.
+     * 推荐缓存组织格式 {@code token::qywx::{corpId}::{agentId}}.
      *
      * @param corpId      the corpId
      * @param agentId     the agentId
@@ -33,7 +33,7 @@ public interface WeComCacheable {
     /**
      * 放入企业的jsapi_ticket.
      * <p>
-     * 推荐缓存组织格式 {@code qywx::ticket::corp::{corpId}::{agentId}}.
+     * 推荐缓存组织格式 {@code ticket::qywx::corp::{corpId}::{agentId}}.
      *
      * @param corpId     the corpId
      * @param agentId    the agentId
@@ -54,7 +54,7 @@ public interface WeComCacheable {
     /**
      * 放入应用的jsapi_ticket.
      * <p>
-     * 推荐缓存组织格式 {@code qywx::ticket::agent::{corpId}::{agentId}}.
+     * 推荐缓存组织格式 {@code ticket::qywx::agent::{corpId}::{agentId}}.
      *
      * @param corpId      the corpId
      * @param agentId     the agentId
