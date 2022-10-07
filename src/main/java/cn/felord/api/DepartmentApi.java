@@ -19,26 +19,15 @@ import java.util.List;
  * @author n1
  * @since 2021 /6/17 14:58
  */
-public class DepartmentApi extends AbstractApi {
+public class DepartmentApi extends AbstractAgentApi {
 
     /**
      * Instantiates a new Department api.
      *
      * @param cacheable the cacheable
      */
-    DepartmentApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent department api.
-     *
-     * @param agent the agent
-     * @return the department api
-     */
-    DepartmentApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    DepartmentApi(WeComCacheable wecomCacheable,AgentDetails agent) {
+        super(wecomCacheable,agent);
     }
 
     /**

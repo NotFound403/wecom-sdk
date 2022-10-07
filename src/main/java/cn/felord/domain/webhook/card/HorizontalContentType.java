@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * The enum Horizontal content type.
  *
  * @author felord.cn
- * @since 2021 /9/3 15:16
+ * @since 2021/9/3 15:16
  */
 enum HorizontalContentType {
     /**

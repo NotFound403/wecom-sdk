@@ -22,26 +22,16 @@ import java.util.Map;
  * @author dax
  * @since 2021 /6/23 15:30
  */
-public class ProductAlbumApi extends AbstractApi {
+public class ProductAlbumApi extends AbstractAgentApi {
 
     /**
      * Instantiates a new Product album api.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    ProductAlbumApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent statistic api.
-     *
-     * @param agent the agent
-     * @return the statistic api
-     */
-    ProductAlbumApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    ProductAlbumApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
 
     /**

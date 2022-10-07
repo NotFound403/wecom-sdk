@@ -14,21 +14,17 @@ import java.util.Collections;
  * 身份验证API
  *
  * @author felord.cn
- * @since 2021 /9/3 9:17
+ * @since 2021/9/3 9:17
  */
-public class AuthApi extends AbstractApi {
+public class AuthApi extends AbstractAgentApi {
     /**
      * Instantiates a new We com client.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    public AuthApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    AuthApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    public AuthApi(WeComCacheable wecomCacheable,AgentDetails agent) {
+        super(wecomCacheable,agent);
     }
 
     /**

@@ -16,26 +16,16 @@ import java.net.URI;
  * @author dax
  * @since 2021 /7/23 13:52
  */
-public class KfServicerApi extends AbstractApi {
+public class KfServicerApi extends AbstractAgentApi {
 
     /**
      * KfAccountApi
      *
      * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    KfServicerApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
-    }
-
-    /**
-     * Agent service account manager api.
-     *
-     * @param agentDetails the agent details
-     * @return the service account manager api
-     */
-    KfServicerApi agent(AgentDetails agentDetails) {
-        this.withAgent(agentDetails);
-        return this;
+    KfServicerApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
 
     /**

@@ -28,7 +28,7 @@ public class ContactBookManager {
      * @return the user api
      */
     public UserApi userApi(AgentDetails agent) {
-        return new UserApi(cacheable).agent(agent);
+        return new UserApi(cacheable, agent);
     }
 
     /**
@@ -38,7 +38,7 @@ public class ContactBookManager {
      * @return the department api
      */
     public DepartmentApi departmentApi(AgentDetails agent) {
-        return new DepartmentApi(cacheable).agent(agent);
+        return new DepartmentApi(cacheable, agent);
     }
 
     /**
@@ -48,7 +48,7 @@ public class ContactBookManager {
      * @return the tag api
      */
     public TagApi tagApi(AgentDetails agent) {
-        return new TagApi(cacheable).agent(agent);
+        return new TagApi(cacheable, agent);
     }
 
     /**
@@ -58,7 +58,7 @@ public class ContactBookManager {
      * @return the asynchronous batch import api
      */
     public AsynchronousBatchImportApi asynchronousBatchApi(AgentDetails agent) {
-        return new AsynchronousBatchImportApi(cacheable).agent(agent);
+        return new AsynchronousBatchImportApi(cacheable, agent);
     }
 
     /**
@@ -68,6 +68,6 @@ public class ContactBookManager {
      * @return the linked corp api
      */
     public LinkedCorpApi linkedCorpApi(AgentDetails agent) {
-        return new LinkedCorpApi(cacheable).agent(agent);
+        return new LinkedCorpApi(cacheable, agent);
     }
 }

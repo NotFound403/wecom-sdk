@@ -23,26 +23,16 @@ import java.util.Map;
  * @author n1
  * @since 2021 /6/17 11:09
  */
-public class UserApi extends AbstractApi {
+public class UserApi extends AbstractAgentApi {
 
     /**
      * Instantiates a new User api.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    UserApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent user api.
-     *
-     * @param agent the agent
-     * @return the user api
-     */
-    UserApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    UserApi(WeComCacheable wecomCacheable,AgentDetails agent) {
+        super(wecomCacheable,agent);
     }
 
     /**

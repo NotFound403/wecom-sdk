@@ -19,27 +19,17 @@ import java.util.Collections;
  * 管理聊天敏感词
  *
  * @author dax
- * @since 2021/8/17 10:26
+ * @since 2021 /8/17 10:26
  */
-public class ChatInterceptRuleApi extends AbstractApi {
+public class ChatInterceptRuleApi extends AbstractAgentApi {
     /**
      * Instantiates a new Product album api.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    ChatInterceptRuleApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent statistic api.
-     *
-     * @param agent the agent
-     * @return the statistic api
-     */
-    ChatInterceptRuleApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    ChatInterceptRuleApi(WeComCacheable wecomCacheable,AgentDetails agent) {
+        super(wecomCacheable,agent);
     }
 
     /**

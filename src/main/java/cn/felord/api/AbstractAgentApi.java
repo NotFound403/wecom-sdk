@@ -13,34 +13,33 @@ import java.util.Collections;
 import java.util.Objects;
 
 /**
+ * The type Abstract agent api.
+ *
  * @author n1
- * @since 2021/6/16 19:36
+ * @since 2021 /6/16 19:36
  */
 @Slf4j
-public abstract class AbstractApi {
+public abstract class AbstractAgentApi {
     private final RestTemplate restTemplate;
-    private final AccessTokenClientHttpRequestInterceptor requestInterceptor;
 
-    public AbstractApi() {
+    /**
+     * Instantiates a new Abstract agent api.
+     */
+    public AbstractAgentApi() {
         this.restTemplate = RestTemplateFactory.restOperations();
-        this.requestInterceptor = null;
     }
+
     /**
      * Instantiates a new We com client.
-     */
-    public AbstractApi(WeComCacheable wecomCacheable) {
-        this.restTemplate = RestTemplateFactory.restOperations();
-        this.requestInterceptor = new AccessTokenClientHttpRequestInterceptor(new AccessTokenApi(wecomCacheable));
-    }
-
-    /**
-     * With agent.
      *
-     * @param agentDetails the agent details
+     * @param wecomCacheable the wecom cacheable
+     * @param agentDetails   the agent details
      */
-    protected <A extends AgentDetails> void withAgent(A agentDetails) {
-        requestInterceptor.setAgentDetails(agentDetails);
-        this.restTemplate.setInterceptors(Collections.singletonList(requestInterceptor));
+    public <A extends AgentDetails> AbstractAgentApi(WeComCacheable wecomCacheable, A agentDetails) {
+        this.restTemplate = RestTemplateFactory.restOperations();
+        AccessTokenClientHttpRequestInterceptor interceptor = new AccessTokenClientHttpRequestInterceptor(new AccessTokenApi(wecomCacheable));
+        interceptor.setAgentDetails(agentDetails);
+        this.restTemplate.setInterceptors(Collections.singletonList(interceptor));
     }
 
     /**

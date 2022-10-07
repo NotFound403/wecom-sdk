@@ -28,7 +28,7 @@ public class CallCenterManager {
      * @return the service account manager api
      */
     public KfAccountApi kfAccountApi(AgentDetails agent) {
-        return new KfAccountApi(cacheable).agent(agent);
+        return new KfAccountApi(cacheable, agent);
     }
 
     /**
@@ -38,7 +38,7 @@ public class CallCenterManager {
      * @return the kf servicer api
      */
     public KfServicerApi kfServicerApi(AgentDetails agent) {
-        return new KfServicerApi(cacheable).agent(agent);
+        return new KfServicerApi(cacheable, agent);
     }
 
 }

@@ -20,7 +20,7 @@ public final class WorkWeChatApi {
      * @return the domain api
      */
     public DomainApi domainApi(AgentDetails agent) {
-        return new DomainApi(cacheable).agent(agent);
+        return new DomainApi(cacheable, agent);
     }
 
     /**
@@ -57,7 +57,7 @@ public final class WorkWeChatApi {
      * @return the auth api
      */
     public AuthApi authApi(AgentDetails agent) {
-        return new AuthApi(cacheable).agent(agent);
+        return new AuthApi(cacheable, agent);
     }
 
     /**
@@ -67,7 +67,7 @@ public final class WorkWeChatApi {
      * @return the agent manager
      */
     public AgentManager agentManager(AgentDetails agent) {
-        return new AgentManager(cacheable).agent(agent);
+        return new AgentManager(cacheable, agent);
     }
 
     /**
@@ -77,7 +77,7 @@ public final class WorkWeChatApi {
      * @return the sdk ticket api
      */
     public SdkTicketApi sdkTicketApi(AgentDetails agent) {
-        return new SdkTicketApi(cacheable).agent(agent);
+        return new SdkTicketApi(cacheable, agent);
     }
 
     /**
@@ -96,6 +96,6 @@ public final class WorkWeChatApi {
      * @return the media api
      */
     public MediaApi mediaApi(AgentDetails agent) {
-        return new MediaApi(cacheable).agent(agent);
+        return new MediaApi(cacheable, agent);
     }
 }

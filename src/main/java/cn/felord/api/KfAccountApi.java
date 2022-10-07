@@ -26,26 +26,15 @@ import java.util.Map;
  * @author dax
  * @since 2021 /7/23 13:52
  */
-public class KfAccountApi extends AbstractApi {
+public class KfAccountApi extends AbstractAgentApi {
 
     /**
      * KfAccountApi
      *
      * @param wecomCacheable the wecom cacheable
      */
-    KfAccountApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
-    }
-
-    /**
-     * Agent service account manager api.
-     *
-     * @param agentDetails the agent details
-     * @return the service account manager api
-     */
-    KfAccountApi agent(AgentDetails agentDetails) {
-        this.withAgent(agentDetails);
-        return this;
+    KfAccountApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
 
     /**

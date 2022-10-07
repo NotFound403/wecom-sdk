@@ -16,27 +16,17 @@ import java.util.*;
  * The type Corp service user api.
  *
  * @author dax
- * @since 2021 /9/8 9:28
+ * @since 2021/9/8 9:28
  */
-public class ContactMeWayApi extends AbstractApi {
+public class ContactMeWayApi extends AbstractAgentApi {
     /**
      * Instantiates a new Corp service user api.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    ContactMeWayApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent corp service user api.
-     *
-     * @param agent the agent
-     * @return the corp service user api
-     */
-    ContactMeWayApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    ContactMeWayApi(WeComCacheable wecomCacheable,AgentDetails agent) {
+        super(wecomCacheable,agent);
     }
 
     /**

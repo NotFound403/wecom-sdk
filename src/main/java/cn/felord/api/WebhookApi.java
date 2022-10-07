@@ -13,7 +13,7 @@ import java.net.URI;
  * @author n1
  * @since 2021 /6/16 19:35
  */
-public class WebhookApi extends AbstractApi {
+public class WebhookApi extends AbstractAgentApi {
 
     /**
      * Send text we com response.

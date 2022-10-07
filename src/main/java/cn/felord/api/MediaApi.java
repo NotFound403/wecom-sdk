@@ -22,26 +22,16 @@ import java.net.URI;
  * @author n1
  * @since 2021 /6/19 9:59
  */
-public class MediaApi extends AbstractApi {
+public class MediaApi extends AbstractAgentApi {
 
     /**
      * Instantiates a new We com client.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    MediaApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent media api.
-     *
-     * @param agentDetails the agent details
-     * @return the media api
-     */
-    MediaApi agent(AgentDetails agentDetails) {
-        this.withAgent(agentDetails);
-        return this;
+    MediaApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
 
     /**

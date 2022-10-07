@@ -7,7 +7,7 @@ import cn.felord.WeComCacheable;
  * 客户联系
  *
  * @author dax
- * @since 2021 /9/8 8:36
+ * @since 2021/9/8 8:36
  */
 public class ExternalContactManager {
     private final WeComCacheable cacheable;
@@ -28,7 +28,7 @@ public class ExternalContactManager {
      * @return the corp service user api
      */
     public ContactMeWayApi contactMeWayApi(AgentDetails agent) {
-        return new ContactMeWayApi(cacheable).agent(agent);
+        return new ContactMeWayApi(cacheable, agent);
     }
 
     /**
@@ -38,7 +38,7 @@ public class ExternalContactManager {
      * @return the external contact user api
      */
     public ExternalContactUserApi externalContactUserApi(AgentDetails agent) {
-        return new ExternalContactUserApi(cacheable).agent(agent);
+        return new ExternalContactUserApi(cacheable, agent);
     }
 
     /**
@@ -48,7 +48,7 @@ public class ExternalContactManager {
      * @return the corp tag api
      */
     public CorpTagApi corpTagApi(AgentDetails agent) {
-        return new CorpTagApi(cacheable).agent(agent);
+        return new CorpTagApi(cacheable, agent);
     }
 
     /**
@@ -58,7 +58,7 @@ public class ExternalContactManager {
      * @return the on transfer api
      */
     public OnTransferApi onTransferApi(AgentDetails agent) {
-        return new OnTransferApi(cacheable).agent(agent);
+        return new OnTransferApi(cacheable, agent);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ExternalContactManager {
      * @return the off transfer api
      */
     public OffTransferApi offTransferApi(AgentDetails agent) {
-        return new OffTransferApi(cacheable).agent(agent);
+        return new OffTransferApi(cacheable, agent);
     }
 
     /**
@@ -78,7 +78,7 @@ public class ExternalContactManager {
      * @return the groupchat api
      */
     public GroupChatApi groupchatApi(AgentDetails agent) {
-        return new GroupChatApi(cacheable).agent(agent);
+        return new GroupChatApi(cacheable, agent);
     }
 
     /**
@@ -88,7 +88,7 @@ public class ExternalContactManager {
      * @return the moment api
      */
     public MomentApi momentApi(AgentDetails agent) {
-        return new MomentApi(cacheable).agent(agent);
+        return new MomentApi(cacheable, agent);
     }
 
     /**
@@ -98,7 +98,7 @@ public class ExternalContactManager {
      * @return the message api
      */
     public GroupMessageApi messageApi(AgentDetails agent) {
-        return new GroupMessageApi(cacheable).agent(agent);
+        return new GroupMessageApi(cacheable, agent);
     }
 
     /**
@@ -108,7 +108,7 @@ public class ExternalContactManager {
      * @return the statistic api
      */
     public StatisticApi statisticApi(AgentDetails agent) {
-        return new StatisticApi(cacheable).agent(agent);
+        return new StatisticApi(cacheable, agent);
     }
 
     /**
@@ -118,7 +118,7 @@ public class ExternalContactManager {
      * @return the product album api
      */
     public ProductAlbumApi productAlbumApi(AgentDetails agent) {
-        return new ProductAlbumApi(cacheable).agent(agent);
+        return new ProductAlbumApi(cacheable, agent);
     }
 
     /**
@@ -128,6 +128,6 @@ public class ExternalContactManager {
      * @return the chat intercept rule api
      */
     public ChatInterceptRuleApi chatInterceptRuleApi(AgentDetails agent) {
-        return new ChatInterceptRuleApi(cacheable).agent(agent);
+        return new ChatInterceptRuleApi(cacheable, agent);
     }
 }

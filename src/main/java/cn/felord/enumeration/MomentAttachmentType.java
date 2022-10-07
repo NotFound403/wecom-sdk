@@ -9,7 +9,7 @@ import java.util.Arrays;
  * The MomentAttachmentType.
  *
  * @author dax
- * @since 2021 /9/9 9:22
+ * @since 2021/9/9 9:22
  */
 public enum MomentAttachmentType {
     /**

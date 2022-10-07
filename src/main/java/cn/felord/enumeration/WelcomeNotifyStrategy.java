@@ -9,7 +9,7 @@ import java.util.Arrays;
  * The enum Welcome notify strategy.
  *
  * @author dax
- * @since 2021 /9/23 11:08
+ * @since 2021/9/23 11:08
  */
 public enum WelcomeNotifyStrategy {
 

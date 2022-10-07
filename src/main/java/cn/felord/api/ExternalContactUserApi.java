@@ -19,27 +19,16 @@ import java.util.*;
  * The type External contact user api.
  *
  * @author dax
- * @since 2021 /9/8 19:05
+ * @since 2021/9/8 19:05
  */
-public class ExternalContactUserApi extends AbstractApi {
+public class ExternalContactUserApi extends AbstractAgentApi {
     /**
      * Instantiates a new External contact user api.
      *
      * @param cacheable the cacheable
      */
-    ExternalContactUserApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent external contact user api.
-     *
-     * @param agent the agent
-     * @return the external contact user api
-     */
-    ExternalContactUserApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    ExternalContactUserApi(WeComCacheable wecomCacheable,AgentDetails agent) {
+        super(wecomCacheable,agent);
     }
 
     /**

@@ -16,21 +16,16 @@ import java.util.List;
  * @author felord.cn
  * @since 1.0.8.RELEASE
  */
-public class DomainApi extends AbstractApi {
-
-    DomainApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
+public class DomainApi extends AbstractAgentApi {
 
     /**
-     * With agent contacts api.
+     * Instantiates a new Domain api.
      *
-     * @param agentDetails the agent details
-     * @return the contacts api
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    DomainApi agent(AgentDetails agentDetails) {
-        this.withAgent(agentDetails);
-        return this;
+    DomainApi(WeComCacheable wecomCacheable,AgentDetails agent) {
+        super(wecomCacheable,agent);
     }
 
     /**

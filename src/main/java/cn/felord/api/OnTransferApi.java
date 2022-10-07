@@ -17,25 +17,15 @@ import java.util.Set;
  * @author dax
  * @since 2021 /9/14 13:59
  */
-public class OnTransferApi extends AbstractApi {
+public class OnTransferApi extends AbstractAgentApi {
     /**
      * Instantiates a new On transfer api.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    OnTransferApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent on transfer api.
-     *
-     * @param agent the agent
-     * @return the on transfer api
-     */
-    OnTransferApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    OnTransferApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
 
     /**

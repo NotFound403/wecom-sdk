@@ -20,26 +20,16 @@ import java.util.Map;
  * @author dax
  * @since 2021 /8/19 14:45
  */
-public class GroupMessageApi extends AbstractApi {
+public class GroupMessageApi extends AbstractAgentApi {
 
     /**
      * Instantiates a new Moment api.
      *
      * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    GroupMessageApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
-    }
-
-    /**
-     * Agent moment api.
-     *
-     * @param agent the agent
-     * @return the moment api
-     */
-    GroupMessageApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    GroupMessageApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
 
     /**

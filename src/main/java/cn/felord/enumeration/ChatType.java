@@ -10,7 +10,7 @@ import java.util.Objects;
  * The enum Chat type.
  *
  * @author dax
- * @since 2021 /9/8 10:47
+ * @since 2021/9/8 10:47
  */
 public enum ChatType {
     /**

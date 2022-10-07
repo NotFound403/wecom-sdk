@@ -9,7 +9,7 @@ import java.util.Arrays;
  * The enum Takeover status.
  *
  * @author dax
- * @since 2021 /9/14 14:44
+ * @since 2021/9/14 14:44
  */
 public enum TakeoverStatus {
     /**

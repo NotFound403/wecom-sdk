@@ -18,26 +18,16 @@ import java.net.URI;
  * @author n1
  * @since 2021 /6/18 16:25
  */
-public class AsynchronousBatchImportApi extends AbstractApi {
+public class AsynchronousBatchImportApi extends AbstractAgentApi {
 
     /**
      * Instantiates a new We com client.
      *
-     * @param cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    AsynchronousBatchImportApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent asynchronous batch api.
-     *
-     * @param agent the agent
-     * @return the asynchronous batch api
-     */
-    AsynchronousBatchImportApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    AsynchronousBatchImportApi(WeComCacheable wecomCacheable,AgentDetails agent) {
+        super(wecomCacheable,agent);
     }
 
     /**

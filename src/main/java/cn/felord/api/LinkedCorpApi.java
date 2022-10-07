@@ -21,27 +21,16 @@ import java.util.List;
  * @author felord.cn
  * @since 2021 /8/29 16:39
  */
-public class LinkedCorpApi extends AbstractApi {
+public class LinkedCorpApi extends AbstractAgentApi {
     /**
      * LinkedCorpApi
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    LinkedCorpApi(WeComCacheable cacheable) {
-        super(cacheable);
+    LinkedCorpApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
-
-    /**
-     * Agent linked corp api.
-     *
-     * @param agent the agent
-     * @return the linked corp api
-     */
-    LinkedCorpApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
-    }
-
 
     /**
      * 获取应用的可见范围

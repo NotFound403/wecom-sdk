@@ -28,10 +28,10 @@ import java.time.Instant;
  * @author felord.cn
  * @since 1.0.14.RELEASE
  */
-public class SdkTicketApi extends AbstractApi {
+public class SdkTicketApi extends AbstractAgentApi {
     private static final String SIGNATURE_FORMATTER = "jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}";
     private final IdGenerator nonceStrGenerator = new AlternativeJdkIdGenerator();
-    private AgentDetails agentDetails;
+    private final AgentDetails agentDetails;
     private final WeComCacheable cacheable;
 
 
@@ -39,22 +39,12 @@ public class SdkTicketApi extends AbstractApi {
      * Instantiates a new We com client.
      *
      * @param cacheable the cacheable
+     * @param agent     the agent
      */
-    SdkTicketApi(WeComCacheable cacheable) {
-        super(cacheable);
+    SdkTicketApi(WeComCacheable cacheable, AgentDetails agent) {
+        super(cacheable, agent);
         this.cacheable = cacheable;
-    }
-
-    /**
-     * Agent js sdk ticket api.
-     *
-     * @param agentDetails the agent details
-     * @return the js sdk ticket api
-     */
-    SdkTicketApi agent(AgentDetails agentDetails) {
-        this.withAgent(agentDetails);
-        this.agentDetails = agentDetails;
-        return this;
+        this.agentDetails = agent;
     }
 
     /**

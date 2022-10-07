@@ -20,26 +20,16 @@ import java.util.Map;
  * @author dax
  * @since 2021 /8/19 14:45
  */
-public class MomentApi extends AbstractApi {
+public class MomentApi extends AbstractAgentApi {
 
     /**
      * Instantiates a new Moment api.
      *
      * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    MomentApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
-    }
-
-    /**
-     * Agent moment api.
-     *
-     * @param agent the agent
-     * @return the moment api
-     */
-    MomentApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    MomentApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
 
     /**
@@ -163,8 +153,8 @@ public class MomentApi extends AbstractApi {
                 .build()
                 .toUri();
         Map<String, Object> body = new HashMap<>(2);
-            body.put("cursor", cursor);
-            body.put("limit", limit);
+        body.put("cursor", cursor);
+        body.put("limit", limit);
 
         return this.post(uri, body, StrategyListResponse.class);
     }

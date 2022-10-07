@@ -22,22 +22,23 @@ import java.net.URI;
  * @author felord.cn
  * @since 1.0.8.RELEASE
  */
-public class TagApi extends AbstractApi {
-    TagApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    TagApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+public class TagApi extends AbstractAgentApi {
+    /**
+     * Instantiates a new Tag api.
+     *
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
+     */
+    TagApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
 
     /**
      * 创建标签
      *
      * @param request the request
-     * @return GenericResponse
-     * @see WeComEndpoint#TAG_CREATE
+     * @return GenericResponse generic response
+     * @see WeComEndpoint#TAG_CREATE WeComEndpoint#TAG_CREATE
      */
     public GenericResponse<String> createTag(Tag request) {
         String endpoint = WeComEndpoint.TAG_CREATE.endpoint();
@@ -67,8 +68,8 @@ public class TagApi extends AbstractApi {
      * 删除标签
      *
      * @param tagId tagId
-     * @return WeComResponse
-     * @see WeComEndpoint#TAG_DELETE
+     * @return WeComResponse we com response
+     * @see WeComEndpoint#TAG_DELETE WeComEndpoint#TAG_DELETE
      */
     public WeComResponse deleteTag(Integer tagId) {
         String endpoint = WeComEndpoint.TAG_DELETE.endpoint();
@@ -83,8 +84,8 @@ public class TagApi extends AbstractApi {
      * 获取标签成员
      *
      * @param tagId tagId
-     * @return UserInfoResponse
-     * @see WeComEndpoint#TAG_GET_USERS
+     * @return UserInfoResponse tag users
+     * @see WeComEndpoint#TAG_GET_USERS WeComEndpoint#TAG_GET_USERS
      */
     public TagUserResponse getTagUsers(Integer tagId) {
         String endpoint = WeComEndpoint.TAG_GET_USERS.endpoint();
@@ -99,8 +100,8 @@ public class TagApi extends AbstractApi {
      * 增加标签成员
      *
      * @param request the request
-     * @return WeComResponse
-     * @see WeComEndpoint#TAG_CREATE_USERS
+     * @return WeComResponse tag user action response
+     * @see WeComEndpoint#TAG_CREATE_USERS WeComEndpoint#TAG_CREATE_USERS
      */
     public TagUserActionResponse addTagUsers(TagUserRequest request) {
         String endpoint = WeComEndpoint.TAG_CREATE_USERS.endpoint();
@@ -114,8 +115,8 @@ public class TagApi extends AbstractApi {
      * 删除标签成员
      *
      * @param request the request
-     * @return WeComResponse
-     * @see WeComEndpoint#TAG_DELETE_USERS
+     * @return WeComResponse tag user action response
+     * @see WeComEndpoint#TAG_DELETE_USERS WeComEndpoint#TAG_DELETE_USERS
      */
     public TagUserActionResponse deleteTagUsers(TagUserRequest request) {
         String endpoint = WeComEndpoint.TAG_DELETE_USERS.endpoint();
@@ -128,8 +129,8 @@ public class TagApi extends AbstractApi {
     /**
      * 获取标签列表
      *
-     * @return UserInfoResponse
-     * @see WeComEndpoint#TAG_LIST
+     * @return UserInfoResponse tags
+     * @see WeComEndpoint#TAG_LIST WeComEndpoint#TAG_LIST
      */
     public GenericResponse<Tag> getTags() {
         String endpoint = WeComEndpoint.TAG_LIST.endpoint();

@@ -11,6 +11,8 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
+ * The type Access token api.
+ *
  * @author felord.cn
  */
 public class AccessTokenApi {
@@ -18,12 +20,23 @@ public class AccessTokenApi {
     private final WeComCacheable wecomCacheable;
 
 
+    /**
+     * Instantiates a new Access token api.
+     *
+     * @param wecomCacheable the wecom cacheable
+     */
     AccessTokenApi(WeComCacheable wecomCacheable) {
         this.restTemplate = RestTemplateFactory.restOperations();
         this.wecomCacheable = wecomCacheable;
     }
 
 
+    /**
+     * Gets token response.
+     *
+     * @param agentDetails the agent details
+     * @return the token response
+     */
     public String getTokenResponse(AgentDetails agentDetails) {
         String corpId = agentDetails.getCorpId();
         String agentId = agentDetails.getAgentId();

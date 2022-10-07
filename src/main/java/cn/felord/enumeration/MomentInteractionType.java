@@ -9,7 +9,7 @@ import java.util.Arrays;
  * The enum Moment interaction type.
  *
  * @author dax
- * @since 2021 /9/8 10:47
+ * @since 2021/9/8 10:47
  */
 public enum MomentInteractionType {
     /**

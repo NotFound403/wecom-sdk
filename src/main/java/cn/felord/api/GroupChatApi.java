@@ -16,27 +16,16 @@ import java.util.Collections;
  * 客户群管理
  *
  * @author dax
- * @since 2021 /9/14 13:59
+ * @since 2021/9/14 13:59
  */
-public class GroupChatApi extends AbstractApi {
+public class GroupChatApi extends AbstractAgentApi {
     /**
      * Instantiates a new On transfer api.
      *
      * @param cacheable the cacheable
      */
-    GroupChatApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent on transfer api.
-     *
-     * @param agent the agent
-     * @return the on transfer api
-     */
-    GroupChatApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    GroupChatApi(WeComCacheable wecomCacheable,AgentDetails agent) {
+        super(wecomCacheable,agent);
     }
 
     /**

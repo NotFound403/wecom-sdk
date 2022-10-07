@@ -15,26 +15,16 @@ import java.net.URI;
  * @author dax
  * @since 2021 /9/23 11:30
  */
-public class StatisticApi extends AbstractApi {
+public class StatisticApi extends AbstractAgentApi {
 
     /**
      * Instantiates a new Statistic api.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    StatisticApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent statistic api.
-     *
-     * @param agent the agent
-     * @return the statistic api
-     */
-    StatisticApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    StatisticApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
 
     /**

@@ -19,26 +19,16 @@ import java.util.Map;
  * @author dax
  * @since 2021 /7/23 13:52
  */
-public class KfSessionApi extends AbstractApi {
+public class KfSessionApi extends AbstractAgentApi {
 
     /**
      * KfSessionApi
      *
      * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    KfSessionApi(WeComCacheable wecomCacheable) {
-        super(wecomCacheable);
-    }
-
-    /**
-     * Agent kf session api.
-     *
-     * @param agentDetails the agent details
-     * @return the kf session api
-     */
-    KfSessionApi agent(AgentDetails agentDetails) {
-        this.withAgent(agentDetails);
-        return this;
+    KfSessionApi(WeComCacheable wecomCacheable, AgentDetails agent) {
+        super(wecomCacheable, agent);
     }
 
     /**

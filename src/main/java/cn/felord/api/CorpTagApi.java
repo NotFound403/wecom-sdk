@@ -18,25 +18,15 @@ import java.util.List;
  * @author dax
  * @since 2021 /9/12 16:39
  */
-public class CorpTagApi extends AbstractApi {
+public class CorpTagApi extends AbstractAgentApi {
     /**
      * Instantiates a new Corp tag api.
      *
-     * @param cacheable the cacheable
+     * @param wecomCacheable the wecom cacheable
+     * @param agent          the agent
      */
-    CorpTagApi(WeComCacheable cacheable) {
-        super(cacheable);
-    }
-
-    /**
-     * Agent corp tag api.
-     *
-     * @param agent the agent
-     * @return the corp tag api
-     */
-    CorpTagApi agent(AgentDetails agent) {
-        this.withAgent(agent);
-        return this;
+    CorpTagApi(WeComCacheable wecomCacheable,AgentDetails agent) {
+        super(wecomCacheable,agent);
     }
 
     /**
