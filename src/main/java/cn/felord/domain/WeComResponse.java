@@ -29,6 +29,6 @@ public class WeComResponse {
      * @return the boolean
      */
     public boolean isError() {
-        return errcode != 0;
+        return errcode != null && errcode != 0;
     }
 }

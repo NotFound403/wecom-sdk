@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
@@ -16,16 +14,18 @@ import java.util.Collections;
  * 客户群管理
  *
  * @author dax
- * @since 2021/9/14 13:59
+ * @since 2021 /9/14 13:59
  */
-public class GroupChatApi extends AbstractAgentApi {
+public class GroupChatApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
+
     /**
-     * Instantiates a new On transfer api.
+     * Instantiates a new Group chat api.
      *
-     * @param cacheable the cacheable
+     * @param workWeChatApiClient the work we chat api client
      */
-    GroupChatApi(WeComCacheable wecomCacheable,AgentDetails agent) {
-        super(wecomCacheable,agent);
+    GroupChatApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -40,7 +40,7 @@ public class GroupChatApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, GroupChatListResponse.class);
+        return workWeChatApiClient.post(uri, request, GroupChatListResponse.class);
     }
 
     /**
@@ -56,7 +56,7 @@ public class GroupChatApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<GroupChatDetail>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<GroupChatDetail>>() {
         });
     }
 
@@ -72,7 +72,7 @@ public class GroupChatApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("opengid", opengid), new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, Collections.singletonMap("opengid", opengid), new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -90,7 +90,7 @@ public class GroupChatApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, body, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, body, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -107,7 +107,7 @@ public class GroupChatApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("config_id", configId),
+        return workWeChatApiClient.post(uri, Collections.singletonMap("config_id", configId),
                 new ParameterizedTypeReference<GenericResponse<GroupChatWayResponse>>() {
                 });
     }
@@ -125,7 +125,7 @@ public class GroupChatApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, body,
+        return workWeChatApiClient.post(uri, body,
                 WeComResponse.class);
     }
 
@@ -142,6 +142,6 @@ public class GroupChatApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("config_id", configId), WeComResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("config_id", configId), WeComResponse.class);
     }
 }

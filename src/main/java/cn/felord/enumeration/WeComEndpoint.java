@@ -12,6 +12,10 @@ public enum WeComEndpoint {
      */
     GET_TOKEN("/gettoken"),
     /**
+     * 获取服务商凭证，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/91200">文档</a>
+     */
+    SERVICE_GET_PROVIDER_TOKEN("/service/get_provider_token"),
+    /**
      * 创建成员，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90195">文档</a>
      */
     USER_CREATE("/user/create"),
@@ -139,6 +143,10 @@ public enum WeComEndpoint {
      * 获取企业微信API域名IP段，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/92520">文档</a>
      */
     API_DOMAIN_IP("/get_api_domain_ip"),
+    /**
+     * 获取企业微信服务器的ip段，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/91116#33-%E8%8E%B7%E5%8F%96%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84ip%E6%AE%B5">文档</a>
+     */
+    CALLBACK_IP("/getcallbackip"),
     /**
      * 自建应用与第三方应用的对接，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/95884">文档</a>
      */

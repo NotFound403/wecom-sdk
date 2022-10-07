@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.contactbook.department.DeptInfo;
 import cn.felord.domain.contactbook.linkedcorp.CorpSimpleUserInfo;
@@ -21,15 +19,11 @@ import java.util.List;
  * @author felord.cn
  * @since 2021 /8/29 16:39
  */
-public class LinkedCorpApi extends AbstractAgentApi {
-    /**
-     * LinkedCorpApi
-     *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
-     */
-    LinkedCorpApi(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
+public class LinkedCorpApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
+
+    LinkedCorpApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -42,7 +36,7 @@ public class LinkedCorpApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.emptyMap(), PermListResponse.class);
+        return workWeChatApiClient.post(uri, Collections.emptyMap(), PermListResponse.class);
     }
 
     /**
@@ -56,7 +50,7 @@ public class LinkedCorpApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("userid", corpUserId),
+        return workWeChatApiClient.post(uri, Collections.singletonMap("userid", corpUserId),
                 new ParameterizedTypeReference<GenericResponse<CorpUserInfo>>() {
                 });
     }
@@ -72,7 +66,7 @@ public class LinkedCorpApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("department_id", linkedDepartmentId),
+        return workWeChatApiClient.post(uri, Collections.singletonMap("department_id", linkedDepartmentId),
                 new ParameterizedTypeReference<GenericResponse<List<CorpSimpleUserInfo>>>() {
                 });
     }
@@ -88,7 +82,7 @@ public class LinkedCorpApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("department_id", linkedDepartmentId),
+        return workWeChatApiClient.post(uri, Collections.singletonMap("department_id", linkedDepartmentId),
                 new ParameterizedTypeReference<GenericResponse<List<DeptInfo>>>() {
                 });
     }

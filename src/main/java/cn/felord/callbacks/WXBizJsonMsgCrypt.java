@@ -19,7 +19,6 @@ import org.springframework.util.StringUtils;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Random;
@@ -40,7 +39,6 @@ import java.util.Random;
  * </ol>
  */
 public class WXBizJsonMsgCrypt {
-	static Charset CHARSET = StandardCharsets.UTF_8;
 	Base64 base64 = new Base64();
 	byte[] aesKey;
 	String token;
@@ -104,19 +102,19 @@ public class WXBizJsonMsgCrypt {
 	 * @throws AesException aes加密失败
 	 */
 	String encrypt(String randomStr, String text) throws AesException {
-		ByteGroup byteCollector = new ByteGroup();
-		byte[] randomStrBytes = randomStr.getBytes(CHARSET);
-		byte[] textBytes = text.getBytes(CHARSET);
-		byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
-		byte[] receiveidBytes = receiveid.getBytes(CHARSET);
+        ByteGroup byteCollector = new ByteGroup();
+        byte[] randomStrBytes = randomStr.getBytes(StandardCharsets.UTF_8);
+        byte[] textBytes = text.getBytes(StandardCharsets.UTF_8);
+        byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
+        byte[] receiveidBytes = receiveid.getBytes(StandardCharsets.UTF_8);
 
-		// randomStr + networkBytesOrder + text + receiveid
-		byteCollector.addBytes(randomStrBytes);
-		byteCollector.addBytes(networkBytesOrder);
-		byteCollector.addBytes(textBytes);
-		byteCollector.addBytes(receiveidBytes);
+        // randomStr + networkBytesOrder + text + receiveid
+        byteCollector.addBytes(randomStrBytes);
+        byteCollector.addBytes(networkBytesOrder);
+        byteCollector.addBytes(textBytes);
+        byteCollector.addBytes(receiveidBytes);
 
-		// ... + pad: 使用自定义的填充方式对明文进行补位填充
+        // ... + pad: 使用自定义的填充方式对明文进行补位填充
 		byte[] padBytes = PKCS7Encoder.encode(byteCollector.size());
 		byteCollector.addBytes(padBytes);
 
@@ -178,9 +176,9 @@ public class WXBizJsonMsgCrypt {
 
 			int jsonLength = recoverNetworkBytesOrder(networkOrder);
 
-			jsonContent = new String(Arrays.copyOfRange(bytes, 20, 20 + jsonLength), CHARSET);
-			fromReceiveid = new String(Arrays.copyOfRange(bytes, 20 + jsonLength, bytes.length),
-					CHARSET);
+            jsonContent = new String(Arrays.copyOfRange(bytes, 20, 20 + jsonLength), StandardCharsets.UTF_8);
+            fromReceiveid = new String(Arrays.copyOfRange(bytes, 20 + jsonLength, bytes.length),
+                    StandardCharsets.UTF_8);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new AesException(AesException.IllegalBuffer);
@@ -246,10 +244,10 @@ public class WXBizJsonMsgCrypt {
 
 		// 密钥，公众账号的app secret
 		// 提取密文
-		Object[] encrypt =  JsonParse.extract(postData);
+        String[] encrypt = JsonParse.extract(postData);
 
 		// 验证安全签名
-		String signature = SHA1.getSHA1(token, timeStamp, nonce, encrypt[1].toString());
+        String signature = SHA1.getSHA1(token, timeStamp, nonce, encrypt[1]);
 
 		// 和URL中的签名比较是否相等
 		// System.out.println("第三方收到URL中的签名：" + msg_sign);
@@ -259,7 +257,7 @@ public class WXBizJsonMsgCrypt {
 		}
 
 		// 解密
-		return decrypt(encrypt[1].toString());
+        return decrypt(encrypt[1]);
 	}
 
 	/**

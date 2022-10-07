@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.contactbook.async.BatchPartyRequest;
 import cn.felord.domain.contactbook.async.BatchResultResponse;
@@ -18,16 +16,16 @@ import java.net.URI;
  * @author n1
  * @since 2021 /6/18 16:25
  */
-public class AsynchronousBatchImportApi extends AbstractAgentApi {
+public class AsynchronousBatchImportApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
-     * Instantiates a new We com client.
+     * Instantiates a new Asynchronous batch import api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    AsynchronousBatchImportApi(WeComCacheable wecomCacheable,AgentDetails agent) {
-        super(wecomCacheable,agent);
+    AsynchronousBatchImportApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -41,7 +39,7 @@ public class AsynchronousBatchImportApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -56,7 +54,7 @@ public class AsynchronousBatchImportApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -71,7 +69,7 @@ public class AsynchronousBatchImportApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -87,6 +85,6 @@ public class AsynchronousBatchImportApi extends AbstractAgentApi {
                 .queryParam("jobid", jobId)
                 .build()
                 .toUri();
-        return this.get(uri, BatchResultResponse.class);
+        return workWeChatApiClient.get(uri, BatchResultResponse.class);
     }
 }

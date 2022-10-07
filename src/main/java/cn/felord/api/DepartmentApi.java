@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.department.DeptInfo;
@@ -19,15 +17,11 @@ import java.util.List;
  * @author n1
  * @since 2021 /6/17 14:58
  */
-public class DepartmentApi extends AbstractAgentApi {
+public class DepartmentApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
-    /**
-     * Instantiates a new Department api.
-     *
-     * @param cacheable the cacheable
-     */
-    DepartmentApi(WeComCacheable wecomCacheable,AgentDetails agent) {
-        super(wecomCacheable,agent);
+    DepartmentApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -42,7 +36,7 @@ public class DepartmentApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -58,7 +52,7 @@ public class DepartmentApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -76,7 +70,7 @@ public class DepartmentApi extends AbstractAgentApi {
                 .queryParam("id", departmentId)
                 .build()
                 .toUri();
-        return this.get(uri, WeComResponse.class);
+        return workWeChatApiClient.get(uri, WeComResponse.class);
     }
 
     /**
@@ -93,7 +87,7 @@ public class DepartmentApi extends AbstractAgentApi {
                 .queryParam("id", departmentId)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptInfo>>>() {
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptInfo>>>() {
         });
     }
 
@@ -109,7 +103,7 @@ public class DepartmentApi extends AbstractAgentApi {
                 .queryParam("id", departmentId)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptSimpleInfo>>>() {
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptSimpleInfo>>>() {
         });
     }
 

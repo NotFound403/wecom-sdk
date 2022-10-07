@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.callcenter.KfSessionResponse;
 import cn.felord.domain.callcenter.KfSessionUpdateRequest;
@@ -19,16 +17,16 @@ import java.util.Map;
  * @author dax
  * @since 2021 /7/23 13:52
  */
-public class KfSessionApi extends AbstractAgentApi {
+public class KfSessionApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
-     * KfSessionApi
+     * Instantiates a new Kf session api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    KfSessionApi(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
+    KfSessionApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -47,7 +45,7 @@ public class KfSessionApi extends AbstractAgentApi {
         Map<String, String> body = new HashMap<>(2);
         body.put("open_kfid", openKfid);
         body.put("external_userid", externalUserid);
-        return this.post(uri, body, KfSessionResponse.class);
+        return workWeChatApiClient.post(uri, body, KfSessionResponse.class);
     }
 
     /**
@@ -62,7 +60,7 @@ public class KfSessionApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 }

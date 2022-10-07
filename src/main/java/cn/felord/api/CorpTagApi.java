@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
@@ -18,15 +16,16 @@ import java.util.List;
  * @author dax
  * @since 2021 /9/12 16:39
  */
-public class CorpTagApi extends AbstractAgentApi {
+public class CorpTagApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
+
     /**
      * Instantiates a new Corp tag api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    CorpTagApi(WeComCacheable wecomCacheable,AgentDetails agent) {
-        super(wecomCacheable,agent);
+    CorpTagApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -43,7 +42,7 @@ public class CorpTagApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<CorpTagGroup>>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<CorpTagGroup>>>() {
         });
     }
 
@@ -59,7 +58,7 @@ public class CorpTagApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<CorpTagGroup>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<CorpTagGroup>>() {
         });
     }
 
@@ -75,7 +74,7 @@ public class CorpTagApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -91,7 +90,7 @@ public class CorpTagApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -108,7 +107,7 @@ public class CorpTagApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<CorpTagGroup>>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<CorpTagGroup>>>() {
         });
     }
 
@@ -125,7 +124,7 @@ public class CorpTagApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<CorpTagGroup>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<CorpTagGroup>>() {
         });
     }
 
@@ -141,7 +140,7 @@ public class CorpTagApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -157,7 +156,7 @@ public class CorpTagApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -172,6 +171,6 @@ public class CorpTagApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 }

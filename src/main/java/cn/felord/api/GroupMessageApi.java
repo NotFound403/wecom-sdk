@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
@@ -20,16 +18,16 @@ import java.util.Map;
  * @author dax
  * @since 2021 /8/19 14:45
  */
-public class GroupMessageApi extends AbstractAgentApi {
+public class GroupMessageApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
-     * Instantiates a new Moment api.
+     * Instantiates a new Group message api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    GroupMessageApi(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
+    GroupMessageApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -45,7 +43,7 @@ public class GroupMessageApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, MsgTemplateResponse.class);
+        return workWeChatApiClient.post(uri, request, MsgTemplateResponse.class);
     }
 
     /**
@@ -60,7 +58,7 @@ public class GroupMessageApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, GroupMsgListResponse.class);
+        return workWeChatApiClient.post(uri, request, GroupMsgListResponse.class);
     }
 
     /**
@@ -74,7 +72,7 @@ public class GroupMessageApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, GroupMsgTaskResponse.class);
+        return workWeChatApiClient.post(uri, request, GroupMsgTaskResponse.class);
     }
 
     /**
@@ -88,7 +86,7 @@ public class GroupMessageApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, GroupMsgSendResultResponse.class);
+        return workWeChatApiClient.post(uri, request, GroupMsgSendResultResponse.class);
     }
 
     /**
@@ -102,7 +100,7 @@ public class GroupMessageApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -116,7 +114,7 @@ public class GroupMessageApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -131,7 +129,7 @@ public class GroupMessageApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -145,7 +143,7 @@ public class GroupMessageApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("template_id", templateId), WelcomeTemplateResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("template_id", templateId), WelcomeTemplateResponse.class);
     }
 
     /**
@@ -159,7 +157,7 @@ public class GroupMessageApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("template_id", templateId), WeComResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("template_id", templateId), WeComResponse.class);
     }
 
     /**
@@ -177,6 +175,6 @@ public class GroupMessageApi extends AbstractAgentApi {
         Map<String, String> body = new HashMap<>(2);
         body.put("template_id", templateId);
         body.put("agentid", agentId);
-        return this.post(uri, body, WeComResponse.class);
+        return workWeChatApiClient.post(uri, body, WeComResponse.class);
     }
 }

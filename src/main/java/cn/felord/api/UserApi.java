@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.user.*;
@@ -23,16 +21,16 @@ import java.util.Map;
  * @author n1
  * @since 2021 /6/17 11:09
  */
-public class UserApi extends AbstractAgentApi {
+public class UserApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
      * Instantiates a new User api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    UserApi(WeComCacheable wecomCacheable,AgentDetails agent) {
-        super(wecomCacheable,agent);
+    UserApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -41,12 +39,12 @@ public class UserApi extends AbstractAgentApi {
      * @param request the request
      * @return the user id convert response
      */
-    public UserIdConvertResponse batchOpenUserIdToUserId(UserIdConvertRequest request){
+    public UserIdConvertResponse batchOpenUserIdToUserId(UserIdConvertRequest request) {
         String endpoint = WeComEndpoint.OPENUSERID_TO_USERID.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, UserIdConvertResponse.class);
+        return workWeChatApiClient.post(uri, request, UserIdConvertResponse.class);
     }
 
     /**
@@ -62,7 +60,7 @@ public class UserApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -80,7 +78,7 @@ public class UserApi extends AbstractAgentApi {
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.get(uri, UserInfoResponse.class);
+        return workWeChatApiClient.get(uri, UserInfoResponse.class);
     }
 
     /**
@@ -96,7 +94,7 @@ public class UserApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -113,7 +111,7 @@ public class UserApi extends AbstractAgentApi {
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.get(uri, WeComResponse.class);
+        return workWeChatApiClient.get(uri, WeComResponse.class);
     }
 
     /**
@@ -129,7 +127,7 @@ public class UserApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("useridlist", userIdList), WeComResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("useridlist", userIdList), WeComResponse.class);
     }
 
     /**
@@ -147,7 +145,7 @@ public class UserApi extends AbstractAgentApi {
                 .queryParam("department_id", departmentId)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<SimpleUser>>>() {
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<SimpleUser>>>() {
         });
     }
 
@@ -166,7 +164,7 @@ public class UserApi extends AbstractAgentApi {
                 .queryParam("department_id", departmentId)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<UserDetail>>>() {
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<UserDetail>>>() {
         });
     }
 
@@ -186,7 +184,7 @@ public class UserApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("userid", userId),
+        return workWeChatApiClient.post(uri, Collections.singletonMap("userid", userId),
                 new ParameterizedTypeReference<GenericResponse<String>>() {
                 });
     }
@@ -205,7 +203,7 @@ public class UserApi extends AbstractAgentApi {
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.get(uri, WeComResponse.class);
+        return workWeChatApiClient.get(uri, WeComResponse.class);
     }
 
     /**
@@ -221,7 +219,7 @@ public class UserApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, BatchInviteResponse.class);
+        return workWeChatApiClient.post(uri, request, BatchInviteResponse.class);
     }
 
     /**
@@ -238,7 +236,7 @@ public class UserApi extends AbstractAgentApi {
                 .queryParam("size_type", size.type())
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -253,7 +251,7 @@ public class UserApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("mobile", mobile),
+        return workWeChatApiClient.post(uri, Collections.singletonMap("mobile", mobile),
                 new ParameterizedTypeReference<GenericResponse<String>>() {
                 });
     }
@@ -273,7 +271,7 @@ public class UserApi extends AbstractAgentApi {
         Map<String, Object> request = new HashMap<>(2);
         request.put("email", email);
         request.put("email_type", emailType.type());
-        return this.post(uri, request,
+        return workWeChatApiClient.post(uri, request,
                 new ParameterizedTypeReference<GenericResponse<String>>() {
                 });
     }

@@ -8,12 +8,20 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 /**
- * The type Webhook api.
+ * 群机器人
  *
  * @author n1
  * @since 2021 /6/16 19:35
  */
-public class WebhookApi extends AbstractAgentApi {
+public class WebhookApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
+
+    /**
+     * Instantiates a new Webhook api.
+     */
+    public WebhookApi() {
+        this.workWeChatApiClient = new WorkWeChatApiClient();
+    }
 
     /**
      * Send text we com response.
@@ -29,6 +37,6 @@ public class WebhookApi extends AbstractAgentApi {
                 .queryParam("key", key)
                 .build()
                 .toUri();
-        return this.post(uri, body, WeComResponse.class);
+        return workWeChatApiClient.post(uri, body, WeComResponse.class);
     }
 }

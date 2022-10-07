@@ -1,7 +1,6 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 
 /**
  * 通讯录管理
@@ -10,15 +9,15 @@ import cn.felord.WeComCacheable;
  * @since 1.0.14.RELEASE
  */
 public class ContactBookManager {
-    private final WeComCacheable cacheable;
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
-     * Instantiates a new Contact manager.
+     * Instantiates a new Contact book manager.
      *
-     * @param cacheable the cacheable
+     * @param workWeChatApiClient the work we chat api client
      */
-    ContactBookManager(WeComCacheable cacheable) {
-        this.cacheable = cacheable;
+    ContactBookManager(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -28,7 +27,7 @@ public class ContactBookManager {
      * @return the user api
      */
     public UserApi userApi(AgentDetails agent) {
-        return new UserApi(cacheable, agent);
+        return new UserApi(workWeChatApiClient);
     }
 
     /**
@@ -38,7 +37,7 @@ public class ContactBookManager {
      * @return the department api
      */
     public DepartmentApi departmentApi(AgentDetails agent) {
-        return new DepartmentApi(cacheable, agent);
+        return new DepartmentApi(workWeChatApiClient);
     }
 
     /**
@@ -48,7 +47,7 @@ public class ContactBookManager {
      * @return the tag api
      */
     public TagApi tagApi(AgentDetails agent) {
-        return new TagApi(cacheable, agent);
+        return new TagApi(workWeChatApiClient);
     }
 
     /**
@@ -58,7 +57,7 @@ public class ContactBookManager {
      * @return the asynchronous batch import api
      */
     public AsynchronousBatchImportApi asynchronousBatchApi(AgentDetails agent) {
-        return new AsynchronousBatchImportApi(cacheable, agent);
+        return new AsynchronousBatchImportApi(workWeChatApiClient);
     }
 
     /**
@@ -68,6 +67,6 @@ public class ContactBookManager {
      * @return the linked corp api
      */
     public LinkedCorpApi linkedCorpApi(AgentDetails agent) {
-        return new LinkedCorpApi(cacheable, agent);
+        return new LinkedCorpApi(workWeChatApiClient);
     }
 }

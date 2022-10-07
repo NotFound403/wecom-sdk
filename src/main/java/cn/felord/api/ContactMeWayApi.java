@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
@@ -10,23 +8,27 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The type Corp service user api.
  *
  * @author dax
- * @since 2021/9/8 9:28
+ * @since 2021 /9/8 9:28
  */
-public class ContactMeWayApi extends AbstractAgentApi {
+public class ContactMeWayApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
+
     /**
-     * Instantiates a new Corp service user api.
+     * Instantiates a new Contact me way api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    ContactMeWayApi(WeComCacheable wecomCacheable,AgentDetails agent) {
-        super(wecomCacheable,agent);
+    ContactMeWayApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -39,7 +41,7 @@ public class ContactMeWayApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
         });
     }
 
@@ -54,7 +56,7 @@ public class ContactMeWayApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, ContactWayAddResponse.class);
+        return workWeChatApiClient.post(uri, request, ContactWayAddResponse.class);
     }
 
     /**
@@ -68,7 +70,7 @@ public class ContactMeWayApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("config_id", configId),
+        return workWeChatApiClient.post(uri, Collections.singletonMap("config_id", configId),
                 new ParameterizedTypeReference<GenericResponse<ContactWayBodyDetail>>() {
                 });
     }
@@ -84,7 +86,7 @@ public class ContactMeWayApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, ContactListResponse.class);
+        return workWeChatApiClient.post(uri, request, ContactListResponse.class);
     }
 
     /**
@@ -98,7 +100,7 @@ public class ContactMeWayApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, contactWay, WeComResponse.class);
+        return workWeChatApiClient.post(uri, contactWay, WeComResponse.class);
     }
 
     /**
@@ -112,7 +114,7 @@ public class ContactMeWayApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("config_id", configId), WeComResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("config_id", configId), WeComResponse.class);
     }
 
     /**
@@ -130,6 +132,6 @@ public class ContactMeWayApi extends AbstractAgentApi {
         Map<String, String> body = new HashMap<>(2);
         body.put("userid", userid);
         body.put("external_userid", externalUserid);
-        return this.post(uri, body, WeComResponse.class);
+        return workWeChatApiClient.post(uri, body, WeComResponse.class);
     }
 }

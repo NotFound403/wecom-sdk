@@ -1,12 +1,9 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;
 import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.util.Assert;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -17,29 +14,16 @@ import java.net.URI;
  * @author felord.cn
  * @since 1.0.14.RELEASE
  */
-public class AgentManager extends AbstractAgentApi {
-    private final String agentId;
+public class AgentManager {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
-     * Instantiates a new We com client.
+     * Instantiates a new Agent manager.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    AgentManager(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
-        String agentId = agent.getAgentId();
-        Assert.hasText(agentId, "agentid must not be null");
-        this.agentId = agentId;
-    }
-
-    /**
-     * Gets agent details.
-     *
-     * @return the agent details
-     */
-    public AgentDetailsResponse getAgentDetails() {
-        return this.getAgentDetails(agentId);
+    AgentManager(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -54,7 +38,7 @@ public class AgentManager extends AbstractAgentApi {
                 .queryParam("agentid", agentId)
                 .build()
                 .toUri();
-        return this.get(uri, AgentDetailsResponse.class);
+        return workWeChatApiClient.get(uri, AgentDetailsResponse.class);
     }
 
     /**
@@ -64,11 +48,10 @@ public class AgentManager extends AbstractAgentApi {
      * @return the
      */
     public WeComResponse settings(AgentSettingRequest request) {
-        request.setAgentid(Integer.valueOf(agentId));
         String endpoint = WeComEndpoint.AGENT_SETTINGS.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 }

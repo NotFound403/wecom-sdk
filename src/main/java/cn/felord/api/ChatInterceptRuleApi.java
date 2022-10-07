@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.ChatInterceptRuleAddRequest;
@@ -21,15 +19,16 @@ import java.util.Collections;
  * @author dax
  * @since 2021 /8/17 10:26
  */
-public class ChatInterceptRuleApi extends AbstractAgentApi {
+public class ChatInterceptRuleApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
+
     /**
-     * Instantiates a new Product album api.
+     * Instantiates a new Chat intercept rule api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    ChatInterceptRuleApi(WeComCacheable wecomCacheable,AgentDetails agent) {
-        super(wecomCacheable,agent);
+    ChatInterceptRuleApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -44,7 +43,7 @@ public class ChatInterceptRuleApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -59,7 +58,7 @@ public class ChatInterceptRuleApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<InterceptRuleInfo>>() {
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<InterceptRuleInfo>>() {
         });
     }
 
@@ -75,7 +74,7 @@ public class ChatInterceptRuleApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("rule_id", ruleId), new ParameterizedTypeReference<GenericResponse<InterceptRuleDetail>>() {
+        return workWeChatApiClient.post(uri, Collections.singletonMap("rule_id", ruleId), new ParameterizedTypeReference<GenericResponse<InterceptRuleDetail>>() {
         });
     }
 
@@ -91,7 +90,7 @@ public class ChatInterceptRuleApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -106,6 +105,6 @@ public class ChatInterceptRuleApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("rule_id", ruleId), WeComResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("rule_id", ruleId), WeComResponse.class);
     }
 }

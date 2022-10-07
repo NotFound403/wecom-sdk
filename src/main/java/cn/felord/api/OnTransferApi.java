@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.externalcontact.*;
 import cn.felord.enumeration.WeComEndpoint;
@@ -17,15 +15,16 @@ import java.util.Set;
  * @author dax
  * @since 2021 /9/14 13:59
  */
-public class OnTransferApi extends AbstractAgentApi {
+public class OnTransferApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
+
     /**
      * Instantiates a new On transfer api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    OnTransferApi(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
+    OnTransferApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -42,7 +41,7 @@ public class OnTransferApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, TransferCustomerResponse.class);
+        return workWeChatApiClient.post(uri, request, TransferCustomerResponse.class);
     }
 
     /**
@@ -57,7 +56,7 @@ public class OnTransferApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, TransferResultResponse.class);
+        return workWeChatApiClient.post(uri, request, TransferResultResponse.class);
     }
 
     /**
@@ -72,7 +71,7 @@ public class OnTransferApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<Set<TransferFailedGroupChat>>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<Set<TransferFailedGroupChat>>>() {
         });
     }
 }

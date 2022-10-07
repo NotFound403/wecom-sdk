@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
@@ -11,25 +9,25 @@ import java.net.URI;
 import java.util.List;
 
 /**
- * The type Contacts api.
+ * 获取企业微信服务器IP
  *
  * @author felord.cn
- * @since 1.0.8.RELEASE
+ * @since 2021 /9/11
  */
-public class DomainApi extends AbstractAgentApi {
+public class DomainApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
      * Instantiates a new Domain api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    DomainApi(WeComCacheable wecomCacheable,AgentDetails agent) {
-        super(wecomCacheable,agent);
+    DomainApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
-     * Gets contact list.
+     * 获取企业微信API域名IP段
      *
      * @return the contact list
      */
@@ -38,8 +36,21 @@ public class DomainApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
         });
     }
 
+    /**
+     * 获取企业微信服务器的ip段
+     *
+     * @return the api domain ip
+     */
+    public GenericResponse<List<String>> getCallbackIp() {
+        String endpoint = WeComEndpoint.CALLBACK_IP.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
+        });
+    }
 }

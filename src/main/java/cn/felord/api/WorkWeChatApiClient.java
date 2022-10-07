@@ -19,26 +19,25 @@ import java.util.Objects;
  * @since 2021 /6/16 19:36
  */
 @Slf4j
-public abstract class AbstractAgentApi {
+final class WorkWeChatApiClient {
     private final RestTemplate restTemplate;
 
     /**
      * Instantiates a new Abstract agent api.
      */
-    public AbstractAgentApi() {
+    public WorkWeChatApiClient() {
         this.restTemplate = RestTemplateFactory.restOperations();
     }
 
     /**
-     * Instantiates a new We com client.
+     * Instantiates a new Abstract agent api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agentDetails   the agent details
+     * @param tokenApi the token api
      */
-    public <A extends AgentDetails> AbstractAgentApi(WeComCacheable wecomCacheable, A agentDetails) {
+    public <T extends TokenApi> WorkWeChatApiClient(T tokenApi) {
         this.restTemplate = RestTemplateFactory.restOperations();
-        AccessTokenClientHttpRequestInterceptor interceptor = new AccessTokenClientHttpRequestInterceptor(new AccessTokenApi(wecomCacheable));
-        interceptor.setAgentDetails(agentDetails);
+        TokenClientHttpRequestInterceptor interceptor = new TokenClientHttpRequestInterceptor(tokenApi);
+
         this.restTemplate.setInterceptors(Collections.singletonList(interceptor));
     }
 
@@ -103,16 +102,6 @@ public abstract class AbstractAgentApi {
         return responseBody;
     }
 
-
-    private RequestEntity<Object> build(URI uri, Object body, HttpHeaders headers) {
-        RequestEntity.BodyBuilder bodyBuilder = RequestEntity.post(uri);
-        if (headers != null) {
-            headers.forEach((key, values) -> bodyBuilder.header(key, values.toArray(new String[]{})));
-        }
-        return bodyBuilder.body(body);
-    }
-
-
     /**
      * Get
      *
@@ -141,6 +130,14 @@ public abstract class AbstractAgentApi {
         return responseBody;
     }
 
+    private RequestEntity<Object> build(URI uri, Object body, HttpHeaders headers) {
+        RequestEntity.BodyBuilder bodyBuilder = RequestEntity.post(uri);
+        if (headers != null) {
+            headers.forEach((key, values) -> bodyBuilder.header(key, values.toArray(new String[]{})));
+        }
+        return bodyBuilder.body(body);
+    }
+
     private <T extends WeComResponse> void checkSuccessful(T response) {
         if (Objects.isNull(response)) {
             throw new WeComException("response is null");
@@ -152,10 +149,10 @@ public abstract class AbstractAgentApi {
                 // 刷新
                 this.restTemplate.getInterceptors()
                         .stream()
-                        .filter(clientHttpRequestInterceptor -> clientHttpRequestInterceptor instanceof AccessTokenClientHttpRequestInterceptor)
+                        .filter(clientHttpRequestInterceptor -> clientHttpRequestInterceptor instanceof TokenClientHttpRequestInterceptor)
                         .findAny().ifPresent(clientHttpRequestInterceptor -> {
-                            AccessTokenClientHttpRequestInterceptor interceptor = (AccessTokenClientHttpRequestInterceptor) clientHttpRequestInterceptor;
-                            interceptor.getAccessTokenApi().getTokenResponse(interceptor.getAgentDetails());
+                            TokenClientHttpRequestInterceptor interceptor = (TokenClientHttpRequestInterceptor) clientHttpRequestInterceptor;
+                            interceptor.getTokenApi().getTokenResponse();
                         });
                 return;
             }

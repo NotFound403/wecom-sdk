@@ -28,23 +28,17 @@ import java.time.Instant;
  * @author felord.cn
  * @since 1.0.14.RELEASE
  */
-public class SdkTicketApi extends AbstractAgentApi {
+public class SdkTicketApi {
     private static final String SIGNATURE_FORMATTER = "jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}";
     private final IdGenerator nonceStrGenerator = new AlternativeJdkIdGenerator();
+    private final WorkWeChatApiClient workWeChatApiClient;
     private final AgentDetails agentDetails;
     private final WeComCacheable cacheable;
 
-
-    /**
-     * Instantiates a new We com client.
-     *
-     * @param cacheable the cacheable
-     * @param agent     the agent
-     */
-    SdkTicketApi(WeComCacheable cacheable, AgentDetails agent) {
-        super(cacheable, agent);
+    public SdkTicketApi(WorkWeChatApiClient workWeChatApiClient, AgentDetails agentDetails, WeComCacheable cacheable) {
+        this.workWeChatApiClient = workWeChatApiClient;
+        this.agentDetails = agentDetails;
         this.cacheable = cacheable;
-        this.agentDetails = agent;
     }
 
     /**
@@ -95,7 +89,7 @@ public class SdkTicketApi extends AbstractAgentApi {
                     URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.CORP_JSAPI_TICKET.endpoint())
                             .build()
                             .toUri();
-                    JsTicketResponse jsTicketResponse = this.get(uri, JsTicketResponse.class);
+                    JsTicketResponse jsTicketResponse = workWeChatApiClient.get(uri, JsTicketResponse.class);
                     if (jsTicketResponse.isError() || jsTicketResponse.getTicket() == null) {
                         throw new WeComException("fail to obtain the corp ticket");
                     }
@@ -118,7 +112,7 @@ public class SdkTicketApi extends AbstractAgentApi {
                             .queryParam("type", "agent_config")
                             .build()
                             .toUri();
-                    JsTicketResponse jsTicketResponse = this.get(uri, JsTicketResponse.class);
+                    JsTicketResponse jsTicketResponse = workWeChatApiClient.get(uri, JsTicketResponse.class);
                     if (jsTicketResponse.isError() || jsTicketResponse.getTicket() == null) {
                         throw new WeComException("fail to obtain the agent ticket");
                     }

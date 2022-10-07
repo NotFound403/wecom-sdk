@@ -2,25 +2,31 @@ package cn.felord.api;
 
 import cn.felord.AgentDetails;
 import cn.felord.WeComCacheable;
-import lombok.AllArgsConstructor;
 
 /**
  * The type Work we chat api.
  *
  * @author felord.cn
  */
-@AllArgsConstructor
 public final class WorkWeChatApi {
-    private final WeComCacheable cacheable;
+    private final WorkWeChatApiClient workWeChatApiClient;
+
+    /**
+     * Instantiates a new Work we chat api.
+     *
+     * @param tokenApi the token api
+     */
+    public WorkWeChatApi(TokenApi tokenApi) {
+        this.workWeChatApiClient = new WorkWeChatApiClient(tokenApi);
+    }
 
     /**
      * 获取企业微信API域名IP段
      *
-     * @param agent the agent
      * @return the domain api
      */
-    public DomainApi domainApi(AgentDetails agent) {
-        return new DomainApi(cacheable, agent);
+    public DomainApi domainApi() {
+        return new DomainApi(workWeChatApiClient);
     }
 
     /**
@@ -29,7 +35,7 @@ public final class WorkWeChatApi {
      * @return the Address book Manager
      */
     public ContactBookManager contactBookManager() {
-        return new ContactBookManager(cacheable);
+        return new ContactBookManager(workWeChatApiClient);
     }
 
     /**
@@ -38,7 +44,7 @@ public final class WorkWeChatApi {
      * @return the external contact manager
      */
     public ExternalContactManager externalContactManager() {
-        return new ExternalContactManager(cacheable);
+        return new ExternalContactManager(workWeChatApiClient);
     }
 
     /**
@@ -47,37 +53,36 @@ public final class WorkWeChatApi {
      * @return the call center manager
      */
     public CallCenterManager callCenterManager() {
-        return new CallCenterManager(cacheable);
+        return new CallCenterManager(workWeChatApiClient);
     }
 
     /**
      * 身份验证
      *
-     * @param agent the agent
      * @return the auth api
      */
-    public AuthApi authApi(AgentDetails agent) {
-        return new AuthApi(cacheable, agent);
+    public AuthApi authApi() {
+        return new AuthApi(workWeChatApiClient);
     }
 
     /**
      * 应用管理
      *
-     * @param agent the agent
      * @return the agent manager
      */
-    public AgentManager agentManager(AgentDetails agent) {
-        return new AgentManager(cacheable, agent);
+    public AgentManager agentManager() {
+        return new AgentManager(workWeChatApiClient);
     }
 
     /**
      * SDK ticket相关接口
      *
-     * @param agent the agent
+     * @param agent          the agent
+     * @param weComCacheable the we com cacheable
      * @return the sdk ticket api
      */
-    public SdkTicketApi sdkTicketApi(AgentDetails agent) {
-        return new SdkTicketApi(cacheable, agent);
+    public SdkTicketApi sdkTicketApi(AgentDetails agent, WeComCacheable weComCacheable) {
+        return new SdkTicketApi(workWeChatApiClient, agent, weComCacheable);
     }
 
     /**
@@ -92,10 +97,9 @@ public final class WorkWeChatApi {
     /**
      * 素材接口
      *
-     * @param agent the agent
      * @return the media api
      */
-    public MediaApi mediaApi(AgentDetails agent) {
-        return new MediaApi(cacheable, agent);
+    public MediaApi mediaApi() {
+        return new MediaApi(workWeChatApiClient);
     }
 }

@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.externalcontact.*;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
@@ -15,16 +13,16 @@ import java.net.URI;
  * @author dax
  * @since 2021 /9/23 11:30
  */
-public class StatisticApi extends AbstractAgentApi {
+public class StatisticApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
      * Instantiates a new Statistic api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    StatisticApi(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
+    StatisticApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -44,7 +42,7 @@ public class StatisticApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, UserBehaviorDataResponse.class);
+        return workWeChatApiClient.post(uri, request, UserBehaviorDataResponse.class);
     }
 
     /**
@@ -62,7 +60,7 @@ public class StatisticApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GroupChatDataResponse<GroupChatDataByOwner>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GroupChatDataResponse<GroupChatDataByOwner>>() {
         });
     }
 
@@ -77,7 +75,7 @@ public class StatisticApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GroupChatDataResponse<GroupChatDataByDay>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GroupChatDataResponse<GroupChatDataByDay>>() {
         });
     }
 }

@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.callcenter.KfServicerListResponse;
 import cn.felord.domain.callcenter.KfServicerRequest;
 import cn.felord.domain.callcenter.KfServicerResponse;
@@ -16,16 +14,16 @@ import java.net.URI;
  * @author dax
  * @since 2021 /7/23 13:52
  */
-public class KfServicerApi extends AbstractAgentApi {
+public class KfServicerApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
-     * KfAccountApi
+     * Instantiates a new Kf servicer api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    KfServicerApi(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
+    KfServicerApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -39,7 +37,7 @@ public class KfServicerApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, KfServicerResponse.class);
+        return workWeChatApiClient.post(uri, request, KfServicerResponse.class);
     }
 
     /**
@@ -54,7 +52,7 @@ public class KfServicerApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, KfServicerResponse.class);
+        return workWeChatApiClient.post(uri, request, KfServicerResponse.class);
     }
 
     /**
@@ -70,6 +68,6 @@ public class KfServicerApi extends AbstractAgentApi {
                 .queryParam("open_kfid", openKfid)
                 .build()
                 .toUri();
-        return this.get(uri, KfServicerListResponse.class);
+        return workWeChatApiClient.get(uri, KfServicerListResponse.class);
     }
 }

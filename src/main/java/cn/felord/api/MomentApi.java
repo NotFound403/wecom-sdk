@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
@@ -20,16 +18,16 @@ import java.util.Map;
  * @author dax
  * @since 2021 /8/19 14:45
  */
-public class MomentApi extends AbstractAgentApi {
+public class MomentApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
      * Instantiates a new Moment api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    MomentApi(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
+    public MomentApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -44,7 +42,7 @@ public class MomentApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, body, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, body, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -60,7 +58,7 @@ public class MomentApi extends AbstractAgentApi {
                 .queryParam("jobid", jobId)
                 .build()
                 .toUri();
-        return this.get(uri, MomentTaskResultResponse.class);
+        return workWeChatApiClient.get(uri, MomentTaskResultResponse.class);
     }
 
     /**
@@ -74,7 +72,7 @@ public class MomentApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, MomentListResponse.class);
+        return workWeChatApiClient.post(uri, request, MomentListResponse.class);
     }
 
     /**
@@ -88,7 +86,7 @@ public class MomentApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, MomentMemberTaskResponse.class);
+        return workWeChatApiClient.post(uri, request, MomentMemberTaskResponse.class);
     }
 
     /**
@@ -102,7 +100,7 @@ public class MomentApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, MomentCustomerListResponse.class);
+        return workWeChatApiClient.post(uri, request, MomentCustomerListResponse.class);
     }
 
     /**
@@ -116,7 +114,7 @@ public class MomentApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, MomentCustomerListResponse.class);
+        return workWeChatApiClient.post(uri, request, MomentCustomerListResponse.class);
     }
 
     /**
@@ -136,7 +134,7 @@ public class MomentApi extends AbstractAgentApi {
         Map<String, String> body = new HashMap<>(2);
         body.put("moment_id", momentId);
         body.put("userid", userId);
-        return this.post(uri, body, MomentCommentResponse.class);
+        return workWeChatApiClient.post(uri, body, MomentCommentResponse.class);
     }
 
     /**
@@ -156,7 +154,7 @@ public class MomentApi extends AbstractAgentApi {
         body.put("cursor", cursor);
         body.put("limit", limit);
 
-        return this.post(uri, body, StrategyListResponse.class);
+        return workWeChatApiClient.post(uri, body, StrategyListResponse.class);
     }
 
     /**
@@ -172,7 +170,7 @@ public class MomentApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, Collections.singletonMap("strategy_id", strategyId), MomentStrategyDetailResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("strategy_id", strategyId), MomentStrategyDetailResponse.class);
     }
 
     /**
@@ -187,7 +185,7 @@ public class MomentApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, StrategyRangeResponse.class);
+        return workWeChatApiClient.post(uri, request, StrategyRangeResponse.class);
     }
 
     /**
@@ -203,7 +201,7 @@ public class MomentApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<Integer>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<Integer>>() {
         });
     }
 
@@ -220,7 +218,7 @@ public class MomentApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -236,6 +234,6 @@ public class MomentApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, Collections.singletonMap("strategy_id", strategyId), WeComResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("strategy_id", strategyId), WeComResponse.class);
     }
 }

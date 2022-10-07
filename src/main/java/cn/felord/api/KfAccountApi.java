@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.callcenter.KfAccountInfo;
@@ -26,15 +24,16 @@ import java.util.Map;
  * @author dax
  * @since 2021 /7/23 13:52
  */
-public class KfAccountApi extends AbstractAgentApi {
+public class KfAccountApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
-     * KfAccountApi
+     * Instantiates a new Kf account api.
      *
-     * @param wecomCacheable the wecom cacheable
+     * @param workWeChatApiClient the work we chat api client
      */
-    KfAccountApi(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
+    KfAccountApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -52,7 +51,7 @@ public class KfAccountApi extends AbstractAgentApi {
         Map<String, String> body = new HashMap<>(2);
         body.put("name", accountName);
         body.put("media_id", mediaId);
-        return this.post(uri, body, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, body, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -68,7 +67,7 @@ public class KfAccountApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, Collections.singletonMap("open_kfid", openKfid), WeComResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("open_kfid", openKfid), WeComResponse.class);
     }
 
     /**
@@ -83,7 +82,7 @@ public class KfAccountApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -98,7 +97,7 @@ public class KfAccountApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<KfAccountInfo>>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<KfAccountInfo>>>() {
         });
     }
 
@@ -120,7 +119,7 @@ public class KfAccountApi extends AbstractAgentApi {
         if (StringUtils.hasText(scene)) {
             body.put("scene", scene);
         }
-        GenericResponse<String> response = this.post(uri, body, new ParameterizedTypeReference<GenericResponse<String>>() {
+        GenericResponse<String> response = workWeChatApiClient.post(uri, body, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
         if (StringUtils.hasText(scene)) {
 

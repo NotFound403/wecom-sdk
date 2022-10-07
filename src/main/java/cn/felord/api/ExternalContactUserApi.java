@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
@@ -16,19 +14,16 @@ import java.net.URI;
 import java.util.*;
 
 /**
- * The type External contact user api.
+ * 客户管理
  *
  * @author dax
  * @since 2021/9/8 19:05
  */
-public class ExternalContactUserApi extends AbstractAgentApi {
-    /**
-     * Instantiates a new External contact user api.
-     *
-     * @param cacheable the cacheable
-     */
-    ExternalContactUserApi(WeComCacheable wecomCacheable,AgentDetails agent) {
-        super(wecomCacheable,agent);
+public class ExternalContactUserApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
+
+    ExternalContactUserApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -43,7 +38,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
                 .queryParam("userid", userId)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
         });
     }
 
@@ -65,7 +60,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
                 .queryParams(queryParams)
                 .build()
                 .toUri();
-        return this.get(uri, new ParameterizedTypeReference<ExternalUserDetailResponse>() {
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<ExternalUserDetailResponse>() {
         });
     }
 
@@ -88,7 +83,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
             body.put("userid_list", useridList);
             body.put("cursor", cursor);
             body.put("limit", limit);
-            return this.post(uri, body, ExternalUserListDetailResponse.class);
+            return workWeChatApiClient.post(uri, body, ExternalUserListDetailResponse.class);
         }
         throw new WeComException("外部联系人ID个数范围 (0,100]");
     }
@@ -105,7 +100,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -124,7 +119,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
         Map<String, Object> body = new HashMap<>(2);
         body.put("cursor", cursor);
         body.put("limit", limit);
-        return this.post(uri, body, StrategyListResponse.class);
+        return workWeChatApiClient.post(uri, body, StrategyListResponse.class);
     }
 
     /**
@@ -140,7 +135,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, Collections.singletonMap("strategy_id", strategyId), CustomerStrategyDetailResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("strategy_id", strategyId), CustomerStrategyDetailResponse.class);
     }
 
     /**
@@ -154,7 +149,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, StrategyRangeResponse.class);
+        return workWeChatApiClient.post(uri, request, StrategyRangeResponse.class);
     }
 
     /**
@@ -170,7 +165,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<Integer>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<Integer>>() {
         });
     }
 
@@ -187,7 +182,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
     }
 
     /**
@@ -203,7 +198,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, Collections.singletonMap("strategy_id", strategyId), WeComResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("strategy_id", strategyId), WeComResponse.class);
     }
 
     /**
@@ -225,7 +220,7 @@ public class ExternalContactUserApi extends AbstractAgentApi {
                 .build()
                 .toUri();
 
-        return this.post(uri, Collections.singletonMap("external_userid", externalUserid),
+        return workWeChatApiClient.post(uri, Collections.singletonMap("external_userid", externalUserid),
                 new ParameterizedTypeReference<GenericResponse<String>>() {
                 });
     }

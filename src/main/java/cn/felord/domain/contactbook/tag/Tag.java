@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @author felord.cn
- * @since 1.0.8.RELEASE
+ * @since 2021/9/11
  */
 @Data
 public class Tag {

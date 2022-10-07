@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.contactbook.user.UserDetailResponse;
 import cn.felord.domain.contactbook.user.UserSensitiveInfoResponse;
 import cn.felord.enumeration.WeComEndpoint;
@@ -14,17 +12,18 @@ import java.util.Collections;
  * 身份验证API
  *
  * @author felord.cn
- * @since 2021/9/3 9:17
+ * @since 2021 /9/3 9:17
  */
-public class AuthApi extends AbstractAgentApi {
+public class AuthApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
+
     /**
-     * Instantiates a new We com client.
+     * Instantiates a new Auth api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    public AuthApi(WeComCacheable wecomCacheable,AgentDetails agent) {
-        super(wecomCacheable,agent);
+    AuthApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -41,7 +40,7 @@ public class AuthApi extends AbstractAgentApi {
                 .queryParam("code", code)
                 .build()
                 .toUri();
-        return this.get(uri, UserDetailResponse.class);
+        return workWeChatApiClient.get(uri, UserDetailResponse.class);
     }
 
 
@@ -58,7 +57,7 @@ public class AuthApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri,
+        return workWeChatApiClient.post(uri,
                 Collections.singletonMap("user_ticket", userTicket),
                 UserSensitiveInfoResponse.class);
     }

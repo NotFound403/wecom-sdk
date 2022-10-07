@@ -1,8 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
-
 /**
  * 微信客服
  *
@@ -10,35 +7,33 @@ import cn.felord.WeComCacheable;
  * @since 2021 /7/26 13:42
  */
 public class CallCenterManager {
-    private final WeComCacheable cacheable;
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
      * Instantiates a new Call center manager.
      *
-     * @param cacheable the cacheable
+     * @param workWeChatApiClient the work we chat api client
      */
-    CallCenterManager(WeComCacheable cacheable) {
-        this.cacheable = cacheable;
+    CallCenterManager(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
      * 客服账号管理
      *
-     * @param agent the agent
      * @return the service account manager api
      */
-    public KfAccountApi kfAccountApi(AgentDetails agent) {
-        return new KfAccountApi(cacheable, agent);
+    public KfAccountApi kfAccountApi() {
+        return new KfAccountApi(workWeChatApiClient);
     }
 
     /**
      * 接待人员管理
      *
-     * @param agent the agent
      * @return the kf servicer api
      */
-    public KfServicerApi kfServicerApi(AgentDetails agent) {
-        return new KfServicerApi(cacheable, agent);
+    public KfServicerApi kfServicerApi() {
+        return new KfServicerApi(workWeChatApiClient);
     }
 
 }

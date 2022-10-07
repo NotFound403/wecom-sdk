@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.ProductAlbumAddRequest;
@@ -22,16 +20,16 @@ import java.util.Map;
  * @author dax
  * @since 2021 /6/23 15:30
  */
-public class ProductAlbumApi extends AbstractAgentApi {
+public class ProductAlbumApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
      * Instantiates a new Product album api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    ProductAlbumApi(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
+    ProductAlbumApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -46,7 +44,7 @@ public class ProductAlbumApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -62,7 +60,7 @@ public class ProductAlbumApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri,Collections.singletonMap("product_id",productId), ProductAlbumDetailResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("product_id", productId), ProductAlbumDetailResponse.class);
     }
 
     /**
@@ -72,16 +70,16 @@ public class ProductAlbumApi extends AbstractAgentApi {
      * @param cursor the cursor
      * @return the product album detail response
      */
-    public ProductAlbumDetailResponse productAlbumList(int limit,String cursor) {
+    public ProductAlbumDetailResponse productAlbumList(int limit, String cursor) {
 
         String endpoint = WeComEndpoint.PRODUCT_ALBUM_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         Map<String, Object> body = new HashMap<>(2);
-        body.put("limit",limit);
-        body.put("cursor",cursor);
-        return this.post(uri,body, ProductAlbumDetailResponse.class);
+        body.put("limit", limit);
+        body.put("cursor", cursor);
+        return workWeChatApiClient.post(uri, body, ProductAlbumDetailResponse.class);
     }
 
     /**
@@ -96,7 +94,7 @@ public class ProductAlbumApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri,productAlbumDetail, WeComResponse.class);
+        return workWeChatApiClient.post(uri, productAlbumDetail, WeComResponse.class);
     }
 
     /**
@@ -111,6 +109,6 @@ public class ProductAlbumApi extends AbstractAgentApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return this.post(uri,Collections.singletonMap("product_id",productId), WeComResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("product_id", productId), WeComResponse.class);
     }
 }

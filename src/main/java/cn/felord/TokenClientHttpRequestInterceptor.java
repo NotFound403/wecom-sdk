@@ -1,6 +1,8 @@
 package cn.felord;
 
 import cn.felord.api.AccessTokenApi;
+import cn.felord.api.ProviderTokenApi;
+import cn.felord.api.TokenApi;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -12,43 +14,57 @@ import java.io.IOException;
 import java.net.URI;
 
 /**
+ * Token注入拦截器
+ *
  * @author felord.cn
- * @since 1.0.8.RELEASE
+ * @since 2021/9/11
  */
-public class AccessTokenClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
-    private final AccessTokenApi accessTokenApi;
-    private  AgentDetails agentDetails;
+public class TokenClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
+    private final TokenApi tokenApi;
+    private final String tokenParam;
 
-    public AccessTokenClientHttpRequestInterceptor(AccessTokenApi accessTokenApi) {
-        this.accessTokenApi = accessTokenApi;
+
+    public TokenClientHttpRequestInterceptor(TokenApi tokenApi) {
+        this.tokenApi = tokenApi;
+        tokenParam = this.determineTokenParam(tokenApi.getClass());
     }
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
 
         MutableHttpRequest mutableHttpRequest = new MutableHttpRequest(request);
-        String accessToken = accessTokenApi.getTokenResponse(agentDetails);
-
+        String token = tokenApi.getTokenResponse();
         URI uri = UriComponentsBuilder.fromUri(request.getURI())
-                .queryParam("access_token", accessToken)
+                .queryParam(tokenParam, token)
                 .build()
                 .toUri();
         mutableHttpRequest.setUri(uri);
         return execution.execute(mutableHttpRequest, body);
     }
 
-    public void setAgentDetails(AgentDetails agentDetails) {
-        this.agentDetails = agentDetails;
+    /**
+     * Gets token api.
+     *
+     * @return the token api
+     */
+    public TokenApi getTokenApi() {
+        return tokenApi;
     }
 
-    public AgentDetails getAgentDetails() {
-        return agentDetails;
+    private String determineTokenParam(Class<? extends TokenApi> tokenApiClazz) {
+
+        if (ProviderTokenApi.class.isAssignableFrom(tokenApiClazz)) {
+            return "provider_access_token";
+        }
+        if (AccessTokenApi.class.isAssignableFrom(tokenApiClazz)) {
+            return "access_token";
+        }
+        throw new WeComException("the api is not supported");
     }
 
-    public AccessTokenApi getAccessTokenApi() {
-        return accessTokenApi;
-    }
-
+    /**
+     * The type Mutable http request.
+     */
     static class MutableHttpRequest implements HttpRequest {
 
         private final HttpRequest source;
@@ -56,6 +72,11 @@ public class AccessTokenClientHttpRequestInterceptor implements ClientHttpReques
         private URI uri;
         private HttpHeaders headers;
 
+        /**
+         * Instantiates a new Mutable http request.
+         *
+         * @param source the source
+         */
         public MutableHttpRequest(HttpRequest source) {
             this.source = source;
             this.methodValue = source.getMethodValue();
@@ -63,14 +84,29 @@ public class AccessTokenClientHttpRequestInterceptor implements ClientHttpReques
             this.headers = source.getHeaders();
         }
 
+        /**
+         * Sets method value.
+         *
+         * @param methodValue the method value
+         */
         public void setMethodValue(String methodValue) {
             this.methodValue = methodValue;
         }
 
+        /**
+         * Sets uri.
+         *
+         * @param uri the uri
+         */
         public void setUri(URI uri) {
             this.uri = uri;
         }
 
+        /**
+         * Sets headers.
+         *
+         * @param headers the headers
+         */
         public void setHeaders(HttpHeaders headers) {
             this.headers = headers;
         }
@@ -90,6 +126,11 @@ public class AccessTokenClientHttpRequestInterceptor implements ClientHttpReques
             return this.headers;
         }
 
+        /**
+         * Gets source.
+         *
+         * @return the source
+         */
         public HttpRequest getSource() {
             return source;
         }

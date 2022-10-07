@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
 import cn.felord.domain.MediaResponse;
 import cn.felord.domain.WeChatMultipartFile;
 import cn.felord.enumeration.MediaAttachmentType;
@@ -22,16 +20,16 @@ import java.net.URI;
  * @author n1
  * @since 2021 /6/19 9:59
  */
-public class MediaApi extends AbstractAgentApi {
+public class MediaApi {
+    private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
-     * Instantiates a new We com client.
+     * Instantiates a new Media api.
      *
-     * @param wecomCacheable the wecom cacheable
-     * @param agent          the agent
+     * @param workWeChatApiClient the work we chat api client
      */
-    MediaApi(WeComCacheable wecomCacheable, AgentDetails agent) {
-        super(wecomCacheable, agent);
+    MediaApi(WorkWeChatApiClient workWeChatApiClient) {
+        this.workWeChatApiClient = workWeChatApiClient;
     }
 
     /**
@@ -98,7 +96,7 @@ public class MediaApi extends AbstractAgentApi {
 
         MultiValueMap<Object, Object> body = new LinkedMultiValueMap<>();
         body.add("media", media.getResource());
-        return this.post(uri, body, headers, MediaResponse.class);
+        return workWeChatApiClient.post(uri, body, headers, MediaResponse.class);
     }
 
 }

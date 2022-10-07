@@ -19,7 +19,7 @@ public interface WeComCacheable {
      * @param accessToken the access token
      * @return the token
      */
-    String putToken(@NonNull String corpId, @NonNull String agentId,@NonNull String accessToken);
+    String putAccessToken(@NonNull String corpId, @NonNull String agentId, @NonNull String accessToken);
 
     /**
      * 获取accessToken.
@@ -28,7 +28,7 @@ public interface WeComCacheable {
      * @param agentId the agentId
      * @return the token
      */
-    String getToken(@NonNull String corpId,@NonNull String agentId);
+    String getAccessToken(@NonNull String corpId, @NonNull String agentId);
 
     /**
      * 放入企业的jsapi_ticket.

@@ -31,23 +31,24 @@ class JsonParse {
 	};
 
 	/**
-	 * 提取出 JSON 包中的加密消息
-	 * @param jsontext 待提取的json字符串
-	 * @return 提取出的加密消息字符串
-	 * @throws AesException AES
-	 */
-	public static Object[] extract(String jsontext) throws AesException {
-		Object[] result = new Object[3];
-		try {
-			Map<String, String> json = objectMapper.readValue(jsontext, OBJECT_TYPE);
-			String encrypt_msg = json.get("encrypt");
-			String tousername  = json.get("tousername");
-			String agentid     = json.get("agentid");
+     * 提取出 JSON 包中的加密消息
+     *
+     * @param jsontext 待提取的json字符串
+     * @return 提取出的加密消息字符串
+     * @throws AesException AES
+     */
+    public static String[] extract(String jsontext) throws AesException {
+        String[] result = new String[3];
+        try {
+            Map<String, String> json = objectMapper.readValue(jsontext, OBJECT_TYPE);
+            String encrypt_msg = json.get("encrypt");
+            String tousername = json.get("tousername");
+            String agentid = json.get("agentid");
 
-			result[0] = tousername;
-			result[1] = encrypt_msg;
-			result[2] = agentid;
-			return result;
+            result[0] = tousername;
+            result[1] = encrypt_msg;
+            result[2] = agentid;
+            return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new AesException(AesException.ParseJsonError);
