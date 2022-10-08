@@ -1,8 +1,9 @@
-package cn.felord.api;
+package cn.felord.api.provider;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
+import cn.felord.WeComTokenCacheable;
 import cn.felord.WeComException;
+import cn.felord.api.AbstractTokenApi;
 import cn.felord.domain.authentication.ProviderTokenResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.web.util.UriComponents;
@@ -24,7 +25,7 @@ public class ProviderTokenApi extends AbstractTokenApi {
      * @param wecomCacheable the wecom cacheable
      * @param agentDetails   the agent details
      */
-    ProviderTokenApi(WeComCacheable wecomCacheable, AgentDetails agentDetails) {
+    ProviderTokenApi(WeComTokenCacheable wecomCacheable, AgentDetails agentDetails) {
         super(wecomCacheable, agentDetails);
     }
 

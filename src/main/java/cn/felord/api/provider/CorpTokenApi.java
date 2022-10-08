@@ -1,19 +1,20 @@
-package cn.felord.api;
+package cn.felord.api.provider;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComTokenCacheable;
 import cn.felord.WeComException;
+import cn.felord.WeComTokenCacheable;
+import cn.felord.api.AbstractTokenApi;
 import cn.felord.domain.authentication.AccessTokenResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * 获取 access_token
+ * 获取企业 access_token
  *
  * @author felord.cn
  */
-public class AccessTokenApi extends AbstractTokenApi {
+public class CorpTokenApi extends AbstractTokenApi {
 
     /**
      * Instantiates a new Access token api.
@@ -21,7 +22,7 @@ public class AccessTokenApi extends AbstractTokenApi {
      * @param wecomCacheable the wecom cacheable
      * @param agentDetails   the agent details
      */
-    AccessTokenApi(WeComTokenCacheable wecomCacheable, AgentDetails agentDetails) {
+    CorpTokenApi(WeComTokenCacheable wecomCacheable, AgentDetails agentDetails) {
         super(wecomCacheable, agentDetails);
     }
 

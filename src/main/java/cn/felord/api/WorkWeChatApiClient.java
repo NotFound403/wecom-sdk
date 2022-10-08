@@ -19,13 +19,13 @@ import java.util.Objects;
  * @since 2021 /6/16 19:36
  */
 @Slf4j
-final class WorkWeChatApiClient {
+public final class WorkWeChatApiClient {
     private final RestTemplate restTemplate;
 
     /**
      * Instantiates a new Abstract agent api.
      */
-    public WorkWeChatApiClient() {
+    WorkWeChatApiClient() {
         this.restTemplate = RestTemplateFactory.restOperations();
     }
 
@@ -50,7 +50,7 @@ final class WorkWeChatApiClient {
      * @param responseType the response type
      * @return the t
      */
-    protected <T extends WeComResponse> T post(URI uri, Object body, Class<T> responseType) {
+    public <T extends WeComResponse> T post(URI uri, Object body, Class<T> responseType) {
         return post(uri, body, null, responseType);
     }
 
@@ -64,7 +64,7 @@ final class WorkWeChatApiClient {
      * @param responseType the response type
      * @return the t
      */
-    protected <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, Class<T> responseType) {
+    public <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, Class<T> responseType) {
         RequestEntity<Object> requestEntity = this.build(uri, body, headers);
 
         T responseBody = restTemplate.exchange(requestEntity, responseType).getBody();
@@ -81,7 +81,7 @@ final class WorkWeChatApiClient {
      * @param parameterizedTypeReference the parameterized type reference
      * @return the t
      */
-    protected <T extends WeComResponse> T post(URI uri, Object body, ParameterizedTypeReference<T> parameterizedTypeReference) {
+    public <T extends WeComResponse> T post(URI uri, Object body, ParameterizedTypeReference<T> parameterizedTypeReference) {
         return post(uri, body, null, parameterizedTypeReference);
     }
 
@@ -95,7 +95,7 @@ final class WorkWeChatApiClient {
      * @param parameterizedTypeReference the parameterized type reference
      * @return the t
      */
-    protected <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, ParameterizedTypeReference<T> parameterizedTypeReference) {
+    public <T extends WeComResponse> T post(URI uri, Object body, HttpHeaders headers, ParameterizedTypeReference<T> parameterizedTypeReference) {
         RequestEntity<Object> requestEntity = this.build(uri, body, headers);
         T responseBody = restTemplate.exchange(requestEntity, parameterizedTypeReference).getBody();
         this.checkSuccessful(responseBody);
@@ -110,7 +110,7 @@ final class WorkWeChatApiClient {
      * @param responseType the response type
      * @return the t
      */
-    protected <T extends WeComResponse> T get(URI uri, Class<T> responseType) {
+    public <T extends WeComResponse> T get(URI uri, Class<T> responseType) {
         T responseBody = restTemplate.exchange(RequestEntity.get(uri).build(), responseType).getBody();
         this.checkSuccessful(responseBody);
         return responseBody;
@@ -124,7 +124,7 @@ final class WorkWeChatApiClient {
      * @param parameterizedTypeReference the parameterized type reference
      * @return the t
      */
-    protected <T extends WeComResponse> T get(URI uri, ParameterizedTypeReference<T> parameterizedTypeReference) {
+    public <T extends WeComResponse> T get(URI uri, ParameterizedTypeReference<T> parameterizedTypeReference) {
         T responseBody = restTemplate.exchange(RequestEntity.get(uri).build(), parameterizedTypeReference).getBody();
         this.checkSuccessful(responseBody);
         return responseBody;

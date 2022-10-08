@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
+import cn.felord.WeComAgentTicketCacheable;
 
 /**
  * The type Work we chat api.
@@ -16,7 +16,7 @@ public final class WorkWeChatApi {
      *
      * @param tokenApi the token api
      */
-    public WorkWeChatApi(TokenApi tokenApi) {
+    WorkWeChatApi(TokenApi tokenApi) {
         this.workWeChatApiClient = new WorkWeChatApiClient(tokenApi);
     }
 
@@ -77,12 +77,12 @@ public final class WorkWeChatApi {
     /**
      * SDK ticket相关接口
      *
-     * @param agent          the agent
-     * @param weComCacheable the we com cacheable
+     * @param agentDetails              the agent details
+     * @param weComAgentTicketCacheable the weComAgentTicketCacheable
      * @return the sdk ticket api
      */
-    public SdkTicketApi sdkTicketApi(AgentDetails agent, WeComCacheable weComCacheable) {
-        return new SdkTicketApi(workWeChatApiClient, agent, weComCacheable);
+    public SdkTicketApi sdkTicketApi(AgentDetails agentDetails, WeComAgentTicketCacheable weComAgentTicketCacheable) {
+        return new SdkTicketApi(workWeChatApiClient, agentDetails, weComAgentTicketCacheable);
     }
 
     /**

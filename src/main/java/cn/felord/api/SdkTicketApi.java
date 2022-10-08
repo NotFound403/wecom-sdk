@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComCacheable;
+import cn.felord.WeComAgentTicketCacheable;
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.jssdk.AgentConfigResponse;
@@ -33,9 +33,9 @@ public class SdkTicketApi {
     private final IdGenerator nonceStrGenerator = new AlternativeJdkIdGenerator();
     private final WorkWeChatApiClient workWeChatApiClient;
     private final AgentDetails agentDetails;
-    private final WeComCacheable cacheable;
+    private final WeComAgentTicketCacheable cacheable;
 
-    public SdkTicketApi(WorkWeChatApiClient workWeChatApiClient, AgentDetails agentDetails, WeComCacheable cacheable) {
+    public SdkTicketApi(WorkWeChatApiClient workWeChatApiClient, AgentDetails agentDetails, WeComAgentTicketCacheable cacheable) {
         this.workWeChatApiClient = workWeChatApiClient;
         this.agentDetails = agentDetails;
         this.cacheable = cacheable;

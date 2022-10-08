@@ -1,6 +1,6 @@
 ## 使用方法
 ### 实现缓存接口
-需要实现缓存接口`cn.felord.WeComCacheable`，分别用来存储**access_token**，**企业jsapi_ticket**，**应用jsapi_ticket**
+需要实现缓存接口`cn.felord.WeComTokenCacheable`，分别用来存储**access_token**，**企业jsapi_ticket**，**应用jsapi_ticket**
 ###  API入口类
 `WorkWeChatApi`
 

@@ -1,7 +1,7 @@
 package cn.felord;
 
 import cn.felord.api.AccessTokenApi;
-import cn.felord.api.ProviderTokenApi;
+import cn.felord.api.provider.ProviderTokenApi;
 import cn.felord.api.TokenApi;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;

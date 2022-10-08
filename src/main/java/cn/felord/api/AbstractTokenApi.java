@@ -2,17 +2,17 @@ package cn.felord.api;
 
 import cn.felord.AgentDetails;
 import cn.felord.RestTemplateFactory;
-import cn.felord.WeComCacheable;
+import cn.felord.WeComTokenCacheable;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * The type Token api.
  *
- * @author xiafang
+ * @author dax
  * @since 2022 /10/7 15:19
  */
 public abstract class AbstractTokenApi implements TokenApi {
-    private final WeComCacheable wecomCacheable;
+    private final WeComTokenCacheable wecomCacheable;
     private final AgentDetails agentDetails;
     private final RestTemplate restTemplate;
 
@@ -23,7 +23,7 @@ public abstract class AbstractTokenApi implements TokenApi {
      * @param wecomCacheable the wecom cacheable
      * @param agentDetails   the agent details
      */
-    AbstractTokenApi(WeComCacheable wecomCacheable, AgentDetails agentDetails) {
+    protected AbstractTokenApi(WeComTokenCacheable wecomCacheable, AgentDetails agentDetails) {
         this.wecomCacheable = wecomCacheable;
         this.agentDetails = agentDetails;
         this.restTemplate = RestTemplateFactory.restOperations();
@@ -55,7 +55,7 @@ public abstract class AbstractTokenApi implements TokenApi {
      *
      * @return the rest template
      */
-    RestTemplate getRestTemplate() {
+    protected RestTemplate getRestTemplate() {
         return restTemplate;
     }
 

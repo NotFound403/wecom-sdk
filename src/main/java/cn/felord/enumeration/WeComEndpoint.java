@@ -7,14 +7,27 @@ package cn.felord.enumeration;
  * @since 2021 /6/16 14:19
  */
 public enum WeComEndpoint {
+
     /**
-     * 获取access_token，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/91039">文档</a>
+     * 获取第三方应用凭证，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/10975#%E8%8E%B7%E5%8F%96%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%94%E7%94%A8%E5%87%AD%E8%AF%81">文档</a>
      */
-    GET_TOKEN("/gettoken"),
+    SERVICE_GET_SUITE_TOKEN("/service/get_suite_token"),
+    /**
+     * 获取企业access_token，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/10975#%E8%8E%B7%E5%8F%96%E4%BC%81%E4%B8%9Aaccess-token">文档</a>
+     */
+    SERVICE_GET_CORP_TOKEN("/service/get_corp_token"),
     /**
      * 获取服务商凭证，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/91200">文档</a>
      */
     SERVICE_GET_PROVIDER_TOKEN("/service/get_provider_token"),
+    /**
+     * corpid的转换，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/97061">文档</a>
+     */
+    SERVICE_CORPID_TO_OPENCORPID("/service/corpid_to_opencorpid"),
+    /**
+     * 获取access_token，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/91039">文档</a>
+     */
+    GET_TOKEN("/gettoken"),
     /**
      * 创建成员，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90195">文档</a>
      */
