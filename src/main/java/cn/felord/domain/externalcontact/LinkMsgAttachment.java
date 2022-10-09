@@ -2,6 +2,7 @@ package cn.felord.domain.externalcontact;
 
 import cn.felord.enumeration.MsgAttachType;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 
 /**
@@ -10,6 +11,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString
+@Getter
 public class LinkMsgAttachment extends MsgAttachment {
     private final Link link;
     public LinkMsgAttachment(Link link) {

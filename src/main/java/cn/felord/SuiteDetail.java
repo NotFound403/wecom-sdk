@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 
 /**
  * @author dax
- * @since 2022/10/8 10:08
+ * @since 2021/12/8 10:08
  */
 @AllArgsConstructor
 public class SuiteDetail {

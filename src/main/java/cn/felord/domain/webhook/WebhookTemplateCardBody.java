@@ -1,7 +1,7 @@
 package cn.felord.domain.webhook;
 
 import cn.felord.domain.webhook.card.TemplateCard;
-import cn.felord.enumeration.MsgType;
+import cn.felord.enumeration.HookMsgType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +22,6 @@ public class WebhookTemplateCardBody extends WebhookBody {
      * Instantiates a new Webhook template card body.
      */
     public WebhookTemplateCardBody() {
-        super(MsgType.TEMPLATE_CARD);
+        super(HookMsgType.TEMPLATE_CARD);
     }
 }

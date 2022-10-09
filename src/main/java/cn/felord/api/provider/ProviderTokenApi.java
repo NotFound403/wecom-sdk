@@ -32,7 +32,8 @@ public class ProviderTokenApi extends AbstractTokenApi {
 
     @Override
     protected String doGetToken(AgentDetails agentDetails) {
-        UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.SERVICE_GET_PROVIDER_TOKEN.endpoint())
+        String endpoint = WeComEndpoint.SERVICE_GET_PROVIDER_TOKEN.endpoint();
+        UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build();
         Map<String, String> body = new HashMap<>(2);
         body.put("corpid", agentDetails.getCorpId());

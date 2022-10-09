@@ -21,6 +21,7 @@ import java.util.Objects;
 @Slf4j
 public final class WorkWeChatApiClient {
     private final RestTemplate restTemplate;
+    private AgentDetails agentDetails;
 
     /**
      * Instantiates a new Abstract agent api.
@@ -36,9 +37,13 @@ public final class WorkWeChatApiClient {
      */
     public <T extends TokenApi> WorkWeChatApiClient(T tokenApi) {
         this.restTemplate = RestTemplateFactory.restOperations();
+        this.agentDetails = tokenApi.getAgentDetails();
         TokenClientHttpRequestInterceptor interceptor = new TokenClientHttpRequestInterceptor(tokenApi);
-
         this.restTemplate.setInterceptors(Collections.singletonList(interceptor));
+    }
+
+    AgentDetails getAgentDetails() {
+        return agentDetails;
     }
 
     /**

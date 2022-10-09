@@ -1,5 +1,7 @@
 package cn.felord.api;
 
+import cn.felord.AgentDetails;
+
 /**
  * The interface Token api.
  *
@@ -13,4 +15,11 @@ public interface TokenApi {
      * @return the token response
      */
     String getTokenResponse();
+
+    /**
+     * Gets agent details.
+     *
+     * @return the agent details
+     */
+    AgentDetails getAgentDetails();
 }

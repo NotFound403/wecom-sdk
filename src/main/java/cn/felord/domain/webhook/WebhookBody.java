@@ -1,6 +1,6 @@
 package cn.felord.domain.webhook;
 
-import cn.felord.enumeration.MsgType;
+import cn.felord.enumeration.HookMsgType;
 import lombok.Getter;
 
 
@@ -12,7 +12,7 @@ import lombok.Getter;
 public abstract class WebhookBody {
     private final String msgtype;
 
-    protected WebhookBody(MsgType msgtype) {
+    protected WebhookBody(HookMsgType msgtype) {
         this.msgtype = msgtype.name().toLowerCase();
     }
 }

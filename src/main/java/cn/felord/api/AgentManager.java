@@ -29,13 +29,12 @@ public class AgentManager {
     /**
      * Gets agent details.
      *
-     * @param agentId the agent id
      * @return the agent details
      */
-    public AgentDetailsResponse getAgentDetails(String agentId) {
+    public AgentDetailsResponse getAgentDetails() {
         String endpoint = WeComEndpoint.AGENT_DETAILS.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("agentid", agentId)
+                .queryParam("agentid", workWeChatApiClient.getAgentDetails().getAgentId())
                 .build()
                 .toUri();
         return workWeChatApiClient.get(uri, AgentDetailsResponse.class);

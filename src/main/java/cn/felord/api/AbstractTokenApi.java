@@ -50,6 +50,11 @@ public abstract class AbstractTokenApi implements TokenApi {
         return tokenCache;
     }
 
+    @Override
+    public AgentDetails getAgentDetails() {
+        return agentDetails;
+    }
+
     /**
      * Gets rest template.
      *

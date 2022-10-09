@@ -3,6 +3,8 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.callcenter.KfSessionResponse;
 import cn.felord.domain.callcenter.KfSessionUpdateRequest;
+import cn.felord.domain.callcenter.SyncMsgRequest;
+import cn.felord.domain.callcenter.SyncMsgResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -62,5 +64,19 @@ public class KfSessionApi {
                 .toUri();
         return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
+    }
+
+    /**
+     * 读取消息
+     *
+     * @param request the request
+     * @return the sync msg response
+     */
+    public SyncMsgResponse syncMsg(SyncMsgRequest request) {
+        String endpoint = WeComEndpoint.KF_SYNC_MSG.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri, request, SyncMsgResponse.class);
     }
 }

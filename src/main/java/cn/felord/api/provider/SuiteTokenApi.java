@@ -1,9 +1,6 @@
 package cn.felord.api.provider;
 
-import cn.felord.RestTemplateFactory;
-import cn.felord.SuiteDetail;
-import cn.felord.WeComException;
-import cn.felord.WeComTokenCacheable;
+import cn.felord.*;
 import cn.felord.api.TokenApi;
 import cn.felord.domain.authentication.SuiteTokenResponse;
 import cn.felord.enumeration.WeComEndpoint;
@@ -58,4 +55,8 @@ public class SuiteTokenApi implements TokenApi {
         return tokenCache;
     }
 
+    @Override
+    public AgentDetails getAgentDetails() {
+        throw new IllegalArgumentException("not support");
+    }
 }

@@ -9,6 +9,7 @@
 package cn.felord.callbacks;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.security.MessageDigest;
 import java.util.stream.Collectors;
@@ -19,7 +20,11 @@ import java.util.stream.Stream;
  * <p>
  * 计算消息签名接口.
  */
-class SHA1 {
+final class SHA1 {
+    private static final MessageDigest SHA1 = DigestUtils.getSha1Digest();
+
+    private SHA1() {
+    }
 
     /**
      * 用SHA1算法生成安全签名
@@ -29,21 +34,16 @@ class SHA1 {
      * @param nonce     随机字符串
      * @param encrypt   密文
      * @return 安全签名 sha 1
-     * @throws AesException the aes exception
+     * @throws WeComCallbackException the aes exception
      */
-    public static String getSHA1(String token, String timestamp, String nonce, String encrypt) throws AesException {
+    public static String sha1Hex(String token, String timestamp, String nonce, String encrypt) throws WeComCallbackException {
         try {
             String str = Stream.of(token, timestamp, nonce, encrypt)
                     .sorted()
                     .collect(Collectors.joining());
-            // SHA1签名生成
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
-            md.update(str.getBytes());
-            byte[] digest = md.digest();
-            return Hex.encodeHexString(digest);
+            return Hex.encodeHexString(SHA1.digest(str.getBytes()));
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new AesException(AesException.ComputeSignatureError);
+            throw new WeComCallbackException(WeComCallbackException.ComputeSignatureError);
         }
     }
 }

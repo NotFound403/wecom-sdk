@@ -6,7 +6,7 @@ package cn.felord.enumeration;
  * @author n1
  * @since 2021 /6/16 14:39
  */
-public enum MsgType {
+public enum HookMsgType {
     /**
      * 文本
      */

@@ -36,4 +36,13 @@ public class CallCenterManager {
         return new KfServicerApi(workWeChatApiClient);
     }
 
+    /**
+     * 会话分配与消息收发
+     *
+     * @return the kf session api
+     */
+    public KfSessionApi kfSessionApi() {
+        return new KfSessionApi(workWeChatApiClient);
+    }
+
 }
