@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class WelcomeTemplateResponse extends WeComResponse {
-    private Text text;
+    private ContentText text;
     private ImageUrl image;
     private Link link;
     private Miniprogram miniprogram;

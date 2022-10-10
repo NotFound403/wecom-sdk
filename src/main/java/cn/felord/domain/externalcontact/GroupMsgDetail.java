@@ -16,6 +16,6 @@ public class GroupMsgDetail {
      private String creator;
      private Instant createTime;
      private CreateType createType;
-     private Text text;
-     private List<? extends MsgAttachment> attachments;
+    private ContentText text;
+    private List<? extends MsgAttachment> attachments;
 }

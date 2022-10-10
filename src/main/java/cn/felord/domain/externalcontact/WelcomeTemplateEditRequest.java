@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class WelcomeTemplateEditRequest {
     private final String templateId;
-    private Text text;
+    private ContentText text;
     private Image image;
     private Link link;
     private Miniprogram miniprogram;

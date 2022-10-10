@@ -6,6 +6,6 @@ import lombok.Data;
  * @author n1
  */
 @Data
-public class Text{
-	private String value;
+public class UserText {
+    private String value;
 }

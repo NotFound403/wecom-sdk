@@ -15,7 +15,7 @@ public class Sample {
         String sCorpID = "wx5823bf96d3bd56c7";
         String sEncodingAESKey = "jWmYm7qr5nMoAUwZRjGtBxmz3KA1tkAj3ykkR6q2B2C";
 
-        WXBizJsonMsgCrypt wxcpt = new WXBizJsonMsgCrypt(sToken, sEncodingAESKey, sCorpID);
+        CallbackMsgCrypt wxcpt = new CallbackMsgCrypt(sToken, sEncodingAESKey, sCorpID);
 		/*
 		------------使用示例一：验证回调URL---------------
 		*企业开启回调模式时，企业微信会向验证url发送一个get请求

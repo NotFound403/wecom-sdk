@@ -7,6 +7,6 @@ import lombok.Data;
  * @since 2021/7/23 15:11
  */
 @Data
-public class Text {
+public class ContentText {
     private String content;
 }

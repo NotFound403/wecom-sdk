@@ -10,5 +10,5 @@ public class AttrsItem {
     private Integer type;
     private String name;
     private Web web;
-    private Text text;
+    private UserText text;
 }

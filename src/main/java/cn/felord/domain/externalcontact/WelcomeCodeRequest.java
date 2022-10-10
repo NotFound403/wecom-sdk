@@ -11,6 +11,6 @@ import java.util.List;
 @Data
 public class WelcomeCodeRequest {
     private final String welcomeCode;
-    private Text text;
+    private ContentText text;
     private List<? extends MsgAttachment> attachments;
 }

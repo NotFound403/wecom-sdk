@@ -10,5 +10,5 @@ public class ExternalAttrItem{
 	private String name;
 	private Miniprogram miniprogram;
 	private Web web;
-	private Text text;
+    private UserText text;
 }

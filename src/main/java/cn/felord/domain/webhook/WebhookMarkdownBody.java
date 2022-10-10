@@ -1,6 +1,6 @@
 package cn.felord.domain.webhook;
 
-import cn.felord.domain.externalcontact.Text;
+import cn.felord.domain.externalcontact.ContentText;
 import cn.felord.enumeration.HookMsgType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WebhookMarkdownBody extends WebhookBody {
-    private Text markdown;
+    private ContentText markdown;
 
     public WebhookMarkdownBody() {
         super(HookMsgType.MARKDOWN);

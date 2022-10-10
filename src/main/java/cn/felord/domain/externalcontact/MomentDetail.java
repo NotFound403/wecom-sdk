@@ -18,8 +18,8 @@ public class MomentDetail {
      private Instant createTime;
      private MomentVisibleType visibleType;
      private CreateType createType;
-     private Text text;
-     private List<MediaId> image;
+    private ContentText text;
+    private List<MediaId> image;
      private MomentDetailVideo video;
      private MomentLink link;
      private MomentLocation location;

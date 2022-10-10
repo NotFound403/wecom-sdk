@@ -10,6 +10,34 @@
  * 针对org.apache.commons.codec.binary.Base64，
  * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
  * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
  */
 
 // ------------------------------------------------------------------------
@@ -22,6 +50,7 @@
 package cn.felord.callbacks;
 
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
 import javax.crypto.Cipher;
@@ -46,33 +75,37 @@ import java.util.Random;
  * 	<li>如果安装了JDK，将两个jar文件放到%JDK_HOME%\jre\lib\security目录下覆盖原来文件</li>
  * </ol>
  */
-public class WXBizJsonMsgCrypt {
+public class CallbackMsgCrypt {
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
-
-    Base64 base64 = new Base64();
-    byte[] aesKey;
-    String token;
-    String receiveid;
+    private static final XmlReader xmlReader = new XStreamXmlReader();
+    private final byte[] aesKey;
+    private final String token;
+    private final String receiveid;
 
     /**
      * 构造函数
      *
      * @param token          企业微信后台，开发者设置的token
      * @param encodingAesKey 企业微信后台，开发者设置的EncodingAESKey
-     * @param receiveid,     不同场景含义不同，详见文档
+     * @param receiveid      the receiveid
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public WXBizJsonMsgCrypt(String token, String encodingAesKey, String receiveid) throws WeComCallbackException {
+    public CallbackMsgCrypt(String token, String encodingAesKey, String receiveid) throws WeComCallbackException {
         if (encodingAesKey.length() != 43) {
             throw new WeComCallbackException(WeComCallbackException.IllegalAesKey);
         }
-
         this.token = token;
         this.receiveid = receiveid;
         aesKey = Base64.decodeBase64(encodingAesKey + "=");
     }
 
-    // 生成4个字节的网络字节序
+    /**
+     * Get network bytes order byte [ ].
+     *
+     * @param sourceNumber the source number
+     * @return the byte [ ]
+     */
+// 生成4个字节的网络字节序
     byte[] getNetworkBytesOrder(int sourceNumber) {
         byte[] orderBytes = new byte[4];
         orderBytes[3] = (byte) (sourceNumber & 0xFF);
@@ -82,7 +115,13 @@ public class WXBizJsonMsgCrypt {
         return orderBytes;
     }
 
-    // 还原4个字节的网络字节序
+    /**
+     * Recover network bytes order int.
+     *
+     * @param orderBytes the order bytes
+     * @return the int
+     */
+// 还原4个字节的网络字节序
     int recoverNetworkBytesOrder(byte[] orderBytes) {
         int sourceNumber = 0;
         for (int i = 0; i < 4; i++) {
@@ -92,7 +131,12 @@ public class WXBizJsonMsgCrypt {
         return sourceNumber;
     }
 
-    // 随机生成16位字符串
+    /**
+     * Gets random str.
+     *
+     * @return the random str
+     */
+// 随机生成16位字符串
     String getRandomStr() {
         String base = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
@@ -107,8 +151,9 @@ public class WXBizJsonMsgCrypt {
     /**
      * 对明文进行加密.
      *
-     * @param text 需要加密的明文
-     * @return 加密后base64编码的字符串
+     * @param randomStr the random str
+     * @param text      需要加密的明文
+     * @return 加密后base64编码的字符串 string
      * @throws WeComCallbackException aes加密失败
      */
     String encrypt(String randomStr, String text) throws WeComCallbackException {
@@ -117,35 +162,25 @@ public class WXBizJsonMsgCrypt {
         byte[] textBytes = text.getBytes(StandardCharsets.UTF_8);
         byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
         byte[] receiveidBytes = receiveid.getBytes(StandardCharsets.UTF_8);
-
         // randomStr + networkBytesOrder + text + receiveid
         byteCollector.addBytes(randomStrBytes);
         byteCollector.addBytes(networkBytesOrder);
         byteCollector.addBytes(textBytes);
         byteCollector.addBytes(receiveidBytes);
-
-        // ... + pad: 使用自定义的填充方式对明文进行补位填充
         byte[] padBytes = PKCS7Encoder.encode(byteCollector.size());
         byteCollector.addBytes(padBytes);
-
         // 获得最终的字节流, 未加密
         byte[] unencrypted = byteCollector.toBytes();
-
         try {
             // 设置加密模式为AES的CBC模式
             Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
             SecretKeySpec keySpec = new SecretKeySpec(aesKey, "AES");
             IvParameterSpec iv = new IvParameterSpec(aesKey, 0, 16);
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
-
             // 加密
             byte[] encrypted = cipher.doFinal(unencrypted);
-
-            // 使用BASE64对加密后的字符串进行编码
-
-            return base64.encodeToString(encrypted);
+            return Base64Utils.encodeToString(encrypted);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new WeComCallbackException(WeComCallbackException.EncryptAESError);
         }
     }
@@ -172,7 +207,6 @@ public class WXBizJsonMsgCrypt {
             // 解密
             original = cipher.doFinal(encrypted);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new WeComCallbackException(WeComCallbackException.DecryptAESError);
         }
 
@@ -213,7 +247,7 @@ public class WXBizJsonMsgCrypt {
      * @param replyMsg  企业微信待回复用户的消息，json格式的字符串
      * @param timeStamp 时间戳，可以自己生成，也可以用URL参数的timestamp
      * @param nonce     随机串，可以自己生成，也可以用URL参数的nonce
-     * @return 加密后的可以直接回复用户的密文，包括msg_signature, timestamp, nonce, encrypt的json格式的字符串
+     * @return 加密后的可以直接回复用户的密文 ，包括msg_signature, timestamp, nonce, encrypt的json格式的字符串
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
     public String encryptMsg(String replyMsg, String timeStamp, String nonce) throws WeComCallbackException {
@@ -229,22 +263,38 @@ public class WXBizJsonMsgCrypt {
     }
 
     /**
-     * 检验消息的真实性，并且获取解密后的明文.
+     * 检验XML消息的真实性，并且获取解密后的明文.
      * <ol>
      * 	<li>利用收到的密文生成安全签名，进行签名验证</li>
      * 	<li>若验证通过，则提取json中的加密消息</li>
      * 	<li>对消息进行解密</li>
      * </ol>
      *
-     * @param msgSignature 签名串，对应URL参数的msg_signature
-     * @param timeStamp    时间戳，对应URL参数的timestamp
-     * @param nonce        随机串，对应URL参数的nonce
-     * @param encrypt      请求体中的密文部分，因不通的业务也不相同
-     * @return 解密后的原文
+     * @param xmlDecryptMsg the xml decrypt msg
+     * @return 解密后的原文 string
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
+     */
+    public String decryptXmlMsg(XmlDecryptMsg xmlDecryptMsg)
+            throws WeComCallbackException {
+        String xmlBody = xmlDecryptMsg.getXmlBody();
+        CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
+        String encrypt = callbackXmlBody.getEncrypt();
+        return decryptMsg(xmlDecryptMsg.getMsgSignature(), xmlDecryptMsg.getTimeStamp(), xmlDecryptMsg.getNonce(), encrypt);
+    }
+
+    /**
+     * Decrypt msg string.
+     *
+     * @param msgSignature the msg signature
+     * @param timeStamp    the time stamp
+     * @param nonce        the nonce
+     * @param encrypt      to encrypt
+     * @return the string
+     * @throws WeComCallbackException the we com callback exception
      */
     public String decryptMsg(String msgSignature, String timeStamp, String nonce, String encrypt)
             throws WeComCallbackException {
+
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
         if (!signature.equals(msgSignature)) {
             throw new WeComCallbackException(WeComCallbackException.ValidateSignatureError);
@@ -259,7 +309,7 @@ public class WXBizJsonMsgCrypt {
      * @param timeStamp    时间戳，对应URL参数的timestamp
      * @param nonce        随机串，对应URL参数的nonce
      * @param echoStr      随机串，对应URL参数的echostr
-     * @return 解密之后的echostr
+     * @return 解密之后的echostr string
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
     public String verifyURL(String msgSignature, String timeStamp, String nonce, String echoStr)
@@ -270,7 +320,7 @@ public class WXBizJsonMsgCrypt {
             throw new WeComCallbackException(WeComCallbackException.ValidateSignatureError);
         }
 
-        return decrypt(echoStr);
+        return decrypt(echoStr).trim();
     }
 
 }

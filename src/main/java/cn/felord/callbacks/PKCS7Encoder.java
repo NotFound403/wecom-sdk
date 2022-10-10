@@ -8,7 +8,6 @@
 
 package cn.felord.callbacks;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
@@ -16,8 +15,7 @@ import java.util.Arrays;
  * 提供基于PKCS7算法的加解密接口.
  */
 class PKCS7Encoder {
-	static Charset CHARSET = StandardCharsets.UTF_8;
-	static int BLOCK_SIZE = 32;
+	private static final int BLOCK_SIZE = 32;
 
 	/**
 	 * 获得对明文进行补位填充的字节.
@@ -37,7 +35,7 @@ class PKCS7Encoder {
 		for (int index = 0; index < amountToPad; index++) {
 			tmp.append(padChr);
 		}
-		return tmp.toString().getBytes(CHARSET);
+		return tmp.toString().getBytes(StandardCharsets.UTF_8);
 	}
 
 	/**

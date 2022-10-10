@@ -8,18 +8,18 @@ import java.util.Set;
  * @since 2021/7/22 15:10
  */
 public class MomentBody<T extends MomentAttachment> {
-    private Text text;
+    private ContentText text;
     private Set<T> attachments;
     private VisibleRange visibleRange;
 
     MomentBody() {
     }
 
-    public MomentBody(Text text) {
+    public MomentBody(ContentText text) {
         this.text = text;
     }
 
-    public static MomentBody<MomentAttachment> textMoment(Text text) {
+    public static MomentBody<MomentAttachment> textMoment(ContentText text) {
         return new MomentBody<>(text);
     }
 
@@ -41,7 +41,7 @@ public class MomentBody<T extends MomentAttachment> {
         return linkMomentAttachmentMomentBody;
     }
 
-    public void setText(Text text) {
+    public void setText(ContentText text) {
         this.text = text;
     }
 
@@ -53,7 +53,7 @@ public class MomentBody<T extends MomentAttachment> {
         this.visibleRange = visibleRange;
     }
 
-    public Text getText() {
+    public ContentText getText() {
         return text;
     }
 

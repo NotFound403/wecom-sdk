@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Data
 public class Conclusions {
-    private Text text;
+    private ContentText text;
     private ImageUrl image;
     private Link link;
     private Miniprogram miniprogram;

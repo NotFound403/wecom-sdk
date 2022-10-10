@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 public class WelcomeTemplateAddRequest {
-    private Text text;
+    private ContentText text;
     private Image image;
     private Link link;
     private Miniprogram miniprogram;
