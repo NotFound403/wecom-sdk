@@ -7,7 +7,7 @@ import org.springframework.lang.NonNull;
  *
  * @author felord.cn
  */
-public interface WeComAgentTicketCacheable {
+public interface WeComAgentTicketCacheable extends WeComCacheable {
 
     /**
      * 放入企业的jsapi_ticket.

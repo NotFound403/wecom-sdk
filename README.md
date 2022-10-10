@@ -1,10 +1,18 @@
 ## 使用方法
+
 ### 实现缓存接口
-需要实现缓存接口`cn.felord.WeComTokenCacheable`，分别用来存储**access_token**，**企业jsapi_ticket**，**应用jsapi_ticket**
-###  API入口类
-`WorkWeChatApi`
+
+需要实现标记缓存接口`cn.felord.WeComCacheable`的接口，分别用来存储**access_token**，**企业jsapi_ticket**，**
+应用jsapi_ticket**
+> 具体缓存策略根据企业微信文档自行实现。
+
+### API入口类
+
+`Wecom`
+> 目前暂时不支持第三方开发
 
 ## API实现进度
+
 - 获取企业微信API域名IP段
   - [x] 获取企业微信API域名IP段
 - 自建应用与第三方应用的对接

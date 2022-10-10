@@ -7,7 +7,7 @@ import org.springframework.lang.NonNull;
  *
  * @author felord.cn
  */
-public interface WeComTokenCacheable {
+public interface WeComTokenCacheable extends WeComCacheable {
 
     /**
      * 存入accessToken
