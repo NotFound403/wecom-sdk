@@ -30,9 +30,11 @@ public final class WorkWeChatApiClient {
         this.restTemplate = RestTemplateFactory.restOperations();
     }
 
+
     /**
-     * Instantiates a new Abstract agent api.
+     * Instantiates a new Work we chat api client.
      *
+     * @param <T>      the type parameter
      * @param tokenApi the token api
      */
     public <T extends TokenApi> WorkWeChatApiClient(T tokenApi) {
@@ -42,6 +44,11 @@ public final class WorkWeChatApiClient {
         this.restTemplate.setInterceptors(Collections.singletonList(interceptor));
     }
 
+    /**
+     * Gets agent details.
+     *
+     * @return the agent details
+     */
     AgentDetails getAgentDetails() {
         return agentDetails;
     }
