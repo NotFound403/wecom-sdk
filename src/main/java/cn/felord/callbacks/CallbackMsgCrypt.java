@@ -96,7 +96,7 @@ public class CallbackMsgCrypt {
         }
         this.token = token;
         this.receiveid = receiveid;
-        aesKey = Base64.decodeBase64(encodingAesKey + "=");
+        aesKey = Base64Utils.decodeFromString(encodingAesKey + "=");
     }
 
     /**
@@ -212,7 +212,7 @@ public class CallbackMsgCrypt {
 
         String jsonContent, fromReceiveid;
         try {
-            // 去除补位字符
+            // 去除 补位 字符
             byte[] bytes = PKCS7Encoder.decode(original);
 
             // 分离16位随机字符串,网络字节序和receiveid

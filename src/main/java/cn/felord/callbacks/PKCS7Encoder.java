@@ -26,9 +26,6 @@ class PKCS7Encoder {
 	static byte[] encode(int count) {
 		// 计算需要填充的位数
 		int amountToPad = BLOCK_SIZE - (count % BLOCK_SIZE);
-		if (amountToPad == 0) {
-			amountToPad = BLOCK_SIZE;
-		}
 		// 获得补位所用的字符
 		char padChr = chr(amountToPad);
 		StringBuilder tmp = new StringBuilder();
