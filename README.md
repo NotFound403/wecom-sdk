@@ -10,8 +10,7 @@
 ```
 ### 实现缓存接口
 
-需要实现标记缓存接口`cn.felord.WeComCacheable`的接口，分别用来存储**access_token**，**企业jsapi_ticket**，**
-应用jsapi_ticket**
+需要实现标记缓存接口`cn.felord.WeComCacheable`的接口，分别用来存储**access_token**，**企业jsapi_ticket**，**应用jsapi_ticket**
 > 具体缓存策略根据企业微信文档自行实现。
 
 ### API入口类
