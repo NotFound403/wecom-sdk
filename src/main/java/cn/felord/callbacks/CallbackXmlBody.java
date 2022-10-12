@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @XStreamAlias("xml")
 @Data
-public class CallbackXmlBody {
+class CallbackXmlBody {
     @XStreamAlias("ToUserName")
     private final String toUserName;
     @XStreamAlias("Encrypt")

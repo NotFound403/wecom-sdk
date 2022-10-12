@@ -529,6 +529,10 @@ public enum WeComEndpoint {
      */
     MEDIA_UPLOAD_ATTACHMENT("/media/upload_attachment"),
     /**
+     * 生成异步上传任务，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/96219">文档</a>
+     */
+    MEDIA_UPLOAD_BY_URL("/media/upload_by_url"),
+    /**
      * 企业微信 Webhook API，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/92520">文档</a>
      */
     WEBHOOK_SEND("/webhook/send"),

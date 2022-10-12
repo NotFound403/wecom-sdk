@@ -1,5 +1,6 @@
 package cn.felord.callbacks;
 
+import cn.felord.domain.callback.CallbackCrypt;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,7 +16,7 @@ public class Sample {
         String sCorpID = "wx5823bf96d3bd56c7";
         String sEncodingAESKey = "jWmYm7qr5nMoAUwZRjGtBxmz3KA1tkAj3ykkR6q2B2C";
 
-        CallbackMsgCrypt wxcpt = new CallbackMsgCrypt(sToken, sEncodingAESKey, sCorpID);
+        CallbackMsgCrypt wxcpt = new CallbackMsgCrypt(new CallbackCrypt(sToken, sCorpID, sEncodingAESKey));
 		/*
 		------------使用示例一：验证回调URL---------------
 		*企业开启回调模式时，企业微信会向验证url发送一个get请求
@@ -39,11 +40,11 @@ public class Sample {
         String sVerifyNonce = "263014780";
         // String sVerifyEchoStr = HttpUtils.ParseUrl("echostr");
         String sVerifyEchoStr = "P9nAzCzyDtyTWESHep1vC5X9xho/qYX3Zpb4yKa9SKld1DsH3Iyt3tP3zNdtp+4RPcs8TgAE7OaBO+FZXvnaqQ==";
-        String sEchoStr; //需要返回的明文
+
         try {
-            sEchoStr = wxcpt.verifyURL(sVerifyMsgSig, sVerifyTimeStamp,
+            Long sEchoStr = wxcpt.verifyURL(sVerifyMsgSig, sVerifyTimeStamp,
                     sVerifyNonce, sVerifyEchoStr);
-            System.out.println("verifyurl echostr: " + sEchoStr);
+
             // 验证URL成功，将sEchoStr返回
             // HttpUtils.SetResponse(sEchoStr);
         } catch (Exception e) {
@@ -82,7 +83,8 @@ public class Sample {
         String sReqData = "{\"tousername\":\"wx5823bf96d3bd56c7\",\"encrypt\":\"CZWs4CWRpI4VolQlvn4dlEC1alN2MUEY2VklGehgBVLBrlVF7SyT+SV+Toj43l4ayJ9UMGKphktKKmP7B2j/P1ey67XB8PBgS7Wr5/8+w/yWriZv3Vmoo/MH3/1HsIWZrPQ3N2mJrelStIfI2Y8kLKXA7EhfZgZX4o+ffdkZDM76SEl79Ib9mw7TGjZ9Aw/x/A2VjNbV1E8BtEbRxYYcQippYNw7hr8sFfa3nW1xLdxokt8QkRX83vK3DFP2F6TQFPL2Tu98UwhcUpPvdJBuu1/yiOQIScppV3eOuLWEsko=\",\"agentid\":\"218\"}";
 
         try {
-            String json = wxcpt.decryptMsg(sReqMsgSig, sReqTimeStamp, sReqNonce, sReqData);
+//            String json = wxcpt.decryptMsg(sReqMsgSig, sReqTimeStamp, sReqNonce, sReqData);
+            String json = "";
             System.out.println("after decrypt msg: " + json);
             // TODO: 解析出明文json标签的内容进行处理
             // For example:
@@ -117,15 +119,13 @@ public class Sample {
 		以上2，3，4步可以用企业微信提供的库函数EncryptMsg来实现。
 		*/
         String sRespData = "{\"ToUserName\":\"wx5823bf96d3bd56c7\",\"FromUserName\":\"mycreate\",\"CreateTime\": 1409659813,\"MsgType\":\"text\",\"Content\":\"hello\",\"MsgId\":4561255354251345929,\"AgentID\": 218}";
-        try{
+        try {
             String sEncryptMsg = wxcpt.encryptMsg(sRespData, sReqTimeStamp, sReqNonce);
             System.out.println("after encrypt sEncrytMsg: " + sEncryptMsg);
             // 加密成功
             // TODO:
             // HttpUtils.SetResponse(sEncryptMsg);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             // 加密失败
         }

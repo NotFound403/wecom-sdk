@@ -46,6 +46,26 @@
  * 针对org.apache.commons.codec.binary.Base64，
  * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
  * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
  */
 
 // ------------------------------------------------------------------------
@@ -57,7 +77,7 @@
  */
 package cn.felord.callbacks;
 
-import cn.felord.domain.callback.XmlDecryptMsg;
+import cn.felord.domain.callback.CallbackCrypt;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -91,8 +111,13 @@ public class CallbackMsgCrypt {
     private final String token;
     private final String receiveid;
 
-    public CallbackMsgCrypt(String token, String encodingAesKey, String receiveid) {
-        this(new XStreamXmlReader(), token, encodingAesKey, receiveid);
+    /**
+     * Instantiates a new Callback msg crypt.
+     *
+     * @param callbackCrypt the callback crypt
+     */
+    public CallbackMsgCrypt(CallbackCrypt callbackCrypt) {
+        this(new XStreamXmlReader(), callbackCrypt.getToken(), callbackCrypt.getEncodingAesKey(), callbackCrypt.getReceiveid());
     }
 
     /**
@@ -236,10 +261,8 @@ public class CallbackMsgCrypt {
             int jsonLength = recoverNetworkBytesOrder(networkOrder);
 
             jsonContent = new String(Arrays.copyOfRange(bytes, 20, 20 + jsonLength), StandardCharsets.UTF_8);
-            fromReceiveid = new String(Arrays.copyOfRange(bytes, 20 + jsonLength, bytes.length),
-                    StandardCharsets.UTF_8);
+            fromReceiveid = new String(Arrays.copyOfRange(bytes, 20 + jsonLength, bytes.length), StandardCharsets.UTF_8);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new WeComCallbackException(WeComCallbackException.IllegalBuffer);
         }
 
@@ -285,16 +308,19 @@ public class CallbackMsgCrypt {
      * 	<li>对消息进行解密</li>
      * </ol>
      *
-     * @param xmlDecryptMsg the xml decrypt msg
+     * @param msgSignature the msg signature
+     * @param timeStamp    the time stamp
+     * @param nonce        the nonce
+     * @param xmlBody      the xml body
      * @return 解密后的原文 string
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public String decryptXmlMsg(XmlDecryptMsg xmlDecryptMsg)
-            throws WeComCallbackException {
-        String xmlBody = xmlDecryptMsg.getXmlBody();
+    public <T> T decryptXmlMsg(String msgSignature, String timeStamp, String nonce, String xmlBody, Class<T> xmlEntityClazz) throws WeComCallbackException {
+
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
-        return decryptMsg(xmlDecryptMsg.getMsgSignature(), xmlDecryptMsg.getTimeStamp(), xmlDecryptMsg.getNonce(), encrypt);
+        String xml = decryptMsg(msgSignature, timeStamp, nonce, encrypt);
+        return xmlReader.read(xml, xmlEntityClazz);
     }
 
     /**
@@ -307,8 +333,7 @@ public class CallbackMsgCrypt {
      * @return the string
      * @throws WeComCallbackException the we com callback exception
      */
-    public String decryptMsg(String msgSignature, String timeStamp, String nonce, String encrypt)
-            throws WeComCallbackException {
+    private String decryptMsg(String msgSignature, String timeStamp, String nonce, String encrypt) throws WeComCallbackException {
 
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
         if (!signature.equals(msgSignature)) {
@@ -327,15 +352,13 @@ public class CallbackMsgCrypt {
      * @return 解密之后的echostr string
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public String verifyURL(String msgSignature, String timeStamp, String nonce, String echoStr)
-            throws WeComCallbackException {
+    public Long verifyURL(String msgSignature, String timeStamp, String nonce, String echoStr) throws WeComCallbackException {
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, echoStr);
 
         if (!signature.equals(msgSignature)) {
             throw new WeComCallbackException(WeComCallbackException.ValidateSignatureError);
         }
-
-        return decrypt(echoStr).trim();
+        return Long.valueOf(decrypt(echoStr));
     }
 
 }

@@ -9,7 +9,8 @@
 
 ### API入口类
 
-`Wecom`
+`WorkWeChatApi`
+
 > 目前暂时不支持第三方开发
 
 ## API实现进度
