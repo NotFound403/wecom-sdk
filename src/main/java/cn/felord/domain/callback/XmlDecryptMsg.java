@@ -1,4 +1,4 @@
-package cn.felord.callbacks;
+package cn.felord.domain.callback;
 
 import lombok.Data;
 

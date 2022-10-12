@@ -38,6 +38,14 @@
  * 针对org.apache.commons.codec.binary.Base64，
  * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
  * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
  */
 
 // ------------------------------------------------------------------------
@@ -49,6 +57,7 @@
  */
 package cn.felord.callbacks;
 
+import cn.felord.domain.callback.XmlDecryptMsg;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -77,26 +86,32 @@ import java.util.Random;
  */
 public class CallbackMsgCrypt {
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
-    private static final XmlReader xmlReader = new XStreamXmlReader();
+    private final XmlReader xmlReader;
     private final byte[] aesKey;
     private final String token;
     private final String receiveid;
 
+    public CallbackMsgCrypt(String token, String encodingAesKey, String receiveid) {
+        this(new XStreamXmlReader(), token, encodingAesKey, receiveid);
+    }
+
     /**
      * 构造函数
      *
+     * @param xmlReader      the xml reader
      * @param token          企业微信后台，开发者设置的token
      * @param encodingAesKey 企业微信后台，开发者设置的EncodingAESKey
      * @param receiveid      the receiveid
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public CallbackMsgCrypt(String token, String encodingAesKey, String receiveid) throws WeComCallbackException {
+    public CallbackMsgCrypt(XmlReader xmlReader, String token, String encodingAesKey, String receiveid) throws WeComCallbackException {
         if (encodingAesKey.length() != 43) {
             throw new WeComCallbackException(WeComCallbackException.IllegalAesKey);
         }
+        this.xmlReader = xmlReader;
         this.token = token;
         this.receiveid = receiveid;
-        aesKey = Base64Utils.decodeFromString(encodingAesKey + "=");
+        this.aesKey = Base64Utils.decodeFromString(encodingAesKey + "=");
     }
 
     /**
@@ -189,7 +204,7 @@ public class CallbackMsgCrypt {
      * 对密文进行解密.
      *
      * @param text 需要解密的密文
-     * @return 解密得到的明文
+     * @return 解密得到的明文 string
      * @throws WeComCallbackException aes解密失败
      */
     String decrypt(String text) throws WeComCallbackException {
