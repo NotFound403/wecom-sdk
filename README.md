@@ -1,3 +1,4 @@
+[![Maven Central Repo Deployment](https://github.com/NotFound403/wecom-sdk/actions/workflows/main.yml/badge.svg)](https://github.com/NotFound403/wecom-sdk/actions/workflows/main.yml)
 ## 使用方法
 
 ### 实现缓存接口
