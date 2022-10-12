@@ -1,6 +1,6 @@
 package cn.felord.domain.externalcontact;
 
-import cn.felord.domain.WeComResponse;
+import cn.felord.domain.CursorWeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,9 +14,8 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ExternalUserListDetailResponse extends WeComResponse {
+public class ExternalUserListDetailResponse extends CursorWeComResponse {
     private List<Detail> externalContactList;
-    private String nextCursor;
 
     @Data
     public static class Detail {
