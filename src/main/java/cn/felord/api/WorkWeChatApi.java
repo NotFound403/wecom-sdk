@@ -77,12 +77,11 @@ public final class WorkWeChatApi {
     /**
      * SDK ticket相关接口
      *
-     * @param agentDetails              the agent details
      * @param weComAgentTicketCacheable the weComAgentTicketCacheable
      * @return the sdk ticket api
      */
-    public SdkTicketApi sdkTicketApi(AgentDetails agentDetails, WeComAgentTicketCacheable weComAgentTicketCacheable) {
-        return new SdkTicketApi(workWeChatApiClient, agentDetails, weComAgentTicketCacheable);
+    public SdkTicketApi sdkTicketApi(WeComAgentTicketCacheable weComAgentTicketCacheable) {
+        return new SdkTicketApi(workWeChatApiClient, weComAgentTicketCacheable);
     }
 
     /**

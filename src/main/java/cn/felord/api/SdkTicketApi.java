@@ -35,9 +35,9 @@ public class SdkTicketApi {
     private final AgentDetails agentDetails;
     private final WeComAgentTicketCacheable cacheable;
 
-    public SdkTicketApi(WorkWeChatApiClient workWeChatApiClient, AgentDetails agentDetails, WeComAgentTicketCacheable cacheable) {
+    public SdkTicketApi(WorkWeChatApiClient workWeChatApiClient, WeComAgentTicketCacheable cacheable) {
         this.workWeChatApiClient = workWeChatApiClient;
-        this.agentDetails = agentDetails;
+        this.agentDetails = workWeChatApiClient.getAgentDetails();
         this.cacheable = cacheable;
     }
 

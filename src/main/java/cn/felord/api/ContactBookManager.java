@@ -1,7 +1,5 @@
 package cn.felord.api;
 
-import cn.felord.AgentDetails;
-
 /**
  * 通讯录管理
  *
@@ -23,50 +21,45 @@ public class ContactBookManager {
     /**
      * 成员管理
      *
-     * @param agent the agent
      * @return the user api
      */
-    public UserApi userApi(AgentDetails agent) {
+    public UserApi userApi() {
         return new UserApi(workWeChatApiClient);
     }
 
     /**
      * 部门管理
      *
-     * @param agent the agent
      * @return the department api
      */
-    public DepartmentApi departmentApi(AgentDetails agent) {
+    public DepartmentApi departmentApi() {
         return new DepartmentApi(workWeChatApiClient);
     }
 
     /**
      * 标签管理
      *
-     * @param agent the agent
      * @return the tag api
      */
-    public TagApi tagApi(AgentDetails agent) {
+    public TagApi tagApi() {
         return new TagApi(workWeChatApiClient);
     }
 
     /**
      * 异步导入接口
      *
-     * @param agent the agent
      * @return the asynchronous batch import api
      */
-    public AsynchronousBatchImportApi asynchronousBatchApi(AgentDetails agent) {
+    public AsynchronousBatchImportApi asynchronousBatchApi() {
         return new AsynchronousBatchImportApi(workWeChatApiClient);
     }
 
     /**
      * 互联企业接口
      *
-     * @param agent the agent
      * @return the linked corp api
      */
-    public LinkedCorpApi linkedCorpApi(AgentDetails agent) {
+    public LinkedCorpApi linkedCorpApi() {
         return new LinkedCorpApi(workWeChatApiClient);
     }
 }
