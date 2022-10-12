@@ -20,6 +20,11 @@ import java.util.List;
 public class DepartmentApi {
     private final WorkWeChatApiClient workWeChatApiClient;
 
+    /**
+     * Instantiates a new Department api.
+     *
+     * @param workWeChatApiClient the work we chat api client
+     */
     DepartmentApi(WorkWeChatApiClient workWeChatApiClient) {
         this.workWeChatApiClient = workWeChatApiClient;
     }
@@ -29,7 +34,7 @@ public class DepartmentApi {
      *
      * @param request the request
      * @return CreateDeptResponse generic response
-     * @see WeComEndpoint#DEPT_CREATE WeComEndpoint#DEPT_CREATEWeComEndpoint#DEPT_CREATE
+     * @see WeComEndpoint#DEPT_CREATE WeComEndpoint#DEPT_CREATEWeComEndpoint#DEPT_CREATEWeComEndpoint#DEPT_CREATE
      */
     public GenericResponse<String> createDept(DeptInfo request) {
         String endpoint = WeComEndpoint.DEPT_CREATE.endpoint();
@@ -45,7 +50,7 @@ public class DepartmentApi {
      *
      * @param request the request
      * @return the we com response
-     * @see WeComEndpoint#DEPT_UPDATE WeComEndpoint#DEPT_UPDATEWeComEndpoint#DEPT_UPDATE
+     * @see WeComEndpoint#DEPT_UPDATE WeComEndpoint#DEPT_UPDATEWeComEndpoint#DEPT_UPDATEWeComEndpoint#DEPT_UPDATE
      */
     public WeComResponse updateDept(DeptInfo request) {
         String endpoint = WeComEndpoint.DEPT_UPDATE.endpoint();
@@ -62,7 +67,7 @@ public class DepartmentApi {
      *
      * @param departmentId departmentId
      * @return WeComResponse we com response
-     * @see WeComEndpoint#DEPT_DELETE WeComEndpoint#DEPT_DELETEWeComEndpoint#DEPT_DELETE
+     * @see WeComEndpoint#DEPT_DELETE WeComEndpoint#DEPT_DELETEWeComEndpoint#DEPT_DELETEWeComEndpoint#DEPT_DELETE
      */
     public WeComResponse deleteDept(String departmentId) {
         String endpoint = WeComEndpoint.DEPT_DELETE.endpoint();
@@ -78,7 +83,7 @@ public class DepartmentApi {
      *
      * @param departmentId departmentId
      * @return DeptResponse generic response
-     * @see WeComEndpoint#DEPT_LIST WeComEndpoint#DEPT_LISTWeComEndpoint#DEPT_LIST
+     * @see WeComEndpoint#DEPT_LIST
      */
     @Deprecated
     public GenericResponse<List<DeptInfo>> deptList(String departmentId) {
@@ -89,6 +94,16 @@ public class DepartmentApi {
                 .toUri();
         return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptInfo>>>() {
         });
+    }
+
+
+    /**
+     * Gets simple list.
+     *
+     * @return the simple list
+     */
+    public GenericResponse<List<DeptSimpleInfo>> getSimpleList() {
+        return getSimpleList(null);
     }
 
     /**

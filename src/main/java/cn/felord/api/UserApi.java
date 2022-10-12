@@ -115,6 +115,25 @@ public class UserApi {
     }
 
     /**
+     * 获取成员ID列表
+     *
+     * @param cursor the cursor
+     * @param limit  the limit
+     * @return the dept user list response
+     */
+    public DeptUserListResponse userList(String cursor, int limit) {
+        String endpoint = WeComEndpoint.USER_LIST_ID.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        Map<String, Object> body = new HashMap<>(2);
+        body.put("cursor", cursor);
+        body.put("limit", limit);
+        return workWeChatApiClient.post(uri, body, DeptUserListResponse.class);
+    }
+
+
+    /**
      * 批量删除成员
      * <p>
      * 若是绑定了腾讯企业邮，则会同时删除邮箱帐号。

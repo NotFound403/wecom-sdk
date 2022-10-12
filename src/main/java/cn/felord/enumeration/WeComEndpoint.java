@@ -45,6 +45,10 @@ public enum WeComEndpoint {
      */
     USER_DELETE("/user/delete"),
     /**
+     * 获取成员ID列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/96067">文档</a>
+     */
+    USER_LIST_ID("/user/list_id"),
+    /**
      * 获取访问用户身份，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/91023">文档</a>
      */
     USER_AUTH_BY_CODE("/auth/getuserinfo"),
