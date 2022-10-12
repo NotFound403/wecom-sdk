@@ -1,10 +1,16 @@
 [![Maven Central Repo Deployment](https://github.com/NotFound403/wecom-sdk/actions/workflows/main.yml/badge.svg)](https://github.com/NotFound403/wecom-sdk/actions/workflows/main.yml)
 ## 使用方法
-
+## 坐标
+```xml
+            <dependency>
+                <groupId>cn.felord</groupId>
+                <artifactId>wecom-sdk</artifactId>
+                <version>${wecom.sdk.version}</version>
+            </dependency>
+```
 ### 实现缓存接口
 
-需要实现标记缓存接口`cn.felord.WeComCacheable`的接口，分别用来存储**access_token**，**企业jsapi_ticket**，**
-应用jsapi_ticket**
+需要实现标记缓存接口`cn.felord.WeComCacheable`的接口，分别用来存储**access_token**，**企业jsapi_ticket**，**应用jsapi_ticket**
 > 具体缓存策略根据企业微信文档自行实现。
 
 ### API入口类
