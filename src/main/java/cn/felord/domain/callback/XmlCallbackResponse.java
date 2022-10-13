@@ -24,8 +24,4 @@ public class XmlCallbackResponse {
     private final String event;
     @XStreamAlias("ChangeType")
     private final String changeType;
-    @XStreamAlias("UserID")
-    private final String userId;
-    @XStreamAlias("ExternalUserID")
-    private final String externalUserId;
 }

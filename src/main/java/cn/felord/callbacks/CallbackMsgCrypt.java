@@ -66,6 +66,10 @@
  * 针对org.apache.commons.codec.binary.Base64，
  * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
  * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
  */
 
 // ------------------------------------------------------------------------
@@ -78,6 +82,7 @@
 package cn.felord.callbacks;
 
 import cn.felord.domain.callback.CallbackCrypt;
+import cn.felord.domain.callback.XmlCallbackResponse;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -315,7 +320,7 @@ public class CallbackMsgCrypt {
      * @return 解密后的原文 string
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public <T> T decryptXmlMsg(String msgSignature, String timeStamp, String nonce, String xmlBody, Class<T> xmlEntityClazz) throws WeComCallbackException {
+    public <T extends XmlCallbackResponse> T decryptXmlMsg(String msgSignature, String timeStamp, String nonce, String xmlBody, Class<T> xmlEntityClazz) throws WeComCallbackException {
 
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
