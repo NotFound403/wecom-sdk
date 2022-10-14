@@ -52,7 +52,7 @@ public class WeComCallbackException extends WeComException {
      */
     public final static int GenReturnJsonError = -40011;
 
-    private final int code;
+
 
     /**
      * Instantiates a new We com callback exception.
@@ -60,17 +60,7 @@ public class WeComCallbackException extends WeComException {
      * @param code the code
      */
     WeComCallbackException(int code) {
-        super(getMessage(code));
-        this.code = code;
-    }
-
-    /**
-     * Gets code.
-     *
-     * @return the code
-     */
-    public int getCode() {
-        return code;
+        super(getMessage(code), code, null);
     }
 
     private static String getMessage(int code) {

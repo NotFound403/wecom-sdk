@@ -91,7 +91,7 @@ public class SdkTicketApi {
                             .toUri();
                     JsTicketResponse jsTicketResponse = workWeChatApiClient.get(uri, JsTicketResponse.class);
                     if (jsTicketResponse.isError() || jsTicketResponse.getTicket() == null) {
-                        throw new WeComException("fail to obtain the corp ticket");
+                        throw new WeComException("fail to obtain the corp ticket", jsTicketResponse.getErrcode(), jsTicketResponse.getErrmsg());
                     }
                     ticket = cacheable.putCorpTicket(corpId, agentId, jsTicketResponse.ticket);
                 }
