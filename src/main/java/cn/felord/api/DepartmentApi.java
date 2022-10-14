@@ -34,14 +34,13 @@ public class DepartmentApi {
      *
      * @param request the request
      * @return CreateDeptResponse generic response
-     * @see WeComEndpoint#DEPT_CREATE WeComEndpoint#DEPT_CREATEWeComEndpoint#DEPT_CREATEWeComEndpoint#DEPT_CREATE
      */
-    public GenericResponse<String> createDept(DeptInfo request) {
+    public GenericResponse<Long> createDept(DeptInfo request) {
         String endpoint = WeComEndpoint.DEPT_CREATE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<Long>>() {
         });
     }
 
@@ -50,7 +49,6 @@ public class DepartmentApi {
      *
      * @param request the request
      * @return the we com response
-     * @see WeComEndpoint#DEPT_UPDATE WeComEndpoint#DEPT_UPDATEWeComEndpoint#DEPT_UPDATEWeComEndpoint#DEPT_UPDATE
      */
     public WeComResponse updateDept(DeptInfo request) {
         String endpoint = WeComEndpoint.DEPT_UPDATE.endpoint();
@@ -67,7 +65,6 @@ public class DepartmentApi {
      *
      * @param departmentId departmentId
      * @return WeComResponse we com response
-     * @see WeComEndpoint#DEPT_DELETE WeComEndpoint#DEPT_DELETEWeComEndpoint#DEPT_DELETEWeComEndpoint#DEPT_DELETE
      */
     public WeComResponse deleteDept(String departmentId) {
         String endpoint = WeComEndpoint.DEPT_DELETE.endpoint();
@@ -95,7 +92,6 @@ public class DepartmentApi {
         return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptInfo>>>() {
         });
     }
-
 
     /**
      * Gets simple list.

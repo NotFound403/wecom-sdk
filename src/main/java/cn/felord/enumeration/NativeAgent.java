@@ -8,15 +8,19 @@ package cn.felord.enumeration;
  */
 public enum NativeAgent {
     /**
-     * Contact native agent.
+     * 通讯录同步助手
      */
     CONTACT("2000002", "通讯录同步助手"),
     /**
-     * External native agent.
+     * 外部联系人
      */
     EXTERNAL("2000003", "外部联系人"),
     /**
-     * Announcement native agent.
+     * 上下游
+     */
+    CORP_CHAIN("3010168", "上下游"),
+    /**
+     * 公告
      */
     ANNOUNCEMENT("3010001", "公告");
 
