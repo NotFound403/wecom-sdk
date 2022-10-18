@@ -517,6 +517,10 @@ public enum WeComEndpoint {
      */
     KF_SYNC_MSG("/kf/sync_msg"),
     /**
+     * 创建日程，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93648#%E5%88%9B%E5%BB%BA%E6%97%A5%E7%A8%8B">文档</a>
+     */
+    OA_SCHEDULE_ADD("/oa/schedule/add"),
+    /**
      * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),

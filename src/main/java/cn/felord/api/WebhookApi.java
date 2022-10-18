@@ -19,7 +19,7 @@ public class WebhookApi {
     /**
      * Instantiates a new Webhook api.
      */
-    public WebhookApi() {
+    WebhookApi() {
         this.workWeChatApiClient = new WorkWeChatApiClient();
     }
 

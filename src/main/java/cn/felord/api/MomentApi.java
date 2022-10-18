@@ -26,7 +26,7 @@ public class MomentApi {
      *
      * @param workWeChatApiClient the work we chat api client
      */
-    public MomentApi(WorkWeChatApiClient workWeChatApiClient) {
+    MomentApi(WorkWeChatApiClient workWeChatApiClient) {
         this.workWeChatApiClient = workWeChatApiClient;
     }
 
