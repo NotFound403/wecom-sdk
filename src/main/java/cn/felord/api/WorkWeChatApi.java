@@ -96,6 +96,16 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 效率工具相关接口
+     *
+     * @param agentDetails the agent details
+     * @return the schedule api
+     */
+    public ScheduleApi scheduleApi(AgentDetails agentDetails){
+        return new ScheduleApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable,agentDetails)));
+    }
+
+    /**
      * Webhook相关接口
      *
      * @return the webhook api
