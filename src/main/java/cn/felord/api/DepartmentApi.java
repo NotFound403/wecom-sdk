@@ -66,7 +66,7 @@ public class DepartmentApi {
      * @param departmentId departmentId
      * @return WeComResponse we com response
      */
-    public WeComResponse deleteDept(String departmentId) {
+    public WeComResponse deleteDept(Long departmentId) {
         String endpoint = WeComEndpoint.DEPT_DELETE.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("id", departmentId)

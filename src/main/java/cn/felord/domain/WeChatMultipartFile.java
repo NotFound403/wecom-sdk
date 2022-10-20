@@ -22,12 +22,16 @@ public class WeChatMultipartFile implements MultipartFile {
     private final String contentType;
     private final byte[] content;
 
-    public WeChatMultipartFile(@NonNull String name, @NonNull String originalFilename, @Nullable String contentType, InputStream contentStream) throws IOException {
+    public WeChatMultipartFile(@NonNull String name, @Nullable String originalFilename, @Nullable String contentType, InputStream contentStream) throws IOException {
+        this(name,originalFilename,contentType,FileCopyUtils.copyToByteArray(contentStream));
+    }
+
+    public WeChatMultipartFile(@NonNull String name, @Nullable String originalFilename, @Nullable String contentType, byte[] content) throws IOException {
         Assert.hasLength(name, "Name must not be null");
         this.name = name;
         this.originalFilename = originalFilename;
         this.contentType = contentType;
-        this.content = FileCopyUtils.copyToByteArray(contentStream);
+        this.content =content;
     }
 
     public String getName() {
