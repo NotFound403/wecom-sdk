@@ -49,7 +49,7 @@ public class ExternalContactUserApi {
      * @param cursor         the cursor
      * @return the by user id
      */
-    public ExternalUserDetailResponse getByUserId(String externalUserid, String cursor) {
+    public ExternalUserDetailResponse getByExUserId(String externalUserid, String cursor) {
         String endpoint = WeComEndpoint.EXTERNALCONTACT_GET_USERID.endpoint();
         LinkedMultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("external_userid", externalUserid);
@@ -67,20 +67,20 @@ public class ExternalContactUserApi {
     /**
      * 批量获取客户详情
      *
-     * @param useridList the external userid list
+     * @param exUseridList the external userid list
      * @param cursor     the cursor
      * @param limit      the limit
      * @return the by user id
      */
-    public ExternalUserListDetailResponse batchByUserIds(Set<String> useridList, String cursor, Integer limit) {
-        int size = useridList.size();
+    public ExternalUserListDetailResponse batchByExUserIds(Set<String> exUseridList, String cursor, Integer limit) {
+        int size = exUseridList.size();
         if (0 < size && size <= 100) {
             String endpoint = WeComEndpoint.EXTERNALCONTACT_BATCH_USERID.endpoint();
             URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                     .build()
                     .toUri();
             Map<String, Object> body = new HashMap<>();
-            body.put("userid_list", useridList);
+            body.put("userid_list", exUseridList);
             body.put("cursor", cursor);
             body.put("limit", limit);
             return workWeChatApiClient.post(uri, body, ExternalUserListDetailResponse.class);

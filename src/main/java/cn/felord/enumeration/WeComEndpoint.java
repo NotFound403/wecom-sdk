@@ -521,9 +521,13 @@ public enum WeComEndpoint {
      */
     OA_SCHEDULE_ADD("/oa/schedule/add"),
     /**
-     * 上传临时素材，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
+     * 上传临时素材，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/90253">文档</a>
      */
     MEDIA_UPLOAD("/media/upload"),
+    /**
+     * 获取临时素材，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/90254">文档</a>
+     */
+    MEDIA_GET("/media/get"),
     /**
      * 上传永久图片，详见<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90000/90135/90253">文档</a>
      */

@@ -1,7 +1,6 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComAgentTicketCacheable;
 import cn.felord.WeComTokenCacheable;
 
 /**
@@ -88,11 +87,10 @@ public final class WorkWeChatApi {
      * SDK ticket相关接口
      *
      * @param agentDetails              the agent details
-     * @param weComAgentTicketCacheable the weComAgentTicketCacheable
      * @return the sdk ticket api
      */
-    public SdkTicketApi sdkTicketApi(AgentDetails agentDetails, WeComAgentTicketCacheable weComAgentTicketCacheable) {
-        return new SdkTicketApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)), weComAgentTicketCacheable);
+    public SdkTicketApi sdkTicketApi(AgentDetails agentDetails) {
+        return new SdkTicketApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)), weComTokenCacheable);
     }
 
     /**

@@ -26,7 +26,7 @@ public class WeChatMultipartFile implements MultipartFile {
         this(name,originalFilename,contentType,FileCopyUtils.copyToByteArray(contentStream));
     }
 
-    public WeChatMultipartFile(@NonNull String name, @Nullable String originalFilename, @Nullable String contentType, byte[] content) throws IOException {
+    public WeChatMultipartFile(@NonNull String name, @Nullable String originalFilename, @Nullable String contentType, byte[] content) {
         Assert.hasLength(name, "Name must not be null");
         this.name = name;
         this.originalFilename = originalFilename;
@@ -55,11 +55,11 @@ public class WeChatMultipartFile implements MultipartFile {
         return this.content.length;
     }
 
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         return this.content;
     }
 
-    public InputStream getInputStream() throws IOException {
+    public InputStream getInputStream() {
         return new ByteArrayInputStream(this.content);
     }
 
