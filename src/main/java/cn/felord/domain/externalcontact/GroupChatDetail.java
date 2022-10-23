@@ -19,7 +19,7 @@ public class GroupChatDetail {
     private Instant createTime;
     private String notice;
     private List<GroupChatMember> memberList;
-    private List<GroupChatMemberInfo>  adminList;
+    private List<GroupChatAdmin>  adminList;
 
 
     @Data
@@ -34,7 +34,7 @@ public class GroupChatDetail {
         private String name;
     }
     @Data
-    public static class GroupChatMemberInfo {
+    public static class GroupChatAdmin {
        private String userid;
     }
 }

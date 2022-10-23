@@ -27,7 +27,7 @@ public class ExternalContactUserApi {
     }
 
     /**
-     * 获取配置了客户联系功能的成员列表
+     * 获取客户列表
      *
      * @param userId the user id
      * @return the follow user list
@@ -67,20 +67,20 @@ public class ExternalContactUserApi {
     /**
      * 批量获取客户详情
      *
-     * @param exUseridList the external userid list
+     * @param userids the userid list
      * @param cursor     the cursor
      * @param limit      the limit
      * @return the by user id
      */
-    public ExternalUserListDetailResponse batchByExUserIds(Set<String> exUseridList, String cursor, Integer limit) {
-        int size = exUseridList.size();
+    public ExternalUserListDetailResponse batchByUserIds(Set<String> userids, String cursor, Integer limit) {
+        int size = userids.size();
         if (0 < size && size <= 100) {
             String endpoint = WeComEndpoint.EXTERNALCONTACT_BATCH_USERID.endpoint();
             URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                     .build()
                     .toUri();
             Map<String, Object> body = new HashMap<>();
-            body.put("userid_list", exUseridList);
+            body.put("userid_list", userids);
             body.put("cursor", cursor);
             body.put("limit", limit);
             return workWeChatApiClient.post(uri, body, ExternalUserListDetailResponse.class);
