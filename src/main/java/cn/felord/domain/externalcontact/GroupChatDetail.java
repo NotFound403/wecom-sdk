@@ -29,12 +29,17 @@ public class GroupChatDetail {
         private String unionid;
         private Instant joinTime;
         private GroupChatJoinScene joinScene;
-        private GroupChatJoinScene invitor;
+        private GroupChatInvitor invitor;
         private String groupNickname;
         private String name;
     }
     @Data
     public static class GroupChatAdmin {
        private String userid;
+    }
+
+    @Data
+    public static class GroupChatInvitor {
+        private String userid;
     }
 }
