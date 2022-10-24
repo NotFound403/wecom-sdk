@@ -20,6 +20,4 @@ public class XStreamXmlReader implements XmlReader {
         xStream.processAnnotations(clazz);
         return (T) xStream.fromXML(xml);
     }
-
-
 }

@@ -1,88 +1,7 @@
-/**
- * 对企业微信发送给企业后台的消息加解密示例代码.
- *
- * @copyright Copyright (c) 1998-2014 Tencent Inc.
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- * <p>
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- */
-
-// ------------------------------------------------------------------------
-
-/**
- * 针对org.apache.commons.codec.binary.Base64，
- * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
- * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
- */
 package cn.felord.callbacks;
 
 import cn.felord.domain.callback.CallbackCrypt;
-import cn.felord.domain.callback.XmlCallbackResponse;
+import cn.felord.domain.callback.CallbackEventBody;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -109,32 +28,36 @@ import java.util.Random;
  * 	<li>如果安装了JDK，将两个jar文件放到%JDK_HOME%\jre\lib\security目录下覆盖原来文件</li>
  * </ol>
  */
-public class CallbackMsgCrypt {
+public class CallbackCrypto {
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
     private final XmlReader xmlReader;
     private final byte[] aesKey;
     private final String token;
     private final String receiveid;
 
+    private final CallbackAsyncConsumer callbackAsyncConsumer;
+
     /**
      * Instantiates a new Callback msg crypt.
      *
-     * @param callbackCrypt the callback crypt
+     * @param callbackCrypt    the callback crypt
+     * @param callbackAsyncConsumer the callback consumer
      */
-    public CallbackMsgCrypt(CallbackCrypt callbackCrypt) {
-        this(new XStreamXmlReader(), callbackCrypt.getToken(), callbackCrypt.getEncodingAesKey(), callbackCrypt.getReceiveid());
+    public CallbackCrypto(CallbackCrypt callbackCrypt, CallbackAsyncConsumer callbackAsyncConsumer) {
+        this(new XStreamXmlReader(), callbackCrypt.getToken(), callbackCrypt.getEncodingAesKey(), callbackCrypt.getReceiveid(), callbackAsyncConsumer);
     }
 
     /**
      * 构造函数
      *
-     * @param xmlReader      the xml reader
-     * @param token          企业微信后台，开发者设置的token
-     * @param encodingAesKey 企业微信后台，开发者设置的EncodingAESKey
-     * @param receiveid      the receiveid
+     * @param xmlReader        the xml reader
+     * @param token            企业微信后台，开发者设置的token
+     * @param encodingAesKey   企业微信后台，开发者设置的EncodingAESKey
+     * @param receiveid        the receiveid
+     * @param callbackAsyncConsumer the callback consumer
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public CallbackMsgCrypt(XmlReader xmlReader, String token, String encodingAesKey, String receiveid) throws WeComCallbackException {
+    public CallbackCrypto(XmlReader xmlReader, String token, String encodingAesKey, String receiveid, CallbackAsyncConsumer callbackAsyncConsumer) throws WeComCallbackException {
         if (encodingAesKey.length() != 43) {
             throw new WeComCallbackException(WeComCallbackException.IllegalAesKey);
         }
@@ -142,6 +65,7 @@ public class CallbackMsgCrypt {
         this.token = token;
         this.receiveid = receiveid;
         this.aesKey = Base64Utils.decodeFromString(encodingAesKey + "=");
+        this.callbackAsyncConsumer = callbackAsyncConsumer;
     }
 
     /**
@@ -317,15 +241,16 @@ public class CallbackMsgCrypt {
      * @param timeStamp    the time stamp
      * @param nonce        the nonce
      * @param xmlBody      the xml body
-     * @return 解密后的原文 string
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public <T extends XmlCallbackResponse> T decryptXmlMsg(String msgSignature, String timeStamp, String nonce, String xmlBody, Class<T> xmlEntityClazz) throws WeComCallbackException {
-
+    public String accept(String msgSignature, String timeStamp, String nonce, String xmlBody) throws WeComCallbackException {
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
         String xml = decryptMsg(msgSignature, timeStamp, nonce, encrypt);
-        return xmlReader.read(xml, xmlEntityClazz);
+        CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
+
+        this.callbackAsyncConsumer.asyncAction(eventBody);
+        return "success";
     }
 
     /**
