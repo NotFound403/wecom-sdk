@@ -40,7 +40,7 @@ public class CallbackCrypto {
     /**
      * Instantiates a new Callback msg crypt.
      *
-     * @param callbackCrypt    the callback crypt
+     * @param callbackCrypt         the callback crypt
      * @param callbackAsyncConsumer the callback consumer
      */
     public CallbackCrypto(CallbackCrypt callbackCrypt, CallbackAsyncConsumer callbackAsyncConsumer) {
@@ -50,10 +50,10 @@ public class CallbackCrypto {
     /**
      * 构造函数
      *
-     * @param xmlReader        the xml reader
-     * @param token            企业微信后台，开发者设置的token
-     * @param encodingAesKey   企业微信后台，开发者设置的EncodingAESKey
-     * @param receiveid        the receiveid
+     * @param xmlReader             the xml reader
+     * @param token                 企业微信后台，开发者设置的token
+     * @param encodingAesKey        企业微信后台，开发者设置的EncodingAESKey
+     * @param receiveid             the receiveid
      * @param callbackAsyncConsumer the callback consumer
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
@@ -248,7 +248,7 @@ public class CallbackCrypto {
         String encrypt = callbackXmlBody.getEncrypt();
         String xml = decryptMsg(msgSignature, timeStamp, nonce, encrypt);
         CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
-
+        eventBody.setAgentId(callbackXmlBody.getAgentId());
         this.callbackAsyncConsumer.asyncAction(eventBody);
         return "success";
     }

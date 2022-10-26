@@ -108,7 +108,7 @@ public class DepartmentApi {
      * @param departmentId the department id
      * @return the generic response
      */
-    public GenericResponse<List<DeptSimpleInfo>> getSimpleList(String departmentId) {
+    public GenericResponse<List<DeptSimpleInfo>> getSimpleList(Integer departmentId) {
         String endpoint = WeComEndpoint.DEPT_SIMPLE_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("id", departmentId)

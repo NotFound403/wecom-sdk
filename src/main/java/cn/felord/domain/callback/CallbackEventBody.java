@@ -17,7 +17,7 @@ public class CallbackEventBody {
     private final String toUserName;
     @XStreamAlias("FromUserName")
     private final String fromUserName;
-    @XStreamAlias(value = "CreateTime")
+    @XStreamAlias("CreateTime")
     private final Instant createTime;
     @XStreamAlias("MsgType")
     private final String msgType;
@@ -25,6 +25,7 @@ public class CallbackEventBody {
     private final CallbackEvent event;
     @XStreamAlias("ChangeType")
     private final String changeType;
+    private String agentId;
 
     @XStreamAlias("UserID")
     private final String userId;
