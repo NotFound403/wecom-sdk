@@ -241,6 +241,7 @@ public class CallbackCrypto {
      * @param timeStamp    the time stamp
      * @param nonce        the nonce
      * @param xmlBody      the xml body
+     * @return the string
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
     public String accept(String msgSignature, String timeStamp, String nonce, String xmlBody) throws WeComCallbackException {
