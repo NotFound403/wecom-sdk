@@ -271,7 +271,7 @@ public enum WeComEndpoint {
     /**
      * 获取指定规则组下的企业客户标签，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94882">文档</a>
      */
-    CORP_TAG_STRATEGY_LIST("/externalcontact/get_corp_tag_list"),
+    CORP_TAG_STRATEGY_LIST("/externalcontact/get_strategy_tag_list"),
     /**
      * 为指定规则组创建企业客户标签，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/94882">文档</a>
      */
