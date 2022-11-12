@@ -58,4 +58,8 @@ public class CallbackEventBody {
     @XStreamAlias("StrategyId")
     private final Integer strategyId;
 
+    @XStreamAlias("CalId")
+    private final String calId;
+    @XStreamAlias("ScheduleId")
+    private final String scheduleId;
 }

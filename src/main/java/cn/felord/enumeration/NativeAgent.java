@@ -16,6 +16,10 @@ public enum NativeAgent {
      */
     EXTERNAL("2000003", "外部联系人"),
     /**
+     * 公告
+     */
+    ANNOUNCEMENT("3010001", "公告"),
+    /**
      * 打卡
      */
     ATTENDANCE("3010011", "打卡"),
@@ -36,13 +40,13 @@ public enum NativeAgent {
      */
     SCHEDULE("3010084", "日程"),
     /**
+     * 直播
+     */
+    CORP_LIVE("3010097", "直播"),
+    /**
      * 上下游
      */
-    CORP_CHAIN("3010168", "上下游"),
-    /**
-     * 公告
-     */
-    ANNOUNCEMENT("3010001", "公告");
+    CORP_CHAIN("3010168", "上下游");
 
     private final String agentId;
     private final String name;

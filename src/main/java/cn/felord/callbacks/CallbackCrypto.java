@@ -1,6 +1,6 @@
 package cn.felord.callbacks;
 
-import cn.felord.domain.callback.CallbackCrypt;
+import cn.felord.domain.callback.CallbackAuthentication;
 import cn.felord.domain.callback.CallbackEventBody;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
@@ -11,6 +11,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -31,40 +32,20 @@ import java.util.Random;
 public class CallbackCrypto {
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
     private final XmlReader xmlReader;
-    private final byte[] aesKey;
-    private final String token;
-    private final String receiveid;
-
     private final CallbackAsyncConsumer callbackAsyncConsumer;
+    private final CallbackAuthentication callbackAuthentication;
 
-    /**
-     * Instantiates a new Callback msg crypt.
-     *
-     * @param callbackCrypt         the callback crypt
-     * @param callbackAsyncConsumer the callback consumer
-     */
-    public CallbackCrypto(CallbackCrypt callbackCrypt, CallbackAsyncConsumer callbackAsyncConsumer) {
-        this(new XStreamXmlReader(), callbackCrypt.getToken(), callbackCrypt.getEncodingAesKey(), callbackCrypt.getReceiveid(), callbackAsyncConsumer);
-    }
 
     /**
      * 构造函数
      *
      * @param xmlReader             the xml reader
-     * @param token                 企业微信后台，开发者设置的token
-     * @param encodingAesKey        企业微信后台，开发者设置的EncodingAESKey
-     * @param receiveid             the receiveid
      * @param callbackAsyncConsumer the callback consumer
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public CallbackCrypto(XmlReader xmlReader, String token, String encodingAesKey, String receiveid, CallbackAsyncConsumer callbackAsyncConsumer) throws WeComCallbackException {
-        if (encodingAesKey.length() != 43) {
-            throw new WeComCallbackException(WeComCallbackException.IllegalAesKey);
-        }
+    CallbackCrypto(XmlReader xmlReader, CallbackAuthentication callbackAuthentication, CallbackAsyncConsumer callbackAsyncConsumer){
         this.xmlReader = xmlReader;
-        this.token = token;
-        this.receiveid = receiveid;
-        this.aesKey = Base64Utils.decodeFromString(encodingAesKey + "=");
+        this.callbackAuthentication = callbackAuthentication;
         this.callbackAsyncConsumer = callbackAsyncConsumer;
     }
 
@@ -130,7 +111,7 @@ public class CallbackCrypto {
         byte[] randomStrBytes = randomStr.getBytes(StandardCharsets.UTF_8);
         byte[] textBytes = text.getBytes(StandardCharsets.UTF_8);
         byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
-        byte[] receiveidBytes = receiveid.getBytes(StandardCharsets.UTF_8);
+        byte[] receiveidBytes = this.callbackAuthentication.getReceiveid().getBytes(StandardCharsets.UTF_8);
         // randomStr + networkBytesOrder + text + receiveid
         byteCollector.addBytes(randomStrBytes);
         byteCollector.addBytes(networkBytesOrder);
@@ -143,6 +124,7 @@ public class CallbackCrypto {
         try {
             // 设置加密模式为AES的CBC模式
             Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
+            byte[] aesKey = this.callbackAuthentication.getAesKey();
             SecretKeySpec keySpec = new SecretKeySpec(aesKey, "AES");
             IvParameterSpec iv = new IvParameterSpec(aesKey, 0, 16);
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
@@ -166,6 +148,7 @@ public class CallbackCrypto {
         try {
             // 设置解密模式为AES的CBC模式
             Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
+            byte[] aesKey = this.callbackAuthentication.getAesKey();
             SecretKeySpec key_spec = new SecretKeySpec(aesKey, "AES");
             IvParameterSpec iv = new IvParameterSpec(Arrays.copyOfRange(aesKey, 0, 16));
             cipher.init(Cipher.DECRYPT_MODE, key_spec, iv);
@@ -196,7 +179,7 @@ public class CallbackCrypto {
         }
 
         // receiveid不相同的情况
-        if (!fromReceiveid.equals(receiveid)) {
+        if (!Objects.equals(this.callbackAuthentication.getReceiveid(), fromReceiveid)) {
             throw new WeComCallbackException(WeComCallbackException.ValidateCorpidError);
         }
         return jsonContent;
@@ -225,6 +208,7 @@ public class CallbackCrypto {
         if (!StringUtils.hasText(timeStamp)) {
             timeStamp = Long.toString(System.currentTimeMillis());
         }
+        String token = this.callbackAuthentication.getToken();
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
         return String.format(MSG, encrypt, signature, timeStamp, nonce);
     }
@@ -265,7 +249,7 @@ public class CallbackCrypto {
      * @throws WeComCallbackException the we com callback exception
      */
     private String decryptMsg(String msgSignature, String timeStamp, String nonce, String encrypt) throws WeComCallbackException {
-
+        String token = this.callbackAuthentication.getToken();
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
         if (!signature.equals(msgSignature)) {
             throw new WeComCallbackException(WeComCallbackException.ValidateSignatureError);
@@ -284,6 +268,7 @@ public class CallbackCrypto {
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
     public Long verifyURL(String msgSignature, String timeStamp, String nonce, String echoStr) throws WeComCallbackException {
+        String token = this.callbackAuthentication.getToken();
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, echoStr);
 
         if (!signature.equals(msgSignature)) {
