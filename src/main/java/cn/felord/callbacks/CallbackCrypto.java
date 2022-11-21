@@ -33,19 +33,20 @@ public class CallbackCrypto {
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
     private final XmlReader xmlReader;
     private final CallbackAsyncConsumer callbackAsyncConsumer;
-    private final CallbackAuthentication callbackAuthentication;
+    private final CallbackAuthenticationService callbackAuthenticationService;
 
 
     /**
      * 构造函数
      *
-     * @param xmlReader             the xml reader
-     * @param callbackAsyncConsumer the callback consumer
+     * @param xmlReader                     the xml reader
+     * @param callbackAuthenticationService the callback authentication service
+     * @param callbackAsyncConsumer         the callback consumer
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    CallbackCrypto(XmlReader xmlReader, CallbackAuthentication callbackAuthentication, CallbackAsyncConsumer callbackAsyncConsumer){
+    CallbackCrypto(XmlReader xmlReader, CallbackAuthenticationService callbackAuthenticationService, CallbackAsyncConsumer callbackAsyncConsumer) {
         this.xmlReader = xmlReader;
-        this.callbackAuthentication = callbackAuthentication;
+        this.callbackAuthenticationService = callbackAuthenticationService;
         this.callbackAsyncConsumer = callbackAsyncConsumer;
     }
 
@@ -101,17 +102,20 @@ public class CallbackCrypto {
     /**
      * 对明文进行加密.
      *
+     * @param receiveid the receiveid
+     * @param aesKey    the aes key
      * @param randomStr the random str
      * @param text      需要加密的明文
      * @return 加密后base64编码的字符串 string
      * @throws WeComCallbackException aes加密失败
      */
-    String encrypt(String randomStr, String text) throws WeComCallbackException {
+    String encrypt(String receiveid, byte[] aesKey, String randomStr, String text) throws WeComCallbackException {
         ByteGroup byteCollector = new ByteGroup();
         byte[] randomStrBytes = randomStr.getBytes(StandardCharsets.UTF_8);
         byte[] textBytes = text.getBytes(StandardCharsets.UTF_8);
         byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
-        byte[] receiveidBytes = this.callbackAuthentication.getReceiveid().getBytes(StandardCharsets.UTF_8);
+
+        byte[] receiveidBytes = receiveid.getBytes(StandardCharsets.UTF_8);
         // randomStr + networkBytesOrder + text + receiveid
         byteCollector.addBytes(randomStrBytes);
         byteCollector.addBytes(networkBytesOrder);
@@ -124,7 +128,6 @@ public class CallbackCrypto {
         try {
             // 设置加密模式为AES的CBC模式
             Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
-            byte[] aesKey = this.callbackAuthentication.getAesKey();
             SecretKeySpec keySpec = new SecretKeySpec(aesKey, "AES");
             IvParameterSpec iv = new IvParameterSpec(aesKey, 0, 16);
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
@@ -139,19 +142,20 @@ public class CallbackCrypto {
     /**
      * 对密文进行解密.
      *
-     * @param text 需要解密的密文
+     * @param corpId the corp id
+     * @param aesKey the aes key
+     * @param text   需要解密的密文
      * @return 解密得到的明文 string
      * @throws WeComCallbackException aes解密失败
      */
-    String decrypt(String text) throws WeComCallbackException {
+    private String decrypt(String corpId, byte[] aesKey, String text) throws WeComCallbackException {
         byte[] original;
         try {
             // 设置解密模式为AES的CBC模式
             Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
-            byte[] aesKey = this.callbackAuthentication.getAesKey();
-            SecretKeySpec key_spec = new SecretKeySpec(aesKey, "AES");
+            SecretKeySpec spec = new SecretKeySpec(aesKey, "AES");
             IvParameterSpec iv = new IvParameterSpec(Arrays.copyOfRange(aesKey, 0, 16));
-            cipher.init(Cipher.DECRYPT_MODE, key_spec, iv);
+            cipher.init(Cipher.DECRYPT_MODE, spec, iv);
 
             // 使用BASE64对密文进行解码
             byte[] encrypted = Base64.decodeBase64(text);
@@ -179,7 +183,7 @@ public class CallbackCrypto {
         }
 
         // receiveid不相同的情况
-        if (!Objects.equals(this.callbackAuthentication.getReceiveid(), fromReceiveid)) {
+        if (!Objects.equals(corpId, fromReceiveid)) {
             throw new WeComCallbackException(WeComCallbackException.ValidateCorpidError);
         }
         return jsonContent;
@@ -194,21 +198,24 @@ public class CallbackCrypto {
      * 	<li>将消息密文和安全签名打包成json格式</li>
      * </ol>
      *
+     * @param agentId   the agent id
+     * @param corpId    the corp id
      * @param replyMsg  企业微信待回复用户的消息，json格式的字符串
      * @param timeStamp 时间戳，可以自己生成，也可以用URL参数的timestamp
      * @param nonce     随机串，可以自己生成，也可以用URL参数的nonce
      * @return 加密后的可以直接回复用户的密文 ，包括msg_signature, timestamp, nonce, encrypt的json格式的字符串
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public String encryptMsg(String replyMsg, String timeStamp, String nonce) throws WeComCallbackException {
+    public String encryptMsg(String agentId, String corpId, String replyMsg, String timeStamp, String nonce) throws WeComCallbackException {
+        CallbackAuthentication callbackAuthentication = this.callbackAuthenticationService.loadAuthentication(agentId, corpId);
         // 加密
-        String encrypt = encrypt(getRandomStr(), replyMsg);
-
+        String receiveid = callbackAuthentication.getReceiveid();
+        String encrypt = this.encrypt(receiveid, callbackAuthentication.getAesKey(), getRandomStr(), replyMsg);
         // 生成安全签名
         if (!StringUtils.hasText(timeStamp)) {
             timeStamp = Long.toString(System.currentTimeMillis());
         }
-        String token = this.callbackAuthentication.getToken();
+        String token = callbackAuthentication.getToken();
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
         return String.format(MSG, encrypt, signature, timeStamp, nonce);
     }
@@ -231,9 +238,11 @@ public class CallbackCrypto {
     public String accept(String msgSignature, String timeStamp, String nonce, String xmlBody) throws WeComCallbackException {
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
-        String xml = decryptMsg(msgSignature, timeStamp, nonce, encrypt);
+        String agentId = callbackXmlBody.getAgentId();
+        String corpId = callbackXmlBody.getToUserName();
+        String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
         CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
-        eventBody.setAgentId(callbackXmlBody.getAgentId());
+        eventBody.setAgentId(agentId);
         this.callbackAsyncConsumer.asyncAction(eventBody);
         return "success";
     }
@@ -248,13 +257,15 @@ public class CallbackCrypto {
      * @return the string
      * @throws WeComCallbackException the we com callback exception
      */
-    private String decryptMsg(String msgSignature, String timeStamp, String nonce, String encrypt) throws WeComCallbackException {
-        String token = this.callbackAuthentication.getToken();
+    private String decryptMsg(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String encrypt) throws WeComCallbackException {
+        CallbackAuthentication callbackAuthentication = this.callbackAuthenticationService.loadAuthentication(agentId, corpId);
+        String token = callbackAuthentication.getToken();
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
         if (!signature.equals(msgSignature)) {
             throw new WeComCallbackException(WeComCallbackException.ValidateSignatureError);
         }
-        return decrypt(encrypt);
+        byte[] aesKey = callbackAuthentication.getAesKey();
+        return decrypt(corpId, aesKey, encrypt);
     }
 
     /**
@@ -267,14 +278,8 @@ public class CallbackCrypto {
      * @return 解密之后的echostr string
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public Long verifyURL(String msgSignature, String timeStamp, String nonce, String echoStr) throws WeComCallbackException {
-        String token = this.callbackAuthentication.getToken();
-        String signature = SHA1.sha1Hex(token, timeStamp, nonce, echoStr);
-
-        if (!signature.equals(msgSignature)) {
-            throw new WeComCallbackException(WeComCallbackException.ValidateSignatureError);
-        }
-        return Long.valueOf(decrypt(echoStr));
+    public Long verifyURL(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String echoStr) throws WeComCallbackException {
+        return Long.valueOf(this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, echoStr));
     }
 
 }

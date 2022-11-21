@@ -1,6 +1,5 @@
 package cn.felord.callbacks;
 
-import cn.felord.domain.callback.CallbackAuthentication;
 import cn.felord.domain.callback.CallbackEventBody;
 
 import java.util.concurrent.ExecutorService;
@@ -81,11 +80,11 @@ public class CallbackCryptoBuilder {
     /**
      * Build callback crypto.
      *
-     * @param callbackAuthentication the callback authentication
+     * @param callbackAuthenticationService the callback authentication service
      * @return the callback crypto
      */
-    public CallbackCrypto build(CallbackAuthentication callbackAuthentication) {
-        return new CallbackCrypto(xmlReader, callbackAuthentication, callbackAsyncConsumer);
+    public CallbackCrypto build(CallbackAuthenticationService callbackAuthenticationService) {
+        return new CallbackCrypto(xmlReader, callbackAuthenticationService, callbackAsyncConsumer);
     }
 
 
