@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ScheduleAddRequest {
-    private final Schedule schedule;
+    private final ScheduleRequestBody schedule;
     private Integer agentid;
 }

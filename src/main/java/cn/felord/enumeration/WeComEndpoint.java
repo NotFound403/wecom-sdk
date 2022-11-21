@@ -517,9 +517,49 @@ public enum WeComEndpoint {
      */
     KF_SYNC_MSG("/kf/sync_msg"),
     /**
+     * 创建日历，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93647#%E5%88%9B%E5%BB%BA%E6%97%A5%E5%8E%86">文档</a>
+     */
+    OA_CALENDAR_ADD("/oa/calendar/add"),
+    /**
+     * 更新日历，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93647#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%8E%86">文档</a>
+     */
+    OA_CALENDAR_UPDATE("/oa/calendar/update"),
+    /**
+     * 获取日历详情，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93647#%E8%8E%B7%E5%8F%96%E6%97%A5%E5%8E%86%E8%AF%A6%E6%83%85">文档</a>
+     */
+    OA_CALENDAR_GET("/oa/calendar/get"),
+    /**
+     * 删除日历，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93647#%E5%88%A0%E9%99%A4%E6%97%A5%E5%8E%86">文档</a>
+     */
+    OA_CALENDAR_DEL("/oa/calendar/update"),
+    /**
      * 创建日程，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93648#%E5%88%9B%E5%BB%BA%E6%97%A5%E7%A8%8B">文档</a>
      */
     OA_SCHEDULE_ADD("/oa/schedule/add"),
+    /**
+     * 更新日程，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93648#%E6%9B%B4%E6%96%B0%E6%97%A5%E7%A8%8B">文档</a>
+     */
+    OA_SCHEDULE_UPDATE("/oa/schedule/update"),
+    /**
+     * 新增日程参与者，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93648#%E6%96%B0%E5%A2%9E%E6%97%A5%E7%A8%8B%E5%8F%82%E4%B8%8E%E8%80%85">文档</a>
+     */
+    OA_SCHEDULE_ADD_ATTENDEES("/oa/schedule/add_attendees"),
+    /**
+     * 删除日程参与者，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93648#%E5%88%A0%E9%99%A4%E6%97%A5%E7%A8%8B%E5%8F%82%E4%B8%8E%E8%80%85">文档</a>
+     */
+    OA_SCHEDULE_DEL_ATTENDEES("/oa/schedule/del_attendees"),
+    /**
+     * 获取日程详情，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93648#%E8%8E%B7%E5%8F%96%E6%97%A5%E7%A8%8B%E8%AF%A6%E6%83%85">文档</a>
+     */
+    OA_SCHEDULE_GET("/oa/schedule/get"),
+    /**
+     * 取消日程，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93648#%E5%8F%96%E6%B6%88%E6%97%A5%E7%A8%8B">文档</a>
+     */
+    OA_SCHEDULE_DEL("/oa/schedule/del"),
+    /**
+     * 获取日历下的日程列表，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/93648#%E8%8E%B7%E5%8F%96%E6%97%A5%E5%8E%86%E4%B8%8B%E7%9A%84%E6%97%A5%E7%A8%8B%E5%88%97%E8%A1%A8">文档</a>
+     */
+    OA_SCHEDULE_BY_CALENDAR("/oa/schedule/get_by_calendar"),
     /**
      * 上传临时素材，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/90253">文档</a>
      */
