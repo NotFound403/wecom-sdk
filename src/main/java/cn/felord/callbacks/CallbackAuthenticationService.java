@@ -5,7 +5,7 @@ import cn.felord.domain.callback.CallbackAuthentication;
 /**
  * The interface Callback authentication service.
  *
- * @author xiafang
+ * @author felord
  * @since 2022 /11/21 12:13
  */
 public interface CallbackAuthenticationService {

@@ -2,21 +2,24 @@ package cn.felord.domain.oa;
 
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.ScheduleStatus;
+import lombok.Data;
 
 import java.time.Instant;
 import java.util.List;
 
 /**
- * @author xiafang
+ * @author felord
  * @since 2022/11/21 17:09
  */
+@Data
 public class ScheduleDetail {
     private String scheduleId;
+    private Long sequence;
     private String organizer;
     private List<AttendeeDetail> attendees;
     private String summary;
     private String description;
-    private Reminders reminders;
+    private RemindersDetail reminders;
     private String location;
     private String calId;
     private Instant startTime;

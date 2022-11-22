@@ -2,9 +2,7 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.oa.ScheduleAddRequest;
-import cn.felord.domain.oa.ScheduleAttendees;
-import cn.felord.domain.oa.ScheduleUpdateRequest;
+import cn.felord.domain.oa.*;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -14,7 +12,7 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- * 效率工具
+ * 日程接口
  *
  * @author felord.cn
  * @since 1.0.14.RELEASE
@@ -89,13 +87,46 @@ public class ScheduleApi {
         return workWeChatApiClient.post(uri, attendees, WeComResponse.class);
     }
 
-    public WeComResponse get(Set<String> scheduleIds) {
+    /**
+     * 获取日程详情
+     *
+     * @param scheduleIds the schedule ids
+     * @return the schedule detail response
+     */
+    public ScheduleDetailResponse get(Set<String> scheduleIds) {
         String endpoint = WeComEndpoint.OA_SCHEDULE_GET.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("schedule_id_list", scheduleIds), WeComResponse.class);
+        return workWeChatApiClient.post(uri, Collections.singletonMap("schedule_id_list", scheduleIds), ScheduleDetailResponse.class);
     }
 
 
+    /**
+     * 取消日程
+     *
+     * @param request the request
+     * @return the we com response
+     */
+    public WeComResponse del(ScheduleDelRequest request) {
+        String endpoint = WeComEndpoint.OA_SCHEDULE_DEL.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+    }
+
+    /**
+     * 获取日历下的日程列表
+     *
+     * @param query the query
+     * @return the by calendar
+     */
+    public ScheduleDetailResponse getByCalendar(ScheduleCalendarQuery query) {
+        String endpoint = WeComEndpoint.OA_SCHEDULE_BY_CALENDAR.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri, query, ScheduleDetailResponse.class);
+    }
 }

@@ -7,7 +7,7 @@ import org.springframework.util.Base64Utils;
 /**
  * The type Callback authentication.
  *
- * @author xiafang
+ * @author felord
  * @since 2022 /10/12 20:30
  */
 @Getter

@@ -5,7 +5,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 
 /**
- * @author xiafang
+ * @author felord
  * @since 2022/10/10 14:16
  */
 public class XStreamXmlReader implements XmlReader {

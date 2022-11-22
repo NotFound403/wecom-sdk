@@ -46,7 +46,8 @@ public class GenericResponse<T> extends WeComResponse {
             "account_list",
             "msg_code",
             "open_kfid",
-            "schedule_id"
+            "schedule_id",
+            "cal_id"
     })
     private T data;
 }

@@ -4,7 +4,7 @@ import cn.felord.enumeration.ScheduleAttendeeResponseStatus;
 import lombok.Data;
 
 /**
- * @author xiafang
+ * @author felord
  * @since 2022/11/21 17:18
  */
 @Data

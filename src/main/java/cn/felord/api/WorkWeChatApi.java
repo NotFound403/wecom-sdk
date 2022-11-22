@@ -4,7 +4,7 @@ import cn.felord.AgentDetails;
 import cn.felord.WeComTokenCacheable;
 
 /**
- * The type Work we chat api.
+ * 企业微信API
  *
  * @author felord.cn
  */
@@ -86,21 +86,11 @@ public final class WorkWeChatApi {
     /**
      * SDK ticket相关接口
      *
-     * @param agentDetails              the agent details
+     * @param agentDetails the agent details
      * @return the sdk ticket api
      */
     public SdkTicketApi sdkTicketApi(AgentDetails agentDetails) {
         return new SdkTicketApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)), weComTokenCacheable);
-    }
-
-    /**
-     * 效率工具相关接口
-     *
-     * @param agentDetails the agent details
-     * @return the schedule api
-     */
-    public ScheduleApi scheduleApi(AgentDetails agentDetails){
-        return new ScheduleApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable,agentDetails)));
     }
 
     /**
@@ -121,4 +111,25 @@ public final class WorkWeChatApi {
     public MediaApi mediaApi(AgentDetails agentDetails) {
         return new MediaApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
     }
+
+    /**
+     * 日历相关接口
+     *
+     * @param agentDetails the agent details
+     * @return the calendar api
+     */
+    public CalendarApi calendarApi(AgentDetails agentDetails) {
+        return new CalendarApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+    }
+
+    /**
+     * 日程相关接口
+     *
+     * @param agentDetails the agent details
+     * @return the schedule api
+     */
+    public ScheduleApi scheduleApi(AgentDetails agentDetails) {
+        return new ScheduleApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+    }
+
 }

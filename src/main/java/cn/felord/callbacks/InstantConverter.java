@@ -7,7 +7,7 @@ import java.time.Instant;
 import java.time.format.DateTimeParseException;
 
 /**
- * @author xiafang
+ * @author felord
  * @since 2022/10/12 22:15
  */
 class InstantConverter extends AbstractSingleValueConverter {

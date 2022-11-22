@@ -3,7 +3,7 @@ package cn.felord.callbacks;
 /**
  * The interface Xml reader.
  *
- * @author xiafang
+ * @author felord
  * @since 2022 /10/10 14:14
  */
 public interface XmlReader {
