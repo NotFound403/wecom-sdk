@@ -8,5 +8,5 @@ import lombok.Data;
  */
 @Data
 public class MediaId {
-    private String mediaId;
+    private final String mediaId;
 }

@@ -8,5 +8,5 @@ import lombok.Data;
  */
 @Data
 public class ContentText {
-    private String content;
+    private final String content;
 }

@@ -12,10 +12,10 @@ import java.util.List;
  */
 @Data
 public class GroupMsgDetail {
-     private String msgid;
-     private String creator;
-     private Instant createTime;
-     private CreateType createType;
+    private String msgid;
+    private String creator;
+    private Instant createTime;
+    private CreateType createType;
     private ContentText text;
     private List<? extends MsgAttachment> attachments;
 }

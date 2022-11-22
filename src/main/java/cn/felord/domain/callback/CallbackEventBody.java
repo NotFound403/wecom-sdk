@@ -25,7 +25,38 @@ public class CallbackEventBody {
     private final CallbackEvent event;
     @XStreamAlias("ChangeType")
     private final String changeType;
+    @XStreamAlias("AgentID")
     private String agentId;
+
+    @XStreamAlias("Content")
+    private String content;
+    @XStreamAlias("MsgId")
+    private String msgId;
+    @XStreamAlias("MediaId")
+    private String mediaId;
+    @XStreamAlias("ThumbMediaId")
+    private String thumbMediaId;
+    @XStreamAlias("PicUrl")
+    private String picUrl;
+    @XStreamAlias("Format")
+    private String format;
+    @XStreamAlias("Location_X")
+    private String latitude;
+    @XStreamAlias("Location_Y")
+    private String longitude;
+    @XStreamAlias("Scale")
+    private Integer scale;
+    @XStreamAlias("Label")
+    private String label;
+    @XStreamAlias("AppType")
+    private String appType;
+    @XStreamAlias("Title")
+    private String title;
+    @XStreamAlias("Description")
+    private String description;
+    @XStreamAlias("Url")
+    private String url;
+
 
     @XStreamAlias("UserID")
     private final String userId;
