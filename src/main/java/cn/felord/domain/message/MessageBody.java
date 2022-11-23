@@ -1,13 +1,23 @@
 package cn.felord.domain.message;
 
-import lombok.Data;
-
 /**
+ * The type Message body.
+ *
  * @author felord
- * @since 2022/11/22 16:01
+ * @since 2022 /11/22 16:01
  */
-@Data
-public abstract class MessageBody {
-    private final String msgtype;
-    private final String agentid;
+public interface MessageBody {
+    /**
+     * Gets msgtype.
+     *
+     * @return the msgtype
+     */
+    String getMsgtype();
+
+    /**
+     * Gets agentid.
+     *
+     * @return the agentid
+     */
+    String getAgentid();
 }

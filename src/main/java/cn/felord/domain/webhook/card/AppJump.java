@@ -12,7 +12,7 @@ public class AppJump extends Jump {
     private final String pagepath;
 
     public AppJump(String title, String appid, String pagepath) {
-        super(ClickEventType.APP,title);
+        super(ClickEventType.MINIPROGRAM, title);
         this.appid = appid;
         this.pagepath = pagepath;
     }

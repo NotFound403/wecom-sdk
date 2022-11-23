@@ -3,14 +3,16 @@ package cn.felord.domain.message;
 
 import cn.felord.domain.externalcontact.MediaId;
 import cn.felord.enumeration.BoolEnum;
-import lombok.Builder;
+import lombok.Getter;
 
 /**
  * @author felord
  * @since 2022/11/22 16:07
  */
-@Builder
-public class VoiceMessageBody extends MessageBody {
+@Getter
+public class VoiceMessageBody implements MessageBody {
+    private final String msgtype = "voice";
+    private final String agentid;
     private final MediaId voice;
     private String touser;
     private String toparty;
@@ -18,8 +20,8 @@ public class VoiceMessageBody extends MessageBody {
     private BoolEnum enableDuplicateCheck;
     private Integer duplicateCheckInterval;
 
-    public VoiceMessageBody(String agentid, MediaId voice) {
-        super("voice", agentid);
+    protected VoiceMessageBody(String agentid, MediaId voice) {
+        this.agentid = agentid;
         this.voice = voice;
     }
 }

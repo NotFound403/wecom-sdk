@@ -2,14 +2,16 @@ package cn.felord.domain.message;
 
 import cn.felord.domain.externalcontact.ContentText;
 import cn.felord.enumeration.BoolEnum;
-import lombok.Builder;
+import lombok.Getter;
 
 /**
  * @author felord
  * @since 2022/11/22 16:07
  */
-@Builder
-public class MarkdownMessageBody extends MessageBody {
+@Getter
+public class MarkdownMessageBody implements MessageBody {
+    private final String msgtype = "markdown";
+    private final String agentid;
     private final ContentText markdown;
     private String touser;
     private String toparty;
@@ -17,8 +19,8 @@ public class MarkdownMessageBody extends MessageBody {
     private BoolEnum enableDuplicateCheck;
     private Integer duplicateCheckInterval;
 
-    public MarkdownMessageBody(String agentid, ContentText markdown) {
-        super("markdown", agentid);
+    protected MarkdownMessageBody(String agentid, ContentText markdown) {
+        this.agentid = agentid;
         this.markdown = markdown;
     }
 }

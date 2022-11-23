@@ -18,9 +18,9 @@ enum ClickEventType {
      */
     URL(1),
     /**
-     * App.
+     * Miniprogram.
      */
-    APP(2);
+    MINIPROGRAM(2);
 
     private final int type;
 

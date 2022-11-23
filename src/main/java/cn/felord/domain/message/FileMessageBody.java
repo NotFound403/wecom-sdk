@@ -3,14 +3,16 @@ package cn.felord.domain.message;
 import cn.felord.domain.externalcontact.MediaId;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.MessageSafe;
-import lombok.Builder;
+import lombok.Getter;
 
 /**
  * @author felord
  * @since 2022/11/22 16:07
  */
-@Builder
-public class FileMessageBody extends MessageBody {
+@Getter
+public class FileMessageBody implements MessageBody {
+    private final String msgtype = "file";
+    private final String agentid;
     private final MediaId file;
     private String touser;
     private String toparty;
@@ -19,8 +21,10 @@ public class FileMessageBody extends MessageBody {
     private BoolEnum enableDuplicateCheck;
     private Integer duplicateCheckInterval;
 
-    public FileMessageBody(String agentid, MediaId file) {
-        super("file", agentid);
+    protected FileMessageBody(String agentid, MediaId file) {
+        this.agentid = agentid;
         this.file = file;
     }
+
+
 }

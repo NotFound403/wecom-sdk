@@ -3,14 +3,16 @@ package cn.felord.domain.message;
 import cn.felord.domain.externalcontact.MediaId;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.MessageSafe;
-import lombok.Builder;
+import lombok.Getter;
 
 /**
  * @author felord
  * @since 2022/11/22 16:07
  */
-@Builder
-public class ImageMessageBody extends MessageBody {
+@Getter
+public class ImageMessageBody implements MessageBody {
+    private final String msgtype = "image";
+    private final String agentid;
     private final MediaId image;
     private String touser;
     private String toparty;
@@ -19,8 +21,8 @@ public class ImageMessageBody extends MessageBody {
     private BoolEnum enableDuplicateCheck;
     private Integer duplicateCheckInterval;
 
-    public ImageMessageBody(String agentid, MediaId image) {
-        super("image", agentid);
+    protected ImageMessageBody(String agentid, MediaId image) {
+        this.agentid = agentid;
         this.image = image;
     }
 }

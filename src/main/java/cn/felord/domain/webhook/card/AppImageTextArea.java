@@ -11,7 +11,7 @@ public class AppImageTextArea extends ImageTextArea{
     private final String appid;
     private final String pagepath;
     public AppImageTextArea(String imageUrl, String appid, String pagepath) {
-        super(ClickEventType.APP, imageUrl);
+        super(ClickEventType.MINIPROGRAM, imageUrl);
         this.appid = appid;
         this.pagepath = pagepath;
     }

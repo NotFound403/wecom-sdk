@@ -1,15 +1,18 @@
 package cn.felord.domain.message;
 
 import cn.felord.enumeration.BoolEnum;
-import lombok.Builder;
+import lombok.Getter;
 
 /**
+ * The type Miniprogram message body.
+ *
  * @author felord
- * @since 2022/11/22 16:07
+ * @since 2022 /11/22 16:07
  */
-@Builder
-public class MiniprogramMessageBody extends MessageBody {
-    private final MessageTextCard textcard;
+@Getter
+public class MiniprogramMessageBody implements MessageBody {
+    private final String msgtype = "miniprogram_notice";
+    private final MiniprogramNotice miniprogramNotice;
     private String touser;
     private String toparty;
     private String totag;
@@ -17,8 +20,17 @@ public class MiniprogramMessageBody extends MessageBody {
     private BoolEnum enableDuplicateCheck;
     private Integer duplicateCheckInterval;
 
-    public MiniprogramMessageBody(MessageTextCard textcard) {
-        super("miniprogram_notice", null);
-        this.textcard = textcard;
+    /**
+     * Instantiates a new Miniprogram message body.
+     *
+     * @param miniprogramNotice the miniprogram notice
+     */
+    protected MiniprogramMessageBody(MiniprogramNotice miniprogramNotice) {
+        this.miniprogramNotice = miniprogramNotice;
+    }
+
+    @Override
+    public String getAgentid() {
+        return null;
     }
 }

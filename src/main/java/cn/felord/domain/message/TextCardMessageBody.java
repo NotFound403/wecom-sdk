@@ -1,14 +1,16 @@
 package cn.felord.domain.message;
 
 import cn.felord.enumeration.BoolEnum;
-import lombok.Builder;
+import lombok.Getter;
 
 /**
  * @author felord
  * @since 2022/11/22 16:07
  */
-@Builder
-public class TextCardMessageBody extends MessageBody {
+@Getter
+public class TextCardMessageBody implements MessageBody {
+    private final String msgtype = "textcard";
+    private final String agentid;
     private final MessageTextCard textcard;
     private String touser;
     private String toparty;
@@ -17,8 +19,8 @@ public class TextCardMessageBody extends MessageBody {
     private BoolEnum enableDuplicateCheck;
     private Integer duplicateCheckInterval;
 
-    public TextCardMessageBody(String agentid, MessageTextCard textcard) {
-        super("textcard", agentid);
+    protected TextCardMessageBody(String agentid, MessageTextCard textcard) {
+        this.agentid = agentid;
         this.textcard = textcard;
     }
 }

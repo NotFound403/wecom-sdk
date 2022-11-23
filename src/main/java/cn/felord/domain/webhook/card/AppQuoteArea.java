@@ -12,7 +12,7 @@ public class AppQuoteArea extends QuoteArea {
     private final String pagepath;
 
     public AppQuoteArea(String appid, String pagepath) {
-        super(ClickEventType.APP);
+        super(ClickEventType.MINIPROGRAM);
         this.appid = appid;
         this.pagepath = pagepath;
     }

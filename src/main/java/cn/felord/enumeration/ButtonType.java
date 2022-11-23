@@ -6,24 +6,24 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Range type.
+ * The enum Button type.
  *
- * @author dax
- * @since 2021/9/8 10:47
+ * @author felord
+ * @since 2022 /11/23 17:01
  */
-public enum InterceptType {
+public enum ButtonType {
     /**
-     * User range type.
+     * Callback button type.
      */
-    WARNING_AND_SEND(1),
+    CALLBACK(0),
     /**
-     * Party range type.
+     * Redirect button type.
      */
-    WARNING(2);
+    REDIRECT(1);
 
     private final int type;
 
-    InterceptType(int type) {
+    ButtonType(int type) {
         this.type = type;
     }
 
@@ -38,15 +38,15 @@ public enum InterceptType {
     }
 
     /**
-     * Deserialize range type.
+     * Deserialize button type.
      *
      * @param type the type
-     * @return the range type
+     * @return the button type
      */
     @JsonCreator
-    public static InterceptType deserialize(int type) {
-        return Arrays.stream(InterceptType.values())
-                .filter(contactType -> contactType.type == type)
+    public static ButtonType deserialize(int type) {
+        return Arrays.stream(ButtonType.values())
+                .filter(contactScene -> contactScene.type == type)
                 .findFirst()
                 .orElse(null);
     }
