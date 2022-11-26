@@ -132,4 +132,14 @@ public final class WorkWeChatApi {
         return new ScheduleApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
     }
 
+    /**
+     * 消息推送
+     *
+     * @param agentDetails the agent details
+     * @return the message api
+     */
+    public MessageApi messageApi(AgentDetails agentDetails) {
+        return new MessageApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+    }
+
 }

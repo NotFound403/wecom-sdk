@@ -11,35 +11,64 @@ import lombok.Getter;
  * @since 2022 /11/22 16:07
  */
 @Getter
-public class TemplateCardMessageBody<M extends MessageTemplateCard> implements MessageBody {
-    private final String msgtype = "template_card";
-    private final String agentid;
+public class TemplateCardMessageBody<M extends AbstractCard> extends AbstractMessageBody {
     private final M templateCard;
-    private String touser;
-    private String toparty;
-    private String totag;
-    private BoolEnum enableIdTrans;
-    private BoolEnum enableDuplicateCheck;
-    private Integer duplicateCheckInterval;
+    private final BoolEnum enableIdTrans;
 
-    /**
-     * Instantiates a new Template card message body.
-     *
-     * @param templateCard the template card
-     */
-    protected TemplateCardMessageBody(M templateCard) {
-        this(null, templateCard);
-    }
-
-    /**
-     * Instantiates a new Template card message body.
-     *
-     * @param agentid      the agentid
-     * @param templateCard the template card
-     */
-    protected TemplateCardMessageBody(String agentid, M templateCard) {
-        this.agentid = agentid;
+    protected TemplateCardMessageBody(String touser, String toparty, String totag, BoolEnum enableIdTrans, BoolEnum enableDuplicateCheck, Integer duplicateCheckInterval, M templateCard) {
+        super("template_card", touser, toparty, totag, null, enableDuplicateCheck, duplicateCheckInterval);
         this.templateCard = templateCard;
+        this.enableIdTrans = enableIdTrans;
     }
 
+
+    public static class Builder<T extends AbstractCard> {
+        private final T templateCard;
+        private String touser;
+        private String toparty;
+        private String totag;
+        private BoolEnum enableIdTrans;
+        private BoolEnum enableDuplicateCheck;
+        private Integer duplicateCheckInterval;
+
+        protected Builder(T templateCard) {
+            this.templateCard = templateCard;
+        }
+
+        public Builder<T> touser(String touser) {
+            this.touser = touser;
+            return this;
+        }
+
+        public Builder<T> toparty(String toparty) {
+            this.toparty = toparty;
+            return this;
+        }
+
+        public Builder<T> totag(String totag) {
+            this.totag = totag;
+            return this;
+        }
+
+        public Builder<T> enableIdTrans(BoolEnum enableIdTrans) {
+            this.enableIdTrans = enableIdTrans;
+            return this;
+        }
+
+
+        public Builder<T> enableDuplicateCheck(BoolEnum enableDuplicateCheck) {
+            this.enableDuplicateCheck = enableDuplicateCheck;
+            return this;
+        }
+
+        public Builder<T> duplicateCheckInterval(Integer duplicateCheckInterval) {
+            this.duplicateCheckInterval = duplicateCheckInterval;
+            return this;
+        }
+
+        public TemplateCardMessageBody<T> build() {
+            return new TemplateCardMessageBody<>(touser, toparty, totag, enableIdTrans, enableDuplicateCheck, duplicateCheckInterval, templateCard);
+        }
+
+    }
 }

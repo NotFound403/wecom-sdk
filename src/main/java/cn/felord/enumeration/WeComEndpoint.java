@@ -600,7 +600,11 @@ public enum WeComEndpoint {
     /**
      * 设置应用.
      */
-    AGENT_SETTINGS("/agent/set");
+    AGENT_SETTINGS("/agent/set"),
+    /**
+     * 发送应用消息，详见<a target= "_blank" href= "https://developer.work.weixin.qq.com/document/path/90236">文档</a>
+     */
+    MESSAGE_SEND("/message/send");
     private final String pattern;
 
     WeComEndpoint(String pattern) {

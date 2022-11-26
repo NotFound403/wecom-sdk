@@ -1,25 +1,55 @@
 package cn.felord.domain.message;
 
-import cn.felord.domain.webhook.card.EmphasisContent;
+import cn.felord.domain.webhook.card.CardSource;
 import cn.felord.domain.webhook.card.MainTitle;
 import cn.felord.enumeration.TemplateCardType;
-import lombok.Builder;
-
-import java.util.List;
+import lombok.Getter;
 
 /**
  * @author felord
  * @since 2022/11/23 12:19
  */
-@Builder
-public class VoteMessageTemplateCard extends MessageTemplateCard {
-    private String subTitleText;
-    private List<EmphasisContent> verticalContentList;
-    private ButtonSelection buttonSelection;
-    private final List<Button> buttonList;
+@Getter
+public class VoteMessageTemplateCard extends AbstractCard {
+    private final Checkbox checkbox;
+    private final SubmitButton submitButton;
 
-    public VoteMessageTemplateCard(String taskId, MainTitle mainTitle, List<Button> buttonList) {
-        super(TemplateCardType.VOTE_INTERACTION, taskId, mainTitle);
-        this.buttonList = buttonList;
+    protected VoteMessageTemplateCard(String taskId, MainTitle mainTitle, CardSource source, Checkbox checkbox, SubmitButton submitButton) {
+        super(TemplateCardType.VOTE_INTERACTION, taskId, mainTitle, source);
+        this.checkbox = checkbox;
+        this.submitButton = submitButton;
+    }
+
+    public static class Builder {
+        private final String taskId;
+
+        private final MainTitle mainTitle;
+        private Checkbox checkbox;
+        private SubmitButton submitButton;
+        private CardSource source;
+
+        protected Builder(String taskId, MainTitle mainTitle) {
+            this.taskId = taskId;
+            this.mainTitle = mainTitle;
+        }
+
+        public Builder source(CardSource source) {
+            this.source = source;
+            return this;
+        }
+
+        public Builder checkbox(Checkbox checkbox) {
+            this.checkbox = checkbox;
+            return this;
+        }
+
+        public Builder submitButton(SubmitButton submitButton) {
+            this.submitButton = submitButton;
+            return this;
+        }
+
+        public VoteMessageTemplateCard build() {
+            return new VoteMessageTemplateCard(taskId, mainTitle, source, checkbox, submitButton);
+        }
     }
 }
