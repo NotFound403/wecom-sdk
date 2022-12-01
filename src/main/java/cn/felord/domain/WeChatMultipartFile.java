@@ -7,6 +7,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +24,7 @@ public class WeChatMultipartFile implements MultipartFile {
     private final byte[] content;
 
     public WeChatMultipartFile(@NonNull String name, @Nullable String originalFilename, @Nullable String contentType, InputStream contentStream) throws IOException {
-        this(name,originalFilename,contentType,FileCopyUtils.copyToByteArray(contentStream));
+        this(name, originalFilename, contentType, FileCopyUtils.copyToByteArray(contentStream));
     }
 
     public WeChatMultipartFile(@NonNull String name, @Nullable String originalFilename, @Nullable String contentType, byte[] content) {
@@ -31,7 +32,17 @@ public class WeChatMultipartFile implements MultipartFile {
         this.name = name;
         this.originalFilename = originalFilename;
         this.contentType = contentType;
-        this.content =content;
+        this.content = content;
+    }
+
+    public static WeChatMultipartFile from(MultipartFile file) throws IOException {
+        return new WeChatMultipartFile(file.getName(), file.getOriginalFilename(), file.getContentType(), file.getInputStream());
+    }
+
+    public static WeChatMultipartFile copy(MultipartFile file, ByteArrayOutputStream outputStream) throws IOException {
+        FileCopyUtils.copy(file.getInputStream(), outputStream);
+        byte[] bytes = outputStream.toByteArray();
+        return new WeChatMultipartFile(file.getName(), file.getOriginalFilename(), file.getContentType(), bytes);
     }
 
     public String getName() {

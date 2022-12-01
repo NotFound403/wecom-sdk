@@ -91,6 +91,8 @@ public class MomentApi {
 
     /**
      * 获取客户朋友圈发表时选择的可见范围
+     * <p>
+     * 指用户发表时指定了哪些客户可收
      *
      * @param request the request
      * @return the moment customer list
@@ -104,7 +106,9 @@ public class MomentApi {
     }
 
     /**
-     * Gets moment send result.
+     * 获取客户朋友圈发表后的可见客户列表
+     * <p>
+     * 指哪些客户真正可以看到
      *
      * @param request the request
      * @return the moment send result

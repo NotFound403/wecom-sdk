@@ -1,7 +1,8 @@
 package cn.felord.callbacks;
 
-import cn.felord.domain.callback.CallbackAuthentication;
+import cn.felord.domain.callback.CallbackSettings;
 import cn.felord.domain.callback.CallbackEventBody;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -29,24 +30,26 @@ import java.util.Random;
  * 	<li>如果安装了JDK，将两个jar文件放到%JDK_HOME%\jre\lib\security目录下覆盖原来文件</li>
  * </ol>
  */
+@Slf4j
 public class CallbackCrypto {
+    private static final String BOM = "\ufeff";
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
     private final XmlReader xmlReader;
     private final CallbackAsyncConsumer callbackAsyncConsumer;
-    private final CallbackAuthenticationService callbackAuthenticationService;
+    private final CallbackSettingsService callbackSettingsService;
 
 
     /**
      * 构造函数
      *
      * @param xmlReader                     the xml reader
-     * @param callbackAuthenticationService the callback authentication service
+     * @param callbackSettingsService the callback authentication service
      * @param callbackAsyncConsumer         the callback consumer
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    CallbackCrypto(XmlReader xmlReader, CallbackAuthenticationService callbackAuthenticationService, CallbackAsyncConsumer callbackAsyncConsumer) {
+    CallbackCrypto(XmlReader xmlReader, CallbackSettingsService callbackSettingsService, CallbackAsyncConsumer callbackAsyncConsumer) {
         this.xmlReader = xmlReader;
-        this.callbackAuthenticationService = callbackAuthenticationService;
+        this.callbackSettingsService = callbackSettingsService;
         this.callbackAsyncConsumer = callbackAsyncConsumer;
     }
 
@@ -186,7 +189,7 @@ public class CallbackCrypto {
         if (!Objects.equals(corpId, fromReceiveid)) {
             throw new WeComCallbackException(WeComCallbackException.ValidateCorpidError);
         }
-        return jsonContent;
+        return jsonContent.startsWith(BOM) ? jsonContent.substring(1) : jsonContent;
 
     }
 
@@ -207,15 +210,15 @@ public class CallbackCrypto {
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
     public String encryptMsg(String agentId, String corpId, String replyMsg, String timeStamp, String nonce) throws WeComCallbackException {
-        CallbackAuthentication callbackAuthentication = this.callbackAuthenticationService.loadAuthentication(agentId, corpId);
+        CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
         // 加密
-        String receiveid = callbackAuthentication.getReceiveid();
-        String encrypt = this.encrypt(receiveid, callbackAuthentication.getAesKey(), getRandomStr(), replyMsg);
+        String receiveid = callbackSettings.getReceiveid();
+        String encrypt = this.encrypt(receiveid, callbackSettings.getAesKey(), getRandomStr(), replyMsg);
         // 生成安全签名
         if (!StringUtils.hasText(timeStamp)) {
             timeStamp = Long.toString(System.currentTimeMillis());
         }
-        String token = callbackAuthentication.getToken();
+        String token = callbackSettings.getToken();
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
         return String.format(MSG, encrypt, signature, timeStamp, nonce);
     }
@@ -248,7 +251,7 @@ public class CallbackCrypto {
     }
 
     /**
-     * Decrypt msg string.
+     *  解密验签
      *
      * @param msgSignature the msg signature
      * @param timeStamp    the time stamp
@@ -257,29 +260,15 @@ public class CallbackCrypto {
      * @return the string
      * @throws WeComCallbackException the we com callback exception
      */
-    private String decryptMsg(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String encrypt) throws WeComCallbackException {
-        CallbackAuthentication callbackAuthentication = this.callbackAuthenticationService.loadAuthentication(agentId, corpId);
-        String token = callbackAuthentication.getToken();
+    public String decryptMsg(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String encrypt) throws WeComCallbackException {
+        CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
+        String token = callbackSettings.getToken();
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
-        if (!signature.equals(msgSignature)) {
+        if (!Objects.equals(msgSignature,signature)) {
+            log.info("signature not matched: before: {},after : {}",msgSignature,signature);
             throw new WeComCallbackException(WeComCallbackException.ValidateSignatureError);
         }
-        byte[] aesKey = callbackAuthentication.getAesKey();
-        return decrypt(corpId, aesKey, encrypt);
+        byte[] aesKey = callbackSettings.getAesKey();
+        return this.decrypt(corpId, aesKey, encrypt);
     }
-
-    /**
-     * 验证URL
-     *
-     * @param msgSignature 签名串，对应URL参数的msg_signature
-     * @param timeStamp    时间戳，对应URL参数的timestamp
-     * @param nonce        随机串，对应URL参数的nonce
-     * @param echoStr      随机串，对应URL参数的echostr
-     * @return 解密之后的echostr string
-     * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
-     */
-    public Long verifyURL(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String echoStr) throws WeComCallbackException {
-        return Long.valueOf(this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, echoStr));
-    }
-
 }

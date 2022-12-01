@@ -11,7 +11,7 @@ import org.springframework.util.Base64Utils;
  * @since 2022 /10/12 20:30
  */
 @Getter
-public class CallbackAuthentication {
+public class CallbackSettings {
     private final String token;
     private final byte [] aesKey;
     private final String receiveid;
@@ -23,7 +23,7 @@ public class CallbackAuthentication {
      * @param encodingAesKey the encoding aes key
      * @param receiveid      the receiveid
      */
-    public CallbackAuthentication(String token, String encodingAesKey, String receiveid) {
+    public CallbackSettings(String token, String encodingAesKey, String receiveid) {
         if (encodingAesKey.length() != 43) {
             throw new WeComCallbackException(WeComCallbackException.IllegalAesKey);
         }

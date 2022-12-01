@@ -15,8 +15,8 @@ import lombok.ToString;
 public class FileMsgAttachment extends MsgAttachment {
     private final MediaId file;
 
-    public FileMsgAttachment(MediaId file) {
+    public FileMsgAttachment(String mediaId) {
         super(MsgAttachType.FILE);
-        this.file = file;
+        this.file = new MediaId(mediaId);
     }
 }

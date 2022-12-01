@@ -1,5 +1,7 @@
 package cn.felord.domain.externalcontact;
 
+import lombok.Getter;
+
 import java.util.Collections;
 import java.util.Set;
 
@@ -7,36 +9,36 @@ import java.util.Set;
  * @author dax
  * @since 2021/7/22 15:10
  */
+@Getter
 public class MomentBody<T extends MomentAttachment> {
+    private final VisibleRange visibleRange;
     private ContentText text;
     private Set<T> attachments;
-    private VisibleRange visibleRange;
 
-    MomentBody() {
+    protected MomentBody(VisibleRange visibleRange) {
+        this.visibleRange = visibleRange;
     }
 
-    public MomentBody(ContentText text) {
-        this.text = text;
+    public static MomentBody<MomentAttachment> textMoment(ContentText text, VisibleRange visibleRange) {
+        MomentBody<MomentAttachment> momentAttachmentMomentBody = new MomentBody<>(visibleRange);
+        momentAttachmentMomentBody.setText(text);
+        return momentAttachmentMomentBody;
     }
 
-    public static MomentBody<MomentAttachment> textMoment(ContentText text) {
-        return new MomentBody<>(text);
-    }
-
-    public static MomentBody<ImageMomentAttachment> imageMoment(Set<ImageMomentAttachment> attachments) {
-        MomentBody<ImageMomentAttachment> imageMomentAttachmentMomentBody = new MomentBody<>();
+    public static MomentBody<ImageMomentAttachment> imageMoment(Set<ImageMomentAttachment> attachments, VisibleRange visibleRange) {
+        MomentBody<ImageMomentAttachment> imageMomentAttachmentMomentBody = new MomentBody<>(visibleRange);
         imageMomentAttachmentMomentBody.setAttachments(attachments);
         return imageMomentAttachmentMomentBody;
     }
 
-    public static MomentBody<VideoMomentAttachment> videoMoment(VideoMomentAttachment attachment) {
-        MomentBody<VideoMomentAttachment> videoMomentAttachmentMomentBody = new MomentBody<>();
+    public static MomentBody<VideoMomentAttachment> videoMoment(VideoMomentAttachment attachment, VisibleRange visibleRange) {
+        MomentBody<VideoMomentAttachment> videoMomentAttachmentMomentBody = new MomentBody<>(visibleRange);
         videoMomentAttachmentMomentBody.setAttachments(Collections.singleton(attachment));
         return videoMomentAttachmentMomentBody;
     }
 
-    public static MomentBody<LinkMomentAttachment> linkMoment(LinkMomentAttachment attachment) {
-        MomentBody<LinkMomentAttachment> linkMomentAttachmentMomentBody = new MomentBody<>();
+    public static MomentBody<LinkMomentAttachment> linkMoment(LinkMomentAttachment attachment, VisibleRange visibleRange) {
+        MomentBody<LinkMomentAttachment> linkMomentAttachmentMomentBody = new MomentBody<>(visibleRange);
         linkMomentAttachmentMomentBody.setAttachments(Collections.singleton(attachment));
         return linkMomentAttachmentMomentBody;
     }
@@ -45,23 +47,7 @@ public class MomentBody<T extends MomentAttachment> {
         this.text = text;
     }
 
-    void setAttachments(Set<T> attachments) {
+    private void setAttachments(Set<T> attachments) {
         this.attachments = attachments;
-    }
-
-    public void setVisibleRange(VisibleRange visibleRange) {
-        this.visibleRange = visibleRange;
-    }
-
-    public ContentText getText() {
-        return text;
-    }
-
-    public Set<T> getAttachments() {
-        return attachments;
-    }
-
-    public VisibleRange getVisibleRange() {
-        return visibleRange;
     }
 }

@@ -15,8 +15,8 @@ import lombok.ToString;
 public class VideoMsgAttachment extends MsgAttachment {
     private final MediaId video;
 
-    public VideoMsgAttachment(MediaId video) {
+    public VideoMsgAttachment(String mediaId) {
         super(MsgAttachType.VIDEO);
-        this.video = video;
+        this.video = new MediaId(mediaId);
     }
 }

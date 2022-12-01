@@ -8,7 +8,6 @@
 
 package cn.felord.callbacks;
 
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.security.MessageDigest;
@@ -37,13 +36,25 @@ final class SHA1 {
      * @throws WeComCallbackException the aes exception
      */
     public static String sha1Hex(String token, String timestamp, String nonce, String encrypt) throws WeComCallbackException {
+
         try {
             String str = Stream.of(token, timestamp, nonce, encrypt)
                     .sorted()
                     .collect(Collectors.joining());
-            return Hex.encodeHexString(SHA1.digest(str.getBytes()));
+            SHA1.update(str.getBytes());
+            byte[] digest = SHA1.digest();
+            StringBuilder hexstr = new StringBuilder();
+            for (byte b : digest) {
+                String shaHex = Integer.toHexString(b & 0xFF);
+                if (shaHex.length() < 2) {
+                    hexstr.append(0);
+                }
+                hexstr.append(shaHex);
+            }
+            return hexstr.toString();
         } catch (Exception e) {
             throw new WeComCallbackException(WeComCallbackException.ComputeSignatureError);
         }
     }
+
 }

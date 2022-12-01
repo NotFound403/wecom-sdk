@@ -1,6 +1,6 @@
 package cn.felord.callbacks;
 
-import cn.felord.domain.callback.CallbackAuthentication;
+import cn.felord.domain.callback.CallbackSettings;
 
 /**
  * The interface Callback authentication service.
@@ -8,7 +8,7 @@ import cn.felord.domain.callback.CallbackAuthentication;
  * @author felord
  * @since 2022 /11/21 12:13
  */
-public interface CallbackAuthenticationService {
+public interface CallbackSettingsService {
     /**
      * Load authentication callback authentication.
      *
@@ -16,5 +16,5 @@ public interface CallbackAuthenticationService {
      * @param corpId  the corp id
      * @return the callback authentication
      */
-    CallbackAuthentication loadAuthentication(String agentId, String corpId);
+    CallbackSettings loadAuthentication(String agentId, String corpId);
 }

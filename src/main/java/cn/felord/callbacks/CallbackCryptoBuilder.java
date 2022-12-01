@@ -80,11 +80,11 @@ public class CallbackCryptoBuilder {
     /**
      * Build callback crypto.
      *
-     * @param callbackAuthenticationService the callback authentication service
+     * @param callbackSettingsService the callback authentication service
      * @return the callback crypto
      */
-    public CallbackCrypto build(CallbackAuthenticationService callbackAuthenticationService) {
-        return new CallbackCrypto(xmlReader, callbackAuthenticationService, callbackAsyncConsumer);
+    public CallbackCrypto build(CallbackSettingsService callbackSettingsService) {
+        return new CallbackCrypto(xmlReader, callbackSettingsService, callbackAsyncConsumer);
     }
 
 
