@@ -8,8 +8,8 @@ import lombok.Data;
  */
 @Data
 public class Miniprogram {
-    private String title;
-    private String picMediaId;
-    private String appid;
-    private String page;
+    private final String title;
+    private final String picMediaId;
+    private final String appid;
+    private final String page;
 }

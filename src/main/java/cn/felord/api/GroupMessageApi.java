@@ -47,6 +47,36 @@ public class GroupMessageApi {
     }
 
     /**
+     * 提醒成员群发
+     * <p>
+     * 企业和第三方应用可调用此接口，重新触发群发通知，提醒成员完成群发任务，24小时内每个群发最多触发三次提醒。
+     *
+     * @param msgId the msg id
+     * @return the msg template response
+     */
+    public WeComResponse remindGroupmsgSend(String msgId) {
+        String endpoint = WeComEndpoint.REMIND_GROUPMSG_SEND.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri, Collections.singletonMap("msgid",msgId), WeComResponse.class);
+    }
+
+    /**
+     * 停止企业群发
+     *
+     * @param msgId the msg id
+     * @return the we com response
+     */
+    public WeComResponse cancelGroupmsgSend(String msgId) {
+        String endpoint = WeComEndpoint.CANCEL_GROUPMSG_SEND.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri, Collections.singletonMap("msgid",msgId), WeComResponse.class);
+    }
+
+    /**
      * 获取群发记录列表
      * <p>
      *

@@ -14,6 +14,7 @@ public class MsgTemplateRequest {
     private final ChatType type;
     private List<String> externalUserid;
     private String sender;
+    private Boolean allowSelect;
     private ContentText text;
     private List<? extends MsgAttachment> attachments;
 }

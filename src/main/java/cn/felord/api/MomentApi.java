@@ -122,6 +122,20 @@ public class MomentApi {
     }
 
     /**
+     * 停止发表企业朋友圈
+     *
+     * @param momentId the moment id
+     * @return the we com response
+     */
+    public WeComResponse cancelMomentTask(String momentId){
+        String endpoint = WeComEndpoint.CANCEL_MOMENT_TASK.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri, Collections.singletonMap("moment_id",momentId), WeComResponse.class);
+    }
+
+    /**
      * 获取客户朋友圈的互动数据
      * <p>
      * 优化了企业微信给的数据结构
