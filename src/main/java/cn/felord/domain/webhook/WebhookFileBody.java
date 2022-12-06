@@ -4,7 +4,6 @@ import cn.felord.domain.externalcontact.MediaId;
 import cn.felord.enumeration.HookMsgType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * The type Webhook text body.
@@ -14,12 +13,12 @@ import lombok.Setter;
  */
 @EqualsAndHashCode(callSuper = true)
 @Getter
-@Setter
 public class WebhookFileBody extends WebhookBody {
-    private MediaId file;
+    private final MediaId file;
 
-    public WebhookFileBody() {
+    public WebhookFileBody(MediaId file) {
         super(HookMsgType.FILE);
+        this.file = file;
     }
 
 }

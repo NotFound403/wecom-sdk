@@ -4,7 +4,6 @@ import cn.felord.domain.externalcontact.ContentText;
 import cn.felord.enumeration.HookMsgType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * The type Webhook text body.
@@ -14,14 +13,12 @@ import lombok.Setter;
  */
 @EqualsAndHashCode(callSuper = true)
 @Getter
-@Setter
 public class WebhookMarkdownBody extends WebhookBody {
-    private ContentText markdown;
+    private final ContentText markdown;
 
-    public WebhookMarkdownBody() {
+    public WebhookMarkdownBody(ContentText markdown) {
         super(HookMsgType.MARKDOWN);
+        this.markdown = markdown;
     }
-
-
 
 }

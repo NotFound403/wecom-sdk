@@ -4,7 +4,6 @@ import cn.felord.enumeration.HookMsgType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -16,12 +15,12 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Getter
-@Setter
 public class WebhookTextBody extends WebhookBody {
-    private WebhookText text;
+    private final WebhookText text;
 
-    public WebhookTextBody() {
+    public WebhookTextBody(WebhookText text) {
         super(HookMsgType.TEXT);
+        this.text = text;
     }
 
     /**

@@ -20,8 +20,9 @@ import java.util.List;
 public class WebhookNewsBody extends WebhookBody {
     private WebhookNews news;
 
-    public WebhookNewsBody() {
+    public WebhookNewsBody(WebhookNews news) {
         super(HookMsgType.NEWS);
+        this.news =news;
     }
 
     /**

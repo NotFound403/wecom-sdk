@@ -4,7 +4,6 @@ import cn.felord.domain.webhook.card.TemplateCard;
 import cn.felord.enumeration.HookMsgType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * The type Webhook text body.
@@ -14,14 +13,14 @@ import lombok.Setter;
  */
 @EqualsAndHashCode(callSuper = true)
 @Getter
-@Setter
 public class WebhookTemplateCardBody extends WebhookBody {
-    private TemplateCard templateCard;
+    private final TemplateCard templateCard;
 
     /**
      * Instantiates a new Webhook template card body.
      */
-    public WebhookTemplateCardBody() {
+    public <T extends TemplateCard> WebhookTemplateCardBody(T templateCard) {
         super(HookMsgType.TEMPLATE_CARD);
+        this.templateCard = templateCard;
     }
 }

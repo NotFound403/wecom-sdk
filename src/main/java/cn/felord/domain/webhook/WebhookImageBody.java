@@ -4,7 +4,6 @@ import cn.felord.enumeration.HookMsgType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * The type Webhook text body.
@@ -14,12 +13,12 @@ import lombok.Setter;
  */
 @EqualsAndHashCode(callSuper = true)
 @Getter
-@Setter
 public class WebhookImageBody extends WebhookBody {
-    private WebhookImage image;
+    private final WebhookImage image;
 
-    public WebhookImageBody() {
+    public WebhookImageBody(WebhookImage image) {
         super(HookMsgType.IMAGE);
+        this.image = image;
     }
 
     /**
