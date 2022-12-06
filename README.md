@@ -1,5 +1,6 @@
 [![Maven Central Repo Deployment](https://github.com/NotFound403/wecom-sdk/actions/workflows/main.yml/badge.svg)](https://github.com/NotFound403/wecom-sdk/actions/workflows/main.yml)
 ## 使用方法
+目前自建应用大部分功能可以适配，其它模式未适配。
 ## 坐标
 ```xml
             <dependency>
