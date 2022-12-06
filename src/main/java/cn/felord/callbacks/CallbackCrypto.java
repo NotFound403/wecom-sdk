@@ -224,7 +224,7 @@ public class CallbackCrypto {
     }
 
     /**
-     * 检验XML消息的真实性，并且获取解密后的明文.
+     * 检验XML消息的真实性，并且获取解密后的明文，用于消费回调数据，并自动响应POST回调请求.
      * <ol>
      * 	<li>利用收到的密文生成安全签名，进行签名验证</li>
      * 	<li>若验证通过，则提取json中的加密消息</li>
@@ -251,7 +251,7 @@ public class CallbackCrypto {
     }
 
     /**
-     *  解密验签
+     *  解密验签，用于解密XML BODY以及校验回调URL真实性
      *
      * @param msgSignature the msg signature
      * @param timeStamp    the time stamp
