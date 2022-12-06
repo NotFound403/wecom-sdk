@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * The type Linked corp api.
+ * 互联企业通讯录
  *
  * @author felord.cn
  * @since 2021 /8/29 16:39

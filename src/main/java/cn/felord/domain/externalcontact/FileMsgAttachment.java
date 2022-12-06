@@ -1,6 +1,8 @@
 package cn.felord.domain.externalcontact;
 
 import cn.felord.enumeration.MsgAttachType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -15,8 +17,9 @@ import lombok.ToString;
 public class FileMsgAttachment extends MsgAttachment {
     private final MediaId file;
 
-    public FileMsgAttachment(String mediaId) {
+    @JsonCreator
+    public FileMsgAttachment(@JsonProperty("file") MediaId file) {
         super(MsgAttachType.FILE);
-        this.file = new MediaId(mediaId);
+        this.file = file;
     }
 }

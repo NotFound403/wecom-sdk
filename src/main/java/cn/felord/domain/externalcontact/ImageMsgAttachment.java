@@ -1,6 +1,8 @@
 package cn.felord.domain.externalcontact;
 
 import cn.felord.enumeration.MsgAttachType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -13,9 +15,10 @@ import lombok.ToString;
 @ToString
 @Getter
 public class ImageMsgAttachment extends MsgAttachment {
-   private final Image image;
+    private final Image image;
 
-    public ImageMsgAttachment(Image image) {
+    @JsonCreator
+    public ImageMsgAttachment(@JsonProperty("image") Image image) {
         super(MsgAttachType.IMAGE);
         this.image = image;
     }

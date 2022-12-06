@@ -616,7 +616,11 @@ public enum WeComEndpoint {
     /**
      * 发送应用消息
      */
-    MESSAGE_SEND("/message/send");
+    MESSAGE_SEND("/message/send"),
+    /**
+     * 撤回应用消息
+     */
+    MESSAGE_RECALL("/message/recall");
     private final String pattern;
 
     WeComEndpoint(String pattern) {

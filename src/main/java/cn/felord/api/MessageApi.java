@@ -1,11 +1,13 @@
 package cn.felord.api;
 
+import cn.felord.domain.WeComResponse;
 import cn.felord.domain.message.AbstractMessageBody;
 import cn.felord.domain.message.MessageResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -37,7 +39,7 @@ public class MessageApi {
     public <B extends AbstractMessageBody> MessageResponse send(B body) {
 
         String msgtype = body.getMsgtype();
-        if (!Objects.equals("miniprogram_notice",msgtype)){
+        if (!Objects.equals("miniprogram_notice", msgtype)) {
             String agentId = workWeChatApiClient.getAgentDetails().getAgentId();
             body.setAgentid(agentId);
         }
@@ -46,5 +48,19 @@ public class MessageApi {
                 .build()
                 .toUri();
         return workWeChatApiClient.post(uri, body, MessageResponse.class);
+    }
+
+    /**
+     * 撤回应用消息
+     *
+     * @param msgId the msg id
+     * @return the we com response
+     */
+    public WeComResponse recall(String msgId) {
+        String endpoint = WeComEndpoint.MESSAGE_RECALL.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri, Collections.singletonMap("msgid", msgId), WeComResponse.class);
     }
 }

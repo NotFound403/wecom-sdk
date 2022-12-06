@@ -1,6 +1,8 @@
 package cn.felord.domain.externalcontact;
 
 import cn.felord.enumeration.MsgAttachType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -15,7 +17,8 @@ import lombok.ToString;
 public class MiniprogramMsgAttachment extends MsgAttachment {
     private final Miniprogram miniprogram;
 
-    public MiniprogramMsgAttachment(Miniprogram miniprogram) {
+    @JsonCreator
+    public MiniprogramMsgAttachment(@JsonProperty("miniprogram") Miniprogram miniprogram) {
         super(MsgAttachType.MINIPROGRAM);
         this.miniprogram = miniprogram;
     }

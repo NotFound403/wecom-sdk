@@ -11,4 +11,5 @@ public class KfAccountInfo {
     private String openKfid;
     private String name;
     private String avatar;
+    private Boolean managePrivilege;
 }

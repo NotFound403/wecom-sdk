@@ -1,6 +1,8 @@
 package cn.felord.domain.externalcontact;
 
 import cn.felord.enumeration.MsgAttachType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -15,8 +17,9 @@ import lombok.ToString;
 public class VideoMsgAttachment extends MsgAttachment {
     private final MediaId video;
 
-    public VideoMsgAttachment(String mediaId) {
+    @JsonCreator
+    public VideoMsgAttachment(@JsonProperty("video") MediaId video) {
         super(MsgAttachType.VIDEO);
-        this.video = new MediaId(mediaId);
+        this.video = video;
     }
 }

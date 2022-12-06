@@ -1,6 +1,8 @@
 package cn.felord.domain.externalcontact;
 
 import cn.felord.enumeration.MsgAttachType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -14,8 +16,10 @@ import lombok.ToString;
 @Getter
 public class LinkMsgAttachment extends MsgAttachment {
     private final Link link;
-    public LinkMsgAttachment(Link link) {
+
+    @JsonCreator
+    public LinkMsgAttachment(@JsonProperty("link") Link link) {
         super(MsgAttachType.LINK);
-        this.link =link;
+        this.link = link;
     }
 }

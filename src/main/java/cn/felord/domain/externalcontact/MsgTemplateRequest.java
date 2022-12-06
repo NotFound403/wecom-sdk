@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Data
 public class MsgTemplateRequest {
-    private final ChatType type;
+    private final ChatType chatType;
     private List<String> externalUserid;
     private String sender;
     private Boolean allowSelect;
