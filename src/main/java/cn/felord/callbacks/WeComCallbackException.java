@@ -60,7 +60,7 @@ public class WeComCallbackException extends WeComException {
      * @param code the code
      */
     public WeComCallbackException(int code) {
-        super(getMessage(code), code, null);
+        super(getMessage(code));
     }
 
     private static String getMessage(int code) {

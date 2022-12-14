@@ -168,7 +168,7 @@ public final class WorkWeChatApiClient {
                         });
                 return;
             }
-            throw new WeComException("unsuccessful response, hint: https://open.work.weixin.qq.com/devtool/query?e=" + response.getErrcode());
+            throw new WeComException(response.getErrcode(), response.getErrmsg());
         }
     }
 

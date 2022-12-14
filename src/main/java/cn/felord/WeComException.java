@@ -8,16 +8,19 @@ import lombok.Getter;
  */
 @Getter
 public class WeComException extends RuntimeException {
+    private static final Integer DEFAULT_CODE = -9999999;
     private final Integer errcode;
-    private final String errmsg;
+    private final String hint;
 
-    public WeComException(String message) {
-        this(message, -9999999, null);
+    public WeComException(String errmsg) {
+        super(errmsg);
+        this.errcode = DEFAULT_CODE;
+        this.hint = errmsg;
     }
 
-    public WeComException(String message, Integer errcode, String errmsg) {
-        super(message);
+    public WeComException(Integer errcode, String errmsg) {
+        super(errmsg);
         this.errcode = errcode;
-        this.errmsg = errmsg;
+        this.hint = "https://open.work.weixin.qq.com/devtool/query?e=" + errcode;
     }
 }

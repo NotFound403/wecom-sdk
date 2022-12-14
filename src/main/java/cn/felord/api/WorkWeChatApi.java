@@ -138,8 +138,8 @@ public final class WorkWeChatApi {
      * @param agentDetails the agent details
      * @return the message api
      */
-    public MessageApi messageApi(AgentDetails agentDetails) {
-        return new MessageApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+    public AgentMessageApi agentMessageApi(AgentDetails agentDetails) {
+        return new AgentMessageApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
     }
 
 }

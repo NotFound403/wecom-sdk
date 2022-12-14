@@ -11,12 +11,12 @@ import java.util.Collections;
 import java.util.Objects;
 
 /**
- * The type Message api.
+ * 应用消息
  *
  * @author dax
  * @since 2022 /11/25
  */
-public class MessageApi {
+public class AgentMessageApi {
     private final WorkWeChatApiClient workWeChatApiClient;
 
     /**
@@ -24,7 +24,7 @@ public class MessageApi {
      *
      * @param workWeChatApiClient the work we chat api client
      */
-    MessageApi(WorkWeChatApiClient workWeChatApiClient) {
+    AgentMessageApi(WorkWeChatApiClient workWeChatApiClient) {
         this.workWeChatApiClient = workWeChatApiClient;
     }
 
