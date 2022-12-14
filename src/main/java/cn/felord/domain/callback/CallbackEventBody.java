@@ -93,4 +93,8 @@ public class CallbackEventBody {
     private final String calId;
     @XStreamAlias("ScheduleId")
     private final String scheduleId;
+    @XStreamAlias("Token")
+    private final String token;
+    @XStreamAlias("OpenKfId")
+    private final String openKfId;
 }
