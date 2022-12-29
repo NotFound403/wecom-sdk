@@ -9,9 +9,8 @@ import java.util.Set;
  * @since 2021/7/14 14:05
  */
 @Data
-public class TransferCustomerRequest {
+public class OffTransferCustomerRequest {
     private final String handoverUserid;
     private final String takeoverUserid;
     private final Set<String> externalUserid;
-    private String transferSuccessMsg;
 }

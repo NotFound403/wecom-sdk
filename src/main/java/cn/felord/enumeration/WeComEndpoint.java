@@ -301,6 +301,22 @@ public enum WeComEndpoint {
      */
     TRANSFER_GROUP_CHAT("/externalcontact/groupchat/onjob_transfer"),
     /**
+     * 获取待分配的离职成员列表
+     */
+    UNASSIGNED_LIST("/externalcontact/get_unassigned_list"),
+    /**
+     * 分配离职成员的客户
+     */
+    OFF_TRANSFER_CUSTOMER("/externalcontact/resigned/transfer_customer"),
+    /**
+     * 查询离职成员客户接替状态
+     */
+    OFF_TRANSFER_RESULT("/externalcontact/resigned/transfer_result"),
+    /**
+     * 分配离职成员的客户群
+     */
+    OFF_TRANSFER_GROUP_CHAT("/externalcontact/groupchat/transfer"),
+    /**
      * 获取客户群列表
      */
     GROUP_CHAT_LIST("/externalcontact/groupchat/list"),

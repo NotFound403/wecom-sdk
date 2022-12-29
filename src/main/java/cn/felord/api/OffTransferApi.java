@@ -1,12 +1,20 @@
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
-import cn.felord.domain.externalcontact.*;
+import cn.felord.domain.externalcontact.OffTransferCustomerRequest;
+import cn.felord.domain.externalcontact.TransferCustomerResponse;
+import cn.felord.domain.externalcontact.TransferFailedGroupChat;
+import cn.felord.domain.externalcontact.TransferGroupChatRequest;
+import cn.felord.domain.externalcontact.TransferResultRequest;
+import cn.felord.domain.externalcontact.TransferResultResponse;
+import cn.felord.domain.externalcontact.UnassignedListResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -27,17 +35,36 @@ public class OffTransferApi {
         this.workWeChatApiClient = workWeChatApiClient;
     }
 
+
     /**
-     * 分配在职成员的客户
-     * <p>
-     * 为保障客户服务体验，90个自然日内，在职成员的每位客户仅可被转接2次。
+     * 获取待分配的离职成员列表
      *
-     * @param request the request
+     * @param cursor   the cursor
+     * @param pageSize the page size
      * @return TransferCustomerResponse transfer customer response
      */
-    public TransferCustomerResponse transferCustomer(TransferCustomerRequest request) {
+    public UnassignedListResponse getUnassignedList(String cursor, int pageSize) {
 
-        String endpoint = WeComEndpoint.TRANSFER_CUSTOMER.endpoint();
+        String endpoint = WeComEndpoint.UNASSIGNED_LIST.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        Map<String, Object> body = new HashMap<>(2);
+        body.put("cursor", cursor);
+        body.put("page_size", pageSize);
+        return workWeChatApiClient.post(uri, body, UnassignedListResponse.class);
+    }
+
+
+    /**
+     * 分配离职成员的客户
+     *
+     * @param request the request
+     * @return the transfer customer response
+     */
+    public TransferCustomerResponse transferCustomer(OffTransferCustomerRequest request) {
+
+        String endpoint = WeComEndpoint.OFF_TRANSFER_CUSTOMER.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -45,14 +72,14 @@ public class OffTransferApi {
     }
 
     /**
-     * 查询客户接替状态
+     * 查询离职成员客户接替状态
      *
      * @param request the request
      * @return the transfer customer response
      */
     public TransferResultResponse transferResult(TransferResultRequest request) {
 
-        String endpoint = WeComEndpoint.TRANSFER_RESULT.endpoint();
+        String endpoint = WeComEndpoint.OFF_TRANSFER_RESULT.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
@@ -60,14 +87,14 @@ public class OffTransferApi {
     }
 
     /**
-     * 分配在职成员的客户群
+     * 分配离职成员的客户群
      *
      * @param request the request
      * @return the transfer result response
      */
     public GenericResponse<Set<TransferFailedGroupChat>> transferGroupChat(TransferGroupChatRequest request) {
 
-        String endpoint = WeComEndpoint.TRANSFER_GROUP_CHAT.endpoint();
+        String endpoint = WeComEndpoint.OFF_TRANSFER_GROUP_CHAT.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
