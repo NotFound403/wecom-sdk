@@ -14,9 +14,9 @@ import java.util.Arrays;
 public enum GroupChatStatus {
 
     /**
-     * All group chat status.
+     * Normal group chat status.
      */
-    ALL(0),
+    NORMAL(0),
 
     /**
      * Waiting group chat status.
