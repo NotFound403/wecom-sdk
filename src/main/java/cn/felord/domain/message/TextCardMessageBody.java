@@ -12,10 +12,12 @@ public class TextCardMessageBody extends AbstractMessageBody {
 
     private final MessageTextCard textcard;
     private final BoolEnum enableIdTrans;
+    private final String btntxt;
 
-    protected TextCardMessageBody(String touser, String toparty, String totag, BoolEnum enableIdTrans, BoolEnum enableDuplicateCheck, Integer duplicateCheckInterval, MessageTextCard textcard) {
+    protected TextCardMessageBody(String touser, String toparty, String totag, BoolEnum enableIdTrans, String btntxt, BoolEnum enableDuplicateCheck, Integer duplicateCheckInterval, MessageTextCard textcard) {
         super("textcard", touser, toparty, totag, null, enableDuplicateCheck, duplicateCheckInterval);
         this.textcard = textcard;
+        this.btntxt = btntxt;
         this.enableIdTrans = enableIdTrans;
     }
 
@@ -25,6 +27,7 @@ public class TextCardMessageBody extends AbstractMessageBody {
         private String touser;
         private String toparty;
         private String totag;
+        private String btntxt;
         private BoolEnum enableIdTrans;
         private BoolEnum enableDuplicateCheck;
         private Integer duplicateCheckInterval;
@@ -48,6 +51,11 @@ public class TextCardMessageBody extends AbstractMessageBody {
             return this;
         }
 
+        public Builder btntxt(String btntxt) {
+            this.btntxt = btntxt;
+            return this;
+        }
+
         public Builder enableIdTrans(BoolEnum enableIdTrans) {
             this.enableIdTrans = enableIdTrans;
             return this;
@@ -64,7 +72,7 @@ public class TextCardMessageBody extends AbstractMessageBody {
         }
 
         public TextCardMessageBody build() {
-            return new TextCardMessageBody(touser, toparty, totag, enableIdTrans, enableDuplicateCheck, duplicateCheckInterval, textcard);
+            return new TextCardMessageBody(touser, toparty, totag, enableIdTrans, btntxt, enableDuplicateCheck, duplicateCheckInterval, textcard);
         }
 
     }
