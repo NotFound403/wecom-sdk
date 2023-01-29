@@ -76,7 +76,7 @@ AgentDetails external=DefaultAgent.nativeAgent("企业ID","应用密钥",NativeA
 
 通常这些应用参数会存入数据库，然后我们需要通过**企业ID**和**应用ID**实现应用配置检索服务（可以增加缓存来降低数据库的检索压力）：
 
-```java
+``` 
   (corpId,agentId)->AgentDetails
 ```
 
@@ -86,45 +86,47 @@ AgentDetails external=DefaultAgent.nativeAgent("企业ID","应用密钥",NativeA
 Cache实现，你可以自由选择，但是要自行保证中继服务器数据一致性。
 
 ```java
-public static class Cache implements WeComTokenCacheable {
-  private static final String TOKEN_PREFIX = "token::qywx::%s::%s";
-  private static final String QYWX_CORP_TICKET_CACHE = "ticket::qywx::corp::%s::%s";
-  private static final String QYWX_AGENT_TICKET_CACHE = "ticket::qywx::agent::%s::%s";
-  private RedisUtils redisUtils;
+public static class RedisWeComCacheable implements WeComTokenCacheable {
+  private static final String QYWX_TOKEN_CACHE = "token::qywx";
+  private static final String QYWX_CORP_TICKET_CACHE = "ticket::qywx::corp";
+  private static final String QYWX_AGENT_TICKET_CACHE = "ticket::qywx::agent";
 
+  @CachePut(value = {QYWX_TOKEN_CACHE}, key = "#corpId.concat('::').concat(#agentId)")
   @Override
-  public String putAccessToken(String corpId, String agentId, String accessToken) {
-    redisUtils.set(String.format(TOKEN_PREFIX, corpId, agentId), accessToken, 7100);
+  public String putAccessToken(@NotNull String corpId, @NotNull String agentId, @NotNull String accessToken) {
     return accessToken;
   }
 
+  @Cacheable(value = {QYWX_TOKEN_CACHE}, key = "#corpId.concat('::').concat(#agentId)")
   @Override
-  public String getAccessToken(String corpId, String agentId) {
-    return redisUtils.get(String.format(TOKEN_PREFIX, corpId, agentId), String.class);
+  public String getAccessToken(@NotNull String corpId, @NotNull String agentId) {
+    return null;
   }
 
+  @CachePut(value = {QYWX_CORP_TICKET_CACHE}, key = "#corpId.concat('::').concat(#agentId)")
   @Override
-  public String putCorpTicket(String corpId, String agentId, String corpTicket) {
-    redisUtils.set(String.format(QYWX_CORP_TICKET_CACHE, corpId, agentId), corpTicket, 7100);
+  public String putCorpTicket(@NotNull String corpId, @NotNull String agentId, @NotNull String corpTicket) {
     return corpTicket;
   }
 
+  @Cacheable(value = {QYWX_TOKEN_CACHE}, key = "#corpId.concat('::').concat(#agentId)")
   @Override
-  public String getCorpTicket(String corpId, String agentId) {
-    return redisUtils.get(String.format(QYWX_CORP_TICKET_CACHE, corpId, agentId), String.class);
+  public String getCorpTicket(@NotNull String corpId, @NotNull String agentId) {
+    return null;
   }
 
+  @CachePut(value = {QYWX_AGENT_TICKET_CACHE}, key = "#corpId.concat('::').concat(#agentId)")
   @Override
-  public String putAgentTicket(String corpId, String agentId, String agentTicket) {
-    redisUtils.set(String.format(QYWX_AGENT_TICKET_CACHE, corpId, agentId), agentTicket, 7100);
+  public String putAgentTicket(@NotNull String corpId, @NotNull String agentId, @NotNull String agentTicket) {
     return agentTicket;
   }
 
+  @Cacheable(value = {QYWX_TOKEN_CACHE}, key = "#corpId.concat('::').concat(#agentId)")
   @Override
-  public String getAgentTicket(String corpId, String agentId) {
-    return redisUtils.get(String.format(QYWX_AGENT_TICKET_CACHE, corpId, agentId), String.class);
+  public String getAgentTicket(@NotNull String corpId, @NotNull String agentId) {
+    return null;
   }
-} 
+}
 ```
 
 ### API入口类
