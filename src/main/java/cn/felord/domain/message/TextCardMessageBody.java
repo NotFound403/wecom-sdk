@@ -26,7 +26,6 @@ public class TextCardMessageBody extends AbstractMessageBody {
         private String touser;
         private String toparty;
         private String totag;
-        private String btntxt;
         private BoolEnum enableIdTrans;
         private BoolEnum enableDuplicateCheck;
         private Integer duplicateCheckInterval;
