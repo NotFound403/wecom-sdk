@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class UserSensitiveInfoResponse extends WeComResponse {
    private String userid;
+   private String name;
    private String gender;
    private String avatar;
    private String qrCode;
