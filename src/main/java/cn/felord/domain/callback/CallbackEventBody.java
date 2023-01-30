@@ -80,7 +80,7 @@ public class CallbackEventBody {
     @XStreamAlias("QuitScene")
     private final Integer quitScene;
     @XStreamAlias("MemChangeCnt")
-    private final Integer MemChangeCnt;
+    private final Integer memChangeCnt;
 
     @XStreamAlias("Id")
     private final String tagId;
