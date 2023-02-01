@@ -613,6 +613,10 @@ public enum WeComEndpoint {
      */
     WEBHOOK_SEND("/webhook/send"),
     /**
+     * 企业微信 Webhook 上传 API
+     */
+    WEBHOOK_UPLOAD("/webhook/upload_media"),
+    /**
      * 获取企业的jsapi_ticket.
      */
     CORP_JSAPI_TICKET("/get_jsapi_ticket"),

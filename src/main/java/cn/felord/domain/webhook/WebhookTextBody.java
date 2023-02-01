@@ -28,7 +28,7 @@ public class WebhookTextBody extends WebhookBody {
      */
     @Data
     public static class WebhookText {
-        private String content;
+        private final String content;
         private List<String> mentionedList;
         private List<String> mentionedMobileList;
     }

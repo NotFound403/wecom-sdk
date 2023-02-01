@@ -16,7 +16,7 @@ public class UserInfoRequest {
 	private List<Integer> department;
 	private List<Integer> order;
 	private String position;
-	private String gender;
+	private Integer gender;
 	private String email;
 	private String bizEmail;
 	private String telephone;
