@@ -33,7 +33,8 @@ public class AccessTokenApi extends AbstractTokenApi {
                 .build();
         AccessTokenResponse tokenResponse = this.getRestTemplate().getForObject(uriComponents.toUri(), AccessTokenResponse.class);
         if (tokenResponse == null || tokenResponse.isError()) {
-            throw new WeComException("failed to obtain access token");
+            String errorMsg = tokenResponse == null ? "token response is null" : tokenResponse.getErrmsg();
+            throw new WeComException("failed to obtain access token,reason: " + errorMsg);
         }
         return tokenResponse.getAccessToken();
     }
