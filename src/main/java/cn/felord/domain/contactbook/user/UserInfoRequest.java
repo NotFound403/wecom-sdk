@@ -10,6 +10,10 @@ import java.util.List;
 @Data
 public class UserInfoRequest {
 	private String userid;
+	/**
+	 * 如果userid由系统自动生成，则仅允许修改一次。
+	 */
+	private String newUserid;
 	private String name;
 	private String alias;
 	private String mobile;
