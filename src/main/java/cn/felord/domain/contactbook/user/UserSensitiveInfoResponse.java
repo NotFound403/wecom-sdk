@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 public class UserSensitiveInfoResponse extends WeComResponse {
    private String userid;
    private String name;
-   private String gender;
+   private Integer gender;
    private String avatar;
    private String qrCode;
    private String mobile;
