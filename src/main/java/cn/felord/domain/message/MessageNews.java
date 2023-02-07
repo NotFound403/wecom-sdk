@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author felord
- * @since 2022/11/22 17:23
+ * @since 2021/11/22 17:23
  */
 @Data
 public class MessageNews<T extends MessageArticle> {

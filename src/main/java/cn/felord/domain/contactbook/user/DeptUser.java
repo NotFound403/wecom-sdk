@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * @author felord
- * @since 2022/10/12 16:48
+ * @since 2021/10/12 16:48
  */
 @Data
 public class DeptUser {

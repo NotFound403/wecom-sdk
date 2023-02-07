@@ -6,7 +6,7 @@ import cn.felord.domain.callback.CallbackSettings;
  * The interface Callback authentication service.
  *
  * @author felord
- * @since 2022 /11/21 12:13
+ * @since 2021 /11/21 12:13
  */
 public interface CallbackSettingsService {
     /**

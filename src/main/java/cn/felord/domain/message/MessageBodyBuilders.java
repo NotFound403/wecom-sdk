@@ -7,7 +7,7 @@ import cn.felord.domain.externalcontact.MediaId;
  * The type Message body builder.
  *
  * @author dax
- * @since 2022 /11/25
+ * @since 2021 /11/25
  */
 public final class MessageBodyBuilders {
 

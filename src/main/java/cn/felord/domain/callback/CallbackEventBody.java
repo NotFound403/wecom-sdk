@@ -8,8 +8,10 @@ import java.time.Instant;
 import java.util.List;
 
 /**
+ * 回调对象
+ *
  * @author felord
- * @since 2022/10/12 21:23
+ * @since 2021/10/12 21:23
  */
 @XStreamAlias("xml")
 @Data
@@ -58,118 +60,102 @@ public class CallbackEventBody {
     @XStreamAlias("Url")
     private String url;
     @XStreamAlias("UserID")
-    private final String userId;
+    private String userId;
 
 
     @XStreamAlias("NewUserID")
-    private final String newUserId;
+    private String newUserId;
     @XStreamAlias("Name")
-    private final String name;
+    private String name;
     @XStreamAlias("Department")
-    private final String department;
+    private String department;
     @XStreamAlias("MainDepartment")
-    private final Integer mainDepartment;
+    private Integer mainDepartment;
     @XStreamAlias("IsLeaderInDept")
-    private final String isLeaderInDept;
+    private String isLeaderInDept;
     @XStreamAlias("Position")
-    private final String position;
+    private String position;
     @XStreamAlias("Mobile")
-    private final String mobile;
+    private String mobile;
     @XStreamAlias("Gender")
-    private final Integer Gender;
+    private Integer Gender;
     @XStreamAlias("Email")
-    private final String email;
+    private String email;
     @XStreamAlias("Status")
-    private final Integer status;
+    private Integer status;
     @XStreamAlias("Avatar")
-    private final String avatar;
+    private String avatar;
     @XStreamAlias("Alias")
-    private final String alias;
+    private String alias;
     @XStreamAlias("Address")
-    private final String address;
-    @XStreamAlias("ExtAttr")
-    private final List<Item> extAttr;
+    private String address;
+    @XStreamAlias(value = "ExtAttr", impl = List.class)
+    private List<CallbackExtAttrItem> extAttr;
 
     @XStreamAlias("Id")
-    private final Integer id;
+    private Integer id;
     @XStreamAlias("ParentId")
-    private final String parentId;
+    private String parentId;
     @XStreamAlias("Order")
-    private final Integer order;
+    private Integer order;
 
     @XStreamAlias("TagId")
     private Integer contactTagId;
     @XStreamAlias("AddUserItems")
-    private final String addUserItems;
+    private String addUserItems;
     @XStreamAlias("DelUserItems")
-    private final String delUserItems;
+    private String delUserItems;
     @XStreamAlias("AddPartyItems")
-    private final String addPartyItems;
+    private String addPartyItems;
     @XStreamAlias("DelPartyItems")
-    private final String delPartyItems;
+    private String delPartyItems;
 
     @XStreamAlias("ExternalUserID")
-    private final String externalUserId;
+    private String externalUserId;
     @XStreamAlias("State")
-    private final String state;
+    private String state;
     @XStreamAlias("WelcomeCode")
-    private final String welcomeCode;
+    private String welcomeCode;
     @XStreamAlias("Source")
-    private final String source;
+    private String source;
     @XStreamAlias("FailReason")
-    private final String failReason;
+    private String failReason;
 
     @XStreamAlias("ChatId")
-    private final String chatId;
+    private String chatId;
     @XStreamAlias("UpdateDetail")
-    private final String updateDetail;
+    private String updateDetail;
     @XStreamAlias("JoinScene")
-    private final Integer joinScene;
+    private Integer joinScene;
     @XStreamAlias("QuitScene")
-    private final Integer quitScene;
+    private Integer quitScene;
     @XStreamAlias("MemChangeCnt")
-    private final Integer memChangeCnt;
+    private Integer memChangeCnt;
 
     @XStreamAlias("Id")
-    private final String tagId;
+    private String tagId;
     @XStreamAlias("TagType")
-    private final String tagType;
+    private String tagType;
     @XStreamAlias("StrategyId")
-    private final Integer strategyId;
+    private Integer strategyId;
 
     @XStreamAlias("CalId")
-    private final String calId;
+    private String calId;
     @XStreamAlias("ScheduleId")
-    private final String scheduleId;
+    private String scheduleId;
     @XStreamAlias("Token")
-    private final String token;
+    private String token;
     @XStreamAlias("OpenKfId")
-    private final String openKfId;
+    private String openKfId;
 
-    @XStreamAlias("Item")
-    @Data
-    public static class Item {
-        @XStreamAlias("Type")
-        private Integer type;
-        @XStreamAlias("Name")
-        private String name;
-        @XStreamAlias("Web")
-        private Web web;
-        @XStreamAlias("Text")
-        private Text text;
-
-        @Data
-        public static class Web {
-            @XStreamAlias("Title")
-            private String title;
-            @XStreamAlias("Url")
-            private String url;
-        }
-
-        @Data
-        public static class Text {
-            @XStreamAlias("Value")
-            private String value;
-        }
-    }
+    @XStreamAlias("EventKey")
+    private String eventKey;
+    @XStreamAlias("TaskId")
+    private String taskId;
+    @XStreamAlias("CardType")
+    private String cardType;
+    @XStreamAlias("ResponseCode")
+    private String responseCode;
+    @XStreamAlias("SelectedItems")
+    private CallbackSelectedItems selectedItems;
 }

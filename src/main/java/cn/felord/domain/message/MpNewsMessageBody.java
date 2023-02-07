@@ -6,7 +6,7 @@ import lombok.Getter;
 
 /**
  * @author felord
- * @since 2022/11/22 17:22
+ * @since 2021/11/22 17:22
  */
 @Getter
 public class MpNewsMessageBody extends AbstractMessageBody {

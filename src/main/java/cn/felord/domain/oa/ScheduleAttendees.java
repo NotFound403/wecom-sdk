@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * @author felord
- * @since 2022/11/21 15:56
+ * @since 2021/11/21 15:56
  */
 @Data
 public class ScheduleAttendees {

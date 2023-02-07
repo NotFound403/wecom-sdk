@@ -6,7 +6,7 @@ import cn.felord.AgentDetails;
  * The interface Token api.
  *
  * @author dax
- * @since 2022 /10/7 17:33
+ * @since 2021 /10/7 17:33
  */
 public interface TokenApi {
     /**

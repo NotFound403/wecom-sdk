@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author felord
- * @since 2022/11/23 8:57
+ * @since 2021/11/23 8:57
  */
 @Data
 public class MiniprogramNotice {

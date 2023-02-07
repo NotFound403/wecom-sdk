@@ -638,6 +638,10 @@ public enum WeComEndpoint {
      */
     MESSAGE_SEND("/message/send"),
     /**
+     * 更新模版卡片消息
+     */
+    UPDATE_TEMPLATE_CARD("/message/update_template_card"),
+    /**
      * 撤回应用消息
      */
     MESSAGE_RECALL("/message/recall");

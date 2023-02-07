@@ -7,7 +7,7 @@ import lombok.Getter;
  * The type Miniprogram message body.
  *
  * @author felord
- * @since 2022 /11/22 16:07
+ * @since 2021 /11/22 16:07
  */
 @Getter
 public class MiniprogramMessageBody extends AbstractMessageBody {

@@ -6,7 +6,7 @@ import java.time.Instant;
 
 /**
  * @author felord
- * @since 2022/11/21 15:46
+ * @since 2021/11/21 15:46
  */
 @Getter
 public class ScheduleUpdateBody extends ScheduleRequestBody {

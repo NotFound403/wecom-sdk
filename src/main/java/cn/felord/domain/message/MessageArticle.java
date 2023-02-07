@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @author felord
- * @since 2022/11/22 17:34
+ * @since 2021/11/22 17:34
  */
 @Data
 public abstract class MessageArticle {

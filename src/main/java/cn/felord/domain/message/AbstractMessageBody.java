@@ -8,7 +8,7 @@ import lombok.Getter;
  * The type Message body.
  *
  * @author felord
- * @since 2022 /11/22 16:01
+ * @since 2021 /11/22 16:01
  */
 @Getter
 public abstract class AbstractMessageBody {

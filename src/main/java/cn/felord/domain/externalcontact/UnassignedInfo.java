@@ -5,8 +5,8 @@ import lombok.Data;
 import java.time.Instant;
 
 /**
- * @author xiafang
- * @since 2022/12/29 17:07
+ * @author dax
+ * @since 2021/12/29 17:07
  */
 @Data
 public class UnassignedInfo {

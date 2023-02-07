@@ -16,7 +16,7 @@ import java.util.List;
  * The type Text message template card.
  *
  * @author felord
- * @since 2022 /11/23 11:35
+ * @since 2021 /11/23 11:35
  */
 @Getter
 public class TextMessageTemplateCard extends MessageTemplateCard {

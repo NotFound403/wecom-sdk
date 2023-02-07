@@ -10,7 +10,7 @@ import java.util.Objects;
  * The enum Template card type.
  *
  * @author felord
- * @since 2022 /11/23 9:17
+ * @since 2021 /11/23 9:17
  */
 public enum TemplateCardType {
 

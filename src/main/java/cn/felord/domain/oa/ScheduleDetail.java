@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author felord
- * @since 2022/11/21 17:09
+ * @since 2021/11/21 17:09
  */
 @Data
 public class ScheduleDetail {

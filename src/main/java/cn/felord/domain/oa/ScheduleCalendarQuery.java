@@ -6,7 +6,7 @@ import lombok.Data;
  * The type Calendar query.
  *
  * @author felord
- * @since 2022 /11/22 9:46
+ * @since 2021 /11/22 9:46
  */
 @Data
 public class ScheduleCalendarQuery {

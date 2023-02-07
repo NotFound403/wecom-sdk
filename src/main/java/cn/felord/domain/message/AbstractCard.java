@@ -7,7 +7,7 @@ import lombok.Getter;
 
 /**
  * @author dax
- * @since 2022/11/24
+ * @since 2021/11/24
  */
 @Getter
 public abstract class AbstractCard {

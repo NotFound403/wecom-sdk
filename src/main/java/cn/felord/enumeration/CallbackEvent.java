@@ -28,11 +28,13 @@ public enum CallbackEvent {
      */
     CHANGE_EXTERNAL_TAG("change_external_tag"),
     /**
+     * <a href="https://developer.work.weixin.qq.com/document/path/90240#%E6%A8%A1%E6%9D%BF%E5%8D%A1%E7%89%87%E4%BA%8B%E4%BB%B6%E6%8E%A8%E9%80%81">模板卡片事件</a>
+     */
+    TEMPLATE_CARD_EVENT("template_card_event"),
+    /**
      * 客服消息事件
      */
-    KF_MSG("kf_msg_or_event"),
-
-    ;
+    KF_MSG("kf_msg_or_event");
 
     private final String type;
 

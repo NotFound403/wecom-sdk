@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * @author felord
- * @since 2022/11/22 17:14
+ * @since 2021/11/22 17:14
  */
 @Getter
 public class MessageTextCard {
