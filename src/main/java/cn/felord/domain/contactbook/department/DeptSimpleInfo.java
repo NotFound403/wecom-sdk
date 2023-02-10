@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Data
 public class DeptSimpleInfo {
-    private Integer id;
-    private Integer parentid;
+    private Long id;
+    private Long parentid;
     private Long order;
 }
