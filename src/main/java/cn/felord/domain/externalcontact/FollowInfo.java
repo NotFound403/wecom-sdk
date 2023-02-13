@@ -21,5 +21,6 @@ public class FollowInfo  {
     private List<String> remarkMobiles;
     private WechatChannels wechatChannels;
     private String operUserid;
+    private String state;
     private AddWays addWay;
 }
