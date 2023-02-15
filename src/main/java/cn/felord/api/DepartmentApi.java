@@ -82,7 +82,7 @@ public class DepartmentApi {
      * @return DeptResponse generic response
      * @see WeComEndpoint#DEPT_LIST WeComEndpoint#DEPT_LIST
      */
-    public GenericResponse<List<DeptInfo>> deptList(Long departmentId) {
+    public GenericResponse<List<DeptInfo>> deptList(long departmentId) {
         String endpoint = WeComEndpoint.DEPT_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("id", departmentId)
@@ -117,7 +117,7 @@ public class DepartmentApi {
      * @param departmentId the department id
      * @return the generic response
      */
-    public GenericResponse<List<DeptSimpleInfo>> getSimpleList(Long departmentId) {
+    public GenericResponse<List<DeptSimpleInfo>> getSimpleList(long departmentId) {
         String endpoint = WeComEndpoint.DEPT_SIMPLE_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("id", departmentId)
