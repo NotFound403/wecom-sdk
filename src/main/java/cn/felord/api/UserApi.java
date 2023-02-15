@@ -71,7 +71,6 @@ public class UserApi {
      * @param userId the user id
      * @return UserInfoResponse user
      */
-    @Deprecated
     public UserInfoResponse getUser(String userId) {
         String endpoint = WeComEndpoint.USER_GET.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
@@ -157,7 +156,6 @@ public class UserApi {
      * @param departmentId departmentId
      * @return SimpleUserResponse dept users
      */
-    @Deprecated
     public GenericResponse<List<SimpleUser>> getDeptUsers(String departmentId) {
         String endpoint = WeComEndpoint.USER_DEPT_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
@@ -176,8 +174,7 @@ public class UserApi {
      * @param departmentId departmentId
      * @return UserDetailResponse dept user details
      */
-    @Deprecated
-    public GenericResponse<List<UserDetail>> getDeptUserDetails(String departmentId) {
+    public GenericResponse<List<UserDetail>> getDeptUserDetails(long departmentId) {
         String endpoint = WeComEndpoint.USER_DEPT_LIST_DETAIL.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("department_id", departmentId)
