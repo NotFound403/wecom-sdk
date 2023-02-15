@@ -76,13 +76,12 @@ public class DepartmentApi {
     }
 
     /**
-     * 获取部门列表
+     * 获取部门列表（自建）
      *
      * @param departmentId departmentId
      * @return DeptResponse generic response
-     * @see WeComEndpoint#DEPT_LIST
+     * @see WeComEndpoint#DEPT_LIST WeComEndpoint#DEPT_LIST
      */
-    @Deprecated
     public GenericResponse<List<DeptInfo>> deptList(Long departmentId) {
         String endpoint = WeComEndpoint.DEPT_LIST.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
@@ -94,7 +93,17 @@ public class DepartmentApi {
     }
 
     /**
-     * Gets simple list.
+     * 获取全部部门列表（自建）
+     *
+     * @return DeptResponse generic response
+     * @see WeComEndpoint#DEPT_LIST WeComEndpoint#DEPT_LIST
+     */
+    public GenericResponse<List<DeptInfo>> deptList() {
+        return this.deptList(null);
+    }
+
+    /**
+     * 获取全部子部门ID列表
      *
      * @return the simple list
      */
@@ -103,7 +112,7 @@ public class DepartmentApi {
     }
 
     /**
-     * Get generic response.
+     * 获取子部门ID列表
      *
      * @param departmentId the department id
      * @return the generic response
@@ -118,4 +127,19 @@ public class DepartmentApi {
         });
     }
 
+    /**
+     * 获取单部门详情（自建）
+     *
+     * @param departmentId the department id
+     * @return the generic response
+     */
+    public GenericResponse<DeptInfo> get(long departmentId) {
+        String endpoint = WeComEndpoint.DEPT_GET.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .queryParam("id", departmentId)
+                .build()
+                .toUri();
+        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<DeptInfo>>() {
+        });
+    }
 }

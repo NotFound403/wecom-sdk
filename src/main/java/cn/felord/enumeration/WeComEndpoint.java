@@ -113,6 +113,10 @@ public enum WeComEndpoint {
      */
     DEPT_SIMPLE_LIST("/department/simplelist"),
     /**
+     * 获取单个部门详情
+     */
+    DEPT_GET("/department/get"),
+    /**
      * 创建标签
      */
     TAG_CREATE("/tag/create"),
