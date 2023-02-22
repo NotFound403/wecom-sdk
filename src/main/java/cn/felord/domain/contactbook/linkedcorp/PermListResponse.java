@@ -14,5 +14,5 @@ import java.util.List;
 @Data
 public class PermListResponse extends WeComResponse {
     private List<String> userids;
-    private List<String> departmentIds;
+    private List<Long> departmentIds;
 }

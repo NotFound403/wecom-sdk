@@ -70,7 +70,7 @@ public class CallbackEventBody {
     @XStreamAlias("Department")
     private String department;
     @XStreamAlias("MainDepartment")
-    private Integer mainDepartment;
+    private Long mainDepartment;
     @XStreamAlias("IsLeaderInDept")
     private String isLeaderInDept;
     @XStreamAlias("Position")

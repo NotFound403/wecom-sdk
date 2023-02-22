@@ -12,6 +12,6 @@ import java.util.List;
 public class SimpleUser {
     private String userid;
     private String name;
-    private List<Integer> department;
+    private List<Long> department;
     private String openUserid;
 }

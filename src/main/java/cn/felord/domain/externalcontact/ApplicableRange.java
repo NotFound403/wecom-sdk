@@ -11,5 +11,5 @@ import java.util.List;
 @Data
 public class ApplicableRange {
     private List<String> userList;
-    private List<Integer> departmentList;
+    private List<Long> departmentList;
 }
