@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 public abstract class AbstractUpdateTemplateCardRequest {
     private Set<String> userids;
-    private Set<Integer> partyids;
+    private Set<Long> partyids;
     private final String agentid;
     private final String responseCode;
 

@@ -14,13 +14,13 @@ public class UserDetail {
     private String userid;
     private String name;
     private String mobile;
-    private List<Integer> department;
+    private List<Long> department;
     private List<Integer> order;
     private String position;
     private String gender;
     private String email;
     private String bizMail;
-    private List<Integer> isLeaderInDept;
+    private List<Long> isLeaderInDept;
     private List<String> directLeader;
     private String avatar;
     private String thumbAvatar;
@@ -33,7 +33,7 @@ public class UserDetail {
     private String externalPosition;
     private String address;
     private String openUserid;
-    private Integer mainDepartment;
+    private Long mainDepartment;
     private Integer hideMobile;
     private String englishName;
 

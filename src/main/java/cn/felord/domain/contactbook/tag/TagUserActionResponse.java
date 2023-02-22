@@ -14,6 +14,6 @@ import java.util.List;
 @Data
 public class TagUserActionResponse extends WeComResponse {
      private String invalidlist;
-     private List<Integer> invalidparty;
+     private List<Long> invalidparty;
 
 }

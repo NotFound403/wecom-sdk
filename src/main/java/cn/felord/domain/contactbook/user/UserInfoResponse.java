@@ -15,13 +15,13 @@ public class UserInfoResponse extends WeComResponse {
 	private String userid;
 	private String name;
 	private String mobile;
-	private List<Integer> department;
+	private List<Long> department;
 	private List<Integer> order;
 	private String position;
 	private String gender;
 	private String email;
 	private String bizEmail;
-	private List<Integer> isLeaderInDept;
+	private List<Long> isLeaderInDept;
 	private List<String> directLeader;
 	private String avatar;
 	private String thumbAvatar;
@@ -34,5 +34,5 @@ public class UserInfoResponse extends WeComResponse {
 	private String externalPosition;
 	private String address;
 	private String openUserid;
-	private Integer mainDepartment;
+	private Long mainDepartment;
 }

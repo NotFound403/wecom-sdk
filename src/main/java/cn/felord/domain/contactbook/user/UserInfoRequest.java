@@ -17,14 +17,14 @@ public class UserInfoRequest {
 	private String name;
 	private String alias;
 	private String mobile;
-	private List<Integer> department;
+	private List<Long> department;
 	private List<Integer> order;
 	private String position;
 	private Integer gender;
 	private String email;
 	private String bizMail;
 	private String telephone;
-	private List<Integer> isLeaderInDept;
+	private List<Long> isLeaderInDept;
 	private List<String> directLeader;
 	private String avatarMediaid;
 	private Integer enable;
@@ -34,5 +34,5 @@ public class UserInfoRequest {
 	private String externalPosition;
 	private String nickname;
 	private String address;
-	private Integer mainDepartment;
+	private Long mainDepartment;
 }

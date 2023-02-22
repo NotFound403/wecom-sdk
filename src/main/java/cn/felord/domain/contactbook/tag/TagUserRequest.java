@@ -12,5 +12,5 @@ import java.util.List;
 public class TagUserRequest {
     private Integer tagId;
     private List<String> userlist;
-    private List<Integer> partylist;
+    private List<Long> partylist;
 }
