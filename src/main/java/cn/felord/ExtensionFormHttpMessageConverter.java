@@ -18,8 +18,18 @@
  */
 package cn.felord;
 
-import org.springframework.http.*;
-import org.springframework.http.converter.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.MediaType;
+import org.springframework.http.StreamingHttpOutputMessage;
+import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.http.converter.ResourceHttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.http.converter.json.JsonbHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -30,11 +40,14 @@ import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -128,7 +141,7 @@ public final class ExtensionFormHttpMessageConverter extends FormHttpMessageConv
         } else if (JSONB_PRESENT) {
             this.partConverters.add(new JsonbHttpMessageConverter());
         }
-        
+
         if (JACKSON_2_SMILE_PRESENT) {
             this.partConverters.add(new MappingJackson2SmileHttpMessageConverter());
         }
@@ -203,7 +216,7 @@ public final class ExtensionFormHttpMessageConverter extends FormHttpMessageConv
         // should never occur
         Assert.notNull(charset, "No charset");
 
-        final byte[] bytes = serializeForm(formData, charset).getBytes(charset);
+        final byte[] bytes = _serializeForm(formData, charset).getBytes(charset);
         outputMessage.getHeaders().setContentLength(bytes.length);
 
         if (outputMessage instanceof StreamingHttpOutputMessage) {
@@ -212,6 +225,39 @@ public final class ExtensionFormHttpMessageConverter extends FormHttpMessageConv
         } else {
             StreamUtils.copy(bytes, outputMessage.getBody());
         }
+    }
+
+    /**
+     * 兼容spring boot 低版本
+     *
+     * @param formData
+     * @param charset
+     * @return
+     */
+    private String _serializeForm(MultiValueMap<String, Object> formData, Charset charset) {
+        StringBuilder builder = new StringBuilder();
+        formData.forEach((name, values) -> {
+            if (name == null) {
+                Assert.isTrue(CollectionUtils.isEmpty(values), () -> "Null name in form data: " + formData);
+                return;
+            }
+            values.forEach(value -> {
+                try {
+                    if (builder.length() != 0) {
+                        builder.append('&');
+                    }
+                    builder.append(URLEncoder.encode(name, charset.name()));
+                    if (value != null) {
+                        builder.append('=');
+                        builder.append(URLEncoder.encode(String.valueOf(value), charset.name()));
+                    }
+                } catch (UnsupportedEncodingException ex) {
+                    throw new IllegalStateException(ex);
+                }
+            });
+        });
+
+        return builder.toString();
     }
 
     /**

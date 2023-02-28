@@ -55,7 +55,7 @@ public class StatisticApi {
      * @param request the request
      * @return the group chat data
      */
-    public GroupChatDataResponse<GroupChatDataByOwner> getGroupChatDataByOwner(GroupChatOwnerDataRequest request) {
+    public GroupChatDataResponse<GroupChatDataByOwner> getGroupChatData(GroupChatOwnerDataRequest request) {
         String endpoint = WeComEndpoint.STATISTIC_GROUP_CHAT_BY_OWNER.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
@@ -70,7 +70,7 @@ public class StatisticApi {
      * @param request the request
      * @return the group chat data by day
      */
-    public GroupChatDataResponse<GroupChatDataByDay> getGroupChatDataByDay(GroupChatDayDataRequest request) {
+    public GroupChatDataResponse<GroupChatDataByDay> getGroupChatData(GroupChatDayDataRequest request) {
         String endpoint = WeComEndpoint.STATISTIC_GROUP_CHAT_BY_DAY.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()

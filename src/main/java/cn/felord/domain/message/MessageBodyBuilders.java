@@ -3,6 +3,8 @@ package cn.felord.domain.message;
 import cn.felord.domain.externalcontact.ContentText;
 import cn.felord.domain.externalcontact.MediaId;
 
+import java.util.List;
+
 /**
  * The type Message body builder.
  *
@@ -83,8 +85,19 @@ public final class MessageBodyBuilders {
      * @param news the news
      * @return the news message body . builder
      */
+    @Deprecated
     public static NewsMessageBody.Builder newsMessageBodyBuilder(MessageNews<NewsArticle> news) {
         return new NewsMessageBody.Builder(news);
+    }
+
+    /**
+     * 图文消息
+     *
+     * @param news the news
+     * @return the news message body . builder
+     */
+    public static NewsMessageBody.Builder newsMessageBodyBuilder(List<NewsArticle> news) {
+        return new NewsMessageBody.Builder(new MessageNews<>(news));
     }
 
     /**
@@ -93,8 +106,19 @@ public final class MessageBodyBuilders {
      * @param mpnews the mpnews
      * @return the mp news message body . builder
      */
+    @Deprecated
     public static MpNewsMessageBody.Builder mpNewsMessageBodyBuilder(MessageNews<MpNewsArticle> mpnews) {
         return new MpNewsMessageBody.Builder(mpnews);
+    }
+
+    /**
+     * 图文消息（mpnews）
+     *
+     * @param mpnews the mpnews
+     * @return the mp news message body . builder
+     */
+    public static MpNewsMessageBody.Builder mpNewsMessageBodyBuilder(List<MpNewsArticle> mpnews) {
+        return new MpNewsMessageBody.Builder(new MessageNews<>(mpnews));
     }
 
     /**
