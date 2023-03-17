@@ -668,7 +668,11 @@ public enum WeComEndpoint {
     /**
      * 读取收集表答案
      */
-    WEDOC_FORM_ANSWER("/wedoc/get_form_answer");
+    WEDOC_FORM_ANSWER("/wedoc/get_form_answer"),
+    /**
+     * 微盘-管理文件-下载文件
+     */
+    WEDRIVE_FILE_DOWNLOAD("/wedrive/file_download");
 
     private final String pattern;
 

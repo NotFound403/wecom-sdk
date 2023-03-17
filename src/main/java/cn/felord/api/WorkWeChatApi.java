@@ -151,4 +151,14 @@ public final class WorkWeChatApi {
     public WedocApi wedocApi(AgentDetails agentDetails) {
         return new WedocApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
     }
+
+    /**
+     * 微盘API
+     *
+     * @param agentDetails the agent details
+     * @return the we drive api
+     */
+    public WeDriveApi weDriveApi(AgentDetails agentDetails) {
+        return new WeDriveApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+    }
 }

@@ -1,7 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
-import cn.felord.domain.office.form.*;
+import cn.felord.domain.wedoc.form.*;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
