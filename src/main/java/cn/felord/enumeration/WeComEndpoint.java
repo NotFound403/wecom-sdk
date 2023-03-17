@@ -648,7 +648,28 @@ public enum WeComEndpoint {
     /**
      * 撤回应用消息
      */
-    MESSAGE_RECALL("/message/recall");
+    MESSAGE_RECALL("/message/recall"),
+    /**
+     * 创建收集表
+     */
+    WEDOC_CREATE_FORM("/wedoc/create_form"),
+    /**
+     * 编辑收集表
+     */
+    WEDOC_MODIFY_FORM("/wedoc/modify_form"),
+    /**
+     * 获取收集表信息
+     */
+    WEDOC_GET_FORM("/wedoc/get_form_info"),
+    /**
+     * 收集表的统计信息查询
+     */
+    WEDOC_FORM_STATISTIC("/wedoc/get_form_statistic"),
+    /**
+     * 读取收集表答案
+     */
+    WEDOC_FORM_ANSWER("/wedoc/get_form_answer");
+
     private final String pattern;
 
     WeComEndpoint(String pattern) {

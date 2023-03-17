@@ -16,6 +16,7 @@ import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -70,8 +71,11 @@ public class EventEnumConverter<T extends Enum<T>> extends AbstractSingleValueCo
 
     @Override
     public String toString(Object obj) {
-        Enum value = Enum.class.cast(obj);
-        return value.name().toLowerCase();
+        if (Objects.isNull(obj)) {
+            return null;
+        }
+        Enum<?> eventEnum = (Enum<?>) obj;
+        return eventEnum.name().toLowerCase();
     }
 
     @Override

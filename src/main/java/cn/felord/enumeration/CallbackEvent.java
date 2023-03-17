@@ -34,7 +34,11 @@ public enum CallbackEvent {
     /**
      * 客服消息事件
      */
-    KF_MSG("kf_msg_or_event");
+    KF_MSG("kf_msg_or_event"),
+    /**
+     * 文档变更事件
+     */
+    DOC_CHANGE("doc_change");
 
     private final String type;
 

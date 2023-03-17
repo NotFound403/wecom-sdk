@@ -2,6 +2,7 @@ package cn.felord.domain.callback;
 
 import cn.felord.enumeration.CallbackEvent;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Data;
 
 import java.time.Instant;
@@ -158,4 +159,8 @@ public class CallbackEventBody {
     private String responseCode;
     @XStreamAlias("SelectedItems")
     private CallbackSelectedItems selectedItems;
+    @XStreamImplicit(itemFieldName = "DocId")
+    private List<String> docIds;
+    @XStreamImplicit(itemFieldName = "FormId")
+    private List<String> formIds;
 }
