@@ -44,6 +44,10 @@ public enum NativeAgent {
      */
     CORP_LIVE("3010097", "直播"),
     /**
+     * 对外收款
+     */
+    CORP_COLLECT_BILL("3010115", "对外收款"),
+    /**
      * 上下游
      */
     CORP_CHAIN("3010168", "上下游");

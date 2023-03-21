@@ -61,7 +61,8 @@ public class FileManagerApi {
         String cookie = downloadResponse.getCookieName()
                 .concat("=")
                 .concat(downloadResponse.getCookieValue());
-        RequestEntity<Void> request = RequestEntity.get(downloadUrl)
+        URI downloadUri = UriComponentsBuilder.fromHttpUrl(downloadUrl).build().toUri();
+        RequestEntity<Void> request = RequestEntity.get(downloadUri)
                 .header(HttpHeaders.COOKIE, cookie)
                 .build();
         ResponseEntity<Resource> fileResponse = this.restTemplate.exchange(request, Resource.class);
