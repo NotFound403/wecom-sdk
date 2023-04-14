@@ -19,4 +19,14 @@ public class XStreamXmlReader implements XmlReader {
         xStream.processAnnotations(clazz);
         return (T) xStream.fromXML(xml);
     }
+
+    @Override
+    public <T> String write(T t) {
+        XStream xStream = new XStream(new DomDriver());
+        xStream.registerConverter(new InstantConverter());
+        xStream.addPermission(AnyTypePermission.ANY);
+        xStream.ignoreUnknownElements();
+        xStream.processAnnotations(t.getClass());
+        return xStream.toXML(t);
+    }
 }

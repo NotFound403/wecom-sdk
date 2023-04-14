@@ -42,9 +42,9 @@ public class CallbackCrypto {
     /**
      * 构造函数
      *
-     * @param xmlReader                     the xml reader
+     * @param xmlReader               the xml reader
      * @param callbackSettingsService the callback authentication service
-     * @param callbackAsyncConsumer         the callback consumer
+     * @param callbackAsyncConsumer   the callback consumer
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
     CallbackCrypto(XmlReader xmlReader, CallbackSettingsService callbackSettingsService, CallbackAsyncConsumer callbackAsyncConsumer) {
@@ -238,20 +238,26 @@ public class CallbackCrypto {
      * @return the string
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public String accept(String msgSignature, String timeStamp, String nonce, String xmlBody) throws WeComCallbackException {
+    public String accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody) throws WeComCallbackException {
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
-        String agentId = callbackXmlBody.getAgentId();
-        String corpId = callbackXmlBody.getToUserName();
-        String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
-        CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
-        eventBody.setAgentId(agentId);
-        this.callbackAsyncConsumer.asyncAction(eventBody);
+        String callbackAgentId = callbackXmlBody.getAgentId();
+        String callbackCorpId = callbackXmlBody.getToUserName();
+        if (Objects.equals(agentId, callbackAgentId) && Objects.equals(corpId, callbackCorpId)) {
+            String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
+            CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
+            eventBody.setAgentId(agentId);
+            this.callbackAsyncConsumer.asyncAction(eventBody);
+        } else {
+            if (log.isDebugEnabled()) {
+                log.debug("Callback Agent is not matched");
+            }
+        }
         return "success";
     }
 
     /**
-     *  解密验签，用于解密XML BODY以及校验回调URL真实性
+     * 解密验签，用于解密XML BODY以及校验回调URL真实性
      *
      * @param msgSignature the msg signature
      * @param timeStamp    the time stamp
@@ -264,8 +270,8 @@ public class CallbackCrypto {
         CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
         String token = callbackSettings.getToken();
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
-        if (!Objects.equals(msgSignature,signature)) {
-            log.info("signature not matched: before: {},after : {}",msgSignature,signature);
+        if (!Objects.equals(msgSignature, signature)) {
+            log.info("signature not matched: before: {},after : {}", msgSignature, signature);
             throw new WeComCallbackException(WeComCallbackException.ValidateSignatureError);
         }
         byte[] aesKey = callbackSettings.getAesKey();

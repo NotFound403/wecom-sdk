@@ -17,4 +17,13 @@ public interface XmlReader {
      * @return the t
      */
     <T> T read(String xml, Class<T> clazz);
+
+    /**
+     * Write string.
+     *
+     * @param <T> the type parameter
+     * @param t   the t
+     * @return the string
+     */
+    <T> String write(T t);
 }

@@ -17,6 +17,12 @@ class InstantConverter extends AbstractSingleValueConverter {
     }
 
     @Override
+    public String toString(Object obj) {
+        Instant instant = (Instant) obj;
+        return String.valueOf(instant.toEpochMilli());
+    }
+
+    @Override
     public Instant fromString(final String str) {
         try {
             return Instant.ofEpochSecond(Long.parseLong(str));
