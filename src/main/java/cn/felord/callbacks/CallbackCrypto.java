@@ -11,6 +11,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
@@ -209,7 +210,7 @@ public class CallbackCrypto {
      * @return 加密后的可以直接回复用户的密文 ，包括msg_signature, timestamp, nonce, encrypt的json格式的字符串
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public String encryptMsg(String agentId, String corpId, String replyMsg, String timeStamp, String nonce) throws WeComCallbackException {
+    public String encryptJsonMsg(String agentId, String corpId, String replyMsg, String timeStamp, String nonce) throws WeComCallbackException {
         CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
         // 加密
         String receiveid = callbackSettings.getReceiveid();
@@ -224,6 +225,32 @@ public class CallbackCrypto {
     }
 
     /**
+     * Encrypt xml msg string.
+     *
+     * @param agentId   the agent id
+     * @param corpId    the corp id
+     * @param replyMsg  the reply msg
+     * @param timeStamp the time stamp
+     * @param nonce     the nonce
+     * @return the string
+     * @throws WeComCallbackException the we com callback exception
+     */
+    public String encryptXmlMsg(String agentId, String corpId, String replyMsg, String timeStamp, String nonce) throws WeComCallbackException {
+        CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
+        // 加密
+        String receiveid = callbackSettings.getReceiveid();
+        String encrypt = this.encrypt(receiveid, callbackSettings.getAesKey(), getRandomStr(), replyMsg);
+        // 生成安全签名
+        if (!StringUtils.hasText(timeStamp)) {
+            timeStamp = Long.toString(Instant.now().toEpochMilli());
+        }
+        String token = callbackSettings.getToken();
+        String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
+        CallbackXmlResponse callbackXmlResponse = new CallbackXmlResponse(encrypt, signature, timeStamp, nonce);
+        return xmlReader.write(callbackXmlResponse);
+    }
+
+    /**
      * 检验XML消息的真实性，并且获取解密后的明文，用于消费回调数据，并自动响应POST回调请求.
      * <ol>
      * 	<li>利用收到的密文生成安全签名，进行签名验证</li>
@@ -231,14 +258,18 @@ public class CallbackCrypto {
      * 	<li>对消息进行解密</li>
      * </ol>
      *
+     * @param <T>          the type parameter
+     * @param agentId      the agent id
+     * @param corpId       the corp id
      * @param msgSignature the msg signature
      * @param timeStamp    the time stamp
      * @param nonce        the nonce
      * @param xmlBody      the xml body
+     * @param response     the response
      * @return the string
      * @throws WeComCallbackException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public String accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody) throws WeComCallbackException {
+    public <T> T doAccept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, T response) throws WeComCallbackException {
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
         String callbackAgentId = callbackXmlBody.getAgentId();
@@ -253,12 +284,47 @@ public class CallbackCrypto {
                 log.debug("Callback Agent is not matched");
             }
         }
-        return "success";
+        return response;
+    }
+
+    /**
+     * Accept string.
+     *
+     * @param agentId      the agent id
+     * @param corpId       the corp id
+     * @param msgSignature the msg signature
+     * @param timeStamp    the time stamp
+     * @param nonce        the nonce
+     * @param xmlBody      the xml body
+     * @param response     the response
+     * @return the string
+     * @throws WeComCallbackException the we com callback exception
+     */
+    public String accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, String response) throws WeComCallbackException {
+        return this.doAccept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, response);
+    }
+
+    /**
+     * Accept string.
+     *
+     * @param agentId      the agent id
+     * @param corpId       the corp id
+     * @param msgSignature the msg signature
+     * @param timeStamp    the time stamp
+     * @param nonce        the nonce
+     * @param xmlBody      the xml body
+     * @return the string
+     * @throws WeComCallbackException the we com callback exception
+     */
+    public String accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody) throws WeComCallbackException {
+        return this.doAccept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, "success");
     }
 
     /**
      * 解密验签，用于解密XML BODY以及校验回调URL真实性
      *
+     * @param agentId      the agent id
+     * @param corpId       the corp id
      * @param msgSignature the msg signature
      * @param timeStamp    the time stamp
      * @param nonce        the nonce
