@@ -12,8 +12,8 @@ import java.time.Instant;
 public class ScheduleUpdateBody extends ScheduleRequestBody {
     private final String scheduleId;
 
-    public ScheduleUpdateBody(String scheduleId, String organizer, Instant startTime, Instant endTime) {
-        super(organizer, startTime, endTime);
+    public ScheduleUpdateBody(String scheduleId, Instant startTime, Instant endTime) {
+        super(startTime, endTime);
         this.scheduleId = scheduleId;
     }
 }
