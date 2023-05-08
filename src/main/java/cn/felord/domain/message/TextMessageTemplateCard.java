@@ -34,8 +34,8 @@ public class TextMessageTemplateCard extends MessageTemplateCard {
     }
 
     public static class Builder {
-        private final String taskId;
         private final CardAction cardAction;
+        private String taskId;
         private MainTitle mainTitle;
         private CardSource source;
         private ActionMenu actionMenu;
@@ -46,8 +46,7 @@ public class TextMessageTemplateCard extends MessageTemplateCard {
         private EmphasisContent emphasisContent;
         private String subTitleText;
 
-        protected Builder(String taskId, CardAction cardAction) {
-            this.taskId = taskId;
+        protected Builder(CardAction cardAction) {
             this.cardAction = cardAction;
         }
 
@@ -61,7 +60,8 @@ public class TextMessageTemplateCard extends MessageTemplateCard {
             return this;
         }
 
-        public Builder actionMenu(ActionMenu actionMenu) {
+        public Builder actionMenu(String taskId, ActionMenu actionMenu) {
+            this.taskId = taskId;
             this.actionMenu = actionMenu;
             return this;
         }

@@ -1,7 +1,7 @@
 package cn.felord.callbacks;
 
-import cn.felord.domain.callback.CallbackSettings;
 import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.domain.callback.CallbackSettings;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
@@ -34,6 +34,7 @@ import java.util.Random;
 @Slf4j
 public class CallbackCrypto {
     private static final String BOM = "\ufeff";
+    private static final String BASE_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
     private final XmlReader xmlReader;
     private final CallbackAsyncConsumer callbackAsyncConsumer;
@@ -93,12 +94,11 @@ public class CallbackCrypto {
      */
 // 随机生成16位字符串
     String getRandomStr() {
-        String base = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 16; i++) {
-            int number = random.nextInt(base.length());
-            sb.append(base.charAt(number));
+            int number = random.nextInt(BASE_.length());
+            sb.append(BASE_.charAt(number));
         }
         return sb.toString();
     }

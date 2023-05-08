@@ -15,9 +15,9 @@ import java.util.List;
  * The type Message template card.
  *
  * @author felord
+ * @see TemplateCardBuilders
  * @since 2021 /11/23 9:16
  */
-
 @Getter
 public abstract class MessageTemplateCard extends AbstractCard {
 
@@ -30,7 +30,7 @@ public abstract class MessageTemplateCard extends AbstractCard {
     public MessageTemplateCard(TemplateCardType cardType, String taskId, MainTitle mainTitle,
                                CardSource source, ActionMenu actionMenu, QuoteArea quoteArea,
                                List<? extends HorizontalContent> horizontalContentList, List<? extends Jump> jumpList, CardAction cardAction) {
-        super(cardType, taskId, mainTitle,source);
+        super(cardType, taskId, mainTitle, source);
         this.actionMenu = actionMenu;
         this.quoteArea = quoteArea;
         this.horizontalContentList = horizontalContentList;

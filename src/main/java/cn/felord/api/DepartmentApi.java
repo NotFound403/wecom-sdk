@@ -80,7 +80,7 @@ public class DepartmentApi {
      *
      * @param departmentId departmentId
      * @return DeptResponse generic response
-     * @see WeComEndpoint#DEPT_LIST WeComEndpoint#DEPT_LIST
+     * @see WeComEndpoint#DEPT_LIST
      */
     public GenericResponse<List<DeptInfo>> deptList(Long departmentId) {
         String endpoint = WeComEndpoint.DEPT_LIST.endpoint();
@@ -96,7 +96,7 @@ public class DepartmentApi {
      * 获取全部部门列表（自建）
      *
      * @return DeptResponse generic response
-     * @see WeComEndpoint#DEPT_LIST WeComEndpoint#DEPT_LIST
+     * @see WeComEndpoint#DEPT_LIST
      */
     public GenericResponse<List<DeptInfo>> deptList() {
         return this.deptList(null);

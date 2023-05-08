@@ -19,24 +19,22 @@ public final class TemplateCardBuilders {
     /**
      * 文本通知型
      *
-     * @param taskId     the task id
      * @param cardAction the card action
      * @return the text message template card . builder
      */
-    public static TextMessageTemplateCard.Builder textMessageTemplateCardBuilder(String taskId, CardAction cardAction) {
-        return new TextMessageTemplateCard.Builder(taskId, cardAction);
+    public static TextMessageTemplateCard.Builder textMessageTemplateCardBuilder(CardAction cardAction) {
+        return new TextMessageTemplateCard.Builder(cardAction);
     }
 
     /**
      * 图文展示型
      *
-     * @param taskId     the task id
      * @param mainTitle  the main title
      * @param cardAction the card action
      * @return the news message template card . builder
      */
-    public static NewsMessageTemplateCard.Builder newsMessageTemplateCardBuilder(String taskId, MainTitle mainTitle, CardAction cardAction) {
-        return new NewsMessageTemplateCard.Builder(taskId, mainTitle, cardAction);
+    public static NewsMessageTemplateCard.Builder newsMessageTemplateCardBuilder(MainTitle mainTitle, CardAction cardAction) {
+        return new NewsMessageTemplateCard.Builder(mainTitle, cardAction);
     }
 
     /**

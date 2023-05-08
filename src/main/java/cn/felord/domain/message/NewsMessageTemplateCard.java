@@ -27,9 +27,9 @@ public class NewsMessageTemplateCard extends MessageTemplateCard {
     }
 
     public static class Builder {
-        private final String taskId;
         private final CardAction cardAction;
         private final MainTitle mainTitle;
+        private String taskId;
         private CardSource source;
         private ActionMenu actionMenu;
         private QuoteArea quoteArea;
@@ -39,8 +39,7 @@ public class NewsMessageTemplateCard extends MessageTemplateCard {
         private CardImage cardImage;
         private List<EmphasisContent> verticalContentList;
 
-        protected Builder(String taskId, MainTitle mainTitle, CardAction cardAction) {
-            this.taskId = taskId;
+        protected Builder(MainTitle mainTitle, CardAction cardAction) {
             this.mainTitle = mainTitle;
             this.cardAction = cardAction;
         }
@@ -50,7 +49,8 @@ public class NewsMessageTemplateCard extends MessageTemplateCard {
             return this;
         }
 
-        public Builder actionMenu(ActionMenu actionMenu) {
+        public Builder actionMenu(String taskId, ActionMenu actionMenu) {
+            this.taskId = taskId;
             this.actionMenu = actionMenu;
             return this;
         }
