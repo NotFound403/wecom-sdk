@@ -31,7 +31,7 @@
     </developers>
 
     <scm>
-        <tag>wecom-sdk-1.0.0</tag>
+        <tag>wecom-sdk</tag>
         <url>https://github.com/NotFound403/wecom-sdk</url>
         <connection>scm:git:https://github.com/NotFound403/wecom-sdk.git</connection>
         <developerConnection>scm:git:https://github.com/NotFound403/wecom-sdk.git</developerConnection>
@@ -105,7 +105,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
+            <!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>

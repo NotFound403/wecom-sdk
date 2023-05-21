@@ -1,5 +1,6 @@
 package cn.felord.domain.externalcontact;
 
+import cn.felord.enumeration.WechatChannelSource;
 import lombok.Data;
 
 /**
@@ -9,5 +10,5 @@ import lombok.Data;
 @Data
 public class WechatChannels {
  private String nickname;
- private Integer source;
+ private WechatChannelSource source;
 }

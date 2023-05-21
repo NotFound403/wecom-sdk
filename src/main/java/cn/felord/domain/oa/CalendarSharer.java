@@ -1,6 +1,6 @@
 package cn.felord.domain.oa;
 
-import cn.felord.enumeration.BoolEnum;
+import cn.felord.enumeration.SharePermission;
 import lombok.Data;
 
 /**
@@ -10,14 +10,14 @@ import lombok.Data;
 @Data
 public class CalendarSharer {
     private final String userid;
-    private final BoolEnum readonly;
+    private final SharePermission permission;
 
     public CalendarSharer(String userid) {
-        this(userid, BoolEnum.TRUE);
+        this(userid, SharePermission.READ_ALL);
     }
 
-    public CalendarSharer(String userid, BoolEnum readonly) {
+    public CalendarSharer(String userid, SharePermission permission) {
         this.userid = userid;
-        this.readonly = readonly;
+        this.permission = permission;
     }
 }

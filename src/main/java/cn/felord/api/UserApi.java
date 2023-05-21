@@ -64,9 +64,8 @@ public class UserApi {
     }
 
     /**
-     * 读取成员
+     * 读取成员（自建）
      * <p>
-     * 在通讯录同步助手中此接口可以读取企业通讯录的所有成员的信息，而自建应用可以读取该应用设置的可见范围内的成员信息。
      *
      * @param userId the user id
      * @return UserInfoResponse user
@@ -167,7 +166,7 @@ public class UserApi {
     }
 
     /**
-     * 获取部门成员详情
+     * 获取部门成员详情（自建）
      * <p>
      * 应用须拥有指定部门的查看权限。
      *
