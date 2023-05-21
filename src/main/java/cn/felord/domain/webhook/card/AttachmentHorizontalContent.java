@@ -19,8 +19,7 @@ public class AttachmentHorizontalContent extends HorizontalContent {
      * @param mediaId the media id
      */
     public AttachmentHorizontalContent(String keyname, String mediaId) {
-        super(HorizontalContentType.ATTACHMENT, keyname);
-        this.mediaId = mediaId;
+        this(keyname, mediaId, null);
     }
 
     /**
@@ -31,8 +30,7 @@ public class AttachmentHorizontalContent extends HorizontalContent {
      * @param value   the value
      */
     public AttachmentHorizontalContent(String keyname, String mediaId, String value) {
-        super(HorizontalContentType.ATTACHMENT, keyname);
+        super(HorizontalContentType.ATTACHMENT, keyname, value);
         this.mediaId = mediaId;
-        setValue(value);
     }
 }

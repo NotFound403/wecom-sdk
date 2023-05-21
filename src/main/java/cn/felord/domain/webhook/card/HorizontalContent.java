@@ -13,14 +13,11 @@ import lombok.Getter;
 public abstract class HorizontalContent {
     private final HorizontalContentType type;
     private final String keyname;
-    private String value;
+    private final String value;
 
-    protected HorizontalContent(HorizontalContentType type, String keyname) {
+    public HorizontalContent(HorizontalContentType type, String keyname, String value) {
         this.type = type;
         this.keyname = keyname;
-    }
-
-    void setValue(String value) {
         this.value = value;
     }
 }

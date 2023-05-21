@@ -11,6 +11,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Objects;
@@ -36,6 +37,7 @@ public class CallbackCrypto {
     private static final String BOM = "\ufeff";
     private static final String BASE_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
+    private static final Random RANDOM = new SecureRandom();
     private final XmlReader xmlReader;
     private final CallbackAsyncConsumer callbackAsyncConsumer;
     private final CallbackSettingsService callbackSettingsService;
@@ -56,12 +58,11 @@ public class CallbackCrypto {
     }
 
     /**
-     * Get network bytes order byte [ ].
+     * 生成4个字节的网络字节序
      *
      * @param sourceNumber the source number
      * @return the byte [ ]
      */
-// 生成4个字节的网络字节序
     byte[] getNetworkBytesOrder(int sourceNumber) {
         byte[] orderBytes = new byte[4];
         orderBytes[3] = (byte) (sourceNumber & 0xFF);
@@ -72,12 +73,11 @@ public class CallbackCrypto {
     }
 
     /**
-     * Recover network bytes order int.
+     * 还原4个字节的网络字节序
      *
      * @param orderBytes the order bytes
      * @return the int
      */
-// 还原4个字节的网络字节序
     int recoverNetworkBytesOrder(byte[] orderBytes) {
         int sourceNumber = 0;
         for (int i = 0; i < 4; i++) {
@@ -88,19 +88,15 @@ public class CallbackCrypto {
     }
 
     /**
-     * Gets random str.
+     * 随机生成16位字符串
      *
      * @return the random str
      */
-// 随机生成16位字符串
     String getRandomStr() {
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 16; i++) {
-            int number = random.nextInt(BASE_.length());
-            sb.append(BASE_.charAt(number));
-        }
-        return sb.toString();
+        return RANDOM.ints(16, 0, BASE_.length())
+                .mapToObj(BASE_::charAt)
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
+
     }
 
     /**

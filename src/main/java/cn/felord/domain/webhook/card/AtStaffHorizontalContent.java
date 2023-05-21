@@ -19,8 +19,7 @@ public class AtStaffHorizontalContent extends HorizontalContent {
      * @param userid  the userid
      */
     public AtStaffHorizontalContent(String keyname, String userid) {
-        super(HorizontalContentType.AT_STAFF, keyname);
-        this.userid = userid;
+       this(keyname, userid, null);
     }
 
     /**
@@ -31,9 +30,8 @@ public class AtStaffHorizontalContent extends HorizontalContent {
      * @param value   the value
      */
     public AtStaffHorizontalContent(String keyname, String userid, String value) {
-        super(HorizontalContentType.AT_STAFF, keyname);
+        super(HorizontalContentType.AT_STAFF, keyname, value);
         this.userid = userid;
-        setValue(value);
     }
 
     /**
@@ -44,9 +42,7 @@ public class AtStaffHorizontalContent extends HorizontalContent {
      * @return the at staff horizontal content
      */
     public static AtStaffHorizontalContent withTransUserId(String keyname, String userid) {
-        AtStaffHorizontalContent staffHorizontalContent = new AtStaffHorizontalContent(keyname, userid);
-        staffHorizontalContent.setValue("$userName=" + userid + "$");
-        return staffHorizontalContent;
+        return new AtStaffHorizontalContent(keyname, userid, "$userName=" + userid + "$");
     }
 
 }

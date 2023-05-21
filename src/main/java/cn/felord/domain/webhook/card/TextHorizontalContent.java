@@ -13,7 +13,7 @@ public class TextHorizontalContent extends HorizontalContent {
      * @param keyname the keyname
      */
     public TextHorizontalContent(String keyname) {
-        super(HorizontalContentType.TEXT, keyname);
+        this(keyname, null);
     }
 
     /**
@@ -23,7 +23,6 @@ public class TextHorizontalContent extends HorizontalContent {
      * @param value   the value
      */
     public TextHorizontalContent(String keyname, String value) {
-        super(HorizontalContentType.TEXT, keyname);
-        setValue(value);
+        super(HorizontalContentType.TEXT, keyname, value);
     }
 }

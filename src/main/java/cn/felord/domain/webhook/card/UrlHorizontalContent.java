@@ -19,8 +19,7 @@ public class UrlHorizontalContent extends HorizontalContent {
      * @param url     the url
      */
     public UrlHorizontalContent(String keyname, String url) {
-        super(HorizontalContentType.URL, keyname);
-        this.url = url;
+        this(keyname, url, null);
     }
 
     /**
@@ -31,8 +30,7 @@ public class UrlHorizontalContent extends HorizontalContent {
      * @param value   the value
      */
     public UrlHorizontalContent(String keyname, String url, String value) {
-        super(HorizontalContentType.URL, keyname);
+        super(HorizontalContentType.URL, keyname, value);
         this.url = url;
-        setValue(value);
     }
 }
