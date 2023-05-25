@@ -3,7 +3,6 @@ package cn.felord.callbacks;
 import cn.felord.domain.callback.CallbackEventBody;
 import cn.felord.domain.callback.CallbackSettings;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
@@ -156,12 +155,8 @@ public class CallbackCrypto {
             SecretKeySpec spec = new SecretKeySpec(aesKey, "AES");
             IvParameterSpec iv = new IvParameterSpec(Arrays.copyOfRange(aesKey, 0, 16));
             cipher.init(Cipher.DECRYPT_MODE, spec, iv);
-
-            // 使用BASE64对密文进行解码
-            byte[] encrypted = Base64.decodeBase64(text);
-
             // 解密
-            original = cipher.doFinal(encrypted);
+            original = cipher.doFinal(Base64Utils.decodeFromString(text));
         } catch (Exception e) {
             throw new WeComCallbackException(WeComCallbackException.DecryptAESError);
         }
