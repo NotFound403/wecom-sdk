@@ -10,5 +10,5 @@ import java.util.List;
  */
 @Data
 public class TemplateContent {
-    private List<TmpControl> controls;
+    private List<TmpControl<?>> controls;
 }

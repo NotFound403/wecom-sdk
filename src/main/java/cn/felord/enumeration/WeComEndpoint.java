@@ -672,7 +672,18 @@ public enum WeComEndpoint {
     /**
      * 微盘-管理文件-下载文件
      */
-    WEDRIVE_FILE_DOWNLOAD("/wedrive/file_download");
+    WEDRIVE_FILE_DOWNLOAD("/wedrive/file_download"),
+    /**
+     * 创建审批模板
+     */
+    APPROVAL_TEMPLATE_ADD("/oa/approval/create_template"),
+    /**
+     * 提交审批申请
+     */
+    APPROVAL_APPLY_EVENT("/oa/applyevent"),
+    ;
+
+
 
     private final String pattern;
 

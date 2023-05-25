@@ -50,6 +50,7 @@ public class GenericResponse<T> extends WeComResponse {
             "cal_id",
             "formid",
             "form_info",
+            "sp_no",
     })
     private T data;
 }

@@ -3,9 +3,11 @@ package cn.felord.domain.approval;
 import cn.felord.enumeration.ApprovalCtrlType;
 import cn.felord.enumeration.BoolEnum;
 
-import java.time.Instant;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * 控件类型：Text-文本；Textarea-多行文本；Number-数字；Money-金额；
@@ -15,6 +17,7 @@ import java.util.List;
  * @since 2023 /5/25 16:00
  */
 public final class TmpControlBuilder<C> {
+    private static final Random RANDOM = new SecureRandom();
     private final ApprovalCtrlType control;
     private final String id;
     private final List<ApprovalTitle> title;
@@ -30,7 +33,7 @@ public final class TmpControlBuilder<C> {
      */
     TmpControlBuilder(ApprovalCtrlType control, String title) {
         this.control = control;
-        this.id = control.getType().concat("-").concat(String.valueOf(Instant.now().getEpochSecond()));
+        this.id = control.getType().concat("-").concat(String.valueOf(RANDOM.nextInt(99999999)));
         this.title = Collections.singletonList(ApprovalTitle.createzhCN(title));
     }
 
@@ -73,7 +76,7 @@ public final class TmpControlBuilder<C> {
      * @param title the title
      * @return the tmp control builder
      */
-    public static TmpControlBuilder<EmptyConfig> text(String title) {
+    public static TmpControlBuilder<Map<String,String>> text(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TEXT, title);
     }
 
@@ -83,7 +86,7 @@ public final class TmpControlBuilder<C> {
      * @param title the title
      * @return the tmp control builder
      */
-    public static TmpControlBuilder<EmptyConfig> textarea(String title) {
+    public static TmpControlBuilder<Map<String,String>> textarea(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TEXTAREA, title);
     }
 
@@ -93,7 +96,7 @@ public final class TmpControlBuilder<C> {
      * @param title the title
      * @return the tmp control builder
      */
-    public static TmpControlBuilder<EmptyConfig> number(String title) {
+    public static TmpControlBuilder<Map<String,String>> number(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.NUMBER, title);
     }
 
@@ -103,7 +106,7 @@ public final class TmpControlBuilder<C> {
      * @param title the title
      * @return the tmp control builder
      */
-    public static TmpControlBuilder<EmptyConfig> money(String title) {
+    public static TmpControlBuilder<Map<String,String>> money(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.MONEY, title);
     }
 
@@ -131,7 +134,7 @@ public final class TmpControlBuilder<C> {
         return new TmpControlBuilder<>(ApprovalCtrlType.CONTACT, title);
     }
 
-    public static TmpControlBuilder<EmptyConfig> tips(String title) {
+    public static TmpControlBuilder<Map<String,String>> tips(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TIPS, title);
     }
 
