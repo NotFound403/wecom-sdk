@@ -19,5 +19,7 @@ public class TableConfig {
     public static class Wrapper {
         private BoolEnum printFormat;
         private List<TableCtrlProperty> children;
+        private List<String> statField;
+        private List<String> sumField;
     }
 }

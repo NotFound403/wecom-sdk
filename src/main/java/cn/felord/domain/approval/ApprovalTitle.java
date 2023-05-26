@@ -3,6 +3,7 @@ package cn.felord.domain.approval;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * The type Approval title.
@@ -10,6 +11,7 @@ import lombok.Getter;
  * @author xiafang
  * @since 2023 /5/25 14:25
  */
+@ToString
 @Getter
 public class ApprovalTitle {
     private final String text;
