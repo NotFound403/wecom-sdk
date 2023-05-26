@@ -674,6 +674,10 @@ public enum WeComEndpoint {
      */
     WEDRIVE_FILE_DOWNLOAD("/wedrive/file_download"),
     /**
+     * 获取审批模板详情
+     */
+    APPROVAL_TEMPLATE_DETAIL("/oa/gettemplatedetail"),
+    /**
      * 创建审批模板
      */
     APPROVAL_TEMPLATE_ADD("/oa/approval/create_template"),

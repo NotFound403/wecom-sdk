@@ -10,5 +10,5 @@ import java.util.List;
  */
 @Data
 public class ApplyData {
-    private final List<TemplateContentData> contents;
+    private final List<TemplateContentData<?>> contents;
 }

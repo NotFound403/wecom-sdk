@@ -1,5 +1,7 @@
 package cn.felord.domain.approval;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 /**
@@ -19,7 +21,8 @@ public class ApprovalTitle {
      * @param text the text
      * @param lang the lang
      */
-    public ApprovalTitle(String text, String lang) {
+    @JsonCreator
+    public ApprovalTitle(@JsonProperty("text") String text, @JsonProperty("lang") String lang) {
         this.text = text;
         this.lang = lang;
     }

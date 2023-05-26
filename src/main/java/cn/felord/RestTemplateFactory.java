@@ -1,10 +1,6 @@
 package cn.felord;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
@@ -12,7 +8,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.Instant;
 import java.util.Arrays;
 
 /**
@@ -24,8 +19,7 @@ public final class RestTemplateFactory {
 
 
     public static RestTemplate restOperations() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapperCustomize(objectMapper);
+        ObjectMapper objectMapper = ObjectMapperFactory.create();
         MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
         ExtensionFormHttpMessageConverter extensionFormHttpMessageConverter = new ExtensionFormHttpMessageConverter();
         ResourceHttpMessageConverter resourceHttpMessageConverter = new ResourceHttpMessageConverter();
@@ -36,17 +30,6 @@ public final class RestTemplateFactory {
         return restTemplate;
     }
 
-
-    private static void objectMapperCustomize(ObjectMapper mapper) {
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-        javaTimeModule.addSerializer(Instant.class, UnixInstantSerializer.INSTANCE);
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                // empty string error
-                .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .registerModule(javaTimeModule);
-    }
 
     /**
      * The type Wecom response error handler.

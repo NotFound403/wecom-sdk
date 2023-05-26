@@ -6,7 +6,6 @@ import cn.felord.enumeration.BoolEnum;
 import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -76,7 +75,7 @@ public final class TmpControlBuilder<C> {
      * @param title the title
      * @return the tmp control builder
      */
-    public static TmpControlBuilder<Map<String,String>> text(String title) {
+    public static TmpControlBuilder<EmptyConfig> text(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TEXT, title);
     }
 
@@ -86,7 +85,7 @@ public final class TmpControlBuilder<C> {
      * @param title the title
      * @return the tmp control builder
      */
-    public static TmpControlBuilder<Map<String,String>> textarea(String title) {
+    public static TmpControlBuilder<EmptyConfig> textarea(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TEXTAREA, title);
     }
 
@@ -96,7 +95,7 @@ public final class TmpControlBuilder<C> {
      * @param title the title
      * @return the tmp control builder
      */
-    public static TmpControlBuilder<Map<String,String>> number(String title) {
+    public static TmpControlBuilder<EmptyConfig> number(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.NUMBER, title);
     }
 
@@ -106,7 +105,7 @@ public final class TmpControlBuilder<C> {
      * @param title the title
      * @return the tmp control builder
      */
-    public static TmpControlBuilder<Map<String,String>> money(String title) {
+    public static TmpControlBuilder<EmptyConfig> money(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.MONEY, title);
     }
 
@@ -130,38 +129,92 @@ public final class TmpControlBuilder<C> {
         return new TmpControlBuilder<>(ApprovalCtrlType.SELECTOR, title);
     }
 
+    /**
+     * Contact tmp control builder.
+     *
+     * @param title the title
+     * @return the tmp control builder
+     */
     public static TmpControlBuilder<ContactConfig> contact(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.CONTACT, title);
     }
 
-    public static TmpControlBuilder<Map<String,String>> tips(String title) {
+    /**
+     * Tips tmp control builder.
+     *
+     * @param title the title
+     * @return the tmp control builder
+     */
+    public static TmpControlBuilder<EmptyConfig> tips(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TIPS, title);
     }
 
+    /**
+     * File tmp control builder.
+     *
+     * @param title the title
+     * @return the tmp control builder
+     */
     public static TmpControlBuilder<FileConfig> file(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.FILE, title);
     }
 
+    /**
+     * Table tmp control builder.
+     *
+     * @param title the title
+     * @return the tmp control builder
+     */
     public static TmpControlBuilder<TableConfig> table(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TABLE, title);
     }
 
+    /**
+     * Attendance tmp control builder.
+     *
+     * @param title the title
+     * @return the tmp control builder
+     */
     public static TmpControlBuilder<AttendanceConfig> attendance(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.ATTENDANCE, title);
     }
 
+    /**
+     * Vacation tmp control builder.
+     *
+     * @param title the title
+     * @return the tmp control builder
+     */
     public static TmpControlBuilder<VacationConfig> vacation(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.VACATION, title);
     }
 
+    /**
+     * Location tmp control builder.
+     *
+     * @param title the title
+     * @return the tmp control builder
+     */
     public static TmpControlBuilder<LocationConfig> location(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.LOCATION, title);
     }
 
+    /**
+     * Related approval tmp control builder.
+     *
+     * @param title the title
+     * @return the tmp control builder
+     */
     public static TmpControlBuilder<RelatedApprovalConfig> relatedApproval(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.RELATED_APPROVAL, title);
     }
 
+    /**
+     * Date range tmp control builder.
+     *
+     * @param title the title
+     * @return the tmp control builder
+     */
     public static TmpControlBuilder<DateRangeConfig> dateRange(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.DATE_RANGE, title);
     }
@@ -177,8 +230,6 @@ public final class TmpControlBuilder<C> {
         property.setPlaceholder(this.placeholder);
         property.setRequire(this.require);
         property.setUnPrint(this.unPrint);
-        TmpControl<C> tmpControl = new TmpControl<>(property);
-        tmpControl.setConfig(config);
-        return tmpControl;
+        return new TmpControl<>(property, config);
     }
 }

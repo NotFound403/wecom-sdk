@@ -1,5 +1,6 @@
 package cn.felord.domain.approval;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Data;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  * @since 2023/5/25 17:15
  */
 @Data
+@JsonTypeName("RelatedApprovalConfig")
 public class RelatedApprovalConfig {
     private Wrapper relatedApproval;
 
