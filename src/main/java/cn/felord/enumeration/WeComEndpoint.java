@@ -682,12 +682,26 @@ public enum WeComEndpoint {
      */
     APPROVAL_TEMPLATE_ADD("/oa/approval/create_template"),
     /**
+     * 更新审批模板
+     */
+    APPROVAL_TEMPLATE_UPDATE("/oa/approval/update_template"),
+    /**
      * 提交审批申请
      */
     APPROVAL_APPLY_EVENT("/oa/applyevent"),
+    /**
+     * 批量获取审批单号
+     */
+    APPROVAL_INFO("/oa/getapprovalinfo"),
+    /**
+     * 获取审批申请详情
+     */
+    APPROVAL_DETAIL("/oa/getapprovaldetail"),
+    /**
+     * 查询自建应用审批单当前状态
+     */
+    OPEN_APPROVAL_DATA("/corp/getopenapprovaldata"),
     ;
-
-
 
     private final String pattern;
 

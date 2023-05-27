@@ -1,9 +1,8 @@
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
-import cn.felord.domain.approval.ApprovalApplyRequest;
-import cn.felord.domain.approval.ApprovalTemplate;
-import cn.felord.domain.approval.ApprovalTmpDetailResponse;
+import cn.felord.domain.WeComResponse;
+import cn.felord.domain.approval.*;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -45,17 +44,41 @@ public class ApprovalApi {
 
     /**
      * 创建审批模板
+     * <p>
+     * 仅『审批』系统应用、自建应用和代开发自建应用可调用。
      *
      * @param template the template
      * @return the generic response
      */
-    public GenericResponse<String> createTemplate(ApprovalTemplate template) {
+    public GenericResponse<String> createTemplate(ApprovalTempAddRequest template) {
         String endpoint = WeComEndpoint.APPROVAL_TEMPLATE_ADD.endpoint();
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
         return workWeChatApiClient.post(uri, template, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
+    }
+
+    /**
+     * 更新审批模板
+     * <p>
+     * 可调用本接口更新审批模板。更新模板后，管理后台及审批应用内将更新原模板的内容，已配置的审批流程和规则不变。
+     * <ul>
+     *     <li>仅『审批』系统应用，自建应用和代开发自建应用可调用</li>
+     *     <li>所有应用都可以通过本接口更新自己的模板</li>
+     *     <li>『审批』系统应用可以修改管理员手动创建的模板</li>
+     *     <li>自建应用和代开发自建应用不可通过本接口更新其他应用创建的模板</li>
+     * </ul>
+     *
+     * @param template the template
+     * @return the we com response
+     */
+    public WeComResponse createTemplate(ApprovalTempUpdateRequest template) {
+        String endpoint = WeComEndpoint.APPROVAL_TEMPLATE_UPDATE.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri, template, WeComResponse.class);
     }
 
     /**
@@ -73,4 +96,40 @@ public class ApprovalApi {
         });
     }
 
+    /**
+     * 批量获取审批单号
+     * <p>
+     * 一次拉取调用最多拉取100个审批记录，可以通过多次拉取的方式来满足需求。
+     * <ol>
+     *     <li>接口频率限制 600次/分钟</li>
+     *     <li>请求的参数endtime需要大于startime， 起始时间跨度不能超过31天</li>
+     * </ol>
+     *
+     * @param request the request
+     * @return the sp no list response
+     */
+    public SpNoListResponse queryApprovalInfos(SpNoListRequest request) {
+        String endpoint = WeComEndpoint.APPROVAL_INFO.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri, request, SpNoListResponse.class);
+    }
+
+    /**
+     * 获取审批申请详情
+     *
+     * @param spNo the sp no
+     * @return sp no list response
+     */
+    public GenericResponse<ApprovalDetail> queryApprovalDetail(String spNo) {
+        String endpoint = WeComEndpoint.APPROVAL_DETAIL.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri,
+                Collections.singletonMap("sp_no", spNo),
+                new ParameterizedTypeReference<GenericResponse<ApprovalDetail>>() {
+                });
+    }
 }

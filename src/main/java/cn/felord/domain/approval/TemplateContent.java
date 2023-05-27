@@ -5,10 +5,10 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author xiafang
+ * @author dax
  * @since 2023/5/25 14:30
  */
 @Data
 public class TemplateContent {
-    private List<? extends TmpControl> controls;
+    private List<? extends TmpControl<?>> controls;
 }

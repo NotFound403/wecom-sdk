@@ -7,7 +7,7 @@ import lombok.Data;
 import java.time.Duration;
 
 /**
- * @author xiafang
+ * @author dax
  * @since 2023/5/25 18:26
  */
 @Data

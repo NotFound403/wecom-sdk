@@ -1,4 +1,4 @@
-package cn.felord.domain.message;
+package cn.felord.domain;
 
 import lombok.Data;
 

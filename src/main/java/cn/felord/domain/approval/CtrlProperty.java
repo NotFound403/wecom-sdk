@@ -9,7 +9,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author xiafang
+ * @author dax
  * @since 2023/5/25 14:44
  */
 @Data
@@ -28,5 +28,9 @@ public class CtrlProperty {
         this.control = control;
         this.id = id;
         this.title = title;
+    }
+
+    public <V extends ContentDataValue> TemplateContentData<V> toTemplateContentData(V value) {
+        return new TemplateContentData<>(this.getControl(), this.getId(), value);
     }
 }

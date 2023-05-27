@@ -19,7 +19,7 @@ public final class RestTemplateFactory {
 
 
     public static RestTemplate restOperations() {
-        ObjectMapper objectMapper = ObjectMapperFactory.create();
+        ObjectMapper objectMapper = JacksonObjectMapperFactory.create();
         MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
         ExtensionFormHttpMessageConverter extensionFormHttpMessageConverter = new ExtensionFormHttpMessageConverter();
         ResourceHttpMessageConverter resourceHttpMessageConverter = new ResourceHttpMessageConverter();

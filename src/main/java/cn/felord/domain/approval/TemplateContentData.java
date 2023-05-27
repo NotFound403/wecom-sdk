@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 2023/5/26
  */
 @Data
-public class TemplateContentData<V> {
+public class TemplateContentData<V extends ContentDataValue> {
     private final ApprovalCtrlType control;
     private final String id;
     private final V value;

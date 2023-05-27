@@ -1,6 +1,9 @@
 package cn.felord.domain.approval;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -8,7 +11,13 @@ import java.util.List;
  * @author dax
  * @since 2023/5/26
  */
-@Data
-public class ApplyData {
-    private final List<TemplateContentData<?>> contents;
+@ToString
+@Getter
+public class ApplyData<T extends TemplateContentData<? extends ContentDataValue>> {
+    private final List<T> contents;
+
+    @JsonCreator
+    public ApplyData(@JsonProperty List<T> contents) {
+        this.contents = contents;
+    }
 }

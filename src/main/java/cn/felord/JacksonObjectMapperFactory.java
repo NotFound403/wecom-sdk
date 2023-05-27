@@ -9,12 +9,12 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.Instant;
 
 /**
- * @author xiafang
+ * @author dax
  * @since 2023/5/26 18:39
  */
-public final class ObjectMapperFactory {
+public final class JacksonObjectMapperFactory {
 
-    private ObjectMapperFactory() {
+    private JacksonObjectMapperFactory() {
     }
 
     public static ObjectMapper create() {

@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * The enum Date ctrl type.
  *
- * @author xiafang
+ * @author dax
  * @since 2023 /5/25 16:19
  */
 public enum DateRangeType {

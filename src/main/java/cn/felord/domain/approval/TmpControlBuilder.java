@@ -12,7 +12,7 @@ import java.util.Random;
  * 控件类型：Text-文本；Textarea-多行文本；Number-数字；Money-金额；
  *
  * @param <C> the type parameter
- * @author xiafang
+ * @author dax
  * @since 2023 /5/25 16:00
  */
 public final class TmpControlBuilder<C> {
@@ -32,7 +32,7 @@ public final class TmpControlBuilder<C> {
      */
     TmpControlBuilder(ApprovalCtrlType control, String title) {
         this.control = control;
-        this.id = control.getType().concat("-").concat(String.valueOf(RANDOM.nextInt(99999999)));
+        this.id = control.getType().concat("-").concat(String.valueOf(RANDOM.nextInt(999999999)));
         this.title = Collections.singletonList(ApprovalTitle.createzhCN(title));
     }
 
@@ -207,6 +207,16 @@ public final class TmpControlBuilder<C> {
      */
     public static TmpControlBuilder<RelatedApprovalConfig> relatedApproval(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.RELATED_APPROVAL, title);
+    }
+
+    /**
+     * Formula tmp control builder.
+     *
+     * @param title the title
+     * @return the tmp control builder
+     */
+    public static TmpControlBuilder<FormulaConfig> formula(String title) {
+        return new TmpControlBuilder<>(ApprovalCtrlType.FORMULA, title);
     }
 
     /**

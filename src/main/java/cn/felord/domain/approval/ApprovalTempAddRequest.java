@@ -1,7 +1,5 @@
 package cn.felord.domain.approval;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 import java.util.List;
@@ -11,12 +9,11 @@ import java.util.List;
  * @since 2023/5/25
  */
 @Getter
-public class ApprovalTemplate {
+public class ApprovalTempAddRequest {
     private final List<ApprovalTitle> templateName;
     private final TemplateContent templateContent;
 
-    @JsonCreator
-    public ApprovalTemplate(@JsonProperty("template_name") List<ApprovalTitle> templateName, @JsonProperty("template_content") TemplateContent templateContent) {
+    public ApprovalTempAddRequest(List<ApprovalTitle> templateName, TemplateContent templateContent) {
         this.templateName = templateName;
         this.templateContent = templateContent;
     }

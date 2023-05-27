@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * The type File manager api.
  *
- * @author xiafang
+ * @author dax
  * @since 2023 /3/17 15:02
  */
 public class FileManagerApi {
