@@ -19,7 +19,7 @@ public class ApprovalApplyRequest {
     private List<Approver> approver;
     private List<String> notifyer;
     private ApprovalNotifyType notifyType;
-    private final ApplyData<TemplateContentData<?>> applyData;
+    private final ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData;
     private final List<Summary> summaryList;
 
 }

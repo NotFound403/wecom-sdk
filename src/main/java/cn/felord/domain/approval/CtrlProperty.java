@@ -30,7 +30,7 @@ public class CtrlProperty {
         this.title = title;
     }
 
-    public <V extends ContentDataValue> TemplateContentData<V> toTemplateContentData(V value) {
-        return new TemplateContentData<>(this.getControl(), this.getId(), value);
+    public <V extends ContentDataValue> ApprovalContentData<V> toData(V value) {
+        return new ApprovalContentData<>(this.getControl(), this.getId(), value);
     }
 }

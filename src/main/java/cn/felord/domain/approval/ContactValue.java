@@ -4,13 +4,13 @@ import cn.felord.enumeration.ContactCtrlMode;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The type Contact value.
@@ -20,54 +20,77 @@ import java.util.List;
  */
 @ToString
 @Getter
+@NoArgsConstructor
 public class ContactValue implements ContentDataValue {
     @JsonIgnore
-    private final ContactCtrlMode contactCtrlMode;
-    private final List<MemberInfo> members;
-    private final List<DeptInfo> departments;
+    private ContactCtrlMode contactCtrlMode;
+    private List<MemberInfo> members;
+    private Set<DeptInfo> departments;
 
     /**
      * Instantiates a new Contact value.
      *
-     * @param members     the members
-     * @param departments the departments
+     * @param members the members
      */
-    @JsonCreator
-    ContactValue(@JsonProperty("members") List<MemberInfo> members, @JsonProperty("departments") List<DeptInfo> departments) {
-        this.contactCtrlMode = CollectionUtils.isEmpty(members) ? ContactCtrlMode.DEPARTMENT : ContactCtrlMode.USER;
+
+    public void setMembers(List<MemberInfo> members) {
+        this.contactCtrlMode = ContactCtrlMode.USER;
         this.members = members;
-        this.departments = departments;
+        this.departments = Collections.emptySet();
     }
 
     /**
-     * Members contact value.
+     * Instantiates a new Contact value.
      *
-     * @param members the members
-     * @return the contact value
+     * @param departments the departments
      */
-    public static ContactValue members(List<MemberInfo> members) {
-        return new ContactValue(members, Collections.emptyList());
-    }
-
-    public static ContactValue departments(List<DeptInfo> departments) {
-        return new ContactValue(Collections.emptyList(), departments);
+    public void setDepartments(Set<DeptInfo> departments) {
+        this.contactCtrlMode = ContactCtrlMode.DEPARTMENT;
+        this.members = Collections.emptyList();
+        this.departments = departments;
     }
 
     /**
      * The type Member info.
      */
-    @Data
+    @ToString
+    @Getter
     public static class MemberInfo {
         private final String userid;
         private final String name;
+
+        /**
+         * Instantiates a new Member info.
+         *
+         * @param userid the userid
+         * @param name   the name
+         */
+        @JsonCreator
+        public MemberInfo(@JsonProperty("userid") String userid, @JsonProperty("name") String name) {
+            this.userid = userid;
+            this.name = name;
+        }
     }
 
     /**
      * The type Dept info.
      */
-    @Data
+    @ToString
+    @Getter
     public static class DeptInfo {
         private final Long openapiId;
         private final String name;
+
+        /**
+         * Instantiates a new Dept info.
+         *
+         * @param openapiId the openapi id
+         * @param name      the name
+         */
+        @JsonCreator
+        public DeptInfo(@JsonProperty("openapi_id") Long openapiId, @JsonProperty("name") String name) {
+            this.openapiId = openapiId;
+            this.name = name;
+        }
     }
 }

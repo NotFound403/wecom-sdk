@@ -6,22 +6,20 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.List;
+import java.time.Instant;
 
 /**
- * The type Table value.
- *
  * @author dax
- * @since 2023 /5/27 10:59
+ * @since 2023/5/27
  */
 @ToString
 @Getter
-public class TableValue implements ContentDataValue {
-    private final List<Wrapper> children;
+public class PunchCorrectionValue implements ContentDataValue {
+    private final Wrapper punchCorrection;
 
     @JsonCreator
-    public TableValue(@JsonProperty("children") List<Wrapper> children) {
-        this.children = children;
+    public PunchCorrectionValue(@JsonProperty("punchCorrection") Wrapper punchCorrection) {
+        this.punchCorrection = punchCorrection;
     }
 
     /**
@@ -29,6 +27,9 @@ public class TableValue implements ContentDataValue {
      */
     @Data
     public static class Wrapper {
-        private List<ApplyContentData<?>> list;
+        private String state;
+        private Instant time;
+
     }
+
 }

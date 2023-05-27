@@ -13,11 +13,11 @@ import java.util.List;
  */
 @ToString
 @Getter
-public class ApplyData<T extends TemplateContentData<? extends ContentDataValue>> {
+public class ApplyData<T> {
     private final List<T> contents;
 
     @JsonCreator
-    public ApplyData(@JsonProperty List<T> contents) {
+    public ApplyData(@JsonProperty("contents") List<T> contents) {
         this.contents = contents;
     }
 }

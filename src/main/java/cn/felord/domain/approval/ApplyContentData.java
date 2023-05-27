@@ -1,14 +1,11 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.ApprovalCtrlType;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -22,31 +19,59 @@ import java.util.List;
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "control", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = TextValue.class, names = {"Text", "Textarea"}),
-        @JsonSubTypes.Type(value = NumberValue.class, name = "Number"),
-        @JsonSubTypes.Type(value = MoneyValue.class, name = "Money"),
-        @JsonSubTypes.Type(value = DateValue.class, name = "Date"),
-        @JsonSubTypes.Type(value = SelectorConfig.class, name = "Selector"),
-        @JsonSubTypes.Type(value = ContactValue.class, name = "Contact"),
-        @JsonSubTypes.Type(value = FileValue.class, name = "File"),
-        @JsonSubTypes.Type(value = TableValue.class, name = "Table"),
-        @JsonSubTypes.Type(value = LinkedHashMap.class, names = {"Vacation", "Attendance", "PunchCorrection", "DateRange", "Location", "RelatedApproval"}),
-        @JsonSubTypes.Type(value = FormulaValue.class, name = "Formula"),
+        @JsonSubTypes.Type(value = TextApplyContentData.class, names = {"Text", "Textarea", "Tips"}),
+        @JsonSubTypes.Type(value = NumberApplyContentData.class, name = "Number"),
+        @JsonSubTypes.Type(value = MoneyApplyContentData.class, name = "Money"),
+        @JsonSubTypes.Type(value = DateApplyContentData.class, name = "Date"),
+        @JsonSubTypes.Type(value = SelectorApplyContentData.class, name = "Selector"),
+        @JsonSubTypes.Type(value = ContactApplyContentData.class, name = "Contact"),
+        @JsonSubTypes.Type(value = FileApplyContentData.class, name = "File"),
+        @JsonSubTypes.Type(value = TableApplyContentData.class, name = "Table"),
+        @JsonSubTypes.Type(value = VacationApplyContentData.class, name = "Vacation"),
+        @JsonSubTypes.Type(value = AttendanceApplyContentData.class, name = "Attendance"),
+        @JsonSubTypes.Type(value = PunchCorrectionApplyContentData.class, name = "PunchCorrection"),
+        @JsonSubTypes.Type(value = DateRangeApplyContentData.class, name = "DateRange"),
+        @JsonSubTypes.Type(value = LocationApplyContentData.class, name = "Location"),
+        @JsonSubTypes.Type(value = RelatedApprovalApplyContentData.class, name = "RelatedApproval"),
+        @JsonSubTypes.Type(value = FormulaApplyContentData.class, name = "Formula"),
 })
 @ToString
 @Getter
-public class ApplyContentData<V extends ContentDataValue> extends TemplateContentData<V> {
+public abstract class ApplyContentData<V> {
+    private final ApprovalCtrlType control;
+    private final String id;
+    private final V value;
     private final List<ApprovalTitle> title;
     private final Integer hidden;
 
-    @JsonCreator
-    public ApplyContentData(@JsonProperty("control") ApprovalCtrlType control,
-                            @JsonProperty("id") String id,
-                            @JsonProperty("title") List<ApprovalTitle> title,
-                            @JsonProperty("value") V value,
-                            @JsonProperty("hidden") Integer hidden) {
-        super(control, id, value);
+
+    /**
+     * Instantiates a new Apply content data.
+     *
+     * @param control the control
+     * @param id      the id
+     * @param title   the title
+     * @param value   the value
+     * @param hidden  the hidden
+     */
+    public ApplyContentData(ApprovalCtrlType control, String id, List<ApprovalTitle> title, V value, Integer hidden) {
+        this.control = control;
+        this.id = id;
+        this.value = value;
         this.title = title;
         this.hidden = hidden;
+    }
+
+    /**
+     * From apply content data.
+     *
+     * @param <V>      the type parameter
+     * @param property the property
+     * @param value    the value
+     * @return the apply content data
+     */
+    public static <V extends ContentDataValue> ApplyContentData<V> from(CtrlProperty property, V value) {
+        return new ApplyContentData<V>(property.getControl(), property.getId(), property.getTitle(), value, null) {
+        };
     }
 }
