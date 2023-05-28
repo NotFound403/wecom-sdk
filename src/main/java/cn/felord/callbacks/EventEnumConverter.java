@@ -13,7 +13,6 @@ package cn.felord.callbacks;
 import com.thoughtworks.xstream.InitializationException;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 
-import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Objects;
@@ -53,15 +52,6 @@ public class EventEnumConverter<T extends Enum<T>> extends AbstractSingleValueCo
         if (!Enum.class.isAssignableFrom(type) && type != Enum.class) {
             throw new InitializationException("Converter can only handle enum types");
         }
-    }
-
-    private static <T extends Enum<T>> EnumMap<T, String> buildValueMap(Class<T> type,
-                                                                        Map<String, T> strings) {
-        EnumMap<T, String> values = new EnumMap<T, String>(type);
-        for (Map.Entry<String, T> entry : strings.entrySet()) {
-            values.put(entry.getValue(), entry.getKey());
-        }
-        return values;
     }
 
     @Override

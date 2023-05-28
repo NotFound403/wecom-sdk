@@ -9,46 +9,50 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import java.util.Arrays;
 
 /**
- * The SpStatus   org  roleid  tempid  filter
+ * 审批申请状态变化
  *
  * @author felord
  * @since 2021 /11/23 17:01
  */
 @XStreamConverter(NumberEnumConverter.class)
-public enum SpStatus implements CallbackNumberEnum {
+public enum StatusChangeEvent implements CallbackNumberEnum {
 
     /**
-     * 审批中
+     * 提单
      */
-    APPROVAL(1),
+    SUBMIT(1),
     /**
-     * 已通过
+     * 同意
      */
     ACCEPTED(2),
     /**
-     * 已驳回
+     * 驳回
      */
     REJECTED(3),
     /**
-     * 已撤销
+     * 转审
      */
-    REVOKED(4),
+    REFERRAL(4),
+    /**
+     * 催办
+     */
+    REMINDERS(5),
+    /**
+     * 撤销
+     */
+    REVOKE(6),
     /**
      * 通过后撤销
      */
-    REVOKE_AFTER_ADOPT(6),
+    REVOKE_AFTER_ADOPT(8),
     /**
-     * 已删除
+     * 添加备注
      */
-    DELETED(7),
-    /**
-     * 已支付
-     */
-    PAYED(10);
+    MARK(10);
 
     private final int type;
 
-    SpStatus(int type) {
+    StatusChangeEvent(int type) {
         this.type = type;
     }
 
@@ -70,8 +74,8 @@ public enum SpStatus implements CallbackNumberEnum {
      * @return the button type
      */
     @JsonCreator
-    public static SpStatus deserialize(int type) {
-        return Arrays.stream(SpStatus.values())
+    public static StatusChangeEvent deserialize(int type) {
+        return Arrays.stream(StatusChangeEvent.values())
                 .filter(formItemStatus -> formItemStatus.type == type)
                 .findFirst()
                 .orElse(null);

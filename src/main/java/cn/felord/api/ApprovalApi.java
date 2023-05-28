@@ -132,4 +132,21 @@ public class ApprovalApi {
                 new ParameterizedTypeReference<GenericResponse<ApprovalDetail>>() {
                 });
     }
+
+    /**
+     * 查询自建应用审批单当前状态
+     *
+     * @param thirdNo the third no
+     * @return the generic response
+     */
+    public GenericResponse<OpenApprovalData> queryOpenApprovalData(String thirdNo) {
+        String endpoint = WeComEndpoint.OPEN_APPROVAL_DATA.endpoint();
+        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
+                .build()
+                .toUri();
+        return workWeChatApiClient.post(uri,
+                Collections.singletonMap("thirdNo", thirdNo),
+                new ParameterizedTypeReference<GenericResponse<OpenApprovalData>>() {
+                });
+    }
 }

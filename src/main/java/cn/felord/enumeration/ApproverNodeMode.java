@@ -1,7 +1,10 @@
 package cn.felord.enumeration;
 
+import cn.felord.callbacks.CallbackNumberEnum;
+import cn.felord.callbacks.NumberEnumConverter;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 import java.util.Arrays;
 
@@ -9,7 +12,8 @@ import java.util.Arrays;
  * @author dax
  * @since 2021/9/8 10:47
  */
-public enum ApproverNodeMode {
+@XStreamConverter(NumberEnumConverter.class)
+public enum ApproverNodeMode implements CallbackNumberEnum {
     OR(1),
     ALL(2);
 

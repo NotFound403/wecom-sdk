@@ -7,8 +7,8 @@ import lombok.EqualsAndHashCode;
 import java.time.Instant;
 
 /**
- * @author n1
- * @since 2021/6/19 10:23
+ * @author dax
+ * @since 2023/5/19 22:23
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

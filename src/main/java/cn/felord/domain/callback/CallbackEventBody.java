@@ -32,6 +32,9 @@ public class CallbackEventBody {
     @XStreamAlias("AgentID")
     private String agentId;
 
+    @XStreamAlias("ApprovalInfo")
+    private ApprovalInfo approvalInfo;
+
     @XStreamAlias("Content")
     private String content;
     @XStreamAlias("MsgId")

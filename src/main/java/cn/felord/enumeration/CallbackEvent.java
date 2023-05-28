@@ -38,7 +38,15 @@ public enum CallbackEvent {
     /**
      * 文档变更事件
      */
-    DOC_CHANGE("doc_change");
+    DOC_CHANGE("doc_change"),
+    /**
+     * 审批申请状态变更事件
+     */
+    SYS_APPROVAL_CHANGE("sys_approval_change"),
+    /**
+     * 自建应用审批状态变化通知回调
+     */
+    OPEN_APPROVAL_CHANGE("open_approval_change");
 
     private final String type;
 

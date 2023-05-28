@@ -272,6 +272,10 @@ public class CallbackController {
   - [x] 上传临时素材
   - [x] 上传图片
 - [x] OA
+  - [x] 文档
+  - [x] 日程
+  - [x] 微盘
+  - [x] 审批
 - [x] 效率工具
 - 企业支付
 - 企业互联

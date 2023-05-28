@@ -7,9 +7,11 @@ import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
 import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Arrays;
@@ -37,6 +39,16 @@ public class CallbackCrypto {
     private static final String BASE_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
     private static final Random RANDOM = new SecureRandom();
+    private static final Cipher CIPHER;
+
+    static {
+        try {
+            CIPHER = Cipher.getInstance("AES/CBC/NoPadding");
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            throw new WeComCallbackException(WeComCallbackException.EncryptAESError);
+        }
+    }
+
     private final XmlReader xmlReader;
     private final CallbackAsyncConsumer callbackAsyncConsumer;
     private final CallbackSettingsService callbackSettingsService;
@@ -115,7 +127,6 @@ public class CallbackCrypto {
         byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
 
         byte[] receiveidBytes = receiveid.getBytes(StandardCharsets.UTF_8);
-        // randomStr + networkBytesOrder + text + receiveid
         byteCollector.addBytes(randomStrBytes);
         byteCollector.addBytes(networkBytesOrder);
         byteCollector.addBytes(textBytes);
@@ -126,12 +137,11 @@ public class CallbackCrypto {
         byte[] unencrypted = byteCollector.toBytes();
         try {
             // 设置加密模式为AES的CBC模式
-            Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
             SecretKeySpec keySpec = new SecretKeySpec(aesKey, "AES");
             IvParameterSpec iv = new IvParameterSpec(aesKey, 0, 16);
-            cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
+            CIPHER.init(Cipher.ENCRYPT_MODE, keySpec, iv);
             // 加密
-            byte[] encrypted = cipher.doFinal(unencrypted);
+            byte[] encrypted = CIPHER.doFinal(unencrypted);
             return Base64Utils.encodeToString(encrypted);
         } catch (Exception e) {
             throw new WeComCallbackException(WeComCallbackException.EncryptAESError);
@@ -151,12 +161,11 @@ public class CallbackCrypto {
         byte[] original;
         try {
             // 设置解密模式为AES的CBC模式
-            Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
             SecretKeySpec spec = new SecretKeySpec(aesKey, "AES");
             IvParameterSpec iv = new IvParameterSpec(Arrays.copyOfRange(aesKey, 0, 16));
-            cipher.init(Cipher.DECRYPT_MODE, spec, iv);
+            CIPHER.init(Cipher.DECRYPT_MODE, spec, iv);
             // 解密
-            original = cipher.doFinal(Base64Utils.decodeFromString(text));
+            original = CIPHER.doFinal(Base64Utils.decodeFromString(text));
         } catch (Exception e) {
             throw new WeComCallbackException(WeComCallbackException.DecryptAESError);
         }
@@ -165,12 +174,9 @@ public class CallbackCrypto {
         try {
             // 去除 补位 字符
             byte[] bytes = PKCS7Encoder.decode(original);
-
             // 分离16位随机字符串,网络字节序和receiveid
             byte[] networkOrder = Arrays.copyOfRange(bytes, 16, 20);
-
             int jsonLength = recoverNetworkBytesOrder(networkOrder);
-
             jsonContent = new String(Arrays.copyOfRange(bytes, 20, 20 + jsonLength), StandardCharsets.UTF_8);
             fromReceiveid = new String(Arrays.copyOfRange(bytes, 20 + jsonLength, bytes.length), StandardCharsets.UTF_8);
         } catch (Exception e) {
@@ -328,7 +334,9 @@ public class CallbackCrypto {
         String token = callbackSettings.getToken();
         String signature = SHA1.sha1Hex(token, timeStamp, nonce, encrypt);
         if (!Objects.equals(msgSignature, signature)) {
-            log.info("signature not matched: before: {},after : {}", msgSignature, signature);
+            if (log.isDebugEnabled()) {
+                log.debug("signature not matched: before: {},after : {}", msgSignature, signature);
+            }
             throw new WeComCallbackException(WeComCallbackException.ValidateSignatureError);
         }
         byte[] aesKey = callbackSettings.getAesKey();
