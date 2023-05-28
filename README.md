@@ -2,7 +2,7 @@
 
 <p align="center">
     <a target="_blank" href="https://github.com/NotFound403/wecom-sdk/blob/release/LICENSE">
-     	<img alt="" src="https://img.shields.io/github/license/felord/wecom-sdk"/>
+     	<img alt="" src="https://img.shields.io/github/license/NotFound403/wecom-sdk"/>
     </a>
     <a target="_blank" href="https://felord.cn">
      	<img alt="" src="https://img.shields.io/badge/java-8-red"/>
@@ -14,7 +14,7 @@
      	<img alt="" src="https://img.shields.io/maven-central/v/cn.felord/wecom-sdk.svg?style=flat-square"/>
     </a>   
     <a target="_blank" href="https://github.com/NotFound403/wecom-sdk">
-     	<img alt="" src="https://img.shields.io/github/stars/felord/wecom-sdk?style=social"/>
+     	<img alt="" src="https://img.shields.io/github/stars/NotFound403/wecom-sdk?style=social"/>
     </a>    
     <a target="_blank" href="https://gitee.com/felord/wecom-sdk/stargazers">
      	<img alt="" src="https://gitee.com/felord/wecom-sdk/badge/star.svg?theme=white"/>
