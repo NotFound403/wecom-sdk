@@ -1,4 +1,3 @@
-
 package cn.felord.domain.message;
 
 import cn.felord.domain.externalcontact.MediaId;

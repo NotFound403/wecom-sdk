@@ -7,11 +7,9 @@ import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
 import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Arrays;
@@ -39,16 +37,6 @@ public class CallbackCrypto {
     private static final String BASE_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
     private static final Random RANDOM = new SecureRandom();
-    private static final Cipher CIPHER;
-
-    static {
-        try {
-            CIPHER = Cipher.getInstance("AES/CBC/NoPadding");
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-            throw new WeComCallbackException(WeComCallbackException.EncryptAESError);
-        }
-    }
-
     private final XmlReader xmlReader;
     private final CallbackAsyncConsumer callbackAsyncConsumer;
     private final CallbackSettingsService callbackSettingsService;
@@ -137,11 +125,12 @@ public class CallbackCrypto {
         byte[] unencrypted = byteCollector.toBytes();
         try {
             // 设置加密模式为AES的CBC模式
+            Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
             SecretKeySpec keySpec = new SecretKeySpec(aesKey, "AES");
             IvParameterSpec iv = new IvParameterSpec(aesKey, 0, 16);
-            CIPHER.init(Cipher.ENCRYPT_MODE, keySpec, iv);
+            cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
             // 加密
-            byte[] encrypted = CIPHER.doFinal(unencrypted);
+            byte[] encrypted = cipher.doFinal(unencrypted);
             return Base64Utils.encodeToString(encrypted);
         } catch (Exception e) {
             throw new WeComCallbackException(WeComCallbackException.EncryptAESError);
@@ -161,11 +150,12 @@ public class CallbackCrypto {
         byte[] original;
         try {
             // 设置解密模式为AES的CBC模式
+            Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
             SecretKeySpec spec = new SecretKeySpec(aesKey, "AES");
             IvParameterSpec iv = new IvParameterSpec(Arrays.copyOfRange(aesKey, 0, 16));
-            CIPHER.init(Cipher.DECRYPT_MODE, spec, iv);
+            cipher.init(Cipher.DECRYPT_MODE, spec, iv);
             // 解密
-            original = CIPHER.doFinal(Base64Utils.decodeFromString(text));
+            original = cipher.doFinal(Base64Utils.decodeFromString(text));
         } catch (Exception e) {
             throw new WeComCallbackException(WeComCallbackException.DecryptAESError);
         }

@@ -16,6 +16,7 @@ import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
@@ -45,7 +46,7 @@ public class EventEnumConverter<T extends Enum<T>> extends AbstractSingleValueCo
         checkType(type);
         return EnumSet.allOf(type)
                 .stream()
-                .collect(Collectors.toMap(t -> t.name().toLowerCase(), v -> v));
+                .collect(Collectors.toMap(t -> t.name().toLowerCase(), Function.identity()));
     }
 
     private static <T> void checkType(Class<T> type) {

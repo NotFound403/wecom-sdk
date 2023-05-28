@@ -20,15 +20,15 @@ public class ContactWayBody {
     private final ContactScene scene;
     private MiniProgramStyle style;
     private String remark;
-    private Boolean skipVerify = true;
+    private boolean skipVerify = true;
     private String state;
     private String unionid;
     private Set<String> user;
     private Set<Integer> party;
-    private Boolean isTemp = false;
+    private boolean isTemp = false;
     private Duration expiresIn;
     private Duration chatExpiresIn;
-    private Boolean isExclusive = false;
+    private boolean isExclusive = false;
     private Conclusions conclusions;
 
     /**

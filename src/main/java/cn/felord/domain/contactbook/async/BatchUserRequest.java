@@ -11,6 +11,6 @@ import lombok.Data;
 @Data
 public class BatchUserRequest {
     private String mediaId;
-    private Boolean toInvite = true;
+    private boolean toInvite = true;
     private Callback callback;
 }

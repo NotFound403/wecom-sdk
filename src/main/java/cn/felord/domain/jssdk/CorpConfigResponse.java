@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @Data
 public class CorpConfigResponse extends JSignatureResponse {
-    private final Boolean beta = true;
-    private final Boolean debug = false;
+    private final boolean beta = true;
+    private final boolean debug = false;
     private String appId;
 }
