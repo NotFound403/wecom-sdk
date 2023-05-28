@@ -1,16 +1,37 @@
+/*
+ * Copyright (c) 2023. felord.cn
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ * Website:
+ *      https://felord.cn
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.contactbook.user.*;
+import cn.felord.domain.contactbook.user.BatchInviteRequest;
+import cn.felord.domain.contactbook.user.BatchInviteResponse;
+import cn.felord.domain.contactbook.user.DeptUserListResponse;
+import cn.felord.domain.contactbook.user.SimpleUser;
+import cn.felord.domain.contactbook.user.UserDetail;
+import cn.felord.domain.contactbook.user.UserIdConvertRequest;
+import cn.felord.domain.contactbook.user.UserIdConvertResponse;
+import cn.felord.domain.contactbook.user.UserInfoRequest;
+import cn.felord.domain.contactbook.user.UserInfoResponse;
 import cn.felord.enumeration.EmailType;
 import cn.felord.enumeration.UserQrcodeSize;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -53,10 +74,6 @@ public class UserApi {
      * @return WeComResponse we com response
      */
     public WeComResponse createUser(UserInfoRequest request) {
-        String endpoint = WeComEndpoint.USER_CREATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         return workWeChatApiClient.post(WeComEndpoint.USER_CREATE, request, WeComResponse.class);
     }
 

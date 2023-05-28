@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2023. felord.cn
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ * Website:
+ *      https://felord.cn
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
@@ -11,7 +26,6 @@ import cn.felord.enumeration.WeComEndpoint;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.SneakyThrows;
-import org.apache.commons.codec.binary.Hex;
 import org.springframework.util.AlternativeJdkIdGenerator;
 import org.springframework.util.Assert;
 import org.springframework.util.IdGenerator;
@@ -127,7 +141,7 @@ public class SdkTicketApi {
         MessageDigest digest = MessageDigest.getInstance("SHA-1");
         digest.update(format.getBytes());
         byte[] bytes = digest.digest();
-        String signature = Hex.encodeHexString(bytes);
+        String signature = encodeHexString(bytes);
         JSignatureResponse jSignature = new JSignatureResponse();
 
         jSignature.setNonceStr(nonceStr);
@@ -146,5 +160,24 @@ public class SdkTicketApi {
     static class JsTicketResponse extends WeComResponse {
         private String ticket;
         private Integer expiresIn;
+    }
+
+    private static final char[] DIGITS_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd',
+            'e', 'f'};
+
+
+    public static String encodeHexString(final byte[] data) {
+        return new String(encodeHex(data));
+    }
+
+
+    protected static char[] encodeHex(final byte[] data) {
+        final int l = data.length;
+        final char[] out = new char[l << 1];
+        for (int i = 0, j = 0; i < data.length; i++) {
+            out[j++] = DIGITS_LOWER[(0xF0 & data[i]) >>> 4];
+            out[j++] = DIGITS_LOWER[0x0F & data[i]];
+        }
+        return out;
     }
 }
