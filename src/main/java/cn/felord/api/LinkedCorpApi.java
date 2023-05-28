@@ -7,9 +7,7 @@ import cn.felord.domain.contactbook.linkedcorp.CorpUserInfo;
 import cn.felord.domain.contactbook.linkedcorp.PermListResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,11 +30,7 @@ public class LinkedCorpApi {
      * @return the perm list
      */
     public PermListResponse getPermList() {
-        String endpoint = WeComEndpoint.LINKED_CORP_PERM_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.emptyMap(), PermListResponse.class);
+        return workWeChatApiClient.post( WeComEndpoint.LINKED_CORP_PERM_LIST, Collections.emptyMap(), PermListResponse.class);
     }
 
     /**
@@ -46,11 +40,7 @@ public class LinkedCorpApi {
      * @return the user
      */
     public GenericResponse<CorpUserInfo> getUser(String corpUserId) {
-        String endpoint = WeComEndpoint.LINKED_CORP_USER.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("userid", corpUserId),
+        return workWeChatApiClient.post(WeComEndpoint.LINKED_CORP_USER, Collections.singletonMap("userid", corpUserId),
                 new ParameterizedTypeReference<GenericResponse<CorpUserInfo>>() {
                 });
     }
@@ -62,11 +52,7 @@ public class LinkedCorpApi {
      * @return the generic response
      */
     public GenericResponse<List<CorpSimpleUserInfo>> getUserSimplelist(String linkedDepartmentId) {
-        String endpoint = WeComEndpoint.LINKED_CORP_USER_SIMPLELIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("department_id", linkedDepartmentId),
+        return workWeChatApiClient.post( WeComEndpoint.LINKED_CORP_USER_SIMPLELIST, Collections.singletonMap("department_id", linkedDepartmentId),
                 new ParameterizedTypeReference<GenericResponse<List<CorpSimpleUserInfo>>>() {
                 });
     }
@@ -78,11 +64,7 @@ public class LinkedCorpApi {
      * @return the dept list
      */
     public GenericResponse<List<DeptInfo>> getDeptList(String linkedDepartmentId) {
-        String endpoint = WeComEndpoint.LINKED_CORP_DEPT_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("department_id", linkedDepartmentId),
+        return workWeChatApiClient.post(WeComEndpoint.LINKED_CORP_DEPT_LIST, Collections.singletonMap("department_id", linkedDepartmentId),
                 new ParameterizedTypeReference<GenericResponse<List<DeptInfo>>>() {
                 });
     }

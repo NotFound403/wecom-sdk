@@ -10,9 +10,7 @@ import cn.felord.domain.externalcontact.TransferResultResponse;
 import cn.felord.domain.externalcontact.UnassignedListResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -44,15 +42,10 @@ public class OffTransferApi {
      * @return TransferCustomerResponse transfer customer response
      */
     public UnassignedListResponse getUnassignedList(String cursor, int pageSize) {
-
-        String endpoint = WeComEndpoint.UNASSIGNED_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         Map<String, Object> body = new HashMap<>(2);
         body.put("cursor", cursor);
         body.put("page_size", pageSize);
-        return workWeChatApiClient.post(uri, body, UnassignedListResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.UNASSIGNED_LIST, body, UnassignedListResponse.class);
     }
 
 
@@ -63,12 +56,7 @@ public class OffTransferApi {
      * @return the transfer customer response
      */
     public TransferCustomerResponse transferCustomer(OffTransferCustomerRequest request) {
-
-        String endpoint = WeComEndpoint.OFF_TRANSFER_CUSTOMER.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, TransferCustomerResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OFF_TRANSFER_CUSTOMER, request, TransferCustomerResponse.class);
     }
 
     /**
@@ -78,12 +66,7 @@ public class OffTransferApi {
      * @return the transfer customer response
      */
     public TransferResultResponse transferResult(TransferResultRequest request) {
-
-        String endpoint = WeComEndpoint.OFF_TRANSFER_RESULT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, TransferResultResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OFF_TRANSFER_RESULT, request, TransferResultResponse.class);
     }
 
     /**
@@ -93,12 +76,7 @@ public class OffTransferApi {
      * @return the transfer result response
      */
     public GenericResponse<Set<TransferFailedGroupChat>> transferGroupChat(TransferGroupChatRequest request) {
-
-        String endpoint = WeComEndpoint.OFF_TRANSFER_GROUP_CHAT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<Set<TransferFailedGroupChat>>>() {
+        return workWeChatApiClient.post(WeComEndpoint.OFF_TRANSFER_GROUP_CHAT, request, new ParameterizedTypeReference<GenericResponse<Set<TransferFailedGroupChat>>>() {
         });
     }
 }

@@ -2,12 +2,15 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.externalcontact.*;
+import cn.felord.domain.externalcontact.ContactListRequest;
+import cn.felord.domain.externalcontact.ContactListResponse;
+import cn.felord.domain.externalcontact.ContactWayAddResponse;
+import cn.felord.domain.externalcontact.ContactWayBody;
+import cn.felord.domain.externalcontact.ContactWayBodyDetail;
+import cn.felord.domain.externalcontact.MutableContactWay;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -37,11 +40,7 @@ public class ContactMeWayApi {
      * @return the follow user list
      */
     public GenericResponse<List<String>> getFollowUserList() {
-        String endpoint = WeComEndpoint.EXTERNALCONTACT_FOLLOW_USER_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
+        return workWeChatApiClient.get(WeComEndpoint.EXTERNALCONTACT_FOLLOW_USER_LIST, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
         });
     }
 
@@ -52,11 +51,7 @@ public class ContactMeWayApi {
      * @return the we com response
      */
     public ContactWayAddResponse addContactWay(ContactWayBody request) {
-        String endpoint = WeComEndpoint.EXTERNALCONTACT_ADD_CONTACT_WAY.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, ContactWayAddResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_ADD_CONTACT_WAY, request, ContactWayAddResponse.class);
     }
 
     /**
@@ -66,11 +61,8 @@ public class ContactMeWayApi {
      * @return the we com response
      */
     public GenericResponse<ContactWayBodyDetail> getContactWay(String configId) {
-        String endpoint = WeComEndpoint.EXTERNALCONTACT_GET_CONTACT_WAY.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("config_id", configId),
+        return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_GET_CONTACT_WAY,
+                Collections.singletonMap("config_id", configId),
                 new ParameterizedTypeReference<GenericResponse<ContactWayBodyDetail>>() {
                 });
     }
@@ -82,11 +74,7 @@ public class ContactMeWayApi {
      * @return the we com response
      */
     public ContactListResponse listContactWay(ContactListRequest request) {
-        String endpoint = WeComEndpoint.EXTERNALCONTACT_LIST_CONTACT_WAY.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, ContactListResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_LIST_CONTACT_WAY, request, ContactListResponse.class);
     }
 
     /**
@@ -96,11 +84,7 @@ public class ContactMeWayApi {
      * @return the we com response
      */
     public WeComResponse updateContactWay(MutableContactWay contactWay) {
-        String endpoint = WeComEndpoint.EXTERNALCONTACT_UPDATE_CONTACT_WAY.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, contactWay, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_UPDATE_CONTACT_WAY, contactWay, WeComResponse.class);
     }
 
     /**
@@ -110,11 +94,7 @@ public class ContactMeWayApi {
      * @return the we com response
      */
     public WeComResponse delContactWay(String configId) {
-        String endpoint = WeComEndpoint.EXTERNALCONTACT_DEL_CONTACT_WAY.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("config_id", configId), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_DEL_CONTACT_WAY, Collections.singletonMap("config_id", configId), WeComResponse.class);
     }
 
     /**
@@ -125,13 +105,9 @@ public class ContactMeWayApi {
      * @return the we com response
      */
     public WeComResponse closeTempChat(String userid, String externalUserid) {
-        String endpoint = WeComEndpoint.EXTERNALCONTACT_CLOSE_TEMP_CHAT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         Map<String, String> body = new HashMap<>(2);
         body.put("userid", userid);
         body.put("external_userid", externalUserid);
-        return workWeChatApiClient.post(uri, body, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_CLOSE_TEMP_CHAT, body, WeComResponse.class);
     }
 }

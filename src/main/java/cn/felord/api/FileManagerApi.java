@@ -54,9 +54,7 @@ public class FileManagerApi {
     }
 
     private Resource getFileUrl(Map<String, String> singletonParamMap) {
-        String endpoint = WeComEndpoint.WEDRIVE_FILE_DOWNLOAD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint).build().toUri();
-        FileDownloadResponse downloadResponse = workWeChatApiClient.post(uri, singletonParamMap, FileDownloadResponse.class);
+        FileDownloadResponse downloadResponse = workWeChatApiClient.post(WeComEndpoint.WEDRIVE_FILE_DOWNLOAD, singletonParamMap, FileDownloadResponse.class);
         String downloadUrl = downloadResponse.getDownloadUrl();
         String cookie = downloadResponse.getCookieName()
                 .concat("=")

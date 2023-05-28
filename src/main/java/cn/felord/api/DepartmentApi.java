@@ -6,9 +6,8 @@ import cn.felord.domain.contactbook.department.DeptInfo;
 import cn.felord.domain.contactbook.department.DeptSimpleInfo;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.util.LinkedMultiValueMap;
 
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -36,11 +35,7 @@ public class DepartmentApi {
      * @return CreateDeptResponse generic response
      */
     public GenericResponse<Long> createDept(DeptInfo request) {
-        String endpoint = WeComEndpoint.DEPT_CREATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<Long>>() {
+        return workWeChatApiClient.post(WeComEndpoint.DEPT_CREATE, request, new ParameterizedTypeReference<GenericResponse<Long>>() {
         });
     }
 
@@ -51,11 +46,7 @@ public class DepartmentApi {
      * @return the we com response
      */
     public WeComResponse updateDept(DeptInfo request) {
-        String endpoint = WeComEndpoint.DEPT_UPDATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.DEPT_UPDATE, request, WeComResponse.class);
     }
 
     /**
@@ -66,13 +57,10 @@ public class DepartmentApi {
      * @param departmentId departmentId
      * @return WeComResponse we com response
      */
-    public WeComResponse deleteDept(Long departmentId) {
-        String endpoint = WeComEndpoint.DEPT_DELETE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("id", departmentId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, WeComResponse.class);
+    public WeComResponse deleteDept(long departmentId) {
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("id", String.valueOf(departmentId));
+        return workWeChatApiClient.get(WeComEndpoint.DEPT_DELETE, query, WeComResponse.class);
     }
 
     /**
@@ -80,15 +68,11 @@ public class DepartmentApi {
      *
      * @param departmentId departmentId
      * @return DeptResponse generic response
-     * @see WeComEndpoint#DEPT_LIST
      */
     public GenericResponse<List<DeptInfo>> deptList(Long departmentId) {
-        String endpoint = WeComEndpoint.DEPT_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("id", departmentId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptInfo>>>() {
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("id", String.valueOf(departmentId));
+        return workWeChatApiClient.get(WeComEndpoint.DEPT_LIST, query, new ParameterizedTypeReference<GenericResponse<List<DeptInfo>>>() {
         });
     }
 
@@ -96,7 +80,6 @@ public class DepartmentApi {
      * 获取全部部门列表（自建）
      *
      * @return DeptResponse generic response
-     * @see WeComEndpoint#DEPT_LIST
      */
     public GenericResponse<List<DeptInfo>> deptList() {
         return this.deptList(null);
@@ -118,12 +101,10 @@ public class DepartmentApi {
      * @return the generic response
      */
     public GenericResponse<List<DeptSimpleInfo>> getSimpleList(Long departmentId) {
-        String endpoint = WeComEndpoint.DEPT_SIMPLE_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("id", departmentId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<DeptSimpleInfo>>>() {
+
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("id", String.valueOf(departmentId));
+        return workWeChatApiClient.get(WeComEndpoint.DEPT_SIMPLE_LIST, query, new ParameterizedTypeReference<GenericResponse<List<DeptSimpleInfo>>>() {
         });
     }
 
@@ -134,12 +115,9 @@ public class DepartmentApi {
      * @return the generic response
      */
     public GenericResponse<DeptInfo> get(long departmentId) {
-        String endpoint = WeComEndpoint.DEPT_GET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("id", departmentId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<DeptInfo>>() {
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("id", String.valueOf(departmentId));
+        return workWeChatApiClient.get(WeComEndpoint.DEPT_GET, query, new ParameterizedTypeReference<GenericResponse<DeptInfo>>() {
         });
     }
 }

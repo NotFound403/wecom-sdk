@@ -4,9 +4,7 @@ import cn.felord.domain.callcenter.KfServicerListResponse;
 import cn.felord.domain.callcenter.KfServicerRequest;
 import cn.felord.domain.callcenter.KfServicerResponse;
 import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
+import org.springframework.util.LinkedMultiValueMap;
 
 /**
  * 接待人员管理
@@ -33,11 +31,7 @@ public class KfServicerApi {
      * @return the generic response
      */
     public KfServicerResponse addKfServicer(KfServicerRequest request) {
-        String endpoint = WeComEndpoint.KF_SERVICER_CREATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, KfServicerResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.KF_SERVICER_CREATE, request, KfServicerResponse.class);
     }
 
     /**
@@ -47,12 +41,7 @@ public class KfServicerApi {
      * @return the we com response
      */
     public KfServicerResponse delKfServicer(KfServicerRequest request) {
-
-        String endpoint = WeComEndpoint.KF_SERVICER_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, KfServicerResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.KF_SERVICER_DEL, request, KfServicerResponse.class);
     }
 
     /**
@@ -62,12 +51,8 @@ public class KfServicerApi {
      * @return the generic response
      */
     public KfServicerListResponse kfServicerList(String openKfid) {
-
-        String endpoint = WeComEndpoint.KF_SERVICER_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("open_kfid", openKfid)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, KfServicerListResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("open_kfid", openKfid);
+        return workWeChatApiClient.get(WeComEndpoint.KF_SERVICER_LIST, query, KfServicerListResponse.class);
     }
 }

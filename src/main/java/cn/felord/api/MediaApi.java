@@ -10,9 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
 
 /**
  * The type Media api.
@@ -41,13 +38,10 @@ public class MediaApi {
      * @return the media response
      */
     public MediaResponse uploadAttachment(WeChatMultipartFile media, MediaTypeEnum mediaType, MediaAttachmentType type) {
-        String endpoint = WeComEndpoint.MEDIA_UPLOAD_ATTACHMENT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("media_type", mediaType.name().toLowerCase())
-                .queryParam("attachment_type", type.getType())
-                .build()
-                .toUri();
-        return doUpload(media, uri);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("media_type", mediaType.name().toLowerCase());
+        query.add("attachment_type", String.valueOf(type.getType()));
+        return doUpload(media, WeComEndpoint.MEDIA_UPLOAD_ATTACHMENT, query);
     }
 
     /**
@@ -58,12 +52,9 @@ public class MediaApi {
      * @return the media response
      */
     public MediaResponse uploadMedia(WeChatMultipartFile media, MediaTypeEnum mediaType) {
-        String endpoint = WeComEndpoint.MEDIA_UPLOAD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("type", mediaType.name().toLowerCase())
-                .build()
-                .toUri();
-        return doUpload(media, uri);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("type", mediaType.name().toLowerCase());
+        return doUpload(media, WeComEndpoint.MEDIA_UPLOAD, query);
     }
 
     /**
@@ -73,14 +64,10 @@ public class MediaApi {
      * @return the media response
      */
     public MediaResponse uploadImage(WeChatMultipartFile media) {
-        String endpoint = WeComEndpoint.MEDIA_UPLOAD_IMG.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return doUpload(media, uri);
+        return doUpload(media, WeComEndpoint.MEDIA_UPLOAD_IMG, null);
     }
 
-    private MediaResponse doUpload(WeChatMultipartFile media, URI uri) {
+    private MediaResponse doUpload(WeChatMultipartFile media, WeComEndpoint endpoint, MultiValueMap<String, String> query) {
         String name = media.getName();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -89,14 +76,13 @@ public class MediaApi {
                 .filename(name)
                 .build();
         headers.setContentDisposition(contentDisposition);
-        return this.doUpload(media, headers, uri);
+        return this.doUpload(media, headers, endpoint, query);
     }
 
-    private MediaResponse doUpload(WeChatMultipartFile media, HttpHeaders headers, URI uri) {
-
+    private MediaResponse doUpload(WeChatMultipartFile media, HttpHeaders headers, WeComEndpoint endpoint, MultiValueMap<String, String> query) {
         MultiValueMap<Object, Object> body = new LinkedMultiValueMap<>();
         body.add("media", media.getResource());
-        return workWeChatApiClient.post(uri, body, headers, MediaResponse.class);
+        return workWeChatApiClient.post(endpoint, query, body, headers, MediaResponse.class);
     }
 
 }

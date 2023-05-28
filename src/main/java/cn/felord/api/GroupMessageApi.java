@@ -2,12 +2,21 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.externalcontact.*;
+import cn.felord.domain.externalcontact.GroupMsgListRequest;
+import cn.felord.domain.externalcontact.GroupMsgListResponse;
+import cn.felord.domain.externalcontact.GroupMsgSendResultRequest;
+import cn.felord.domain.externalcontact.GroupMsgSendResultResponse;
+import cn.felord.domain.externalcontact.GroupMsgTaskRequest;
+import cn.felord.domain.externalcontact.GroupMsgTaskResponse;
+import cn.felord.domain.externalcontact.MsgTemplateRequest;
+import cn.felord.domain.externalcontact.MsgTemplateResponse;
+import cn.felord.domain.externalcontact.WelcomeCodeRequest;
+import cn.felord.domain.externalcontact.WelcomeTemplateAddRequest;
+import cn.felord.domain.externalcontact.WelcomeTemplateEditRequest;
+import cn.felord.domain.externalcontact.WelcomeTemplateResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,11 +48,7 @@ public class GroupMessageApi {
      * @return the moment list
      */
     public MsgTemplateResponse addMsgTemplate(MsgTemplateRequest request) {
-        String endpoint = WeComEndpoint.GROUP_MSG_ADD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, MsgTemplateResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_ADD, request, MsgTemplateResponse.class);
     }
 
     /**
@@ -55,11 +60,7 @@ public class GroupMessageApi {
      * @return the msg template response
      */
     public WeComResponse remindGroupmsgSend(String msgId) {
-        String endpoint = WeComEndpoint.REMIND_GROUPMSG_SEND.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("msgid",msgId), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.REMIND_GROUPMSG_SEND, Collections.singletonMap("msgid", msgId), WeComResponse.class);
     }
 
     /**
@@ -69,11 +70,7 @@ public class GroupMessageApi {
      * @return the we com response
      */
     public WeComResponse cancelGroupmsgSend(String msgId) {
-        String endpoint = WeComEndpoint.CANCEL_GROUPMSG_SEND.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("msgid",msgId), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CANCEL_GROUPMSG_SEND, Collections.singletonMap("msgid", msgId), WeComResponse.class);
     }
 
     /**
@@ -84,11 +81,7 @@ public class GroupMessageApi {
      * @return the groupmsg list v 2
      */
     public GroupMsgListResponse getGroupMsgListV2(GroupMsgListRequest request) {
-        String endpoint = WeComEndpoint.GROUP_MSG_LIST_V2.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, GroupMsgListResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_LIST_V2, request, GroupMsgListResponse.class);
     }
 
     /**
@@ -98,11 +91,7 @@ public class GroupMessageApi {
      * @return the group msg task
      */
     public GroupMsgTaskResponse getGroupMsgTask(GroupMsgTaskRequest request) {
-        String endpoint = WeComEndpoint.GROUP_MSG_TASK.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, GroupMsgTaskResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_TASK, request, GroupMsgTaskResponse.class);
     }
 
     /**
@@ -112,11 +101,7 @@ public class GroupMessageApi {
      * @return the group msg send result
      */
     public GroupMsgSendResultResponse getGroupMsgSendResult(GroupMsgSendResultRequest request) {
-        String endpoint = WeComEndpoint.GROUP_MSG_SEND_RESULT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, GroupMsgSendResultResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_SEND_RESULT, request, GroupMsgSendResultResponse.class);
     }
 
     /**
@@ -126,11 +111,7 @@ public class GroupMessageApi {
      * @return group msg send result response
      */
     public WeComResponse sendWelcomeGroupMsg(WelcomeCodeRequest request) {
-        String endpoint = WeComEndpoint.GROUP_MSG_SEND_WELCOME.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_SEND_WELCOME, request, WeComResponse.class);
     }
 
     /**
@@ -140,11 +121,7 @@ public class GroupMessageApi {
      * @return the generic response
      */
     public GenericResponse<String> addWelcomeTemplate(WelcomeTemplateAddRequest request) {
-        String endpoint = WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_ADD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_ADD, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -155,11 +132,7 @@ public class GroupMessageApi {
      * @return the we com response
      */
     public WeComResponse editWelcomeTemplate(WelcomeTemplateEditRequest request) {
-        String endpoint = WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_EDIT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_EDIT, request, WeComResponse.class);
     }
 
     /**
@@ -169,11 +142,7 @@ public class GroupMessageApi {
      * @return the welcome template
      */
     public WelcomeTemplateResponse getWelcomeTemplate(String templateId) {
-        String endpoint = WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_GET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("template_id", templateId), WelcomeTemplateResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_GET, Collections.singletonMap("template_id", templateId), WelcomeTemplateResponse.class);
     }
 
     /**
@@ -183,11 +152,7 @@ public class GroupMessageApi {
      * @return the welcome template response
      */
     public WeComResponse delWelcomeTemplate(String templateId) {
-        String endpoint = WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("template_id", templateId), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_DEL, Collections.singletonMap("template_id", templateId), WeComResponse.class);
     }
 
     /**
@@ -198,13 +163,9 @@ public class GroupMessageApi {
      * @return the we com response
      */
     public WeComResponse delWelcomeTemplate(String templateId, String agentId) {
-        String endpoint = WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         Map<String, String> body = new HashMap<>(2);
         body.put("template_id", templateId);
         body.put("agentid", agentId);
-        return workWeChatApiClient.post(uri, body, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_DEL, body, WeComResponse.class);
     }
 }

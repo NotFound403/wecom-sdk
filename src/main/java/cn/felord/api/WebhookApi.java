@@ -10,9 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
 
 /**
  * 群机器人
@@ -39,12 +36,9 @@ public class WebhookApi {
      * @return the we com response
      */
     public <T extends WebhookBody> WeComResponse send(String key, T body) {
-        String endpoint = WeComEndpoint.WEBHOOK_SEND.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("key", key)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, body, WeComResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("key", key);
+        return workWeChatApiClient.post(WeComEndpoint.WEBHOOK_SEND, query, body, WeComResponse.class);
     }
 
     /**
@@ -54,12 +48,6 @@ public class WebhookApi {
      * @return the media response
      */
     public MediaResponse uploadMedia(String webhookKey, WeChatMultipartFile media) {
-        String endpoint = WeComEndpoint.WEBHOOK_UPLOAD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("key", webhookKey)
-                .queryParam("type", "file")
-                .build()
-                .toUri();
         String name = media.getName();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -70,7 +58,10 @@ public class WebhookApi {
         headers.setContentDisposition(contentDisposition);
         MultiValueMap<Object, Object> body = new LinkedMultiValueMap<>();
         body.add("media", media.getResource());
-        return workWeChatApiClient.post(uri, body, headers, MediaResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("key", webhookKey);
+        query.add("type", "file");
+        return workWeChatApiClient.post(WeComEndpoint.WEBHOOK_UPLOAD, query, body, headers, MediaResponse.class);
     }
 
 }

@@ -3,9 +3,7 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -32,11 +30,7 @@ public class DomainApi {
      * @return the contact list
      */
     public GenericResponse<List<String>> getApiDomainIp() {
-        String endpoint = WeComEndpoint.API_DOMAIN_IP.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
+        return workWeChatApiClient.get(WeComEndpoint.API_DOMAIN_IP, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
         });
     }
 
@@ -46,11 +40,7 @@ public class DomainApi {
      * @return the api domain ip
      */
     public GenericResponse<List<String>> getCallbackIp() {
-        String endpoint = WeComEndpoint.CALLBACK_IP.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
+        return workWeChatApiClient.get(WeComEndpoint.CALLBACK_IP, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
         });
     }
 }

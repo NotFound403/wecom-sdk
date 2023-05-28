@@ -7,9 +7,7 @@ import cn.felord.domain.oa.CalendarDetailResponse;
 import cn.felord.domain.oa.CalendarUpdateRequest;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.Set;
 
@@ -38,11 +36,7 @@ public class CalendarApi {
      * @return the generic response
      */
     public GenericResponse<String> add(CalendarAddRequest request) {
-        String endpoint = WeComEndpoint.OA_CALENDAR_ADD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.OA_CALENDAR_ADD, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -53,11 +47,7 @@ public class CalendarApi {
      * @return the generic response
      */
     public WeComResponse update(CalendarUpdateRequest request) {
-        String endpoint = WeComEndpoint.OA_CALENDAR_UPDATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OA_CALENDAR_UPDATE, request, WeComResponse.class);
     }
 
     /**
@@ -67,11 +57,7 @@ public class CalendarApi {
      * @return the calendar detail response
      */
     public CalendarDetailResponse get(Set<String> calIdList) {
-        String endpoint = WeComEndpoint.OA_CALENDAR_GET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("cal_id_list", calIdList), CalendarDetailResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OA_CALENDAR_GET, Collections.singletonMap("cal_id_list", calIdList), CalendarDetailResponse.class);
     }
 
     /**
@@ -81,10 +67,6 @@ public class CalendarApi {
      * @return the we com response
      */
     public WeComResponse del(String calId) {
-        String endpoint = WeComEndpoint.OA_CALENDAR_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("cal_id", calId), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OA_CALENDAR_DEL, Collections.singletonMap("cal_id", calId), WeComResponse.class);
     }
 }

@@ -1,11 +1,14 @@
 package cn.felord.api;
 
-import cn.felord.domain.externalcontact.*;
+import cn.felord.domain.externalcontact.GroupChatDataByDay;
+import cn.felord.domain.externalcontact.GroupChatDataByOwner;
+import cn.felord.domain.externalcontact.GroupChatDataResponse;
+import cn.felord.domain.externalcontact.GroupChatDayDataRequest;
+import cn.felord.domain.externalcontact.GroupChatOwnerDataRequest;
+import cn.felord.domain.externalcontact.UserBehaviorDataRequest;
+import cn.felord.domain.externalcontact.UserBehaviorDataResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
 
 /**
  * 统计管理
@@ -38,11 +41,7 @@ public class StatisticApi {
      * @return the user behavior data
      */
     public UserBehaviorDataResponse getUserBehaviorData(UserBehaviorDataRequest request) {
-        String endpoint = WeComEndpoint.STATISTIC_USER_BEHAVIOR_DATA.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, UserBehaviorDataResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.STATISTIC_USER_BEHAVIOR_DATA, request, UserBehaviorDataResponse.class);
     }
 
     /**
@@ -56,11 +55,7 @@ public class StatisticApi {
      * @return the group chat data
      */
     public GroupChatDataResponse<GroupChatDataByOwner> getGroupChatData(GroupChatOwnerDataRequest request) {
-        String endpoint = WeComEndpoint.STATISTIC_GROUP_CHAT_BY_OWNER.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GroupChatDataResponse<GroupChatDataByOwner>>() {
+        return workWeChatApiClient.post(WeComEndpoint.STATISTIC_GROUP_CHAT_BY_OWNER, request, new ParameterizedTypeReference<GroupChatDataResponse<GroupChatDataByOwner>>() {
         });
     }
 
@@ -71,11 +66,7 @@ public class StatisticApi {
      * @return the group chat data by day
      */
     public GroupChatDataResponse<GroupChatDataByDay> getGroupChatData(GroupChatDayDataRequest request) {
-        String endpoint = WeComEndpoint.STATISTIC_GROUP_CHAT_BY_DAY.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GroupChatDataResponse<GroupChatDataByDay>>() {
+        return workWeChatApiClient.post(WeComEndpoint.STATISTIC_GROUP_CHAT_BY_DAY, request, new ParameterizedTypeReference<GroupChatDataResponse<GroupChatDataByDay>>() {
         });
     }
 }

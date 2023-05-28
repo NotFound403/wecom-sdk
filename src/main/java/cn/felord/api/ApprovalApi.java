@@ -2,12 +2,17 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.approval.*;
+import cn.felord.domain.approval.ApprovalApplyRequest;
+import cn.felord.domain.approval.ApprovalDetail;
+import cn.felord.domain.approval.ApprovalTempAddRequest;
+import cn.felord.domain.approval.ApprovalTempUpdateRequest;
+import cn.felord.domain.approval.ApprovalTmpDetailResponse;
+import cn.felord.domain.approval.OpenApprovalData;
+import cn.felord.domain.approval.SpNoListRequest;
+import cn.felord.domain.approval.SpNoListResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 
 /**
@@ -35,11 +40,7 @@ public class ApprovalApi {
      * @return the detail
      */
     public ApprovalTmpDetailResponse getDetail(String templateId) {
-        String endpoint = WeComEndpoint.APPROVAL_TEMPLATE_DETAIL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("template_id", templateId), ApprovalTmpDetailResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.APPROVAL_TEMPLATE_DETAIL, Collections.singletonMap("template_id", templateId), ApprovalTmpDetailResponse.class);
     }
 
     /**
@@ -51,11 +52,7 @@ public class ApprovalApi {
      * @return the generic response
      */
     public GenericResponse<String> createTemplate(ApprovalTempAddRequest template) {
-        String endpoint = WeComEndpoint.APPROVAL_TEMPLATE_ADD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, template, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.APPROVAL_TEMPLATE_ADD, template, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -74,11 +71,7 @@ public class ApprovalApi {
      * @return the we com response
      */
     public WeComResponse createTemplate(ApprovalTempUpdateRequest template) {
-        String endpoint = WeComEndpoint.APPROVAL_TEMPLATE_UPDATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, template, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.APPROVAL_TEMPLATE_UPDATE, template, WeComResponse.class);
     }
 
     /**
@@ -88,11 +81,7 @@ public class ApprovalApi {
      * @return the generic response
      */
     public GenericResponse<String> apply(ApprovalApplyRequest request) {
-        String endpoint = WeComEndpoint.APPROVAL_APPLY_EVENT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.APPROVAL_APPLY_EVENT, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -109,11 +98,7 @@ public class ApprovalApi {
      * @return the sp no list response
      */
     public SpNoListResponse queryApprovalInfos(SpNoListRequest request) {
-        String endpoint = WeComEndpoint.APPROVAL_INFO.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, SpNoListResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.APPROVAL_INFO, request, SpNoListResponse.class);
     }
 
     /**
@@ -123,11 +108,7 @@ public class ApprovalApi {
      * @return sp no list response
      */
     public GenericResponse<ApprovalDetail> queryApprovalDetail(String spNo) {
-        String endpoint = WeComEndpoint.APPROVAL_DETAIL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri,
+        return workWeChatApiClient.post(WeComEndpoint.APPROVAL_DETAIL,
                 Collections.singletonMap("sp_no", spNo),
                 new ParameterizedTypeReference<GenericResponse<ApprovalDetail>>() {
                 });
@@ -140,11 +121,7 @@ public class ApprovalApi {
      * @return the generic response
      */
     public GenericResponse<OpenApprovalData> queryOpenApprovalData(String thirdNo) {
-        String endpoint = WeComEndpoint.OPEN_APPROVAL_DATA.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri,
+        return workWeChatApiClient.post(WeComEndpoint.OPEN_APPROVAL_DATA,
                 Collections.singletonMap("thirdNo", thirdNo),
                 new ParameterizedTypeReference<GenericResponse<OpenApprovalData>>() {
                 });

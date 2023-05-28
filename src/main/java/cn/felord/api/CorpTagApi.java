@@ -2,12 +2,18 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.externalcontact.*;
+import cn.felord.domain.externalcontact.AgentCorpTagIterator;
+import cn.felord.domain.externalcontact.CorpTagAddRequest;
+import cn.felord.domain.externalcontact.CorpTagEditRequest;
+import cn.felord.domain.externalcontact.CorpTagGroup;
+import cn.felord.domain.externalcontact.CorpTagIterator;
+import cn.felord.domain.externalcontact.CorpTagOptRequest;
+import cn.felord.domain.externalcontact.CorpTagStrategyAddRequest;
+import cn.felord.domain.externalcontact.CorpTagStrategyEditRequest;
+import cn.felord.domain.externalcontact.StrategyCorpTagIterator;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -36,13 +42,7 @@ public class CorpTagApi {
      * @return the customer strategy detail response
      */
     public <R extends CorpTagIterator> GenericResponse<List<CorpTagGroup>> corpTagList(R request) {
-
-        String endpoint = WeComEndpoint.CORP_TAG_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<CorpTagGroup>>>() {
+        return workWeChatApiClient.post(WeComEndpoint.CORP_TAG_LIST, request, new ParameterizedTypeReference<GenericResponse<List<CorpTagGroup>>>() {
         });
     }
 
@@ -53,12 +53,7 @@ public class CorpTagApi {
      * @return the generic response
      */
     public GenericResponse<CorpTagGroup> addCorpTag(CorpTagAddRequest request) {
-        String endpoint = WeComEndpoint.CORP_TAG_ADD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<CorpTagGroup>>() {
+        return workWeChatApiClient.post(WeComEndpoint.CORP_TAG_ADD, request, new ParameterizedTypeReference<GenericResponse<CorpTagGroup>>() {
         });
     }
 
@@ -69,12 +64,7 @@ public class CorpTagApi {
      * @return the generic response
      */
     public WeComResponse editCorpTag(CorpTagEditRequest request) {
-        String endpoint = WeComEndpoint.CORP_TAG_EDIT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CORP_TAG_EDIT, request, WeComResponse.class);
     }
 
     /**
@@ -85,12 +75,7 @@ public class CorpTagApi {
      * @return the generic response
      */
     public <R extends AgentCorpTagIterator> WeComResponse delCorpTag(R request) {
-        String endpoint = WeComEndpoint.CORP_TAG_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CORP_TAG_DEL, request, WeComResponse.class);
     }
 
     /**
@@ -101,13 +86,7 @@ public class CorpTagApi {
      * @return the generic response
      */
     public <R extends StrategyCorpTagIterator> GenericResponse<List<CorpTagGroup>> strategyCorpTagList(R request) {
-
-        String endpoint = WeComEndpoint.CORP_TAG_STRATEGY_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<CorpTagGroup>>>() {
+        return workWeChatApiClient.post(WeComEndpoint.CORP_TAG_STRATEGY_LIST, request, new ParameterizedTypeReference<GenericResponse<List<CorpTagGroup>>>() {
         });
     }
 
@@ -118,13 +97,7 @@ public class CorpTagApi {
      * @return the generic response
      */
     public GenericResponse<CorpTagGroup> addStrategyCorpTag(CorpTagStrategyAddRequest request) {
-
-        String endpoint = WeComEndpoint.CORP_TAG_STRATEGY_ADD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<CorpTagGroup>>() {
+        return workWeChatApiClient.post(WeComEndpoint.CORP_TAG_STRATEGY_ADD, request, new ParameterizedTypeReference<GenericResponse<CorpTagGroup>>() {
         });
     }
 
@@ -135,12 +108,7 @@ public class CorpTagApi {
      * @return the generic response
      */
     public WeComResponse editStrategyCorpTag(CorpTagStrategyEditRequest request) {
-
-        String endpoint = WeComEndpoint.CORP_TAG_STRATEGY_EDIT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CORP_TAG_STRATEGY_EDIT, request, WeComResponse.class);
     }
 
     /**
@@ -151,12 +119,7 @@ public class CorpTagApi {
      * @return the generic response
      */
     public <R extends CorpTagIterator> WeComResponse delStrategyCorpTag(R request) {
-
-        String endpoint = WeComEndpoint.CORP_TAG_STRATEGY_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CORP_TAG_STRATEGY_DEL, request, WeComResponse.class);
     }
 
     /**
@@ -166,11 +129,6 @@ public class CorpTagApi {
      * @return the we com response
      */
     public WeComResponse markTag(CorpTagOptRequest request) {
-
-        String endpoint = WeComEndpoint.CORP_TAG_MARK.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CORP_TAG_MARK, request, WeComResponse.class);
     }
 }

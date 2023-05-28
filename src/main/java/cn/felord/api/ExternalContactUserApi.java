@@ -3,15 +3,25 @@ package cn.felord.api;
 import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.externalcontact.*;
+import cn.felord.domain.externalcontact.CustomerRemarkRequest;
+import cn.felord.domain.externalcontact.CustomerStrategyDetailResponse;
+import cn.felord.domain.externalcontact.CustomerStrategyRequest;
+import cn.felord.domain.externalcontact.ExternalUserDetailResponse;
+import cn.felord.domain.externalcontact.ExternalUserListDetailResponse;
+import cn.felord.domain.externalcontact.MutableCustomerStrategy;
+import cn.felord.domain.externalcontact.StrategyListResponse;
+import cn.felord.domain.externalcontact.StrategyRangeRequest;
+import cn.felord.domain.externalcontact.StrategyRangeResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 客户管理
@@ -33,13 +43,11 @@ public class ExternalContactUserApi {
      * @return the follow user list
      */
     public GenericResponse<List<String>> listByUserId(String userId) {
-        String endpoint = WeComEndpoint.EXTERNALCONTACT_LIST_USERID.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("userid", userId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<String>>>() {
-        });
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("userid", userId);
+        return workWeChatApiClient.get(WeComEndpoint.EXTERNALCONTACT_LIST_USERID, query,
+                new ParameterizedTypeReference<GenericResponse<List<String>>>() {
+                });
     }
 
     /**
@@ -50,17 +58,12 @@ public class ExternalContactUserApi {
      * @return the by user id
      */
     public ExternalUserDetailResponse getByExUserId(String externalUserid, String cursor) {
-        String endpoint = WeComEndpoint.EXTERNALCONTACT_GET_USERID.endpoint();
         LinkedMultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("external_userid", externalUserid);
         if (StringUtils.hasText(cursor)) {
             queryParams.add("cursor", cursor);
         }
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParams(queryParams)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<ExternalUserDetailResponse>() {
+        return workWeChatApiClient.get(WeComEndpoint.EXTERNALCONTACT_GET_USERID, queryParams, new ParameterizedTypeReference<ExternalUserDetailResponse>() {
         });
     }
 
@@ -68,22 +71,18 @@ public class ExternalContactUserApi {
      * 批量获取客户详情
      *
      * @param userids the userid list
-     * @param cursor     the cursor
-     * @param limit      the limit
+     * @param cursor  the cursor
+     * @param limit   the limit
      * @return the by user id
      */
     public ExternalUserListDetailResponse batchByUserIds(Set<String> userids, String cursor, Integer limit) {
         int size = userids.size();
         if (0 < size && size <= 100) {
-            String endpoint = WeComEndpoint.EXTERNALCONTACT_BATCH_USERID.endpoint();
-            URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                    .build()
-                    .toUri();
             Map<String, Object> body = new HashMap<>();
             body.put("userid_list", userids);
             body.put("cursor", cursor);
             body.put("limit", limit);
-            return workWeChatApiClient.post(uri, body, ExternalUserListDetailResponse.class);
+            return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_BATCH_USERID, body, ExternalUserListDetailResponse.class);
         }
         throw new WeComException("外部联系人ID个数范围 (0,100]");
     }
@@ -95,12 +94,7 @@ public class ExternalContactUserApi {
      * @return the external user list detail response
      */
     public WeComResponse remark(CustomerRemarkRequest request) {
-
-        String endpoint = WeComEndpoint.EXTERNALCONTACT_REMARK.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_REMARK, request, WeComResponse.class);
     }
 
     /**
@@ -111,15 +105,10 @@ public class ExternalContactUserApi {
      * @return the external user list detail response
      */
     public StrategyListResponse customerStrategyList(String cursor, int limit) {
-
-        String endpoint = WeComEndpoint.CUSTOMER_STRATEGY_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         Map<String, Object> body = new HashMap<>(2);
         body.put("cursor", cursor);
         body.put("limit", limit);
-        return workWeChatApiClient.post(uri, body, StrategyListResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_LIST, body, StrategyListResponse.class);
     }
 
     /**
@@ -129,13 +118,9 @@ public class ExternalContactUserApi {
      * @return the external user list detail response
      */
     public CustomerStrategyDetailResponse getCustomerStrategy(int strategyId) {
-
-        String endpoint = WeComEndpoint.CUSTOMER_STRATEGY_GET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-
-        return workWeChatApiClient.post(uri, Collections.singletonMap("strategy_id", strategyId), CustomerStrategyDetailResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_GET,
+                Collections.singletonMap("strategy_id", strategyId),
+                CustomerStrategyDetailResponse.class);
     }
 
     /**
@@ -145,11 +130,7 @@ public class ExternalContactUserApi {
      * @return the external user list detail response
      */
     public StrategyRangeResponse getCustomerStrategyRange(StrategyRangeRequest request) {
-        String endpoint = WeComEndpoint.CUSTOMER_STRATEGY_GET_RANGE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, StrategyRangeResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_GET_RANGE, request, StrategyRangeResponse.class);
     }
 
     /**
@@ -159,13 +140,7 @@ public class ExternalContactUserApi {
      * @return the customer strategy range response
      */
     public GenericResponse<Integer> createCustomerStrategy(CustomerStrategyRequest request) {
-
-        String endpoint = WeComEndpoint.CUSTOMER_STRATEGY_CREATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<Integer>>() {
+        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_CREATE, request, new ParameterizedTypeReference<GenericResponse<Integer>>() {
         });
     }
 
@@ -176,13 +151,7 @@ public class ExternalContactUserApi {
      * @return the customer strategy range response
      */
     public WeComResponse editCustomerStrategy(MutableCustomerStrategy request) {
-
-        String endpoint = WeComEndpoint.CUSTOMER_STRATEGY_EDIT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_EDIT, request, WeComResponse.class);
     }
 
     /**
@@ -192,13 +161,7 @@ public class ExternalContactUserApi {
      * @return the customer strategy range response
      */
     public WeComResponse delCustomerStrategy(int strategyId) {
-
-        String endpoint = WeComEndpoint.CUSTOMER_STRATEGY_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-
-        return workWeChatApiClient.post(uri, Collections.singletonMap("strategy_id", strategyId), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_DEL, Collections.singletonMap("strategy_id", strategyId), WeComResponse.class);
     }
 
     /**
@@ -212,15 +175,11 @@ public class ExternalContactUserApi {
      */
     public GenericResponse<String> convertToOpenid(String externalUserid) {
 
-        if (externalUserid.startsWith("wo")){
+        if (externalUserid.startsWith("wo")) {
             throw new WeComException("暂不支持以wo开头的externalUserid");
         }
-        String endpoint = WeComEndpoint.EXTERNAL_USER_TO_OPENID.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
 
-        return workWeChatApiClient.post(uri, Collections.singletonMap("external_userid", externalUserid),
+        return workWeChatApiClient.post(WeComEndpoint.EXTERNAL_USER_TO_OPENID, Collections.singletonMap("external_userid", externalUserid),
                 new ParameterizedTypeReference<GenericResponse<String>>() {
                 });
     }

@@ -15,9 +15,8 @@ import org.apache.commons.codec.binary.Hex;
 import org.springframework.util.AlternativeJdkIdGenerator;
 import org.springframework.util.Assert;
 import org.springframework.util.IdGenerator;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.util.LinkedMultiValueMap;
 
-import java.net.URI;
 import java.security.MessageDigest;
 import java.text.MessageFormat;
 import java.time.Instant;
@@ -86,10 +85,7 @@ public class SdkTicketApi {
             synchronized (this) {
                 ticket = cacheable.getCorpTicket(corpId, agentId);
                 if (ticket == null) {
-                    URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.CORP_JSAPI_TICKET.endpoint())
-                            .build()
-                            .toUri();
-                    JsTicketResponse jsTicketResponse = workWeChatApiClient.get(uri, JsTicketResponse.class);
+                    JsTicketResponse jsTicketResponse = workWeChatApiClient.get(WeComEndpoint.CORP_JSAPI_TICKET, JsTicketResponse.class);
                     if (jsTicketResponse.isError() || jsTicketResponse.getTicket() == null) {
                         throw new WeComException(jsTicketResponse.getErrcode(), jsTicketResponse.getErrmsg());
                     }
@@ -108,11 +104,9 @@ public class SdkTicketApi {
             synchronized (this) {
                 ticket = cacheable.getAgentTicket(corpId, agentId);
                 if (ticket == null) {
-                    URI uri = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.AGENT_JSAPI_TICKET.endpoint())
-                            .queryParam("type", "agent_config")
-                            .build()
-                            .toUri();
-                    JsTicketResponse jsTicketResponse = workWeChatApiClient.get(uri, JsTicketResponse.class);
+                    LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+                    query.add("type", "agent_config");
+                    JsTicketResponse jsTicketResponse = workWeChatApiClient.get(WeComEndpoint.AGENT_JSAPI_TICKET, query, JsTicketResponse.class);
                     if (jsTicketResponse.isError() || jsTicketResponse.getTicket() == null) {
                         throw new WeComException("fail to obtain the agent ticket");
                     }

@@ -1,12 +1,15 @@
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
-import cn.felord.domain.externalcontact.*;
+import cn.felord.domain.externalcontact.TransferCustomerRequest;
+import cn.felord.domain.externalcontact.TransferCustomerResponse;
+import cn.felord.domain.externalcontact.TransferFailedGroupChat;
+import cn.felord.domain.externalcontact.TransferGroupChatRequest;
+import cn.felord.domain.externalcontact.TransferResultRequest;
+import cn.felord.domain.externalcontact.TransferResultResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Set;
 
 /**
@@ -36,12 +39,7 @@ public class OnTransferApi {
      * @return TransferCustomerResponse transfer customer response
      */
     public TransferCustomerResponse transferCustomer(TransferCustomerRequest request) {
-
-        String endpoint = WeComEndpoint.TRANSFER_CUSTOMER.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, TransferCustomerResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.TRANSFER_CUSTOMER, request, TransferCustomerResponse.class);
     }
 
     /**
@@ -51,12 +49,7 @@ public class OnTransferApi {
      * @return the transfer customer response
      */
     public TransferResultResponse transferResult(TransferResultRequest request) {
-
-        String endpoint = WeComEndpoint.TRANSFER_RESULT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, TransferResultResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.TRANSFER_RESULT, request, TransferResultResponse.class);
     }
 
     /**
@@ -66,12 +59,7 @@ public class OnTransferApi {
      * @return the transfer result response
      */
     public GenericResponse<Set<TransferFailedGroupChat>> transferGroupChat(TransferGroupChatRequest request) {
-
-        String endpoint = WeComEndpoint.TRANSFER_GROUP_CHAT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<Set<TransferFailedGroupChat>>>() {
+        return workWeChatApiClient.post(WeComEndpoint.TRANSFER_GROUP_CHAT, request, new ParameterizedTypeReference<GenericResponse<Set<TransferFailedGroupChat>>>() {
         });
     }
 }

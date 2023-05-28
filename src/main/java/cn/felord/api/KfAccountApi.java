@@ -11,7 +11,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.util.UriUtils;
 
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,14 +43,10 @@ public class KfAccountApi {
      * @return the generic response
      */
     public GenericResponse<String> addKfAccount(String accountName, String mediaId) {
-        String endpoint = WeComEndpoint.KF_ACCOUNT_CREATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         Map<String, String> body = new HashMap<>(2);
         body.put("name", accountName);
         body.put("media_id", mediaId);
-        return workWeChatApiClient.post(uri, body, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post( WeComEndpoint.KF_ACCOUNT_CREATE, body, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -62,12 +57,7 @@ public class KfAccountApi {
      * @return the we com response
      */
     public WeComResponse delKfAccount(String openKfid) {
-
-        String endpoint = WeComEndpoint.KF_ACCOUNT_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("open_kfid", openKfid), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.KF_ACCOUNT_DEL, Collections.singletonMap("open_kfid", openKfid), WeComResponse.class);
     }
 
     /**
@@ -77,12 +67,7 @@ public class KfAccountApi {
      * @return the we com response
      */
     public WeComResponse updateKfAccount(KfAccountUpdateRequest request) {
-
-        String endpoint = WeComEndpoint.KF_ACCOUNT_UPDATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.KF_ACCOUNT_UPDATE, request, WeComResponse.class);
     }
 
     /**
@@ -92,12 +77,7 @@ public class KfAccountApi {
      * @return the generic response
      */
     public GenericResponse<List<KfAccountInfo>> kfAccountList(KfAccountListRequest request) {
-
-        String endpoint = WeComEndpoint.KF_ACCOUNT_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<List<KfAccountInfo>>>() {
+        return workWeChatApiClient.post( WeComEndpoint.KF_ACCOUNT_LIST, request, new ParameterizedTypeReference<GenericResponse<List<KfAccountInfo>>>() {
         });
     }
 
@@ -109,20 +89,14 @@ public class KfAccountApi {
      * @return the generic response
      */
     public GenericResponse<String> kfAccountLink(String openKfid, String scene) {
-
-        String endpoint = WeComEndpoint.KF_ADD_CONTACT_WAY.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         Map<String, String> body = new HashMap<>(2);
         body.put("open_kfid", openKfid);
         if (StringUtils.hasText(scene)) {
             body.put("scene", scene);
         }
-        GenericResponse<String> response = workWeChatApiClient.post(uri, body, new ParameterizedTypeReference<GenericResponse<String>>() {
+        GenericResponse<String> response = workWeChatApiClient.post(WeComEndpoint.KF_ADD_CONTACT_WAY, body, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
         if (StringUtils.hasText(scene)) {
-
             String url = UriComponentsBuilder.fromHttpUrl(response.getData())
                     .queryParam("scene_param", UriUtils.encode(scene, StandardCharsets.UTF_8))
                     .build()

@@ -4,9 +4,7 @@ import cn.felord.api.WorkWeChatApiClient;
 import cn.felord.domain.GenericResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 
 /**
@@ -36,12 +34,7 @@ final class WorkWeChatProviderApi {
      * @return the generic response
      */
     public GenericResponse<String> corpidToOpencorpid(String corpId) {
-
-        String endpoint = WeComEndpoint.SERVICE_CORPID_TO_OPENCORPID.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("corpid", corpId), new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.SERVICE_CORPID_TO_OPENCORPID, Collections.singletonMap("corpid", corpId), new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 

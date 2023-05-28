@@ -4,6 +4,7 @@ import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;
 import cn.felord.enumeration.WeComEndpoint;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -37,7 +38,9 @@ public class AgentManager {
                 .queryParam("agentid", workWeChatApiClient.getAgentDetails().getAgentId())
                 .build()
                 .toUri();
-        return workWeChatApiClient.get(uri, AgentDetailsResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("agentid", workWeChatApiClient.getAgentDetails().getAgentId());
+        return workWeChatApiClient.get(WeComEndpoint.AGENT_DETAILS, query, AgentDetailsResponse.class);
     }
 
     /**
@@ -47,10 +50,6 @@ public class AgentManager {
      * @return the
      */
     public WeComResponse settings(AgentSettingRequest request) {
-        String endpoint = WeComEndpoint.AGENT_SETTINGS.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.AGENT_SETTINGS, request, WeComResponse.class);
     }
 }

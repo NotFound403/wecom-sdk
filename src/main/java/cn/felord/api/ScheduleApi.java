@@ -2,12 +2,15 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.oa.*;
+import cn.felord.domain.oa.ScheduleAddRequest;
+import cn.felord.domain.oa.ScheduleAttendees;
+import cn.felord.domain.oa.ScheduleCalendarQuery;
+import cn.felord.domain.oa.ScheduleDelRequest;
+import cn.felord.domain.oa.ScheduleDetailResponse;
+import cn.felord.domain.oa.ScheduleUpdateRequest;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.Set;
 
@@ -36,11 +39,7 @@ public class ScheduleApi {
      * @return the generic response
      */
     public GenericResponse<String> add(ScheduleAddRequest request) {
-        String endpoint = WeComEndpoint.OA_SCHEDULE_ADD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.OA_SCHEDULE_ADD, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -51,11 +50,7 @@ public class ScheduleApi {
      * @return the generic response
      */
     public GenericResponse<String> update(ScheduleUpdateRequest request) {
-        String endpoint = WeComEndpoint.OA_SCHEDULE_UPDATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.OA_SCHEDULE_UPDATE, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -66,11 +61,7 @@ public class ScheduleApi {
      * @return the we com response
      */
     public WeComResponse addAttendees(ScheduleAttendees attendees) {
-        String endpoint = WeComEndpoint.OA_SCHEDULE_ADD_ATTENDEES.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, attendees, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OA_SCHEDULE_ADD_ATTENDEES, attendees, WeComResponse.class);
     }
 
     /**
@@ -80,11 +71,7 @@ public class ScheduleApi {
      * @return the we com response
      */
     public WeComResponse delAttendees(ScheduleAttendees attendees) {
-        String endpoint = WeComEndpoint.OA_SCHEDULE_DEL_ATTENDEES.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, attendees, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OA_SCHEDULE_DEL_ATTENDEES, attendees, WeComResponse.class);
     }
 
     /**
@@ -94,11 +81,7 @@ public class ScheduleApi {
      * @return the schedule detail response
      */
     public ScheduleDetailResponse get(Set<String> scheduleIds) {
-        String endpoint = WeComEndpoint.OA_SCHEDULE_GET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("schedule_id_list", scheduleIds), ScheduleDetailResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OA_SCHEDULE_GET, Collections.singletonMap("schedule_id_list", scheduleIds), ScheduleDetailResponse.class);
     }
 
 
@@ -109,11 +92,7 @@ public class ScheduleApi {
      * @return the we com response
      */
     public WeComResponse del(ScheduleDelRequest request) {
-        String endpoint = WeComEndpoint.OA_SCHEDULE_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OA_SCHEDULE_DEL, request, WeComResponse.class);
     }
 
     /**
@@ -123,10 +102,6 @@ public class ScheduleApi {
      * @return the by calendar
      */
     public ScheduleDetailResponse getByCalendar(ScheduleCalendarQuery query) {
-        String endpoint = WeComEndpoint.OA_SCHEDULE_BY_CALENDAR.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, query, ScheduleDetailResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OA_SCHEDULE_BY_CALENDAR, query, ScheduleDetailResponse.class);
     }
 }

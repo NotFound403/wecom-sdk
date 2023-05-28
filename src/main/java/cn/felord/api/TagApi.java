@@ -8,9 +8,7 @@ import cn.felord.domain.contactbook.tag.TagUserRequest;
 import cn.felord.domain.contactbook.tag.TagUserResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
+import org.springframework.util.LinkedMultiValueMap;
 
 /**
  * 通讯录管理-标签管理
@@ -37,14 +35,9 @@ public class TagApi {
      *
      * @param request the request
      * @return GenericResponse generic response
-     * @see WeComEndpoint#TAG_CREATE WeComEndpoint#TAG_CREATEWeComEndpoint#TAG_CREATE
      */
     public GenericResponse<String> createTag(Tag request) {
-        String endpoint = WeComEndpoint.TAG_CREATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post( WeComEndpoint.TAG_CREATE, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -53,14 +46,10 @@ public class TagApi {
      *
      * @param request the request
      * @return WeComResponse we com response
-     * @see WeComEndpoint#TAG_UPDATE WeComEndpoint#TAG_UPDATE
      */
     public WeComResponse updateTag(Tag request) {
-        String endpoint = WeComEndpoint.TAG_UPDATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+
+        return workWeChatApiClient.post(WeComEndpoint.TAG_UPDATE, request, WeComResponse.class);
     }
 
     /**
@@ -68,15 +57,11 @@ public class TagApi {
      *
      * @param tagId tagId
      * @return WeComResponse we com response
-     * @see WeComEndpoint#TAG_DELETE WeComEndpoint#TAG_DELETEWeComEndpoint#TAG_DELETE
      */
     public WeComResponse deleteTag(Integer tagId) {
-        String endpoint = WeComEndpoint.TAG_DELETE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("tagid", tagId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, WeComResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("tagid", String.valueOf(tagId));
+        return workWeChatApiClient.get(WeComEndpoint.TAG_DELETE,query, WeComResponse.class);
     }
 
     /**
@@ -84,15 +69,11 @@ public class TagApi {
      *
      * @param tagId tagId
      * @return UserInfoResponse tag users
-     * @see WeComEndpoint#TAG_GET_USERS WeComEndpoint#TAG_GET_USERSWeComEndpoint#TAG_GET_USERS
      */
     public TagUserResponse getTagUsers(Integer tagId) {
-        String endpoint = WeComEndpoint.TAG_GET_USERS.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("tagid", tagId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, TagUserResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("tagid", String.valueOf(tagId));
+        return workWeChatApiClient.get(WeComEndpoint.TAG_GET_USERS, query, TagUserResponse.class);
     }
 
     /**
@@ -100,14 +81,9 @@ public class TagApi {
      *
      * @param request the request
      * @return WeComResponse tag user action response
-     * @see WeComEndpoint#TAG_CREATE_USERS WeComEndpoint#TAG_CREATE_USERSWeComEndpoint#TAG_CREATE_USERS
      */
     public TagUserActionResponse addTagUsers(TagUserRequest request) {
-        String endpoint = WeComEndpoint.TAG_CREATE_USERS.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, TagUserActionResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.TAG_CREATE_USERS, request, TagUserActionResponse.class);
     }
 
     /**
@@ -115,28 +91,18 @@ public class TagApi {
      *
      * @param request the request
      * @return WeComResponse tag user action response
-     * @see WeComEndpoint#TAG_DELETE_USERS WeComEndpoint#TAG_DELETE_USERSWeComEndpoint#TAG_DELETE_USERS
      */
     public TagUserActionResponse deleteTagUsers(TagUserRequest request) {
-        String endpoint = WeComEndpoint.TAG_DELETE_USERS.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, TagUserActionResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.TAG_DELETE_USERS, request, TagUserActionResponse.class);
     }
 
     /**
      * 获取标签列表
      *
      * @return UserInfoResponse tags
-     * @see WeComEndpoint#TAG_LIST WeComEndpoint#TAG_LISTWeComEndpoint#TAG_LIST
      */
     public GenericResponse<Tag> getTags() {
-        String endpoint = WeComEndpoint.TAG_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<Tag>>() {
+        return workWeChatApiClient.get(WeComEndpoint.TAG_LIST, new ParameterizedTypeReference<GenericResponse<Tag>>() {
         });
     }
 }

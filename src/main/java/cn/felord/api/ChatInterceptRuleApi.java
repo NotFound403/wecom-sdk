@@ -8,9 +8,7 @@ import cn.felord.domain.externalcontact.InterceptRuleDetail;
 import cn.felord.domain.externalcontact.InterceptRuleInfo;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 
 /**
@@ -38,12 +36,7 @@ public class ChatInterceptRuleApi {
      * @return the generic response
      */
     public GenericResponse<String> addInterceptRule(ChatInterceptRuleAddRequest request) {
-
-        String endpoint = WeComEndpoint.INTERCEPT_RULE_CREATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.INTERCEPT_RULE_CREATE, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -53,12 +46,7 @@ public class ChatInterceptRuleApi {
      * @return the generic response
      */
     public GenericResponse<InterceptRuleInfo> interceptRuleList() {
-
-        String endpoint = WeComEndpoint.INTERCEPT_RULE_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<InterceptRuleInfo>>() {
+        return workWeChatApiClient.get(WeComEndpoint.INTERCEPT_RULE_LIST, new ParameterizedTypeReference<GenericResponse<InterceptRuleInfo>>() {
         });
     }
 
@@ -69,12 +57,7 @@ public class ChatInterceptRuleApi {
      * @return the intercept rule
      */
     public GenericResponse<InterceptRuleDetail> getInterceptRule(String ruleId) {
-
-        String endpoint = WeComEndpoint.INTERCEPT_RULE_GET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("rule_id", ruleId), new ParameterizedTypeReference<GenericResponse<InterceptRuleDetail>>() {
+        return workWeChatApiClient.post(WeComEndpoint.INTERCEPT_RULE_GET, Collections.singletonMap("rule_id", ruleId), new ParameterizedTypeReference<GenericResponse<InterceptRuleDetail>>() {
         });
     }
 
@@ -85,12 +68,7 @@ public class ChatInterceptRuleApi {
      * @return the we com response
      */
     public WeComResponse updateInterceptRule(ChatInterceptRuleUpdateRequest request) {
-
-        String endpoint = WeComEndpoint.INTERCEPT_RULE_GET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.INTERCEPT_RULE_GET, request, WeComResponse.class);
     }
 
     /**
@@ -100,11 +78,6 @@ public class ChatInterceptRuleApi {
      * @return the we com response
      */
     public WeComResponse deleteInterceptRule(String ruleId) {
-
-        String endpoint = WeComEndpoint.INTERCEPT_RULE_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("rule_id", ruleId), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.INTERCEPT_RULE_DEL, Collections.singletonMap("rule_id", ruleId), WeComResponse.class);
     }
 }

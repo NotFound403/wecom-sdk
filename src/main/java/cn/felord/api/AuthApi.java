@@ -3,9 +3,8 @@ package cn.felord.api;
 import cn.felord.domain.contactbook.user.UserDetailResponse;
 import cn.felord.domain.contactbook.user.UserSensitiveInfoResponse;
 import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.util.LinkedMultiValueMap;
 
-import java.net.URI;
 import java.util.Collections;
 
 /**
@@ -35,12 +34,9 @@ public class AuthApi {
      * @return UserDetailResponse user detail response
      */
     public UserDetailResponse getUserInfo(String code) {
-        String endpoint = WeComEndpoint.USER_AUTH_BY_CODE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("code", code)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, UserDetailResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("code",code);
+        return workWeChatApiClient.get(WeComEndpoint.USER_AUTH_BY_CODE,query, UserDetailResponse.class);
     }
 
 
@@ -53,11 +49,7 @@ public class AuthApi {
      * @return UserSensitiveInfoResponse user sensitive info response
      */
     public UserSensitiveInfoResponse getUserDetail(String userTicket) {
-        String endpoint = WeComEndpoint.USER_DETAIL_BY_USER_TICKET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri,
+        return workWeChatApiClient.post(WeComEndpoint.USER_DETAIL_BY_USER_TICKET,
                 Collections.singletonMap("user_ticket", userTicket),
                 UserSensitiveInfoResponse.class);
     }

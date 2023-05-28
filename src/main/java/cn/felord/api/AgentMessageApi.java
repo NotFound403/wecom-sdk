@@ -6,9 +6,7 @@ import cn.felord.domain.message.AbstractUpdateTemplateCardRequest;
 import cn.felord.domain.message.MessageResponse;
 import cn.felord.domain.message.TemplateReplaceCardBuilders;
 import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -45,11 +43,7 @@ public class AgentMessageApi {
             String agentId = workWeChatApiClient.getAgentDetails().getAgentId();
             body.setAgentid(agentId);
         }
-        String endpoint = WeComEndpoint.MESSAGE_SEND.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, body, MessageResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.MESSAGE_SEND, body, MessageResponse.class);
     }
 
     /**
@@ -61,11 +55,7 @@ public class AgentMessageApi {
      * @see TemplateReplaceCardBuilders
      */
     public <B extends AbstractUpdateTemplateCardRequest> MessageResponse updateTemplateCard(B request) {
-        String endpoint = WeComEndpoint.UPDATE_TEMPLATE_CARD.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, MessageResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.UPDATE_TEMPLATE_CARD, request, MessageResponse.class);
     }
 
     /**
@@ -75,10 +65,6 @@ public class AgentMessageApi {
      * @return the we com response
      */
     public WeComResponse recall(String msgId) {
-        String endpoint = WeComEndpoint.MESSAGE_RECALL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("msgid", msgId), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.MESSAGE_RECALL, Collections.singletonMap("msgid", msgId), WeComResponse.class);
     }
 }

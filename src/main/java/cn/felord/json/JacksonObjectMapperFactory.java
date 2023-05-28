@@ -1,4 +1,4 @@
-package cn.felord;
+package cn.felord.json;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;

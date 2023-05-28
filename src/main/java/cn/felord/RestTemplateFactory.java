@@ -1,5 +1,6 @@
 package cn.felord;
 
+import cn.felord.json.JacksonObjectMapperFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;

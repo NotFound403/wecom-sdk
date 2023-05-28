@@ -6,9 +6,7 @@ import cn.felord.domain.contactbook.async.BatchResultResponse;
 import cn.felord.domain.contactbook.async.BatchUserRequest;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
+import org.springframework.util.LinkedMultiValueMap;
 
 /**
  * 异步导入接口
@@ -35,11 +33,7 @@ public class AsynchronousBatchImportApi {
      * @return the generic response
      */
     public GenericResponse<String> batchSyncUser(BatchUserRequest request) {
-        String endpoint = WeComEndpoint.BATCH_SYNC_USER.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.BATCH_SYNC_USER, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -50,11 +44,7 @@ public class AsynchronousBatchImportApi {
      * @return the generic response
      */
     public GenericResponse<String> batchSyncReplaceUser(BatchUserRequest request) {
-        String endpoint = WeComEndpoint.BATCH_REPLACE_USER.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.BATCH_REPLACE_USER, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -65,11 +55,7 @@ public class AsynchronousBatchImportApi {
      * @return the generic response
      */
     public GenericResponse<String> batchSyncReplaceParty(BatchPartyRequest request) {
-        String endpoint = WeComEndpoint.BATCH_REPLACE_PARTY.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.BATCH_REPLACE_PARTY, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -80,11 +66,8 @@ public class AsynchronousBatchImportApi {
      * @return the result
      */
     public BatchResultResponse getResult(String jobId) {
-        String endpoint = WeComEndpoint.BATCH_GET_RESULT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("jobid", jobId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, BatchResultResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("jobid", jobId);
+        return workWeChatApiClient.get(WeComEndpoint.BATCH_GET_RESULT, query, BatchResultResponse.class);
     }
 }

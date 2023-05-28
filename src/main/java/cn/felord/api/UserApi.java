@@ -7,6 +7,7 @@ import cn.felord.enumeration.EmailType;
 import cn.felord.enumeration.UserQrcodeSize;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -40,11 +41,7 @@ public class UserApi {
      * @return the user id convert response
      */
     public UserIdConvertResponse batchOpenUserIdToUserId(UserIdConvertRequest request) {
-        String endpoint = WeComEndpoint.OPENUSERID_TO_USERID.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, UserIdConvertResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.OPENUSERID_TO_USERID, request, UserIdConvertResponse.class);
     }
 
     /**
@@ -60,7 +57,7 @@ public class UserApi {
         URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .build()
                 .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.USER_CREATE, request, WeComResponse.class);
     }
 
     /**
@@ -71,12 +68,9 @@ public class UserApi {
      * @return UserInfoResponse user
      */
     public UserInfoResponse getUser(String userId) {
-        String endpoint = WeComEndpoint.USER_GET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("userid", userId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, UserInfoResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("userid", userId);
+        return workWeChatApiClient.get(WeComEndpoint.USER_GET, query, UserInfoResponse.class);
     }
 
     /**
@@ -88,11 +82,7 @@ public class UserApi {
      * @return WeComResponse we com response
      */
     public WeComResponse updateUser(UserInfoRequest request) {
-        String endpoint = WeComEndpoint.USER_UPDATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.USER_UPDATE, request, WeComResponse.class);
     }
 
     /**
@@ -104,12 +94,9 @@ public class UserApi {
      * @return WeComResponse we com response
      */
     public WeComResponse deleteUser(String userId) {
-        String endpoint = WeComEndpoint.USER_DELETE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("userid", userId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, WeComResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("userid", userId);
+        return workWeChatApiClient.get(WeComEndpoint.USER_DELETE, query, WeComResponse.class);
     }
 
     /**
@@ -120,14 +107,10 @@ public class UserApi {
      * @return the dept user list response
      */
     public DeptUserListResponse userList(String cursor, int limit) {
-        String endpoint = WeComEndpoint.USER_LIST_ID.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         Map<String, Object> body = new HashMap<>(2);
         body.put("cursor", cursor);
         body.put("limit", limit);
-        return workWeChatApiClient.post(uri, body, DeptUserListResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.USER_LIST_ID, body, DeptUserListResponse.class);
     }
 
 
@@ -140,11 +123,7 @@ public class UserApi {
      * @return WeComResponse we com response
      */
     public WeComResponse batchDelUser(List<String> userIdList) {
-        String endpoint = WeComEndpoint.USER_BATCH_DELETE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("useridlist", userIdList), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.USER_BATCH_DELETE, Collections.singletonMap("useridlist", userIdList), WeComResponse.class);
     }
 
     /**
@@ -156,12 +135,9 @@ public class UserApi {
      * @return SimpleUserResponse dept users
      */
     public GenericResponse<List<SimpleUser>> getDeptUsers(String departmentId) {
-        String endpoint = WeComEndpoint.USER_DEPT_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("department_id", departmentId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<SimpleUser>>>() {
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("department_id", departmentId);
+        return workWeChatApiClient.get(WeComEndpoint.USER_DEPT_LIST, query, new ParameterizedTypeReference<GenericResponse<List<SimpleUser>>>() {
         });
     }
 
@@ -174,12 +150,9 @@ public class UserApi {
      * @return UserDetailResponse dept user details
      */
     public GenericResponse<List<UserDetail>> getDeptUserDetails(long departmentId) {
-        String endpoint = WeComEndpoint.USER_DEPT_LIST_DETAIL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("department_id", departmentId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<List<UserDetail>>>() {
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("department_id", String.valueOf(departmentId));
+        return workWeChatApiClient.get(WeComEndpoint.USER_DEPT_LIST_DETAIL, query, new ParameterizedTypeReference<GenericResponse<List<UserDetail>>>() {
         });
     }
 
@@ -195,11 +168,7 @@ public class UserApi {
      * @return OpenIdResponse generic response
      */
     public GenericResponse<String> converToOpenid(String userId) {
-        String endpoint = WeComEndpoint.USERID_TO_OPENID.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("userid", userId),
+        return workWeChatApiClient.post(WeComEndpoint.USERID_TO_OPENID, Collections.singletonMap("userid", userId),
                 new ParameterizedTypeReference<GenericResponse<String>>() {
                 });
     }
@@ -213,12 +182,9 @@ public class UserApi {
      * @return WeComResponse we com response
      */
     public WeComResponse userAuth(String userId) {
-        String endpoint = WeComEndpoint.USER_AUTH.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("userid", userId)
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, WeComResponse.class);
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("userid", userId);
+        return workWeChatApiClient.get(WeComEndpoint.USER_AUTH, query, WeComResponse.class);
     }
 
     /**
@@ -230,11 +196,7 @@ public class UserApi {
      * @return BatchInviteResponse batch invite response
      */
     public BatchInviteResponse inviteUsers(BatchInviteRequest request) {
-        String endpoint = WeComEndpoint.USER_BATCH_INVITE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, BatchInviteResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.USER_BATCH_INVITE, request, BatchInviteResponse.class);
     }
 
     /**
@@ -246,12 +208,9 @@ public class UserApi {
      * @return WeComResponse join qrcode
      */
     public GenericResponse<String> getJoinQrcode(UserQrcodeSize size) {
-        String endpoint = WeComEndpoint.USER_JOIN_QRCODE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("size_type", size.type())
-                .build()
-                .toUri();
-        return workWeChatApiClient.get(uri, new ParameterizedTypeReference<GenericResponse<String>>() {
+        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
+        query.add("size_type", size.type());
+        return workWeChatApiClient.get(WeComEndpoint.USER_JOIN_QRCODE, query, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -262,11 +221,7 @@ public class UserApi {
      * @return WeComResponse active stat
      */
     public GenericResponse<String> getUserIdByMobile(String mobile) {
-        String endpoint = WeComEndpoint.USER_ID_BY_MOBILE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("mobile", mobile),
+        return workWeChatApiClient.post(WeComEndpoint.USER_ID_BY_MOBILE, Collections.singletonMap("mobile", mobile),
                 new ParameterizedTypeReference<GenericResponse<String>>() {
                 });
     }
@@ -279,14 +234,10 @@ public class UserApi {
      * @return WeComResponse active stat
      */
     public GenericResponse<String> getUserIdByEmail(String email, EmailType emailType) {
-        String endpoint = WeComEndpoint.USER_ID_BY_EMAIL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         Map<String, Object> request = new HashMap<>(2);
         request.put("email", email);
         request.put("email_type", emailType.type());
-        return workWeChatApiClient.post(uri, request,
+        return workWeChatApiClient.post(WeComEndpoint.USER_ID_BY_EMAIL, request,
                 new ParameterizedTypeReference<GenericResponse<String>>() {
                 });
     }

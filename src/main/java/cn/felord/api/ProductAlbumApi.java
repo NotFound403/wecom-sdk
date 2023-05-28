@@ -7,9 +7,7 @@ import cn.felord.domain.externalcontact.ProductAlbumDetail;
 import cn.felord.domain.externalcontact.ProductAlbumDetailResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,12 +37,7 @@ public class ProductAlbumApi {
      * @return the generic response
      */
     public GenericResponse<String> addProductAlbum(ProductAlbumAddRequest request) {
-
-        String endpoint = WeComEndpoint.PRODUCT_ALBUM_CREATE.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.PRODUCT_ALBUM_CREATE, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -55,12 +48,7 @@ public class ProductAlbumApi {
      * @return the product album
      */
     public ProductAlbumDetailResponse getProductAlbum(String productId) {
-
-        String endpoint = WeComEndpoint.PRODUCT_ALBUM_GET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("product_id", productId), ProductAlbumDetailResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.PRODUCT_ALBUM_GET, Collections.singletonMap("product_id", productId), ProductAlbumDetailResponse.class);
     }
 
     /**
@@ -71,15 +59,10 @@ public class ProductAlbumApi {
      * @return the product album detail response
      */
     public ProductAlbumDetailResponse productAlbumList(int limit, String cursor) {
-
-        String endpoint = WeComEndpoint.PRODUCT_ALBUM_LIST.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         Map<String, Object> body = new HashMap<>(2);
         body.put("limit", limit);
         body.put("cursor", cursor);
-        return workWeChatApiClient.post(uri, body, ProductAlbumDetailResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.PRODUCT_ALBUM_LIST, body, ProductAlbumDetailResponse.class);
     }
 
     /**
@@ -89,12 +72,7 @@ public class ProductAlbumApi {
      * @return the we com response
      */
     public WeComResponse updateProductAlbum(ProductAlbumDetail productAlbumDetail) {
-
-        String endpoint = WeComEndpoint.PRODUCT_ALBUM_EDIT.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, productAlbumDetail, WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.PRODUCT_ALBUM_EDIT, productAlbumDetail, WeComResponse.class);
     }
 
     /**
@@ -104,11 +82,6 @@ public class ProductAlbumApi {
      * @return the we com response
      */
     public WeComResponse deleteProductAlbum(String productId) {
-
-        String endpoint = WeComEndpoint.PRODUCT_ALBUM_DEL.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, Collections.singletonMap("product_id", productId), WeComResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.PRODUCT_ALBUM_DEL, Collections.singletonMap("product_id", productId), WeComResponse.class);
     }
 }

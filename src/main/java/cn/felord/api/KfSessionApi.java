@@ -7,9 +7,7 @@ import cn.felord.domain.callcenter.SyncMsgRequest;
 import cn.felord.domain.callcenter.SyncMsgResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,15 +37,10 @@ public class KfSessionApi {
      * @return the generic response
      */
     public KfSessionResponse getSessionState(String openKfid, String externalUserid) {
-
-        String endpoint = WeComEndpoint.KF_SERVICE_STATE_GET.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
         Map<String, String> body = new HashMap<>(2);
         body.put("open_kfid", openKfid);
         body.put("external_userid", externalUserid);
-        return workWeChatApiClient.post(uri, body, KfSessionResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.KF_SERVICE_STATE_GET, body, KfSessionResponse.class);
     }
 
     /**
@@ -57,12 +50,7 @@ public class KfSessionApi {
      * @return the we com response
      */
     public GenericResponse<String> trans(KfSessionUpdateRequest request) {
-
-        String endpoint = WeComEndpoint.KF_SERVICE_STATE_TRANS.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, new ParameterizedTypeReference<GenericResponse<String>>() {
+        return workWeChatApiClient.post(WeComEndpoint.KF_SERVICE_STATE_TRANS, request, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
 
@@ -73,10 +61,6 @@ public class KfSessionApi {
      * @return the sync msg response
      */
     public SyncMsgResponse syncMsg(SyncMsgRequest request) {
-        String endpoint = WeComEndpoint.KF_SYNC_MSG.endpoint();
-        URI uri = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .build()
-                .toUri();
-        return workWeChatApiClient.post(uri, request, SyncMsgResponse.class);
+        return workWeChatApiClient.post(WeComEndpoint.KF_SYNC_MSG, request, SyncMsgResponse.class);
     }
 }
