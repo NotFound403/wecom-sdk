@@ -205,7 +205,7 @@ AgentDetails agent=DefaultAgent.nativeAgent("企业ID","通讯录secret",NativeA
 参考示例：
 
 ```java
-    @Bean
+@Bean
 public CallbackCrypto callbackCrypto(IEventRecordService eventRecordService,
         IWeCallbackSettingsService callbackSettingsService){
         return new CallbackCryptoBuilder(eventRecordService::handleCallbackEvent)

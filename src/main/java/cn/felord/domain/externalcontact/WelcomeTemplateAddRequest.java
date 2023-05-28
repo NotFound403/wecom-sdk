@@ -15,6 +15,7 @@
 
 package cn.felord.domain.externalcontact;
 
+import cn.felord.domain.common.MediaId;
 import cn.felord.enumeration.WelcomeNotifyStrategy;
 import lombok.Data;
 

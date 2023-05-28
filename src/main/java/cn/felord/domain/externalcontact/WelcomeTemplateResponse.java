@@ -16,6 +16,7 @@
 package cn.felord.domain.externalcontact;
 
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.common.MediaId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

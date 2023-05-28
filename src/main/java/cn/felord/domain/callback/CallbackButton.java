@@ -13,24 +13,17 @@
  * limitations under the License.
  */
 
-package cn.felord.domain.externalcontact;
+package cn.felord.domain.callback;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.ToString;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.Data;
 
 /**
  * @author dax
- * @since 2021/11/22 15:01
+ * @since 2023/5/28
  */
-@ToString
-@Getter
-public class MediaId {
-    private final String mediaId;
-
-    @JsonCreator
-    public MediaId(@JsonProperty("media_id") String mediaId) {
-        this.mediaId = mediaId;
-    }
+@Data
+public class CallbackButton {
+    @XStreamAlias("replaceName")
+    private String ReplaceName;
 }

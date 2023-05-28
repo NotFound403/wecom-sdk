@@ -15,6 +15,7 @@
 
 package cn.felord.domain.externalcontact;
 
+import cn.felord.domain.common.MediaId;
 import cn.felord.enumeration.MsgAttachType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

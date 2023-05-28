@@ -13,23 +13,24 @@
  * limitations under the License.
  */
 
-package cn.felord.domain.externalcontact;
+package cn.felord.domain.callback;
 
-import cn.felord.domain.common.MediaId;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.Data;
 
 /**
  * @author dax
- * @since 2021/7/23 15:15
+ * @since 2023/5/28
  */
-@EqualsAndHashCode
-@Getter
-public class ProductAlbumAttachment {
-    private final String type = "image";
-    private final MediaId image;
-
-    public ProductAlbumAttachment(String mediaId) {
-        this.image = new MediaId(mediaId);
-    }
+@XStreamAlias("item")
+@Data
+public class CallbackArticle {
+    @XStreamAlias("Title")
+    private String title;
+    @XStreamAlias("Description")
+    private String description;
+    @XStreamAlias("PicUrl")
+    private String picUrl;
+    @XStreamAlias("Url")
+    private String url;
 }

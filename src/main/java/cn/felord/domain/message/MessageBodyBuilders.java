@@ -15,8 +15,8 @@
 
 package cn.felord.domain.message;
 
+import cn.felord.domain.common.MediaId;
 import cn.felord.domain.externalcontact.ContentText;
-import cn.felord.domain.externalcontact.MediaId;
 
 import java.util.List;
 

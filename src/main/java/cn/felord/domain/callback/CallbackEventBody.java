@@ -15,6 +15,7 @@
 
 package cn.felord.domain.callback;
 
+import cn.felord.domain.common.MediaId;
 import cn.felord.enumeration.CallbackEvent;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
@@ -54,6 +55,19 @@ public class CallbackEventBody {
     private String content;
     @XStreamAlias("MsgId")
     private String msgId;
+    @XStreamAlias("Image")
+    private MediaId image;
+    @XStreamAlias("Voice")
+    private MediaId voice;
+    @XStreamAlias("Video")
+    private CallbackVideo video;
+    @XStreamAlias("ArticleCount")
+    private Integer articleCount;
+    @XStreamAlias(value = "Articles", impl = List.class)
+    private List<CallbackArticle> articles;
+    @XStreamAlias("Button")
+    private CallbackButton Button;
+
     @XStreamAlias("MediaId")
     private String mediaId;
     @XStreamAlias("ThumbMediaId")

@@ -15,7 +15,7 @@
 
 package cn.felord.domain.message;
 
-import cn.felord.domain.externalcontact.MediaId;
+import cn.felord.domain.common.MediaId;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.MessageSafe;
 import lombok.Getter;

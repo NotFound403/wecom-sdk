@@ -15,7 +15,7 @@
 
 package cn.felord.domain.webhook;
 
-import cn.felord.domain.externalcontact.MediaId;
+import cn.felord.domain.common.MediaId;
 import cn.felord.enumeration.HookMsgType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

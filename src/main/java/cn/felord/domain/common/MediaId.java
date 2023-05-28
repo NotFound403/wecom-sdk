@@ -13,23 +13,26 @@
  * limitations under the License.
  */
 
-package cn.felord.domain.externalcontact;
+package cn.felord.domain.common;
 
-import cn.felord.domain.common.MediaId;
-import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author dax
- * @since 2021/7/23 15:15
+ * @since 2021/11/22 15:01
  */
-@EqualsAndHashCode
+@ToString
 @Getter
-public class ProductAlbumAttachment {
-    private final String type = "image";
-    private final MediaId image;
+public class MediaId {
+    @XStreamAlias("MediaId")
+    private final String mediaId;
 
-    public ProductAlbumAttachment(String mediaId) {
-        this.image = new MediaId(mediaId);
+    @JsonCreator
+    public MediaId(@JsonProperty("media_id") String mediaId) {
+        this.mediaId = mediaId;
     }
 }
