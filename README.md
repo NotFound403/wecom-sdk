@@ -31,8 +31,16 @@
 <p align="center">如果你感觉这个项目不错，请点击右上角的Star以鼓励作者，谢谢。</p>
 
 ## 简介
+
 wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，目前已经实现了企业微信相关接口近200个，配置简单、API友好、开发人员不需要很高的学习成本就能快速接入企业微信。
 
+## 采用技术栈
+
+- Spring RestTemplate
+- okhttp
+- lombok
+- jackson2
+- xstream
 
 ## 使用方法
 
