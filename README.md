@@ -1,4 +1,39 @@
-[![Maven Central Repo Deployment](https://github.com/NotFound403/wecom-sdk/actions/workflows/main.yml/badge.svg)](https://github.com/NotFound403/wecom-sdk/actions/workflows/main.yml)
+   <div align="center" style="margin-bottom: 10px"><h1>轻量级企业微信SDK</h1></div>
+
+<p align="center">
+    <a target="_blank" href="https://github.com/felord/wecom-sdk/blob/release/LICENSE">
+     	<img alt="" src="https://img.shields.io/github/license/felord/wecom-sdk"/>
+    </a>
+    <a target="_blank" href="https://felord.cn">
+     	<img alt="" src="https://img.shields.io/badge/java-8-red"/>
+    </a>   
+    <a target="_blank" href="https://spring.io">
+     	<img alt="" src="https://img.shields.io/badge/spring%20boot-2.4%2B-brightgreen"/>
+    </a>   
+    <a target="_blank" href="https://mvnrepository.com/artifact/cn.felord/wecom-sdk">
+     	<img alt="" src="https://img.shields.io/maven-central/v/cn.felord/wecom-sdk.svg?style=flat-square"/>
+    </a>   
+    <a target="_blank" href="https://github.com/felord/wecom-sdk">
+     	<img alt="" src="https://img.shields.io/github/stars/felord/wecom-sdk?style=social"/>
+    </a>    
+    <a target="_blank" href="https://gitee.com/felord/wecom-sdk/stargazers">
+     	<img alt="" src="https://gitee.com/felord/wecom-sdk/badge/star.svg?theme=white"/>
+    </a>    
+    <a target="_blank" href="https://work.weixin.qq.com/kfid/kfc9d9d759f27f087e1">
+     	<img alt="点击立即微信咨询" src="https://img.shields.io/badge/%E7%82%B9%E5%87%BB-%E5%BE%AE%E4%BF%A1%E5%92%A8%E8%AF%A2-brightgreen"/>
+    </a>    
+    <a target="_blank" href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=jteebwBcvUDnEIjP6Kef3HfucjoJtk3h&authKey=%2F6P%2FtQ6TOYDO1iRmtCcqNm4dMOXdqWHQ91cuNt9V3XtDy78orcy8cUlpOhwv3yCG&noverify=0&group_code=4390822">
+     	<img alt="点击加入QQ交流群" src="https://img.shields.io/badge/QQ%E4%BA%A4%E6%B5%81%E7%BE%A4-4390822-ff69b4"/>
+    </a>
+</p>
+
+
+<p align="center">如果你感觉这个项目不错，请点击右上角的Star以鼓励作者，谢谢。</p>
+
+## 简介
+wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，目前已经实现了企业微信相关接口近200个，配置简单、API友好、开发人员不需要很高的学习成本就能快速接入企业微信。
+
+
 ## 使用方法
 
 目前自建应用大部分功能可以适配，其它模式未适配。
