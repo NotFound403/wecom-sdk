@@ -59,7 +59,8 @@ public class WebhookApi {
     /**
      * 上传素材
      *
-     * @param media the media
+     * @param webhookKey the webhook key
+     * @param media      the media
      * @return the media response
      */
     public MediaResponse uploadMedia(String webhookKey, WeChatMultipartFile media) {

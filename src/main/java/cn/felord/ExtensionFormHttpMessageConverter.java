@@ -226,9 +226,9 @@ public final class ExtensionFormHttpMessageConverter extends FormHttpMessageConv
     /**
      * 兼容spring boot 低版本
      *
-     * @param formData
-     * @param charset
-     * @return
+     * @param formData formData
+     * @param charset charset
+     * @return String
      */
     private String _serializeForm(MultiValueMap<String, Object> formData, Charset charset) {
         StringBuilder builder = new StringBuilder();

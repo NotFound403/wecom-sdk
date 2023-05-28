@@ -48,10 +48,10 @@ public final class WorkWeChatApiClient {
         this.restTemplate = RestTemplateFactory.restOperations();
     }
 
-
     /**
      * Instantiates a new Work we chat api client.
      *
+     * @param <T>      the type parameter
      * @param tokenApi the token api
      */
     public <T extends TokenApi> WorkWeChatApiClient(T tokenApi) {

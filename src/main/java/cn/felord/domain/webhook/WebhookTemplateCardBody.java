@@ -33,6 +33,9 @@ public class WebhookTemplateCardBody extends WebhookBody {
 
     /**
      * Instantiates a new Webhook template card body.
+     *
+     * @param <T>          the type parameter
+     * @param templateCard the template card
      */
     public <T extends TemplateCard> WebhookTemplateCardBody(T templateCard) {
         super(HookMsgType.TEMPLATE_CARD);
