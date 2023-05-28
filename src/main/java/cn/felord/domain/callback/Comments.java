@@ -14,7 +14,7 @@ import java.time.Instant;
 @Data
 public class Comments {
     @XStreamAlias("CommentUserInfo")
-    private UserId commentUserInfo;
+    private CallbackUserId commentUserInfo;
     @XStreamAlias("CommentTime")
     private Instant commentTime;
     @XStreamAlias("CommentContent")

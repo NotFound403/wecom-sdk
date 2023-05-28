@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 2023/5/27
  */
 @Data
-public class UserId {
+public class CallbackUserId {
     @XStreamAlias("UserId")
     private String userId;
 }

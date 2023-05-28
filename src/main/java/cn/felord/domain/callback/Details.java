@@ -15,7 +15,7 @@ import java.time.Instant;
 @Data
 public class Details {
     @XStreamAlias("Approver")
-    private UserId approver;
+    private CallbackUserId approver;
     @XStreamAlias("SpStatus")
     private SpStatus spStatus;
     @XStreamAlias("SpTime")

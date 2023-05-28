@@ -1,5 +1,6 @@
 package cn.felord.domain.agent;
 
+import cn.felord.domain.common.UserId;
 import lombok.Data;
 
 import java.util.List;
@@ -9,5 +10,5 @@ import java.util.List;
  */
 @Data
 public class AllowUsers {
-    private List<QwUser> user;
+    private List<UserId> user;
 }

@@ -30,7 +30,7 @@ public class ApprovalInfo {
     @XStreamImplicit(itemFieldName = "SpRecord")
     private List<SpRecord> spRecord;
     @XStreamAlias("Notifyer")
-    private UserId notifyer;
+    private CallbackUserId notifyer;
     @XStreamAlias("Comments")
     private Comments comments;
     @XStreamAlias("StatuChangeEvent")

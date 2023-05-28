@@ -1,5 +1,6 @@
 package cn.felord.domain.externalcontact;
 
+import cn.felord.domain.common.UserId;
 import cn.felord.enumeration.GroupChatJoinScene;
 import cn.felord.enumeration.GroupChatMemberType;
 import lombok.Data;
@@ -19,7 +20,7 @@ public class GroupChatDetail {
     private Instant createTime;
     private String notice;
     private List<GroupChatMember> memberList;
-    private List<GroupChatAdmin>  adminList;
+    private List<UserId>  adminList;
 
 
     @Data
@@ -29,17 +30,8 @@ public class GroupChatDetail {
         private String unionid;
         private Instant joinTime;
         private GroupChatJoinScene joinScene;
-        private GroupChatInvitor invitor;
+        private UserId invitor;
         private String groupNickname;
         private String name;
-    }
-    @Data
-    public static class GroupChatAdmin {
-       private String userid;
-    }
-
-    @Data
-    public static class GroupChatInvitor {
-        private String userid;
     }
 }
