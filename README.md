@@ -1,19 +1,19 @@
    <div align="center" style="margin-bottom: 10px"><h1>轻量级企业微信SDK</h1></div>
 
 <p align="center">
-    <a target="_blank" href="https://github.com/felord/wecom-sdk/blob/release/LICENSE">
+    <a target="_blank" href="https://github.com/NotFound403/wecom-sdk/blob/release/LICENSE">
      	<img alt="" src="https://img.shields.io/github/license/felord/wecom-sdk"/>
     </a>
     <a target="_blank" href="https://felord.cn">
      	<img alt="" src="https://img.shields.io/badge/java-8-red"/>
     </a>   
     <a target="_blank" href="https://spring.io">
-     	<img alt="" src="https://img.shields.io/badge/spring%20boot-2.4%2B-brightgreen"/>
+     	<img alt="" src="https://img.shields.io/badge/spring%20boot-2.7%2B-brightgreen"/>
     </a>   
     <a target="_blank" href="https://mvnrepository.com/artifact/cn.felord/wecom-sdk">
      	<img alt="" src="https://img.shields.io/maven-central/v/cn.felord/wecom-sdk.svg?style=flat-square"/>
     </a>   
-    <a target="_blank" href="https://github.com/felord/wecom-sdk">
+    <a target="_blank" href="https://github.com/NotFound403/wecom-sdk">
      	<img alt="" src="https://img.shields.io/github/stars/felord/wecom-sdk?style=social"/>
     </a>    
     <a target="_blank" href="https://gitee.com/felord/wecom-sdk/stargazers">
