@@ -19,11 +19,14 @@ import cn.felord.enumeration.ApprovalNotifyType;
 import cn.felord.enumeration.UseTemplateApprover;
 import lombok.Data;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
+ * todo
+ *
  * @author dax
- * @since 2023/5/25
+ * @since 2023 /5/25
  */
 @Data
 public class ApprovalApplyRequest {
@@ -36,5 +39,67 @@ public class ApprovalApplyRequest {
     private ApprovalNotifyType notifyType;
     private final ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData;
     private final List<Summary> summaryList;
+
+
+    /**
+     * 通过接口指定审批人，不抄送
+     *
+     * @param creatorUserid the creator userid
+     * @param templateId    the template id
+     * @param approver      the approver
+     * @param applyData     the apply data
+     * @param summaryList   the summary list
+     * @return the approval apply request
+     */
+    public static ApprovalApplyRequest approverMode(String creatorUserid,
+                                                    String templateId,
+                                                    List<Approver> approver,
+                                                    ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData,
+                                                    List<Summary> summaryList) {
+
+        return approverMode(creatorUserid, templateId, approver, Collections.emptyList(), null, applyData, summaryList);
+    }
+
+    /**
+     * 在企微控制台指定审批人、抄送人
+     *
+     * @param creatorUserid the creator userid
+     * @param templateId    the template id
+     * @param approver      the approver
+     * @param notifyer      the notifyer
+     * @param notifyType    the notify type
+     * @param applyData     the apply data
+     * @param summaryList   the summary list
+     * @return the approval apply request
+     */
+    public static ApprovalApplyRequest approverMode(String creatorUserid,
+                                                    String templateId,
+                                                    List<Approver> approver,
+                                                    List<String> notifyer,
+                                                    ApprovalNotifyType notifyType,
+                                                    ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData,
+                                                    List<Summary> summaryList) {
+        ApprovalApplyRequest approvalApplyRequest = new ApprovalApplyRequest(creatorUserid, templateId, UseTemplateApprover.APPROVER_MODE, applyData, summaryList);
+        approvalApplyRequest.setApprover(approver);
+        approvalApplyRequest.setNotifyer(notifyer);
+        approvalApplyRequest.setNotifyType(notifyType);
+        return approvalApplyRequest;
+    }
+
+    /**
+     * 在企微控制台指定抄送人、审批人
+     *
+     * @param creatorUserid the creator userid
+     * @param templateId    the template id
+     * @param applyData     the apply data
+     * @param summaryList   the summary list
+     * @return the approval apply request
+     */
+    public static ApprovalApplyRequest backendMode(String creatorUserid,
+                                                   String templateId,
+                                                   ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData,
+                                                   List<Summary> summaryList) {
+        return new ApprovalApplyRequest(creatorUserid, templateId, UseTemplateApprover.BACKEND_MODE, applyData, summaryList);
+    }
 
 }

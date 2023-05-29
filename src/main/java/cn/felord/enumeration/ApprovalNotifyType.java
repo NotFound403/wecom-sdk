@@ -38,7 +38,7 @@ public enum ApprovalNotifyType {
     /**
      * When both approval notify type.
      */
-    WHEN_BOTH(2);
+    WHEN_BOTH(3);
 
     private final int type;
 
