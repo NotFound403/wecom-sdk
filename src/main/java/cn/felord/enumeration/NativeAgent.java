@@ -16,7 +16,7 @@
 package cn.felord.enumeration;
 
 /**
- * The enum Native agent.
+ * 企微内置应用
  *
  * @author dax
  * @since 2021 /12/9 14:12
@@ -34,6 +34,10 @@ public enum NativeAgent {
      * 公告
      */
     ANNOUNCEMENT("3010001", "公告"),
+    /**
+     * 公费电话
+     */
+    TELEPHONE("3010007", "公费电话"),
     /**
      * 打卡
      */
@@ -55,6 +59,10 @@ public enum NativeAgent {
      */
     SCHEDULE("3010084", "日程"),
     /**
+     * 健康上报
+     */
+    HEALTH_REPORT("3010094", "健康上报"),
+    /**
      * 直播
      */
     CORP_LIVE("3010097", "直播"),
@@ -62,6 +70,14 @@ public enum NativeAgent {
      * 对外收款
      */
     CORP_COLLECT_BILL("3010115", "对外收款"),
+    /**
+     * 会议室
+     */
+    MEETING_ROOM("3010116", "会议室"),
+    /**
+     * 微信客服
+     */
+    SERVICER("3010151", "微信客服"),
     /**
      * 上下游
      */
