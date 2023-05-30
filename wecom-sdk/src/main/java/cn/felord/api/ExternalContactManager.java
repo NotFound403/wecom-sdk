@@ -131,4 +131,13 @@ public class ExternalContactManager {
     public ChatInterceptRuleApi chatInterceptRuleApi() {
         return new ChatInterceptRuleApi(workWeChatApiClient);
     }
+
+    /**
+     * 获客助手
+     *
+     * @return the customer acquisition api
+     */
+    public CustomerAcquisitionApi customerAcquisitionApi() {
+        return new CustomerAcquisitionApi(workWeChatApiClient);
+    }
 }

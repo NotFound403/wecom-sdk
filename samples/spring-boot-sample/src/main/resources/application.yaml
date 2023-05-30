@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: wecom-sdk-springboot
+  cache:
+    ehcache:
+      config:

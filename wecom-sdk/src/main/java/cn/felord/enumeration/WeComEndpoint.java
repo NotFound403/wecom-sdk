@@ -420,6 +420,34 @@ public enum WeComEndpoint {
      */
     MOMENT_STRATEGY_DEL("/externalcontact/moment_strategy/del"),
     /**
+     * 获取获客链接列表
+     */
+    CUSTOMER_ACQUISITION_LINKS("/externalcontact/customer_acquisition/list_link"),
+    /**
+     * 获取获客链接详情
+     */
+    CUSTOMER_ACQUISITION_GET("/externalcontact/customer_acquisition/get"),
+    /**
+     * 创建获客链接
+     */
+    CUSTOMER_ACQUISITION_CREATE("/externalcontact/customer_acquisition/create_link"),
+    /**
+     * 编辑获客链接
+     */
+    CUSTOMER_ACQUISITION_UPDATE("/externalcontact/customer_acquisition/update_link"),
+    /**
+     * 删除获客链接
+     */
+    CUSTOMER_ACQUISITION_DELETE("/externalcontact/customer_acquisition/delete_link"),
+    /**
+     * 获取由获客链接添加的客户信息
+     */
+    CUSTOMER_ACQUISITION_CUSTOMERS("/externalcontact/customer_acquisition/customer"),
+    /**
+     * 查询获客链接剩余使用量
+     */
+    CUSTOMER_ACQUISITION__QUOTAS("/externalcontact/customer_acquisition_quota"),
+    /**
      * 创建企业群发
      */
     GROUP_MSG_ADD("/externalcontact/add_msg_template"),
@@ -715,8 +743,7 @@ public enum WeComEndpoint {
     /**
      * 查询自建应用审批单当前状态
      */
-    OPEN_APPROVAL_DATA("/corp/getopenapprovaldata"),
-    ;
+    OPEN_APPROVAL_DATA("/corp/getopenapprovaldata");
 
     private final String pattern;
 

@@ -20,11 +20,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.felord</groupId>
-    <artifactId>wecom-sdk</artifactId>
+    <artifactId>wecom</artifactId>
     <version>1.0.12</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
-    <name>wecom-sdk</name>
+    <name>wecom</name>
     <description>Work WeChat Java SDK</description>
     <url>https://github.com/NotFound403/wecom-sdk</url>
 
@@ -44,6 +44,9 @@
             <organization>felord.cn</organization>
         </developer>
     </developers>
+    <modules>
+        <module>wecom-sdk</module>
+    </modules>
 
     <scm>
         <tag>wecom-sdk</tag>
@@ -89,6 +92,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <spring-boot.version>2.7.9</spring-boot.version>
+        <xstream.version>1.4.20</xstream.version>
     </properties>
 
     <distributionManagement>
@@ -109,34 +114,17 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.7.9</version>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <!--            <scope>provided</scope>-->
-        </dependency>
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>1.4.20</version>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
     <build>
         <pluginManagement>
             <plugins>
@@ -166,7 +154,8 @@
                     </configuration>
                     <executions>
                         <execution>
-                            <phase>compile</phase>
+                            <id>main-javadoc</id>
+                            <phase>package</phase>
                             <goals>
                                 <goal>jar</goal>
                             </goals>
