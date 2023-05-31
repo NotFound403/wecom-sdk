@@ -21,7 +21,7 @@
 
     <groupId>cn.felord</groupId>
     <artifactId>wecom</artifactId>
-    <version>1.0.12</version>
+    <version>1.0.13</version>
     <packaging>pom</packaging>
 
     <name>wecom</name>
@@ -56,7 +56,6 @@
     </scm>
 
     <profiles>
-        <!-- Deployment profile (required so these plugins are only used when deploying) -->
         <profile>
             <id>deploy</id>
             <build>

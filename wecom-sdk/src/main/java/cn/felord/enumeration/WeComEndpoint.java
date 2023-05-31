@@ -743,7 +743,16 @@ public enum WeComEndpoint {
     /**
      * 查询自建应用审批单当前状态
      */
-    OPEN_APPROVAL_DATA("/corp/getopenapprovaldata");
+    OPEN_APPROVAL_DATA("/corp/getopenapprovaldata"),
+    /**
+     * 发起语音电话
+     */
+    PSTNCC_CALL("/pstncc/call"),
+    /**
+     * 获取接听状态
+     */
+    PSTNCC_CALL_STATES("/pstncc/getstates?"),
+    ;
 
     private final String pattern;
 

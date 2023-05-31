@@ -32,7 +32,7 @@ import java.util.List;
  */
 @XStreamAlias("xml")
 @Data
-public class CallbackEventBody {
+public class CallbackEventBody implements CallbackBody {
     @XStreamAlias("ToUserName")
     private final String toUserName;
     @XStreamAlias("FromUserName")

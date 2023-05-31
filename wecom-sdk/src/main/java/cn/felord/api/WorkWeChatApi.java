@@ -186,4 +186,14 @@ public final class WorkWeChatApi {
     public ApprovalApi approvalApi(AgentDetails agentDetails) {
         return new ApprovalApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
     }
+
+    /**
+     * 紧急通知API（限医疗行业）
+     *
+     * @param agentDetails the agent details
+     * @return the urgent call api
+     */
+    public UrgentCallApi urgentCallApi(AgentDetails agentDetails) {
+        return new UrgentCallApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+    }
 }
