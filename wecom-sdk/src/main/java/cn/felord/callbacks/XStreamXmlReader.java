@@ -15,6 +15,7 @@
 
 package cn.felord.callbacks;
 
+import cn.felord.domain.callback.CallbackBody;
 import cn.felord.domain.callback.CallbackEventBody;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -26,18 +27,18 @@ import java.util.Map;
  * @author felord
  * @since 2021/10/10 14:16
  */
-public class XStreamXmlReader implements XmlReader {
-    private static final Class<?>[] ALLOW_TYPES = {CallbackXmlBody.class, CallbackEventBody.class};
+class XStreamXmlReader implements XmlReader {
+    private static final Class<?>[] ALLOW_TYPES = {CallbackXmlBody.class, CallbackEventBody.class, CallbackXmlResponse.class};
     private static final Map<Class<?>, XStream> XSTREAM_MAP = new HashMap<>();
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> T read(String xml, Class<T> clazz) {
+    public <T extends CallbackBody> T read(String xml, Class<T> clazz) {
         return (T) initXStream(clazz).fromXML(xml);
     }
 
     @Override
-    public <T> String write(T t) {
+    public <T extends CallbackBody> String write(T t) {
         Class<?> clazz = t.getClass();
         return initXStream(clazz).toXML(t);
     }

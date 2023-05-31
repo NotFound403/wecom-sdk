@@ -15,6 +15,8 @@
 
 package cn.felord.callbacks;
 
+import cn.felord.domain.callback.CallbackBody;
+
 /**
  * The interface Xml reader.
  *
@@ -31,7 +33,7 @@ public interface XmlReader {
      * @param clazz the clazz
      * @return the t
      */
-    <T> T read(String xml, Class<T> clazz);
+    <T extends CallbackBody> T read(String xml, Class<T> clazz);
 
     /**
      * Write string.
@@ -40,5 +42,5 @@ public interface XmlReader {
      * @param t   the t
      * @return the string
      */
-    <T> String write(T t);
+    <T extends CallbackBody> String write(T t);
 }
