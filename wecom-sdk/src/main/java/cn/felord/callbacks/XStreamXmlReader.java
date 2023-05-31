@@ -18,7 +18,6 @@ package cn.felord.callbacks;
 import cn.felord.domain.callback.CallbackEventBody;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.security.AnyTypePermission;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +27,7 @@ import java.util.Map;
  * @since 2021/10/10 14:16
  */
 public class XStreamXmlReader implements XmlReader {
+    private static final Class<?>[] ALLOW_TYPES = {CallbackXmlBody.class, CallbackEventBody.class};
     private static final Map<Class<?>, XStream> XSTREAM_MAP = new HashMap<>();
 
     @SuppressWarnings("unchecked")
@@ -47,11 +47,10 @@ public class XStreamXmlReader implements XmlReader {
         if (xStream == null) {
             xStream = new XStream(new DomDriver());
             // 安全白名单
-            Class<?>[] allowTypes = {CallbackXmlBody.class, CallbackEventBody.class};
-            xStream.allowTypes(allowTypes);
+            xStream.allowTypes(ALLOW_TYPES);
             xStream.registerConverter(new InstantConverter());
-            xStream.addPermission(AnyTypePermission.ANY);
             xStream.ignoreUnknownElements();
+            xStream.autodetectAnnotations(true);
             xStream.processAnnotations(clazz);
             XSTREAM_MAP.put(clazz, xStream);
         }
