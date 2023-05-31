@@ -1,4 +1,4 @@
-   <div align="center" style="margin-bottom: 10px"><img src="wechat-sdk.svg" style="zoom: 25%; " alt="wecom-sdk"/></div>
+   <div align="center" style="margin-bottom: 10px"><img src="wechat-sdk.svg" height="50%" width="50%" alt="wecom-sdk"/></div>
 <p align="center">
     <a target="_blank" href="https://github.com/NotFound403/wecom-sdk/blob/release/LICENSE">
      	<img alt="" src="https://img.shields.io/github/license/NotFound403/wecom-sdk"/>
@@ -58,7 +58,7 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 ```
 
 ## 入门
-
+Spring Boot 例子参见项目的`samples/spring-boot-sample
 ### 例子
 
 这里屏蔽了一些繁琐的步骤，开发者只需要做好配置即可调用。以下是调用企业群发API向客户群发送图文的例子：
