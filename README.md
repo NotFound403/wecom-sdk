@@ -1,5 +1,4 @@
-   <div align="center" style="margin-bottom: 10px"><h1>轻量级企业微信SDK</h1></div>
-
+   <div align="center" style="margin-bottom: 10px"><img src="wechat-sdk.svg" style="zoom: 25%; " alt="wecom-sdk"/></div>
 <p align="center">
     <a target="_blank" href="https://github.com/NotFound403/wecom-sdk/blob/release/LICENSE">
      	<img alt="" src="https://img.shields.io/github/license/NotFound403/wecom-sdk"/>
@@ -29,8 +28,9 @@
 
 
 <p align="center">如果你感觉这个项目不错，请点击右上角的Star以鼓励作者，谢谢。</p>
-
 ## 简介
+
+
 
 wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，目前已经实现了企业微信相关接口近200个，配置简单、API友好、开发人员不需要很高的学习成本就能快速接入企业微信。
 
