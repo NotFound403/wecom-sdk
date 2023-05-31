@@ -1,7 +1,7 @@
 <svg data-v-decfdd8a="" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      width="40%" height="20%" viewBox="0 0 340.000000 250.000000" preserveAspectRatio="xMidYMid meet"
      color-interpolation-filters="sRGB" style="margin: auto;">
-    <g data-v-decfdd8a="" fill="#144579" class="endsvg" transform="translate(43.73999786376953,96.56400108337402)">
+    <g data-v-decfdd8a="" fill="#0082ef" class="endsvg" transform="translate(43.73999786376953,96.56400108337402)">
         <g class="tp-name" transform="translate(0,0)">
             <g>
                 <rect data-gra="graph-name-bg" stroke-width="2" class="i-icon-bg" x="0" y="0" width="252.52000427246094"
@@ -41,7 +41,7 @@
                 </g>
             </g>
         </g> <!----> <!----> <!----> <!----> <!---->
-        <g data-gra="path-slogan" fill-rule="" class="tp-slogan" fill="#144579"
+        <g data-gra="path-slogan" fill-rule="" class="tp-slogan" fill="#0082ef"
            transform="translate(5,45.93000030517578)">
             <rect x="0" height="1" y="4.96999979019165" width="28.31500244140625"></rect>
             <rect height="1" y="4.96999979019165" width="28.31500244140625" x="214.2050018310547"></rect>
