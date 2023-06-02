@@ -33,6 +33,7 @@ import java.util.List;
 @XStreamAlias("xml")
 @Data
 public class CallbackEventBody implements CallbackBody {
+    private String msgSignature;
     @XStreamAlias("ToUserName")
     private final String toUserName;
     @XStreamAlias("FromUserName")

@@ -280,6 +280,8 @@ public class CallbackCrypto {
             String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
             CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
             eventBody.setAgentId(agentId);
+            // 唯一性判断
+            eventBody.setMsgSignature(msgSignature);
             this.callbackAsyncConsumer.asyncAction(eventBody);
         } else {
             if (log.isDebugEnabled()) {
