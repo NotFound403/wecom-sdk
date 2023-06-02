@@ -1,4 +1,8 @@
-   <div align="center" style="margin-bottom: 10px"><img src="wechat-sdk.svg" height="50%" width="50%" alt="wecom-sdk"/></div>
+<div align="center" style="margin-bottom: 10px">
+    <a target="_blank" href="https://mvnrepository.com/artifact/cn.felord/wecom-sdk">
+     	<img src="wechat-sdk.svg" height="50%" width="50%" alt="wecom-sdk"/>
+    </a>
+</div>
 <p align="center">
     <a target="_blank" href="https://github.com/NotFound403/wecom-sdk/blob/release/LICENSE">
      	<img alt="" src="https://img.shields.io/github/license/NotFound403/wecom-sdk"/>
