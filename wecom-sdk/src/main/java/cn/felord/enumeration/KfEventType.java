@@ -22,83 +22,43 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * The enum Msg type.
+ * The KfEventType.
  *
  * @author n1
  * @since 2021 /6/16 14:39
  */
-public enum KfMsgType {
+public enum KfEventType {
     /**
-     * 文本
+     * 客服-用户进入会话事件
      */
-    TEXT("text"),
+    ENTER_SESSION("enter_session"),
     /**
-     * 图片
+     * 客服-消息发送失败事件
      */
-    IMAGE("image"),
+    MSG_SEND_FAIL("msg_send_fail"),
     /**
-     * 语音
+     * 客服-接待人员接待状态变更事件
      */
-    VOICE("voice"),
+    SERVICER_STATUS_CHANGE("servicer_status_change"),
     /**
-     * 视频
+     * 客服-会话状态变更事件
      */
-    VIDEO("video"),
+    SESSION_STATUS_CHANGE("session_status_change"),
     /**
-     * 文件
+     * 客服-用户撤回消息事件
      */
-    FILE("file"),
+    USER_RECALL_MSG("user_recall_msg"),
     /**
-     * 位置
+     * 客服-接待人员撤回消息事件
      */
-    LOCATION("location"),
+    SERVICER_RECALL_MSG("servicer_recall_msg"),
     /**
-     * 链接
+     * 客服-拒收客户消息变更事件
      */
-    LINK("link"),
-    /**
-     * 名片
-     */
-    BUSINESS_CARD("business_card"),
-    /**
-     * 小程序
-     */
-    MINIPROGRAM("miniprogram"),
-    /**
-     * 菜单
-     */
-    MSG_MENU("msgmenu"),
-    /**
-     * 视频号商品消息
-     */
-    CHANNELS_SHOP_PRODUCT("channels_shop_product"),
-    /**
-     * 视频号订单消息
-     */
-    CHANNELS_SHOP_ORDER("channels_shop_order"),
-    /**
-     * 合并的聊天记录消息
-     */
-    MERGED_MSG("merged_msg"),
-    /**
-     * 视频号消息
-     */
-    CHANNELS("channels"),
-    /**
-     * 会议消息
-     */
-    MEETING("meeting"),
-    /**
-     * 日程消息
-     */
-    SCHEDULE("schedule"),
-    /**
-     * TODO 事件
-     */
-    EVENT("event");
+    REJECT_CUSTOMER_MSG_SWITCH_CHANGE("reject_customer_msg_switch_change");
     private final String type;
 
-    KfMsgType(String type) {
+    KfEventType(String type) {
         this.type = type;
     }
 
@@ -119,8 +79,8 @@ public enum KfMsgType {
      * @return the range type
      */
     @JsonCreator
-    public static KfMsgType deserialize(String type) {
-        return Arrays.stream(KfMsgType.values())
+    public static KfEventType deserialize(String type) {
+        return Arrays.stream(KfEventType.values())
                 .filter(kfMsgType -> Objects.equals(kfMsgType.type, type))
                 .findFirst()
                 .orElse(null);
