@@ -596,6 +596,10 @@ public enum WeComEndpoint {
      */
     KF_SEND_MSG("/kf/send_msg"),
     /**
+     * 发送欢迎语等事件响应消息
+     */
+    KF_SEND_EVENT_MSG("/kf/send_msg_on_event"),
+    /**
      * 创建日历
      */
     OA_CALENDAR_ADD("/oa/calendar/add"),
