@@ -2,15 +2,14 @@ package cn.felord.wecom;
 
 import cn.felord.AgentDetails;
 import cn.felord.DefaultAgent;
-import cn.felord.api.ExternalContactManager;
+import cn.felord.WeComTokenCacheable;
 import cn.felord.api.WorkWeChatApi;
 import cn.felord.domain.externalcontact.*;
 import cn.felord.domain.webhook.WebhookBody;
 import cn.felord.domain.webhook.WebhookMarkdownBody;
-import cn.felord.domain.webhook.WebhookNewsBody;
-import cn.felord.domain.webhook.WebhookTextBody;
 import cn.felord.enumeration.ChatType;
 import cn.felord.enumeration.NativeAgent;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +21,8 @@ import java.util.Collections;
  */
 @SpringBootTest
 class SpringBootWecomSdkTests {
+    @Autowired
+    WeComTokenCacheable weComTokenCacheable;
     @Autowired
     private WorkWeChatApi workWeChatApi;
 
@@ -85,4 +86,15 @@ class SpringBootWecomSdkTests {
         System.out.println("msgTemplateResponse = " + msgTemplateResponse);
     }
 
+
+    /**
+     * 缓存测试
+     */
+    @Test
+    void tokenCache() {
+        String token = "xxxxxxxxxxxxxxxxx";
+        weComTokenCacheable.putAccessToken("a","b", token);
+        String accessToken = weComTokenCacheable.getAccessToken("a", "b");
+        Assertions.assertEquals(token,accessToken);
+    }
 }

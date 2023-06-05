@@ -2,5 +2,6 @@ spring:
   application:
     name: wecom-sdk-springboot
   cache:
+    type: EHCACHE
     ehcache:
       config: classpath:ehcache.xml
