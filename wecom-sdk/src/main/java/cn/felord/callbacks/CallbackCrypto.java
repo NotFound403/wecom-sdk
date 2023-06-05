@@ -274,20 +274,15 @@ public class CallbackCrypto {
     public <T> T doAccept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, T response) throws WeComCallbackException {
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
-        String callbackAgentId = callbackXmlBody.getAgentId();
-        String callbackCorpId = callbackXmlBody.getToUserName();
-        if (Objects.equals(agentId, callbackAgentId) && Objects.equals(corpId, callbackCorpId)) {
-            String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
-            CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
-            eventBody.setAgentId(agentId);
-            // 唯一性判断
-            eventBody.setMsgSignature(msgSignature);
-            this.callbackAsyncConsumer.asyncAction(eventBody);
-        } else {
-            if (log.isDebugEnabled()) {
-                log.debug("Callback Agent is not matched");
-            }
-        }
+        // callbackAgentId nullable?
+//        String callbackAgentId = callbackXmlBody.getAgentId();
+//        String callbackCorpId = callbackXmlBody.getToUserName();
+        String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
+        CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
+        eventBody.setAgentId(agentId);
+        eventBody.setMsgSignature(msgSignature);
+        this.callbackAsyncConsumer.asyncAction(eventBody);
+
         return response;
     }
 
