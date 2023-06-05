@@ -17,8 +17,11 @@ import lombok.ToString;
 @Getter
 public class ClickMsgMenuContent extends MsgMenuContent {
     private final Click click;
+
     /**
      * Instantiates a new Click msg menu content.
+     *
+     * @param click the click
      */
     @JsonCreator
     public ClickMsgMenuContent(@JsonProperty("click") Click click) {
