@@ -48,6 +48,7 @@ public class CallbackEventBody implements CallbackBody {
     private final String changeType;
     @XStreamAlias("AgentID")
     private String agentId;
+    private String xmlAgentId;
 
     @XStreamAlias("ApprovalInfo")
     private ApprovalInfo approvalInfo;

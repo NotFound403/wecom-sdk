@@ -57,8 +57,7 @@ public final class WorkWeChatApiClient {
     public <T extends TokenApi> WorkWeChatApiClient(T tokenApi) {
         this.restTemplate = RestTemplateFactory.restOperations();
         this.agentDetails = tokenApi.getAgentDetails();
-        TokenClientHttpRequestInterceptor interceptor = new TokenClientHttpRequestInterceptor(tokenApi);
-        this.restTemplate.setInterceptors(Collections.singletonList(interceptor));
+        this.restTemplate.setRequestFactory(RestTemplateFactory.clientHttpRequestFactory(tokenApi));
     }
 
     /**
@@ -284,17 +283,6 @@ public final class WorkWeChatApiClient {
         } else if (response.isError()) {
             if (log.isDebugEnabled()) {
                 log.debug("unsuccessful response : {}", response);
-            }
-            if (ErrorCode.INVALID_ACCESS_TOKEN.equals(response.getErrcode())) {
-                // 刷新
-                this.restTemplate.getInterceptors()
-                        .stream()
-                        .filter(clientHttpRequestInterceptor -> clientHttpRequestInterceptor instanceof TokenClientHttpRequestInterceptor)
-                        .findAny().ifPresent(clientHttpRequestInterceptor -> {
-                            TokenClientHttpRequestInterceptor interceptor = (TokenClientHttpRequestInterceptor) clientHttpRequestInterceptor;
-                            interceptor.getTokenApi().getTokenResponse();
-                        });
-                return;
             }
             throw new WeComException(response.getErrcode(), response.getErrmsg());
         }

@@ -15,6 +15,7 @@
 
 package cn.felord;
 
+import cn.felord.api.TokenApi;
 import cn.felord.json.JacksonObjectMapperFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.ConnectionPool;
@@ -67,11 +68,25 @@ public final class RestTemplateFactory {
     }
 
 
-    static OkHttp3ClientHttpRequestFactory clientHttpRequestFactory() {
+    public static OkHttp3ClientHttpRequestFactory clientHttpRequestFactory(TokenApi tokenApi) {
+        ConnectionPool connectionPool = new ConnectionPool(20, 5L, TimeUnit.MINUTES);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(new TokenInterceptor(tokenApi))
+                //.sslSocketFactory(sslSocketFactory(), x509TrustManager())
+                .retryOnConnectionFailure(true)
+                .connectionPool(connectionPool)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build();
+        return new OkHttp3ClientHttpRequestFactory(okHttpClient);
+    }
+
+    public static OkHttp3ClientHttpRequestFactory clientHttpRequestFactory() {
         ConnectionPool connectionPool = new ConnectionPool(20, 5L, TimeUnit.MINUTES);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 //.sslSocketFactory(sslSocketFactory(), x509TrustManager())
-                .retryOnConnectionFailure(false)
+                .retryOnConnectionFailure(true)
                 .connectionPool(connectionPool)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
