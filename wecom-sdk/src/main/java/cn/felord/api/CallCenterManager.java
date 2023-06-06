@@ -60,4 +60,13 @@ public class CallCenterManager {
         return new KfSessionApi(workWeChatApiClient);
     }
 
+    /**
+     * 客服升级服务
+     *
+     * @return the kf upgrade api
+     */
+    public KfUpgradeApi kfUpgradeApi() {
+        return new KfUpgradeApi(workWeChatApiClient);
+    }
+
 }

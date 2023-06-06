@@ -600,6 +600,18 @@ public enum WeComEndpoint {
      */
     KF_SEND_EVENT_MSG("/kf/send_msg_on_event"),
     /**
+     * 获取配置的专员与客户群
+     */
+    KF_UPGRADE_SERVICE_CONFIG("/kf/customer/get_upgrade_service_config"),
+    /**
+     * 为客户升级为专员或客户群服务
+     */
+    KF_UPGRADE_SERVICE("/kf/customer/upgrade_service"),
+    /**
+     * 为客户取消推荐
+     */
+    KF_CANCEL_UPGRADE_SERVICE("/kf/customer/cancel_upgrade_service"),
+    /**
      * 创建日历
      */
     OA_CALENDAR_ADD("/oa/calendar/add"),
