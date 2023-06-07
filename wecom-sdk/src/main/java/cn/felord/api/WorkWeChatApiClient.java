@@ -15,7 +15,10 @@
 
 package cn.felord.api;
 
-import cn.felord.*;
+import cn.felord.AgentDetails;
+import cn.felord.RestTemplateFactory;
+import cn.felord.RetrofitFactory;
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +28,9 @@ import org.springframework.http.RequestEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import retrofit2.Retrofit;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -40,12 +43,14 @@ import java.util.Objects;
 public final class WorkWeChatApiClient {
     private final RestTemplate restTemplate;
     private AgentDetails agentDetails;
+    private final Retrofit retrofit;
 
     /**
      * Instantiates a new Abstract agent api.
      */
     WorkWeChatApiClient() {
         this.restTemplate = RestTemplateFactory.restOperations();
+        this.retrofit = RetrofitFactory.RETROFIT_;
     }
 
     /**
@@ -55,6 +60,7 @@ public final class WorkWeChatApiClient {
      * @param tokenApi the token api
      */
     public <T extends TokenApi> WorkWeChatApiClient(T tokenApi) {
+        this.retrofit = RetrofitFactory.create(tokenApi.getClass());
         this.restTemplate = RestTemplateFactory.restOperations();
         this.agentDetails = tokenApi.getAgentDetails();
         this.restTemplate.setRequestFactory(RestTemplateFactory.clientHttpRequestFactory(tokenApi));
@@ -67,6 +73,10 @@ public final class WorkWeChatApiClient {
      */
     AgentDetails getAgentDetails() {
         return agentDetails;
+    }
+
+    Retrofit getRetrofit() {
+        return retrofit;
     }
 
     /**
