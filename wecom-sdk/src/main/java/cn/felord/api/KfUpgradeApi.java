@@ -1,6 +1,8 @@
 package cn.felord.api;
 
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.callcenter.KfExternalUserRequest;
+import cn.felord.domain.callcenter.KfExternalUserResponse;
 import cn.felord.domain.callcenter.UpgradeServiceConfig;
 import cn.felord.domain.callcenter.UpgradeServiceRequest;
 import cn.felord.enumeration.WeComEndpoint;
@@ -9,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The type Kf upgrade api.
+ * 升级服务
  *
  * @author dax
  * @since 2023 /6/6
@@ -57,5 +59,15 @@ public class KfUpgradeApi {
         body.put("open_kfid", openKfid);
         body.put("external_userid", externalUserid);
         return workWeChatApiClient.post(WeComEndpoint.KF_CANCEL_UPGRADE_SERVICE, body, WeComResponse.class);
+    }
+
+    /**
+     * 获取客户基础信息
+     *
+     * @param request the request
+     * @return the kf external user response
+     */
+    public KfExternalUserResponse batchKfExternalUsers(KfExternalUserRequest request) {
+        return workWeChatApiClient.post(WeComEndpoint.KF_EXTERNAL_INFO, request, KfExternalUserResponse.class);
     }
 }

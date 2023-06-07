@@ -69,4 +69,13 @@ public class CallCenterManager {
         return new KfUpgradeApi(workWeChatApiClient);
     }
 
+    /**
+     * 客服统计管理
+     *
+     * @return the kf statistic api
+     */
+    public KfStatisticApi kfStatisticApi() {
+        return new KfStatisticApi(workWeChatApiClient);
+    }
+
 }
