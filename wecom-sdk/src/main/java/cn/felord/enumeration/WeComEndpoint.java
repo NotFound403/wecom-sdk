@@ -612,6 +612,18 @@ public enum WeComEndpoint {
      */
     KF_CANCEL_UPGRADE_SERVICE("/kf/customer/cancel_upgrade_service"),
     /**
+     * 获取客户基础信息
+     */
+    KF_EXTERNAL_INFO("/kf/customer/batchget"),
+    /**
+     * 获取「客户数据统计」企业汇总数据
+     */
+    KF_CORP_STATISTIC("/kf/get_corp_statistic"),
+    /**
+     * 获取「客户数据统计」接待人员明细数据
+     */
+    KF_SERVICER_STATISTIC("/kf/get_servicer_statistic"),
+    /**
      * 创建日历
      */
     OA_CALENDAR_ADD("/oa/calendar/add"),

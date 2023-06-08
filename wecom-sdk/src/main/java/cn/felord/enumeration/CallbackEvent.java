@@ -49,7 +49,11 @@ public enum CallbackEvent {
     /**
      * 客服消息事件
      */
-    KF_MSG("kf_msg_or_event"),
+    KF_MSG_OR_EVENT("kf_msg_or_event"),
+    /**
+     * 客服账号授权变更事件
+     */
+    KF_ACCOUNT_AUTH_CHANGE("kf_account_auth_change"),
     /**
      * 文档变更事件
      */
