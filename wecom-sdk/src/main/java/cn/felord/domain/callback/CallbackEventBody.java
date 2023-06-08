@@ -34,6 +34,9 @@ import java.util.List;
 @Data
 public class CallbackEventBody implements CallbackBody {
     private String msgSignature;
+    private String timeStamp;
+    private String nonce;
+    private String encrypt;
     @XStreamAlias("ToUserName")
     private final String toUserName;
     @XStreamAlias("FromUserName")

@@ -273,16 +273,20 @@ public class CallbackCrypto {
     public <T> T doAccept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, T response) throws WeComCallbackException {
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
-        String xmlAgentId = callbackXmlBody.getAgentId();
         String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
         if (log.isDebugEnabled()) {
             log.debug("callback message, {}", xml);
         }
         CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
         eventBody.setAgentId(agentId);
-        eventBody.setXmlAgentId(xmlAgentId);
         // 唯一性判断
         eventBody.setMsgSignature(msgSignature);
+        // begin 用来记录追踪
+        eventBody.setTimeStamp(timeStamp);
+        eventBody.setNonce(nonce);
+        eventBody.setEncrypt(encrypt);
+        eventBody.setXmlAgentId(callbackXmlBody.getAgentId());
+        // end 用来记录追踪
         this.callbackAsyncConsumer.asyncAction(eventBody);
         return response;
     }
