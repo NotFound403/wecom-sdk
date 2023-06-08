@@ -193,7 +193,6 @@ public class CallbackCrypto {
             throw new WeComCallbackException(WeComCallbackException.ValidateCorpidError);
         }
         return jsonContent.startsWith(BOM) ? jsonContent.substring(1) : jsonContent;
-
     }
 
     /**
@@ -276,6 +275,9 @@ public class CallbackCrypto {
         String encrypt = callbackXmlBody.getEncrypt();
         String xmlAgentId = callbackXmlBody.getAgentId();
         String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
+        if (log.isDebugEnabled()) {
+            log.debug("callback message, {}", xml);
+        }
         CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
         eventBody.setAgentId(agentId);
         eventBody.setXmlAgentId(xmlAgentId);
