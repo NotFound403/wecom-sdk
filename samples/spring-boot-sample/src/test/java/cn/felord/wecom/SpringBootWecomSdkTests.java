@@ -58,7 +58,7 @@ class SpringBootWecomSdkTests {
     }
 
     /**
-     * 比较复杂的应用文本卡片模版消息
+     * 比较复杂的应用文本卡片模版消息，其它卡片模版使用{@link TemplateCardBuilders}构建
      */
     @Test
     void sendAgentMsg() {
@@ -68,10 +68,10 @@ class SpringBootWecomSdkTests {
         source.setIconUrl("这里替换方形系统小logo链接");
         MainTitle mainTitle = new MainTitle("主标题", "次标题");
 
-        TextHorizontalContent jcNo = new TextHorizontalContent("订单编号", "xxxxxxxxxxxxxxxxxxxx");
-        TextHorizontalContent car = new TextHorizontalContent("订单地址", "大王庄二郎庙");
+        TextHorizontalContent no = new TextHorizontalContent("订单编号", "xxxxxxxxxxxxxxxxxxxx");
+        TextHorizontalContent address = new TextHorizontalContent("订单地址", "大王庄二郎庙");
         // 使用ID转录
-        TextHorizontalContent jcOrg = new TextHorizontalContent("公司名称", "$departmentName=" + 1 + "$");
+        TextHorizontalContent orgName = new TextHorizontalContent("公司名称", "$departmentName=" + 1 + "$");
         // 员工组件 使用ID转录
         AtStaffHorizontalContent staff = AtStaffHorizontalContent.withTransUserId("推送人员", "这里放企微成员的userid");
         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -80,7 +80,7 @@ class SpringBootWecomSdkTests {
         TextMessageTemplateCard textMessageTemplateCard = TemplateCardBuilders.textMessageTemplateCardBuilder(new UrlCardAction("这里放面板路径"))
                 .source(source)
                 .mainTitle(mainTitle)
-                .horizontalContentList(Arrays.asList(jcNo, car, jcOrg, staff, time))
+                .horizontalContentList(Arrays.asList(no, address, orgName, staff, time))
                 .jumpList(Collections.singletonList(new UrlJump("查看详情", "https://baidu.com")))
                 .build();
 
@@ -93,7 +93,8 @@ class SpringBootWecomSdkTests {
                 .build();
 
         DefaultAgent defaultAgent = new DefaultAgent("企微企业id", "企微应用密钥", "企微应用id");
-        MessageResponse send = workWeChatApi.agentMessageApi(defaultAgent).send(cardMessageBody);
+        MessageResponse send = workWeChatApi.agentMessageApi(defaultAgent)
+                .send(cardMessageBody);
         Assertions.assertTrue(send.isSuccessful());
     }
 
