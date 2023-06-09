@@ -16,12 +16,10 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComTokenCacheable;
+import cn.felord.RetrofitFactory;
 import cn.felord.WeComException;
+import cn.felord.WeComTokenCacheable;
 import cn.felord.domain.authentication.AccessTokenResponse;
-import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * 获取 access_token
@@ -29,7 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author felord.cn
  */
 public class AccessTokenApi extends AbstractTokenApi {
-
+    private static final ReactiveAccessTokenApi API = RetrofitFactory.RETROFIT_.create(ReactiveAccessTokenApi.class);
     /**
      * Instantiates a new Access token api.
      *
@@ -39,14 +37,9 @@ public class AccessTokenApi extends AbstractTokenApi {
     AccessTokenApi(WeComTokenCacheable wecomCacheable, AgentDetails agentDetails) {
         super(wecomCacheable, agentDetails);
     }
-
     @Override
     protected String doGetToken(AgentDetails agentDetails) {
-        UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(WeComEndpoint.GET_TOKEN.endpoint())
-                .queryParam("corpid", agentDetails.getCorpId())
-                .queryParam("corpsecret", agentDetails.getSecret())
-                .build();
-        AccessTokenResponse tokenResponse = this.getRestTemplate().getForObject(uriComponents.toUri(), AccessTokenResponse.class);
+        AccessTokenResponse tokenResponse = API.getTokenResponse(agentDetails.getCorpId(), agentDetails.getSecret());
         if (tokenResponse == null || tokenResponse.isError()) {
             String errorMsg = tokenResponse == null ? "token response is null" : tokenResponse.getErrmsg();
             throw new WeComException("failed to obtain access token,reason: " + errorMsg);

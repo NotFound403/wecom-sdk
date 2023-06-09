@@ -16,8 +16,8 @@
 package cn.felord.domain.callback;
 
 import cn.felord.callbacks.WeComCallbackException;
+import cn.felord.utils.Base64Utils;
 import lombok.Getter;
-import org.springframework.util.Base64Utils;
 
 /**
  * The type Callback authentication.

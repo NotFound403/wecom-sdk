@@ -15,7 +15,9 @@
 
 // ------------------------------------------------------------------------
 
-package cn.felord.callbacks;
+package cn.felord.utils;
+
+import cn.felord.callbacks.WeComCallbackException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -27,7 +29,7 @@ import java.util.stream.Stream;
  * <p>
  * 计算消息签名接口.
  */
-final class SHA1 {
+public final class SHA1 {
     private static final MessageDigest SHA1;
 
     static {
@@ -51,12 +53,13 @@ final class SHA1 {
      * @return 安全签名 sha 1
      * @throws WeComCallbackException the aes exception
      */
-    public static String sha1Hex(String token, String timestamp, String nonce, String encrypt) throws WeComCallbackException {
+    public static String sha1Signature(String token, String timestamp, String nonce, String encrypt) throws WeComCallbackException {
 
         try {
             String str = Stream.of(token, timestamp, nonce, encrypt)
                     .sorted()
                     .collect(Collectors.joining());
+            //todo sha1Hex?
             SHA1.update(str.getBytes());
             byte[] digest = SHA1.digest();
             StringBuilder hexstr = new StringBuilder();
@@ -71,6 +74,12 @@ final class SHA1 {
         } catch (Exception e) {
             throw new WeComCallbackException(WeComCallbackException.ComputeSignatureError);
         }
+    }
+
+    public static String sha1Hex(String format) {
+        SHA1.update(format.getBytes());
+        byte[] bytes = SHA1.digest();
+        return Hex.encodeHexString(bytes);
     }
 
 }

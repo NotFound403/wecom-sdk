@@ -5,12 +5,16 @@ import cn.felord.api.TokenApi;
 import cn.felord.domain.WeComResponse;
 import cn.felord.json.JacksonObjectMapperFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.*;
+import okhttp3.Headers;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,9 +26,6 @@ import java.util.Objects;
 public class TokenInterceptor implements Interceptor {
     public static final Integer INVALID_ACCESS_TOKEN = 42001;
     public static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
-    private static final List<String> WHITE_LIST = Arrays.asList("/cgi-bin/webhook/send",
-            "/cgi-bin/webhook/upload_media",
-            "/cgi-bin/gettoken");
     private final TokenApi tokenApi;
     private final String tokenParam;
 
@@ -42,7 +43,7 @@ public class TokenInterceptor implements Interceptor {
 
     @NotNull
     @Override
-    public Response intercept(@NotNull Chain chain) throws IOException {
+    public final Response intercept(@NotNull Chain chain) throws IOException {
         ResponseBody body;
         Response response = doRequest(chain);
         body = response.body();

@@ -16,6 +16,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
+import cn.felord.RetrofitFactory;
 import cn.felord.WeComTokenCacheable;
 
 /**
@@ -24,9 +25,7 @@ import cn.felord.WeComTokenCacheable;
  * @author felord.cn
  */
 public final class WorkWeChatApi {
-
     private final WeComTokenCacheable weComTokenCacheable;
-
 
     /**
      * Instantiates a new Work we chat api.
@@ -37,7 +36,6 @@ public final class WorkWeChatApi {
         this.weComTokenCacheable = weComTokenCacheable;
     }
 
-
     /**
      * 获取企业微信API域名IP段
      *
@@ -45,7 +43,9 @@ public final class WorkWeChatApi {
      * @return the domain api
      */
     public DomainApi domainApi(AgentDetails agentDetails) {
-        return new DomainApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails))
+                .retrofit()
+                .create(DomainApi.class);
     }
 
     /**
@@ -85,17 +85,19 @@ public final class WorkWeChatApi {
      * @return the auth api
      */
     public AuthApi authApi(AgentDetails agentDetails) {
-        return new AuthApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails))
+                .retrofit()
+                .create(AuthApi.class);
     }
 
     /**
-     * 应用管理
+     * 企微应用API
      *
      * @param agentDetails the agent details
-     * @return the agent manager
+     * @return the agent api
      */
-    public AgentManager agentManager(AgentDetails agentDetails) {
-        return new AgentManager(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+    public AgentApi agentApi(AgentDetails agentDetails) {
+        return new AgentApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
     }
 
     /**
@@ -114,7 +116,7 @@ public final class WorkWeChatApi {
      * @return the webhook api
      */
     public static WebhookApi webhookApi() {
-        return new WebhookApi();
+        return RetrofitFactory.RETROFIT_.create(WebhookApi.class);
     }
 
     /**
@@ -124,7 +126,9 @@ public final class WorkWeChatApi {
      * @return the media api
      */
     public MediaApi mediaApi(AgentDetails agentDetails) {
-        return new MediaApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails))
+                .retrofit()
+                .create(MediaApi.class);
     }
 
     /**
@@ -134,7 +138,9 @@ public final class WorkWeChatApi {
      * @return the calendar api
      */
     public CalendarApi calendarApi(AgentDetails agentDetails) {
-        return new CalendarApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails))
+                .retrofit()
+                .create(CalendarApi.class);
     }
 
     /**
@@ -144,18 +150,11 @@ public final class WorkWeChatApi {
      * @return the schedule api
      */
     public ScheduleApi scheduleApi(AgentDetails agentDetails) {
-        return new ScheduleApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails))
+                .retrofit()
+                .create(ScheduleApi.class);
     }
 
-    /**
-     * 消息推送
-     *
-     * @param agentDetails the agent details
-     * @return the message api
-     */
-    public AgentMessageApi agentMessageApi(AgentDetails agentDetails) {
-        return new AgentMessageApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
-    }
 
     /**
      * 文档API
@@ -184,7 +183,9 @@ public final class WorkWeChatApi {
      * @return the approval api
      */
     public ApprovalApi approvalApi(AgentDetails agentDetails) {
-        return new ApprovalApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails))
+                .retrofit()
+                .create(ApprovalApi.class);
     }
 
     /**
@@ -194,6 +195,8 @@ public final class WorkWeChatApi {
      * @return the urgent call api
      */
     public UrgentCallApi urgentCallApi(AgentDetails agentDetails) {
-        return new UrgentCallApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails))
+                .retrofit()
+                .create(UrgentCallApi.class);
     }
 }

@@ -1,22 +1,10 @@
-/*
- * Copyright (c) 2023. felord.cn
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *      https://www.apache.org/licenses/LICENSE-2.0
- * Website:
- *      https://felord.cn
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.common.MsgId;
+import cn.felord.domain.common.TemplateId;
+import cn.felord.domain.externalcontact.DelWelcomeTmpRequest;
 import cn.felord.domain.externalcontact.GroupMsgListRequest;
 import cn.felord.domain.externalcontact.GroupMsgListResponse;
 import cn.felord.domain.externalcontact.GroupMsgSendResultRequest;
@@ -29,12 +17,9 @@ import cn.felord.domain.externalcontact.WelcomeCodeRequest;
 import cn.felord.domain.externalcontact.WelcomeTemplateAddRequest;
 import cn.felord.domain.externalcontact.WelcomeTemplateEditRequest;
 import cn.felord.domain.externalcontact.WelcomeTemplateResponse;
-import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.core.ParameterizedTypeReference;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import io.reactivex.rxjava3.core.Single;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 /**
  * 企业群发
@@ -42,17 +27,7 @@ import java.util.Map;
  * @author dax
  * @since 2021 /8/19 14:45
  */
-public class GroupMessageApi {
-    private final WorkWeChatApiClient workWeChatApiClient;
-
-    /**
-     * Instantiates a new Group message api.
-     *
-     * @param workWeChatApiClient the work we chat api client
-     */
-    GroupMessageApi(WorkWeChatApiClient workWeChatApiClient) {
-        this.workWeChatApiClient = workWeChatApiClient;
-    }
+public interface GroupMessageApi {
 
     /**
      * 创建企业群发
@@ -62,9 +37,8 @@ public class GroupMessageApi {
      * @param request the request
      * @return the moment list
      */
-    public MsgTemplateResponse addMsgTemplate(MsgTemplateRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_ADD, request, MsgTemplateResponse.class);
-    }
+    @POST("externalcontact/add_msg_template")
+    Single<MsgTemplateResponse> addMsgTemplate(@Body MsgTemplateRequest request);
 
     /**
      * 提醒成员群发
@@ -74,9 +48,8 @@ public class GroupMessageApi {
      * @param msgId the msg id
      * @return the msg template response
      */
-    public WeComResponse remindGroupmsgSend(String msgId) {
-        return workWeChatApiClient.post(WeComEndpoint.REMIND_GROUPMSG_SEND, Collections.singletonMap("msgid", msgId), WeComResponse.class);
-    }
+    @POST("externalcontact/remind_groupmsg_send")
+    Single<WeComResponse> remindGroupmsgSend(@Body MsgId msgId);
 
     /**
      * 停止企业群发
@@ -84,9 +57,8 @@ public class GroupMessageApi {
      * @param msgId the msg id
      * @return the we com response
      */
-    public WeComResponse cancelGroupmsgSend(String msgId) {
-        return workWeChatApiClient.post(WeComEndpoint.CANCEL_GROUPMSG_SEND, Collections.singletonMap("msgid", msgId), WeComResponse.class);
-    }
+    @POST("externalcontact/cancel_groupmsg_send")
+    Single<WeComResponse> cancelGroupmsgSend(@Body MsgId msgId);
 
     /**
      * 获取群发记录列表
@@ -95,9 +67,8 @@ public class GroupMessageApi {
      * @param request the request
      * @return the groupmsg list v 2
      */
-    public GroupMsgListResponse getGroupMsgListV2(GroupMsgListRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_LIST_V2, request, GroupMsgListResponse.class);
-    }
+    @POST("externalcontact/get_groupmsg_list_v2")
+    Single<GroupMsgListResponse> getGroupMsgListV2(@Body GroupMsgListRequest request);
 
     /**
      * 获取群发成员发送任务列表
@@ -105,9 +76,8 @@ public class GroupMessageApi {
      * @param request the request
      * @return the group msg task
      */
-    public GroupMsgTaskResponse getGroupMsgTask(GroupMsgTaskRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_TASK, request, GroupMsgTaskResponse.class);
-    }
+    @POST("externalcontact/get_groupmsg_task")
+    Single<GroupMsgTaskResponse> getGroupMsgTask(@Body GroupMsgTaskRequest request);
 
     /**
      * 获取企业群发成员执行结果
@@ -115,9 +85,8 @@ public class GroupMessageApi {
      * @param request the request
      * @return the group msg send result
      */
-    public GroupMsgSendResultResponse getGroupMsgSendResult(GroupMsgSendResultRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_SEND_RESULT, request, GroupMsgSendResultResponse.class);
-    }
+    @POST("externalcontact/get_groupmsg_send_result")
+    Single<GroupMsgSendResultResponse> getGroupMsgSendResult(@Body GroupMsgSendResultRequest request);
 
     /**
      * 发送新客户欢迎语
@@ -125,9 +94,8 @@ public class GroupMessageApi {
      * @param request the request
      * @return group msg send result response
      */
-    public WeComResponse sendWelcomeGroupMsg(WelcomeCodeRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_SEND_WELCOME, request, WeComResponse.class);
-    }
+    @POST("externalcontact/send_welcome_msg")
+    Single<WeComResponse> sendWelcomeGroupMsg(@Body WelcomeCodeRequest request);
 
     /**
      * 添加入群欢迎语素材
@@ -135,10 +103,8 @@ public class GroupMessageApi {
      * @param request the request
      * @return the generic response
      */
-    public GenericResponse<String> addWelcomeTemplate(WelcomeTemplateAddRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_ADD, request, new ParameterizedTypeReference<GenericResponse<String>>() {
-        });
-    }
+    @POST("externalcontact/group_welcome_template/add")
+    Single<GenericResponse<String>> addWelcomeTemplate(@Body WelcomeTemplateAddRequest request);
 
     /**
      * 编辑入群欢迎语素材
@@ -146,9 +112,8 @@ public class GroupMessageApi {
      * @param request the request
      * @return the we com response
      */
-    public WeComResponse editWelcomeTemplate(WelcomeTemplateEditRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_EDIT, request, WeComResponse.class);
-    }
+    @POST("externalcontact/group_welcome_template/edit")
+    Single<WeComResponse> editWelcomeTemplate(@Body WelcomeTemplateEditRequest request);
 
     /**
      * 获取入群欢迎语素材
@@ -156,9 +121,8 @@ public class GroupMessageApi {
      * @param templateId the template id
      * @return the welcome template
      */
-    public WelcomeTemplateResponse getWelcomeTemplate(String templateId) {
-        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_GET, Collections.singletonMap("template_id", templateId), WelcomeTemplateResponse.class);
-    }
+    @POST("externalcontact/group_welcome_template/get")
+    Single<WelcomeTemplateResponse> getWelcomeTemplate(@Body TemplateId templateId);
 
     /**
      * 删除入群欢迎语素材
@@ -166,21 +130,15 @@ public class GroupMessageApi {
      * @param templateId the template id
      * @return the welcome template response
      */
-    public WeComResponse delWelcomeTemplate(String templateId) {
-        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_DEL, Collections.singletonMap("template_id", templateId), WeComResponse.class);
-    }
+    @POST("externalcontact/group_welcome_template/del")
+    Single<WeComResponse> delWelcomeTemplate(@Body TemplateId templateId);
 
     /**
      * 删除入群欢迎语素材（仅适用于旧的第三方多应用套件）
      *
-     * @param templateId the template id
-     * @param agentId    the agent id
+     * @param request the request
      * @return the we com response
      */
-    public WeComResponse delWelcomeTemplate(String templateId, String agentId) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("template_id", templateId);
-        body.put("agentid", agentId);
-        return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_DEL, body, WeComResponse.class);
-    }
+    @POST("externalcontact/group_welcome_template/del")
+    Single<WeComResponse> delWelcomeTemplate(@Body DelWelcomeTmpRequest request);
 }

@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2023. felord.cn
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *      https://www.apache.org/licenses/LICENSE-2.0
- * Website:
- *      https://felord.cn
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package cn.felord.api;
 
 import cn.felord.domain.externalcontact.GroupChatDataByDay;
@@ -22,26 +7,17 @@ import cn.felord.domain.externalcontact.GroupChatDayDataRequest;
 import cn.felord.domain.externalcontact.GroupChatOwnerDataRequest;
 import cn.felord.domain.externalcontact.UserBehaviorDataRequest;
 import cn.felord.domain.externalcontact.UserBehaviorDataResponse;
-import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.core.ParameterizedTypeReference;
+import io.reactivex.rxjava3.core.Single;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 /**
- * 统计管理
+ * 联系客户统计管理
  *
  * @author dax
  * @since 2021 /9/23 11:30
  */
-public class StatisticApi {
-    private final WorkWeChatApiClient workWeChatApiClient;
-
-    /**
-     * Instantiates a new Statistic api.
-     *
-     * @param workWeChatApiClient the work we chat api client
-     */
-    StatisticApi(WorkWeChatApiClient workWeChatApiClient) {
-        this.workWeChatApiClient = workWeChatApiClient;
-    }
+public interface ExternalStatisticApi {
 
     /**
      * 获取「联系客户统计」数据
@@ -55,9 +31,8 @@ public class StatisticApi {
      * @param request the request
      * @return the user behavior data
      */
-    public UserBehaviorDataResponse getUserBehaviorData(UserBehaviorDataRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.STATISTIC_USER_BEHAVIOR_DATA, request, UserBehaviorDataResponse.class);
-    }
+    @POST("externalcontact/get_user_behavior_data")
+    Single<UserBehaviorDataResponse> getUserBehaviorData(@Body UserBehaviorDataRequest request);
 
     /**
      * 获取「群聊数据统计」数据-按群主聚合的方式
@@ -69,10 +44,8 @@ public class StatisticApi {
      * @param request the request
      * @return the group chat data
      */
-    public GroupChatDataResponse<GroupChatDataByOwner> getGroupChatData(GroupChatOwnerDataRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.STATISTIC_GROUP_CHAT_BY_OWNER, request, new ParameterizedTypeReference<GroupChatDataResponse<GroupChatDataByOwner>>() {
-        });
-    }
+    @POST("externalcontact/groupchat/statistic")
+    Single<GroupChatDataResponse<GroupChatDataByOwner>> getGroupChatData(@Body GroupChatOwnerDataRequest request);
 
     /**
      * 获取「群聊数据统计」数据-按自然日聚合的方式
@@ -80,8 +53,6 @@ public class StatisticApi {
      * @param request the request
      * @return the group chat data by day
      */
-    public GroupChatDataResponse<GroupChatDataByDay> getGroupChatData(GroupChatDayDataRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.STATISTIC_GROUP_CHAT_BY_DAY, request, new ParameterizedTypeReference<GroupChatDataResponse<GroupChatDataByDay>>() {
-        });
-    }
+    @POST("externalcontact/groupchat/statistic_group_by_day")
+    Single<GroupChatDataResponse<GroupChatDataByDay>> getGroupChatData(@Body GroupChatDayDataRequest request);
 }

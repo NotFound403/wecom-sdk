@@ -16,12 +16,12 @@
 package cn.felord.domain.wedoc.form;
 
 import cn.felord.enumeration.AnswerReplyItemType;
+import cn.felord.utils.CollectionUtils;
+import cn.felord.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 

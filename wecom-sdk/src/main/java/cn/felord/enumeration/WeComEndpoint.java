@@ -783,7 +783,7 @@ public enum WeComEndpoint {
     /**
      * 获取接听状态
      */
-    PSTNCC_CALL_STATES("/pstncc/getstates?"),
+    PSTNCC_CALL_STATES("/pstncc/getstates"),
     ;
 
     private final String pattern;
