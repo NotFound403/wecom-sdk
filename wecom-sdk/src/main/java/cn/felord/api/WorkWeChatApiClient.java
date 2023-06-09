@@ -17,6 +17,7 @@ package cn.felord.api;
 
 import cn.felord.AgentDetails;
 import cn.felord.RetrofitFactory;
+import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 
@@ -30,15 +31,19 @@ public final class WorkWeChatApiClient {
     private final AgentDetails agentDetails;
     private final Retrofit retrofit;
 
+    WorkWeChatApiClient(AgentDetails agentDetails, Retrofit retrofit) {
+        this.agentDetails = agentDetails;
+        this.retrofit = retrofit;
+    }
+
     /**
      * Instantiates a new Work we chat api client.
      *
      * @param <T>      the type parameter
      * @param tokenApi the token api
      */
-    public <T extends TokenApi> WorkWeChatApiClient(T tokenApi, HttpLoggingInterceptor.Level level) {
-        this.retrofit = RetrofitFactory.create(tokenApi,level);
-        this.agentDetails = tokenApi.getAgentDetails();
+    public static <T extends TokenApi> WorkWeChatApiClient init(T tokenApi, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+        return new WorkWeChatApiClient(tokenApi.getAgentDetails(), RetrofitFactory.create(tokenApi, connectionPool, level));
     }
 
     /**
