@@ -27,19 +27,19 @@ public final class RetrofitFactory {
             .addConverterFactory(JACKSON_CONVERTER_FACTORY)
             .build();
 
-    public static <T extends TokenApi> Retrofit create(T tokenApi) {
+    public static <T extends TokenApi> Retrofit create(T tokenApi, HttpLoggingInterceptor.Level level) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .client(okHttpClient(tokenApi))
+                .client(okHttpClient(tokenApi, level))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
                 .addConverterFactory(JACKSON_CONVERTER_FACTORY)
                 .build();
     }
 
-    private static OkHttpClient okHttpClient(TokenApi tokenApi) {
+    private static OkHttpClient okHttpClient(TokenApi tokenApi, HttpLoggingInterceptor.Level level) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        httpLoggingInterceptor.level(level);
         return new OkHttpClient.Builder()
                 .addInterceptor(new TokenInterceptor(tokenApi))
                 .addInterceptor(httpLoggingInterceptor)

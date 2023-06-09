@@ -2,6 +2,8 @@ package cn.felord.wecom.api;
 
 import cn.felord.callbacks.CallbackCrypto;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 1.0.14.RELEASE
  */
 @AllArgsConstructor
-@RestController
+@Controller
 @RequestMapping("/wecom/callback")
 public class CallbackController {
     private final CallbackCrypto callbackCrypto;
@@ -54,6 +56,7 @@ public class CallbackController {
      * @return the string
      */
     @PostMapping("/{corpId}/{agentId}")
+    @ResponseStatus(HttpStatus.OK)
     public String consume(@RequestParam("msg_signature") String msgSignature,
                           @RequestParam String timestamp,
                           @RequestParam String nonce,
