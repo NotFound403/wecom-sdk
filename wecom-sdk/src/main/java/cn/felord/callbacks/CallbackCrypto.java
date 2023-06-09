@@ -124,18 +124,18 @@ public class CallbackCrypto {
      * @throws WeComCallbackException aes加密失败
      */
     String encrypt(String receiveid, byte[] aesKey, String randomStr, String text) throws WeComCallbackException {
-        ByteGroup byteCollector = new ByteGroup();
+
         byte[] randomStrBytes = randomStr.getBytes(StandardCharsets.UTF_8);
         byte[] textBytes = text.getBytes(StandardCharsets.UTF_8);
         byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
-
         byte[] receiveidBytes = receiveid.getBytes(StandardCharsets.UTF_8);
-        byteCollector.addBytes(randomStrBytes);
-        byteCollector.addBytes(networkBytesOrder);
-        byteCollector.addBytes(textBytes);
-        byteCollector.addBytes(receiveidBytes);
-        byte[] padBytes = PKCS7Encoder.encode(byteCollector.size());
-        byteCollector.addBytes(padBytes);
+        int byteSize = receiveidBytes.length + textBytes.length + networkBytesOrder.length + receiveidBytes.length;
+        ByteCollector byteCollector = new ByteCollector()
+                .addBytes(randomStrBytes)
+                .addBytes(networkBytesOrder)
+                .addBytes(textBytes)
+                .addBytes(receiveidBytes)
+                .addBytes(PKCS7Encoder.encode(byteSize));
         // 获得最终的字节流, 未加密
         byte[] unencrypted = byteCollector.toBytes();
         try {
