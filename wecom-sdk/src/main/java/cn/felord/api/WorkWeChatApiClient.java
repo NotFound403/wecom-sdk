@@ -17,6 +17,7 @@ package cn.felord.api;
 
 import cn.felord.AgentDetails;
 import cn.felord.RetrofitFactory;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 
 /**
@@ -35,8 +36,8 @@ public final class WorkWeChatApiClient {
      * @param <T>      the type parameter
      * @param tokenApi the token api
      */
-    public <T extends TokenApi> WorkWeChatApiClient(T tokenApi) {
-        this.retrofit = RetrofitFactory.create(tokenApi);
+    public <T extends TokenApi> WorkWeChatApiClient(T tokenApi, HttpLoggingInterceptor.Level level) {
+        this.retrofit = RetrofitFactory.create(tokenApi,level);
         this.agentDetails = tokenApi.getAgentDetails();
     }
 

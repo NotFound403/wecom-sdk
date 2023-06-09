@@ -38,7 +38,7 @@ import java.time.Instant;
  */
 public class SdkTicketApi {
     private static final String SIGNATURE_FORMATTER = "jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}";
-    private static final cn.felord.utils.AlternativeJdkIdGenerator ID_GENERATOR = new AlternativeJdkIdGenerator();
+    private static final AlternativeJdkIdGenerator ID_GENERATOR = new AlternativeJdkIdGenerator();
     private final AgentDetails agentDetails;
     private final JsApi jsApi;
     private final WeComAgentTicketCacheable weComAgentTicketCacheable;

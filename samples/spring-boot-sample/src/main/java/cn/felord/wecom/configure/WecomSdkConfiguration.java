@@ -2,7 +2,6 @@ package cn.felord.wecom.configure;
 
 import cn.felord.WeComTokenCacheable;
 import cn.felord.api.WorkWeChatApi;
-import cn.felord.callbacks.CallbackAsyncConsumer;
 import cn.felord.callbacks.CallbackCrypto;
 import cn.felord.callbacks.CallbackCryptoBuilder;
 import cn.felord.callbacks.CallbackSettingsService;
@@ -10,7 +9,7 @@ import cn.felord.domain.callback.CallbackEventBody;
 import cn.felord.domain.callback.CallbackSettings;
 import cn.felord.enumeration.CallbackEvent;
 import cn.felord.wecom.cache.EhcacheWeComTokenCacheable;
-import org.springframework.beans.factory.annotation.Autowired;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -45,7 +44,8 @@ public class WecomSdkConfiguration {
      */
     @Bean
     WorkWeChatApi workWeChatApi(WeComTokenCacheable weComTokenCacheable) {
-        return new WorkWeChatApi(weComTokenCacheable);
+        // 开发时可开启调试模式 BODY 生产设置为NONE
+        return new WorkWeChatApi(weComTokenCacheable, HttpLoggingInterceptor.Level.NONE);
     }
 
     /**
