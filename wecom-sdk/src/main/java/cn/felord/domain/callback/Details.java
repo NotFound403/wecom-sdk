@@ -31,9 +31,13 @@ import java.time.Instant;
 public class Details {
     @XStreamAlias("Approver")
     private CallbackUserId approver;
+    @XStreamAlias("Speech")
+    private String speech;
     @XStreamAlias("SpStatus")
     private SpStatus spStatus;
     @XStreamAlias("SpTime")
     private Instant spTime;
+    @XStreamAlias("Attach")
+    private String attach;
 }
 

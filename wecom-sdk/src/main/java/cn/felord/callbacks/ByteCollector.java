@@ -15,27 +15,26 @@
 
 package cn.felord.callbacks;
 
-import java.util.ArrayList;
-
-class ByteGroup {
-    ArrayList<Byte> byteContainer = new ArrayList<Byte>();
+class ByteCollector {
+    private byte[] byteContainer;
 
     public byte[] toBytes() {
-        byte[] bytes = new byte[byteContainer.size()];
-        for (int i = 0; i < byteContainer.size(); i++) {
-            bytes[i] = byteContainer.get(i);
-        }
-        return bytes;
+        return byteContainer;
     }
 
-    public ByteGroup addBytes(byte[] bytes) {
-        for (byte b : bytes) {
-            byteContainer.add(b);
+    public ByteCollector addBytes(byte[] bytes) {
+        if (byteContainer == null) {
+            this.byteContainer = bytes;
+        } else {
+            byte[] newByte = new byte[byteContainer.length + bytes.length];
+            System.arraycopy(bytes, 0, newByte, 0, bytes.length);
+            System.arraycopy(byteContainer, 0, newByte, 0, byteContainer.length);
+            this.byteContainer = newByte;
         }
         return this;
     }
 
     public int size() {
-        return byteContainer.size();
+        return byteContainer == null ? 0 : byteContainer.length;
     }
 }

@@ -124,18 +124,18 @@ public class CallbackCrypto {
      * @throws WeComCallbackException aes加密失败
      */
     String encrypt(String receiveid, byte[] aesKey, String randomStr, String text) throws WeComCallbackException {
-        ByteGroup byteCollector = new ByteGroup();
+
         byte[] randomStrBytes = randomStr.getBytes(StandardCharsets.UTF_8);
         byte[] textBytes = text.getBytes(StandardCharsets.UTF_8);
         byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
-
         byte[] receiveidBytes = receiveid.getBytes(StandardCharsets.UTF_8);
-        byteCollector.addBytes(randomStrBytes);
-        byteCollector.addBytes(networkBytesOrder);
-        byteCollector.addBytes(textBytes);
-        byteCollector.addBytes(receiveidBytes);
-        byte[] padBytes = PKCS7Encoder.encode(byteCollector.size());
-        byteCollector.addBytes(padBytes);
+        int byteSize = receiveidBytes.length + textBytes.length + networkBytesOrder.length + receiveidBytes.length;
+        ByteCollector byteCollector = new ByteCollector()
+                .addBytes(randomStrBytes)
+                .addBytes(networkBytesOrder)
+                .addBytes(textBytes)
+                .addBytes(receiveidBytes)
+                .addBytes(PKCS7Encoder.encode(byteSize));
         // 获得最终的字节流, 未加密
         byte[] unencrypted = byteCollector.toBytes();
         try {
@@ -193,7 +193,6 @@ public class CallbackCrypto {
             throw new WeComCallbackException(WeComCallbackException.ValidateCorpidError);
         }
         return jsonContent.startsWith(BOM) ? jsonContent.substring(1) : jsonContent;
-
     }
 
     /**
@@ -274,13 +273,20 @@ public class CallbackCrypto {
     public <T> T doAccept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, T response) throws WeComCallbackException {
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
-        String xmlAgentId = callbackXmlBody.getAgentId();
         String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
+        if (log.isDebugEnabled()) {
+            log.debug("callback message, {}", xml);
+        }
         CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
         eventBody.setAgentId(agentId);
-        eventBody.setXmlAgentId(xmlAgentId);
         // 唯一性判断
         eventBody.setMsgSignature(msgSignature);
+        // begin 用来记录追踪
+        eventBody.setTimeStamp(timeStamp);
+        eventBody.setNonce(nonce);
+        eventBody.setEncrypt(encrypt);
+        eventBody.setXmlAgentId(callbackXmlBody.getAgentId());
+        // end 用来记录追踪
         this.callbackAsyncConsumer.asyncAction(eventBody);
         return response;
     }
