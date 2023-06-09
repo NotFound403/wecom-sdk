@@ -9,10 +9,12 @@ import cn.felord.domain.callback.CallbackEventBody;
 import cn.felord.domain.callback.CallbackSettings;
 import cn.felord.enumeration.CallbackEvent;
 import cn.felord.wecom.cache.EhcacheWeComTokenCacheable;
+import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 /**
@@ -45,7 +47,8 @@ public class WecomSdkConfiguration {
     @Bean
     WorkWeChatApi workWeChatApi(WeComTokenCacheable weComTokenCacheable) {
         // 开发时可开启调试模式 BODY 生产设置为NONE
-        return new WorkWeChatApi(weComTokenCacheable, HttpLoggingInterceptor.Level.NONE);
+        ConnectionPool connectionPool = new ConnectionPool(200, 5, TimeUnit.MINUTES);
+        return new WorkWeChatApi(weComTokenCacheable, connectionPool, HttpLoggingInterceptor.Level.NONE);
     }
 
     /**
@@ -72,8 +75,6 @@ public class WecomSdkConfiguration {
                     }
                 });
     }
-
-
 
 
 }
