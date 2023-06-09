@@ -3,6 +3,7 @@ package cn.felord;
 import cn.felord.api.TokenApi;
 import cn.felord.json.JacksonObjectMapperFactory;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -37,8 +38,11 @@ public final class RetrofitFactory {
     }
 
     private static OkHttpClient okHttpClient(TokenApi tokenApi) {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         return new OkHttpClient.Builder()
                 .addInterceptor(new TokenInterceptor(tokenApi))
+                .addInterceptor(httpLoggingInterceptor)
                 .retryOnConnectionFailure(true)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)

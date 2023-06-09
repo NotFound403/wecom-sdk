@@ -80,10 +80,10 @@ class SpringBootWecomSdkTests {
 
 
         AgentDetails nativedAgent = DefaultAgent.nativeAgent("企业id", "外部联系人密钥", NativeAgent.EXTERNAL);
-        MsgTemplateResponse msgTemplateResponse = workWeChatApi.externalContactManager(nativedAgent)
+       workWeChatApi.externalContactManager(nativedAgent)
                 .messageApi()
                 .addMsgTemplate(request);
-        System.out.println("msgTemplateResponse = " + msgTemplateResponse);
+
     }
 
 

@@ -15,7 +15,7 @@
 
 package cn.felord.domain.approval;
 
-import cn.felord.domain.KV;
+import cn.felord.domain.common.KV;
 import lombok.Data;
 
 import java.time.Instant;

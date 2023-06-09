@@ -22,10 +22,10 @@
     <parent>
         <groupId>cn.felord</groupId>
         <artifactId>wecom</artifactId>
-        <version>1.0.14</version>
+        <version>1.0.14.RX</version>
     </parent>
     <artifactId>wecom-sdk</artifactId>
-    <version>1.0.14</version>
+    <version>1.0.14.RX</version>
     <packaging>jar</packaging>
 
     <name>wecom-sdk</name>
