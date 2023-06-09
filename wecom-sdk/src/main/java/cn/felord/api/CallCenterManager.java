@@ -39,7 +39,7 @@ public class CallCenterManager {
      * @return the service account manager api
      */
     public KfAccountApi kfAccountApi() {
-        return new KfAccountApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(KfAccountApi.class);
     }
 
     /**
@@ -48,7 +48,7 @@ public class CallCenterManager {
      * @return the kf servicer api
      */
     public KfServicerApi kfServicerApi() {
-        return new KfServicerApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(KfServicerApi.class);
     }
 
     /**
@@ -57,7 +57,7 @@ public class CallCenterManager {
      * @return the kf session api
      */
     public KfSessionApi kfSessionApi() {
-        return new KfSessionApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(KfSessionApi.class);
     }
 
     /**
@@ -66,7 +66,7 @@ public class CallCenterManager {
      * @return the kf upgrade api
      */
     public KfUpgradeApi kfUpgradeApi() {
-        return new KfUpgradeApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(KfUpgradeApi.class);
     }
 
     /**
@@ -75,7 +75,7 @@ public class CallCenterManager {
      * @return the kf statistic api
      */
     public KfStatisticApi kfStatisticApi() {
-        return new KfStatisticApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(KfStatisticApi.class);
     }
 
 }

@@ -1,27 +1,16 @@
-/*
- * Copyright (c) 2023. felord.cn
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *      https://www.apache.org/licenses/LICENSE-2.0
- * Website:
- *      https://felord.cn
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
-import cn.felord.domain.callcenter.*;
-import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.core.ParameterizedTypeReference;
-
-import java.util.HashMap;
-import java.util.Map;
+import cn.felord.domain.callcenter.KfAndExternalUser;
+import cn.felord.domain.callcenter.KfEventMessageRequest;
+import cn.felord.domain.callcenter.KfMessageRequest;
+import cn.felord.domain.callcenter.KfSessionResponse;
+import cn.felord.domain.callcenter.KfSessionUpdateRequest;
+import cn.felord.domain.callcenter.SyncMsgRequest;
+import cn.felord.domain.callcenter.SyncMsgResponse;
+import io.reactivex.rxjava3.core.Single;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 /**
  * 会话分配与消息收发
@@ -29,31 +18,16 @@ import java.util.Map;
  * @author dax
  * @since 2021 /7/23 13:52
  */
-public class KfSessionApi {
-    private final WorkWeChatApiClient workWeChatApiClient;
-
-    /**
-     * Instantiates a new Kf session api.
-     *
-     * @param workWeChatApiClient the work we chat api client
-     */
-    KfSessionApi(WorkWeChatApiClient workWeChatApiClient) {
-        this.workWeChatApiClient = workWeChatApiClient;
-    }
+public interface KfSessionApi {
 
     /**
      * 获取会话状态
      *
-     * @param openKfid       the open kfid
-     * @param externalUserid the external userid
+     * @param kfAndExternalUser the kf and external user
      * @return the generic response
      */
-    public KfSessionResponse getSessionState(String openKfid, String externalUserid) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("open_kfid", openKfid);
-        body.put("external_userid", externalUserid);
-        return workWeChatApiClient.post(WeComEndpoint.KF_SERVICE_STATE_GET, body, KfSessionResponse.class);
-    }
+    @POST("kf/service_state/get")
+    Single<KfSessionResponse> getSessionState(@Body KfAndExternalUser kfAndExternalUser);
 
     /**
      * 变更会话状态
@@ -61,10 +35,8 @@ public class KfSessionApi {
      * @param request the request
      * @return the we com response
      */
-    public GenericResponse<String> trans(KfSessionUpdateRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.KF_SERVICE_STATE_TRANS, request, new ParameterizedTypeReference<GenericResponse<String>>() {
-        });
-    }
+    @POST("kf/service_state/trans")
+    Single<GenericResponse<String>> trans(@Body KfSessionUpdateRequest request);
 
     /**
      * 读取消息
@@ -72,9 +44,8 @@ public class KfSessionApi {
      * @param request the request
      * @return the sync msg response
      */
-    public SyncMsgResponse syncMsg(SyncMsgRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.KF_SYNC_MSG, request, SyncMsgResponse.class);
-    }
+    @POST("kf/sync_msg")
+    Single<SyncMsgResponse> syncMsg(@Body SyncMsgRequest request);
 
     /**
      * 发送消息
@@ -87,10 +58,8 @@ public class KfSessionApi {
      * @param request the request
      * @return the generic response
      */
-    public <R extends KfMessageRequest> GenericResponse<String> sendMsg(R request) {
-        return workWeChatApiClient.post(WeComEndpoint.KF_SEND_MSG, request, new ParameterizedTypeReference<GenericResponse<String>>() {
-        });
-    }
+    @POST("kf/send_msg")
+    <R extends KfMessageRequest> Single<GenericResponse<String>> sendMsg(@Body R request);
 
     /**
      * 发送欢迎语等事件响应消息
@@ -103,8 +72,6 @@ public class KfSessionApi {
      * @param request the request
      * @return the generic response
      */
-    public <R extends KfEventMessageRequest> GenericResponse<String> sendEventMsg(R request) {
-        return workWeChatApiClient.post(WeComEndpoint.KF_SEND_EVENT_MSG, request, new ParameterizedTypeReference<GenericResponse<String>>() {
-        });
-    }
+    @POST("kf/send_msg_on_event")
+    <R extends KfEventMessageRequest> Single<GenericResponse<String>> sendEventMsg(@Body R request);
 }

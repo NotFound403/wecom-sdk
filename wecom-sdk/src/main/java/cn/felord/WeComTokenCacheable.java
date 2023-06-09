@@ -15,7 +15,6 @@
 
 package cn.felord;
 
-import org.springframework.lang.NonNull;
 
 /**
  * The interface Cacheable.
@@ -34,7 +33,7 @@ public interface WeComTokenCacheable extends WeComAgentTicketCacheable {
      * @param accessToken the access token
      * @return the token
      */
-    String putAccessToken(@NonNull String corpId, @NonNull String agentId, @NonNull String accessToken);
+    String putAccessToken(String corpId, String agentId, String accessToken);
 
     /**
      * 获取accessToken.
@@ -43,5 +42,5 @@ public interface WeComTokenCacheable extends WeComAgentTicketCacheable {
      * @param agentId the agentId
      * @return the token
      */
-    String getAccessToken(@NonNull String corpId, @NonNull String agentId);
+    String getAccessToken(String corpId, String agentId);
 }

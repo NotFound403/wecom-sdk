@@ -15,8 +15,6 @@
 
 package cn.felord;
 
-import org.springframework.lang.NonNull;
-
 /**
  * Ticket 缓存
  *
@@ -34,7 +32,7 @@ public interface WeComAgentTicketCacheable extends WeComCacheable {
      * @param corpTicket the corpTicket
      * @return the corpTicket
      */
-    String putCorpTicket(@NonNull String corpId, @NonNull String agentId, @NonNull String corpTicket);
+    String putCorpTicket(String corpId, String agentId, String corpTicket);
 
     /**
      * 获取企业的jsapi_ticket.
@@ -43,7 +41,7 @@ public interface WeComAgentTicketCacheable extends WeComCacheable {
      * @param agentId the agentId
      * @return the corpTicket
      */
-    String getCorpTicket(@NonNull String corpId, @NonNull String agentId);
+    String getCorpTicket(String corpId, String agentId);
 
     /**
      * 放入应用的jsapi_ticket.
@@ -55,7 +53,7 @@ public interface WeComAgentTicketCacheable extends WeComCacheable {
      * @param agentTicket the agentTicket
      * @return the agentTicket
      */
-    String putAgentTicket(@NonNull String corpId, @NonNull String agentId, @NonNull String agentTicket);
+    String putAgentTicket(String corpId, String agentId, String agentTicket);
 
     /**
      * 获取应用的jsapi_ticket.
@@ -64,6 +62,6 @@ public interface WeComAgentTicketCacheable extends WeComCacheable {
      * @param agentId the agentId
      * @return the agentTicket
      */
-    String getAgentTicket(@NonNull String corpId, @NonNull String agentId);
+    String getAgentTicket(String corpId, String agentId);
 
 }

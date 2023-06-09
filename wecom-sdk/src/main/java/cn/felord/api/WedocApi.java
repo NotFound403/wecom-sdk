@@ -39,7 +39,7 @@ public class WedocApi {
      * @return the form api
      */
     public FormApi formApi() {
-        return new FormApi(workWeChatApiClient);
+        return workWeChatApiClient.retrofit().create(FormApi.class);
     }
 
 }

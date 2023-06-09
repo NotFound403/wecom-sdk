@@ -16,15 +16,16 @@
 package cn.felord.api;
 
 import cn.felord.domain.MediaResponse;
-import cn.felord.domain.WeChatMultipartFile;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.webhook.WebhookBody;
-import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.http.ContentDisposition;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import io.reactivex.rxjava3.core.Single;
+import okhttp3.MultipartBody;
+import retrofit2.http.Body;
+import retrofit2.http.Header;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 /**
  * 群机器人
@@ -32,30 +33,32 @@ import org.springframework.util.MultiValueMap;
  * @author n1
  * @since 2021 /6/16 19:35
  */
-public class WebhookApi {
-    private final WorkWeChatApiClient workWeChatApiClient;
-
-    /**
-     * Instantiates a new Webhook api.
-     */
-    WebhookApi() {
-        this.workWeChatApiClient = new WorkWeChatApiClient();
-    }
-
+public interface WebhookApi {
     /**
      * 发送机器人信息
      *
-     * @param <T>  the type parameter
      * @param key  the key
      * @param body the body
      * @return the we com response
      */
-    public <T extends WebhookBody> WeComResponse send(String key, T body) {
-        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
-        query.add("key", key);
-        return workWeChatApiClient.post(WeComEndpoint.WEBHOOK_SEND, query, body, WeComResponse.class);
-    }
+    @POST("webhook/send")
+    Single<WeComResponse> send(@Query("key") String key, @Body WebhookBody body);
 
+    /**
+     * 上传素材
+     *
+     * @param webhookKey         the webhook key
+     * @param type               the type
+     * @param media              the media
+     * @param contentDisposition the content disposition
+     * @return the media response
+     */
+    @Multipart
+    @POST("webhook/upload_media")
+    Single<MediaResponse> uploadMedia(@Query("key") String webhookKey,
+                                      @Query("type") String type,
+                                      @Part("media") MultipartBody media,
+                                      @Header("Content-Disposition") String contentDisposition);
     /**
      * 上传素材
      *
@@ -63,7 +66,7 @@ public class WebhookApi {
      * @param media      the media
      * @return the media response
      */
-    public MediaResponse uploadMedia(String webhookKey, WeChatMultipartFile media) {
+/*    public MediaResponse uploadMedia(String webhookKey, WeChatMultipartFile media) {
         String name = media.getName();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -78,6 +81,6 @@ public class WebhookApi {
         query.add("key", webhookKey);
         query.add("type", "file");
         return workWeChatApiClient.post(WeComEndpoint.WEBHOOK_UPLOAD, query, body, headers, MediaResponse.class);
-    }
+    }*/
 
 }

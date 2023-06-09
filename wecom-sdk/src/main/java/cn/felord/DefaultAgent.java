@@ -29,11 +29,11 @@ import lombok.NonNull;
 @AllArgsConstructor
 @Getter
 public class DefaultAgent implements AgentDetails {
-    @NonNull
+
     private final String corpId;
-    @NonNull
+
     private final String secret;
-    @NonNull
+
     private final String agentId;
 
 

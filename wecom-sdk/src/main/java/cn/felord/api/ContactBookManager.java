@@ -39,7 +39,7 @@ public class ContactBookManager {
      * @return the user api
      */
     public UserApi userApi() {
-        return new UserApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(UserApi.class);
     }
 
     /**
@@ -48,7 +48,7 @@ public class ContactBookManager {
      * @return the department api
      */
     public DepartmentApi departmentApi() {
-        return new DepartmentApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(DepartmentApi.class);
     }
 
     /**
@@ -57,7 +57,7 @@ public class ContactBookManager {
      * @return the tag api
      */
     public TagApi tagApi() {
-        return new TagApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(TagApi.class);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ContactBookManager {
      * @return the asynchronous batch import api
      */
     public AsynchronousBatchImportApi asynchronousBatchApi() {
-        return new AsynchronousBatchImportApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(AsynchronousBatchImportApi.class);
     }
 
     /**
@@ -75,6 +75,6 @@ public class ContactBookManager {
      * @return the linked corp api
      */
     public LinkedCorpApi linkedCorpApi() {
-        return new LinkedCorpApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(LinkedCorpApi.class);
     }
 }

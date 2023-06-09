@@ -1,14 +1,15 @@
 package cn.felord.api;
 
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.callcenter.KfAndExternalUser;
 import cn.felord.domain.callcenter.KfExternalUserRequest;
 import cn.felord.domain.callcenter.KfExternalUserResponse;
 import cn.felord.domain.callcenter.UpgradeServiceConfig;
 import cn.felord.domain.callcenter.UpgradeServiceRequest;
-import cn.felord.enumeration.WeComEndpoint;
-
-import java.util.HashMap;
-import java.util.Map;
+import io.reactivex.rxjava3.core.Single;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 /**
  * 升级服务
@@ -16,26 +17,15 @@ import java.util.Map;
  * @author dax
  * @since 2023 /6/6
  */
-public class KfUpgradeApi {
-    private final WorkWeChatApiClient workWeChatApiClient;
-
-    /**
-     * Instantiates a new Kf session api.
-     *
-     * @param workWeChatApiClient the work we chat api client
-     */
-    KfUpgradeApi(WorkWeChatApiClient workWeChatApiClient) {
-        this.workWeChatApiClient = workWeChatApiClient;
-    }
+public interface KfUpgradeApi {
 
     /**
      * 获取配置的专员与客户群
      *
      * @return the upgrade service config
      */
-    public UpgradeServiceConfig upgradeServiceConfig() {
-        return workWeChatApiClient.get(WeComEndpoint.KF_UPGRADE_SERVICE_CONFIG, UpgradeServiceConfig.class);
-    }
+    @GET("kf/customer/get_upgrade_service_config")
+    Single<UpgradeServiceConfig> upgradeServiceConfig();
 
     /**
      * 为客户升级为专员或客户群服务
@@ -43,23 +33,17 @@ public class KfUpgradeApi {
      * @param request the request
      * @return the upgrade service config
      */
-    public WeComResponse upgradeService(UpgradeServiceRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.KF_UPGRADE_SERVICE, request, WeComResponse.class);
-    }
+    @POST("kf/customer/upgrade_service")
+    Single<WeComResponse> upgradeService(@Body UpgradeServiceRequest request);
 
     /**
      * 为客户取消推荐
      *
-     * @param openKfid       the open kfid
-     * @param externalUserid the external userid
+     * @param kfAndExternalUser the kf and external user
      * @return the we com response
      */
-    public WeComResponse cancelService(String openKfid, String externalUserid) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("open_kfid", openKfid);
-        body.put("external_userid", externalUserid);
-        return workWeChatApiClient.post(WeComEndpoint.KF_CANCEL_UPGRADE_SERVICE, body, WeComResponse.class);
-    }
+    @POST("kf/customer/cancel_upgrade_service")
+    Single<WeComResponse> cancelService(@Body KfAndExternalUser kfAndExternalUser);
 
     /**
      * 获取客户基础信息
@@ -67,7 +51,6 @@ public class KfUpgradeApi {
      * @param request the request
      * @return the kf external user response
      */
-    public KfExternalUserResponse batchKfExternalUsers(KfExternalUserRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.KF_EXTERNAL_INFO, request, KfExternalUserResponse.class);
-    }
+    @POST("kf/customer/batchget")
+    Single<KfExternalUserResponse> batchKfExternalUsers(KfExternalUserRequest request);
 }
