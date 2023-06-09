@@ -16,6 +16,7 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.ApprovalCtrlType;
+import cn.felord.enumeration.BoolEnum;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
@@ -58,6 +59,7 @@ public abstract class ApplyContentData<V> {
     private final V value;
     private final List<ApprovalTitle> title;
     private final Integer hidden;
+    private final BoolEnum require;
 
 
     /**
@@ -69,12 +71,13 @@ public abstract class ApplyContentData<V> {
      * @param value   the value
      * @param hidden  the hidden
      */
-    public ApplyContentData(ApprovalCtrlType control, String id, List<ApprovalTitle> title, V value, Integer hidden) {
+    public ApplyContentData(ApprovalCtrlType control, String id, List<ApprovalTitle> title, V value, Integer hidden,BoolEnum require) {
         this.control = control;
         this.id = id;
         this.value = value;
         this.title = title;
         this.hidden = hidden;
+        this.require = require;
     }
 
     /**
@@ -86,7 +89,7 @@ public abstract class ApplyContentData<V> {
      * @return the apply content data
      */
     public static <V extends ContentDataValue> ApplyContentData<V> from(CtrlProperty property, V value) {
-        return new ApplyContentData<V>(property.getControl(), property.getId(), property.getTitle(), value, null) {
+        return new ApplyContentData<V>(property.getControl(), property.getId(), property.getTitle(), value, null,null) {
         };
     }
 }
