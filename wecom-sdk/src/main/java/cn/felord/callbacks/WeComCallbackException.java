@@ -100,7 +100,7 @@ public class WeComCallbackException extends WeComException {
             case DecodeBase64Error:
                 return "base64解密错误";
             case GenReturnJsonError:
-                return "josn生成失败";
+                return "json生成失败";
             default:
                 return "回调处理失败，原因未知";
         }
