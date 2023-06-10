@@ -1,10 +1,10 @@
 package cn.felord.api;
 
-import cn.felord.domain.MediaResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.webhook.WebhookBody;
+import cn.felord.utils.FileMediaType;
 import io.reactivex.rxjava3.core.Single;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
@@ -14,7 +14,7 @@ import java.io.File;
 /**
  * 群机器人
  *
- * @author xiafang
+ * @author dax
  * @since 2023 /6/10 15:42
  */
 public class WebhookApi {
@@ -49,7 +49,7 @@ public class WebhookApi {
      * @return the media response
      */
     public Single<MediaResponse> uploadMedia(String webhookKey, File file) {
-        RequestBody requestBody = RequestBody.create(file, MediaType.parse("image/png"));
+        RequestBody requestBody = RequestBody.create(file, FileMediaType.fromFileName(file.getName()));
         MultipartBody media = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("media", file.getName(), requestBody)

@@ -21,8 +21,7 @@ public final class RetrofitFactory {
 
     public static final Retrofit RETROFIT_ = new Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(okHttpClient())
-
+            .client(okHttpClient(HttpLoggingInterceptor.Level.NONE))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
             .addConverterFactory(JACKSON_CONVERTER_FACTORY)
@@ -52,9 +51,9 @@ public final class RetrofitFactory {
                 .build();
     }
 
-    private static OkHttpClient okHttpClient() {
+    private static OkHttpClient okHttpClient(HttpLoggingInterceptor.Level level) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        httpLoggingInterceptor.level(level);
         return new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)
                 .retryOnConnectionFailure(true)

@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-package cn.felord.domain;
+package cn.felord.domain.media;
 
+import cn.felord.domain.WeComResponse;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
