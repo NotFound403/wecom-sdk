@@ -15,8 +15,8 @@
 
 package cn.felord.api;
 
-import cn.felord.domain.MediaResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.webhook.WebhookBody;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.MultipartBody;
@@ -30,7 +30,7 @@ import retrofit2.http.Query;
  * @author n1
  * @since 2021 /6/16 19:35
  */
-public interface InternalWebhookApi {
+interface InternalWebhookApi {
 
     /**
      * 发送机器人信息

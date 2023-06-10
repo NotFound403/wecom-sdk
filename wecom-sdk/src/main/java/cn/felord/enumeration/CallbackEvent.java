@@ -19,10 +19,10 @@ import cn.felord.callbacks.EventEnumConverter;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 /**
- * The enum Callback event enum.
+ * 回调事件
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 2021/6/10
  */
 @XStreamConverter(EventEnumConverter.class)
 public enum CallbackEvent {
@@ -65,7 +65,11 @@ public enum CallbackEvent {
     /**
      * 自建应用审批状态变化通知回调
      */
-    OPEN_APPROVAL_CHANGE("open_approval_change");
+    OPEN_APPROVAL_CHANGE("open_approval_change"),
+    /**
+     * 异步上传任务完成事件
+     */
+    UPLOAD_MEDIA_JOB_FINISH("upload_media_job_finish");
 
     private final String type;
 
