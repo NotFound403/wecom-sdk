@@ -151,9 +151,9 @@ public class UserApi {
      * @param departmentId departmentId
      * @return SimpleUserResponse dept users
      */
-    public GenericResponse<List<SimpleUser>> getDeptUsers(String departmentId) {
+    public GenericResponse<List<SimpleUser>> getDeptUsers(long departmentId) {
         LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
-        query.add("department_id", departmentId);
+        query.add("department_id", String.valueOf(departmentId));
         return workWeChatApiClient.get(WeComEndpoint.USER_DEPT_LIST, query, new ParameterizedTypeReference<GenericResponse<List<SimpleUser>>>() {
         });
     }
