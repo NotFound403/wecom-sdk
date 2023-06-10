@@ -25,7 +25,7 @@ import lombok.Data;
  */
 @XStreamAlias("xml")
 @Data
-class CallbackXmlBody implements CallbackBody {
+public class CallbackXmlBody implements CallbackBody {
     @XStreamAlias("ToUserName")
     private final String toUserName;
     @XStreamAlias("Encrypt")

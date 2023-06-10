@@ -27,7 +27,7 @@ import java.util.Map;
  * @author felord
  * @since 2021/10/10 14:16
  */
-class XStreamXmlReader implements XmlReader {
+public class XStreamXmlReader implements XmlReader {
     private static final Class<?>[] ALLOW_TYPES = {CallbackXmlBody.class, CallbackEventBody.class, CallbackXmlResponse.class};
     private static final Map<Class<?>, XStream> XSTREAM_MAP = new HashMap<>();
 

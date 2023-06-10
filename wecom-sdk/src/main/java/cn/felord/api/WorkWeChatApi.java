@@ -80,7 +80,8 @@ public final class WorkWeChatApi {
      * @return the domain api
      */
     public DomainApi domainApi(AgentDetails agentDetails) {
-        return WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level)
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
                 .retrofit()
                 .create(DomainApi.class);
     }
@@ -92,7 +93,8 @@ public final class WorkWeChatApi {
      * @return the Address book Manager
      */
     public ContactBookManager contactBookManager(AgentDetails agentDetails) {
-        return new ContactBookManager(WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level));
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return new ContactBookManager(WorkWeChatApiClient.init(tokenApi, connectionPool, level));
     }
 
     /**
@@ -102,7 +104,8 @@ public final class WorkWeChatApi {
      * @return the external contact manager
      */
     public ExternalContactManager externalContactManager(AgentDetails agentDetails) {
-        return new ExternalContactManager(WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level));
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return new ExternalContactManager(WorkWeChatApiClient.init(tokenApi, connectionPool, level));
     }
 
     /**
@@ -112,7 +115,8 @@ public final class WorkWeChatApi {
      * @return the call center manager
      */
     public CallCenterManager callCenterManager(AgentDetails agentDetails) {
-        return new CallCenterManager(WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level));
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return new CallCenterManager(WorkWeChatApiClient.init(tokenApi, connectionPool, level));
     }
 
     /**
@@ -122,7 +126,8 @@ public final class WorkWeChatApi {
      * @return the auth api
      */
     public AuthApi authApi(AgentDetails agentDetails) {
-        return WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level)
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
                 .retrofit()
                 .create(AuthApi.class);
     }
@@ -134,7 +139,8 @@ public final class WorkWeChatApi {
      * @return the agent api
      */
     public AgentApi agentApi(AgentDetails agentDetails) {
-        return new AgentApi(WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level));
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return new AgentApi(WorkWeChatApiClient.init(tokenApi, connectionPool, level));
     }
 
     /**
@@ -144,7 +150,8 @@ public final class WorkWeChatApi {
      * @return the sdk ticket api
      */
     public SdkTicketApi sdkTicketApi(AgentDetails agentDetails) {
-        return new SdkTicketApi(WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level), weComTokenCacheable);
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return new SdkTicketApi(WorkWeChatApiClient.init(tokenApi, connectionPool, level), weComTokenCacheable);
     }
 
     /**
@@ -153,7 +160,7 @@ public final class WorkWeChatApi {
      * @return the webhook api
      */
     public static WebhookApi webhookApi() {
-        return RetrofitFactory.RETROFIT_.create(WebhookApi.class);
+        return new WebhookApi(RetrofitFactory.RETROFIT_);
     }
 
     /**
@@ -163,9 +170,9 @@ public final class WorkWeChatApi {
      * @return the media api
      */
     public MediaApi mediaApi(AgentDetails agentDetails) {
-        return WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level)
-                .retrofit()
-                .create(MediaApi.class);
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return new MediaApi(WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit());
     }
 
     /**
@@ -175,7 +182,8 @@ public final class WorkWeChatApi {
      * @return the calendar api
      */
     public CalendarApi calendarApi(AgentDetails agentDetails) {
-        return WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level)
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
                 .retrofit()
                 .create(CalendarApi.class);
     }
@@ -187,7 +195,8 @@ public final class WorkWeChatApi {
      * @return the schedule api
      */
     public ScheduleApi scheduleApi(AgentDetails agentDetails) {
-        return WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level)
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
                 .retrofit()
                 .create(ScheduleApi.class);
     }
@@ -200,7 +209,8 @@ public final class WorkWeChatApi {
      * @return the wedoc api
      */
     public WedocApi wedocApi(AgentDetails agentDetails) {
-        return new WedocApi(WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level));
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return new WedocApi(WorkWeChatApiClient.init(tokenApi, connectionPool, level));
     }
 
     /**
@@ -210,7 +220,8 @@ public final class WorkWeChatApi {
      * @return the we drive api
      */
     public WeDriveApi weDriveApi(AgentDetails agentDetails) {
-        return new WeDriveApi(WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level));
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return new WeDriveApi(WorkWeChatApiClient.init(tokenApi, connectionPool, level));
     }
 
     /**
@@ -220,7 +231,8 @@ public final class WorkWeChatApi {
      * @return the approval api
      */
     public ApprovalApi approvalApi(AgentDetails agentDetails) {
-        return WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level)
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
                 .retrofit()
                 .create(ApprovalApi.class);
     }
@@ -232,7 +244,8 @@ public final class WorkWeChatApi {
      * @return the urgent call api
      */
     public UrgentCallApi urgentCallApi(AgentDetails agentDetails) {
-        return WorkWeChatApiClient.init(new AccessTokenApi(weComTokenCacheable, agentDetails), connectionPool, level)
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
                 .retrofit()
                 .create(UrgentCallApi.class);
     }

@@ -53,7 +53,10 @@ public final class RetrofitFactory {
     }
 
     private static OkHttpClient okHttpClient() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         return new OkHttpClient.Builder()
+                .addInterceptor(httpLoggingInterceptor)
                 .retryOnConnectionFailure(true)
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
