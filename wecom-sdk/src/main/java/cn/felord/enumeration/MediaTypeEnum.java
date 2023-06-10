@@ -21,21 +21,31 @@ package cn.felord.enumeration;
  * @author n1
  * @since 2021 /6/19 10:01
  */
+
 public enum MediaTypeEnum {
     /**
      * Image media type.
      */
-    IMAGE,
+    IMAGE("image"),
     /**
      * Voice media type.
      */
-    VOICE,
+    VOICE("voice"),
     /**
      * Video media type.
      */
-    VIDEO,
+    VIDEO("video"),
     /**
      * File media type.
      */
-    FILE
+    FILE("file");
+    private final String type;
+
+    MediaTypeEnum(String type) {
+        this.type = type;
+    }
+
+    public String type() {
+        return type;
+    }
 }
