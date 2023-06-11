@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
@@ -6,22 +21,7 @@ import cn.felord.domain.common.MomentId;
 import cn.felord.domain.common.PageRequest;
 import cn.felord.domain.common.StrategyId;
 import cn.felord.domain.common.UserMoment;
-import cn.felord.domain.externalcontact.CustomerStrategyRequest;
-import cn.felord.domain.externalcontact.MomentAttachment;
-import cn.felord.domain.externalcontact.MomentBody;
-import cn.felord.domain.externalcontact.MomentCommentResponse;
-import cn.felord.domain.externalcontact.MomentCustomerListResponse;
-import cn.felord.domain.externalcontact.MomentInfoRequest;
-import cn.felord.domain.externalcontact.MomentListRequest;
-import cn.felord.domain.externalcontact.MomentListResponse;
-import cn.felord.domain.externalcontact.MomentMemberTaskResponse;
-import cn.felord.domain.externalcontact.MomentStrategyDetailResponse;
-import cn.felord.domain.externalcontact.MomentTaskRequest;
-import cn.felord.domain.externalcontact.MomentTaskResultResponse;
-import cn.felord.domain.externalcontact.MutableMomentStrategy;
-import cn.felord.domain.externalcontact.StrategyListResponse;
-import cn.felord.domain.externalcontact.StrategyRangeRequest;
-import cn.felord.domain.externalcontact.StrategyRangeResponse;
+import cn.felord.domain.externalcontact.*;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
