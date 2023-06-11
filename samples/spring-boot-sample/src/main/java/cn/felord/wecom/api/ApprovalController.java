@@ -47,9 +47,7 @@ public class ApprovalController {
      * @return the single
      */
     @GetMapping("/{spNo}")
-    public ApprovalDetail>
-
-    approvalDetails(@PathVariable String spNo) {
+    public ApprovalDetail approvalDetails(@PathVariable String spNo) {
         AgentDetails nfsApproval = DefaultAgent.nativeAgent("企业ID", "审批密钥", NativeAgent.APPROVAL);
         return workWeChatApi.approvalApi(nfsApproval).queryApprovalDetail(new ApprovalSpNo(spNo)).map(GenericResponse::getData);
     }
