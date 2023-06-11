@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.wedrive.FileDownloadResponse;
 import cn.felord.domain.wedrive.FileId;
 import cn.felord.domain.wedrive.SelectedTicket;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -37,7 +36,7 @@ public interface FileManagerApi {
      * @return the file download response
      */
     @POST("wedrive/file_download")
-    Single<FileDownloadResponse> getFileUrlByFileId(@Body FileId fileid);
+    FileDownloadResponse getFileUrlByFileId(@Body FileId fileid);
 
     /**
      * 下载文件（微盘和文件选择器jsapi返回的selectedTicket）
@@ -48,7 +47,7 @@ public interface FileManagerApi {
      * @return the file download response
      */
     @POST("wedrive/file_download")
-    Single<FileDownloadResponse> getFileUrlBySelectedTicket(@Body SelectedTicket selectedTicket);
+    FileDownloadResponse getFileUrlBySelectedTicket(@Body SelectedTicket selectedTicket);
 
     /*    *//**
      * 下载微盘文件
@@ -60,6 +59,6 @@ public interface FileManagerApi {
      * @see #getFileUrlBySelectedTicket(SelectedTicket)
      *//*
     @GET
-    Single<ResponseBody> download(@Url String downloadUrl, @Header("Cookie") String cookie);*/
+    ResponseBody> download(@Url String downloadUrl, @Header("Cookie") String cookie);*/
 
 }

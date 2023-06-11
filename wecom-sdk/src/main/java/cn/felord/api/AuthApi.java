@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.contactbook.user.UserDetailResponse;
 import cn.felord.domain.contactbook.user.UserSensitiveInfoResponse;
 import cn.felord.domain.contactbook.user.UserTicket;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -41,7 +40,7 @@ public interface AuthApi {
      * @return UserDetailResponse
      */
     @GET("auth/getuserinfo")
-    Single<UserDetailResponse> getUserInfo(@Query("code") String code);
+    UserDetailResponse getUserInfo(@Query("code") String code);
 
     /**
      * 获取访问用户敏感信息，需要授权scope包含{@code snsapi_privateinfo}
@@ -52,5 +51,5 @@ public interface AuthApi {
      * @return UserSensitiveInfoResponse
      */
     @POST("auth/getuserdetail")
-    Single<UserSensitiveInfoResponse> getUserDetail(@Body UserTicket userTicket);
+    UserSensitiveInfoResponse getUserDetail(@Body UserTicket userTicket);
 }

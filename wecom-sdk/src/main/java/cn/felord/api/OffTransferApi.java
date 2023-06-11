@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.common.CursorPage;
 import cn.felord.domain.externalcontact.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -39,7 +38,7 @@ public interface OffTransferApi {
      * @return TransferCustomerResponse transfer customer response
      */
     @POST("externalcontact/get_unassigned_list")
-    Single<UnassignedListResponse> getUnassignedList(@Body CursorPage cursorPage);
+    UnassignedListResponse getUnassignedList(@Body CursorPage cursorPage);
 
 
     /**
@@ -49,7 +48,7 @@ public interface OffTransferApi {
      * @return the transfer customer response
      */
     @POST("externalcontact/resigned/transfer_customer")
-    Single<TransferCustomerResponse> transferCustomer(@Body OffTransferCustomerRequest request);
+    TransferCustomerResponse transferCustomer(@Body OffTransferCustomerRequest request);
 
     /**
      * 查询离职成员客户接替状态
@@ -58,7 +57,7 @@ public interface OffTransferApi {
      * @return the transfer customer response
      */
     @POST("externalcontact/resigned/transfer_result")
-    Single<TransferResultResponse> transferResult(@Body TransferResultRequest request);
+    TransferResultResponse transferResult(@Body TransferResultRequest request);
 
     /**
      * 分配离职成员的客户群
@@ -67,5 +66,5 @@ public interface OffTransferApi {
      * @return the transfer result response
      */
     @POST("externalcontact/groupchat/transfer")
-    Single<GenericResponse<Set<TransferFailedGroupChat>>> transferGroupChat(@Body TransferGroupChatRequest request);
+    GenericResponse<Set<TransferFailedGroupChat>> transferGroupChat(@Body TransferGroupChatRequest request);
 }

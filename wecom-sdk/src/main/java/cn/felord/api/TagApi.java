@@ -22,7 +22,6 @@ import cn.felord.domain.contactbook.tag.TagUserActionResponse;
 import cn.felord.domain.contactbook.tag.TagUserRequest;
 import cn.felord.domain.contactbook.tag.TagUserResponse;
 import cn.felord.enumeration.WeComEndpoint;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -45,7 +44,7 @@ public interface TagApi {
      * @return GenericResponse generic response
      */
     @POST("tag/create")
-    Single<GenericResponse<String>> createTag(@Body Tag request);
+    GenericResponse<String> createTag(@Body Tag request);
 
     /**
      * 更新标签名字
@@ -54,7 +53,7 @@ public interface TagApi {
      * @return WeComResponse we com response
      */
     @POST("tag/update")
-    Single<WeComResponse> updateTag(@Body Tag request);
+    WeComResponse updateTag(@Body Tag request);
 
     /**
      * 删除标签
@@ -63,7 +62,7 @@ public interface TagApi {
      * @return WeComResponse we com response
      */
     @GET("tag/delete")
-    Single<WeComResponse> deleteTag(@Query("tagid") int tagId);
+    WeComResponse deleteTag(@Query("tagid") int tagId);
 
     /**
      * 获取标签成员
@@ -72,7 +71,7 @@ public interface TagApi {
      * @return UserInfoResponse tag users
      */
     @GET("tag/get")
-    Single<TagUserResponse> getTagUsers(@Query("tagid") int tagId);
+    TagUserResponse getTagUsers(@Query("tagid") int tagId);
 
     /**
      * 增加标签成员
@@ -81,7 +80,7 @@ public interface TagApi {
      * @return WeComResponse tag user action response
      */
     @POST("tag/addtagusers")
-    Single<TagUserActionResponse> addTagUsers(@Body TagUserRequest request);
+    TagUserActionResponse addTagUsers(@Body TagUserRequest request);
 
     /**
      * 删除标签成员
@@ -90,7 +89,7 @@ public interface TagApi {
      * @return WeComResponse tag user action response
      */
     @POST("tag/deltagusers")
-    Single<TagUserActionResponse> deleteTagUsers(@Body TagUserRequest request);
+    TagUserActionResponse deleteTagUsers(@Body TagUserRequest request);
 
     /**
      * 获取标签列表
@@ -99,5 +98,5 @@ public interface TagApi {
      * @see WeComEndpoint#TAG_LIST WeComEndpoint#TAG_LISTWeComEndpoint#TAG_LIST
      */
     @GET("tag/list")
-    Single<GenericResponse<Tag>> getTags();
+    GenericResponse<Tag> getTags();
 }

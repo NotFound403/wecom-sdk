@@ -16,7 +16,6 @@
 package cn.felord.api;
 
 import cn.felord.domain.authentication.JsTicketResponse;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -34,7 +33,7 @@ interface JsApi {
      * @return the single
      */
     @GET("get_jsapi_ticket")
-    Single<JsTicketResponse> corpJsApiTicket();
+    JsTicketResponse corpJsApiTicket();
 
     /**
      * 获取应用的jsapi_ticket
@@ -42,5 +41,5 @@ interface JsApi {
      * @return the single
      */
     @GET("ticket/get")
-    Single<JsTicketResponse> agentJsApiTicket(@Query("type") String agentConfig);
+    JsTicketResponse agentJsApiTicket(@Query("type") String agentConfig);
 }

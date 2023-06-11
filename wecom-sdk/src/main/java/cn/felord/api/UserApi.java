@@ -19,7 +19,6 @@ import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.UserId;
 import cn.felord.domain.contactbook.user.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -43,7 +42,7 @@ public interface UserApi {
      * @return the user id convert response
      */
     @POST("batch/openuserid_to_userid")
-    Single<UserIdConvertResponse> batchOpenUserIdToUserId(@Body UserIdConvertRequest request);
+    UserIdConvertResponse batchOpenUserIdToUserId(@Body UserIdConvertRequest request);
 
     /**
      * 创建成员
@@ -54,7 +53,7 @@ public interface UserApi {
      * @return WeComResponse we com response
      */
     @POST("user/create")
-    Single<WeComResponse> createUser(@Body UserInfoRequest request);
+    WeComResponse createUser(@Body UserInfoRequest request);
 
     /**
      * 读取成员（自建）
@@ -65,7 +64,7 @@ public interface UserApi {
      * @return UserInfoResponse user
      */
     @GET("user/get")
-    Single<UserInfoResponse> getUser(@Query("userid") String userId);
+    UserInfoResponse getUser(@Query("userid") String userId);
 
     /**
      * 更新成员，这里建议userid不可更改，虽然微信支持修改一次。
@@ -76,7 +75,7 @@ public interface UserApi {
      * @return WeComResponse we com response
      */
     @POST("user/update")
-    Single<WeComResponse> updateUser(@Body UserInfoRequest request);
+    WeComResponse updateUser(@Body UserInfoRequest request);
 
     /**
      * 删除成员
@@ -87,7 +86,7 @@ public interface UserApi {
      * @return WeComResponse we com response
      */
     @GET("user/delete")
-    Single<WeComResponse> deleteUser(@Query("userid") String userId);
+    WeComResponse deleteUser(@Query("userid") String userId);
 
     /**
      * 获取成员ID列表
@@ -97,7 +96,7 @@ public interface UserApi {
      * @return the dept user list response
      */
     @GET("user/list_id")
-    Single<DeptUserListResponse> userList(@Query("cursor") String cursor, @Query("limit") int limit);
+    DeptUserListResponse userList(@Query("cursor") String cursor, @Query("limit") int limit);
 
     /**
      * 批量删除成员
@@ -108,7 +107,7 @@ public interface UserApi {
      * @return WeComResponse we com response
      */
     @POST("user/batchdelete")
-    Single<WeComResponse> batchDelUser(@Body List<String> userIdList);
+    WeComResponse batchDelUser(@Body List<String> userIdList);
 
     /**
      * 获取部门成员
@@ -119,7 +118,7 @@ public interface UserApi {
      * @return SimpleUserResponse dept users
      */
     @GET("user/simplelist")
-    Single<GenericResponse<List<SimpleUser>>> getDeptUsers(@Query("department_id") long departmentId);
+    GenericResponse<List<SimpleUser>> getDeptUsers(@Query("department_id") long departmentId);
 
     /**
      * 获取部门成员详情（自建）
@@ -130,7 +129,7 @@ public interface UserApi {
      * @return UserDetailResponse dept user details
      */
     @GET("user/list")
-    Single<GenericResponse<List<UserDetail>>> getDeptUserDetails(@Query("department_id") long departmentId);
+    GenericResponse<List<UserDetail>> getDeptUserDetails(@Query("department_id") long departmentId);
 
     /**
      * userid与openid互换
@@ -144,7 +143,7 @@ public interface UserApi {
      * @return OpenIdResponse generic response
      */
     @POST("user/convert_to_openid")
-    Single<GenericResponse<String>> converToOpenid(@Body UserId request);
+    GenericResponse<String> converToOpenid(@Body UserId request);
 
     /**
      * 二次验证
@@ -155,7 +154,7 @@ public interface UserApi {
      * @return WeComResponse we com response
      */
     @GET("user/authsucc")
-    Single<WeComResponse> userAuth(@Query("userid") String userId);
+    WeComResponse userAuth(@Query("userid") String userId);
 
     /**
      * 邀请成员
@@ -166,7 +165,7 @@ public interface UserApi {
      * @return BatchInviteResponse batch invite response
      */
     @POST("batch/invite")
-    Single<BatchInviteResponse> inviteUsers(@Body BatchInviteRequest request);
+    BatchInviteResponse inviteUsers(@Body BatchInviteRequest request);
 
     /**
      * 获取加入企业二维码
@@ -177,7 +176,7 @@ public interface UserApi {
      * @return WeComResponse join qrcode
      */
     @GET("corp/get_join_qrcode")
-    Single<GenericResponse<String>> getJoinQrcode(@Query("size_type") int userQrcodeSize);
+    GenericResponse<String> getJoinQrcode(@Query("size_type") int userQrcodeSize);
 
 
     /**
@@ -189,7 +188,7 @@ public interface UserApi {
      * @return WeComResponse active stat
      */
     @POST("user/getuserid")
-    Single<GenericResponse<String>> getUserIdByMobile(@Body Mobile mobile);
+    GenericResponse<String> getUserIdByMobile(@Body Mobile mobile);
 
     /**
      * 邮箱获取userid
@@ -198,5 +197,5 @@ public interface UserApi {
      * @return WeComResponse active stat
      */
     @POST("user/get_userid_by_email")
-    Single<GenericResponse<String>> getUserIdByEmail(@Body EmailUserRequest request);
+    GenericResponse<String> getUserIdByEmail(@Body EmailUserRequest request);
 }

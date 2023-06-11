@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -37,7 +36,7 @@ public interface GroupChatApi {
      * @return the transfer result response
      */
     @POST("externalcontact/groupchat/list")
-    Single<GroupChatListResponse> groupChatList(@Body GroupChatListRequest request);
+    GroupChatListResponse groupChatList(@Body GroupChatListRequest request);
 
     /**
      * 获取客户群详情
@@ -46,7 +45,7 @@ public interface GroupChatApi {
      * @return the group chat detail
      */
     @POST("externalcontact/groupchat/get")
-    Single<GenericResponse<GroupChatDetail>> getGroupChatDetail(@Body GroupChatDetailRequest request);
+    GenericResponse<GroupChatDetail> getGroupChatDetail(@Body GroupChatDetailRequest request);
 
     /**
      * 客户群opengid转换
@@ -55,7 +54,7 @@ public interface GroupChatApi {
      * @return the generic response
      */
     @POST("externalcontact/opengid_to_chatid")
-    Single<GenericResponse<String>> opengidToChatid(@Body OpenGid opengid);
+    GenericResponse<String> opengidToChatid(@Body OpenGid opengid);
 
     /**
      * 客户群「加入群聊」管理
@@ -66,7 +65,7 @@ public interface GroupChatApi {
      * @return the generic response
      */
     @POST("externalcontact/groupchat/add_join_way")
-    Single<GenericResponse<String>> addGroupChatWay(@Body GroupChatWayBody body);
+    GenericResponse<String> addGroupChatWay(@Body GroupChatWayBody body);
 
     /**
      * 客户群「加入群聊」管理
@@ -77,7 +76,7 @@ public interface GroupChatApi {
      * @return the contact way
      */
     @POST("externalcontact/groupchat/get_join_way")
-    Single<GenericResponse<GroupChatWayResponse>> getGroupChatWay(@Body ConfigId configId);
+    GenericResponse<GroupChatWayResponse> getGroupChatWay(@Body ConfigId configId);
 
     /**
      * 客户群「加入群聊」管理
@@ -88,7 +87,7 @@ public interface GroupChatApi {
      * @return the we com response
      */
     @POST("externalcontact/groupchat/update_join_way")
-    Single<WeComResponse> updateGroupChatWay(@Body MutableGroupChatWayBody body);
+    WeComResponse updateGroupChatWay(@Body MutableGroupChatWayBody body);
 
     /**
      * 客户群「加入群聊」管理
@@ -99,5 +98,5 @@ public interface GroupChatApi {
      * @return the we com response
      */
     @POST("externalcontact/groupchat/del_join_way")
-    Single<WeComResponse> delGroupChatWay(@Body ConfigId configId);
+    WeComResponse delGroupChatWay(@Body ConfigId configId);
 }

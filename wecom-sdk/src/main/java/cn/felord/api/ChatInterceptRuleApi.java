@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -38,7 +37,7 @@ public interface ChatInterceptRuleApi {
      * @return the generic response
      */
     @POST("externalcontact/add_intercept_rule")
-    Single<GenericResponse<String>> addInterceptRule(@Body ChatInterceptRuleAddRequest request);
+    GenericResponse<String> addInterceptRule(@Body ChatInterceptRuleAddRequest request);
 
     /**
      * 获取敏感词规则列表
@@ -46,7 +45,7 @@ public interface ChatInterceptRuleApi {
      * @return the generic response
      */
     @GET("externalcontact/get_intercept_rule_list")
-    Single<GenericResponse<InterceptRuleInfo>> interceptRuleList();
+    GenericResponse<InterceptRuleInfo> interceptRuleList();
 
     /**
      * 获取敏感词规则详情
@@ -64,7 +63,7 @@ public interface ChatInterceptRuleApi {
      * @return the we com response
      */
     @POST("externalcontact/update_intercept_rule")
-    Single<WeComResponse> updateInterceptRule(@Body ChatInterceptRuleUpdateRequest request);
+    WeComResponse updateInterceptRule(@Body ChatInterceptRuleUpdateRequest request);
 
     /**
      * 删除敏感词规则
@@ -73,5 +72,5 @@ public interface ChatInterceptRuleApi {
      * @return the we com response
      */
     @POST("externalcontact/del_intercept_rule")
-    Single<WeComResponse> deleteInterceptRule(@Body InterceptRuleRequest request);
+    WeComResponse deleteInterceptRule(@Body InterceptRuleRequest request);
 }

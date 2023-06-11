@@ -19,7 +19,6 @@ import cn.felord.domain.urgentcall.CallResponse;
 import cn.felord.domain.urgentcall.CallStateRequest;
 import cn.felord.domain.urgentcall.CallStateResponse;
 import cn.felord.domain.urgentcall.CalleeUsers;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -42,7 +41,7 @@ public interface UrgentCallApi {
      * @return the call response
      */
     @POST("pstncc/call")
-    Single<CallResponse> call(@Body CalleeUsers callUsers);
+    CallResponse call(@Body CalleeUsers callUsers);
 
     /**
      * 获取接听状态
@@ -51,5 +50,5 @@ public interface UrgentCallApi {
      * @return the call state response
      */
     @POST("pstncc/getstates")
-    Single<CallStateResponse> queryCallStates(@Body CallStateRequest request);
+    CallStateResponse queryCallStates(@Body CallStateRequest request);
 }

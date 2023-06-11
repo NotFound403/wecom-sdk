@@ -22,7 +22,6 @@ import cn.felord.domain.common.PageRequest;
 import cn.felord.domain.common.StrategyId;
 import cn.felord.domain.common.UserMoment;
 import cn.felord.domain.externalcontact.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -44,7 +43,7 @@ public interface MomentApi {
      * @return the generic response
      */
     @POST("externalcontact/add_moment_task")
-    <T extends MomentAttachment> Single<GenericResponse<String>> addMomentTask(@Body MomentBody<T> body);
+    <T extends MomentAttachment> GenericResponse<String> addMomentTask(@Body MomentBody<T> body);
 
     /**
      * 获取任务创建结果
@@ -53,7 +52,7 @@ public interface MomentApi {
      * @return the moment task result response
      */
     @GET("externalcontact/get_moment_task_result")
-    Single<MomentTaskResultResponse> getMomentTaskResult(@Query("jobid") String jobId);
+    MomentTaskResultResponse getMomentTaskResult(@Query("jobid") String jobId);
 
     /**
      * 获取企业全部的发表列表
@@ -62,7 +61,7 @@ public interface MomentApi {
      * @return the moment list
      */
     @POST("externalcontact/get_moment_list")
-    Single<MomentListResponse> getMomentList(@Body MomentListRequest request);
+    MomentListResponse getMomentList(@Body MomentListRequest request);
 
     /**
      * 获取客户朋友圈企业发表的列表
@@ -71,7 +70,7 @@ public interface MomentApi {
      * @return the moment list
      */
     @POST("externalcontact/get_moment_task")
-    Single<MomentMemberTaskResponse> getMomentTask(@Body MomentTaskRequest request);
+    MomentMemberTaskResponse getMomentTask(@Body MomentTaskRequest request);
 
     /**
      * 获取客户朋友圈发表时选择的可见范围
@@ -82,7 +81,7 @@ public interface MomentApi {
      * @return the moment customer list
      */
     @POST("externalcontact/get_moment_customer_list")
-    Single<MomentCustomerListResponse> getMomentCustomerList(@Body MomentInfoRequest request);
+    MomentCustomerListResponse getMomentCustomerList(@Body MomentInfoRequest request);
 
     /**
      * 获取客户朋友圈发表后的可见客户列表
@@ -93,7 +92,7 @@ public interface MomentApi {
      * @return the moment send result
      */
     @POST("externalcontact/get_moment_send_result")
-    Single<MomentCustomerListResponse> getMomentSendResult(@Body MomentInfoRequest request);
+    MomentCustomerListResponse getMomentSendResult(@Body MomentInfoRequest request);
 
     /**
      * 停止发表企业朋友圈
@@ -102,7 +101,7 @@ public interface MomentApi {
      * @return the we com response
      */
     @POST("externalcontact/cancel_moment_task")
-    Single<WeComResponse> cancelMomentTask(@Body MomentId momentId);
+    WeComResponse cancelMomentTask(@Body MomentId momentId);
 
     /**
      * 获取客户朋友圈的互动数据
@@ -113,7 +112,7 @@ public interface MomentApi {
      * @return the moment 优化了企业微信给的数据结构
      */
     @POST("externalcontact/get_moment_comments")
-    Single<MomentCommentResponse> getMomentComments(@Body UserMoment userId);
+    MomentCommentResponse getMomentComments(@Body UserMoment userId);
 
     /**
      * 获取规则组列表
@@ -122,7 +121,7 @@ public interface MomentApi {
      * @return the external user list detail response
      */
     @POST("externalcontact/moment_strategy/list")
-    Single<StrategyListResponse> momentStrategyList(@Body PageRequest request);
+    StrategyListResponse momentStrategyList(@Body PageRequest request);
 
     /**
      * 获取规则组详情
@@ -131,7 +130,7 @@ public interface MomentApi {
      * @return the external user list detail response
      */
     @POST("externalcontact/moment_strategy/get")
-    Single<MomentStrategyDetailResponse> getMomentStrategy(@Body StrategyId strategyId);
+    MomentStrategyDetailResponse getMomentStrategy(@Body StrategyId strategyId);
 
     /**
      * 获取规则组管理范围
@@ -140,7 +139,7 @@ public interface MomentApi {
      * @return the external user list detail response
      */
     @POST("externalcontact/moment_strategy/get_range")
-    Single<StrategyRangeResponse> getMomentStrategyRange(@Body StrategyRangeRequest request);
+    StrategyRangeResponse getMomentStrategyRange(@Body StrategyRangeRequest request);
 
     /**
      * 创建新的规则组
@@ -149,7 +148,7 @@ public interface MomentApi {
      * @return the customer strategy range response
      */
     @POST("externalcontact/moment_strategy/create")
-    Single<GenericResponse<Integer>> createMomentStrategy(@Body CustomerStrategyRequest request);
+    GenericResponse<Integer> createMomentStrategy(@Body CustomerStrategyRequest request);
 
     /**
      * 编辑规则组及其管理范围
@@ -158,7 +157,7 @@ public interface MomentApi {
      * @return the customer strategy range response
      */
     @POST("externalcontact/moment_strategy/edit")
-    Single<WeComResponse> editMomentStrategy(MutableMomentStrategy request);
+    WeComResponse editMomentStrategy(MutableMomentStrategy request);
 
     /**
      * 删除规则组
@@ -167,5 +166,5 @@ public interface MomentApi {
      * @return the customer strategy range response
      */
     @POST("externalcontact/moment_strategy/del")
-    Single<WeComResponse> delMomentStrategy(StrategyId strategyId);
+    WeComResponse delMomentStrategy(StrategyId strategyId);
 }

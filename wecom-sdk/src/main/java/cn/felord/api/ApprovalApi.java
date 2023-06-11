@@ -21,7 +21,6 @@ import cn.felord.domain.approval.*;
 import cn.felord.domain.common.TemplateId;
 import cn.felord.domain.oa.ApprovalSpNo;
 import cn.felord.domain.oa.ApprovalThirdNo;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -40,7 +39,7 @@ public interface ApprovalApi {
      * @return the detail
      */
     @POST("oa/gettemplatedetail")
-    Single<ApprovalTmpDetailResponse> getDetail(@Body TemplateId templateId);
+    ApprovalTmpDetailResponse getDetail(@Body TemplateId templateId);
 
     /**
      * 创建审批模板
@@ -51,7 +50,7 @@ public interface ApprovalApi {
      * @return the generic response
      */
     @POST("oa/approval/create_template")
-    Single<GenericResponse<String>> createTemplate(@Body ApprovalTempAddRequest template);
+    GenericResponse<String> createTemplate(@Body ApprovalTempAddRequest template);
 
     /**
      * 更新审批模板
@@ -68,7 +67,7 @@ public interface ApprovalApi {
      * @return the we com response
      */
     @POST("oa/approval/update_template")
-    Single<WeComResponse> createTemplate(@Body ApprovalTempUpdateRequest template);
+    WeComResponse createTemplate(@Body ApprovalTempUpdateRequest template);
 
     /**
      * 提交审批申请
@@ -77,7 +76,7 @@ public interface ApprovalApi {
      * @return the generic response
      */
     @POST("oa/applyevent")
-    Single<GenericResponse<String>> apply(@Body ApprovalApplyRequest request);
+    GenericResponse<String> apply(@Body ApprovalApplyRequest request);
 
     /**
      * 批量获取审批单号
@@ -92,7 +91,7 @@ public interface ApprovalApi {
      * @return the sp no list response
      */
     @POST("oa/getapprovalinfo")
-    Single<SpNoListResponse> queryApprovalInfos(@Body SpNoListRequest request);
+    SpNoListResponse queryApprovalInfos(@Body SpNoListRequest request);
 
     /**
      * 获取审批申请详情
@@ -102,7 +101,7 @@ public interface ApprovalApi {
      * @return sp no list response
      */
     @POST("oa/getapprovaldetail")
-    Single<GenericResponse<ApprovalDetail>> queryApprovalDetail(@Body ApprovalSpNo spNo);
+    GenericResponse<ApprovalDetail> queryApprovalDetail(@Body ApprovalSpNo spNo);
 
     /**
      * 查询自建应用审批单当前状态
@@ -111,5 +110,5 @@ public interface ApprovalApi {
      * @return the generic response
      */
     @POST("corp/getopenapprovaldata")
-    Single<GenericResponse<OpenApprovalData>> queryOpenApprovalData(@Body ApprovalThirdNo thirdNo);
+    GenericResponse<OpenApprovalData> queryOpenApprovalData(@Body ApprovalThirdNo thirdNo);
 }

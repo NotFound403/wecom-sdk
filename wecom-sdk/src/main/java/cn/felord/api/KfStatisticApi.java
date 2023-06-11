@@ -16,7 +16,6 @@
 package cn.felord.api;
 
 import cn.felord.domain.callcenter.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -35,7 +34,7 @@ public interface KfStatisticApi {
      * @return the kf statistic response
      */
     @POST("kf/get_corp_statistic")
-    Single<KfStatisticResponse<KfCorpStatisticDetail>> corpStatistic(@Body KfCorpStatisticRequest request);
+    KfStatisticResponse<KfCorpStatisticDetail> corpStatistic(@Body KfCorpStatisticRequest request);
 
     /**
      * 获取「客户数据统计」接待人员明细数据
@@ -44,5 +43,5 @@ public interface KfStatisticApi {
      * @return the kf statistic response
      */
     @POST("kf/get_servicer_statistic")
-    Single<KfStatisticResponse<KfServicerStatisticDetail>> servicerStatistic(@Body KfServicerStatisticRequest request);
+    KfStatisticResponse<KfServicerStatisticDetail> servicerStatistic(@Body KfServicerStatisticRequest request);
 }

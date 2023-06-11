@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -40,7 +39,7 @@ public interface AgentManagerApi {
      * @return the agent details
      */
     @GET("agent/get")
-    Single<AgentDetailsResponse> getAgentDetails(@Query("agentid") String agentId);
+    AgentDetailsResponse getAgentDetails(@Query("agentid") String agentId);
 
     /**
      * 设置应用
@@ -49,5 +48,5 @@ public interface AgentManagerApi {
      * @return WeComResponse
      */
     @POST("agent/set")
-    Single<WeComResponse> settings(AgentSettingRequest request);
+    WeComResponse settings(AgentSettingRequest request);
 }
