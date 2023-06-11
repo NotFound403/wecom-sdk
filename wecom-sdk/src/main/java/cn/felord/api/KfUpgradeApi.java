@@ -17,7 +17,6 @@ package cn.felord.api;
 
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.callcenter.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -36,7 +35,7 @@ public interface KfUpgradeApi {
      * @return the upgrade service config
      */
     @GET("kf/customer/get_upgrade_service_config")
-    Single<UpgradeServiceConfig> upgradeServiceConfig();
+    UpgradeServiceConfig upgradeServiceConfig();
 
     /**
      * 为客户升级为专员或客户群服务
@@ -45,7 +44,7 @@ public interface KfUpgradeApi {
      * @return the upgrade service config
      */
     @POST("kf/customer/upgrade_service")
-    Single<WeComResponse> upgradeService(@Body UpgradeServiceRequest request);
+    WeComResponse upgradeService(@Body UpgradeServiceRequest request);
 
     /**
      * 为客户取消推荐
@@ -54,7 +53,7 @@ public interface KfUpgradeApi {
      * @return the we com response
      */
     @POST("kf/customer/cancel_upgrade_service")
-    Single<WeComResponse> cancelService(@Body KfAndExternalUser kfAndExternalUser);
+    WeComResponse cancelService(@Body KfAndExternalUser kfAndExternalUser);
 
     /**
      * 获取客户基础信息
@@ -63,5 +62,5 @@ public interface KfUpgradeApi {
      * @return the kf external user response
      */
     @POST("kf/customer/batchget")
-    Single<KfExternalUserResponse> batchKfExternalUsers(KfExternalUserRequest request);
+    KfExternalUserResponse batchKfExternalUsers(KfExternalUserRequest request);
 }

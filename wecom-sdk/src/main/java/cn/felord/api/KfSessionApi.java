@@ -17,7 +17,6 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.callcenter.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -36,7 +35,7 @@ public interface KfSessionApi {
      * @return the generic response
      */
     @POST("kf/service_state/get")
-    Single<KfSessionResponse> getSessionState(@Body KfAndExternalUser kfAndExternalUser);
+    KfSessionResponse getSessionState(@Body KfAndExternalUser kfAndExternalUser);
 
     /**
      * 变更会话状态
@@ -45,7 +44,7 @@ public interface KfSessionApi {
      * @return the we com response
      */
     @POST("kf/service_state/trans")
-    Single<GenericResponse<String>> trans(@Body KfSessionUpdateRequest request);
+    GenericResponse<String> trans(@Body KfSessionUpdateRequest request);
 
     /**
      * 读取消息
@@ -54,7 +53,7 @@ public interface KfSessionApi {
      * @return the sync msg response
      */
     @POST("kf/sync_msg")
-    Single<SyncMsgResponse> syncMsg(@Body SyncMsgRequest request);
+    SyncMsgResponse syncMsg(@Body SyncMsgRequest request);
 
     /**
      * 发送消息
@@ -68,7 +67,7 @@ public interface KfSessionApi {
      * @return the generic response
      */
     @POST("kf/send_msg")
-    <R extends KfMessageRequest> Single<GenericResponse<String>> sendMsg(@Body R request);
+    <R extends KfMessageRequest> GenericResponse<String> sendMsg(@Body R request);
 
     /**
      * 发送欢迎语等事件响应消息
@@ -82,5 +81,5 @@ public interface KfSessionApi {
      * @return the generic response
      */
     @POST("kf/send_msg_on_event")
-    <R extends KfEventMessageRequest> Single<GenericResponse<String>> sendEventMsg(@Body R request);
+    <R extends KfEventMessageRequest> GenericResponse<String> sendEventMsg(@Body R request);
 }

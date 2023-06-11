@@ -16,7 +16,6 @@
 package cn.felord.api;
 
 import cn.felord.domain.externalcontact.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -41,7 +40,7 @@ public interface ExternalStatisticApi {
      * @return the user behavior data
      */
     @POST("externalcontact/get_user_behavior_data")
-    Single<UserBehaviorDataResponse> getUserBehaviorData(@Body UserBehaviorDataRequest request);
+    UserBehaviorDataResponse getUserBehaviorData(@Body UserBehaviorDataRequest request);
 
     /**
      * 获取「群聊数据统计」数据-按群主聚合的方式
@@ -54,7 +53,7 @@ public interface ExternalStatisticApi {
      * @return the group chat data
      */
     @POST("externalcontact/groupchat/statistic")
-    Single<GroupChatDataResponse<GroupChatDataByOwner>> getGroupChatData(@Body GroupChatOwnerDataRequest request);
+    GroupChatDataResponse<GroupChatDataByOwner> getGroupChatData(@Body GroupChatOwnerDataRequest request);
 
     /**
      * 获取「群聊数据统计」数据-按自然日聚合的方式
@@ -63,5 +62,5 @@ public interface ExternalStatisticApi {
      * @return the group chat data by day
      */
     @POST("externalcontact/groupchat/statistic_group_by_day")
-    Single<GroupChatDataResponse<GroupChatDataByDay>> getGroupChatData(@Body GroupChatDayDataRequest request);
+    GroupChatDataResponse<GroupChatDataByDay> getGroupChatData(@Body GroupChatDayDataRequest request);
 }

@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.oa.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -39,7 +38,7 @@ public interface ScheduleApi {
      * @return the generic response
      */
     @POST("oa/schedule/add")
-    Single<GenericResponse<String>> add(@Body ScheduleAddRequest request);
+    GenericResponse<String> add(@Body ScheduleAddRequest request);
 
     /**
      * 更新日程
@@ -48,7 +47,7 @@ public interface ScheduleApi {
      * @return the generic response
      */
     @POST("oa/schedule/update")
-    Single<GenericResponse<String>> update(@Body ScheduleUpdateRequest request);
+    GenericResponse<String> update(@Body ScheduleUpdateRequest request);
 
     /**
      * 新增日程参与者
@@ -57,7 +56,7 @@ public interface ScheduleApi {
      * @return the we com response
      */
     @POST("oa/schedule/add_attendees")
-    Single<WeComResponse> addAttendees(@Body ScheduleAttendees attendees);
+    WeComResponse addAttendees(@Body ScheduleAttendees attendees);
 
     /**
      * 删除日程参与者
@@ -66,7 +65,7 @@ public interface ScheduleApi {
      * @return the we com response
      */
     @POST("oa/schedule/del_attendees")
-    Single<WeComResponse> delAttendees(@Body ScheduleAttendees attendees);
+    WeComResponse delAttendees(@Body ScheduleAttendees attendees);
 
     /**
      * 获取日程详情
@@ -75,7 +74,7 @@ public interface ScheduleApi {
      * @return the schedule detail response
      */
     @POST("oa/schedule/get")
-    Single<ScheduleDetailResponse> get(@Body Set<String> scheduleIds);
+    ScheduleDetailResponse get(@Body Set<String> scheduleIds);
 
     /**
      * 取消日程
@@ -84,7 +83,7 @@ public interface ScheduleApi {
      * @return the we com response
      */
     @POST("oa/schedule/del")
-    Single<WeComResponse> del(@Body ScheduleDelRequest request);
+    WeComResponse del(@Body ScheduleDelRequest request);
 
     /**
      * 获取日历下的日程列表
@@ -93,5 +92,5 @@ public interface ScheduleApi {
      * @return the by calendar
      */
     @POST("oa/schedule/get_by_calendar")
-    Single<ScheduleDetailResponse> getByCalendar(ScheduleCalendarQuery query);
+    ScheduleDetailResponse getByCalendar(ScheduleCalendarQuery query);
 }

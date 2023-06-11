@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.MsgId;
 import cn.felord.domain.message.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -38,7 +37,7 @@ public interface AgentMessageApi {
      * @see MessageBodyBuilders
      */
     @POST("message/send")
-    Single<MessageResponse> send(@Body AbstractMessageBody body);
+    MessageResponse send(@Body AbstractMessageBody body);
 
     /**
      * 更新模版卡片消息
@@ -48,7 +47,7 @@ public interface AgentMessageApi {
      * @see TemplateReplaceCardBuilders
      */
     @POST("message/update_template_card")
-    Single<MessageResponse> updateTemplateCard(@Body AbstractUpdateTemplateCardRequest request);
+    MessageResponse updateTemplateCard(@Body AbstractUpdateTemplateCardRequest request);
 
     /**
      * 撤回应用消息
@@ -57,5 +56,5 @@ public interface AgentMessageApi {
      * @return the we com response
      */
     @POST("message/recall")
-    Single<WeComResponse> recall(@Body MsgId request);
+    WeComResponse recall(@Body MsgId request);
 }

@@ -22,7 +22,6 @@ import cn.felord.domain.common.ProductId;
 import cn.felord.domain.externalcontact.ProductAlbumAddRequest;
 import cn.felord.domain.externalcontact.ProductAlbumDetail;
 import cn.felord.domain.externalcontact.ProductAlbumDetailResponse;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -41,7 +40,7 @@ public interface ProductAlbumApi {
      * @return the generic response
      */
     @POST("externalcontact/add_product_album")
-    Single<GenericResponse<String>> addProductAlbum(@Body ProductAlbumAddRequest request);
+    GenericResponse<String> addProductAlbum(@Body ProductAlbumAddRequest request);
 
     /**
      * 获取商品图册
@@ -50,7 +49,7 @@ public interface ProductAlbumApi {
      * @return the product album
      */
     @POST("externalcontact/get_product_album")
-    Single<ProductAlbumDetailResponse> getProductAlbum(@Body ProductId productId);
+    ProductAlbumDetailResponse getProductAlbum(@Body ProductId productId);
 
     /**
      * 获取商品图册列表
@@ -59,7 +58,7 @@ public interface ProductAlbumApi {
      * @return the product album detail response
      */
     @POST("externalcontact/get_product_album_list")
-    Single<ProductAlbumDetailResponse> productAlbumList(@Body PageRequest request);
+    ProductAlbumDetailResponse productAlbumList(@Body PageRequest request);
 
     /**
      * 编辑商品图册
@@ -68,7 +67,7 @@ public interface ProductAlbumApi {
      * @return the we com response
      */
     @POST("externalcontact/update_product_album")
-    Single<WeComResponse> updateProductAlbum(@Body ProductAlbumDetail productAlbumDetail);
+    WeComResponse updateProductAlbum(@Body ProductAlbumDetail productAlbumDetail);
 
     /**
      * 删除商品图册
@@ -77,5 +76,5 @@ public interface ProductAlbumApi {
      * @return the we com response
      */
     @POST("externalcontact/delete_product_album")
-    Single<WeComResponse> deleteProductAlbum(@Body ProductId productId);
+    WeComResponse deleteProductAlbum(@Body ProductId productId);
 }

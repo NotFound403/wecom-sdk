@@ -17,7 +17,6 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.wedoc.form.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -37,7 +36,7 @@ public interface FormApi {
      * @return the generic response
      */
     @POST("wedoc/create_form")
-    Single<GenericResponse<String>> createForm(@Body CreateFormRequest request);
+    GenericResponse<String> createForm(@Body CreateFormRequest request);
 
     /**
      * 编辑收集表信息
@@ -46,7 +45,7 @@ public interface FormApi {
      * @return the generic response
      */
     @POST("wedoc/modify_form")
-    Single<GenericResponse<FormDetail>> modifyForm(@Body AbstractUpdateFormRequest request);
+    GenericResponse<FormDetail> modifyForm(@Body AbstractUpdateFormRequest request);
 
     /**
      * 获取收集表信息
@@ -55,7 +54,7 @@ public interface FormApi {
      * @return the form
      */
     @POST("wedoc/get_form_info")
-    Single<GenericResponse<FormDetail>> getForm(@Body FormId formid);
+    GenericResponse<FormDetail> getForm(@Body FormId formid);
 
     /**
      * 收集表的统计信息查询（仅获取统计结果）
@@ -64,7 +63,7 @@ public interface FormApi {
      * @return the form statistic response
      */
     @POST("wedoc/get_form_statistic")
-    Single<FormStatisticResponse> getFormStatistic(@Body FormStatisticRequest request);
+    FormStatisticResponse getFormStatistic(@Body FormStatisticRequest request);
 
     /**
      * 收集表的统计信息查询（获取已提交列表）
@@ -73,7 +72,7 @@ public interface FormApi {
      * @return the form statistic response
      */
     @POST("wedoc/get_form_statistic")
-    Single<FormConfirmedResponse> getFormStatistic(@Body FormConfirmedRequest request);
+    FormConfirmedResponse getFormStatistic(@Body FormConfirmedRequest request);
 
     /**
      * 收集表的统计信息查询（获取未提交列表，仅当限制提交范围时有结果）
@@ -82,7 +81,7 @@ public interface FormApi {
      * @return the form statistic
      */
     @POST("wedoc/get_form_statistic")
-    Single<FormUnConfirmedResponse> getFormStatistic(@Body FormUnConfirmedRequest request);
+    FormUnConfirmedResponse getFormStatistic(@Body FormUnConfirmedRequest request);
 
     /**
      * 读取收集表答案
@@ -91,6 +90,6 @@ public interface FormApi {
      * @return the form answer response
      */
     @POST("wedoc/get_form_answer")
-    Single<FormAnswerResponse> getFormAnswer(@Body FormAnswerRequest request);
+    FormAnswerResponse getFormAnswer(@Body FormAnswerRequest request);
 
 }

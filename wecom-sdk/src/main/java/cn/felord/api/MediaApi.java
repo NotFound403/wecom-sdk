@@ -21,7 +21,6 @@ import cn.felord.domain.media.MediaUploadRequest;
 import cn.felord.enumeration.MediaAttachmentType;
 import cn.felord.enumeration.MediaTypeEnum;
 import cn.felord.utils.FileMediaType;
-import io.reactivex.rxjava3.core.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -59,9 +58,9 @@ public class MediaApi {
      * @param file           the file
      * @return the media response
      */
-    public Single<MediaResponse> uploadAttachment(MediaTypeEnum mediaType,
-                                                  MediaAttachmentType attachmentType,
-                                                  File file) {
+    public MediaResponse uploadAttachment(MediaTypeEnum mediaType,
+                                          MediaAttachmentType attachmentType,
+                                          File file) {
         return internalMediaApi.uploadAttachment(mediaType.type(), attachmentType.getType(), this.toMultipartBody(file));
     }
 
@@ -77,7 +76,7 @@ public class MediaApi {
      * @param file      the file
      * @return the media response
      */
-    public Single<MediaResponse> uploadMedia(MediaTypeEnum mediaType, File file) {
+    public MediaResponse uploadMedia(MediaTypeEnum mediaType, File file) {
         return internalMediaApi.uploadMedia(mediaType.type(), this.toMultipartBody(file));
     }
 
@@ -91,7 +90,7 @@ public class MediaApi {
      * @param file the file
      * @return the media response
      */
-    public Single<MediaResponse> uploadImage(File file) {
+    public MediaResponse uploadImage(File file) {
         return internalMediaApi.uploadImage(this.toMultipartBody(file));
     }
 
@@ -101,7 +100,7 @@ public class MediaApi {
      * @param mediaId the media id
      * @return the media
      */
-    public Single<Response> getMedia(String mediaId) {
+    public Response getMedia(String mediaId) {
         return internalMediaApi.getMedia(mediaId);
     }
 
@@ -111,7 +110,7 @@ public class MediaApi {
      * @param mediaId the media id
      * @return the media js sdk
      */
-    public Single<Response> getMediaJsSdk(String mediaId) {
+    public Response getMediaJsSdk(String mediaId) {
         return internalMediaApi.getMediaJsSdk(mediaId);
     }
 
@@ -121,7 +120,7 @@ public class MediaApi {
      * @param request the request
      * @return the single
      */
-    public Single<GenericResponse<String>> uploadByUrl(MediaUploadRequest request) {
+    public GenericResponse<String> uploadByUrl(MediaUploadRequest request) {
         return internalMediaApi.uploadByUrl(request);
     }
 

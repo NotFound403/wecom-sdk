@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.webhook.WebhookBody;
-import io.reactivex.rxjava3.core.Single;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -40,7 +39,7 @@ interface InternalWebhookApi {
      * @return the we com response
      */
     @POST("webhook/send")
-    <B extends WebhookBody> Single<WeComResponse> send(@Query("key") String key, @Body B body);
+    <B extends WebhookBody> WeComResponse send(@Query("key") String key, @Body B body);
 
     /**
      * 机器人上传素材
@@ -51,7 +50,7 @@ interface InternalWebhookApi {
      * @return the media response
      */
     @POST("webhook/upload_media")
-    Single<MediaResponse> uploadMedia(@Query("key") String webhookKey,
-                                      @Query("type") String type,
-                                      @Body MultipartBody media);
+    MediaResponse uploadMedia(@Query("key") String webhookKey,
+                              @Query("type") String type,
+                              @Body MultipartBody media);
 }

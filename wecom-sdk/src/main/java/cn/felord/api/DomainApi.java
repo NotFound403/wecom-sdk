@@ -16,7 +16,6 @@
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public interface DomainApi {
      * @return the contact list
      */
     @GET("get_api_domain_ip")
-    Single<GenericResponse<List<String>>> getApiDomainIp();
+    GenericResponse<List<String>> getApiDomainIp();
 
     /**
      * 获取企业微信服务器的ip段
@@ -44,5 +43,5 @@ public interface DomainApi {
      * @return the api domain ip
      */
     @GET("getcallbackip")
-    Single<GenericResponse<List<String>>> getCallbackIp();
+    GenericResponse<List<String>> getCallbackIp();
 }

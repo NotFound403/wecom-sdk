@@ -19,7 +19,6 @@ import cn.felord.domain.WeComResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.webhook.WebhookBody;
 import cn.felord.utils.FileMediaType;
-import io.reactivex.rxjava3.core.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
@@ -52,7 +51,7 @@ public class WebhookApi {
      * @param body the body
      * @return the we com response
      */
-    public <B extends WebhookBody> Single<WeComResponse> send(String key, B body) {
+    public <B extends WebhookBody> WeComResponse send(String key, B body) {
         return internalWebhookApi.send(key, body);
     }
 
@@ -63,7 +62,7 @@ public class WebhookApi {
      * @param file       the file
      * @return the media response
      */
-    public Single<MediaResponse> uploadMedia(String webhookKey, File file) {
+    public MediaResponse uploadMedia(String webhookKey, File file) {
         RequestBody requestBody = RequestBody.create(file, FileMediaType.fromFileName(file.getName()));
         MultipartBody media = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)

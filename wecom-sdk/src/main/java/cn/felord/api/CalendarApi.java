@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.oa.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -37,7 +36,7 @@ public interface CalendarApi {
      * @return the generic response
      */
     @POST("oa/calendar/add")
-    Single<GenericResponse<String>> add(@Body CalendarAddRequest request);
+    GenericResponse<String> add(@Body CalendarAddRequest request);
 
     /**
      * 更新日历
@@ -46,7 +45,7 @@ public interface CalendarApi {
      * @return the generic response
      */
     @POST("oa/calendar/update")
-    Single<WeComResponse> update(@Body CalendarUpdateRequest request);
+    WeComResponse update(@Body CalendarUpdateRequest request);
 
     /**
      * 获取日历详情
@@ -55,7 +54,7 @@ public interface CalendarApi {
      * @return the calendar detail response
      */
     @POST("oa/calendar/get")
-    Single<CalendarDetailResponse> get(@Body CalendarDetailRequest request);
+    CalendarDetailResponse get(@Body CalendarDetailRequest request);
 
     /**
      * 删除日历
@@ -64,5 +63,5 @@ public interface CalendarApi {
      * @return the we com response
      */
     @POST("oa/calendar/update")
-    Single<WeComResponse> del(@Body CalendarDelRequest request);
+    WeComResponse del(@Body CalendarDelRequest request);
 }

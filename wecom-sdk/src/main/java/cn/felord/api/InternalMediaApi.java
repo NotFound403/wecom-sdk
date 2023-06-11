@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.media.MediaUploadRequest;
-import io.reactivex.rxjava3.core.Single;
 import okhttp3.MultipartBody;
 import okhttp3.Response;
 import retrofit2.http.Body;
@@ -43,9 +42,9 @@ interface InternalMediaApi {
      * @return the media response
      */
     @POST("media/upload_attachment")
-    Single<MediaResponse> uploadAttachment(@Query("media_type") String mediaType,
-                                           @Query("attachment_type") int attachmentType,
-                                           @Body MultipartBody media);
+    MediaResponse uploadAttachment(@Query("media_type") String mediaType,
+                                   @Query("attachment_type") int attachmentType,
+                                   @Body MultipartBody media);
 
     /**
      * 上传临时素材
@@ -55,8 +54,8 @@ interface InternalMediaApi {
      * @return the media response
      */
     @POST("media/upload")
-    Single<MediaResponse> uploadMedia(@Query("media_type") String mediaType,
-                                      @Body MultipartBody media);
+    MediaResponse uploadMedia(@Query("media_type") String mediaType,
+                              @Body MultipartBody media);
 
     /**
      * 上传图片
@@ -65,7 +64,7 @@ interface InternalMediaApi {
      * @return the media response
      */
     @POST("media/uploadimg")
-    Single<MediaResponse> uploadImage(@Body MultipartBody media);
+    MediaResponse uploadImage(@Body MultipartBody media);
 
     /**
      * 获取临时素材
@@ -74,7 +73,7 @@ interface InternalMediaApi {
      * @return the media
      */
     @GET("media/get")
-    Single<Response> getMedia(@Query("media_id") String mediaId);
+    Response getMedia(@Query("media_id") String mediaId);
 
     /**
      * 获取高清语音素材
@@ -83,7 +82,7 @@ interface InternalMediaApi {
      * @return the media
      */
     @GET("media/get/jssdk")
-    Single<Response> getMediaJsSdk(@Query("media_id") String mediaId);
+    Response getMediaJsSdk(@Query("media_id") String mediaId);
 
     /**
      * 生成异步上传任务
@@ -97,6 +96,6 @@ interface InternalMediaApi {
      * @return the media js sdk
      */
     @POST("media/upload_by_url")
-    Single<GenericResponse<String>> uploadByUrl(@Body MediaUploadRequest request);
+    GenericResponse<String> uploadByUrl(@Body MediaUploadRequest request);
 
 }

@@ -20,7 +20,6 @@ import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.department.DeptInfo;
 import cn.felord.domain.contactbook.department.DeptSimpleInfo;
 import cn.felord.enumeration.WeComEndpoint;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -43,7 +42,7 @@ public interface DepartmentApi {
      * @return CreateDeptResponse generic response
      */
     @POST("department/create")
-    Single<GenericResponse<Long>> createDept(@Body DeptInfo request);
+    GenericResponse<Long> createDept(@Body DeptInfo request);
 
     /**
      * 创建部门
@@ -52,7 +51,7 @@ public interface DepartmentApi {
      * @return the we com response
      */
     @POST("department/update")
-    Single<WeComResponse> updateDept(@Body DeptInfo request);
+    WeComResponse updateDept(@Body DeptInfo request);
 
     /**
      * 删除部门,不能删除根部门；不能删除含有子部门、成员的部门
@@ -63,7 +62,7 @@ public interface DepartmentApi {
      * @return WeComResponse we com response
      */
     @GET("department/delete")
-    Single<WeComResponse> deleteDept(@Query("id") long departmentId);
+    WeComResponse deleteDept(@Query("id") long departmentId);
 
     /**
      * 获取部门列表（自建）
@@ -73,7 +72,7 @@ public interface DepartmentApi {
      * @see WeComEndpoint#DEPT_LIST
      */
     @GET("department/list")
-    Single<GenericResponse<List<DeptInfo>>> deptList(@Query("id") long departmentId);
+    GenericResponse<List<DeptInfo>> deptList(@Query("id") long departmentId);
 
     /**
      * 获取全部部门列表（自建）
@@ -82,7 +81,7 @@ public interface DepartmentApi {
      * @see WeComEndpoint#DEPT_LIST
      */
     @GET("department/list")
-    Single<GenericResponse<List<DeptInfo>>> deptList();
+    GenericResponse<List<DeptInfo>> deptList();
 
     /**
      * 获取全部子部门ID列表
@@ -90,7 +89,7 @@ public interface DepartmentApi {
      * @return the simple list
      */
     @GET("department/simplelist")
-    Single<GenericResponse<List<DeptSimpleInfo>>> getSimpleList();
+    GenericResponse<List<DeptSimpleInfo>> getSimpleList();
 
     /**
      * 获取子部门ID列表
@@ -99,7 +98,7 @@ public interface DepartmentApi {
      * @return the generic response
      */
     @GET("department/simplelist")
-    Single<GenericResponse<List<DeptSimpleInfo>>> getSimpleList(@Query("id") long departmentId);
+    GenericResponse<List<DeptSimpleInfo>> getSimpleList(@Query("id") long departmentId);
 
     /**
      * 获取单部门详情（自建）
@@ -108,5 +107,5 @@ public interface DepartmentApi {
      * @return the generic response
      */
     @GET("department/get")
-    Single<GenericResponse<DeptInfo>> get(@Query("id") long departmentId);
+    GenericResponse<DeptInfo> get(@Query("id") long departmentId);
 }

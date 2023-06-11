@@ -19,7 +19,6 @@ import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.PageRequest;
 import cn.felord.domain.externalcontact.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -39,7 +38,7 @@ public interface CustomerAcquisitionApi {
      * @return the follow user list
      */
     @POST("externalcontact/customer_acquisition/list_link")
-    Single<LinksResponse> queryLinks(@Body PageRequest request);
+    LinksResponse queryLinks(@Body PageRequest request);
 
     /**
      * 获取获客链接详情
@@ -48,7 +47,7 @@ public interface CustomerAcquisitionApi {
      * @return the we com response
      */
     @POST("externalcontact/customer_acquisition/get")
-    Single<LinkDetailResponse> queryLinkDetail(@Body LinkId linkId);
+    LinkDetailResponse queryLinkDetail(@Body LinkId linkId);
 
     /**
      * 创建获客链接
@@ -57,7 +56,7 @@ public interface CustomerAcquisitionApi {
      * @return the we com response
      */
     @POST("externalcontact/customer_acquisition/create_link")
-    Single<GenericResponse<AcquisitionLink>> createLink(@Body AcquisitionLinkCreateRequest request);
+    GenericResponse<AcquisitionLink> createLink(@Body AcquisitionLinkCreateRequest request);
 
     /**
      * 编辑获客链接
@@ -66,7 +65,7 @@ public interface CustomerAcquisitionApi {
      * @return the we com response
      */
     @POST("externalcontact/customer_acquisition/update_link")
-    Single<WeComResponse> updateLink(@Body AcquisitionLinkUpdateRequest request);
+    WeComResponse updateLink(@Body AcquisitionLinkUpdateRequest request);
 
     /**
      * 删除获客链接
@@ -75,7 +74,7 @@ public interface CustomerAcquisitionApi {
      * @return the we com response
      */
     @POST("externalcontact/customer_acquisition/delete_link")
-    Single<WeComResponse> deleteLink(@Body LinkId linkId);
+    WeComResponse deleteLink(@Body LinkId linkId);
 
     /**
      * 获取由获客链接添加的客户信息
@@ -84,7 +83,7 @@ public interface CustomerAcquisitionApi {
      * @return the we com response
      */
     @POST("externalcontact/customer_acquisition/customer")
-    Single<LinkCustomersResponse> queryLinkCustomers(@Body LinkPageRequest request);
+    LinkCustomersResponse queryLinkCustomers(@Body LinkPageRequest request);
 
     /**
      * 查询获客链接剩余使用量
@@ -92,5 +91,5 @@ public interface CustomerAcquisitionApi {
      * @return the we com response
      */
     @GET("externalcontact/customer_acquisition_quota")
-    Single<AcquisitionQuotaResponse> queryCustomerAcquisitionQuotas();
+    AcquisitionQuotaResponse queryCustomerAcquisitionQuotas();
 }

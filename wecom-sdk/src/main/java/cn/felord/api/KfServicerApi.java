@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.callcenter.KfServicerListResponse;
 import cn.felord.domain.callcenter.KfServicerRequest;
 import cn.felord.domain.callcenter.KfServicerResponse;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -39,7 +38,7 @@ public interface KfServicerApi {
      * @return the generic response
      */
     @POST("kf/servicer/add")
-    Single<KfServicerResponse> addKfServicer(@Body KfServicerRequest request);
+    KfServicerResponse addKfServicer(@Body KfServicerRequest request);
 
     /**
      * 删除接待人员
@@ -48,7 +47,7 @@ public interface KfServicerApi {
      * @return the we com response
      */
     @POST("kf/servicer/del")
-    Single<KfServicerResponse> delKfServicer(@Body KfServicerRequest request);
+    KfServicerResponse delKfServicer(@Body KfServicerRequest request);
 
     /**
      * 获取接待人员列表
@@ -57,5 +56,5 @@ public interface KfServicerApi {
      * @return the generic response
      */
     @GET("kf/servicer/list")
-    Single<KfServicerListResponse> kfServicerList(@Query("open_kfid") String openKfid);
+    KfServicerListResponse kfServicerList(@Query("open_kfid") String openKfid);
 }

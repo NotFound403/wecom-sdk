@@ -17,14 +17,13 @@ package cn.felord.api;
 
 import cn.felord.AgentDetails;
 import cn.felord.WeComAgentTicketCacheable;
+import cn.felord.WeComException;
 import cn.felord.domain.authentication.JsTicketResponse;
 import cn.felord.domain.jssdk.AgentConfigResponse;
 import cn.felord.domain.jssdk.CorpConfigResponse;
 import cn.felord.domain.jssdk.JSignatureResponse;
 import cn.felord.utils.AlternativeJdkIdGenerator;
 import cn.felord.utils.SHA1;
-import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.Single;
 import lombok.SneakyThrows;
 
 import java.text.MessageFormat;
@@ -55,22 +54,30 @@ public class SdkTicketApi {
      * @param url the url
      * @return the js ticket response
      */
-    public Single<CorpConfigResponse> corpTicket(String url) {
+    public CorpConfigResponse corpTicket(String url) {
         String corpId = agentDetails.getCorpId();
         String agentId = agentDetails.getAgentId();
-        return Maybe.just(weComAgentTicketCacheable.getCorpTicket(corpId, agentId))
-                .switchIfEmpty(jsApi.corpJsApiTicket()
-                        .map(JsTicketResponse::getTicket)
-                        .map(corpTicket -> weComAgentTicketCacheable.putCorpTicket(corpId, agentId, corpTicket)))
-                .map(corpTicket -> {
-                    JSignatureResponse jSignatureResponse = this.sha1(corpTicket, url);
-                    CorpConfigResponse corpConfigResponse = new CorpConfigResponse();
-                    corpConfigResponse.setAppId(agentDetails.getCorpId());
-                    corpConfigResponse.setNonceStr(jSignatureResponse.getNonceStr());
-                    corpConfigResponse.setTimestamp(jSignatureResponse.getTimestamp());
-                    corpConfigResponse.setSignature(jSignatureResponse.getSignature());
-                    return corpConfigResponse;
-                });
+
+        String corpTicket = weComAgentTicketCacheable.getCorpTicket(corpId, agentId);
+
+        if (corpTicket == null) {
+            synchronized (this) {
+                JsTicketResponse jsTicketResponse = jsApi.corpJsApiTicket();
+                corpTicket = jsTicketResponse.getTicket();
+                if (corpTicket != null) {
+                    weComAgentTicketCacheable.putCorpTicket(corpId, agentId, corpTicket);
+                } else {
+                    throw new WeComException("fail to obtain the corp ticket");
+                }
+            }
+        }
+        JSignatureResponse jSignatureResponse = this.sha1(corpTicket, url);
+        CorpConfigResponse corpConfigResponse = new CorpConfigResponse();
+        corpConfigResponse.setAppId(agentDetails.getCorpId());
+        corpConfigResponse.setNonceStr(jSignatureResponse.getNonceStr());
+        corpConfigResponse.setTimestamp(jSignatureResponse.getTimestamp());
+        corpConfigResponse.setSignature(jSignatureResponse.getSignature());
+        return corpConfigResponse;
     }
 
     /**
@@ -79,23 +86,30 @@ public class SdkTicketApi {
      * @param url the url
      * @return the js ticket response
      */
-    public Single<AgentConfigResponse> agentTicket(String url) {
+    public AgentConfigResponse agentTicket(String url) {
         String corpId = agentDetails.getCorpId();
         String agentId = agentDetails.getAgentId();
-        return Maybe.just(weComAgentTicketCacheable.getCorpTicket(corpId, agentId))
-                .switchIfEmpty(jsApi.agentJsApiTicket("agent_config")
-                        .map(JsTicketResponse::getTicket)
-                        .map(agentTicket -> weComAgentTicketCacheable.putAgentTicket(corpId, agentId, agentTicket)))
-                .map(agentTicket -> {
-                    JSignatureResponse jSignatureResponse = this.sha1(agentTicket, url);
-                    AgentConfigResponse agentConfigResponse = new AgentConfigResponse();
-                    agentConfigResponse.setCorpid(corpId);
-                    agentConfigResponse.setAgentid(agentId);
-                    agentConfigResponse.setNonceStr(jSignatureResponse.getNonceStr());
-                    agentConfigResponse.setTimestamp(jSignatureResponse.getTimestamp());
-                    agentConfigResponse.setSignature(jSignatureResponse.getSignature());
-                    return agentConfigResponse;
-                });
+
+        String agentTicket = weComAgentTicketCacheable.getAgentTicket(corpId, agentId);
+        if (agentTicket == null) {
+            synchronized (this) {
+                JsTicketResponse jsTicketResponse = jsApi.agentJsApiTicket("agent_config");
+                agentTicket = jsTicketResponse.getTicket();
+                if (agentTicket != null) {
+                    weComAgentTicketCacheable.putAgentTicket(corpId, agentId, agentTicket);
+                } else {
+                    throw new WeComException("fail to obtain the agent ticket");
+                }
+            }
+        }
+        JSignatureResponse jSignatureResponse = this.sha1(agentTicket, url);
+        AgentConfigResponse agentConfigResponse = new AgentConfigResponse();
+        agentConfigResponse.setCorpid(corpId);
+        agentConfigResponse.setAgentid(agentId);
+        agentConfigResponse.setNonceStr(jSignatureResponse.getNonceStr());
+        agentConfigResponse.setTimestamp(jSignatureResponse.getTimestamp());
+        agentConfigResponse.setSignature(jSignatureResponse.getSignature());
+        return agentConfigResponse;
     }
 
 

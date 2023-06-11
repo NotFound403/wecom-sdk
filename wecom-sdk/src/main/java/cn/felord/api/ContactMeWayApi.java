@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -39,7 +38,7 @@ public interface ContactMeWayApi {
      * @return the follow user list
      */
     @GET("externalcontact/get_follow_user_list")
-    Single<GenericResponse<List<String>>> getFollowUserList();
+    GenericResponse<List<String>> getFollowUserList();
 
     /**
      * 配置客户联系「联系我」方式
@@ -48,7 +47,7 @@ public interface ContactMeWayApi {
      * @return the we com response
      */
     @POST("externalcontact/add_contact_way")
-    Single<ContactWayAddResponse> addContactWay(@Body ContactWayBody request);
+    ContactWayAddResponse addContactWay(@Body ContactWayBody request);
 
     /**
      * 获取企业已配置的「联系我」方式
@@ -57,7 +56,7 @@ public interface ContactMeWayApi {
      * @return the we com response
      */
     @POST("externalcontact/get_contact_way")
-    Single<GenericResponse<ContactWayBodyDetail>> getContactWay(@Body ContactWayConfigRequest request);
+    GenericResponse<ContactWayBodyDetail> getContactWay(@Body ContactWayConfigRequest request);
 
     /**
      * 获取企业已配置的「联系我」列表
@@ -66,7 +65,7 @@ public interface ContactMeWayApi {
      * @return the we com response
      */
     @POST("externalcontact/list_contact_way")
-    Single<ContactListResponse> listContactWay(@Body ContactListRequest request);
+    ContactListResponse listContactWay(@Body ContactListRequest request);
 
     /**
      * 更新企业已配置的「联系我」方式
@@ -75,7 +74,7 @@ public interface ContactMeWayApi {
      * @return the we com response
      */
     @POST("externalcontact/update_contact_way")
-    Single<WeComResponse> updateContactWay(@Body MutableContactWay contactWay);
+    WeComResponse updateContactWay(@Body MutableContactWay contactWay);
 
     /**
      * 删除企业已配置的「联系我」方式
@@ -84,7 +83,7 @@ public interface ContactMeWayApi {
      * @return the we com response
      */
     @POST("externalcontact/del_contact_way")
-    Single<WeComResponse> delContactWay(@Body ContactWayConfigRequest request);
+    WeComResponse delContactWay(@Body ContactWayConfigRequest request);
 
     /**
      * 结束临时会话
@@ -93,5 +92,5 @@ public interface ContactMeWayApi {
      * @return the we com response
      */
     @POST("externalcontact/close_temp_chat")
-    Single<WeComResponse> closeTempChat(@Body ChatPair chatPair);
+    WeComResponse closeTempChat(@Body ChatPair chatPair);
 }

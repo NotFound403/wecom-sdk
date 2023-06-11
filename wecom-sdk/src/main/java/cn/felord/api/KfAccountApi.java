@@ -18,7 +18,6 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.callcenter.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -39,7 +38,7 @@ public interface KfAccountApi {
      * @return the generic response
      */
     @POST("kf/account/add")
-    Single<GenericResponse<String>> addKfAccount(@Body KfAccountAddRequest request);
+    GenericResponse<String> addKfAccount(@Body KfAccountAddRequest request);
 
     /**
      * 删除客服账号
@@ -48,7 +47,7 @@ public interface KfAccountApi {
      * @return the we com response
      */
     @POST("kf/account/del")
-    Single<WeComResponse> delKfAccount(@Body OpenKfid openKfid);
+    WeComResponse delKfAccount(@Body OpenKfid openKfid);
 
     /**
      * 修改客服账号
@@ -57,7 +56,7 @@ public interface KfAccountApi {
      * @return the we com response
      */
     @POST("kf/account/update")
-    Single<WeComResponse> updateKfAccount(@Body KfAccountUpdateRequest request);
+    WeComResponse updateKfAccount(@Body KfAccountUpdateRequest request);
 
     /**
      * 获取客服账号列表
@@ -66,7 +65,7 @@ public interface KfAccountApi {
      * @return the generic response
      */
     @POST("kf/account/list")
-    Single<GenericResponse<List<KfAccountInfo>>> kfAccountList(KfAccountListRequest request);
+    GenericResponse<List<KfAccountInfo>> kfAccountList(KfAccountListRequest request);
 
     /**
      * 获取客服账号链接
@@ -75,5 +74,5 @@ public interface KfAccountApi {
      * @return the generic response
      */
     @POST("kf/add_contact_way")
-    Single<GenericResponse<String>> kfAccountLink(@Body KfAccountLinkRequest request);
+    GenericResponse<String> kfAccountLink(@Body KfAccountLinkRequest request);
 }

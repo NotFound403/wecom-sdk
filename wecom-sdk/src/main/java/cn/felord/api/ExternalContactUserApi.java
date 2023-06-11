@@ -21,7 +21,6 @@ import cn.felord.domain.common.PageRequest;
 import cn.felord.domain.common.StrategyId;
 import cn.felord.domain.contactbook.user.ExternalUserListDetailRequest;
 import cn.felord.domain.externalcontact.*;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -44,7 +43,7 @@ public interface ExternalContactUserApi {
      * @return the follow user list
      */
     @GET("externalcontact/list")
-    Single<GenericResponse<List<String>>> listByUserId(@Query("userid") String userId);
+    GenericResponse<List<String>> listByUserId(@Query("userid") String userId);
 
     /**
      * 获取客户详情
@@ -54,7 +53,7 @@ public interface ExternalContactUserApi {
      * @return the by user id
      */
     @GET("externalcontact/get")
-    Single<ExternalUserDetailResponse> getByExUserId(@Query("external_userid") String externalUserid, @Query("cursor") String cursor);
+    ExternalUserDetailResponse getByExUserId(@Query("external_userid") String externalUserid, @Query("cursor") String cursor);
 
     /**
      * 批量获取客户详情
@@ -63,7 +62,7 @@ public interface ExternalContactUserApi {
      * @return the by user id
      */
     @POST("externalcontact/batch/get_by_user")
-    Single<ExternalUserListDetailResponse> batchByUserIds(@Body ExternalUserListDetailRequest request);
+    ExternalUserListDetailResponse batchByUserIds(@Body ExternalUserListDetailRequest request);
 
     /**
      * 修改客户备注信息
@@ -72,7 +71,7 @@ public interface ExternalContactUserApi {
      * @return the external user list detail response
      */
     @POST("externalcontact/remark")
-    Single<WeComResponse> remark(@Body CustomerRemarkRequest request);
+    WeComResponse remark(@Body CustomerRemarkRequest request);
 
     /**
      * 获取规则组列表
@@ -81,7 +80,7 @@ public interface ExternalContactUserApi {
      * @return the external user list detail response
      */
     @POST("externalcontact/customer_strategy/list")
-    Single<StrategyListResponse> customerStrategyList(@Body PageRequest request);
+    StrategyListResponse customerStrategyList(@Body PageRequest request);
 
     /**
      * 获取规则组详情
@@ -90,7 +89,7 @@ public interface ExternalContactUserApi {
      * @return the external user list detail response
      */
     @POST("externalcontact/customer_strategy/get")
-    Single<CustomerStrategyDetailResponse> getCustomerStrategy(@Body StrategyId strategyId);
+    CustomerStrategyDetailResponse getCustomerStrategy(@Body StrategyId strategyId);
 
     /**
      * 获取规则组管理范围
@@ -99,7 +98,7 @@ public interface ExternalContactUserApi {
      * @return the external user list detail response
      */
     @POST("externalcontact/customer_strategy/get_range")
-    Single<StrategyRangeResponse> getCustomerStrategyRange(StrategyRangeRequest request);
+    StrategyRangeResponse getCustomerStrategyRange(StrategyRangeRequest request);
 
     /**
      * 创建新的规则组
@@ -108,7 +107,7 @@ public interface ExternalContactUserApi {
      * @return the customer strategy range response
      */
     @POST("externalcontact/customer_strategy/create")
-    Single<GenericResponse<Integer>> createCustomerStrategy(@Body CustomerStrategyRequest request);
+    GenericResponse<Integer> createCustomerStrategy(@Body CustomerStrategyRequest request);
 
     /**
      * 编辑规则组及其管理范围
@@ -117,7 +116,7 @@ public interface ExternalContactUserApi {
      * @return the customer strategy range response
      */
     @POST("externalcontact/customer_strategy/edit")
-    Single<WeComResponse> editCustomerStrategy(@Body MutableCustomerStrategy request);
+    WeComResponse editCustomerStrategy(@Body MutableCustomerStrategy request);
 
 
     /**
@@ -127,7 +126,7 @@ public interface ExternalContactUserApi {
      * @return the customer strategy range response
      */
     @POST("externalcontact/customer_strategy/del")
-    Single<WeComResponse> delCustomerStrategy(@Body StrategyId strategyId);
+    WeComResponse delCustomerStrategy(@Body StrategyId strategyId);
 
     /**
      * 家校沟通-外部联系人openid转换
@@ -139,5 +138,5 @@ public interface ExternalContactUserApi {
      * @return the generic response
      */
     @POST("externalcontact/convert_to_openid")
-    Single<GenericResponse<String>> convertToOpenid(@Body ExternalUserId externalUserId);
+    GenericResponse<String> convertToOpenid(@Body ExternalUserId externalUserId);
 }
