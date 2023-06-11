@@ -38,6 +38,7 @@ interface JsApi {
     /**
      * 获取应用的jsapi_ticket
      *
+     * @param agentConfig the agent config
      * @return the single
      */
     @GET("ticket/get")
