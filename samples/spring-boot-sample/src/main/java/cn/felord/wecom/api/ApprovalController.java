@@ -18,7 +18,6 @@ package cn.felord.wecom.api;
 import cn.felord.AgentDetails;
 import cn.felord.DefaultAgent;
 import cn.felord.api.WorkWeChatApi;
-import cn.felord.domain.GenericResponse;
 import cn.felord.domain.approval.ApprovalDetail;
 import cn.felord.domain.oa.ApprovalSpNo;
 import cn.felord.enumeration.NativeAgent;
@@ -49,7 +48,7 @@ public class ApprovalController {
     @GetMapping("/{spNo}")
     public ApprovalDetail approvalDetails(@PathVariable String spNo) {
         AgentDetails nfsApproval = DefaultAgent.nativeAgent("企业ID", "审批密钥", NativeAgent.APPROVAL);
-        return workWeChatApi.approvalApi(nfsApproval).queryApprovalDetail(new ApprovalSpNo(spNo)).map(GenericResponse::getData);
+        return workWeChatApi.approvalApi(nfsApproval).queryApprovalDetail(new ApprovalSpNo(spNo)).getData();
     }
 
 }
