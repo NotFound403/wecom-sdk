@@ -31,6 +31,12 @@ public final class WorkWeChatApiClient {
     private final AgentDetails agentDetails;
     private final Retrofit retrofit;
 
+    /**
+     * Instantiates a new Work we chat api client.
+     *
+     * @param agentDetails the agent details
+     * @param retrofit     the retrofit
+     */
     WorkWeChatApiClient(AgentDetails agentDetails, Retrofit retrofit) {
         this.agentDetails = agentDetails;
         this.retrofit = retrofit;
@@ -39,8 +45,11 @@ public final class WorkWeChatApiClient {
     /**
      * Instantiates a new Work we chat api client.
      *
-     * @param <T>      the type parameter
-     * @param tokenApi the token api
+     * @param <T>            the type parameter
+     * @param tokenApi       the token api
+     * @param connectionPool the connection pool
+     * @param level          the level
+     * @return the work we chat api client
      */
     public static <T extends TokenApi> WorkWeChatApiClient init(T tokenApi, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         return new WorkWeChatApiClient(tokenApi.getAgentDetails(), RetrofitFactory.create(tokenApi, connectionPool, level));
@@ -55,6 +64,11 @@ public final class WorkWeChatApiClient {
         return agentDetails;
     }
 
+    /**
+     * Retrofit retrofit.
+     *
+     * @return the retrofit
+     */
     Retrofit retrofit() {
         return retrofit;
     }
