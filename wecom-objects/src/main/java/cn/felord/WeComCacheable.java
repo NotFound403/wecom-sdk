@@ -13,14 +13,11 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive;
+package cn.felord;
 
 /**
- * @author felord.cn
+ * @author dax
+ * @since 2021/12/10 21:23
  */
-public final class ErrorCode {
-
-
-    private ErrorCode() {
-    }
+public interface WeComCacheable {
 }

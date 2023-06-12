@@ -13,34 +13,34 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive;
+package cn.felord;
+
 
 /**
- * The interface Agent details.
+ * The interface Cacheable.
  *
- * @author n1
- * @since 2021 /6/17 10:15
+ * @author felord.cn
  */
-public interface AgentDetails {
-    /**
-     * 企业ID
-     *
-     * @return the corpId
-     */
-    String getCorpId();
+public interface WeComTokenCacheable extends WeComAgentTicketCacheable {
 
     /**
-     * 应用秘钥或者管理秘钥
+     * 存入accessToken
+     * <p>
+     * 推荐缓存组织格式 {@code token::qywx::{corpId}::{agentId}}.
      *
-     * @return the corp secret
+     * @param corpId      the corpId
+     * @param agentId     the agentId
+     * @param accessToken the access token
+     * @return the token
      */
-    String getSecret();
+    String putAccessToken(String corpId, String agentId, String accessToken);
 
     /**
-     * 应用ID，内置应用需要虚拟化一个ID
+     * 获取accessToken.
      *
-     * @return the agent id
+     * @param corpId  the corpId
+     * @param agentId the agentId
+     * @return the token
      */
-    String getAgentId();
-
+    String getAccessToken(String corpId, String agentId);
 }

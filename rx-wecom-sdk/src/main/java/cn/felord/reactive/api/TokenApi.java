@@ -16,7 +16,7 @@
 package cn.felord.reactive.api;
 
 
-import cn.felord.reactive.AgentDetails;
+import cn.felord.AgentDetails;
 
 /**
  * The interface Token api.

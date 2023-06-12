@@ -16,8 +16,8 @@
 package cn.felord.reactive.api;
 
 
-import cn.felord.reactive.AgentDetails;
-import cn.felord.reactive.WeComTokenCacheable;
+import cn.felord.AgentDetails;
+import cn.felord.WeComTokenCacheable;
 
 /**
  * The type Token api.
