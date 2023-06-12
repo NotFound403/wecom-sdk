@@ -25,7 +25,7 @@ import lombok.ToString;
 import java.util.List;
 
 /**
- * TODO
+ * ApplyContentData
  *
  * @param <V> the type parameter
  * @author dax
@@ -50,6 +50,7 @@ import java.util.List;
         @JsonSubTypes.Type(value = LocationApplyContentData.class, name = "Location"),
         @JsonSubTypes.Type(value = RelatedApprovalApplyContentData.class, name = "RelatedApproval"),
         @JsonSubTypes.Type(value = FormulaApplyContentData.class, name = "Formula"),
+        @JsonSubTypes.Type(value = PhoneNumberApplyContentData.class, name = "PhoneNumber"),
 })
 @ToString
 @Getter
@@ -82,11 +83,11 @@ public abstract class ApplyContentData<V> {
     }
 
     /**
-     * From apply content data.
+     * 拉取审批单配置填充数据时使用
      *
      * @param <V>      the type parameter
-     * @param property the property
-     * @param value    the value
+     * @param property 配置
+     * @param value    配置对应的值
      * @return the apply content data
      */
     public static <V extends ContentDataValue> ApplyContentData<V> from(CtrlProperty property, V value) {

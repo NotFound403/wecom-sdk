@@ -1,4 +1,3 @@
-
 /*
  *  Copyright (c) 2023. felord.cn
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,21 +13,13 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.approval;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-
-import java.util.List;
+package cn.felord.callbacks;
 
 /**
  * @author dax
- * @since 2023/5/19 22:23
+ * @since 2023/5/28
  */
-@Data
-public class Items {
+public interface CallbackNumberEnum {
 
-    @JsonProperty("Item")
-    private List<Item> item;
-
+    int getType();
 }

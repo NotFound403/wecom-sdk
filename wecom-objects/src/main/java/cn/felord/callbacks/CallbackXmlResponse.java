@@ -13,21 +13,25 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.callbacks;
+package cn.felord.callbacks;
+
+import cn.felord.domain.callback.CallbackBody;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.Data;
 
 /**
- * The interface Callback authentication service.
- *
  * @author felord
- * @since 2021 /11/21 12:13
+ * @since 2021/10/10 14:21
  */
-public interface CallbackSettingsService {
-    /**
-     * Load authentication callback authentication.
-     *
-     * @param agentId the agent id
-     * @param corpId  the corp id
-     * @return the callback authentication
-     */
-    CallbackSettings loadAuthentication(String agentId, String corpId);
+@XStreamAlias("xml")
+@Data
+class CallbackXmlResponse implements CallbackResponse, CallbackBody {
+    @XStreamAlias("Encrypt")
+    private final String encrypt;
+    @XStreamAlias("MsgSignature")
+    private final String msgSignature;
+    @XStreamAlias("TimeStamp")
+    private final String timeStamp;
+    @XStreamAlias("Nonce")
+    private final String nonce;
 }

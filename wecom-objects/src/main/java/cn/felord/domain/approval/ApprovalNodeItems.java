@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (c) 2023. felord.cn
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,34 +14,21 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive;
+package cn.felord.domain.approval;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+import java.util.List;
 
 /**
- * The interface Agent details.
- *
- * @author n1
- * @since 2021 /6/17 10:15
+ * @author dax
+ * @since 2023/5/19 22:23
  */
-public interface AgentDetails {
-    /**
-     * 企业ID
-     *
-     * @return the corpId
-     */
-    String getCorpId();
+@Data
+public class ApprovalNodeItems {
 
-    /**
-     * 应用秘钥或者管理秘钥
-     *
-     * @return the corp secret
-     */
-    String getSecret();
-
-    /**
-     * 应用ID，内置应用需要虚拟化一个ID
-     *
-     * @return the agent id
-     */
-    String getAgentId();
+    @JsonProperty("Item")
+    private List<ApprovalNodeItem> item;
 
 }

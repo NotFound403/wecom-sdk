@@ -17,9 +17,9 @@ package cn.felord.reactive.api;
 
 import cn.felord.WeComException;
 import cn.felord.domain.authentication.AccessTokenResponse;
-import cn.felord.reactive.AgentDetails;
+import cn.felord.AgentDetails;
 import cn.felord.reactive.RetrofitFactory;
-import cn.felord.reactive.WeComTokenCacheable;
+import cn.felord.WeComTokenCacheable;
 
 /**
  * 获取 access_token

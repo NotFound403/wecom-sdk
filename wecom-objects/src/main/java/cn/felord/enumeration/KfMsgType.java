@@ -93,7 +93,7 @@ public enum KfMsgType {
      */
     SCHEDULE("schedule"),
     /**
-     * TODO 事件
+     * 事件
      */
     EVENT("event");
     private final String type;

@@ -13,14 +13,11 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive;
+package cn.felord.callbacks;
 
 /**
- * @author felord.cn
+ * @author dax
+ * @since 2023/4/14 16:07
  */
-public final class ErrorCode {
-
-
-    private ErrorCode() {
-    }
+public interface CallbackResponse {
 }

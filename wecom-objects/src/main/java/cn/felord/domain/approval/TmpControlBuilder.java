@@ -235,6 +235,16 @@ public final class TmpControlBuilder<C> {
     }
 
     /**
+     * Phone number tmp control builder.
+     *
+     * @param title the title
+     * @return tmp control builder
+     */
+    public static TmpControlBuilder<EmptyConfig> phoneNumber(String title) {
+        return new TmpControlBuilder<>(ApprovalCtrlType.TEXT, title);
+    }
+
+    /**
      * Date range tmp control builder.
      *
      * @param title the title

@@ -13,34 +13,22 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive;
+package cn.felord.callbacks;
 
 
 /**
- * The interface Cacheable.
+ * The interface Callback authentication service.
  *
- * @author felord.cn
+ * @author felord
+ * @since 2021 /11/21 12:13
  */
-public interface WeComTokenCacheable extends WeComAgentTicketCacheable {
-
+public interface CallbackSettingsService {
     /**
-     * 存入accessToken
-     * <p>
-     * 推荐缓存组织格式 {@code token::qywx::{corpId}::{agentId}}.
+     * Load authentication callback authentication.
      *
-     * @param corpId      the corpId
-     * @param agentId     the agentId
-     * @param accessToken the access token
-     * @return the token
+     * @param agentId the agent id
+     * @param corpId  the corp id
+     * @return the callback authentication
      */
-    String putAccessToken(String corpId, String agentId, String accessToken);
-
-    /**
-     * 获取accessToken.
-     *
-     * @param corpId  the corpId
-     * @param agentId the agentId
-     * @return the token
-     */
-    String getAccessToken(String corpId, String agentId);
+    CallbackSettings loadAuthentication(String agentId, String corpId);
 }

@@ -12,18 +12,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.reactive.callbacks;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+package cn.felord.callbacks;
 
 import java.io.Serializable;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * The type Customizable thread factory.
+ *
  * @author Juergen Hoeller
- * @since 2023/5/24
+ * @since 2023 /5/24
  */
 public class CustomizableThreadFactory implements ThreadFactory, Serializable {
 
@@ -33,7 +32,6 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
 
     private boolean daemon = false;
 
-    @Nullable
     private ThreadGroup threadGroup;
 
     private final AtomicInteger threadCount = new AtomicInteger();
@@ -43,7 +41,7 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
      *
      * @param threadNamePrefix the prefix to use for the names of newly created threads
      */
-    public CustomizableThreadFactory(@NotNull String threadNamePrefix) {
+    public CustomizableThreadFactory(String threadNamePrefix) {
         this.threadNamePrefix = threadNamePrefix;
     }
 
@@ -56,6 +54,8 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
     /**
      * Return the thread name prefix to use for the names of newly
      * created threads.
+     *
+     * @return the thread name prefix
      */
     public String getThreadNamePrefix() {
         return this.threadNamePrefix;
@@ -65,7 +65,8 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
      * Set the priority of the threads that this factory creates.
      * Default is 5.
      *
-     * @see Thread#NORM_PRIORITY
+     * @param threadPriority the thread priority
+     * @see Thread#NORM_PRIORITY Thread#NORM_PRIORITY
      */
     public void setThreadPriority(int threadPriority) {
         this.threadPriority = threadPriority;
@@ -73,6 +74,8 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
 
     /**
      * Return the priority of the threads that this factory creates.
+     *
+     * @return the thread priority
      */
     public int getThreadPriority() {
         return this.threadPriority;
@@ -87,7 +90,8 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
      * <p>Specify "true" for eager shutdown of threads which still actively execute
      * a {@link Runnable} at the time that the application itself shuts down.
      *
-     * @see Thread#setDaemon
+     * @param daemon the daemon
+     * @see Thread#setDaemon Thread#setDaemon
      */
     public void setDaemon(boolean daemon) {
         this.daemon = daemon;
@@ -95,6 +99,8 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
 
     /**
      * Return whether this factory should create daemon threads.
+     *
+     * @return the boolean
      */
     public boolean isDaemon() {
         return this.daemon;
@@ -103,7 +109,8 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
     /**
      * Specify the name of the thread group that threads should be created in.
      *
-     * @see #setThreadGroup
+     * @param name the name
+     * @see #setThreadGroup #setThreadGroup
      */
     public void setThreadGroupName(String name) {
         this.threadGroup = new ThreadGroup(name);
@@ -112,7 +119,8 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
     /**
      * Specify the thread group that threads should be created in.
      *
-     * @see #setThreadGroupName
+     * @param threadGroup the thread group
+     * @see #setThreadGroupName #setThreadGroupName
      */
     public void setThreadGroup(ThreadGroup threadGroup) {
         this.threadGroup = threadGroup;
@@ -121,8 +129,9 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
     /**
      * Return the thread group that threads should be created in
      * (or {@code null} for the default group).
+     *
+     * @return the thread group
      */
-    @Nullable
     public ThreadGroup getThreadGroup() {
         return this.threadGroup;
     }
@@ -134,7 +143,8 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
      * {@link Runnable}, applying an appropriate thread name.
      *
      * @param runnable the Runnable to execute
-     * @see #nextThreadName()
+     * @return the thread
+     * @see #nextThreadName() #nextThreadName()
      */
     public Thread createThread(Runnable runnable) {
         Thread thread = new Thread(getThreadGroup(), runnable, nextThreadName());
@@ -148,7 +158,8 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
      * <p>The default implementation returns the specified thread name prefix
      * with an increasing thread count appended: e.g. "SimpleAsyncTaskExecutor-0".
      *
-     * @see #getThreadNamePrefix()
+     * @return the string
+     * @see #getThreadNamePrefix() #getThreadNamePrefix()
      */
     protected String nextThreadName() {
         return getThreadNamePrefix() + this.threadCount.incrementAndGet();

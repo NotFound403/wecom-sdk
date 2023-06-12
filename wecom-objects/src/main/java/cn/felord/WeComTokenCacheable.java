@@ -13,34 +13,34 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.callbacks;
+package cn.felord;
 
-import cn.felord.domain.callback.CallbackBody;
 
 /**
- * The interface Xml reader.
+ * The interface Cacheable.
  *
- * @author felord
- * @since 2021 /10/10 14:14
+ * @author felord.cn
  */
-public interface XmlReader {
+public interface WeComTokenCacheable extends WeComAgentTicketCacheable {
 
     /**
-     * Read t.
+     * 存入accessToken
+     * <p>
+     * 推荐缓存组织格式 {@code token::qywx::{corpId}::{agentId}}.
      *
-     * @param <T>   the type parameter
-     * @param xml   the xml
-     * @param clazz the clazz
-     * @return the t
+     * @param corpId      the corpId
+     * @param agentId     the agentId
+     * @param accessToken the access token
+     * @return the token
      */
-    <T extends CallbackBody> T read(String xml, Class<T> clazz);
+    String putAccessToken(String corpId, String agentId, String accessToken);
 
     /**
-     * Write string.
+     * 获取accessToken.
      *
-     * @param <T> the type parameter
-     * @param t   the t
-     * @return the string
+     * @param corpId  the corpId
+     * @param agentId the agentId
+     * @return the token
      */
-    <T extends CallbackBody> String write(T t);
+    String getAccessToken(String corpId, String agentId);
 }

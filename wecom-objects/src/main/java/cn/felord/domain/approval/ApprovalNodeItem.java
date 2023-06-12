@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (c) 2023. felord.cn
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,27 +14,31 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.json;
+package cn.felord.domain.approval;
 
-
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-
-import java.io.IOException;
-import java.time.Instant;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 /**
  * @author dax
- * @since 2021/10/20 10:30
+ * @since 2023/5/19 22:23
  */
-class UnixInstantSerializer extends JsonSerializer<Instant> {
-    static final UnixInstantSerializer INSTANCE = new UnixInstantSerializer();
+@Data
+public class ApprovalNodeItem {
 
-    @Override
-    public void serialize(Instant value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        if (value != null) {
-            gen.writeNumber(value.getEpochSecond());
-        }
-    }
+    @JsonProperty("ItemImage")
+    private String itemImage;
+    @JsonProperty("ItemName")
+    private String itemName;
+    @JsonProperty("ItemOpTime")
+    private Long itemOpTime;
+    @JsonProperty("ItemParty")
+    private String itemParty;
+    @JsonProperty("ItemSpeech")
+    private String itemSpeech;
+    @JsonProperty("ItemStatus")
+    private Long itemStatus;
+    @JsonProperty("ItemUserId")
+    private String itemUserId;
+
 }

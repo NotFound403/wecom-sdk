@@ -16,7 +16,7 @@
 package cn.felord.reactive;
 
 import cn.felord.reactive.api.TokenApi;
-import cn.felord.reactive.json.JacksonObjectMapperFactory;
+import cn.felord.json.JacksonObjectMapperFactory;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

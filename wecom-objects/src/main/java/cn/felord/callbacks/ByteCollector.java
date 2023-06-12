@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.callbacks;
+package cn.felord.callbacks;
 
 class ByteCollector {
     private byte[] byteContainer;

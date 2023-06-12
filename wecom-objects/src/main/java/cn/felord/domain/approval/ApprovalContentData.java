@@ -19,7 +19,7 @@ import cn.felord.enumeration.ApprovalCtrlType;
 import lombok.Data;
 
 /**
- * TODO
+ * ApprovalContentData
  *
  * @author dax
  * @since 2023/5/26

@@ -31,6 +31,10 @@ public enum NativeAgent {
      */
     EXTERNAL("2000003", "外部联系人"),
     /**
+     * 会话内容存档
+     */
+    MSG_AUDIT("2000004", "会话内容存档"),
+    /**
      * 公告
      */
     ANNOUNCEMENT("3010001", "公告"),

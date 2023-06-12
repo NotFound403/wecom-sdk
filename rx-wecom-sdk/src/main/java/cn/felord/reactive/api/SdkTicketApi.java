@@ -15,8 +15,8 @@
 
 package cn.felord.reactive.api;
 
-import cn.felord.reactive.AgentDetails;
-import cn.felord.reactive.WeComAgentTicketCacheable;
+import cn.felord.AgentDetails;
+import cn.felord.WeComAgentTicketCacheable;
 import cn.felord.domain.authentication.JsTicketResponse;
 import cn.felord.domain.jssdk.AgentConfigResponse;
 import cn.felord.domain.jssdk.CorpConfigResponse;

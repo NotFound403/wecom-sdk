@@ -16,7 +16,7 @@
 package cn.felord.domain.approval;
 
 /**
- * TODO
+ * RelatedApprovalValue
  *
  * @author dax
  * @since 2023/5/27

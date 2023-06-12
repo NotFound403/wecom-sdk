@@ -88,6 +88,10 @@ public enum ApprovalCtrlType {
      */
     FORMULA("Formula"),
     /**
+     * 手机号
+     */
+    PHONE_NUMBER("PhoneNumber"),
+    /**
      * 时长
      */
     DATE_RANGE("DateRange");
