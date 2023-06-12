@@ -49,6 +49,8 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 
 - Spring RestTemplate
 - okhttp
+- retrofit
+- rxjava
 - lombok
 - jackson2
 - xstream
@@ -62,22 +64,20 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 - 普通版本
 
 ```xml
-
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>wecom-sdk</artifactId>
-  <version>${wecom.sdk.version}</version>
+  <version>1.0.14</version>
 </dependency>
 ```
 
-- rxjava 版本
+- retrofit rxjava 版本
 
 ```xml
-
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>rx-wecom-sdk</artifactId>
-  <version>${wecom.sdk.version}</version>
+  <version>1.0.14</version>
 </dependency>
 ```
 

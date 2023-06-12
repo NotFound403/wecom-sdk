@@ -21,7 +21,7 @@
     <parent>
         <groupId>cn.felord</groupId>
         <artifactId>wecom</artifactId>
-        <version>1.0.14.RC2</version>
+        <version>1.0.14</version>
     </parent>
     <artifactId>wecom-objects</artifactId>
     <packaging>jar</packaging>
