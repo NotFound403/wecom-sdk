@@ -40,7 +40,7 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 ## 特性
 
 - 支持多企业微信同时配置作业
-- 目前实现企业微信接口 180 多个，能满足大部分场景的需求
+- 目前实现企业微信接口 200 多个，能满足大部分场景的需求
 - 全参数封装，入参、出参高度语义化封装，再也不担心组织参数、解析参数的问题
 - 实现统一回调，所有回调事件可集中异步处理，开发者只需要关心业务逻辑的处理
 - 由 SDK 接管 AccessToken 生命周期，开发者无需关心 Token 的管理。
@@ -59,6 +59,8 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 
 ## Maven中央仓库坐标
 
+- 普通版本
+
 ```xml
 
 <dependency>
@@ -68,8 +70,21 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 </dependency>
 ```
 
+- rxjava 版本
+
+```xml
+
+<dependency>
+  <groupId>cn.felord</groupId>
+  <artifactId>rx-wecom-sdk</artifactId>
+  <version>${wecom.sdk.version}</version>
+</dependency>
+```
+
 ## 入门
+
 Spring Boot 例子参见项目的`samples/spring-boot-sample`。
+
 ### 例子
 
 这里屏蔽了一些繁琐的步骤，开发者只需要做好配置即可调用。以下是调用企业群发API向客户群发送图文的例子：
@@ -318,7 +333,7 @@ public class CallbackController {
 - [x] 微信客服
   - [x] 客服账号管理
   - [x] 接待人员管理
-  - [ ] 会话分配与消息收发
+  - [x] 会话分配与消息收发
 - [x] 身份验证
 - [x] 应用管理
 - [x] 消息推送
