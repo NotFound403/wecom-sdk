@@ -18,6 +18,9 @@ package cn.felord.api;
 import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.common.PageRequest;
+import cn.felord.domain.common.StrategyId;
+import cn.felord.domain.contactbook.user.ExternalUserListDetailRequest;
 import cn.felord.domain.externalcontact.CustomerRemarkRequest;
 import cn.felord.domain.externalcontact.CustomerStrategyDetailResponse;
 import cn.felord.domain.externalcontact.CustomerStrategyRequest;
@@ -33,9 +36,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.StringUtils;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -93,11 +94,8 @@ public class ExternalContactUserApi {
     public ExternalUserListDetailResponse batchByUserIds(Set<String> userids, String cursor, Integer limit) {
         int size = userids.size();
         if (0 < size && size <= 100) {
-            Map<String, Object> body = new HashMap<>();
-            body.put("userid_list", userids);
-            body.put("cursor", cursor);
-            body.put("limit", limit);
-            return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_BATCH_USERID, body, ExternalUserListDetailResponse.class);
+            ExternalUserListDetailRequest pageRequest = new ExternalUserListDetailRequest(userids, cursor, limit);
+            return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_BATCH_USERID, pageRequest, ExternalUserListDetailResponse.class);
         }
         throw new WeComException("外部联系人ID个数范围 (0,100]");
     }
@@ -120,10 +118,10 @@ public class ExternalContactUserApi {
      * @return the external user list detail response
      */
     public StrategyListResponse customerStrategyList(String cursor, int limit) {
-        Map<String, Object> body = new HashMap<>(2);
-        body.put("cursor", cursor);
-        body.put("limit", limit);
-        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_LIST, body, StrategyListResponse.class);
+        PageRequest pageRequest = new PageRequest();
+        pageRequest.setCursor(cursor);
+        pageRequest.setLimit(limit);
+        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_LIST, pageRequest, StrategyListResponse.class);
     }
 
     /**
@@ -133,8 +131,9 @@ public class ExternalContactUserApi {
      * @return the external user list detail response
      */
     public CustomerStrategyDetailResponse getCustomerStrategy(int strategyId) {
+        StrategyId strategy = new StrategyId(strategyId);
         return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_GET,
-                Collections.singletonMap("strategy_id", strategyId),
+                strategy,
                 CustomerStrategyDetailResponse.class);
     }
 

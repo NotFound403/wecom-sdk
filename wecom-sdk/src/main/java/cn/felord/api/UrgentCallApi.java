@@ -1,12 +1,11 @@
 package cn.felord.api;
 
 import cn.felord.domain.urgentcall.CallResponse;
+import cn.felord.domain.urgentcall.CallStateRequest;
 import cn.felord.domain.urgentcall.CallStateResponse;
+import cn.felord.domain.urgentcall.CalleeUsers;
 import cn.felord.enumeration.WeComEndpoint;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -39,7 +38,8 @@ public class UrgentCallApi {
      * @return the call response
      */
     public CallResponse call(Set<String> callUsers) {
-        return workWeChatApiClient.post(WeComEndpoint.PSTNCC_CALL, Collections.singletonMap("callee_userid", callUsers), CallResponse.class);
+        CalleeUsers calleeUsers = new CalleeUsers(callUsers);
+        return workWeChatApiClient.post(WeComEndpoint.PSTNCC_CALL, calleeUsers, CallResponse.class);
     }
 
     /**
@@ -50,9 +50,7 @@ public class UrgentCallApi {
      * @return the call state response
      */
     public CallStateResponse queryCallStates(String calleeUserId, String callId) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("callee_userid", calleeUserId);
-        body.put("callid", callId);
-        return workWeChatApiClient.post(WeComEndpoint.PSTNCC_CALL_STATES, body, CallStateResponse.class);
+        CallStateRequest callStateRequest = new CallStateRequest(calleeUserId, callId);
+        return workWeChatApiClient.post(WeComEndpoint.PSTNCC_CALL_STATES, callStateRequest, CallStateResponse.class);
     }
 }

@@ -17,6 +17,7 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.externalcontact.ChatPair;
 import cn.felord.domain.externalcontact.ContactListRequest;
 import cn.felord.domain.externalcontact.ContactListResponse;
 import cn.felord.domain.externalcontact.ContactWayAddResponse;
@@ -27,9 +28,7 @@ import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The type Corp service user api.
@@ -120,9 +119,7 @@ public class ContactMeWayApi {
      * @return the we com response
      */
     public WeComResponse closeTempChat(String userid, String externalUserid) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("userid", userid);
-        body.put("external_userid", externalUserid);
+        ChatPair body = new ChatPair(userid, externalUserid);
         return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_CLOSE_TEMP_CHAT, body, WeComResponse.class);
     }
 }

@@ -17,6 +17,7 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.common.PageRequest;
 import cn.felord.domain.contactbook.user.BatchInviteRequest;
 import cn.felord.domain.contactbook.user.BatchInviteResponse;
 import cn.felord.domain.contactbook.user.DeptUserListResponse;
@@ -124,10 +125,10 @@ public class UserApi {
      * @return the dept user list response
      */
     public DeptUserListResponse userList(String cursor, int limit) {
-        Map<String, Object> body = new HashMap<>(2);
-        body.put("cursor", cursor);
-        body.put("limit", limit);
-        return workWeChatApiClient.post(WeComEndpoint.USER_LIST_ID, body, DeptUserListResponse.class);
+        PageRequest pageRequest = new PageRequest();
+        pageRequest.setCursor(cursor);
+        pageRequest.setLimit(limit);
+        return workWeChatApiClient.post(WeComEndpoint.USER_LIST_ID, pageRequest, DeptUserListResponse.class);
     }
 
 

@@ -17,6 +17,7 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.common.PageRequest;
 import cn.felord.domain.externalcontact.ProductAlbumAddRequest;
 import cn.felord.domain.externalcontact.ProductAlbumDetail;
 import cn.felord.domain.externalcontact.ProductAlbumDetailResponse;
@@ -24,8 +25,6 @@ import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 商品图册管理
@@ -74,10 +73,10 @@ public class ProductAlbumApi {
      * @return the product album detail response
      */
     public ProductAlbumDetailResponse productAlbumList(int limit, String cursor) {
-        Map<String, Object> body = new HashMap<>(2);
-        body.put("limit", limit);
-        body.put("cursor", cursor);
-        return workWeChatApiClient.post(WeComEndpoint.PRODUCT_ALBUM_LIST, body, ProductAlbumDetailResponse.class);
+        PageRequest pageRequest = new PageRequest();
+        pageRequest.setCursor(cursor);
+        pageRequest.setLimit(limit);
+        return workWeChatApiClient.post(WeComEndpoint.PRODUCT_ALBUM_LIST, pageRequest, ProductAlbumDetailResponse.class);
     }
 
     /**

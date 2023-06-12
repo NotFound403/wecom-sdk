@@ -16,12 +16,15 @@
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
-import cn.felord.domain.callcenter.*;
+import cn.felord.domain.callcenter.KfAndExternalUser;
+import cn.felord.domain.callcenter.KfEventMessageRequest;
+import cn.felord.domain.callcenter.KfMessageRequest;
+import cn.felord.domain.callcenter.KfSessionResponse;
+import cn.felord.domain.callcenter.KfSessionUpdateRequest;
+import cn.felord.domain.callcenter.SyncMsgRequest;
+import cn.felord.domain.callcenter.SyncMsgResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 会话分配与消息收发
@@ -49,10 +52,8 @@ public class KfSessionApi {
      * @return the generic response
      */
     public KfSessionResponse getSessionState(String openKfid, String externalUserid) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("open_kfid", openKfid);
-        body.put("external_userid", externalUserid);
-        return workWeChatApiClient.post(WeComEndpoint.KF_SERVICE_STATE_GET, body, KfSessionResponse.class);
+        KfAndExternalUser kfAndExternalUser = new KfAndExternalUser(openKfid, externalUserid);
+        return workWeChatApiClient.post(WeComEndpoint.KF_SERVICE_STATE_GET, kfAndExternalUser, KfSessionResponse.class);
     }
 
     /**

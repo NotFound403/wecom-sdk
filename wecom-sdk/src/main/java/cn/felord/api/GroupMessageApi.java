@@ -17,6 +17,7 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.externalcontact.DelWelcomeTmpRequest;
 import cn.felord.domain.externalcontact.GroupMsgListRequest;
 import cn.felord.domain.externalcontact.GroupMsgListResponse;
 import cn.felord.domain.externalcontact.GroupMsgSendResultRequest;
@@ -33,8 +34,6 @@ import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 企业群发
@@ -178,9 +177,7 @@ public class GroupMessageApi {
      * @return the we com response
      */
     public WeComResponse delWelcomeTemplate(String templateId, String agentId) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("template_id", templateId);
-        body.put("agentid", agentId);
+        DelWelcomeTmpRequest body = new DelWelcomeTmpRequest(templateId, agentId);
         return workWeChatApiClient.post(WeComEndpoint.GROUP_MSG_WELCOME_TEMPLATE_DEL, body, WeComResponse.class);
     }
 }

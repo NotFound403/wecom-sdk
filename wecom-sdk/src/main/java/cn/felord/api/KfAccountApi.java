@@ -17,7 +17,9 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.callcenter.KfAccountAddRequest;
 import cn.felord.domain.callcenter.KfAccountInfo;
+import cn.felord.domain.callcenter.KfAccountLinkRequest;
 import cn.felord.domain.callcenter.KfAccountListRequest;
 import cn.felord.domain.callcenter.KfAccountUpdateRequest;
 import cn.felord.enumeration.WeComEndpoint;
@@ -28,9 +30,7 @@ import org.springframework.web.util.UriUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 客服账号管理
@@ -58,9 +58,7 @@ public class KfAccountApi {
      * @return the generic response
      */
     public GenericResponse<String> addKfAccount(String accountName, String mediaId) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("name", accountName);
-        body.put("media_id", mediaId);
+        KfAccountAddRequest body = new KfAccountAddRequest(accountName, mediaId);
         return workWeChatApiClient.post( WeComEndpoint.KF_ACCOUNT_CREATE, body, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
     }
@@ -104,11 +102,7 @@ public class KfAccountApi {
      * @return the generic response
      */
     public GenericResponse<String> kfAccountLink(String openKfid, String scene) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("open_kfid", openKfid);
-        if (StringUtils.hasText(scene)) {
-            body.put("scene", scene);
-        }
+        KfAccountLinkRequest body = new KfAccountLinkRequest(openKfid, scene);
         GenericResponse<String> response = workWeChatApiClient.post(WeComEndpoint.KF_ADD_CONTACT_WAY, body, new ParameterizedTypeReference<GenericResponse<String>>() {
         });
         if (StringUtils.hasText(scene)) {

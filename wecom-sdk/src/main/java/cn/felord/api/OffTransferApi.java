@@ -16,6 +16,7 @@
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
+import cn.felord.domain.common.CursorPage;
 import cn.felord.domain.externalcontact.OffTransferCustomerRequest;
 import cn.felord.domain.externalcontact.TransferCustomerResponse;
 import cn.felord.domain.externalcontact.TransferFailedGroupChat;
@@ -26,8 +27,6 @@ import cn.felord.domain.externalcontact.UnassignedListResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -57,10 +56,8 @@ public class OffTransferApi {
      * @return TransferCustomerResponse transfer customer response
      */
     public UnassignedListResponse getUnassignedList(String cursor, int pageSize) {
-        Map<String, Object> body = new HashMap<>(2);
-        body.put("cursor", cursor);
-        body.put("page_size", pageSize);
-        return workWeChatApiClient.post(WeComEndpoint.UNASSIGNED_LIST, body, UnassignedListResponse.class);
+        CursorPage pageRequest = new CursorPage(cursor, pageSize);
+        return workWeChatApiClient.post(WeComEndpoint.UNASSIGNED_LIST, pageRequest, UnassignedListResponse.class);
     }
 
 

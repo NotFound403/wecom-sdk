@@ -1,14 +1,12 @@
 package cn.felord.api;
 
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.callcenter.KfAndExternalUser;
 import cn.felord.domain.callcenter.KfExternalUserRequest;
 import cn.felord.domain.callcenter.KfExternalUserResponse;
 import cn.felord.domain.callcenter.UpgradeServiceConfig;
 import cn.felord.domain.callcenter.UpgradeServiceRequest;
 import cn.felord.enumeration.WeComEndpoint;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 升级服务
@@ -55,9 +53,7 @@ public class KfUpgradeApi {
      * @return the we com response
      */
     public WeComResponse cancelService(String openKfid, String externalUserid) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("open_kfid", openKfid);
-        body.put("external_userid", externalUserid);
+        KfAndExternalUser body = new KfAndExternalUser(openKfid, externalUserid);
         return workWeChatApiClient.post(WeComEndpoint.KF_CANCEL_UPGRADE_SERVICE, body, WeComResponse.class);
     }
 

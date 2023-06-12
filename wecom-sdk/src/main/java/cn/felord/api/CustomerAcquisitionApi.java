@@ -17,13 +17,19 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.externalcontact.*;
+import cn.felord.domain.common.PageRequest;
+import cn.felord.domain.externalcontact.AcquisitionLink;
+import cn.felord.domain.externalcontact.AcquisitionLinkCreateRequest;
+import cn.felord.domain.externalcontact.AcquisitionLinkUpdateRequest;
+import cn.felord.domain.externalcontact.AcquisitionQuotaResponse;
+import cn.felord.domain.externalcontact.LinkCustomersResponse;
+import cn.felord.domain.externalcontact.LinkDetailResponse;
+import cn.felord.domain.externalcontact.LinkPageRequest;
+import cn.felord.domain.externalcontact.LinksResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.core.ParameterizedTypeReference;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 获客助手
@@ -51,11 +57,11 @@ public class CustomerAcquisitionApi {
      * @return the follow user list
      */
     public LinksResponse queryLinks(String cursor, int limit) {
-        Map<String, Object> body = new HashMap<>(2);
-        body.put("cursor", cursor);
-        body.put("limit", limit);
+        PageRequest pageRequest = new PageRequest();
+        pageRequest.setCursor(cursor);
+        pageRequest.setLimit(limit);
         return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_ACQUISITION_LINKS,
-                body,
+                pageRequest,
                 LinksResponse.class);
     }
 
@@ -117,12 +123,12 @@ public class CustomerAcquisitionApi {
      * @return the we com response
      */
     public LinkCustomersResponse queryLinkCustomers(String linkId, int limit, String cursor) {
-        Map<String, Object> body = new HashMap<>(3);
-        body.put("link_id", linkId);
-        body.put("cursor", cursor);
-        body.put("limit", limit);
+        LinkPageRequest pageRequest = new LinkPageRequest();
+        pageRequest.setCursor(cursor);
+        pageRequest.setLimit(limit);
+        pageRequest.setLinkId(linkId);
         return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_ACQUISITION_CUSTOMERS,
-                body,
+                pageRequest,
                 LinkCustomersResponse.class);
     }
 

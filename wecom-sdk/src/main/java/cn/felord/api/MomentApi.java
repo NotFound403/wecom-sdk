@@ -17,6 +17,9 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.common.PageRequest;
+import cn.felord.domain.common.StrategyId;
+import cn.felord.domain.common.UserMoment;
 import cn.felord.domain.externalcontact.CustomerStrategyRequest;
 import cn.felord.domain.externalcontact.MomentAttachment;
 import cn.felord.domain.externalcontact.MomentBody;
@@ -38,8 +41,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.util.LinkedMultiValueMap;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 客户朋友圈
@@ -147,10 +148,8 @@ public class MomentApi {
      * @return the moment 优化了企业微信给的数据结构
      */
     public MomentCommentResponse getMomentComments(String momentId, String userId) {
-        Map<String, String> body = new HashMap<>(2);
-        body.put("moment_id", momentId);
-        body.put("userid", userId);
-        return workWeChatApiClient.post(WeComEndpoint.MOMENT_COMMENTS, body, MomentCommentResponse.class);
+        UserMoment userMoment = new UserMoment(momentId, userId);
+        return workWeChatApiClient.post(WeComEndpoint.MOMENT_COMMENTS, userMoment, MomentCommentResponse.class);
     }
 
     /**
@@ -161,11 +160,10 @@ public class MomentApi {
      * @return the external user list detail response
      */
     public StrategyListResponse momentStrategyList(String cursor, int limit) {
-        Map<String, Object> body = new HashMap<>(2);
-        body.put("cursor", cursor);
-        body.put("limit", limit);
-
-        return workWeChatApiClient.post(WeComEndpoint.MOMENT_STRATEGY_LIST, body, StrategyListResponse.class);
+        PageRequest pageRequest = new PageRequest();
+        pageRequest.setCursor(cursor);
+        pageRequest.setLimit(limit);
+        return workWeChatApiClient.post(WeComEndpoint.MOMENT_STRATEGY_LIST, pageRequest, StrategyListResponse.class);
     }
 
     /**
@@ -175,8 +173,9 @@ public class MomentApi {
      * @return the external user list detail response
      */
     public MomentStrategyDetailResponse getMomentStrategy(int strategyId) {
+        StrategyId body = new StrategyId(strategyId);
         return workWeChatApiClient.post(WeComEndpoint.MOMENT_STRATEGY_GET,
-                Collections.singletonMap("strategy_id", strategyId),
+                body,
                 MomentStrategyDetailResponse.class);
     }
 

@@ -16,7 +16,6 @@
 package cn.felord.callbacks;
 
 import cn.felord.domain.callback.CallbackEventBody;
-import cn.felord.domain.callback.CallbackSettings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
