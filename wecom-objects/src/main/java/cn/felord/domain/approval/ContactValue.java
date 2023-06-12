@@ -40,7 +40,7 @@ public class ContactValue implements ContentDataValue {
     @JsonIgnore
     private ContactCtrlMode contactCtrlMode;
     private List<MemberInfo> members;
-    private Set<DeptInfo> departments;
+    private Set<ApprovalDeptInfo> departments;
 
     /**
      * Instantiates a new Contact value.
@@ -59,7 +59,7 @@ public class ContactValue implements ContentDataValue {
      *
      * @param departments the departments
      */
-    public void setDepartments(Set<DeptInfo> departments) {
+    public void setDepartments(Set<ApprovalDeptInfo> departments) {
         this.contactCtrlMode = ContactCtrlMode.DEPARTMENT;
         this.members = Collections.emptyList();
         this.departments = departments;
@@ -92,7 +92,7 @@ public class ContactValue implements ContentDataValue {
      */
     @ToString
     @Getter
-    public static class DeptInfo {
+    public static class ApprovalDeptInfo {
         private final Long openapiId;
         private final String name;
 
@@ -103,7 +103,7 @@ public class ContactValue implements ContentDataValue {
          * @param name      the name
          */
         @JsonCreator
-        public DeptInfo(@JsonProperty("openapi_id") Long openapiId, @JsonProperty("name") String name) {
+        public ApprovalDeptInfo(@JsonProperty("openapi_id") Long openapiId, @JsonProperty("name") String name) {
             this.openapiId = openapiId;
             this.name = name;
         }
