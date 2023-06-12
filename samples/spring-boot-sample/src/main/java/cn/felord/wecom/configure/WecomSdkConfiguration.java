@@ -2,15 +2,13 @@ package cn.felord.wecom.configure;
 
 import cn.felord.WeComTokenCacheable;
 import cn.felord.api.WorkWeChatApi;
-import cn.felord.callbacks.CallbackAsyncConsumer;
 import cn.felord.callbacks.CallbackCrypto;
 import cn.felord.callbacks.CallbackCryptoBuilder;
+import cn.felord.callbacks.CallbackSettings;
 import cn.felord.callbacks.CallbackSettingsService;
 import cn.felord.domain.callback.CallbackEventBody;
-import cn.felord.domain.callback.CallbackSettings;
 import cn.felord.enumeration.CallbackEvent;
 import cn.felord.wecom.cache.EhcacheWeComTokenCacheable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
