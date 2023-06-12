@@ -15,11 +15,33 @@
 
 package cn.felord.domain.approval;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
+
 /**
- * RelatedApprovalValue
- *
  * @author dax
  * @since 2023/5/27
  */
-public class RelatedApprovalValue implements ContentDataValue {
+@ToString
+@Getter
+public class PhoneNumberValue implements ContentDataValue {
+
+    private final Wrapper phonenumber;
+
+    @JsonCreator
+    public PhoneNumberValue(@JsonProperty("phonenumber") Wrapper phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    /**
+     * The type Wrapper.
+     */
+    @Data
+    public static class Wrapper {
+        private String area;
+        private String number;
+    }
 }

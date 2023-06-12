@@ -25,7 +25,7 @@ import lombok.ToString;
 import java.util.List;
 
 /**
- * TODO
+ * ApplyContentData
  *
  * @param <V> the type parameter
  * @author dax
@@ -50,6 +50,7 @@ import java.util.List;
         @JsonSubTypes.Type(value = LocationApplyContentData.class, name = "Location"),
         @JsonSubTypes.Type(value = RelatedApprovalApplyContentData.class, name = "RelatedApproval"),
         @JsonSubTypes.Type(value = FormulaApplyContentData.class, name = "Formula"),
+        @JsonSubTypes.Type(value = PhoneNumberApplyContentData.class, name = "PhoneNumber"),
 })
 @ToString
 @Getter
