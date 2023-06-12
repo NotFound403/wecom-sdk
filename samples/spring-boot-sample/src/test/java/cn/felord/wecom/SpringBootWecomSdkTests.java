@@ -5,8 +5,11 @@ import cn.felord.DefaultAgent;
 import cn.felord.WeComTokenCacheable;
 import cn.felord.api.WorkWeChatApi;
 import cn.felord.domain.externalcontact.*;
+import cn.felord.domain.message.*;
 import cn.felord.domain.webhook.WebhookBody;
 import cn.felord.domain.webhook.WebhookMarkdownBody;
+import cn.felord.domain.webhook.card.*;
+import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.ChatType;
 import cn.felord.enumeration.NativeAgent;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +17,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -21,6 +27,9 @@ import java.util.Collections;
  */
 @SpringBootTest
 class SpringBootWecomSdkTests {
+    /**
+     * The We com token cacheable.
+     */
     @Autowired
     WeComTokenCacheable weComTokenCacheable;
     @Autowired
@@ -47,6 +56,48 @@ class SpringBootWecomSdkTests {
 
         WorkWeChatApi.webhookApi().send("机器人key", body);
     }
+
+    /**
+     * 比较复杂的应用文本卡片模版消息，其它卡片模版使用{@link TemplateCardBuilders}构建
+     */
+    @Test
+    void sendAgentMsg() {
+        CardSource source = new CardSource();
+        source.setDesc("XXX系统通知");
+        source.setDescColor(CardSource.DescColor.GREY);
+        source.setIconUrl("这里替换方形系统小logo链接");
+        MainTitle mainTitle = new MainTitle("主标题", "次标题");
+
+        TextHorizontalContent no = new TextHorizontalContent("订单编号", "xxxxxxxxxxxxxxxxxxxx");
+        TextHorizontalContent address = new TextHorizontalContent("订单地址", "大王庄二郎庙");
+        // 使用ID转录
+        TextHorizontalContent orgName = new TextHorizontalContent("公司名称", "$departmentName=" + 1 + "$");
+        // 员工组件 使用ID转录
+        AtStaffHorizontalContent staff = AtStaffHorizontalContent.withTransUserId("推送人员", "这里放企微成员的userid");
+        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        TextHorizontalContent time = new TextHorizontalContent("推送日期", now);
+
+        TextMessageTemplateCard textMessageTemplateCard = TemplateCardBuilders.textMessageTemplateCardBuilder(new UrlCardAction("这里放面板路径"))
+                .source(source)
+                .mainTitle(mainTitle)
+                .horizontalContentList(Arrays.asList(no, address, orgName, staff, time))
+                .jumpList(Collections.singletonList(new UrlJump("查看详情", "https://baidu.com")))
+                .build();
+
+        TemplateCardMessageBody<TextMessageTemplateCard> cardMessageBody = MessageBodyBuilders.templateCardMessageBodyBuilder(textMessageTemplateCard)
+                .touser("发送的目标成员，多个使用|隔开")
+                // 开启ID转录  不然上面的组件会报错
+                .enableIdTrans(BoolEnum.TRUE)
+                // 开启重复检查
+                .enableDuplicateCheck(BoolEnum.TRUE)
+                .build();
+
+        DefaultAgent defaultAgent = new DefaultAgent("企微企业id", "企微应用密钥", "企微应用id");
+        MessageResponse send = workWeChatApi.agentMessageApi(defaultAgent)
+                .send(cardMessageBody);
+        Assertions.assertTrue(send.isSuccessful());
+    }
+
 
     /**
      * 给客户推送小程序促销消息
@@ -77,8 +128,6 @@ class SpringBootWecomSdkTests {
         Miniprogram miniprogram = new Miniprogram(title, appid, picMeidaId, page);
         MiniprogramMsgAttachment o = new MiniprogramMsgAttachment(miniprogram);
         request.setAttachments(Collections.singletonList(o));
-
-
         AgentDetails nativedAgent = DefaultAgent.nativeAgent("企业id", "外部联系人密钥", NativeAgent.EXTERNAL);
         MsgTemplateResponse msgTemplateResponse = workWeChatApi.externalContactManager(nativedAgent)
                 .messageApi()
@@ -93,8 +142,8 @@ class SpringBootWecomSdkTests {
     @Test
     void tokenCache() {
         String token = "xxxxxxxxxxxxxxxxx";
-        weComTokenCacheable.putAccessToken("a","b", token);
+        weComTokenCacheable.putAccessToken("a", "b", token);
         String accessToken = weComTokenCacheable.getAccessToken("a", "b");
-        Assertions.assertEquals(token,accessToken);
+        Assertions.assertEquals(token, accessToken);
     }
 }

@@ -15,7 +15,7 @@
 
 package cn.felord.domain.message;
 
-import cn.felord.domain.KV;
+import cn.felord.domain.common.KV;
 import lombok.Data;
 
 import java.util.List;
