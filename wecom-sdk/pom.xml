@@ -25,7 +25,6 @@
         <version>1.0.14</version>
     </parent>
     <artifactId>wecom-sdk</artifactId>
-    <version>1.0.14</version>
     <packaging>jar</packaging>
 
     <name>wecom-sdk</name>
