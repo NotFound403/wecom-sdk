@@ -70,6 +70,7 @@ public abstract class ApplyContentData<V> {
      * @param title   the title
      * @param value   the value
      * @param hidden  the hidden
+     * @param require the require
      */
     public ApplyContentData(ApprovalCtrlType control, String id, List<ApprovalTitle> title, V value, Integer hidden,BoolEnum require) {
         this.control = control;

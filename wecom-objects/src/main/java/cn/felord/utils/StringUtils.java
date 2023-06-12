@@ -68,8 +68,8 @@ public abstract class StringUtils {
      *
      * @param str the {@code CharSequence} to check (may be {@code null})
      * @return {@code true} if the {@code CharSequence} is not {@code null} and has length
-     * @see #hasLength(String)
-     * @see #hasText(CharSequence)
+     * @see #hasLength(String) #hasLength(String)
+     * @see #hasText(CharSequence) #hasText(CharSequence)
      */
     public static boolean hasLength(CharSequence str) {
         return (str != null && str.length() > 0);
@@ -82,8 +82,8 @@ public abstract class StringUtils {
      *
      * @param str the {@code String} to check (may be {@code null})
      * @return {@code true} if the {@code String} is not {@code null} and has length
-     * @see #hasLength(CharSequence)
-     * @see #hasText(String)
+     * @see #hasLength(CharSequence) #hasLength(CharSequence)
+     * @see #hasText(String) #hasText(String)
      */
     public static boolean hasLength(String str) {
         return (str != null && !str.isEmpty());
@@ -103,11 +103,10 @@ public abstract class StringUtils {
      * </pre>
      *
      * @param str the {@code CharSequence} to check (may be {@code null})
-     * @return {@code true} if the {@code CharSequence} is not {@code null},
-     * its length is greater than 0, and it does not contain whitespace only
-     * @see #hasText(String)
-     * @see #hasLength(CharSequence)
-     * @see Character#isWhitespace
+     * @return {@code true} if the {@code CharSequence} is not {@code null}, its length is greater than 0, and it does not contain whitespace only
+     * @see #hasText(String) #hasText(String)
+     * @see #hasLength(CharSequence) #hasLength(CharSequence)
+     * @see Character#isWhitespace Character#isWhitespace
      */
     public static boolean hasText(CharSequence str) {
         return (str != null && str.length() > 0 && containsText(str));
@@ -120,11 +119,10 @@ public abstract class StringUtils {
      * and it contains at least one non-whitespace character.
      *
      * @param str the {@code String} to check (may be {@code null})
-     * @return {@code true} if the {@code String} is not {@code null}, its
-     * length is greater than 0, and it does not contain whitespace only
-     * @see #hasText(CharSequence)
-     * @see #hasLength(String)
-     * @see Character#isWhitespace
+     * @return {@code true} if the {@code String} is not {@code null}, its length is greater than 0, and it does not contain whitespace only
+     * @see #hasText(CharSequence) #hasText(CharSequence)
+     * @see #hasLength(String) #hasLength(String)
+     * @see Character#isWhitespace Character#isWhitespace
      */
     public static boolean hasText(String str) {
         return (str != null && !str.isEmpty() && containsText(str));
@@ -144,9 +142,8 @@ public abstract class StringUtils {
      * Check whether the given {@code CharSequence} contains any whitespace characters.
      *
      * @param str the {@code CharSequence} to check (may be {@code null})
-     * @return {@code true} if the {@code CharSequence} is not empty and
-     * contains at least 1 whitespace character
-     * @see Character#isWhitespace
+     * @return {@code true} if the {@code CharSequence} is not empty and contains at least 1 whitespace character
+     * @see Character#isWhitespace Character#isWhitespace
      */
     public static boolean containsWhitespace(CharSequence str) {
         if (!hasLength(str)) {
@@ -166,9 +163,8 @@ public abstract class StringUtils {
      * Check whether the given {@code String} contains any whitespace characters.
      *
      * @param str the {@code String} to check (may be {@code null})
-     * @return {@code true} if the {@code String} is not empty and
-     * contains at least 1 whitespace character
-     * @see #containsWhitespace(CharSequence)
+     * @return {@code true} if the {@code String} is not empty and contains at least 1 whitespace character
+     * @see #containsWhitespace(CharSequence) #containsWhitespace(CharSequence)
      */
     public static boolean containsWhitespace(String str) {
         return containsWhitespace((CharSequence) str);
@@ -179,7 +175,7 @@ public abstract class StringUtils {
      *
      * @param str the {@code String} to check
      * @return the trimmed {@code String}
-     * @see Character#isWhitespace
+     * @see Character#isWhitespace Character#isWhitespace
      */
     public static String trimWhitespace(String str) {
         if (!hasLength(str)) {
@@ -206,8 +202,8 @@ public abstract class StringUtils {
      *
      * @param text the {@code CharSequence} to check
      * @return the trimmed {@code CharSequence}
-     * @see #trimAllWhitespace(String)
-     * @see Character#isWhitespace
+     * @see #trimAllWhitespace(String) #trimAllWhitespace(String)
+     * @see Character#isWhitespace Character#isWhitespace
      * @since 5.3.22
      */
     public static CharSequence trimAllWhitespace(CharSequence text) {
@@ -232,8 +228,8 @@ public abstract class StringUtils {
      *
      * @param str the {@code String} to check
      * @return the trimmed {@code String}
-     * @see #trimAllWhitespace(CharSequence)
-     * @see Character#isWhitespace
+     * @see #trimAllWhitespace(CharSequence) #trimAllWhitespace(CharSequence)
+     * @see Character#isWhitespace Character#isWhitespace
      */
     public static String trimAllWhitespace(String str) {
         if (str == null) {
@@ -247,7 +243,7 @@ public abstract class StringUtils {
      *
      * @param str the {@code String} to check
      * @return the trimmed {@code String}
-     * @see Character#isWhitespace
+     * @see Character#isWhitespace Character#isWhitespace
      */
     public static String trimLeadingWhitespace(String str) {
         if (!hasLength(str)) {
@@ -266,7 +262,7 @@ public abstract class StringUtils {
      *
      * @param str the {@code String} to check
      * @return the trimmed {@code String}
-     * @see Character#isWhitespace
+     * @see Character#isWhitespace Character#isWhitespace
      */
     public static String trimTrailingWhitespace(String str) {
         if (!hasLength(str)) {
@@ -323,6 +319,7 @@ public abstract class StringUtils {
      *
      * @param str             the {@code String} to check
      * @param singleCharacter the character to compare to
+     * @return the boolean
      * @since 5.2.9
      */
     public static boolean matchesCharacter(String str, char singleCharacter) {
@@ -335,7 +332,8 @@ public abstract class StringUtils {
      *
      * @param str    the {@code String} to check
      * @param prefix the prefix to look for
-     * @see String#startsWith
+     * @return the boolean
+     * @see String#startsWith String#startsWith
      */
     public static boolean startsWithIgnoreCase(String str, String prefix) {
         return (str != null && prefix != null && str.length() >= prefix.length() &&
@@ -348,7 +346,8 @@ public abstract class StringUtils {
      *
      * @param str    the {@code String} to check
      * @param suffix the suffix to look for
-     * @see String#endsWith
+     * @return the boolean
+     * @see String#endsWith String#endsWith
      */
     public static boolean endsWithIgnoreCase(String str, String suffix) {
         return (str != null && suffix != null && str.length() >= suffix.length() &&
@@ -362,6 +361,7 @@ public abstract class StringUtils {
      * @param str       the original string (or StringBuilder)
      * @param index     the index in the original string to start matching against
      * @param substring the substring to match at the given index
+     * @return the boolean
      */
     public static boolean substringMatch(CharSequence str, int index, CharSequence substring) {
         if (index + substring.length() > str.length()) {
@@ -380,6 +380,7 @@ public abstract class StringUtils {
      *
      * @param str string to search in
      * @param sub string to search for
+     * @return the int
      */
     public static int countOccurrencesOf(String str, String sub) {
         if (!hasLength(str) || !hasLength(sub)) {
@@ -449,8 +450,7 @@ public abstract class StringUtils {
      * Delete any character in a given {@code String}.
      *
      * @param inString      the original {@code String}
-     * @param charsToDelete a set of characters to delete.
-     *                      E.g. "az\n" will delete 'a's, 'z's and new lines.
+     * @param charsToDelete a set of characters to delete.                      E.g. "az\n" will delete 'a's, 'z's and new lines.
      * @return the resulting {@code String}
      */
     public static String deleteAny(String inString, String charsToDelete) {
@@ -480,8 +480,7 @@ public abstract class StringUtils {
      * Quote the given {@code String} with single quotes.
      *
      * @param str the input {@code String} (e.g. "myString")
-     * @return the quoted {@code String} (e.g. "'myString'"),
-     * or {@code null} if the input was {@code null}
+     * @return the quoted {@code String} (e.g. "'myString'"), or {@code null} if the input was {@code null}
      */
     public static String quote(String str) {
         return (str != null ? "'" + str + "'" : null);
@@ -492,8 +491,7 @@ public abstract class StringUtils {
      * if it is a {@code String}; keeping the Object as-is else.
      *
      * @param obj the input Object (e.g. "myString")
-     * @return the quoted {@code String} (e.g. "'myString'"),
-     * or the input object as-is if not a {@code String}
+     * @return the quoted {@code String} (e.g. "'myString'"), or the input object as-is if not a {@code String}
      */
     public static Object quoteIfString(Object obj) {
         return (obj instanceof String ? quote((String) obj) : obj);
@@ -504,6 +502,7 @@ public abstract class StringUtils {
      * "this.name.is.qualified", returns "qualified".
      *
      * @param qualifiedName the qualified name
+     * @return the string
      */
     public static String unqualify(String qualifiedName) {
         return unqualify(qualifiedName, '.');
@@ -515,6 +514,7 @@ public abstract class StringUtils {
      *
      * @param qualifiedName the qualified name
      * @param separator     the separator
+     * @return the string
      */
     public static String unqualify(String qualifiedName, char separator) {
         return qualifiedName.substring(qualifiedName.lastIndexOf(separator) + 1);
