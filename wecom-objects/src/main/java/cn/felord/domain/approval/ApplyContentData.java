@@ -82,11 +82,11 @@ public abstract class ApplyContentData<V> {
     }
 
     /**
-     * From apply content data.
+     * 拉取审批单配置填充数据时使用
      *
      * @param <V>      the type parameter
-     * @param property the property
-     * @param value    the value
+     * @param property 配置
+     * @param value    配置对应的值
      * @return the apply content data
      */
     public static <V extends ContentDataValue> ApplyContentData<V> from(CtrlProperty property, V value) {
