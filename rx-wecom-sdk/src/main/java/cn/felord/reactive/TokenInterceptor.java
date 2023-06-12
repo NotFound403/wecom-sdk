@@ -19,7 +19,7 @@ import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.reactive.api.AccessTokenApi;
 import cn.felord.reactive.api.TokenApi;
-import cn.felord.reactive.json.JacksonObjectMapperFactory;
+import cn.felord.json.JacksonObjectMapperFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
