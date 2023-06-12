@@ -16,8 +16,8 @@
 package cn.felord.api.provider;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComTokenCacheable;
 import cn.felord.WeComException;
+import cn.felord.WeComTokenCacheable;
 import cn.felord.api.AbstractTokenApi;
 import cn.felord.domain.authentication.ProviderTokenResponse;
 import cn.felord.enumeration.WeComEndpoint;

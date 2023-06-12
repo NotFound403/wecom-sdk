@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.callbacks;
+package cn.felord.reactive.callbacks;
 
 import cn.felord.WeComException;
 import cn.felord.utils.Base64Utils;
@@ -40,7 +40,7 @@ public class CallbackSettings {
      */
     public CallbackSettings(String token, String encodingAesKey, String receiveid) {
         if (encodingAesKey.length() != 43) {
-            throw new WeComException("Illegal Aes Key");
+            throw new WeComException("encodingAesKey length must be 43");
         }
         this.token = token;
         this.aesKey = Base64Utils.decodeFromString(encodingAesKey + "=");

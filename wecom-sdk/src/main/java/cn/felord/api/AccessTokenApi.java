@@ -16,8 +16,8 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.WeComTokenCacheable;
 import cn.felord.WeComException;
+import cn.felord.WeComTokenCacheable;
 import cn.felord.domain.authentication.AccessTokenResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.web.util.UriComponents;
