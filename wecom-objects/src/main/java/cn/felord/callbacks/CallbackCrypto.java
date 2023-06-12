@@ -13,14 +13,13 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.callbacks;
+package cn.felord.callbacks;
 
 import cn.felord.WeComException;
 import cn.felord.domain.callback.CallbackEventBody;
 import cn.felord.utils.Base64Utils;
 import cn.felord.utils.SHA1;
 import cn.felord.utils.StringUtils;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -47,7 +46,6 @@ import java.util.Random;
  * 	<li>如果安装了JDK，将两个jar文件放到%JDK_HOME%\jre\lib\security目录下覆盖原来文件</li>
  * </ol>
  */
-@Slf4j
 public class CallbackCrypto {
     private static final String BOM = "\ufeff";
     private static final String BASE_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -275,9 +273,6 @@ public class CallbackCrypto {
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
         String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
-        if (log.isDebugEnabled()) {
-            log.debug("callback message, {}", xml);
-        }
         CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
         eventBody.setAgentId(agentId);
         // 唯一性判断
@@ -342,9 +337,6 @@ public class CallbackCrypto {
         String token = callbackSettings.getToken();
         String signature = SHA1.sha1Signature(token, timeStamp, nonce, encrypt);
         if (!Objects.equals(msgSignature, signature)) {
-            if (log.isDebugEnabled()) {
-                log.debug("signature not matched: before: {},after : {}", msgSignature, signature);
-            }
             throw new WeComException("callback signature not matched");
         }
         byte[] aesKey = callbackSettings.getAesKey();

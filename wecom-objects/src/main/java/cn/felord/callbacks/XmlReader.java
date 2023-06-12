@@ -13,25 +13,34 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.callbacks;
+package cn.felord.callbacks;
 
 import cn.felord.domain.callback.CallbackBody;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import lombok.Data;
 
 /**
+ * The interface Xml reader.
+ *
  * @author felord
- * @since 2021/10/10 14:21
+ * @since 2021 /10/10 14:14
  */
-@XStreamAlias("xml")
-@Data
-class CallbackXmlResponse implements CallbackResponse, CallbackBody {
-    @XStreamAlias("Encrypt")
-    private final String encrypt;
-    @XStreamAlias("MsgSignature")
-    private final String msgSignature;
-    @XStreamAlias("TimeStamp")
-    private final String timeStamp;
-    @XStreamAlias("Nonce")
-    private final String nonce;
+public interface XmlReader {
+
+    /**
+     * Read t.
+     *
+     * @param <T>   the type parameter
+     * @param xml   the xml
+     * @param clazz the clazz
+     * @return the t
+     */
+    <T extends CallbackBody> T read(String xml, Class<T> clazz);
+
+    /**
+     * Write string.
+     *
+     * @param <T> the type parameter
+     * @param t   the t
+     * @return the string
+     */
+    <T extends CallbackBody> String write(T t);
 }

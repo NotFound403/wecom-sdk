@@ -13,23 +13,11 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.callbacks;
-
-import cn.felord.domain.callback.CallbackBody;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import lombok.Data;
+package cn.felord.callbacks;
 
 /**
- * @author felord
- * @since 2021/10/10 14:21
+ * @author dax
+ * @since 2023/4/14 16:07
  */
-@XStreamAlias("xml")
-@Data
-public class CallbackXmlBody implements CallbackBody {
-    @XStreamAlias("ToUserName")
-    private final String toUserName;
-    @XStreamAlias("Encrypt")
-    private final String encrypt;
-    @XStreamAlias("AgentID")
-    private final String agentId;
+public interface CallbackResponse {
 }

@@ -14,9 +14,6 @@
  */
 package cn.felord.callbacks;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.io.Serializable;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,7 +32,6 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
 
     private boolean daemon = false;
 
-    @Nullable
     private ThreadGroup threadGroup;
 
     private final AtomicInteger threadCount = new AtomicInteger();
@@ -45,7 +41,7 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
      *
      * @param threadNamePrefix the prefix to use for the names of newly created threads
      */
-    public CustomizableThreadFactory(@NotNull String threadNamePrefix) {
+    public CustomizableThreadFactory(String threadNamePrefix) {
         this.threadNamePrefix = threadNamePrefix;
     }
 
@@ -136,7 +132,6 @@ public class CustomizableThreadFactory implements ThreadFactory, Serializable {
      *
      * @return the thread group
      */
-    @Nullable
     public ThreadGroup getThreadGroup() {
         return this.threadGroup;
     }

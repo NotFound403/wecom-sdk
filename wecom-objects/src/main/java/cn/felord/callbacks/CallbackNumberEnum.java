@@ -13,11 +13,13 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.callbacks;
+package cn.felord.callbacks;
 
 /**
  * @author dax
- * @since 2023/4/14 16:07
+ * @since 2023/5/28
  */
-public interface CallbackResponse {
+public interface CallbackNumberEnum {
+
+    int getType();
 }

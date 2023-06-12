@@ -13,13 +13,22 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.callbacks;
+package cn.felord.callbacks;
+
 
 /**
- * @author dax
- * @since 2023/5/28
+ * The interface Callback authentication service.
+ *
+ * @author felord
+ * @since 2021 /11/21 12:13
  */
-public interface CallbackNumberEnum {
-
-    int getType();
+public interface CallbackSettingsService {
+    /**
+     * Load authentication callback authentication.
+     *
+     * @param agentId the agent id
+     * @param corpId  the corp id
+     * @return the callback authentication
+     */
+    CallbackSettings loadAuthentication(String agentId, String corpId);
 }
