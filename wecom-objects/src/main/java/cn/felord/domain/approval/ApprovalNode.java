@@ -27,7 +27,7 @@ import lombok.Data;
 public class ApprovalNode {
 
     @JsonProperty("Items")
-    private Items items;
+    private ApprovalNodeItems items;
     @JsonProperty("NodeAttr")
     private Long nodeAttr;
     @JsonProperty("NodeStatus")
