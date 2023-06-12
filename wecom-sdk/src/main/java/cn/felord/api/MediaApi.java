@@ -15,8 +15,8 @@
 
 package cn.felord.api;
 
-import cn.felord.domain.MediaResponse;
-import cn.felord.domain.WeChatMultipartFile;
+import cn.felord.WeChatMultipartFile;
+import cn.felord.domain.media.MediaResponse;
 import cn.felord.enumeration.MediaAttachmentType;
 import cn.felord.enumeration.MediaTypeEnum;
 import cn.felord.enumeration.WeComEndpoint;

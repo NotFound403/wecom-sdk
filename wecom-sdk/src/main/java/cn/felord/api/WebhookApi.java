@@ -15,9 +15,9 @@
 
 package cn.felord.api;
 
-import cn.felord.domain.MediaResponse;
-import cn.felord.domain.WeChatMultipartFile;
+import cn.felord.WeChatMultipartFile;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.webhook.WebhookBody;
 import cn.felord.enumeration.WeComEndpoint;
 import org.springframework.http.ContentDisposition;
