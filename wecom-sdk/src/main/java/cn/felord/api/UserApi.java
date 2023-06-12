@@ -25,6 +25,7 @@ import cn.felord.domain.contactbook.user.SimpleUser;
 import cn.felord.domain.contactbook.user.UserDetail;
 import cn.felord.domain.contactbook.user.UserIdConvertRequest;
 import cn.felord.domain.contactbook.user.UserIdConvertResponse;
+import cn.felord.domain.contactbook.user.UserIds;
 import cn.felord.domain.contactbook.user.UserInfoRequest;
 import cn.felord.domain.contactbook.user.UserInfoResponse;
 import cn.felord.enumeration.EmailType;
@@ -141,7 +142,8 @@ public class UserApi {
      * @return WeComResponse we com response
      */
     public WeComResponse batchDelUser(List<String> userIdList) {
-        return workWeChatApiClient.post(WeComEndpoint.USER_BATCH_DELETE, Collections.singletonMap("useridlist", userIdList), WeComResponse.class);
+        UserIds userIds = new UserIds(userIdList);
+        return workWeChatApiClient.post(WeComEndpoint.USER_BATCH_DELETE, userIds, WeComResponse.class);
     }
 
     /**
