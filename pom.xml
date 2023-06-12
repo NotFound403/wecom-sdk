@@ -21,7 +21,7 @@
 
     <groupId>cn.felord</groupId>
     <artifactId>wecom</artifactId>
-    <version>1.0.14</version>
+    <version>1.0.14.RC2</version>
     <packaging>pom</packaging>
 
     <name>wecom</name>
