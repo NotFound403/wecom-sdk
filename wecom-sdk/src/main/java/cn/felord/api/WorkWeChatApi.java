@@ -17,6 +17,7 @@ package cn.felord.api;
 
 import cn.felord.AgentDetails;
 import cn.felord.WeComTokenCacheable;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * 企业微信API
@@ -26,6 +27,7 @@ import cn.felord.WeComTokenCacheable;
 public final class WorkWeChatApi {
 
     private final WeComTokenCacheable weComTokenCacheable;
+    private final HttpLoggingInterceptor.Level level;
 
 
     /**
@@ -34,9 +36,19 @@ public final class WorkWeChatApi {
      * @param weComTokenCacheable the we com token cacheable
      */
     public WorkWeChatApi(WeComTokenCacheable weComTokenCacheable) {
-        this.weComTokenCacheable = weComTokenCacheable;
+        this(weComTokenCacheable, HttpLoggingInterceptor.Level.NONE);
     }
 
+    /**
+     * Instantiates a new Work we chat api.
+     *
+     * @param weComTokenCacheable the we com token cacheable
+     * @param level               the level
+     */
+    public WorkWeChatApi(WeComTokenCacheable weComTokenCacheable, HttpLoggingInterceptor.Level level) {
+        this.weComTokenCacheable = weComTokenCacheable;
+        this.level = level;
+    }
 
     /**
      * 获取企业微信API域名IP段
@@ -45,7 +57,7 @@ public final class WorkWeChatApi {
      * @return the domain api
      */
     public DomainApi domainApi(AgentDetails agentDetails) {
-        return new DomainApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new DomainApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -55,7 +67,7 @@ public final class WorkWeChatApi {
      * @return the Address book Manager
      */
     public ContactBookManager contactBookManager(AgentDetails agentDetails) {
-        return new ContactBookManager(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new ContactBookManager(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -65,7 +77,7 @@ public final class WorkWeChatApi {
      * @return the external contact manager
      */
     public ExternalContactManager externalContactManager(AgentDetails agentDetails) {
-        return new ExternalContactManager(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new ExternalContactManager(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -75,7 +87,7 @@ public final class WorkWeChatApi {
      * @return the call center manager
      */
     public CallCenterManager callCenterManager(AgentDetails agentDetails) {
-        return new CallCenterManager(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new CallCenterManager(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -85,7 +97,7 @@ public final class WorkWeChatApi {
      * @return the auth api
      */
     public AuthApi authApi(AgentDetails agentDetails) {
-        return new AuthApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new AuthApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -95,7 +107,7 @@ public final class WorkWeChatApi {
      * @return the agent manager
      */
     public AgentManager agentManager(AgentDetails agentDetails) {
-        return new AgentManager(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new AgentManager(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -124,7 +136,7 @@ public final class WorkWeChatApi {
      * @return the media api
      */
     public MediaApi mediaApi(AgentDetails agentDetails) {
-        return new MediaApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new MediaApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -134,7 +146,7 @@ public final class WorkWeChatApi {
      * @return the calendar api
      */
     public CalendarApi calendarApi(AgentDetails agentDetails) {
-        return new CalendarApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new CalendarApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -144,7 +156,7 @@ public final class WorkWeChatApi {
      * @return the schedule api
      */
     public ScheduleApi scheduleApi(AgentDetails agentDetails) {
-        return new ScheduleApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new ScheduleApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -154,7 +166,7 @@ public final class WorkWeChatApi {
      * @return the message api
      */
     public AgentMessageApi agentMessageApi(AgentDetails agentDetails) {
-        return new AgentMessageApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new AgentMessageApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -164,7 +176,7 @@ public final class WorkWeChatApi {
      * @return the wedoc api
      */
     public WedocApi wedocApi(AgentDetails agentDetails) {
-        return new WedocApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new WedocApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -174,7 +186,7 @@ public final class WorkWeChatApi {
      * @return the we drive api
      */
     public WeDriveApi weDriveApi(AgentDetails agentDetails) {
-        return new WeDriveApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new WeDriveApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -184,7 +196,7 @@ public final class WorkWeChatApi {
      * @return the approval api
      */
     public ApprovalApi approvalApi(AgentDetails agentDetails) {
-        return new ApprovalApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new ApprovalApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 
     /**
@@ -194,6 +206,6 @@ public final class WorkWeChatApi {
      * @return the urgent call api
      */
     public UrgentCallApi urgentCallApi(AgentDetails agentDetails) {
-        return new UrgentCallApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails)));
+        return new UrgentCallApi(new WorkWeChatApiClient(new AccessTokenApi(weComTokenCacheable, agentDetails), level));
     }
 }

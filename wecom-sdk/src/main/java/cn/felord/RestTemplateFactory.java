@@ -20,6 +20,7 @@ import cn.felord.json.JacksonObjectMapperFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
@@ -67,11 +68,20 @@ public final class RestTemplateFactory {
         }
     }
 
-
-    public static OkHttp3ClientHttpRequestFactory clientHttpRequestFactory(TokenApi tokenApi) {
+    /**
+     * Client http request factory ok http 3 client http request factory.
+     *
+     * @param tokenApi the token api
+     * @param level    the level
+     * @return the ok http 3 client http request factory
+     */
+    public static OkHttp3ClientHttpRequestFactory clientHttpRequestFactory(TokenApi tokenApi, HttpLoggingInterceptor.Level level) {
         ConnectionPool connectionPool = new ConnectionPool(20, 5L, TimeUnit.MINUTES);
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.level(level);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new TokenInterceptor(tokenApi))
+                .addInterceptor(httpLoggingInterceptor)
                 //.sslSocketFactory(sslSocketFactory(), x509TrustManager())
                 .retryOnConnectionFailure(true)
                 .connectionPool(connectionPool)
@@ -82,6 +92,11 @@ public final class RestTemplateFactory {
         return new OkHttp3ClientHttpRequestFactory(okHttpClient);
     }
 
+    /**
+     * Client http request factory ok http 3 client http request factory.
+     *
+     * @return the ok http 3 client http request factory
+     */
     public static OkHttp3ClientHttpRequestFactory clientHttpRequestFactory() {
         ConnectionPool connectionPool = new ConnectionPool(20, 5L, TimeUnit.MINUTES);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()

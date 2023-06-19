@@ -15,10 +15,13 @@
 
 package cn.felord.api;
 
-import cn.felord.*;
+import cn.felord.AgentDetails;
+import cn.felord.RestTemplateFactory;
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.enumeration.WeComEndpoint;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.RequestEntity;
@@ -27,7 +30,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -51,13 +53,22 @@ public final class WorkWeChatApiClient {
     /**
      * Instantiates a new Work we chat api client.
      *
-     * @param <T>      the type parameter
      * @param tokenApi the token api
      */
     public <T extends TokenApi> WorkWeChatApiClient(T tokenApi) {
+        this(tokenApi, HttpLoggingInterceptor.Level.NONE);
+    }
+
+    /**
+     * Instantiates a new Work we chat api client.
+     *
+     * @param tokenApi the token api
+     * @param level    the level
+     */
+    public <T extends TokenApi> WorkWeChatApiClient(T tokenApi, HttpLoggingInterceptor.Level level) {
         this.restTemplate = RestTemplateFactory.restOperations();
         this.agentDetails = tokenApi.getAgentDetails();
-        this.restTemplate.setRequestFactory(RestTemplateFactory.clientHttpRequestFactory(tokenApi));
+        this.restTemplate.setRequestFactory(RestTemplateFactory.clientHttpRequestFactory(tokenApi, level));
     }
 
     /**
