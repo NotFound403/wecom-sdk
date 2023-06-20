@@ -24,6 +24,6 @@ import lombok.Data;
  */
 @Data
 public class CallbackButton {
-    @XStreamAlias("replaceName")
-    private String ReplaceName;
+    @XStreamAlias("ReplaceName")
+    private String replaceName;
 }

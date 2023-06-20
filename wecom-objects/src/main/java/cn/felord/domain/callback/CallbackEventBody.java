@@ -116,7 +116,7 @@ public class CallbackEventBody implements CallbackBody {
     @XStreamAlias("Mobile")
     private String mobile;
     @XStreamAlias("Gender")
-    private Integer Gender;
+    private Integer gender;
     @XStreamAlias("Email")
     private String email;
     @XStreamAlias("Status")
