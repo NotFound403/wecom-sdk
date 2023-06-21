@@ -28,7 +28,7 @@ public enum FileMediaType {
     /**
      * All
      */
-    ALL("*", "*/*"),
+    ALL("*", "application/octet-stream"),
 
     /**
      * Pdf
