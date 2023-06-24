@@ -105,10 +105,13 @@ public class CallbackCrypto {
      *
      * @return the random str
      */
-    String getRandomStr() {
+    String randomStr() {
         return RANDOM.ints(16, 0, BASE_.length())
                 .mapToObj(BASE_::charAt)
-                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
+                .collect(StringBuffer::new,
+                        StringBuffer::append,
+                        StringBuffer::append)
+                .toString();
 
     }
 
@@ -214,7 +217,7 @@ public class CallbackCrypto {
         CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
         // 加密
         String receiveid = callbackSettings.getReceiveid();
-        String encrypt = this.encrypt(receiveid, callbackSettings.getAesKey(), getRandomStr(), replyMsg);
+        String encrypt = this.encrypt(receiveid, callbackSettings.getAesKey(), randomStr(), replyMsg);
         // 生成安全签名
         if (!StringUtils.hasText(timeStamp)) {
             timeStamp = Long.toString(System.currentTimeMillis());
@@ -239,7 +242,7 @@ public class CallbackCrypto {
         CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
         // 加密
         String receiveid = callbackSettings.getReceiveid();
-        String encrypt = this.encrypt(receiveid, callbackSettings.getAesKey(), getRandomStr(), replyMsg);
+        String encrypt = this.encrypt(receiveid, callbackSettings.getAesKey(), randomStr(), replyMsg);
         // 生成安全签名
         if (!StringUtils.hasText(timeStamp)) {
             timeStamp = Long.toString(Instant.now().toEpochMilli());
@@ -258,7 +261,7 @@ public class CallbackCrypto {
      * 	<li>对消息进行解密</li>
      * </ol>
      *
-     * @param <T>          the type parameter
+     * @param <R>          the type parameter
      * @param agentId      the agent id
      * @param corpId       the corp id
      * @param msgSignature the msg signature
@@ -266,10 +269,29 @@ public class CallbackCrypto {
      * @param nonce        the nonce
      * @param xmlBody      the xml body
      * @param response     the response
-     * @return the string
-     * @throws WeComException 执行失败，请查看该异常的错误码和具体的错误信息
+     * @return the response
      */
-    public <T> T doAccept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, T response) throws WeComException {
+    public <R> R accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, R response) {
+        return this.doAccept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, response);
+    }
+
+    /**
+     * Accept string.
+     *
+     * @param agentId      the agent id
+     * @param corpId       the corp id
+     * @param msgSignature the msg signature
+     * @param timeStamp    the time stamp
+     * @param nonce        the nonce
+     * @param xmlBody      the xml body
+     * @return the string
+     * @throws WeComException the we com callback exception
+     */
+    public String accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody) {
+        return this.doAccept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, "success");
+    }
+
+    private <T> T doAccept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, T response) {
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
         String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
@@ -288,39 +310,6 @@ public class CallbackCrypto {
     }
 
     /**
-     * Accept string.
-     *
-     * @param agentId      the agent id
-     * @param corpId       the corp id
-     * @param msgSignature the msg signature
-     * @param timeStamp    the time stamp
-     * @param nonce        the nonce
-     * @param xmlBody      the xml body
-     * @param response     the response
-     * @return the string
-     * @throws WeComException the we com callback exception
-     */
-    public String accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, String response) throws WeComException {
-        return this.doAccept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, response);
-    }
-
-    /**
-     * Accept string.
-     *
-     * @param agentId      the agent id
-     * @param corpId       the corp id
-     * @param msgSignature the msg signature
-     * @param timeStamp    the time stamp
-     * @param nonce        the nonce
-     * @param xmlBody      the xml body
-     * @return the string
-     * @throws WeComException the we com callback exception
-     */
-    public String accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody) throws WeComException {
-        return this.doAccept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, "success");
-    }
-
-    /**
      * 解密验签，用于解密XML BODY以及校验回调URL真实性
      *
      * @param agentId      the agent id
@@ -332,7 +321,7 @@ public class CallbackCrypto {
      * @return the string
      * @throws WeComException the we com callback exception
      */
-    public String decryptMsg(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String encrypt) throws WeComException {
+    public String decryptMsg(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String encrypt) {
         CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
         String token = callbackSettings.getToken();
         String signature = SHA1.sha1Signature(token, timeStamp, nonce, encrypt);
