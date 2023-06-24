@@ -71,10 +71,6 @@
         </dependency>
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
-            <artifactId>converter-jaxb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.retrofit2</groupId>
             <artifactId>converter-jackson</artifactId>
         </dependency>
         <dependency>

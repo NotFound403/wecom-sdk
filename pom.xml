@@ -147,11 +147,6 @@
             </dependency>
             <dependency>
                 <groupId>com.squareup.retrofit2</groupId>
-                <artifactId>converter-jaxb</artifactId>
-                <version>${retrofit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.retrofit2</groupId>
                 <artifactId>converter-jackson</artifactId>
                 <exclusions>
                     <exclusion>
