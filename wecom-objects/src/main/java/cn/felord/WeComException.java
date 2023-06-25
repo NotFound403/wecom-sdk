@@ -27,6 +27,12 @@ public class WeComException extends RuntimeException {
     private final Integer errcode;
     private final String hint;
 
+    public WeComException(Throwable cause) {
+        super(cause);
+        this.errcode = DEFAULT_CODE;
+        this.hint = cause.getMessage();
+    }
+
     public WeComException(String errmsg) {
         super(errmsg);
         this.errcode = DEFAULT_CODE;

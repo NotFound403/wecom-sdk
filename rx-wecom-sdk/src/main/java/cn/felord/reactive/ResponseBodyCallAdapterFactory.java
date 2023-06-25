@@ -54,7 +54,7 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
      *
      * @param <R> the type parameter
      */
-    static final class ResponseBodyCallAdapter<R> implements CallAdapter<R, R> {
+    static final class ResponseBodyCallAdapter<R extends WeComResponse> implements CallAdapter<R, R> {
 
         private final Type returnType;
 
@@ -91,14 +91,13 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
             }
 
             if (response.isSuccessful()) {
-                R body = response.body();
-                if (body != null && body.getClass().isAssignableFrom(WeComResponse.class)) {
-                    WeComResponse weComResponse = (WeComResponse) body;
+                R weComResponse = response.body();
+                if (weComResponse != null) {
                     if (weComResponse.isError()) {
                         throw new WeComException(weComResponse.getErrcode(), weComResponse.getErrmsg());
                     }
                 }
-                return body;
+                return weComResponse;
             }
 
             Converter<ResponseBody, R> responseBodyRConverter = retrofit.responseBodyConverter(responseType(), annotations);
