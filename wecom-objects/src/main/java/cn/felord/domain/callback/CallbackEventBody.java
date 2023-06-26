@@ -32,7 +32,7 @@ import java.util.List;
  */
 @XStreamAlias("xml")
 @Data
-public class CallbackEventBody implements CallbackBody {
+public class CallbackEventBody implements XmlBody {
     private String msgSignature;
     private String timeStamp;
     private String nonce;

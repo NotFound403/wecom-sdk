@@ -13,13 +13,16 @@
  *  limitations under the License.
  */
 
-package cn.felord.callbacks;
+package cn.felord.xml;
 
+import cn.felord.callbacks.CallbackXmlBody;
+import cn.felord.callbacks.CallbackXmlResponse;
 import cn.felord.convert.UnixInstantConverter;
-import cn.felord.domain.callback.CallbackBody;
 import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.domain.callback.XmlBody;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,12 +37,12 @@ public class XStreamXmlReader implements XmlReader {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends CallbackBody> T read(String xml, Class<T> clazz) {
+    public <T extends XmlBody> T read(String xml, Class<T> clazz) {
         return (T) initXStream(clazz).fromXML(xml);
     }
 
     @Override
-    public <T extends CallbackBody> String write(T t) {
+    public <T extends XmlBody> String write(T t) {
         Class<?> clazz = t.getClass();
         return initXStream(clazz).toXML(t);
     }
@@ -47,7 +50,7 @@ public class XStreamXmlReader implements XmlReader {
     private static XStream initXStream(Class<?> clazz) {
         XStream xStream = XSTREAM_MAP.get(clazz);
         if (xStream == null) {
-            xStream = new XStream(new DomDriver());
+            xStream = new XStream(new DomDriver("UTF-8", new XmlFriendlyNameCoder("_-", "_")));
             // 安全白名单
             xStream.allowTypes(ALLOW_TYPES);
             xStream.registerConverter(new UnixInstantConverter());

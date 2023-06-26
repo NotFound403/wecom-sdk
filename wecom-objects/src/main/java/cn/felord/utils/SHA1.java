@@ -17,6 +17,9 @@
 
 package cn.felord.utils;
 
+import cn.felord.WeComException;
+
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
@@ -49,35 +52,21 @@ public final class SHA1 {
      * @param nonce     随机字符串
      * @param encrypt   密文
      * @return 安全签名 sha 1
-     * @throws IllegalArgumentException the aes exception
      */
-    public static String sha1Signature(String token, String timestamp, String nonce, String encrypt) throws IllegalArgumentException {
-
+    public static String sha1Signature(String token, String timestamp, String nonce, String encrypt) {
         try {
             String str = Stream.of(token, timestamp, nonce, encrypt)
                     .sorted()
                     .collect(Collectors.joining());
-            //todo sha1Hex?
-            SHA1.update(str.getBytes());
-            byte[] digest = SHA1.digest();
-            StringBuilder hexstr = new StringBuilder();
-            for (byte b : digest) {
-                String shaHex = Integer.toHexString(b & 0xFF);
-                if (shaHex.length() < 2) {
-                    hexstr.append(0);
-                }
-                hexstr.append(shaHex);
-            }
-            return hexstr.toString();
+            return sha1Hex(str);
         } catch (Exception e) {
-            throw new IllegalArgumentException("SHA-1生成签名失败");
+            throw new WeComException(e);
         }
     }
 
     public static String sha1Hex(String format) {
-        SHA1.update(format.getBytes());
+        SHA1.update(format.getBytes(StandardCharsets.UTF_8));
         byte[] bytes = SHA1.digest();
         return Hex.encodeHexString(bytes);
     }
-
 }

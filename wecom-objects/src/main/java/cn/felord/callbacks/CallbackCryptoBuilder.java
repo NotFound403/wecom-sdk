@@ -16,6 +16,8 @@
 package cn.felord.callbacks;
 
 import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.xml.XStreamXmlReader;
+import cn.felord.xml.XmlReader;
 
 import java.util.concurrent.ExecutorService;
 import java.util.function.Consumer;

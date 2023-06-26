@@ -20,6 +20,7 @@ import cn.felord.domain.callback.CallbackEventBody;
 import cn.felord.utils.Base64Utils;
 import cn.felord.utils.SHA1;
 import cn.felord.utils.StringUtils;
+import cn.felord.xml.XmlReader;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
