@@ -47,7 +47,6 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 
 ## 采用技术栈
 
-- Spring RestTemplate
 - okhttp
 - retrofit
 - rxjava

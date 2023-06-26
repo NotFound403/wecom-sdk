@@ -27,7 +27,7 @@ import java.util.Set;
  * 日程接口
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 public interface ScheduleApi {
 

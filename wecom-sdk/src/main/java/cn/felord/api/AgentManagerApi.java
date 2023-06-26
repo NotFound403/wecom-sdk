@@ -26,7 +26,7 @@ import retrofit2.http.Query;
  * 应用配置管理.
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 public interface AgentManagerApi {
 

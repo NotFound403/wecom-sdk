@@ -33,7 +33,7 @@ import java.time.Instant;
  * The type Js sdk ticket api.
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 public class SdkTicketApi {
     private static final String SIGNATURE_FORMATTER = "jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}";

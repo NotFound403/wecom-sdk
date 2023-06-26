@@ -21,7 +21,7 @@
 
     <groupId>cn.felord</groupId>
     <artifactId>wecom</artifactId>
-    <version>1.0.14</version>
+    <version>1.0.15.RC</version>
     <packaging>pom</packaging>
 
     <name>wecom</name>
@@ -97,7 +97,6 @@
         <okhttp3.version>4.10.0</okhttp3.version>
         <lombok.version>1.18.26</lombok.version>
         <jackson.version>2.13.5</jackson.version>
-        <slf4j.version>2.0.7</slf4j.version>
         <xstream.version>1.4.20</xstream.version>
     </properties>
 
@@ -182,11 +181,6 @@
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
