@@ -13,7 +13,10 @@
  *  limitations under the License.
  */
 
-package cn.felord.utils;
+package cn.felord.enumeration;
+
+import cn.felord.utils.StringUtils;
+import okhttp3.MediaType;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -124,18 +127,51 @@ public enum FileMediaType {
 
 
     /**
-     * From file name media type.
+     * 根据文件扩展名检索对应的FileMediaType
      *
      * @param fileName the file name
      * @return the media type
      */
-    public static String fromFileName(String fileName) {
+    public static FileMediaType fromFileName(String fileName) {
         String filenameExtension = StringUtils.getFilenameExtension(fileName);
         return Arrays.stream(FileMediaType.values())
                 .filter(fileMediaType ->
                         Objects.equals(fileMediaType.extension, filenameExtension))
                 .findAny()
-                .orElse(FileMediaType.ALL).mediaType;
+                .orElse(FileMediaType.ALL);
 
+    }
+
+    /**
+     * 根据MediaType查找FileMediaType
+     *
+     * @param mediaType the media type
+     * @return the file media type
+     */
+    public static FileMediaType extension(MediaType mediaType) {
+        return Arrays.stream(FileMediaType.values())
+                .filter(fileMediaType ->
+                        Objects.equals(fileMediaType.mediaType, mediaType.type()))
+                .findAny()
+                .orElse(FileMediaType.ALL);
+
+    }
+
+    /**
+     * Extension string.
+     *
+     * @return the string
+     */
+    public String extension() {
+        return extension;
+    }
+
+    /**
+     * Media type string.
+     *
+     * @return the string
+     */
+    public String mediaType() {
+        return mediaType;
     }
 }

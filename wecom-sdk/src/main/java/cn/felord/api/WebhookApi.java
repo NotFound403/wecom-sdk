@@ -18,7 +18,7 @@ package cn.felord.api;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.webhook.WebhookBody;
-import cn.felord.utils.FileMediaType;
+import cn.felord.enumeration.FileMediaType;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -64,7 +64,7 @@ public class WebhookApi {
      * @return the media response
      */
     public MediaResponse uploadMedia(String webhookKey, File file) {
-        String mediaTypeStr = FileMediaType.fromFileName(file.getName());
+        String mediaTypeStr = FileMediaType.fromFileName(file.getName()).mediaType();
         RequestBody requestBody = RequestBody.create(file, MediaType.parse(mediaTypeStr));
         MultipartBody media = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)

@@ -18,9 +18,9 @@ package cn.felord.reactive.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.media.MediaUploadRequest;
+import cn.felord.enumeration.FileMediaType;
 import cn.felord.enumeration.MediaAttachmentType;
 import cn.felord.enumeration.MediaTypeEnum;
-import cn.felord.utils.FileMediaType;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -127,7 +127,7 @@ public class MediaApi {
     }
 
     private MultipartBody toMultipartBody(File file) {
-        String mediaTypeStr = FileMediaType.fromFileName(file.getName());
+        String mediaTypeStr = FileMediaType.fromFileName(file.getName()).mediaType();
         RequestBody requestBody = RequestBody.create(file, MediaType.parse(mediaTypeStr));
         return new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)

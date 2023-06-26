@@ -48,6 +48,9 @@ public final class RetrofitFactory {
             .addConverterFactory(JACKSON_CONVERTER_FACTORY)
             .build();
 
+    private RetrofitFactory() {
+    }
+
     /**
      * Create retrofit.
      *

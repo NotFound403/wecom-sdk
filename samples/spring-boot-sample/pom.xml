@@ -25,7 +25,7 @@
     </parent>
     <groupId>cn.felord.wecom</groupId>
     <artifactId>spring-boot-sample</artifactId>
-    <version>1.0.12</version>
+    <version>1.0.14</version>
     <name>wecom-sdk-spring-boot-sample</name>
     <description>wecom-sdk-spring-boot-sample</description>
     <properties>

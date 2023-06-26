@@ -1,5 +1,21 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.api;
 
+import cn.felord.domain.wedrive.BufferSource;
 import cn.felord.domain.wedrive.FileDownloadResponse;
 import cn.felord.domain.wedrive.FileId;
 import cn.felord.domain.wedrive.SelectedTicket;
@@ -36,7 +52,7 @@ public class FileManagerApi {
      * @param fileid the fileid
      * @return the file download response
      */
-    public ResponseBody downloadByFileId(String fileid) {
+    public BufferSource downloadByFileId(String fileid) {
         FileDownloadResponse downloadResponse = internalFileManagerApi.getFileUrlByFileId(new FileId(fileid));
         return this.download(downloadResponse);
     }
@@ -47,21 +63,32 @@ public class FileManagerApi {
      * @param selectedTicket the selected ticket
      * @return the file download response
      */
-    public ResponseBody downloadBySelectedTicket(String selectedTicket) {
+    public BufferSource downloadBySelectedTicket(String selectedTicket) {
         FileDownloadResponse downloadResponse = internalFileManagerApi.getFileUrlBySelectedTicket(new SelectedTicket(selectedTicket));
         return this.download(downloadResponse);
     }
 
-    private ResponseBody download(FileDownloadResponse downloadResponse) {
+    private BufferSource download(FileDownloadResponse downloadResponse) {
         String downloadUrl = downloadResponse.getDownloadUrl();
         String cookie = downloadResponse.getCookieName()
                 .concat("=")
                 .concat(downloadResponse.getCookieValue());
-        return downloadApi.download(downloadUrl, cookie);
+        try (ResponseBody body = downloadApi.download(downloadUrl, cookie)) {
+            return new BufferSource(body.contentType(), body.contentLength(), body.source());
+        }
     }
 
-
+    /**
+     * 微盘文件下载
+     */
     interface DownloadApi {
+        /**
+         * 文件下载
+         *
+         * @param downloadUrl the download url
+         * @param cookie      the cookie
+         * @return the response body
+         */
         @POST
         ResponseBody download(@Url String downloadUrl, @Header("Cookie") String cookie);
     }

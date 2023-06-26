@@ -13,11 +13,12 @@
  *  limitations under the License.
  */
 
-package cn.felord.api;
+package cn.felord.reactive.api;
 
 import cn.felord.domain.wedrive.FileDownloadResponse;
 import cn.felord.domain.wedrive.FileId;
 import cn.felord.domain.wedrive.SelectedTicket;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -36,7 +37,7 @@ interface InternalFileManagerApi {
      * @return the file download response
      */
     @POST("wedrive/file_download")
-    FileDownloadResponse getFileUrlByFileId(@Body FileId fileid);
+    Single<FileDownloadResponse> getFileUrlByFileId(@Body FileId fileid);
 
     /**
      * 下载文件（微盘和文件选择器jsapi返回的selectedTicket）
@@ -47,5 +48,5 @@ interface InternalFileManagerApi {
      * @return the file download response
      */
     @POST("wedrive/file_download")
-    FileDownloadResponse getFileUrlBySelectedTicket(@Body SelectedTicket selectedTicket);
+    Single<FileDownloadResponse> getFileUrlBySelectedTicket(@Body SelectedTicket selectedTicket);
 }
