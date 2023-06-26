@@ -13,13 +13,12 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.api;
+package cn.felord.retrofit;
 
-import cn.felord.WeComException;
-import cn.felord.domain.authentication.AccessTokenResponse;
 import cn.felord.AgentDetails;
-import cn.felord.reactive.RetrofitFactory;
+import cn.felord.WeComException;
 import cn.felord.WeComTokenCacheable;
+import cn.felord.domain.authentication.AccessTokenResponse;
 
 /**
  * 获取 access_token
@@ -27,7 +26,7 @@ import cn.felord.WeComTokenCacheable;
  * @author felord.cn
  */
 public class AccessTokenApi extends AbstractTokenApi {
-    private static final ReactiveAccessTokenApi API = RetrofitFactory.RETROFIT_.create(ReactiveAccessTokenApi.class);
+    private static final RetrofitAccessTokenApi TOKEN_API = RetrofitFactory.RETROFIT_.create(RetrofitAccessTokenApi.class);
 
     /**
      * Instantiates a new Access token api.
@@ -35,13 +34,13 @@ public class AccessTokenApi extends AbstractTokenApi {
      * @param wecomCacheable the wecom cacheable
      * @param agentDetails   the agent details
      */
-    AccessTokenApi(WeComTokenCacheable wecomCacheable, AgentDetails agentDetails) {
+    public AccessTokenApi(WeComTokenCacheable wecomCacheable, AgentDetails agentDetails) {
         super(wecomCacheable, agentDetails);
     }
 
     @Override
     protected String doGetToken(AgentDetails agentDetails) {
-        AccessTokenResponse tokenResponse = API.getTokenResponse(agentDetails.getCorpId(), agentDetails.getSecret());
+        AccessTokenResponse tokenResponse = TOKEN_API.getTokenResponse(agentDetails.getCorpId(), agentDetails.getSecret());
         if (tokenResponse == null || tokenResponse.isError()) {
             String errorMsg = tokenResponse == null ? "token response is null" : tokenResponse.getErrmsg();
             throw new WeComException("failed to obtain access token,reason: " + errorMsg);

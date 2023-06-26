@@ -1,16 +1,16 @@
 /*
- * Copyright (c) 2023. felord.cn
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *      https://www.apache.org/licenses/LICENSE-2.0
- * Website:
- *      https://felord.cn
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 package cn.felord.api;
@@ -39,7 +39,7 @@ public class ExternalContactManager {
      * @return the corp service user api
      */
     public ContactMeWayApi contactMeWayApi() {
-        return new ContactMeWayApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(ContactMeWayApi.class);
     }
 
     /**
@@ -48,7 +48,7 @@ public class ExternalContactManager {
      * @return the external contact user api
      */
     public ExternalContactUserApi externalContactUserApi() {
-        return new ExternalContactUserApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(ExternalContactUserApi.class);
     }
 
     /**
@@ -57,7 +57,7 @@ public class ExternalContactManager {
      * @return the corp tag api
      */
     public CorpTagApi corpTagApi() {
-        return new CorpTagApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(CorpTagApi.class);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ExternalContactManager {
      * @return the on transfer api
      */
     public OnTransferApi onTransferApi() {
-        return new OnTransferApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(OnTransferApi.class);
     }
 
     /**
@@ -75,7 +75,7 @@ public class ExternalContactManager {
      * @return the off transfer api
      */
     public OffTransferApi offTransferApi() {
-        return new OffTransferApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(OffTransferApi.class);
     }
 
     /**
@@ -84,7 +84,7 @@ public class ExternalContactManager {
      * @return the groupchat api
      */
     public GroupChatApi groupchatApi() {
-        return new GroupChatApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(GroupChatApi.class);
     }
 
     /**
@@ -93,7 +93,7 @@ public class ExternalContactManager {
      * @return the moment api
      */
     public MomentApi momentApi() {
-        return new MomentApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(MomentApi.class);
     }
 
     /**
@@ -102,7 +102,7 @@ public class ExternalContactManager {
      * @return the message api
      */
     public GroupMessageApi messageApi() {
-        return new GroupMessageApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(GroupMessageApi.class);
     }
 
     /**
@@ -110,8 +110,8 @@ public class ExternalContactManager {
      *
      * @return the statistic api
      */
-    public StatisticApi statisticApi() {
-        return new StatisticApi(workWeChatApiClient);
+    public ExternalStatisticApi statisticApi() {
+        return this.workWeChatApiClient.retrofit().create(ExternalStatisticApi.class);
     }
 
     /**
@@ -120,7 +120,7 @@ public class ExternalContactManager {
      * @return the product album api
      */
     public ProductAlbumApi productAlbumApi() {
-        return new ProductAlbumApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(ProductAlbumApi.class);
     }
 
     /**
@@ -129,7 +129,7 @@ public class ExternalContactManager {
      * @return the chat intercept rule api
      */
     public ChatInterceptRuleApi chatInterceptRuleApi() {
-        return new ChatInterceptRuleApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(ChatInterceptRuleApi.class);
     }
 
     /**
@@ -138,6 +138,6 @@ public class ExternalContactManager {
      * @return the customer acquisition api
      */
     public CustomerAcquisitionApi customerAcquisitionApi() {
-        return new CustomerAcquisitionApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(CustomerAcquisitionApi.class);
     }
 }

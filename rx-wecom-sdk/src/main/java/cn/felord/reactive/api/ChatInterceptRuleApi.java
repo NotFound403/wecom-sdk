@@ -55,7 +55,7 @@ public interface ChatInterceptRuleApi {
      * @return the intercept rule
      */
     @POST("externalcontact/get_intercept_rule")
-    GenericResponse<InterceptRuleDetail> getInterceptRule(@Body InterceptRuleRequest request);
+    Single<GenericResponse<InterceptRuleDetail>> getInterceptRule(@Body InterceptRuleRequest request);
 
     /**
      * 修改敏感词规则

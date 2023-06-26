@@ -1,35 +1,26 @@
 /*
- * Copyright (c) 2023. felord.cn
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *      https://www.apache.org/licenses/LICENSE-2.0
- * Website:
- *      https://felord.cn
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.callcenter.KfAccountAddRequest;
-import cn.felord.domain.callcenter.KfAccountInfo;
-import cn.felord.domain.callcenter.KfAccountLinkRequest;
-import cn.felord.domain.callcenter.KfAccountListRequest;
-import cn.felord.domain.callcenter.KfAccountUpdateRequest;
-import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.util.StringUtils;
-import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.web.util.UriUtils;
+import cn.felord.domain.callcenter.*;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,30 +29,16 @@ import java.util.List;
  * @author dax
  * @since 2021 /7/23 13:52
  */
-public class KfAccountApi {
-    private final WorkWeChatApiClient workWeChatApiClient;
-
-    /**
-     * Instantiates a new Kf account api.
-     *
-     * @param workWeChatApiClient the work we chat api client
-     */
-    KfAccountApi(WorkWeChatApiClient workWeChatApiClient) {
-        this.workWeChatApiClient = workWeChatApiClient;
-    }
+public interface KfAccountApi {
 
     /**
      * 添加客服账号
      *
-     * @param accountName the account name
-     * @param mediaId     the media id
+     * @param request the request
      * @return the generic response
      */
-    public GenericResponse<String> addKfAccount(String accountName, String mediaId) {
-        KfAccountAddRequest body = new KfAccountAddRequest(accountName, mediaId);
-        return workWeChatApiClient.post( WeComEndpoint.KF_ACCOUNT_CREATE, body, new ParameterizedTypeReference<GenericResponse<String>>() {
-        });
-    }
+    @POST("kf/account/add")
+    GenericResponse<String> addKfAccount(@Body KfAccountAddRequest request);
 
     /**
      * 删除客服账号
@@ -69,9 +46,8 @@ public class KfAccountApi {
      * @param openKfid the open kfid
      * @return the we com response
      */
-    public WeComResponse delKfAccount(String openKfid) {
-        return workWeChatApiClient.post(WeComEndpoint.KF_ACCOUNT_DEL, Collections.singletonMap("open_kfid", openKfid), WeComResponse.class);
-    }
+    @POST("kf/account/del")
+    WeComResponse delKfAccount(@Body OpenKfid openKfid);
 
     /**
      * 修改客服账号
@@ -79,9 +55,8 @@ public class KfAccountApi {
      * @param request the request
      * @return the we com response
      */
-    public WeComResponse updateKfAccount(KfAccountUpdateRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.KF_ACCOUNT_UPDATE, request, WeComResponse.class);
-    }
+    @POST("kf/account/update")
+    WeComResponse updateKfAccount(@Body KfAccountUpdateRequest request);
 
     /**
      * 获取客服账号列表
@@ -89,29 +64,15 @@ public class KfAccountApi {
      * @param request the request
      * @return the generic response
      */
-    public GenericResponse<List<KfAccountInfo>> kfAccountList(KfAccountListRequest request) {
-        return workWeChatApiClient.post( WeComEndpoint.KF_ACCOUNT_LIST, request, new ParameterizedTypeReference<GenericResponse<List<KfAccountInfo>>>() {
-        });
-    }
+    @POST("kf/account/list")
+    GenericResponse<List<KfAccountInfo>> kfAccountList(KfAccountListRequest request);
 
     /**
      * 获取客服账号链接
      *
-     * @param openKfid the open kfid
-     * @param scene    the scene
+     * @param request the request
      * @return the generic response
      */
-    public GenericResponse<String> kfAccountLink(String openKfid, String scene) {
-        KfAccountLinkRequest body = new KfAccountLinkRequest(openKfid, scene);
-        GenericResponse<String> response = workWeChatApiClient.post(WeComEndpoint.KF_ADD_CONTACT_WAY, body, new ParameterizedTypeReference<GenericResponse<String>>() {
-        });
-        if (StringUtils.hasText(scene)) {
-            String url = UriComponentsBuilder.fromHttpUrl(response.getData())
-                    .queryParam("scene_param", UriUtils.encode(scene, StandardCharsets.UTF_8))
-                    .build()
-                    .toUriString();
-            response.setData(url);
-        }
-        return response;
-    }
+    @POST("kf/add_contact_way")
+    GenericResponse<String> kfAccountLink(@Body KfAccountLinkRequest request);
 }

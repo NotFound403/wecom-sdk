@@ -12,7 +12,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.reactive;
+package cn.felord.retrofit;
 
 
 import cn.felord.WeComException;
@@ -54,7 +54,7 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
      *
      * @param <R> the type parameter
      */
-    static final class ResponseBodyCallAdapter<R extends WeComResponse> implements CallAdapter<R, R> {
+    static final class ResponseBodyCallAdapter<R> implements CallAdapter<R, R> {
 
         private final Type returnType;
 
@@ -91,13 +91,14 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
             }
 
             if (response.isSuccessful()) {
-                R weComResponse = response.body();
-                if (weComResponse != null) {
+                R body = response.body();
+                if (body != null && body.getClass().isAssignableFrom(WeComResponse.class)) {
+                    WeComResponse weComResponse = (WeComResponse) body;
                     if (weComResponse.isError()) {
                         throw new WeComException(weComResponse.getErrcode(), weComResponse.getErrmsg());
                     }
                 }
-                return weComResponse;
+                return body;
             }
 
             Converter<ResponseBody, R> responseBodyRConverter = retrofit.responseBodyConverter(responseType(), annotations);

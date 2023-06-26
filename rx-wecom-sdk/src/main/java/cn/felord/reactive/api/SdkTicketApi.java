@@ -21,11 +21,10 @@ import cn.felord.domain.authentication.JsTicketResponse;
 import cn.felord.domain.jssdk.AgentConfigResponse;
 import cn.felord.domain.jssdk.CorpConfigResponse;
 import cn.felord.domain.jssdk.JSignatureResponse;
+import cn.felord.utils.Algorithms;
 import cn.felord.utils.AlternativeJdkIdGenerator;
-import cn.felord.utils.SHA1;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
-import lombok.SneakyThrows;
 
 import java.text.MessageFormat;
 import java.time.Instant;
@@ -82,7 +81,7 @@ public class SdkTicketApi {
     public Single<AgentConfigResponse> agentTicket(String url) {
         String corpId = agentDetails.getCorpId();
         String agentId = agentDetails.getAgentId();
-        return Maybe.just(weComAgentTicketCacheable.getCorpTicket(corpId, agentId))
+        return Maybe.just(weComAgentTicketCacheable.getAgentTicket(corpId, agentId))
                 .switchIfEmpty(jsApi.agentJsApiTicket("agent_config")
                         .map(JsTicketResponse::getTicket)
                         .map(agentTicket -> weComAgentTicketCacheable.putAgentTicket(corpId, agentId, agentTicket)))
@@ -98,8 +97,6 @@ public class SdkTicketApi {
                 });
     }
 
-
-    @SneakyThrows
     private JSignatureResponse sha1(String ticket, String url) {
         String nonceStr = ID_GENERATOR.generateId();
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
@@ -107,7 +104,7 @@ public class SdkTicketApi {
         JSignatureResponse jSignature = new JSignatureResponse();
         jSignature.setNonceStr(nonceStr);
         jSignature.setTimestamp(timestamp);
-        jSignature.setSignature(SHA1.sha1Hex(format));
+        jSignature.setSignature(Algorithms.sha1Hex(format));
         return jSignature;
     }
 }

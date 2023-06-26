@@ -17,7 +17,8 @@ package cn.felord.reactive.api;
 
 
 import cn.felord.AgentDetails;
-import cn.felord.reactive.RetrofitFactory;
+import cn.felord.retrofit.RetrofitFactory;
+import cn.felord.retrofit.TokenApi;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

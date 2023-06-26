@@ -15,23 +15,32 @@
 
 package cn.felord.api;
 
-/**
- * @author dax
- * @since 2023/3/17 15:01
- */
-public class WeDriveApi {
-    private final WorkWeChatApiClient workWeChatApiClient;
+import cn.felord.domain.authentication.JsTicketResponse;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
-    WeDriveApi(WorkWeChatApiClient workWeChatApiClient) {
-        this.workWeChatApiClient = workWeChatApiClient;
-    }
+/**
+ * The interface Js api.
+ *
+ * @author dax
+ * @since 2023 /5/24 17:55
+ */
+interface JsApi {
 
     /**
-     * 管理文件
+     * 获取企业的jsapi_ticket
      *
-     * @return the form api
+     * @return the single
      */
-    public FileManagerApi fileManagerApi() {
-        return new FileManagerApi(workWeChatApiClient.retrofit());
-    }
+    @GET("get_jsapi_ticket")
+    JsTicketResponse corpJsApiTicket();
+
+    /**
+     * 获取应用的jsapi_ticket
+     *
+     * @param agentConfig the agent config
+     * @return the single
+     */
+    @GET("ticket/get")
+    JsTicketResponse agentJsApiTicket(@Query("type") String agentConfig);
 }

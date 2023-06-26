@@ -13,9 +13,8 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive;
+package cn.felord.retrofit;
 
-import cn.felord.reactive.api.TokenApi;
 import cn.felord.json.JacksonObjectMapperFactory;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;

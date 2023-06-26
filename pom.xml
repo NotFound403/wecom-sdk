@@ -93,7 +93,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-boot.version>2.7.9</spring-boot.version>
         <retrofit.version>2.9.0</retrofit.version>
         <okhttp3.version>4.10.0</okhttp3.version>
         <lombok.version>1.18.26</lombok.version>
@@ -117,13 +116,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>cn.felord</groupId>
                 <artifactId>wecom-objects</artifactId>

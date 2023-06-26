@@ -16,45 +16,37 @@
 package cn.felord.api;
 
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.common.MsgId;
-import cn.felord.domain.message.*;
-import retrofit2.http.Body;
+import cn.felord.domain.agent.AgentDetailsResponse;
+import cn.felord.domain.agent.AgentSettingRequest;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
- * 应用消息
+ * 应用配置管理.
  *
- * @author dax
- * @since 2021 /11/25
+ * @author felord.cn
+ * @since 1.0.14.RELEASE
  */
-public interface AgentMessageApi {
+public interface AgentManagerApi {
 
     /**
-     * 发送应用消息
+     * 获取应用详情
+     * <p>
+     * 应用ID要和对应的token一致
      *
-     * @param body the body
-     * @return the message response
-     * @see MessageBodyBuilders
+     * @param agentId the agent id
+     * @return the agent details
      */
-    @POST("message/send")
-    MessageResponse send(@Body AbstractMessageBody body);
+    @GET("agent/get")
+    AgentDetailsResponse getAgentDetails(@Query("agentid") String agentId);
 
     /**
-     * 更新模版卡片消息
-     *
-     * @param request the request
-     * @return the message response
-     * @see TemplateReplaceCardBuilders
-     */
-    @POST("message/update_template_card")
-    MessageResponse updateTemplateCard(@Body AbstractUpdateTemplateCardRequest request);
-
-    /**
-     * 撤回应用消息
+     * 设置应用
      *
      * @param request the request
-     * @return the we com response
+     * @return WeComResponse
      */
-    @POST("message/recall")
-    WeComResponse recall(@Body MsgId request);
+    @POST("agent/set")
+    WeComResponse settings(AgentSettingRequest request);
 }

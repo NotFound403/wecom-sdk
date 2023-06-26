@@ -1,56 +1,40 @@
 /*
- * Copyright (c) 2023. felord.cn
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *      https://www.apache.org/licenses/LICENSE-2.0
- * Website:
- *      https://felord.cn
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 package cn.felord.api;
 
-import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.PageRequest;
 import cn.felord.domain.common.StrategyId;
 import cn.felord.domain.contactbook.user.ExternalUserListDetailRequest;
-import cn.felord.domain.externalcontact.CustomerRemarkRequest;
-import cn.felord.domain.externalcontact.CustomerStrategyDetailResponse;
-import cn.felord.domain.externalcontact.CustomerStrategyRequest;
-import cn.felord.domain.externalcontact.ExternalUserDetailResponse;
-import cn.felord.domain.externalcontact.ExternalUserListDetailResponse;
-import cn.felord.domain.externalcontact.MutableCustomerStrategy;
-import cn.felord.domain.externalcontact.StrategyListResponse;
-import cn.felord.domain.externalcontact.StrategyRangeRequest;
-import cn.felord.domain.externalcontact.StrategyRangeResponse;
-import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.StringUtils;
+import cn.felord.domain.externalcontact.*;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 客户管理
  *
  * @author dax
- * @since 2021/9/8 19:05
+ * @since 2021 /9/8 19:05
  */
-public class ExternalContactUserApi {
-    private final WorkWeChatApiClient workWeChatApiClient;
-
-    ExternalContactUserApi(WorkWeChatApiClient workWeChatApiClient) {
-        this.workWeChatApiClient = workWeChatApiClient;
-    }
+public interface ExternalContactUserApi {
 
     /**
      * 获取客户列表
@@ -58,13 +42,8 @@ public class ExternalContactUserApi {
      * @param userId the user id
      * @return the follow user list
      */
-    public GenericResponse<List<String>> listByUserId(String userId) {
-        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
-        query.add("userid", userId);
-        return workWeChatApiClient.get(WeComEndpoint.EXTERNALCONTACT_LIST_USERID, query,
-                new ParameterizedTypeReference<GenericResponse<List<String>>>() {
-                });
-    }
+    @GET("externalcontact/list")
+    GenericResponse<List<String>> listByUserId(@Query("userid") String userId);
 
     /**
      * 获取客户详情
@@ -73,32 +52,17 @@ public class ExternalContactUserApi {
      * @param cursor         the cursor
      * @return the by user id
      */
-    public ExternalUserDetailResponse getByExUserId(String externalUserid, String cursor) {
-        LinkedMultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-        queryParams.add("external_userid", externalUserid);
-        if (StringUtils.hasText(cursor)) {
-            queryParams.add("cursor", cursor);
-        }
-        return workWeChatApiClient.get(WeComEndpoint.EXTERNALCONTACT_GET_USERID, queryParams, new ParameterizedTypeReference<ExternalUserDetailResponse>() {
-        });
-    }
+    @GET("externalcontact/get")
+    ExternalUserDetailResponse getByExUserId(@Query("external_userid") String externalUserid, @Query("cursor") String cursor);
 
     /**
      * 批量获取客户详情
      *
-     * @param userids the userid list
-     * @param cursor  the cursor
-     * @param limit   the limit
+     * @param request the request
      * @return the by user id
      */
-    public ExternalUserListDetailResponse batchByUserIds(Set<String> userids, String cursor, Integer limit) {
-        int size = userids.size();
-        if (0 < size && size <= 100) {
-            ExternalUserListDetailRequest pageRequest = new ExternalUserListDetailRequest(userids, cursor, limit);
-            return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_BATCH_USERID, pageRequest, ExternalUserListDetailResponse.class);
-        }
-        throw new WeComException("外部联系人ID个数范围 (0,100]");
-    }
+    @POST("externalcontact/batch/get_by_user")
+    ExternalUserListDetailResponse batchByUserIds(@Body ExternalUserListDetailRequest request);
 
     /**
      * 修改客户备注信息
@@ -106,23 +70,17 @@ public class ExternalContactUserApi {
      * @param request the request
      * @return the external user list detail response
      */
-    public WeComResponse remark(CustomerRemarkRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.EXTERNALCONTACT_REMARK, request, WeComResponse.class);
-    }
+    @POST("externalcontact/remark")
+    WeComResponse remark(@Body CustomerRemarkRequest request);
 
     /**
      * 获取规则组列表
      *
-     * @param cursor the cursor
-     * @param limit  the limit
+     * @param request the request
      * @return the external user list detail response
      */
-    public StrategyListResponse customerStrategyList(String cursor, int limit) {
-        PageRequest pageRequest = new PageRequest();
-        pageRequest.setCursor(cursor);
-        pageRequest.setLimit(limit);
-        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_LIST, pageRequest, StrategyListResponse.class);
-    }
+    @POST("externalcontact/customer_strategy/list")
+    StrategyListResponse customerStrategyList(@Body PageRequest request);
 
     /**
      * 获取规则组详情
@@ -130,12 +88,8 @@ public class ExternalContactUserApi {
      * @param strategyId the strategy id
      * @return the external user list detail response
      */
-    public CustomerStrategyDetailResponse getCustomerStrategy(int strategyId) {
-        StrategyId strategy = new StrategyId(strategyId);
-        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_GET,
-                strategy,
-                CustomerStrategyDetailResponse.class);
-    }
+    @POST("externalcontact/customer_strategy/get")
+    CustomerStrategyDetailResponse getCustomerStrategy(@Body StrategyId strategyId);
 
     /**
      * 获取规则组管理范围
@@ -143,9 +97,8 @@ public class ExternalContactUserApi {
      * @param request the request
      * @return the external user list detail response
      */
-    public StrategyRangeResponse getCustomerStrategyRange(StrategyRangeRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_GET_RANGE, request, StrategyRangeResponse.class);
-    }
+    @POST("externalcontact/customer_strategy/get_range")
+    StrategyRangeResponse getCustomerStrategyRange(StrategyRangeRequest request);
 
     /**
      * 创建新的规则组
@@ -153,10 +106,8 @@ public class ExternalContactUserApi {
      * @param request the request
      * @return the customer strategy range response
      */
-    public GenericResponse<Integer> createCustomerStrategy(CustomerStrategyRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_CREATE, request, new ParameterizedTypeReference<GenericResponse<Integer>>() {
-        });
-    }
+    @POST("externalcontact/customer_strategy/create")
+    GenericResponse<Integer> createCustomerStrategy(@Body CustomerStrategyRequest request);
 
     /**
      * 编辑规则组及其管理范围
@@ -164,9 +115,9 @@ public class ExternalContactUserApi {
      * @param request the request
      * @return the customer strategy range response
      */
-    public WeComResponse editCustomerStrategy(MutableCustomerStrategy request) {
-        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_EDIT, request, WeComResponse.class);
-    }
+    @POST("externalcontact/customer_strategy/edit")
+    WeComResponse editCustomerStrategy(@Body MutableCustomerStrategy request);
+
 
     /**
      * 删除规则组
@@ -174,9 +125,8 @@ public class ExternalContactUserApi {
      * @param strategyId the strategy id
      * @return the customer strategy range response
      */
-    public WeComResponse delCustomerStrategy(int strategyId) {
-        return workWeChatApiClient.post(WeComEndpoint.CUSTOMER_STRATEGY_DEL, Collections.singletonMap("strategy_id", strategyId), WeComResponse.class);
-    }
+    @POST("externalcontact/customer_strategy/del")
+    WeComResponse delCustomerStrategy(@Body StrategyId strategyId);
 
     /**
      * 家校沟通-外部联系人openid转换
@@ -184,17 +134,9 @@ public class ExternalContactUserApi {
      * 企业和服务商可通过此接口，将微信外部联系人的userid（如何获取?）转为微信openid，用于调用支付相关接口。
      * 暂不支持企业微信外部联系人（ExternalUserid为wo开头）的userid转openid。
      *
-     * @param externalUserid the external userid
+     * @param externalUserId the external user id
      * @return the generic response
      */
-    public GenericResponse<String> convertToOpenid(String externalUserid) {
-
-        if (externalUserid.startsWith("wo")) {
-            throw new WeComException("暂不支持以wo开头的externalUserid");
-        }
-
-        return workWeChatApiClient.post(WeComEndpoint.EXTERNAL_USER_TO_OPENID, Collections.singletonMap("external_userid", externalUserid),
-                new ParameterizedTypeReference<GenericResponse<String>>() {
-                });
-    }
+    @POST("externalcontact/convert_to_openid")
+    GenericResponse<String> convertToOpenid(@Body ExternalUserId externalUserId);
 }

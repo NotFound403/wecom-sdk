@@ -13,29 +13,27 @@
  *  limitations under the License.
  */
 
-package cn.felord.reactive.api;
+package cn.felord.retrofit;
 
-
-import cn.felord.AgentDetails;
+import cn.felord.domain.authentication.AccessTokenResponse;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
- * The interface Token api.
+ * The interface Retrofit access token api.
  *
  * @author dax
- * @since 2021 /10/7 17:33
+ * @since 2023 /5/23 8:58
  */
-public interface TokenApi {
+interface RetrofitAccessTokenApi {
+
     /**
      * Gets token response.
      *
+     * @param corpId     the corp id
+     * @param corpSecret the corp secret
      * @return the token response
      */
-    String getTokenResponse();
-
-    /**
-     * Gets agent details.
-     *
-     * @return the agent details
-     */
-    AgentDetails getAgentDetails();
+    @GET("gettoken")
+    AccessTokenResponse getTokenResponse(@Query("corpid") String corpId, @Query("corpsecret") String corpSecret);
 }

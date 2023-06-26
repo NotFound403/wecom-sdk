@@ -16,22 +16,39 @@
 package cn.felord.api;
 
 /**
+ * 企微应用API
+ *
  * @author dax
- * @since 2023/3/17 15:01
+ * @since 2023 /6/9 16:33
  */
-public class WeDriveApi {
+public class AgentApi {
     private final WorkWeChatApiClient workWeChatApiClient;
 
-    WeDriveApi(WorkWeChatApiClient workWeChatApiClient) {
+    /**
+     * Instantiates a new Contact book manager.
+     *
+     * @param workWeChatApiClient the work we chat api client
+     */
+    AgentApi(WorkWeChatApiClient workWeChatApiClient) {
         this.workWeChatApiClient = workWeChatApiClient;
     }
 
+
     /**
-     * 管理文件
+     * 应用管理
      *
-     * @return the form api
+     * @return the agent manager
      */
-    public FileManagerApi fileManagerApi() {
-        return new FileManagerApi(workWeChatApiClient.retrofit());
+    public AgentManagerApi agentManager() {
+        return this.workWeChatApiClient.retrofit().create(AgentManagerApi.class);
+    }
+
+    /**
+     * 消息推送
+     *
+     * @return the message api
+     */
+    public AgentMessageApi agentMessageApi() {
+        return this.workWeChatApiClient.retrofit().create(AgentMessageApi.class);
     }
 }

@@ -1,83 +1,77 @@
 /*
- * Copyright (c) 2023. felord.cn
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *      https://www.apache.org/licenses/LICENSE-2.0
- * Website:
- *      https://felord.cn
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 package cn.felord.api;
 
-import cn.felord.WeChatMultipartFile;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.webhook.WebhookBody;
-import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.http.ContentDisposition;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import cn.felord.utils.FileMediaType;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Retrofit;
+
+import java.io.File;
 
 /**
  * 群机器人
  *
- * @author n1
- * @since 2021 /6/16 19:35
+ * @author dax
+ * @since 2023 /6/10 15:42
  */
 public class WebhookApi {
-    private final WorkWeChatApiClient workWeChatApiClient;
+    private final InternalWebhookApi internalWebhookApi;
 
     /**
      * Instantiates a new Webhook api.
+     *
+     * @param retrofit the retrofit
      */
-    WebhookApi() {
-        this.workWeChatApiClient = new WorkWeChatApiClient();
+    WebhookApi(Retrofit retrofit) {
+        this.internalWebhookApi = retrofit.create(InternalWebhookApi.class);
     }
 
     /**
      * 发送机器人信息
      *
-     * @param <T>  the type parameter
+     * @param <B>  the type parameter
      * @param key  the key
      * @param body the body
      * @return the we com response
      */
-    public <T extends WebhookBody> WeComResponse send(String key, T body) {
-        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
-        query.add("key", key);
-        return workWeChatApiClient.post(WeComEndpoint.WEBHOOK_SEND, query, body, WeComResponse.class);
+    public <B extends WebhookBody> WeComResponse send(String key, B body) {
+        return internalWebhookApi.send(key, body);
     }
 
     /**
      * 上传素材
      *
      * @param webhookKey the webhook key
-     * @param media      the media
+     * @param file       the file
      * @return the media response
      */
-    public MediaResponse uploadMedia(String webhookKey, WeChatMultipartFile media) {
-        String name = media.getName();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        ContentDisposition contentDisposition = ContentDisposition.builder("form-data")
-                .name("media")
-                .filename(name)
+    public MediaResponse uploadMedia(String webhookKey, File file) {
+        String mediaTypeStr = FileMediaType.fromFileName(file.getName());
+        RequestBody requestBody = RequestBody.create(file, MediaType.parse(mediaTypeStr));
+        MultipartBody media = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("media", file.getName(), requestBody)
                 .build();
-        headers.setContentDisposition(contentDisposition);
-        MultiValueMap<Object, Object> body = new LinkedMultiValueMap<>();
-        body.add("media", media.getResource());
-        LinkedMultiValueMap<String, String> query = new LinkedMultiValueMap<>();
-        query.add("key", webhookKey);
-        query.add("type", "file");
-        return workWeChatApiClient.post(WeComEndpoint.WEBHOOK_UPLOAD, query, body, headers, MediaResponse.class);
+        return internalWebhookApi.uploadMedia(webhookKey, "file", media);
     }
+
 
 }

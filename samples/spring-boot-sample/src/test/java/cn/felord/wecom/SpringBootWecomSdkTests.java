@@ -93,7 +93,8 @@ class SpringBootWecomSdkTests {
                 .build();
 
         DefaultAgent defaultAgent = new DefaultAgent("企微企业id", "企微应用密钥", "企微应用id");
-        MessageResponse send = workWeChatApi.agentMessageApi(defaultAgent)
+        MessageResponse send = workWeChatApi.agentApi(defaultAgent)
+                .agentMessageApi()
                 .send(cardMessageBody);
         Assertions.assertTrue(send.isSuccessful());
     }
