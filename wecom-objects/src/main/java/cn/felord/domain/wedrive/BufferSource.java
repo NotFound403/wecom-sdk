@@ -21,8 +21,13 @@ import okhttp3.MediaType;
 import okio.BufferedSource;
 
 /**
+ * 文件二进制容器
+ * <p>
+ * 自行转换为{@code org.springframework.web.multipart.MultipartFile}等其它类型
+ * Buffer只能消费一次
+ *
  * @author dax
- * @since 2023/6/26
+ * @since 2023 /6/26
  */
 @AllArgsConstructor
 @Getter
