@@ -23,6 +23,17 @@ public class MultipartResource {
     /**
      * Instantiates a new Multipart resource.
      *
+     * @param fileName    the file name
+     * @param inputStream the input stream
+     * @throws IOException the io exception
+     */
+    public MultipartResource(String fileName, InputStream inputStream) throws IOException {
+        this(null, fileName, inputStream);
+    }
+
+    /**
+     * Instantiates a new Multipart resource.
+     *
      * @param mediaType   the media type
      * @param fileName    the file name
      * @param inputStream the input stream
@@ -30,6 +41,10 @@ public class MultipartResource {
      */
     public MultipartResource(MediaType mediaType, String fileName, InputStream inputStream) throws IOException {
         this(mediaType, fileName, FileTools.copyToByteArray(inputStream));
+    }
+
+    public MultipartResource(String fileName, byte[] source) {
+        this(null, fileName, source);
     }
 
     /**
