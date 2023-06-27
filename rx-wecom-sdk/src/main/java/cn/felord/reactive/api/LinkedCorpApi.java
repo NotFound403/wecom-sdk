@@ -50,7 +50,7 @@ public interface LinkedCorpApi {
      * @return the user
      */
     @POST("linkedcorp/user/get")
-    Single<GenericResponse<CorpUserInfo>> getUser(UserId userId);
+    Single<GenericResponse<CorpUserInfo>> getUser(@Body UserId userId);
 
     /**
      * 获取互联企业部门成员

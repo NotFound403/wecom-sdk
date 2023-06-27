@@ -99,7 +99,7 @@ public interface ExternalContactUserApi {
      * @return the external user list detail response
      */
     @POST("externalcontact/customer_strategy/get_range")
-    Single<StrategyRangeResponse> getCustomerStrategyRange(StrategyRangeRequest request);
+    Single<StrategyRangeResponse> getCustomerStrategyRange(@Body StrategyRangeRequest request);
 
     /**
      * 创建新的规则组

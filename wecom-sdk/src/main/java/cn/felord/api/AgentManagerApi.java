@@ -1,45 +1,41 @@
-/*
- *  Copyright (c) 2023. felord.cn
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *       https://www.apache.org/licenses/LICENSE-2.0
- *  Website:
- *       https://felord.cn
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
 package cn.felord.api;
 
+import cn.felord.AgentDetails;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
+import retrofit2.Retrofit;
 
 /**
- * 应用配置管理.
+ * The type Agent manager api.
  *
- * @author felord.cn
- * @since 1.0.0
+ * @author xiafang
+ * @since 2023 /6/27 11:33
  */
-public interface AgentManagerApi {
+public class AgentManagerApi {
+    private final InternalAgentManagerApi internalAgentManagerApi;
+    private final AgentDetails agentDetails;
 
     /**
-     * 获取应用详情
-     * <p>
-     * 应用ID要和对应的token一致
+     * Instantiates a new Agent manager api.
      *
-     * @param agentId the agent id
+     * @param retrofit     the retrofit
+     * @param agentDetails the agent details
+     */
+    AgentManagerApi(Retrofit retrofit, AgentDetails agentDetails) {
+        this.internalAgentManagerApi = retrofit.create(InternalAgentManagerApi.class);
+        this.agentDetails = agentDetails;
+    }
+
+
+    /**
+     * Gets agent details.
+     *
      * @return the agent details
      */
-    @GET("agent/get")
-    AgentDetailsResponse getAgentDetails(@Query("agentid") String agentId);
+    public AgentDetailsResponse getAgentDetails() {
+        return internalAgentManagerApi.getAgentDetails(agentDetails.getAgentId());
+    }
 
     /**
      * 设置应用
@@ -47,6 +43,48 @@ public interface AgentManagerApi {
      * @param request the request
      * @return WeComResponse
      */
-    @POST("agent/set")
-    WeComResponse settings(AgentSettingRequest request);
+    public WeComResponse settings(AgentSettingRequest request) {
+        return internalAgentManagerApi.settings(Settings.from(agentDetails.getAgentId(), request));
+    }
+
+
+    /**
+     * The type Settings.
+     */
+    public static class Settings extends AgentSettingRequest {
+        private final String agentid;
+
+
+        /**
+         * From settings.
+         *
+         * @param agentid the agentid
+         * @param request the request
+         * @return the settings
+         */
+        static Settings from(String agentid, AgentSettingRequest request) {
+            Settings settings = new Settings(agentid);
+            settings.setDescription(request.getDescription());
+            settings.setHomeUrl(request.getHomeUrl());
+            settings.setIsreportenter(request.getIsreportenter());
+            settings.setLogoMediaid(request.getLogoMediaid());
+            settings.setName(request.getName());
+            settings.setRedirectDomain(request.getRedirectDomain());
+            settings.setReportLocationFlag(request.getReportLocationFlag());
+            return settings;
+        }
+
+        private Settings(String agentid) {
+            this.agentid = agentid;
+        }
+
+        /**
+         * Gets agentid.
+         *
+         * @return the agentid
+         */
+        public String getAgentid() {
+            return agentid;
+        }
+    }
 }

@@ -92,5 +92,5 @@ public interface ScheduleApi {
      * @return the by calendar
      */
     @POST("oa/schedule/get_by_calendar")
-    ScheduleDetailResponse getByCalendar(ScheduleCalendarQuery query);
+    ScheduleDetailResponse getByCalendar(@Body ScheduleCalendarQuery query);
 }

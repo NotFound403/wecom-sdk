@@ -40,7 +40,7 @@ public class AgentApi {
      * @return the agent manager
      */
     public AgentManagerApi agentManager() {
-        return this.workWeChatApiClient.retrofit().create(AgentManagerApi.class);
+        return new AgentManagerApi(workWeChatApiClient.retrofit(), workWeChatApiClient.agentDetails());
     }
 
     /**

@@ -29,7 +29,7 @@ import retrofit2.http.Url;
 /**
  * The type File manager api.
  *
- * @author xiafang
+ * @author dax
  * @since 2023 /6/26 17:07
  */
 public class FileManagerApi {

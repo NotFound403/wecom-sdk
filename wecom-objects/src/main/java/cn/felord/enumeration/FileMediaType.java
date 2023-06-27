@@ -171,7 +171,7 @@ public enum FileMediaType {
      *
      * @return the string
      */
-    public String mediaType() {
-        return mediaType;
+    public MediaType mediaType() {
+        return MediaType.parse(mediaType);
     }
 }

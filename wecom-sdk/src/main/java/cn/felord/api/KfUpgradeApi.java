@@ -62,5 +62,5 @@ public interface KfUpgradeApi {
      * @return the kf external user response
      */
     @POST("kf/customer/batchget")
-    KfExternalUserResponse batchKfExternalUsers(KfExternalUserRequest request);
+    KfExternalUserResponse batchKfExternalUsers(@Body KfExternalUserRequest request);
 }

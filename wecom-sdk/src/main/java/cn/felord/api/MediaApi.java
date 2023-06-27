@@ -18,6 +18,7 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.media.MediaUploadRequest;
+import cn.felord.domain.media.MultipartResource;
 import cn.felord.enumeration.FileMediaType;
 import cn.felord.enumeration.MediaAttachmentType;
 import cn.felord.enumeration.MediaTypeEnum;
@@ -27,7 +28,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 
-import java.io.File;
+import java.util.Objects;
 
 /**
  * 素材管理
@@ -56,13 +57,13 @@ public class MediaApi {
      *
      * @param mediaType      the media type
      * @param attachmentType the attachment type
-     * @param file           the file
+     * @param resource       the resource
      * @return the media response
      */
     public MediaResponse uploadAttachment(MediaTypeEnum mediaType,
                                           MediaAttachmentType attachmentType,
-                                          File file) {
-        return internalMediaApi.uploadAttachment(mediaType.type(), attachmentType.getType(), this.toMultipartBody(file));
+                                          MultipartResource resource) {
+        return internalMediaApi.uploadAttachment(mediaType.type(), attachmentType.getType(), this.toMultipartBody(resource));
     }
 
     /**
@@ -74,11 +75,11 @@ public class MediaApi {
      * 普通文件（file）：20MB
      *
      * @param mediaType the media type
-     * @param file      the file
+     * @param resource  the resource
      * @return the media response
      */
-    public MediaResponse uploadMedia(MediaTypeEnum mediaType, File file) {
-        return internalMediaApi.uploadMedia(mediaType.type(), this.toMultipartBody(file));
+    public MediaResponse uploadMedia(MediaTypeEnum mediaType, MultipartResource resource) {
+        return internalMediaApi.uploadMedia(mediaType.type(), this.toMultipartBody(resource));
     }
 
     /**
@@ -88,11 +89,11 @@ public class MediaApi {
      * 返回的图片URL，仅能用于图文消息正文中的图片展示，或者给客户发送欢迎语等；若用于非企业微信环境下的页面，图片将被屏蔽。
      * 每个企业每月最多可上传3000张图片，每天最多可上传1000张图片
      *
-     * @param file the file
+     * @param resource the resource
      * @return the media response
      */
-    public MediaResponse uploadImage(File file) {
-        return internalMediaApi.uploadImage(this.toMultipartBody(file));
+    public MediaResponse uploadImage(MultipartResource resource) {
+        return internalMediaApi.uploadImage(this.toMultipartBody(resource));
     }
 
     /**
@@ -125,12 +126,14 @@ public class MediaApi {
         return internalMediaApi.uploadByUrl(request);
     }
 
-    private MultipartBody toMultipartBody(File file) {
-        String mediaTypeStr = FileMediaType.fromFileName(file.getName()).mediaType();
-        RequestBody requestBody = RequestBody.create(file, MediaType.parse(mediaTypeStr));
+    private MultipartBody toMultipartBody(MultipartResource resource) {
+        String fileName = resource.getFileName();
+        MediaType mediaType = Objects.nonNull(resource.getMediaType()) ?
+                resource.getMediaType() : FileMediaType.fromFileName(fileName).mediaType();
+        RequestBody requestBody = RequestBody.create(resource.getSource(), mediaType);
         return new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("media", file.getName(), requestBody)
+                .addFormDataPart("media", fileName, requestBody)
                 .build();
     }
 }

@@ -65,7 +65,7 @@ public interface KfAccountApi {
      * @return the generic response
      */
     @POST("kf/account/list")
-    GenericResponse<List<KfAccountInfo>> kfAccountList(KfAccountListRequest request);
+    GenericResponse<List<KfAccountInfo>> kfAccountList(@Body KfAccountListRequest request);
 
     /**
      * 获取客服账号链接

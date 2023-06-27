@@ -49,7 +49,7 @@ public interface LinkedCorpApi {
      * @return the user
      */
     @POST("linkedcorp/user/get")
-    GenericResponse<CorpUserInfo> getUser(UserId userId);
+    GenericResponse<CorpUserInfo> getUser(@Body UserId userId);
 
     /**
      * 获取互联企业部门成员
