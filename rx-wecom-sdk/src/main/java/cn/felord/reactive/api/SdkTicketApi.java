@@ -30,7 +30,7 @@ import java.text.MessageFormat;
 import java.time.Instant;
 
 /**
- * The type Js sdk ticket api.
+ * Js sdk ticket api.
  *
  * @author felord.cn
  * @since 1.0.0
@@ -42,6 +42,12 @@ public class SdkTicketApi {
     private final JsApi jsApi;
     private final WeComAgentTicketCacheable weComAgentTicketCacheable;
 
+    /**
+     * Instantiates a new Sdk ticket api.
+     *
+     * @param workWeChatApiClient       the work we chat api client
+     * @param weComAgentTicketCacheable the we com agent ticket cacheable
+     */
     SdkTicketApi(WorkWeChatApiClient workWeChatApiClient, WeComAgentTicketCacheable weComAgentTicketCacheable) {
         this.agentDetails = workWeChatApiClient.agentDetails();
         this.jsApi = workWeChatApiClient.retrofit().create(JsApi.class);

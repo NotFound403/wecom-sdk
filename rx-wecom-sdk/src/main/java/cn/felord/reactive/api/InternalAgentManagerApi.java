@@ -29,7 +29,7 @@ import retrofit2.http.Query;
  * @author felord.cn
  * @since 1.0.0
  */
-public interface InternalAgentManagerApi {
+interface InternalAgentManagerApi {
 
     /**
      * 获取应用详情
