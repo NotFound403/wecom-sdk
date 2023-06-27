@@ -52,7 +52,7 @@ public final class RetrofitFactory {
     }
 
     /**
-     * Create retrofit.
+     * 带TokenApi拦截器的Retrofit客户端
      *
      * @param <T>            the type parameter
      * @param tokenApi       the token api
@@ -70,6 +70,41 @@ public final class RetrofitFactory {
                 .build();
     }
 
+    /**
+     * SSL Retrofit
+     * <p>
+     * 带SSL的Retrofit客户端，支付使用
+     *
+     * @param baseUrl        the base url
+     * @param sslManager     the ssl manager
+     * @param connectionPool the connection pool
+     * @param level          the level
+     * @return the retrofit
+     */
+    public static Retrofit create(String baseUrl, SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(okHttpClient(sslManager, connectionPool, level))
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
+                .addConverterFactory(JACKSON_CONVERTER_FACTORY)
+                .build();
+    }
+
+    private static OkHttpClient okHttpClient(SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.level(level);
+        return new OkHttpClient.Builder()
+                .connectionPool(connectionPool)
+                .sslSocketFactory(sslManager.getSslSocketFactory(), sslManager.getTrustManager())
+                .addInterceptor(httpLoggingInterceptor)
+                .retryOnConnectionFailure(true)
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .build();
+    }
+
     private static OkHttpClient okHttpClient(TokenApi tokenApi, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.level(level);
@@ -78,9 +113,9 @@ public final class RetrofitFactory {
                 .addInterceptor(new TokenInterceptor(tokenApi))
                 .addInterceptor(httpLoggingInterceptor)
                 .retryOnConnectionFailure(true)
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
                 .build();
     }
 
