@@ -29,7 +29,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 /**
- * The type Js sdk ticket api.
+ * Js sdk ticket api.
  *
  * @author felord.cn
  * @since 1.0.0

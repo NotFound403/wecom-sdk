@@ -20,7 +20,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
- * The interface Js api.
+ * jsapi ticket.
  *
  * @author dax
  * @since 2023 /5/24 17:55
