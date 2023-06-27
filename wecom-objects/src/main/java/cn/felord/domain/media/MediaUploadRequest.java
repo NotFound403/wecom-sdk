@@ -26,7 +26,7 @@ import lombok.ToString;
 @Getter
 public class MediaUploadRequest {
 
-    private final int scene = 1;
+    private final int scene;
     private final String filename;
     private final String md5;
     private final String type;
@@ -41,6 +41,7 @@ public class MediaUploadRequest {
      * @param type     the type
      */
     MediaUploadRequest(String filename, String md5, String url, String type) {
+        this.scene = 1;
         this.filename = filename;
         this.md5 = md5;
         this.type = type;

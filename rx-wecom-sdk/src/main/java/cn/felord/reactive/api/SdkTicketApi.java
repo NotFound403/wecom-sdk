@@ -104,7 +104,7 @@ public class SdkTicketApi {
     }
 
     private JSignatureResponse sha1(String ticket, String url) {
-        String nonceStr = ID_GENERATOR.generateId();
+        String nonceStr = ID_GENERATOR.generate32();
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
         String format = MessageFormat.format(SIGNATURE_FORMATTER, ticket, nonceStr, timestamp, url);
         JSignatureResponse jSignature = new JSignatureResponse();
