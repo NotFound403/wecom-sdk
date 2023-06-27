@@ -15,6 +15,8 @@
 
 package cn.felord.retrofit;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 import javax.net.ssl.*;
@@ -69,14 +71,14 @@ public class SSLManager {
     /**
      * Instantiates a new Ssl manager.
      *
-     * @param loadedkeyStore the loadedkey store
+     * @param loadedKeyStore the loadedKey store
      * @throws NoSuchAlgorithmException the no such algorithm exception
      * @throws KeyStoreException        the key store exception
      * @throws KeyManagementException   the key management exception
      */
-    public SSLManager(KeyStore loadedkeyStore) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+    public SSLManager(KeyStore loadedKeyStore) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-        trustManagerFactory.init(loadedkeyStore);
+        trustManagerFactory.init(loadedKeyStore);
         TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
         if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
             throw new IllegalStateException("Unexpected default trust managers:"
@@ -103,4 +105,15 @@ public class SSLManager {
         this.sslSocketFactory = tlSv1.getSocketFactory();
     }
 
+    /**
+     * Instantiates a new Ssl manager.
+     *
+     * @param trustManager     the trust manager
+     * @param sslSocketFactory the ssl socket factory
+     */
+    @JsonCreator
+    public SSLManager(@JsonProperty("trustManager") X509TrustManager trustManager, @JsonProperty("sslSocketFactory") SSLSocketFactory sslSocketFactory) {
+        this.trustManager = trustManager;
+        this.sslSocketFactory = sslSocketFactory;
+    }
 }
