@@ -2,6 +2,7 @@ package cn.felord.wecom.cache;
 
 import cn.felord.WeComTokenCacheable;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 
@@ -24,6 +25,12 @@ public class EhcacheWeComTokenCacheable implements WeComTokenCacheable {
     @Override
     public String getAccessToken(@NotNull String corpId, @NotNull String agentId) {
         return null;
+    }
+
+    @CacheEvict(value = {QYWX_TOKEN_CACHE}, key = "#corpId.concat('::').concat(#agentId)")
+    @Override
+    public void clearAccessToken(String corpId, String agentId) {
+
     }
 
     @CachePut(value = {QYWX_CORP_TICKET_CACHE}, key = "#corpId.concat('::').concat(#agentId)")

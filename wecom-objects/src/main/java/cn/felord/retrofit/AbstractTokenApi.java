@@ -29,7 +29,6 @@ public abstract class AbstractTokenApi implements TokenApi {
     private final WeComTokenCacheable wecomCacheable;
     private final AgentDetails agentDetails;
 
-
     /**
      * Instantiates a new Token api.
      *
@@ -47,7 +46,7 @@ public abstract class AbstractTokenApi implements TokenApi {
      * @return the token response
      */
     @Override
-    public final String getTokenResponse() {
+    public final String getToken() {
         String corpId = agentDetails.getCorpId();
         final String agentId = agentDetails.getAgentId();
         String tokenCache = wecomCacheable.getAccessToken(corpId, agentId);
@@ -67,6 +66,11 @@ public abstract class AbstractTokenApi implements TokenApi {
         return agentDetails;
     }
 
+    @Override
+    public void clearToken() {
+        AgentDetails agentDetails = this.getAgentDetails();
+        wecomCacheable.clearAccessToken(agentDetails.getCorpId(), agentDetails.getAgentId());
+    }
 
     /**
      * Do get token string.

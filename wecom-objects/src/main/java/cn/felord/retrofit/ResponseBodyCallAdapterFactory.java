@@ -17,10 +17,8 @@ package cn.felord.retrofit;
 
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
-import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -29,7 +27,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
 /**
- * The type Token interceptor.
+ * Token interceptor.
  *
  * @author dax
  * @since 2023 /5/22 14:59
@@ -46,7 +44,7 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
 
     @Override
     public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        return new ResponseBodyCallAdapter<>(returnType, annotations, retrofit);
+        return new ResponseBodyCallAdapter<>(returnType);
     }
 
     /**
@@ -58,21 +56,13 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
 
         private final Type returnType;
 
-        private final Retrofit retrofit;
-
-        private final Annotation[] annotations;
-
         /**
          * Instantiates a new Body call adapter.
          *
-         * @param returnType  the return type
-         * @param annotations the annotations
-         * @param retrofit    the retrofit
+         * @param returnType the return type
          */
-        ResponseBodyCallAdapter(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        ResponseBodyCallAdapter(Type returnType) {
             this.returnType = returnType;
-            this.retrofit = retrofit;
-            this.annotations = annotations;
         }
 
         @Override
@@ -92,7 +82,7 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
 
             if (response.isSuccessful()) {
                 R body = response.body();
-                if (body != null && body.getClass().isAssignableFrom(WeComResponse.class)) {
+                if (body != null && WeComResponse.class.isAssignableFrom(body.getClass())) {
                     WeComResponse weComResponse = (WeComResponse) body;
                     if (weComResponse.isError()) {
                         throw new WeComException(weComResponse.getErrcode(), weComResponse.getErrmsg());
@@ -100,13 +90,7 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
                 }
                 return body;
             }
-
-            Converter<ResponseBody, R> responseBodyRConverter = retrofit.responseBodyConverter(responseType(), annotations);
-            try (ResponseBody errorBody = response.errorBody()) {
-                return errorBody == null ? null : responseBodyRConverter.convert(errorBody);
-            } catch (IOException e) {
-                throw new WeComException(e.getMessage());
-            }
+            throw new WeComException(" response is not successful, " + response.message());
         }
     }
 }

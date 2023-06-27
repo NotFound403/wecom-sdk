@@ -39,7 +39,7 @@ public interface ApprovalApi {
      * @return the detail
      */
     @POST("oa/gettemplatedetail")
-    ApprovalTmpDetailResponse getDetail(@Body TemplateId templateId);
+    ApprovalTmpDetailResponse getTemplateDetail(@Body TemplateId templateId);
 
     /**
      * 创建审批模板
@@ -67,7 +67,7 @@ public interface ApprovalApi {
      * @return the we com response
      */
     @POST("oa/approval/update_template")
-    WeComResponse createTemplate(@Body ApprovalTempUpdateRequest template);
+    WeComResponse updateTemplate(@Body ApprovalTempUpdateRequest template);
 
     /**
      * 提交审批申请

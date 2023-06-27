@@ -60,6 +60,7 @@ public class TokenInterceptor implements Interceptor {
             String json = body.string();
             WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
             if (Objects.equals(INVALID_ACCESS_TOKEN, weComResponse.getErrcode())) {
+                tokenApi.clearToken();
                 return doRequest(chain);
             }
             MediaType mediaType = body.contentType();
@@ -76,7 +77,7 @@ public class TokenInterceptor implements Interceptor {
     private Response doRequest(Chain chain) throws IOException {
         Request request = chain.request();
         HttpUrl oldHttpUrl = request.url();
-        String tokenResponse = tokenApi.getTokenResponse();
+        String tokenResponse = tokenApi.getToken();
         Request requestWithAccessToken = request.newBuilder()
                 .url(oldHttpUrl.newBuilder()
                         .addQueryParameter(tokenParam, tokenResponse)

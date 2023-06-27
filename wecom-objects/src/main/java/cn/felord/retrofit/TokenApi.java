@@ -26,11 +26,11 @@ import cn.felord.AgentDetails;
  */
 public interface TokenApi {
     /**
-     * Gets token response.
+     * 获取Token
      *
      * @return the token response
      */
-    String getTokenResponse();
+    String getToken();
 
     /**
      * Gets agent details.
@@ -38,4 +38,9 @@ public interface TokenApi {
      * @return the agent details
      */
     AgentDetails getAgentDetails();
+
+    /**
+     * 清除缓存
+     */
+    void clearToken();
 }
