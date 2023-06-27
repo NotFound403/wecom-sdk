@@ -37,6 +37,8 @@ public class CallbackEventBody implements XmlBody {
     private String timeStamp;
     private String nonce;
     private String encrypt;
+    private String originalXml;
+
     @XStreamAlias("ToUserName")
     private final String toUserName;
     @XStreamAlias("FromUserName")

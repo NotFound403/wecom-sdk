@@ -305,6 +305,7 @@ public class CallbackCrypto {
         eventBody.setNonce(nonce);
         eventBody.setEncrypt(encrypt);
         eventBody.setXmlAgentId(callbackXmlBody.getAgentId());
+        eventBody.setOriginalXml(xml);
         // end 用来记录追踪
         this.callbackAsyncConsumer.asyncAction(eventBody);
         return response;

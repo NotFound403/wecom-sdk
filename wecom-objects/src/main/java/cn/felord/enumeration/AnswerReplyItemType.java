@@ -16,14 +16,28 @@
 package cn.felord.enumeration;
 
 /**
+ * The enum Answer reply item type.
+ *
  * @author dax
- * @since 2023/3/16 15:43
+ * @since 2023 /3/16 15:43
  */
 public enum AnswerReplyItemType {
 
+    /**
+     * Text answer reply item type.
+     */
     TEXT,
+    /**
+     * Option answer reply item type.
+     */
     OPTION,
+    /**
+     * File answer reply item type.
+     */
     FILE,
+    /**
+     * Invalid answer reply item type.
+     */
     INVALID
 
 }

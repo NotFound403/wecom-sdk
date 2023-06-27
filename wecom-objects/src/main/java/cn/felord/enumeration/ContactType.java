@@ -21,11 +21,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
+ * The enum Contact type.
+ *
  * @author dax
- * @since 2021/9/8 10:47
+ * @since 2021 /9/8 10:47
  */
 public enum ContactType {
+    /**
+     * Single contact type.
+     */
     SINGLE(1),
+    /**
+     * Multi contact type.
+     */
     MULTI(2);
 
     private final int type;
@@ -34,11 +42,22 @@ public enum ContactType {
         this.type = type;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     @JsonValue
     public int getType() {
         return type;
     }
 
+    /**
+     * Deserialize contact type.
+     *
+     * @param type the type
+     * @return the contact type
+     */
     @JsonCreator
     public static ContactType deserialize(int type) {
         return Arrays.stream(ContactType.values())

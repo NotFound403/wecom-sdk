@@ -21,12 +21,23 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
+ * The enum Group chat join scene.
+ *
  * @author dax
- * @since 2021/9/8 10:47
+ * @since 2021 /9/8 10:47
  */
 public enum GroupChatJoinScene {
+    /**
+     * Direct by member group chat join scene.
+     */
     DIRECT_BY_MEMBER(1),
+    /**
+     * Link by member group chat join scene.
+     */
     LINK_BY_MEMBER(2),
+    /**
+     * Qr code group chat join scene.
+     */
     QR_CODE(3);
 
     private final int type;
@@ -35,11 +46,22 @@ public enum GroupChatJoinScene {
         this.type = type;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     @JsonValue
     public int getType() {
         return type;
     }
 
+    /**
+     * Deserialize group chat join scene.
+     *
+     * @param type the type
+     * @return the group chat join scene
+     */
     @JsonCreator
     public static GroupChatJoinScene deserialize(int type) {
         return Arrays.stream(GroupChatJoinScene.values())

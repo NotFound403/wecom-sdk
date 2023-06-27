@@ -21,12 +21,23 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
+ * The enum Contact user tag type.
+ *
  * @author dax
- * @since 2021/9/8 10:47
+ * @since 2021 /9/8 10:47
  */
 public enum ContactUserTagType {
+    /**
+     * Corp settings contact user tag type.
+     */
     CORP_SETTINGS(1),
+    /**
+     * Custom contact user tag type.
+     */
     CUSTOM(2),
+    /**
+     * Rule group contact user tag type.
+     */
     RULE_GROUP(3);
 
     private final int type;
@@ -35,11 +46,22 @@ public enum ContactUserTagType {
         this.type = type;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     @JsonValue
     public int getType() {
         return type;
     }
 
+    /**
+     * Deserialize contact user tag type.
+     *
+     * @param type the type
+     * @return the contact user tag type
+     */
     @JsonCreator
     public static ContactUserTagType deserialize(int type) {
         return Arrays.stream(ContactUserTagType.values())

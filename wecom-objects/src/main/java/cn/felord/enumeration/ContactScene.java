@@ -21,11 +21,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
+ * The enum Contact scene.
+ *
  * @author dax
- * @since 2021/9/8 10:47
+ * @since 2021 /9/8 10:47
  */
 public enum ContactScene {
+    /**
+     * Mini program contact scene.
+     */
     MINI_PROGRAM(1),
+    /**
+     * Qr code contact scene.
+     */
     QR_CODE(2);
 
     private final int type;
@@ -34,11 +42,22 @@ public enum ContactScene {
         this.type = type;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     @JsonValue
     public int getType() {
         return type;
     }
 
+    /**
+     * Deserialize contact scene.
+     *
+     * @param type the type
+     * @return the contact scene
+     */
     @JsonCreator
     public static ContactScene deserialize(int type) {
         return Arrays.stream(ContactScene.values())

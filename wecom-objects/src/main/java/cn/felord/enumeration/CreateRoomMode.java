@@ -21,11 +21,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
+ * The enum Create room mode.
+ *
  * @author dax
- * @since 2021/9/8 10:47
+ * @since 2021 /9/8 10:47
  */
 public enum CreateRoomMode {
+    /**
+     * None create room mode.
+     */
     NONE(0),
+    /**
+     * New create room mode.
+     */
     NEW(1);
 
     private final int type;
@@ -34,11 +42,22 @@ public enum CreateRoomMode {
         this.type = type;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     @JsonValue
     public int getType() {
         return type;
     }
 
+    /**
+     * Deserialize create room mode.
+     *
+     * @param type the type
+     * @return the create room mode
+     */
     @JsonCreator
     public static CreateRoomMode deserialize(int type) {
         return Arrays.stream(CreateRoomMode.values())
