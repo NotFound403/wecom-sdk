@@ -15,51 +15,43 @@
 
 package cn.felord.xml;
 
-import cn.felord.callbacks.CallbackXmlBody;
-import cn.felord.callbacks.CallbackXmlResponse;
 import cn.felord.convert.UnixInstantConverter;
-import cn.felord.domain.callback.CallbackEventBody;
-import cn.felord.domain.callback.XmlBody;
+import cn.felord.domain.callback.Xml;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author felord
  * @since 2021/10/10 14:16
  */
 public class XStreamXmlReader implements XmlReader {
-    private static final Class<?>[] ALLOW_TYPES = {CallbackXmlBody.class, CallbackEventBody.class, CallbackXmlResponse.class};
-    private static final Map<Class<?>, XStream> XSTREAM_MAP = new HashMap<>();
+    private static final Map<Class<?>, XStream> X_STREAM_HOLDER = new ConcurrentHashMap<>();
+    private static final XmlFriendlyNameCoder NAME_CODER = new XmlFriendlyNameCoder("_-", "_");
+    private static final DomDriver DOM_DRIVER = new DomDriver("UTF-8", NAME_CODER);
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends XmlBody> T read(String xml, Class<T> clazz) {
-        return (T) initXStream(clazz).fromXML(xml);
+    public <T extends Xml> T read(String xml, Class<T> clazz) {
+        return (T) X_STREAM_HOLDER.computeIfAbsent(clazz, XStreamXmlReader::newXStream).fromXML(xml);
     }
 
     @Override
-    public <T extends XmlBody> String write(T t) {
+    public <T extends Xml> String write(T t) {
         Class<?> clazz = t.getClass();
-        return initXStream(clazz).toXML(t);
+        return X_STREAM_HOLDER.computeIfAbsent(clazz, XStreamXmlReader::newXStream).toXML(t);
     }
 
-    private static XStream initXStream(Class<?> clazz) {
-        XStream xStream = XSTREAM_MAP.get(clazz);
-        if (xStream == null) {
-            xStream = new XStream(new DomDriver("UTF-8", new XmlFriendlyNameCoder("_-", "_")));
-            // 安全白名单
-            xStream.allowTypes(ALLOW_TYPES);
-            xStream.registerConverter(new UnixInstantConverter());
-            xStream.ignoreUnknownElements();
-            xStream.autodetectAnnotations(true);
-            xStream.processAnnotations(clazz);
-            XSTREAM_MAP.put(clazz, xStream);
-        }
+    private static XStream newXStream(Class<?> clazz) {
+        XStream xStream = new XStream(DOM_DRIVER);
+        // 安全白名单
+        xStream.allowTypeHierarchy(Xml.class);
+        xStream.registerConverter(new UnixInstantConverter());
+        xStream.ignoreUnknownElements();
+        xStream.processAnnotations(clazz);
         return xStream;
     }
-
 }

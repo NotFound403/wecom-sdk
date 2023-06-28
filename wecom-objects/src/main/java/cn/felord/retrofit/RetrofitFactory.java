@@ -26,20 +26,15 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The type Retrofit factory.
+ * The Retrofit factory.
  *
  * @author dax
  * @since 2023 /5/21
  */
 public final class RetrofitFactory {
     private static final String BASE_URL = "https://qyapi.weixin.qq.com/cgi-bin/";
-    /**
-     * The constant JACKSON_CONVERTER_FACTORY.
-     */
+    private static final String BASE_PAY_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/";
     public static final JacksonConverterFactory JACKSON_CONVERTER_FACTORY = JacksonConverterFactoryBuilder.build();
-    /**
-     * The constant RETROFIT_.
-     */
     public static final Retrofit RETROFIT_ = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient(HttpLoggingInterceptor.Level.NONE))
@@ -75,15 +70,14 @@ public final class RetrofitFactory {
      * <p>
      * 带SSL的Retrofit客户端，支付使用
      *
-     * @param baseUrl        the base url
      * @param sslManager     the ssl manager
      * @param connectionPool the connection pool
      * @param level          the level
      * @return the retrofit
      */
-    public static Retrofit create(String baseUrl, SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    public static Retrofit create(SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         return new Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(BASE_PAY_URL)
                 .client(okHttpClient(sslManager, connectionPool, level))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)

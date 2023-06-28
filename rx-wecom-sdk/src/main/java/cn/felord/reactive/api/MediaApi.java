@@ -16,6 +16,8 @@
 package cn.felord.reactive.api;
 
 import cn.felord.domain.GenericResponse;
+import cn.felord.domain.common.JobId;
+import cn.felord.domain.media.MediaJobResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.media.MediaUploadRequest;
 import cn.felord.domain.media.MultipartResource;
@@ -28,6 +30,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import retrofit2.http.Body;
 
 import java.util.Objects;
 
@@ -125,6 +128,16 @@ public class MediaApi {
      */
     public Single<GenericResponse<String>> uploadByUrl(MediaUploadRequest request) {
         return internalMediaApi.uploadByUrl(request);
+    }
+
+    /**
+     * 查询异步任务结果
+     *
+     * @param jobId the job id
+     * @return the upload by url result
+     */
+    public Single<MediaJobResponse> getUploadByUrlResult(@Body JobId jobId) {
+        return internalMediaApi.getUploadByUrlResult(jobId);
     }
 
     private MultipartBody toMultipartBody(MultipartResource resource) {

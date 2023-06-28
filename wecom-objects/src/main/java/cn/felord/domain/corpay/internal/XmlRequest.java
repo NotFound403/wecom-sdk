@@ -1,4 +1,4 @@
-package cn.felord.domain.corpay;
+package cn.felord.domain.corpay.internal;
 
 import cn.felord.enumeration.PaySignType;
 
