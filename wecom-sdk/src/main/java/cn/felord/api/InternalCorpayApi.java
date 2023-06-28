@@ -94,7 +94,7 @@ interface InternalCorpayApi {
      * @return the string
      */
     @POST("promotion/paywwsptrans2pocket")
-    String payWwSptrans2Pocket(@Body String xmlBody);
+    String payWwSpTrans2Pocket(@Body String xmlBody);
 
     /**
      * 向员工付款-查询付款记录
@@ -106,5 +106,5 @@ interface InternalCorpayApi {
      * @return the string
      */
     @POST("promotion/querywwsptrans2pocket")
-    String queryWwSptrans2Pocket(@Body String xmlBody);
+    String queryWwSpTrans2Pocket(@Body String xmlBody);
 }
