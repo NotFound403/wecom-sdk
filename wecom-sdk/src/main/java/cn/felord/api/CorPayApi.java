@@ -1,0 +1,102 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+package cn.felord.api;
+
+import cn.felord.domain.corpay.internal.*;
+import cn.felord.enumeration.PaySignType;
+import cn.felord.retrofit.RetrofitFactory;
+import cn.felord.retrofit.SSLManager;
+import cn.felord.xml.XStreamXmlReader;
+import okhttp3.ConnectionPool;
+import okhttp3.logging.HttpLoggingInterceptor;
+
+/**
+ * 企业红包和向员工付款
+ *
+ * @author dax
+ * @since 2023 /6/28
+ */
+public class CorPayApi {
+    private final String paySecret;
+    private final String payAgentSecret;
+    private final InternalCorpayApi internalCorpayApi;
+
+    /**
+     * Instantiates a new Corpay api.
+     *
+     * @param paySecret      the pay secret
+     * @param payAgentSecret the pay agent secret
+     * @param sslManager     the ssl manager
+     * @param connectionPool the connection pool
+     * @param level          the level
+     */
+    CorPayApi(String paySecret, String payAgentSecret, SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+        this.paySecret = paySecret;
+        this.payAgentSecret = payAgentSecret;
+        this.internalCorpayApi = RetrofitFactory.create(sslManager, connectionPool, level)
+                .create(InternalCorpayApi.class);
+    }
+
+
+    /**
+     * 发放企业红包
+     *
+     * @param request the request
+     * @return the string
+     */
+    public RedPackResponse sendWorkWxRedPack(RedPackRequest request) {
+        request.workWxSign(this.payAgentSecret);
+        String xmlResponse = internalCorpayApi.sendWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5));
+        return XStreamXmlReader.INSTANCE.read(xmlResponse, RedPackResponse.class);
+    }
+
+
+    /**
+     * 查询红包记录
+     *
+     * @param request the request
+     * @return the string
+     */
+    public RedPackRecordResponse queryWorkWxRedPack(RedPackRecordRequest request) {
+        String xmlResponse = internalCorpayApi.queryWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5));
+        return XStreamXmlReader.INSTANCE.read(xmlResponse, RedPackRecordResponse.class);
+    }
+
+
+    /**
+     * 向员工付款
+     *
+     * @param request the request
+     * @return the string
+     */
+    public TransPocketResponse payWwSpTrans2Pocket(TransPocketRequest request) {
+        request.workWxSign(this.payAgentSecret);
+        String xmlResponse = internalCorpayApi.payWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));
+        return XStreamXmlReader.INSTANCE.read(xmlResponse, TransPocketResponse.class);
+    }
+
+
+    /**
+     * 查询付款记录
+     *
+     * @param request the request
+     * @return the string
+     */
+    public TransPocketRecordResponse queryWwSpTrans2Pocket(TransPocketRecordRequest request) {
+        String xmlResponse = internalCorpayApi.queryWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));
+        return XStreamXmlReader.INSTANCE.read(xmlResponse, TransPocketRecordResponse.class);
+    }
+}

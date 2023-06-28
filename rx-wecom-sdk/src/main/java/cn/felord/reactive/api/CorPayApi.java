@@ -13,13 +13,14 @@
  *  limitations under the License.
  */
 
-package cn.felord.api;
+package cn.felord.reactive.api;
 
 import cn.felord.domain.corpay.internal.*;
 import cn.felord.enumeration.PaySignType;
 import cn.felord.retrofit.RetrofitFactory;
 import cn.felord.retrofit.SSLManager;
 import cn.felord.xml.XStreamXmlReader;
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -29,7 +30,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * @author dax
  * @since 2023 /6/28
  */
-public class CorpayApi {
+public class CorPayApi {
     private final String paySecret;
     private final String payAgentSecret;
     private final InternalCorpayApi internalCorpayApi;
@@ -43,7 +44,7 @@ public class CorpayApi {
      * @param connectionPool the connection pool
      * @param level          the level
      */
-    CorpayApi(String paySecret, String payAgentSecret, SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    CorPayApi(String paySecret, String payAgentSecret, SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         this.paySecret = paySecret;
         this.payAgentSecret = payAgentSecret;
         this.internalCorpayApi = RetrofitFactory.create(sslManager, connectionPool, level)
@@ -57,10 +58,10 @@ public class CorpayApi {
      * @param request the request
      * @return the string
      */
-    public RedPackResponse sendWorkWxRedPack(RedPackRequest request) {
+    public Single<RedPackResponse> sendWorkWxRedPack(RedPackRequest request) {
         request.workWxSign(this.payAgentSecret);
-        String xmlResponse = internalCorpayApi.sendWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5));
-        return XStreamXmlReader.INSTANCE.read(xmlResponse, RedPackResponse.class);
+        return internalCorpayApi.sendWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5))
+                .map(xml -> XStreamXmlReader.INSTANCE.read(xml, RedPackResponse.class));
     }
 
 
@@ -70,9 +71,9 @@ public class CorpayApi {
      * @param request the request
      * @return the string
      */
-    public RedPackRecordResponse queryWorkWxRedPack(RedPackRecordRequest request) {
-        String xmlResponse = internalCorpayApi.queryWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5));
-        return XStreamXmlReader.INSTANCE.read(xmlResponse, RedPackRecordResponse.class);
+    public Single<RedPackRecordResponse> queryWorkWxRedPack(RedPackRecordRequest request) {
+        return internalCorpayApi.queryWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5))
+                .map(xml -> XStreamXmlReader.INSTANCE.read(xml, RedPackRecordResponse.class));
     }
 
 
@@ -82,10 +83,10 @@ public class CorpayApi {
      * @param request the request
      * @return the string
      */
-    public TransPocketResponse payWwSpTrans2Pocket(TransPocketRequest request) {
+    public Single<TransPocketResponse> payWwSpTrans2Pocket(TransPocketRequest request) {
         request.workWxSign(this.payAgentSecret);
-        String xmlResponse = internalCorpayApi.payWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));
-        return XStreamXmlReader.INSTANCE.read(xmlResponse, TransPocketResponse.class);
+        return internalCorpayApi.payWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5))
+                .map(xml -> XStreamXmlReader.INSTANCE.read(xml, TransPocketResponse.class));
     }
 
 
@@ -95,8 +96,8 @@ public class CorpayApi {
      * @param request the request
      * @return the string
      */
-    public TransPocketRecordResponse queryWwSpTrans2Pocket(TransPocketRecordRequest request) {
-        String xmlResponse = internalCorpayApi.queryWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));
-        return XStreamXmlReader.INSTANCE.read(xmlResponse, TransPocketRecordResponse.class);
+    public Single<TransPocketRecordResponse> queryWwSpTrans2Pocket(TransPocketRecordRequest request) {
+        return internalCorpayApi.queryWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5))
+                .map(xml -> XStreamXmlReader.INSTANCE.read(xml, TransPocketRecordResponse.class));
     }
 }

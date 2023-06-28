@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.api;
+package cn.felord.reactive.api;
 
 import cn.felord.WeComTokenCacheable;
 import cn.felord.retrofit.SSLManager;
