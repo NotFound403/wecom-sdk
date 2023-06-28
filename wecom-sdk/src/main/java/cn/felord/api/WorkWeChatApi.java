@@ -121,6 +121,15 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 企业支付
+     *
+     * @return the pay api
+     */
+    public PayApi payApi() {
+        return new PayApi(weComTokenCacheable, connectionPool, level);
+    }
+
+    /**
      * 身份验证
      *
      * @param agentDetails the agent details

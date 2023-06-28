@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.api;
 
 import retrofit2.http.Body;
@@ -12,7 +27,6 @@ import retrofit2.http.POST;
  * @since 2023 /6/28 17:58
  */
 interface InternalCorpayApi {
-
 
     /**
      * 发放企业红包
@@ -84,6 +98,9 @@ interface InternalCorpayApi {
 
     /**
      * 向员工付款-查询付款记录
+     * <p>
+     * 用于商户的企业微信企业付款操作进行结果查询，返回付款操作详细结果。
+     * 查询企业微信企业付款API只支持查询30天内的订单，30天之前的订单请登录商户平台查询。
      *
      * @param xmlBody the xml body
      * @return the string

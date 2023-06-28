@@ -13,27 +13,21 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.corpay.internal;
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+package cn.felord.enumeration;
 
 /**
+ * The enum Trans pocket check.
+ *
  * @author dax
- * @since 2023/6/26 14:49
+ * @since 2023 /6/28
  */
-@XStreamAlias("xml")
-@EqualsAndHashCode(callSuper = true)
-@Data
-public class RedPackRecordRequest extends AbstractXmlRequest {
-    @XStreamAlias("nonce_str")
-    private final String nonceStr;
-    @XStreamAlias("mch_billno")
-    private final String mchBillno;
-    @XStreamAlias("mch_id")
-    private final String mchId;
-    @XStreamAlias("appid")
-    private final String appid;
-
+public enum TransPocketCheck {
+    /**
+     * 不校验真实姓名
+     */
+    NO_CHECK,
+    /**
+     * 强校验真实姓名
+     */
+    FORCE_CHECK
 }
