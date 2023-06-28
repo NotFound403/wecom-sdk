@@ -32,6 +32,10 @@ public class XStreamXmlReader implements XmlReader {
     private static final Map<Class<?>, XStream> X_STREAM_HOLDER = new ConcurrentHashMap<>();
     private static final XmlFriendlyNameCoder NAME_CODER = new XmlFriendlyNameCoder("_-", "_");
     private static final DomDriver DOM_DRIVER = new DomDriver("UTF-8", NAME_CODER);
+    public static final XStreamXmlReader INSTANCE = new XStreamXmlReader();
+
+    XStreamXmlReader() {
+    }
 
     @SuppressWarnings("unchecked")
     @Override

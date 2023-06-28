@@ -82,7 +82,8 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 
 ## 入门
 
-Spring Boot 例子参见项目的`samples/spring-boot-sample`。
+Spring Boot
+例子参见项目的 [samples/spring-boot-sample](https://gitee.com/felord/wecom-sdk/tree/release/samples/spring-boot-sample)。
 
 ### 例子
 
