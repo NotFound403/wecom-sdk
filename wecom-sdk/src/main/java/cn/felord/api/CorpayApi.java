@@ -24,7 +24,7 @@ import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
- * The type Corpay api.
+ * 企业红包和向员工付款
  *
  * @author dax
  * @since 2023 /6/28
@@ -82,9 +82,9 @@ public class CorpayApi {
      * @param request the request
      * @return the string
      */
-    public TransPocketResponse payWwSptrans2Pocket(TransPocketRequest request) {
+    public TransPocketResponse payWwSpTrans2Pocket(TransPocketRequest request) {
         request.workWxSign(this.payAgentSecret);
-        String xmlResponse = internalCorpayApi.payWwSptrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));
+        String xmlResponse = internalCorpayApi.payWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));
         return XStreamXmlReader.INSTANCE.read(xmlResponse, TransPocketResponse.class);
     }
 
@@ -95,8 +95,8 @@ public class CorpayApi {
      * @param request the request
      * @return the string
      */
-    public TransPocketRecordResponse queryWwSptrans2Pocket(TransPocketRecordRequest request) {
-        String xmlResponse = internalCorpayApi.queryWwSptrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));
+    public TransPocketRecordResponse queryWwSpTrans2Pocket(TransPocketRecordRequest request) {
+        String xmlResponse = internalCorpayApi.queryWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));
         return XStreamXmlReader.INSTANCE.read(xmlResponse, TransPocketRecordResponse.class);
     }
 }
