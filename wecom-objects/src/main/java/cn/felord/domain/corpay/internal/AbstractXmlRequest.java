@@ -1,13 +1,12 @@
 package cn.felord.domain.corpay.internal;
 
 import cn.felord.WeComException;
-import cn.felord.utils.StringUtils;
-import cn.felord.xml.XStreamXmlReader;
-import cn.felord.xml.XmlReader;
 import cn.felord.domain.callback.Xml;
 import cn.felord.enumeration.PaySignType;
 import cn.felord.json.JacksonObjectMapperFactory;
 import cn.felord.utils.Algorithms;
+import cn.felord.utils.StringUtils;
+import cn.felord.xml.XStreamXmlReader;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +26,6 @@ public abstract class AbstractXmlRequest implements XmlRequest, Xml {
     private static final TypeReference<TreeMap<String, String>> TYPE_REFERENCE = new TypeReference<TreeMap<String, String>>() {
     };
     private static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
-    private static final XmlReader XML_READER = new XStreamXmlReader();
     @XStreamAlias("workwx_sign")
     private String workWxSign;
     @XStreamAlias("sign")
@@ -51,7 +49,7 @@ public abstract class AbstractXmlRequest implements XmlRequest, Xml {
                     .concat(paySecret);
             this.sign = Objects.equals(PaySignType.MD5, signType) ?
                     Algorithms.md5Hex(src, true) : Algorithms.hmacSha256Hex(src, paySecret, true);
-            return XML_READER.write(this);
+            return XStreamXmlReader.INSTANCE.write(this);
         } catch (JsonProcessingException e) {
             throw new WeComException(e);
         }

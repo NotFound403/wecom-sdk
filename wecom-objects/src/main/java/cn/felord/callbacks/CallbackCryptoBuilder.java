@@ -39,7 +39,7 @@ public class CallbackCryptoBuilder {
      * @param callbackAsyncConsumer the callback async consumer
      */
     public CallbackCryptoBuilder(CallbackAsyncConsumer callbackAsyncConsumer) {
-        this(new XStreamXmlReader(), callbackAsyncConsumer);
+        this(XStreamXmlReader.INSTANCE, callbackAsyncConsumer);
     }
 
     /**
@@ -48,7 +48,7 @@ public class CallbackCryptoBuilder {
      * @param eventBodyConsumer the event body consumer
      */
     public CallbackCryptoBuilder(Consumer<CallbackEventBody> eventBodyConsumer) {
-        this(new XStreamXmlReader(), new CallbackAsyncConsumer(eventBodyConsumer));
+        this(XStreamXmlReader.INSTANCE, new CallbackAsyncConsumer(eventBodyConsumer));
     }
 
     /**

@@ -23,7 +23,7 @@ import java.util.Random;
  * 字符串生成器.
  *
  * @author dax
- * @since 2021/11/22 11:41
+ * @since 2021 /11/22 11:41
  */
 public class AlternativeJdkIdGenerator {
     private final Random random;
@@ -70,9 +70,6 @@ public class AlternativeJdkIdGenerator {
                 digits(leastSigBits, 12));
     }
 
-    /**
-     * Returns val represented by the specified number of hex digits.
-     */
     private static String digits(long val, int digits) {
         long hi = 1L << (digits * 4);
         return Long.toHexString(hi | (val & (hi - 1))).substring(1);
