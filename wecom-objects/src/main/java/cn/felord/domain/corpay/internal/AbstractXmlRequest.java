@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.domain.corpay.internal;
 
 import cn.felord.WeComException;
@@ -5,6 +20,7 @@ import cn.felord.domain.callback.Xml;
 import cn.felord.enumeration.PaySignType;
 import cn.felord.json.JacksonObjectMapperFactory;
 import cn.felord.utils.Algorithms;
+import cn.felord.utils.CollectionUtils;
 import cn.felord.utils.StringUtils;
 import cn.felord.xml.XStreamXmlReader;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,7 +41,6 @@ import java.util.stream.Collectors;
 public abstract class AbstractXmlRequest implements XmlRequest, Xml {
     private static final TypeReference<TreeMap<String, String>> TYPE_REFERENCE = new TypeReference<TreeMap<String, String>>() {
     };
-    private static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
     @XStreamAlias("workwx_sign")
     private String workWxSign;
     @XStreamAlias("sign")
@@ -34,8 +49,9 @@ public abstract class AbstractXmlRequest implements XmlRequest, Xml {
     @Override
     public String xmlBody(String paySecret, PaySignType signType) {
         try {
-            String json = MAPPER.writeValueAsString(this);
-            TreeMap<String, String> treeMap = MAPPER.readValue(json, TYPE_REFERENCE);
+            ObjectMapper mapper = JacksonObjectMapperFactory.create();
+            String json = mapper.writeValueAsString(this);
+            TreeMap<String, String> treeMap = mapper.readValue(json, TYPE_REFERENCE);
             String src = treeMap.entrySet()
                     .stream()
                     .filter(entry ->
@@ -51,24 +67,27 @@ public abstract class AbstractXmlRequest implements XmlRequest, Xml {
                     Algorithms.md5Hex(src, true) : Algorithms.hmacSha256Hex(src, paySecret, true);
             return XStreamXmlReader.INSTANCE.write(this);
         } catch (JsonProcessingException e) {
-            throw new WeComException(e);
+            throw new WeComException("fail to parse xml", e);
         }
     }
 
     @Override
-    public void workWxSign(String agentSecret) {
-        String src = signParams().entrySet()
-                .stream()
-                .filter(entry ->
-                        StringUtils.hasText(entry.getValue()))
-                .map(entry ->
-                        entry.getKey()
-                                .concat("=")
-                                .concat(entry.getValue()))
-                .collect(Collectors.joining("&"))
-                .concat("&secret=")
-                .concat(agentSecret);
-        this.workWxSign = Algorithms.md5Hex(src, true);
+    public void workWxSign(String payAgentSecret) {
+        TreeMap<String, String> signParams = signParams();
+        if (!CollectionUtils.isEmpty(signParams)) {
+            String src = signParams.entrySet()
+                    .stream()
+                    .filter(entry ->
+                            StringUtils.hasText(entry.getValue()))
+                    .map(entry ->
+                            entry.getKey()
+                                    .concat("=")
+                                    .concat(entry.getValue()))
+                    .collect(Collectors.joining("&"))
+                    .concat("&secret=")
+                    .concat(payAgentSecret);
+            this.workWxSign = Algorithms.md5Hex(src, true);
+        }
     }
 
     /**
@@ -76,7 +95,9 @@ public abstract class AbstractXmlRequest implements XmlRequest, Xml {
      *
      * @return the tree map
      */
-    abstract TreeMap<String, String> signParams();
+    protected TreeMap<String, String> signParams() {
+        return null;
+    }
 
 
     /**

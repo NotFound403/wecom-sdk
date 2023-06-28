@@ -15,25 +15,43 @@
 
 package cn.felord.domain.corpay.internal;
 
+import cn.felord.enumeration.TransPocketStatus;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.Instant;
+
 /**
  * @author dax
- * @since 2023/6/26 14:49
+ * @since 2023/6/28
  */
 @XStreamAlias("xml")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class RedPackRecordRequest extends AbstractXmlRequest {
-    @XStreamAlias("nonce_str")
-    private final String nonceStr;
-    @XStreamAlias("mch_billno")
-    private final String mchBillno;
+public class TransPocketRecordResponse extends AbstractXmlResponse {
+
+    @XStreamAlias("partner_trade_no")
+    private String partnerTradeNo;
     @XStreamAlias("mch_id")
-    private final String mchId;
+    private String mchId;
+    @XStreamAlias("detail_id")
+    private String detailId;
     @XStreamAlias("appid")
-    private final String appid;
+    private String appid;
+    @XStreamAlias("status")
+    private TransPocketStatus status;
+    @XStreamAlias("reason")
+    private String reason;
+    @XStreamAlias("openid")
+    private String openid;
+    @XStreamAlias("transfer_name")
+    private String transferName;
+    @XStreamAlias("payment_amount")
+    private long paymentAmount;
+    @XStreamAlias("transfer_time")
+    private Instant transferTime;
+    @XStreamAlias("desc")
+    private String desc;
 
 }

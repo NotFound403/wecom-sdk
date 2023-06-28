@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.utils;
 
 import cn.felord.WeComException;
@@ -29,7 +44,7 @@ public final class Algorithms {
             MD5 = MessageDigest.getInstance("MD5");
             HMAC_SHA256 = Mac.getInstance("HmacSHA256");
         } catch (NoSuchAlgorithmException e) {
-            throw new WeComException(e);
+            throw new WeComException("algorithms init error", e);
         }
     }
 
@@ -53,7 +68,7 @@ public final class Algorithms {
                     .collect(Collectors.joining());
             return sha1Hex(str);
         } catch (Exception e) {
-            throw new IllegalArgumentException("SHA-1生成签名失败");
+            throw new WeComException("SHA-1 signature error", e);
         }
     }
 
@@ -82,7 +97,7 @@ public final class Algorithms {
         try {
             HMAC_SHA256.init(secretKeySpec);
         } catch (InvalidKeyException e) {
-            throw new WeComException(e);
+            throw new WeComException("Hmac-sha256 encode error", e);
         }
         byte[] bytes = HMAC_SHA256.doFinal(src.getBytes(StandardCharsets.UTF_8));
         String encodeHexString = Hex.encodeHexString(bytes);
