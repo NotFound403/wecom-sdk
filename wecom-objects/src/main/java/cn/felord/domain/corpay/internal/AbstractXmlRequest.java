@@ -1,10 +1,10 @@
-package cn.felord.domain.corpay;
+package cn.felord.domain.corpay.internal;
 
 import cn.felord.WeComException;
 import cn.felord.utils.StringUtils;
 import cn.felord.xml.XStreamXmlReader;
 import cn.felord.xml.XmlReader;
-import cn.felord.domain.callback.XmlBody;
+import cn.felord.domain.callback.Xml;
 import cn.felord.enumeration.PaySignType;
 import cn.felord.json.JacksonObjectMapperFactory;
 import cn.felord.utils.Algorithms;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @author dax
  * @since 2023 /6/25 15:37
  */
-public abstract class AbstractXmlRequest implements XmlRequest, XmlBody {
+public abstract class AbstractXmlRequest implements XmlRequest, Xml {
     private static final TypeReference<TreeMap<String, String>> TYPE_REFERENCE = new TypeReference<TreeMap<String, String>>() {
     };
     private static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();

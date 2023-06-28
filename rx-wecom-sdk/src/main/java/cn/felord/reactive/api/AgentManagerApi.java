@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 /**
  * The type Agent manager api.
  *
- * @author xiafang
+ * @author dax
  * @since 2023 /6/27 11:33
  */
 public class AgentManagerApi {

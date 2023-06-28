@@ -16,6 +16,8 @@
 package cn.felord.reactive.api;
 
 import cn.felord.domain.GenericResponse;
+import cn.felord.domain.common.JobId;
+import cn.felord.domain.media.MediaJobResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.media.MediaUploadRequest;
 import io.reactivex.rxjava3.core.Single;
@@ -55,7 +57,7 @@ interface InternalMediaApi {
      * @return the media response
      */
     @POST("media/upload")
-    Single<MediaResponse> uploadMedia(@Query("media_type") String mediaType,
+    Single<MediaResponse> uploadMedia(@Query("type") String mediaType,
                                       @Body MultipartBody media);
 
     /**
@@ -99,4 +101,12 @@ interface InternalMediaApi {
     @POST("media/upload_by_url")
     Single<GenericResponse<String>> uploadByUrl(@Body MediaUploadRequest request);
 
+    /**
+     * 查询异步任务结果
+     *
+     * @param jobId the job id
+     * @return the upload by url result
+     */
+    @POST("media/get_upload_by_url_result")
+    Single<MediaJobResponse> getUploadByUrlResult(@Body JobId jobId);
 }
