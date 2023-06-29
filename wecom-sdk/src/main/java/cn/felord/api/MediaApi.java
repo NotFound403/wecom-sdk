@@ -101,6 +101,7 @@ public class MediaApi {
 
     /**
      * 获取临时素材
+     * TODO 待优化 需要根据不同的HTTP头进行处理
      *
      * @param mediaId the media id
      * @return the media
@@ -111,6 +112,7 @@ public class MediaApi {
 
     /**
      * 获取高清语音素材
+     * TODO 待优化 需要根据不同的HTTP头进行处理
      *
      * @param mediaId the media id
      * @return the media js sdk

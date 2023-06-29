@@ -33,7 +33,6 @@ public class AgentApi {
         this.workWeChatApiClient = workWeChatApiClient;
     }
 
-
     /**
      * 应用管理
      *
@@ -49,6 +48,6 @@ public class AgentApi {
      * @return the message api
      */
     public AgentMessageApi agentMessageApi() {
-        return this.workWeChatApiClient.retrofit().create(AgentMessageApi.class);
+        return new AgentMessageApi(workWeChatApiClient.retrofit(), workWeChatApiClient.agentDetails());
     }
 }

@@ -15,12 +15,15 @@
 
 package cn.felord.reactive.api;
 
+import cn.felord.AgentDetails;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.MsgId;
 import cn.felord.domain.message.*;
 import io.reactivex.rxjava3.core.Single;
+import retrofit2.Retrofit;
 import retrofit2.http.Body;
-import retrofit2.http.POST;
+
+import java.util.Objects;
 
 /**
  * 应用消息
@@ -28,7 +31,20 @@ import retrofit2.http.POST;
  * @author dax
  * @since 2021 /11/25
  */
-public interface AgentMessageApi {
+public class AgentMessageApi {
+    private final InternalAgentMessageApi internalAgentMessageApi;
+    private final AgentDetails agentDetails;
+
+    /**
+     * Instantiates a new Agent message api.
+     *
+     * @param retrofit     the retrofit
+     * @param agentDetails the agent details
+     */
+    AgentMessageApi(Retrofit retrofit, AgentDetails agentDetails) {
+        this.internalAgentMessageApi = retrofit.create(InternalAgentMessageApi.class);
+        this.agentDetails = agentDetails;
+    }
 
     /**
      * 发送应用消息
@@ -37,18 +53,26 @@ public interface AgentMessageApi {
      * @return the message response
      * @see MessageBodyBuilders
      */
-    @POST("message/send")
-    Single<MessageResponse> send(@Body AbstractMessageBody body);
+    public Single<MessageResponse> send(AbstractMessageBody body) {
+        String msgtype = body.getMsgtype();
+        if (!Objects.equals("miniprogram_notice", msgtype)) {
+            String agentId = this.agentDetails.getAgentId();
+            body.setAgentid(agentId);
+        }
+        return internalAgentMessageApi.send(body);
+    }
 
     /**
      * 更新模版卡片消息
      *
+     * @param <R>     the type parameter
      * @param request the request
      * @return the message response
      * @see TemplateReplaceCardBuilders
      */
-    @POST("message/update_template_card")
-    Single<MessageResponse> updateTemplateCard(@Body AbstractUpdateTemplateCardRequest request);
+    public <R extends AbstractUpdateTemplateCardRequest> Single<MessageResponse> updateTemplateCard(R request) {
+        return internalAgentMessageApi.updateTemplateCard(request);
+    }
 
     /**
      * 撤回应用消息
@@ -56,6 +80,7 @@ public interface AgentMessageApi {
      * @param request the request
      * @return the we com response
      */
-    @POST("message/recall")
-    Single<WeComResponse> recall(@Body MsgId request);
+    public Single<WeComResponse> recall(@Body MsgId request) {
+        return internalAgentMessageApi.recall(request);
+    }
 }

@@ -21,7 +21,7 @@
     <parent>
         <groupId>cn.felord</groupId>
         <artifactId>wecom</artifactId>
-        <version>1.0.15.RC3</version>
+        <version>1.0.15.RC4</version>
     </parent>
     <artifactId>wecom-objects</artifactId>
     <packaging>jar</packaging>
@@ -69,11 +69,6 @@
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>adapter-rxjava3</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.retrofit2</groupId>
-            <artifactId>converter-jackson</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
