@@ -21,54 +21,59 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The MchBindStatus
+ * The TransactionType
  *
  * @author dax
  * @since 2021 /9/8 10:47
  */
-public enum MchBindStatus {
-
-
+public enum TransactionType {
     /**
-     * 申请中
+     * 退款
      */
-    APPLYING(1),
-
+    REFUND(1),
     /**
-     * 已绑定
+     * 交易手续费
      */
-    BOUND(2),
+    TRANSACTION_FEES(2),
     /**
-     * 已撤销
+     * 收款
      */
-    REVOKED(3);
+    COLLECTION(3),
+    /**
+     * 提现
+     */
+    WITHDRAWALS(4),
+    /**
+     * 其他
+     */
+    OTHER(5);
 
-    private final int status;
+    private final int type;
 
-    MchBindStatus(int status) {
-        this.status = status;
+    TransactionType(int type) {
+        this.type = type;
     }
 
     /**
-     * Gets status.
+     * Gets type.
      *
-     * @return the status
+     * @return the type
      */
     @JsonValue
-    public int getStatus() {
-        return status;
+    public int getType() {
+        return type;
     }
 
     /**
-     * Deserialize moment task status.
+     * Deserialize moment task type.
      *
-     * @param status the status
-     * @return the moment task status
+     * @param type the type
+     * @return the moment task type
      */
     @JsonCreator
-    public static MchBindStatus deserialize(int status) {
-        return Arrays.stream(MchBindStatus.values())
-                .filter(mchBindStatus -> mchBindStatus.status == status)
+    public static TransactionType deserialize(int type) {
+        return Arrays.stream(TransactionType.values())
+                .filter(transactionType -> transactionType.type == type)
                 .findFirst()
                 .orElse(null);
     }

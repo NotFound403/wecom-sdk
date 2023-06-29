@@ -21,54 +21,47 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The MchBindStatus
+ * The TradeState
  *
  * @author dax
- * @since 2021 /9/8 10:47
+ * @since 2021/9/8 10:47
  */
-public enum MchBindStatus {
-
-
+public enum TradeState {
     /**
-     * 申请中
+     * 已完成
      */
-    APPLYING(1),
-
+    FINISHED(1),
     /**
-     * 已绑定
+     * 已完成有退款
      */
-    BOUND(2),
-    /**
-     * 已撤销
-     */
-    REVOKED(3);
+    FINISHED_WITH_REFUND(3);
 
-    private final int status;
+    private final int state;
 
-    MchBindStatus(int status) {
-        this.status = status;
+    TradeState(int state) {
+        this.state = state;
     }
 
     /**
-     * Gets status.
+     * Gets state.
      *
-     * @return the status
+     * @return the state
      */
     @JsonValue
-    public int getStatus() {
-        return status;
+    public int getState() {
+        return state;
     }
 
     /**
-     * Deserialize moment task status.
+     * Deserialize moment task state.
      *
-     * @param status the status
-     * @return the moment task status
+     * @param state the state
+     * @return the moment task state
      */
     @JsonCreator
-    public static MchBindStatus deserialize(int status) {
-        return Arrays.stream(MchBindStatus.values())
-                .filter(mchBindStatus -> mchBindStatus.status == status)
+    public static TradeState deserialize(int state) {
+        return Arrays.stream(TradeState.values())
+                .filter(tradeState -> tradeState.state == state)
                 .findFirst()
                 .orElse(null);
     }

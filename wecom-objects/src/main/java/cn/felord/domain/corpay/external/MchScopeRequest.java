@@ -3,7 +3,7 @@ package cn.felord.domain.corpay.external;
 import lombok.Data;
 
 /**
- * @author xiafang
+ * @author dax
  * @since 2023/6/29 14:04
  */
 @Data

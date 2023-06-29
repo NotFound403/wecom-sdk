@@ -21,54 +21,47 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The MchBindStatus
+ * The BillType
  *
  * @author dax
- * @since 2021 /9/8 10:47
+ * @since 2021/9/8 10:47
  */
-public enum MchBindStatus {
-
-
+public enum BillType {
     /**
-     * 申请中
+     * 收款记录
      */
-    APPLYING(1),
-
+    COLLECTION(0),
     /**
-     * 已绑定
+     * 退款记录
      */
-    BOUND(2),
-    /**
-     * 已撤销
-     */
-    REVOKED(3);
+    REFUND(1);
 
-    private final int status;
+    private final int type;
 
-    MchBindStatus(int status) {
-        this.status = status;
+    BillType(int type) {
+        this.type = type;
     }
 
     /**
-     * Gets status.
+     * Gets type.
      *
-     * @return the status
+     * @return the type
      */
     @JsonValue
-    public int getStatus() {
-        return status;
+    public int getType() {
+        return type;
     }
 
     /**
-     * Deserialize moment task status.
+     * Deserialize moment task type.
      *
-     * @param status the status
-     * @return the moment task status
+     * @param type the type
+     * @return the moment task type
      */
     @JsonCreator
-    public static MchBindStatus deserialize(int status) {
-        return Arrays.stream(MchBindStatus.values())
-                .filter(mchBindStatus -> mchBindStatus.status == status)
+    public static BillType deserialize(int type) {
+        return Arrays.stream(BillType.values())
+                .filter(billType -> billType.type == type)
                 .findFirst()
                 .orElse(null);
     }

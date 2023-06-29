@@ -21,31 +21,51 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The MchBindStatus
+ * The RefundStatus
  *
  * @author dax
  * @since 2021 /9/8 10:47
  */
-public enum MchBindStatus {
+public enum RefundStatus {
 
 
     /**
-     * 申请中
+     * 已申请退款
      */
-    APPLYING(1),
+    APPLYING(0),
+    /**
+     * 退款处理中
+     */
+    DOING(1),
+    /**
+     * 退款成功
+     */
+    SUCCESS(2),
+    /**
+     * 退款关闭
+     */
+    CLOSED(3),
+    /**
+     * 退款异常
+     */
+    ERROR(4),
+    /**
+     * 正在审批中
+     */
+    UNDER_APPROVAL(5),
+    /**
+     * 审批失败
+     */
+    FAIL_TO_APPROVAL(6),
 
     /**
-     * 已绑定
+     * 审批取消
      */
-    BOUND(2),
-    /**
-     * 已撤销
-     */
-    REVOKED(3);
+    APPROVAL_CANCELLED(7);
 
     private final int status;
 
-    MchBindStatus(int status) {
+    RefundStatus(int status) {
         this.status = status;
     }
 
@@ -60,14 +80,14 @@ public enum MchBindStatus {
     }
 
     /**
-     * Deserialize moment task status.
+     * Deserialize RefundStatus
      *
      * @param status the status
-     * @return the moment task status
+     * @return the RefundStatus
      */
     @JsonCreator
-    public static MchBindStatus deserialize(int status) {
-        return Arrays.stream(MchBindStatus.values())
+    public static RefundStatus deserialize(int status) {
+        return Arrays.stream(RefundStatus.values())
                 .filter(mchBindStatus -> mchBindStatus.status == status)
                 .findFirst()
                 .orElse(null);

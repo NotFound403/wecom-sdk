@@ -21,54 +21,47 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The MchBindStatus
+ * The FundFlowType
  *
  * @author dax
- * @since 2021 /9/8 10:47
+ * @since 2021/9/8 10:47
  */
-public enum MchBindStatus {
-
-
+public enum FundFlowType {
     /**
-     * 申请中
+     * 收入
      */
-    APPLYING(1),
-
+    REVENUE(1),
     /**
-     * 已绑定
+     * 支出
      */
-    BOUND(2),
-    /**
-     * 已撤销
-     */
-    REVOKED(3);
+    EXPENDITURES(2);
 
-    private final int status;
+    private final int type;
 
-    MchBindStatus(int status) {
-        this.status = status;
+    FundFlowType(int type) {
+        this.type = type;
     }
 
     /**
-     * Gets status.
+     * Gets type.
      *
-     * @return the status
+     * @return the type
      */
     @JsonValue
-    public int getStatus() {
-        return status;
+    public int getType() {
+        return type;
     }
 
     /**
-     * Deserialize moment task status.
+     * Deserialize moment task type.
      *
-     * @param status the status
-     * @return the moment task status
+     * @param type the type
+     * @return the moment task type
      */
     @JsonCreator
-    public static MchBindStatus deserialize(int status) {
-        return Arrays.stream(MchBindStatus.values())
-                .filter(mchBindStatus -> mchBindStatus.status == status)
+    public static FundFlowType deserialize(int type) {
+        return Arrays.stream(FundFlowType.values())
+                .filter(fundFlowType -> fundFlowType.type == type)
                 .findFirst()
                 .orElse(null);
     }

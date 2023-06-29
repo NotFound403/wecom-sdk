@@ -21,54 +21,63 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The MchBindStatus
+ * The PaymentType
  *
  * @author dax
  * @since 2021 /9/8 10:47
  */
-public enum MchBindStatus {
-
-
+public enum PaymentType {
     /**
-     * 申请中
+     * 在聊天中收款
      */
-    APPLYING(1),
-
+    IN_CHAT(0),
     /**
-     * 已绑定
+     * 收款码收款
      */
-    BOUND(2),
+    SCAN_QRCODE(1),
     /**
-     * 已撤销
+     * 在直播间收款
      */
-    REVOKED(3);
+    IN_LIVE_ROOM(2),
+    /**
+     * 产品图册
+     */
+    PRODUCT_BROCHURE(3),
+    /**
+     * 转账
+     */
+    TRANSFER(14),
+    /**
+     * 小程序（仅部分灰度企业可在小程序中接入对外收款账户进行收款）
+     */
+    MINIPROGRAM(15);
 
-    private final int status;
+    private final int type;
 
-    MchBindStatus(int status) {
-        this.status = status;
+    PaymentType(int type) {
+        this.type = type;
     }
 
     /**
-     * Gets status.
+     * Gets type.
      *
-     * @return the status
+     * @return the type
      */
     @JsonValue
-    public int getStatus() {
-        return status;
+    public int getType() {
+        return type;
     }
 
     /**
-     * Deserialize moment task status.
+     * Deserialize PaymentType
      *
-     * @param status the status
-     * @return the moment task status
+     * @param type the type
+     * @return the PaymentType
      */
     @JsonCreator
-    public static MchBindStatus deserialize(int status) {
-        return Arrays.stream(MchBindStatus.values())
-                .filter(mchBindStatus -> mchBindStatus.status == status)
+    public static PaymentType deserialize(int type) {
+        return Arrays.stream(PaymentType.values())
+                .filter(paymentType -> paymentType.type == type)
                 .findFirst()
                 .orElse(null);
     }
