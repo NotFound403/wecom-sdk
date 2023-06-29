@@ -20,12 +20,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.9</version>
+        <version>2.7.12</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.felord.wecom</groupId>
     <artifactId>spring-boot-sample</artifactId>
-    <version>1.0.12</version>
+    <version>1.0.14</version>
     <name>wecom-sdk-spring-boot-sample</name>
     <description>wecom-sdk-spring-boot-sample</description>
     <properties>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>cn.felord</groupId>
             <artifactId>wecom-sdk</artifactId>
-            <version>1.0.14</version>
+            <version>1.1.0</version>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
@@ -49,6 +49,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

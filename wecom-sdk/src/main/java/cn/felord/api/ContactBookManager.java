@@ -1,16 +1,16 @@
 /*
- * Copyright (c) 2023. felord.cn
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *      https://www.apache.org/licenses/LICENSE-2.0
- * Website:
- *      https://felord.cn
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 package cn.felord.api;
@@ -19,7 +19,7 @@ package cn.felord.api;
  * 通讯录管理
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 public class ContactBookManager {
     private final WorkWeChatApiClient workWeChatApiClient;
@@ -39,7 +39,7 @@ public class ContactBookManager {
      * @return the user api
      */
     public UserApi userApi() {
-        return new UserApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(UserApi.class);
     }
 
     /**
@@ -48,7 +48,7 @@ public class ContactBookManager {
      * @return the department api
      */
     public DepartmentApi departmentApi() {
-        return new DepartmentApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(DepartmentApi.class);
     }
 
     /**
@@ -57,7 +57,7 @@ public class ContactBookManager {
      * @return the tag api
      */
     public TagApi tagApi() {
-        return new TagApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(TagApi.class);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ContactBookManager {
      * @return the asynchronous batch import api
      */
     public AsynchronousBatchImportApi asynchronousBatchApi() {
-        return new AsynchronousBatchImportApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(AsynchronousBatchImportApi.class);
     }
 
     /**
@@ -75,6 +75,6 @@ public class ContactBookManager {
      * @return the linked corp api
      */
     public LinkedCorpApi linkedCorpApi() {
-        return new LinkedCorpApi(workWeChatApiClient);
+        return this.workWeChatApiClient.retrofit().create(LinkedCorpApi.class);
     }
 }

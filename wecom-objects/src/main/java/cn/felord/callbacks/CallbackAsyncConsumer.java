@@ -27,7 +27,7 @@ import java.util.function.Consumer;
  * The interface Callback consumer.
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 public final class CallbackAsyncConsumer {
     private final ExecutorService executor;

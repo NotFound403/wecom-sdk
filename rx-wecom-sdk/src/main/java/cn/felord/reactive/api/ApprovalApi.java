@@ -68,7 +68,7 @@ public interface ApprovalApi {
      * @return the we com response
      */
     @POST("oa/approval/update_template")
-    Single<WeComResponse> createTemplate(@Body ApprovalTempUpdateRequest template);
+    Single<WeComResponse> updateTemplate(@Body ApprovalTempUpdateRequest template);
 
     /**
      * 提交审批申请

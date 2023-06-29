@@ -32,11 +32,13 @@ import java.util.List;
  */
 @XStreamAlias("xml")
 @Data
-public class CallbackEventBody implements CallbackBody {
+public class CallbackEventBody implements Xml {
     private String msgSignature;
     private String timeStamp;
     private String nonce;
     private String encrypt;
+    private String originalXml;
+
     @XStreamAlias("ToUserName")
     private final String toUserName;
     @XStreamAlias("FromUserName")

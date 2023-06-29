@@ -28,7 +28,7 @@ import java.util.Set;
  * 日程接口
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 public interface ScheduleApi {
 
@@ -93,5 +93,5 @@ public interface ScheduleApi {
      * @return the by calendar
      */
     @POST("oa/schedule/get_by_calendar")
-    Single<ScheduleDetailResponse> getByCalendar(ScheduleCalendarQuery query);
+    Single<ScheduleDetailResponse> getByCalendar(@Body ScheduleCalendarQuery query);
 }

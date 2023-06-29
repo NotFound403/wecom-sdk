@@ -1,9 +1,30 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.wecom;
 
 import cn.felord.AgentDetails;
 import cn.felord.DefaultAgent;
 import cn.felord.WeComTokenCacheable;
+import cn.felord.api.ContactBookManager;
+import cn.felord.api.ExternalContactUserApi;
+import cn.felord.api.UserApi;
 import cn.felord.api.WorkWeChatApi;
+import cn.felord.domain.GenericResponse;
+import cn.felord.domain.contactbook.department.DeptInfo;
+import cn.felord.domain.contactbook.user.SimpleUser;
 import cn.felord.domain.externalcontact.*;
 import cn.felord.domain.message.*;
 import cn.felord.domain.webhook.WebhookBody;
@@ -19,8 +40,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * The type Spring boot wecom sdk tests.
@@ -93,7 +114,8 @@ class SpringBootWecomSdkTests {
                 .build();
 
         DefaultAgent defaultAgent = new DefaultAgent("企微企业id", "企微应用密钥", "企微应用id");
-        MessageResponse send = workWeChatApi.agentMessageApi(defaultAgent)
+        MessageResponse send = workWeChatApi.agentApi(defaultAgent)
+                .agentMessageApi()
                 .send(cardMessageBody);
         Assertions.assertTrue(send.isSuccessful());
     }
@@ -145,5 +167,64 @@ class SpringBootWecomSdkTests {
         weComTokenCacheable.putAccessToken("a", "b", token);
         String accessToken = weComTokenCacheable.getAccessToken("a", "b");
         Assertions.assertEquals(token, accessToken);
+    }
+
+    @Test
+    void exUsers() {
+//        84061
+//        错误说明:
+//        不存在外部联系人的关系
+//        排查方法:
+//        接口调用成功的必要条件是客户存在于服务人员的外部联系人好友列表中，有以下情况会导致报84061错误：
+//        1) 如果客户删除了服务人员，此时是还存在单向好友关系，可以调用客户联系相关接口。反之，如果是服务人员删除了客户，则不再存在好友关系，无法调用接口。
+//        2) 服务人员开启了免验证的情况下，客户可以跟服务人员进行会话，但是此时并没有真正添加为好友关系，需要服务人员添加好友后才可以调用接口。
+
+        // 外部联系人相关API
+        // 外部联系人应用  也可以使用拥有外部联系人能力的自建应用
+        AgentDetails externalAgent = DefaultAgent.nativeAgent("你的企微企业ID", "应用密钥", NativeAgent.EXTERNAL);
+
+        ExternalContactUserApi externalContactUserApi = workWeChatApi.externalContactManager(externalAgent).externalContactUserApi();
+
+        // 同步助手应用  也可以使用拥有通讯录能力的自建应用
+        AgentDetails contractAgent = DefaultAgent.nativeAgent("你的企微企业ID", "应用密钥", NativeAgent.CONTACT);
+        // 通讯录相关API
+        ContactBookManager contactBookManager = workWeChatApi.contactBookManager(contractAgent);
+        // 企业成员相关API
+        UserApi userApi = contactBookManager.userApi();
+        Set<String> total = contactBookManager.departmentApi()
+                // 获取所有部门
+                .deptList()
+                .getData()
+                .parallelStream()
+                // 查询部门拿到部门ID
+                .map(DeptInfo::getId)
+                // 根据部门ID 获取部门员工
+                .map(userApi::getDeptUsers)
+                .map(GenericResponse::getData)
+                .flatMap(Collection::stream)
+                //  获取部门员工ID
+                .map(SimpleUser::getUserid)
+                // 查询员工名下的外部联系人
+                .map(userid -> {
+                    try {
+                        return externalContactUserApi.listByUserId(userid);
+                    } catch (Exception e) {
+                        // 非成功返回均会抛出WecomException异常
+                        // TODO   84061 异常   自行处理逻辑
+                        System.out.println("e = " + e.getMessage());
+                        return null;
+                    }
+                })
+                // 过滤空值
+                .filter(Objects::nonNull)
+                // 超展开
+                .map(GenericResponse::getData)
+                .flatMap(Collection::stream)
+                // 这里只取100个  避免过大占用内存
+                .limit(100)
+                // 去重 得到去重外部联系人的ID集合
+                .collect(Collectors.toSet());
+
+        System.out.println("total = " + total);
     }
 }

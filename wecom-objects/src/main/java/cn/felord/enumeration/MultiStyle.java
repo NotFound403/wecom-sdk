@@ -22,11 +22,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
+ * The enum Multi style.
+ *
  * @author dax
- * @since 2021/9/8 11:14
+ * @since 2021 /9/8 11:14
  */
 public enum MultiStyle implements MiniProgramStyle {
+    /**
+     * Multi style 1 multi style.
+     */
     MULTI_STYLE_1(1),
+    /**
+     * Multi style 2 multi style.
+     */
     MULTI_STYLE_2(2);
 
     private final int style;
@@ -42,6 +50,12 @@ public enum MultiStyle implements MiniProgramStyle {
         return style;
     }
 
+    /**
+     * Deserialize multi style.
+     *
+     * @param style the style
+     * @return the multi style
+     */
     @JsonCreator
     public static MultiStyle deserialize(int style) {
         return Arrays.stream(MultiStyle.values())

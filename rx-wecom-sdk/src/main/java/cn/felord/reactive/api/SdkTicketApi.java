@@ -21,20 +21,19 @@ import cn.felord.domain.authentication.JsTicketResponse;
 import cn.felord.domain.jssdk.AgentConfigResponse;
 import cn.felord.domain.jssdk.CorpConfigResponse;
 import cn.felord.domain.jssdk.JSignatureResponse;
+import cn.felord.utils.Algorithms;
 import cn.felord.utils.AlternativeJdkIdGenerator;
-import cn.felord.utils.SHA1;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
-import lombok.SneakyThrows;
 
 import java.text.MessageFormat;
 import java.time.Instant;
 
 /**
- * The type Js sdk ticket api.
+ * Js sdk ticket api.
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 public class SdkTicketApi {
     private static final String SIGNATURE_FORMATTER = "jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}";
@@ -43,6 +42,12 @@ public class SdkTicketApi {
     private final JsApi jsApi;
     private final WeComAgentTicketCacheable weComAgentTicketCacheable;
 
+    /**
+     * Instantiates a new Sdk ticket api.
+     *
+     * @param workWeChatApiClient       the work we chat api client
+     * @param weComAgentTicketCacheable the we com agent ticket cacheable
+     */
     SdkTicketApi(WorkWeChatApiClient workWeChatApiClient, WeComAgentTicketCacheable weComAgentTicketCacheable) {
         this.agentDetails = workWeChatApiClient.agentDetails();
         this.jsApi = workWeChatApiClient.retrofit().create(JsApi.class);
@@ -82,7 +87,7 @@ public class SdkTicketApi {
     public Single<AgentConfigResponse> agentTicket(String url) {
         String corpId = agentDetails.getCorpId();
         String agentId = agentDetails.getAgentId();
-        return Maybe.just(weComAgentTicketCacheable.getCorpTicket(corpId, agentId))
+        return Maybe.just(weComAgentTicketCacheable.getAgentTicket(corpId, agentId))
                 .switchIfEmpty(jsApi.agentJsApiTicket("agent_config")
                         .map(JsTicketResponse::getTicket)
                         .map(agentTicket -> weComAgentTicketCacheable.putAgentTicket(corpId, agentId, agentTicket)))
@@ -98,16 +103,14 @@ public class SdkTicketApi {
                 });
     }
 
-
-    @SneakyThrows
     private JSignatureResponse sha1(String ticket, String url) {
-        String nonceStr = ID_GENERATOR.generateId();
+        String nonceStr = ID_GENERATOR.generate32();
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
         String format = MessageFormat.format(SIGNATURE_FORMATTER, ticket, nonceStr, timestamp, url);
         JSignatureResponse jSignature = new JSignatureResponse();
         jSignature.setNonceStr(nonceStr);
         jSignature.setTimestamp(timestamp);
-        jSignature.setSignature(SHA1.sha1Hex(format));
+        jSignature.setSignature(Algorithms.sha1Hex(format));
         return jSignature;
     }
 }

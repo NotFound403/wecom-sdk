@@ -24,7 +24,7 @@ import java.util.Arrays;
  * The enum Bool enum.
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 public enum MessageSafe {
 

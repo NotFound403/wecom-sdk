@@ -25,12 +25,20 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import java.util.Arrays;
 
 /**
+ * The enum Approver node mode.
+ *
  * @author dax
- * @since 2021/9/8 10:47
+ * @since 2021 /9/8 10:47
  */
 @XStreamConverter(NumberEnumConverter.class)
 public enum ApproverNodeMode implements CallbackNumberEnum {
+    /**
+     * Or approver node mode.
+     */
     OR(1),
+    /**
+     * All approver node mode.
+     */
     ALL(2);
 
     private final int mode;
@@ -44,6 +52,12 @@ public enum ApproverNodeMode implements CallbackNumberEnum {
         return mode;
     }
 
+    /**
+     * Deserialize approver node mode.
+     *
+     * @param mode the mode
+     * @return the approver node mode
+     */
     @JsonCreator
     public static ApproverNodeMode deserialize(int mode) {
         return Arrays.stream(ApproverNodeMode.values())

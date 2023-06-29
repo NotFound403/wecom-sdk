@@ -93,7 +93,7 @@ public interface CorpTagApi {
      * @return the generic response
      */
     @POST("externalcontact/edit_strategy_tag")
-    Single<WeComResponse> editStrategyCorpTag(CorpTagStrategyEditRequest request);
+    Single<WeComResponse> editStrategyCorpTag(@Body CorpTagStrategyEditRequest request);
 
     /**
      * 编辑指定规则组下的企业客户标签

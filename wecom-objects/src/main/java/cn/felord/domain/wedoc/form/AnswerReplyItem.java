@@ -26,8 +26,10 @@ import lombok.ToString;
 import java.util.List;
 
 /**
+ * The type Answer reply item.
+ *
  * @author dax
- * @since 2023/3/16 15:42
+ * @since 2023 /3/16 15:42
  */
 @ToString
 @Getter
@@ -40,6 +42,15 @@ public class AnswerReplyItem {
     private final List<AnswerFileExtendReply> fileExtendReply;
 
 
+    /**
+     * 通过AnswerReplyItemType来判断具体类型
+     *
+     * @param questionId        the question id
+     * @param textReply         the text reply
+     * @param optionReply       the option reply
+     * @param optionExtendReply the option extend reply
+     * @param fileExtendReply   the file extend reply
+     */
     @JsonCreator
     public AnswerReplyItem(@JsonProperty("question_id") Integer questionId,
                            @JsonProperty("text_reply") String textReply,

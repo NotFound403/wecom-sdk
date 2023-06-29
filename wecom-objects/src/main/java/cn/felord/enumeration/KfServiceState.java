@@ -24,7 +24,7 @@ import java.util.Arrays;
  * The enum Kf service state.
  *
  * @author dax
- * @since 2021/9/30 13:41
+ * @since 2021 /9/30 13:41
  */
 public enum KfServiceState {
 
@@ -32,6 +32,9 @@ public enum KfServiceState {
      * Untreated kf service state.
      */
     UNTREATED(0),
+    /**
+     * Smart assistant kf service state.
+     */
     SMART_ASSISTANT(1),
     /**
      * Line up kf service state.

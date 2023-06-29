@@ -22,12 +22,23 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
+ * The enum Single style.
+ *
  * @author dax
- * @since 2021/9/8 11:14
+ * @since 2021 /9/8 11:14
  */
 public enum SingleStyle implements MiniProgramStyle {
+    /**
+     * Single style 1 single style.
+     */
     SINGLE_STYLE_1(1),
+    /**
+     * Single style 2 single style.
+     */
     SINGLE_STYLE_2(2),
+    /**
+     * Single style 3 single style.
+     */
     SINGLE_STYLE_3(3);
 
     private final int style;
@@ -43,6 +54,12 @@ public enum SingleStyle implements MiniProgramStyle {
         return style;
     }
 
+    /**
+     * Deserialize single style.
+     *
+     * @param style the style
+     * @return the single style
+     */
     @JsonCreator
     public static SingleStyle deserialize(int style) {
         return Arrays.stream(SingleStyle.values())

@@ -19,7 +19,7 @@ package cn.felord.reactive.api;
  * 通讯录管理
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 public class ContactBookManager {
     private final WorkWeChatApiClient workWeChatApiClient;

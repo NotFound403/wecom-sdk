@@ -16,8 +16,9 @@
 package cn.felord.reactive.api;
 
 import cn.felord.AgentDetails;
-import cn.felord.reactive.RetrofitFactory;
 import cn.felord.WeComTokenCacheable;
+import cn.felord.retrofit.AccessTokenApi;
+import cn.felord.retrofit.RetrofitFactory;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -117,6 +118,15 @@ public final class WorkWeChatApi {
     public CallCenterManager callCenterManager(AgentDetails agentDetails) {
         AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
         return new CallCenterManager(WorkWeChatApiClient.init(tokenApi, connectionPool, level));
+    }
+
+    /**
+     * 企业支付
+     *
+     * @return the pay api
+     */
+    public PayApi payApi() {
+        return new PayApi(weComTokenCacheable, connectionPool, level);
     }
 
     /**
