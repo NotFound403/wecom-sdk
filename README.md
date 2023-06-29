@@ -31,13 +31,14 @@
 </p>
 
 
-<p align="center">如果你感觉这个项目不错，请点击右上角的Star以鼓励作者，谢谢。</p>
+<p align="center">📢如果你感觉这个项目不错，请点击项目右上角的⭐以鼓励作者，谢谢🎉。</p>
 
-## 简介
+## 🏆简介
 
-wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，目前已经实现了企业微信相关接口近200个，配置简单、API友好、开发人员不需要很高的学习成本就能快速接入企业微信。
+[wecom-sdk](https://gitee.com/felord/wecom-sdk)是开源的企业微信开放API的Java实现，是目前最完整的企业微信Java
+SDK。历经三年迭代，目前已经实现了企业微信相关接口近200个，配置简单、API友好、开发人员不需要很高的学习成本就能快速接入企业微信。
 
-## 特性
+## 🔥特性
 
 - 支持多企业微信同时配置作业
 - 目前实现企业微信接口 200 多个，能满足大部分场景的需求
@@ -45,7 +46,7 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 - 实现统一回调，所有回调事件可集中异步处理，开发者只需要关心业务逻辑的处理
 - 由 SDK 接管 AccessToken 生命周期，开发者无需关心 Token 的管理。
 
-## 采用技术栈
+## 🔥技术栈
 
 - OkHttp
 - Retrofit
@@ -53,11 +54,11 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 - Jackson2
 - XStream
 
-## 使用方法
+## 🔥使用方法
 
 目前自建应用可轻松适配，服务商、代开发暂不开源。
 
-## Maven中央仓库坐标
+## 🔥Maven中央仓库坐标
 
 - 普通版本
 
@@ -80,13 +81,13 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 </dependency>
 ```
 
-## 入门
+## 🔥入门
 
 **Spring Boot**
 例子参见 [samples/spring-boot-sample](https://gitee.com/felord/wecom-sdk/tree/release/samples/spring-boot-sample)。
 > 相关概念请参考[QUICKSTART](QUICKSTART.md)
 
-## API实现进度
+## 🔥API实现进度
 
 - 获取企业微信API域名IP段
   - [x] 获取企业微信API域名IP段
