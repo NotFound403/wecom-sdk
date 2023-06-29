@@ -11,7 +11,7 @@ import retrofit2.http.POST;
  * 应用消息
  *
  * @author dax
- * @since 2023/6/29 9:06
+ * @since 2023 /6/29 9:06
  */
 interface InternalAgentMessageApi {
 
@@ -28,6 +28,7 @@ interface InternalAgentMessageApi {
     /**
      * 更新模版卡片消息
      *
+     * @param <R>     the type parameter
      * @param request the request
      * @return the message response
      * @see TemplateReplaceCardBuilders

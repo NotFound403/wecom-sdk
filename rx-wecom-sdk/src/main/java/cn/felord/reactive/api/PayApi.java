@@ -34,8 +34,9 @@ public class PayApi {
     /**
      * Instantiates a new Pay api.
      *
-     * @param connectionPool the connection pool
-     * @param level          the level
+     * @param weComTokenCacheable the we com token cacheable
+     * @param connectionPool      the connection pool
+     * @param level               the level
      */
     PayApi(WeComTokenCacheable weComTokenCacheable, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         this.weComTokenCacheable = weComTokenCacheable;
