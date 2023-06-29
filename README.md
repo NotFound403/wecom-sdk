@@ -65,7 +65,7 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>wecom-sdk</artifactId>
-  <version>1.0.14</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
@@ -76,7 +76,7 @@ wecom-sdk是开源的企业微信开放API的Java实现，历经三年迭代，�
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>rx-wecom-sdk</artifactId>
-  <version>1.0.14</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
