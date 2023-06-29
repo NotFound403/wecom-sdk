@@ -30,10 +30,10 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * @author dax
  * @since 2023 /6/28
  */
-public class CorPayApi {
+public class InternalCorPayApi {
     private final String paySecret;
     private final String payAgentSecret;
-    private final InternalCorpayApi internalCorpayApi;
+    private final MmPayMktTransfersApi mmPayMktTransfersApi;
 
     /**
      * Instantiates a new Corpay api.
@@ -44,11 +44,11 @@ public class CorPayApi {
      * @param connectionPool the connection pool
      * @param level          the level
      */
-    CorPayApi(String paySecret, String payAgentSecret, SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    InternalCorPayApi(String paySecret, String payAgentSecret, SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         this.paySecret = paySecret;
         this.payAgentSecret = payAgentSecret;
-        this.internalCorpayApi = RetrofitFactory.create(sslManager, connectionPool, level)
-                .create(InternalCorpayApi.class);
+        this.mmPayMktTransfersApi = RetrofitFactory.create(sslManager, connectionPool, level)
+                .create(MmPayMktTransfersApi.class);
     }
 
 
@@ -60,7 +60,7 @@ public class CorPayApi {
      */
     public Single<RedPackResponse> sendWorkWxRedPack(RedPackRequest request) {
         request.workWxSign(this.payAgentSecret);
-        return internalCorpayApi.sendWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5))
+        return mmPayMktTransfersApi.sendWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5))
                 .map(xml -> XStreamXmlReader.INSTANCE.read(xml, RedPackResponse.class));
     }
 
@@ -72,7 +72,7 @@ public class CorPayApi {
      * @return the string
      */
     public Single<RedPackRecordResponse> queryWorkWxRedPack(RedPackRecordRequest request) {
-        return internalCorpayApi.queryWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5))
+        return mmPayMktTransfersApi.queryWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5))
                 .map(xml -> XStreamXmlReader.INSTANCE.read(xml, RedPackRecordResponse.class));
     }
 
@@ -85,7 +85,7 @@ public class CorPayApi {
      */
     public Single<TransPocketResponse> payWwSpTrans2Pocket(TransPocketRequest request) {
         request.workWxSign(this.payAgentSecret);
-        return internalCorpayApi.payWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5))
+        return mmPayMktTransfersApi.payWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5))
                 .map(xml -> XStreamXmlReader.INSTANCE.read(xml, TransPocketResponse.class));
     }
 
@@ -97,7 +97,7 @@ public class CorPayApi {
      * @return the string
      */
     public Single<TransPocketRecordResponse> queryWwSpTrans2Pocket(TransPocketRecordRequest request) {
-        return internalCorpayApi.queryWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5))
+        return mmPayMktTransfersApi.queryWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5))
                 .map(xml -> XStreamXmlReader.INSTANCE.read(xml, TransPocketRecordResponse.class));
     }
 }

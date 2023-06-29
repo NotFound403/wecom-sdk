@@ -15,7 +15,9 @@
 
 package cn.felord.reactive.api;
 
+import cn.felord.AgentDetails;
 import cn.felord.WeComTokenCacheable;
+import cn.felord.retrofit.AccessTokenApi;
 import cn.felord.retrofit.SSLManager;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -52,7 +54,22 @@ public class PayApi {
      * @param sslManager     微信支付SSL，要对应paySecret
      * @return the corpay api
      */
-    public CorPayApi internal(String paySecret, String payAgentSecret, SSLManager sslManager) {
-        return new CorPayApi(paySecret, payAgentSecret, sslManager, connectionPool, level);
+    public InternalCorPayApi internal(String paySecret, String payAgentSecret, SSLManager sslManager) {
+        return new InternalCorPayApi(paySecret, payAgentSecret, sslManager, connectionPool, level);
+    }
+
+    /**
+     * 对外收款
+     * <p>
+     * 对外收款是企业微信提供的面向微信用户使用的收款方式，可以在聊天中、用收款码、在直播间、使用商品图册等多种方式收款。
+     *
+     * @param agentDetails the agent details
+     * @return the external cor pay api
+     */
+    public ExternalCorPayApi external(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(ExternalCorPayApi.class);
     }
 }

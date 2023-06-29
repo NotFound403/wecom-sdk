@@ -26,7 +26,7 @@ import retrofit2.http.POST;
  * @author dax
  * @since 2023 /6/28 17:58
  */
-interface InternalCorpayApi {
+interface MmPayMktTransfersApi {
 
     /**
      * 发放企业红包
