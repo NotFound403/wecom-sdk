@@ -16,10 +16,18 @@
 package cn.felord.enumeration;
 
 /**
+ * The enum Kf servicer type.
+ *
  * @author dax
- * @since 2021/8/23 19:08
+ * @since 2021 /8/23 19:08
  */
 public enum KfServicerType {
+    /**
+     * User kf servicer type.
+     */
     USER,
+    /**
+     * Dept kf servicer type.
+     */
     DEPT
 }

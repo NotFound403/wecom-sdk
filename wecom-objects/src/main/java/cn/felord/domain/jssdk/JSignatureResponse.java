@@ -19,7 +19,7 @@ import lombok.Data;
 
 /**
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 @Data
 public class JSignatureResponse {

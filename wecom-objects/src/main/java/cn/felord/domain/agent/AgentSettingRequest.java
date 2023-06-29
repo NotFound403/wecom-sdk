@@ -15,13 +15,10 @@
 
 package cn.felord.domain.agent;
 
-
 import lombok.Data;
 
 @Data
 public class AgentSettingRequest {
-
-    private Integer agentid;
     private String description;
     private String homeUrl;
     private Integer isreportenter;
@@ -29,5 +26,4 @@ public class AgentSettingRequest {
     private String name;
     private String redirectDomain;
     private Integer reportLocationFlag;
-
 }

@@ -158,7 +158,7 @@ public interface MomentApi {
      * @return the customer strategy range response
      */
     @POST("externalcontact/moment_strategy/edit")
-    Single<WeComResponse> editMomentStrategy(MutableMomentStrategy request);
+    Single<WeComResponse> editMomentStrategy(@Body MutableMomentStrategy request);
 
     /**
      * 删除规则组
@@ -167,5 +167,5 @@ public interface MomentApi {
      * @return the customer strategy range response
      */
     @POST("externalcontact/moment_strategy/del")
-    Single<WeComResponse> delMomentStrategy(StrategyId strategyId);
+    Single<WeComResponse> delMomentStrategy(@Body StrategyId strategyId);
 }

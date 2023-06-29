@@ -29,9 +29,21 @@ import java.util.Arrays;
 public enum AttendanceType {
 
 
+    /**
+     * Leave attendance type.
+     */
     LEAVE(1),
+    /**
+     * Business trip attendance type.
+     */
     BUSINESS_TRIP(3),
+    /**
+     * Going out attendance type.
+     */
     GOING_OUT(4),
+    /**
+     * Overtime work attendance type.
+     */
     OVERTIME_WORK(5);
     private final int type;
 

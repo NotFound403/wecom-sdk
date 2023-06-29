@@ -17,15 +17,16 @@ package cn.felord.reactive.api;
 
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.media.MediaResponse;
+import cn.felord.domain.media.MultipartResource;
 import cn.felord.domain.webhook.WebhookBody;
-import cn.felord.utils.FileMediaType;
+import cn.felord.enumeration.FileMediaType;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 
-import java.io.File;
+import java.util.Objects;
 
 /**
  * 群机器人
@@ -61,15 +62,17 @@ public class WebhookApi {
      * 上传素材
      *
      * @param webhookKey the webhook key
-     * @param file       the file
+     * @param resource   the resource
      * @return the media response
      */
-    public Single<MediaResponse> uploadMedia(String webhookKey, File file) {
-        String mediaTypeStr = FileMediaType.fromFileName(file.getName());
-        RequestBody requestBody = RequestBody.create(file, MediaType.parse(mediaTypeStr));
+    public Single<MediaResponse> uploadMedia(String webhookKey, MultipartResource resource) {
+        String fileName = resource.getFileName();
+        MediaType mediaType = Objects.nonNull(resource.getMediaType()) ?
+                resource.getMediaType() : FileMediaType.fromFileName(fileName).mediaType();
+        RequestBody requestBody = RequestBody.create(resource.getSource(), mediaType);
         MultipartBody media = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("media", file.getName(), requestBody)
+                .addFormDataPart("media", fileName, requestBody)
                 .build();
         return internalWebhookApi.uploadMedia(webhookKey, "file", media);
     }

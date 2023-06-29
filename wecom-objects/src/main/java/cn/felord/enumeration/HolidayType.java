@@ -28,7 +28,9 @@ import java.util.Arrays;
  */
 public enum HolidayType {
 
-
+    /**
+     * Calendar day holiday type.
+     */
     CALENDAR_DAY(0),
     BUSINESS_DAY(1);
     private final int type;

@@ -21,11 +21,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
+ * The enum Contact user type.
+ *
  * @author dax
- * @since 2021/9/8 10:47
+ * @since 2021 /9/8 10:47
  */
 public enum ContactUserType {
+    /**
+     * Wechat contact user type.
+     */
     WECHAT(1),
+    /**
+     * Work wechat contact user type.
+     */
     WORK_WECHAT(2);
 
     private final int type;
@@ -34,11 +42,22 @@ public enum ContactUserType {
         this.type = type;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     @JsonValue
     public int getType() {
         return type;
     }
 
+    /**
+     * Deserialize contact user type.
+     *
+     * @param type the type
+     * @return the contact user type
+     */
     @JsonCreator
     public static ContactUserType deserialize(int type) {
         return Arrays.stream(ContactUserType.values())

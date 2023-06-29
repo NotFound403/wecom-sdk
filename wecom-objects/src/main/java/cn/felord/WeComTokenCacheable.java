@@ -43,4 +43,12 @@ public interface WeComTokenCacheable extends WeComAgentTicketCacheable {
      * @return the token
      */
     String getAccessToken(String corpId, String agentId);
+
+    /**
+     * 清除accessToken
+     *
+     * @param corpId  the corp id
+     * @param agentId the agent id
+     */
+    void clearAccessToken(String corpId, String agentId);
 }

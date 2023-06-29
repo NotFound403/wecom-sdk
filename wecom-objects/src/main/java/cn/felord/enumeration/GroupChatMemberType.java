@@ -21,11 +21,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
+ * The enum Group chat member type.
+ *
  * @author dax
- * @since 2021/9/8 10:47
+ * @since 2021 /9/8 10:47
  */
 public enum GroupChatMemberType {
+    /**
+     * Corp group chat member type.
+     */
     CORP(1),
+    /**
+     * Personal group chat member type.
+     */
     PERSONAL(2);
 
     private final int type;
@@ -34,11 +42,22 @@ public enum GroupChatMemberType {
         this.type = type;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     @JsonValue
     public int getType() {
         return type;
     }
 
+    /**
+     * Deserialize group chat member type.
+     *
+     * @param type the type
+     * @return the group chat member type
+     */
     @JsonCreator
     public static GroupChatMemberType deserialize(int type) {
         return Arrays.stream(GroupChatMemberType.values())

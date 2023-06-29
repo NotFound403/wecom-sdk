@@ -18,8 +18,9 @@ package cn.felord.callbacks;
 import cn.felord.WeComException;
 import cn.felord.domain.callback.CallbackEventBody;
 import cn.felord.utils.Base64Utils;
-import cn.felord.utils.SHA1;
+import cn.felord.utils.Algorithms;
 import cn.felord.utils.StringUtils;
+import cn.felord.xml.XmlReader;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -223,7 +224,7 @@ public class CallbackCrypto {
             timeStamp = Long.toString(System.currentTimeMillis());
         }
         String token = callbackSettings.getToken();
-        String signature = SHA1.sha1Signature(token, timeStamp, nonce, encrypt);
+        String signature = Algorithms.sha1Signature(token, timeStamp, nonce, encrypt);
         return String.format(MSG, encrypt, signature, timeStamp, nonce);
     }
 
@@ -248,7 +249,7 @@ public class CallbackCrypto {
             timeStamp = Long.toString(Instant.now().toEpochMilli());
         }
         String token = callbackSettings.getToken();
-        String signature = SHA1.sha1Signature(token, timeStamp, nonce, encrypt);
+        String signature = Algorithms.sha1Signature(token, timeStamp, nonce, encrypt);
         CallbackXmlResponse callbackXmlResponse = new CallbackXmlResponse(encrypt, signature, timeStamp, nonce);
         return xmlReader.write(callbackXmlResponse);
     }
@@ -304,6 +305,7 @@ public class CallbackCrypto {
         eventBody.setNonce(nonce);
         eventBody.setEncrypt(encrypt);
         eventBody.setXmlAgentId(callbackXmlBody.getAgentId());
+        eventBody.setOriginalXml(xml);
         // end 用来记录追踪
         this.callbackAsyncConsumer.asyncAction(eventBody);
         return response;
@@ -324,7 +326,7 @@ public class CallbackCrypto {
     public String decryptMsg(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String encrypt) {
         CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
         String token = callbackSettings.getToken();
-        String signature = SHA1.sha1Signature(token, timeStamp, nonce, encrypt);
+        String signature = Algorithms.sha1Signature(token, timeStamp, nonce, encrypt);
         if (!Objects.equals(msgSignature, signature)) {
             throw new WeComException("callback signature not matched");
         }

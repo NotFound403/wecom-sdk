@@ -1,8 +1,23 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.api;
 
 import cn.felord.domain.callcenter.*;
-import cn.felord.enumeration.WeComEndpoint;
-import org.springframework.core.ParameterizedTypeReference;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 /**
  * 客服统计管理
@@ -10,17 +25,7 @@ import org.springframework.core.ParameterizedTypeReference;
  * @author dax
  * @since 2023 /6/6
  */
-public class KfStatisticApi {
-    private final WorkWeChatApiClient workWeChatApiClient;
-
-    /**
-     * Instantiates a new Kf session api.
-     *
-     * @param workWeChatApiClient the work we chat api client
-     */
-    KfStatisticApi(WorkWeChatApiClient workWeChatApiClient) {
-        this.workWeChatApiClient = workWeChatApiClient;
-    }
+public interface KfStatisticApi {
 
     /**
      * 获取「客户数据统计」企业汇总数据
@@ -28,12 +33,8 @@ public class KfStatisticApi {
      * @param request the request
      * @return the kf statistic response
      */
-    public KfStatisticResponse<KfCorpStatisticDetail> corpStatistic(KfCorpStatisticRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.KF_CORP_STATISTIC,
-                request,
-                new ParameterizedTypeReference<KfStatisticResponse<KfCorpStatisticDetail>>() {
-                });
-    }
+    @POST("kf/get_corp_statistic")
+    KfStatisticResponse<KfCorpStatisticDetail> corpStatistic(@Body KfCorpStatisticRequest request);
 
     /**
      * 获取「客户数据统计」接待人员明细数据
@@ -41,10 +42,6 @@ public class KfStatisticApi {
      * @param request the request
      * @return the kf statistic response
      */
-    public KfStatisticResponse<KfServicerStatisticDetail> servicerStatistic(KfServicerStatisticRequest request) {
-        return workWeChatApiClient.post(WeComEndpoint.KF_SERVICER_STATISTIC,
-                request,
-                new ParameterizedTypeReference<KfStatisticResponse<KfServicerStatisticDetail>>() {
-                });
-    }
+    @POST("kf/get_servicer_statistic")
+    KfStatisticResponse<KfServicerStatisticDetail> servicerStatistic(@Body KfServicerStatisticRequest request);
 }

@@ -26,8 +26,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
+ * The type Message response.
+ *
  * @author felord
- * @since 2021/11/22 11:41
+ * @since 2021 /11/22 11:41
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -39,18 +41,38 @@ public class MessageResponse extends WeComResponse {
     private String msgid;
     private String responseCode;
 
+    /**
+     * To invaliduser list list.
+     *
+     * @return the list
+     */
     public List<String> toInvaliduserList() {
         return toList(invaliduser);
     }
 
+    /**
+     * To invalidparty list list.
+     *
+     * @return the list
+     */
     public List<String> toInvalidpartyList() {
         return toList(invalidparty);
     }
 
+    /**
+     * To invalidtag list list.
+     *
+     * @return the list
+     */
     public List<String> toInvalidtagList() {
         return toList(invalidtag);
     }
 
+    /**
+     * To unlicenseduser list list.
+     *
+     * @return the list
+     */
     public List<String> toUnlicenseduserList() {
         return toList(unlicenseduser);
     }

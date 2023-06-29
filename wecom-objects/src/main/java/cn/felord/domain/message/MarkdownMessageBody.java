@@ -25,7 +25,6 @@ import lombok.Getter;
  */
 @Getter
 public class MarkdownMessageBody extends AbstractMessageBody {
-    private final String msgtype = "markdown";
     private final ContentText markdown;
 
     protected MarkdownMessageBody(String touser, String toparty, String totag, BoolEnum enableDuplicateCheck, Integer duplicateCheckInterval, ContentText markdown) {

@@ -21,11 +21,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
+ * The enum Use template approver.
+ *
  * @author dax
- * @since 2021/9/8 10:47
+ * @since 2021 /9/8 10:47
  */
 public enum UseTemplateApprover {
+    /**
+     * Approver mode use template approver.
+     */
     APPROVER_MODE(0),
+    /**
+     * Backend mode use template approver.
+     */
     BACKEND_MODE(1);
 
     private final int type;
@@ -34,11 +42,22 @@ public enum UseTemplateApprover {
         this.type = type;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     @JsonValue
     public int getType() {
         return type;
     }
 
+    /**
+     * Deserialize use template approver.
+     *
+     * @param type the type
+     * @return the use template approver
+     */
     @JsonCreator
     public static UseTemplateApprover deserialize(int type) {
         return Arrays.stream(UseTemplateApprover.values())

@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.wecom.api;
 
 import cn.felord.callbacks.CallbackCrypto;
@@ -5,7 +20,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 通用回调，这里照搬即可，记得权限放行，过滤器拦截器也放行
+ * 通用回调，这里照搬即可，记得权限放行，过滤器拦截器也放行，改变请求体结构会造成验签失败
  * <p>
  * 所有配置回调的地方都可以配置成一个接口，格式/wecom/callback/企微企业id/企微应用id
  * <p>
@@ -13,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
  * 企微应用id，如果是自建的应用去应用管理查看agentid，如果是企微内置的应用查看{@link cn.felord.enumeration.NativeAgent}
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 @AllArgsConstructor
 @RestController

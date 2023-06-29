@@ -33,14 +33,13 @@ public class AgentApi {
         this.workWeChatApiClient = workWeChatApiClient;
     }
 
-
     /**
      * 应用管理
      *
      * @return the agent manager
      */
     public AgentManagerApi agentManager() {
-        return this.workWeChatApiClient.retrofit().create(AgentManagerApi.class);
+        return new AgentManagerApi(workWeChatApiClient.retrofit(), workWeChatApiClient.agentDetails());
     }
 
     /**
@@ -49,6 +48,6 @@ public class AgentApi {
      * @return the message api
      */
     public AgentMessageApi agentMessageApi() {
-        return this.workWeChatApiClient.retrofit().create(AgentMessageApi.class);
+        return new AgentMessageApi(workWeChatApiClient.retrofit(), workWeChatApiClient.agentDetails());
     }
 }

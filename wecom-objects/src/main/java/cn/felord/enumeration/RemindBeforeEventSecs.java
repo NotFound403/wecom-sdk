@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 日程提醒
  *
  * @author felord.cn
- * @since 1.0.14.RELEASE
+ * @since 1.0.0
  */
 public enum RemindBeforeEventSecs {
 
