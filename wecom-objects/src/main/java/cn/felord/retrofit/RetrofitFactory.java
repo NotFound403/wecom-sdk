@@ -15,13 +15,12 @@
 
 package cn.felord.retrofit;
 
-import cn.felord.json.JacksonObjectMapperFactory;
+import cn.felord.json.JsonConverterFactory;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,13 +33,12 @@ import java.util.concurrent.TimeUnit;
 public final class RetrofitFactory {
     private static final String BASE_URL = "https://qyapi.weixin.qq.com/cgi-bin/";
     private static final String BASE_PAY_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/";
-    public static final JacksonConverterFactory JACKSON_CONVERTER_FACTORY = JacksonConverterFactoryBuilder.build();
     public static final Retrofit RETROFIT_ = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient(HttpLoggingInterceptor.Level.NONE))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
-            .addConverterFactory(JACKSON_CONVERTER_FACTORY)
+            .addConverterFactory(JsonConverterFactory.create())
             .build();
 
     private RetrofitFactory() {
@@ -61,7 +59,7 @@ public final class RetrofitFactory {
                 .client(okHttpClient(tokenApi, connectionPool, level))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
-                .addConverterFactory(JACKSON_CONVERTER_FACTORY)
+                .addConverterFactory(JsonConverterFactory.create())
                 .build();
     }
 
@@ -81,7 +79,7 @@ public final class RetrofitFactory {
                 .client(okHttpClient(sslManager, connectionPool, level))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
-                .addConverterFactory(JACKSON_CONVERTER_FACTORY)
+                .addConverterFactory(JsonConverterFactory.create())
                 .build();
     }
 
@@ -123,22 +121,5 @@ public final class RetrofitFactory {
                 .readTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .build();
-    }
-
-    /**
-     * The type Jackson converter factory builder.
-     */
-    static final class JacksonConverterFactoryBuilder {
-        private JacksonConverterFactoryBuilder() {
-        }
-
-        /**
-         * Build jackson converter factory.
-         *
-         * @return the jackson converter factory
-         */
-        public static JacksonConverterFactory build() {
-            return JacksonConverterFactory.create(JacksonObjectMapperFactory.create());
-        }
     }
 }
