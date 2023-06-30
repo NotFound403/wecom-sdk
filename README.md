@@ -66,7 +66,7 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>wecom-sdk</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
@@ -77,7 +77,7 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>rx-wecom-sdk</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
@@ -146,7 +146,7 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
 
 <div align="center" style="margin-bottom: 10px">
     <a target="_blank" href="https://www.jetbrains.com/">
-     	<img src="jb_beam.png" height="400" width="400" alt="jetbrains"/>
+     	<img src="jb_beam.png" height="300" width="300" alt="jetbrains"/>
     </a>
 </div>
 
