@@ -141,3 +141,12 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
 - 家校沟通
 - 家校应用
 - 政民沟通
+
+## 特别鸣谢
+
+<div align="center" style="margin-bottom: 10px">
+    <a target="_blank" href="https://www.jetbrains.com/">
+     	<img src="jb_beam.png" height="400" width="400" alt="jetbrains"/>
+    </a>
+</div>
+
