@@ -48,9 +48,9 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
 
 ## 🔥技术栈
 
-- OkHttp
-- Retrofit
-- Rxjava
+- OkHttp4
+- Retrofit2
+- Rxjava3
 - Jackson2
 - XStream
 
@@ -146,7 +146,7 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
 
 <div align="center" style="margin-bottom: 10px">
     <a target="_blank" href="https://www.jetbrains.com/">
-     	<img src="jb_beam.png" height="300" width="300" alt="jetbrains"/>
+     	<img src="jb_beam.png" height="200" width="200" alt="jetbrains"/>
     </a>
 </div>
 
