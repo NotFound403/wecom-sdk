@@ -104,7 +104,6 @@ public enum CallbackEvent {
     BATCH_JOB_RESULT("batch_job_result"),
     /**
      * 菜单事件
-     * <p>
      * <ul>
      *     <li>成员点击自定义菜单后，企业微信会把点击事件推送给应用。</li>
      *     <li>点击菜单弹出子菜单，不会产生上报。</li>
