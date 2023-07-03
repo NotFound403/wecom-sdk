@@ -63,12 +63,11 @@ public interface KfSessionApi {
      * 注意仅当微信客户在主动发送消息给客服后的48小时内，企业可发送消息给客户，最多可发送5条消息；若用户继续发送消息，企业可再次下发消息。
      * 支持发送消息类型：文本、图片、语音、视频、文件、图文、小程序、菜单消息、地理位置。
      *
-     * @param <R>     the type parameter
      * @param request the request
      * @return the generic response
      */
     @POST("kf/send_msg")
-    <R extends KfMessageRequest> Single<GenericResponse<String>> sendMsg(@Body R request);
+    Single<GenericResponse<String>> sendMsg(@Body KfMessageRequest request);
 
     /**
      * 发送欢迎语等事件响应消息
@@ -77,10 +76,9 @@ public interface KfSessionApi {
      * 开发者可以此code为凭证，调用该接口给用户发送相应事件场景下的消息，如客服欢迎语、客服提示语和会话结束语等。
      * 除"用户进入会话事件"以外，响应消息仅支持会话处于获取该code的会话状态时发送，如将会话转入待接入池时获得的code仅能在会话状态为”待接入池排队中“时发送。
      *
-     * @param <R>     the type parameter
      * @param request the request
      * @return the generic response
      */
     @POST("kf/send_msg_on_event")
-    <R extends KfEventMessageRequest> Single<GenericResponse<String>> sendEventMsg(@Body R request);
+    Single<GenericResponse<String>> sendEventMsg(@Body KfEventMessageRequest request);
 }

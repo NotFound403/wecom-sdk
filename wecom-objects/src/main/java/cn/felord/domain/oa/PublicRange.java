@@ -26,5 +26,5 @@ import java.util.Set;
 @Data
 public class PublicRange {
     private final Set<String> userids;
-    private final Set<String> partyids;
+    private final Set<Long> partyids;
 }

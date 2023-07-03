@@ -34,13 +34,12 @@ interface InternalWebhookApi {
     /**
      * 发送机器人信息
      *
-     * @param <B>  the type parameter
      * @param key  the key
      * @param body the body
      * @return the we com response
      */
     @POST("webhook/send")
-    <B extends WebhookBody> WeComResponse send(@Query("key") String key, @Body B body);
+    WeComResponse send(@Query("key") String key, @Body WebhookBody body);
 
     /**
      * 机器人上传素材

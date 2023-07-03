@@ -42,13 +42,12 @@ interface InternalAgentMessageApi {
     /**
      * 更新模版卡片消息
      *
-     * @param <R>     the type parameter
      * @param request the request
      * @return the message response
      * @see TemplateReplaceCardBuilders
      */
     @POST("message/update_template_card")
-    <R extends AbstractUpdateTemplateCardRequest> MessageResponse updateTemplateCard(@Body R request);
+    MessageResponse updateTemplateCard(@Body AbstractUpdateTemplateCardRequest request);
 
     /**
      * 撤回应用消息

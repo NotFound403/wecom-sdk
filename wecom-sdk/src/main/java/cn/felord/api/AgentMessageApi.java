@@ -48,11 +48,12 @@ public class AgentMessageApi {
     /**
      * 发送应用消息
      *
+     * @param <B>  the type parameter
      * @param body the body
      * @return the message response
      * @see MessageBodyBuilders
      */
-    public MessageResponse send(AbstractMessageBody body) {
+    public <B extends AbstractMessageBody> MessageResponse send(B body) {
         String msgtype = body.getMsgtype();
         if (!Objects.equals("miniprogram_notice", msgtype)) {
             String agentId = this.agentDetails.getAgentId();
