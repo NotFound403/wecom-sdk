@@ -66,7 +66,7 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>wecom-sdk</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.1.RC</version>
 </dependency>
 ```
 
@@ -77,7 +77,7 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>rx-wecom-sdk</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.1.RC</version>
 </dependency>
 ```
 
