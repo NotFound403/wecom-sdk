@@ -34,7 +34,7 @@ public final class NotMatchedCallbackEventBodyConsumer implements CallbackEventB
 
     @Override
     public boolean matched(CallbackEvent event) {
-        throw new IllegalArgumentException("NotFoundCallbackEventBodyConsumer 不得自动加入消费链");
+        throw new IllegalArgumentException("NotMatchedCallbackEventBodyConsumer 不得自动加入消费链");
     }
 
     @Override

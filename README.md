@@ -66,7 +66,7 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>wecom-sdk</artifactId>
-  <version>1.1.1.RC</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
@@ -77,7 +77,7 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>rx-wecom-sdk</artifactId>
-  <version>1.1.1.RC</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
@@ -134,7 +134,7 @@ SDK。历经三年迭代，目前已经实现了企业微信相关接口近200�
   - [x] 企业红包
   - [x] 向员工付款
   - [x] 对外收款
-  - [ ] 创建对外收款账户
+  - [x] 创建对外收款账户
 - 企业互联
 - 会话内容存档
 - 电子发票
