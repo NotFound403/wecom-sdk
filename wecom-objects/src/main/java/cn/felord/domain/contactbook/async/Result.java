@@ -31,5 +31,5 @@ import lombok.EqualsAndHashCode;
 public class Result extends WeComResponse {
     private String userid;
     private Integer action;
-    private Integer partyid;
+    private Long partyid;
 }

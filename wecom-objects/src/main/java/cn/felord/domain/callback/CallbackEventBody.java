@@ -84,9 +84,9 @@ public class CallbackEventBody implements Xml {
     @XStreamAlias("Format")
     private String format;
     @XStreamAlias("Location_X")
-    private String latitude;
+    private String latitudeX;
     @XStreamAlias("Location_Y")
-    private String longitude;
+    private String longitudeY;
     @XStreamAlias("Scale")
     private Integer scale;
     @XStreamAlias("Label")
@@ -131,14 +131,15 @@ public class CallbackEventBody implements Xml {
     private String address;
     @XStreamAlias(value = "ExtAttr", impl = List.class)
     private List<CallbackExtAttrItem> extAttr;
-
+    /**
+     * 和企业客户标签事件 tagId 冲突 统一用 idOrTagId
+     */
     @XStreamAlias("Id")
-    private Integer id;
+    private String idOrTagId;
     @XStreamAlias("ParentId")
-    private String parentId;
+    private Long parentId;
     @XStreamAlias("Order")
     private Integer order;
-
     @XStreamAlias("TagId")
     private Integer contactTagId;
     @XStreamAlias("AddUserItems")
@@ -171,9 +172,7 @@ public class CallbackEventBody implements Xml {
     private Integer quitScene;
     @XStreamAlias("MemChangeCnt")
     private Integer memChangeCnt;
-
-    @XStreamAlias("Id")
-    private String tagId;
+    //  tagId -> idOrTagId;
     @XStreamAlias("TagType")
     private String tagType;
     @XStreamAlias("StrategyId")
@@ -206,4 +205,14 @@ public class CallbackEventBody implements Xml {
     private List<String> docIds;
     @XStreamImplicit(itemFieldName = "FormId")
     private List<String> formIds;
+
+    @XStreamAlias("Location")
+    private String latitude;
+    @XStreamAlias("Location")
+    private String longitude;
+    @XStreamAlias("Precision")
+    private String precision;
+
+    @XStreamAlias("BatchJob")
+    private BatchJob batchJob;
 }

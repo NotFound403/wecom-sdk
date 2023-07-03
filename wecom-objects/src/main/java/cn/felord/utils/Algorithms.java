@@ -34,20 +34,6 @@ import java.util.stream.Stream;
  */
 public final class Algorithms {
 
-    private static final MessageDigest SHA1;
-    private static final MessageDigest MD5;
-    private static final Mac HMAC_SHA256;
-
-    static {
-        try {
-            SHA1 = MessageDigest.getInstance("SHA-1");
-            MD5 = MessageDigest.getInstance("MD5");
-            HMAC_SHA256 = Mac.getInstance("HmacSHA256");
-        } catch (NoSuchAlgorithmException e) {
-            throw new WeComException("algorithms init error", e);
-        }
-    }
-
     private Algorithms() {
     }
 
@@ -79,6 +65,12 @@ public final class Algorithms {
      * @return the string
      */
     public static String sha1Hex(String format) {
+        final MessageDigest SHA1;
+        try {
+            SHA1 = MessageDigest.getInstance("SHA-1");
+        } catch (NoSuchAlgorithmException e) {
+            throw new WeComException("algorithm sha-1 init error", e);
+        }
         SHA1.update(format.getBytes(StandardCharsets.UTF_8));
         byte[] bytes = SHA1.digest();
         return Hex.encodeHexString(bytes);
@@ -93,6 +85,13 @@ public final class Algorithms {
      * @return the string
      */
     public static String hmacSha256Hex(String src, String secret, boolean upperCase) {
+        final Mac HMAC_SHA256;
+        try {
+            HMAC_SHA256 = Mac.getInstance("HmacSHA256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new WeComException("algorithm hmac-sha256 init error", e);
+        }
+
         SecretKeySpec secretKeySpec = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), HMAC_SHA256.getAlgorithm());
         try {
             HMAC_SHA256.init(secretKeySpec);
@@ -112,6 +111,12 @@ public final class Algorithms {
      * @return the string
      */
     public static String md5Hex(String src, boolean upperCase) {
+        final MessageDigest MD5;
+        try {
+            MD5 = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new WeComException("algorithm md5 init error", e);
+        }
         MD5.update(src.getBytes(StandardCharsets.UTF_8));
         byte[] bytes = MD5.digest();
         String encodeHexString = Hex.encodeHexString(bytes);
