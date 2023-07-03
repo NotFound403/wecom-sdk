@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 通用回调，这里照搬即可，记得权限放行，过滤器拦截器也放行，改变请求体结构会造成验签失败
+ * 通用回调，这里照搬即可，记得权限放行，过滤器拦截器也放行，改变请求体响应体结构会造成验签失败
  * <p>
  * 所有配置回调的地方都可以配置成一个接口，格式/wecom/callback/企微企业id/企微应用id
  * <p>

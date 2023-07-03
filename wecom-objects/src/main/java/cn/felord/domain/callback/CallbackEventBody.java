@@ -38,7 +38,8 @@ public class CallbackEventBody implements Xml {
     private String nonce;
     private String encrypt;
     private String originalXml;
-
+    // xml 中解析的agentid 不一定匹配 比如旧的企业助手为 0
+    private String xmlAgentId;
     @XStreamAlias("ToUserName")
     private final String toUserName;
     @XStreamAlias("FromUserName")
@@ -53,8 +54,6 @@ public class CallbackEventBody implements Xml {
     private final String changeType;
     @XStreamAlias("AgentID")
     private String agentId;
-    private String xmlAgentId;
-
     @XStreamAlias("ApprovalInfo")
     private ApprovalInfo approvalInfo;
 
