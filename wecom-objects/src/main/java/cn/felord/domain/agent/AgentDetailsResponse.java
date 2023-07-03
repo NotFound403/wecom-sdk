@@ -16,6 +16,7 @@
 package cn.felord.domain.agent;
 
 import cn.felord.domain.WeComResponse;
+import cn.felord.enumeration.AgentCustomizedPubStatus;
 import cn.felord.enumeration.BoolEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,8 +36,8 @@ public class AgentDetailsResponse extends WeComResponse {
     private AllowTags allowTags;
     private BoolEnum close;
     private String redirectDomain;
-    private Integer reportLocationFlag;
-    private Integer isreportenter;
+    private BoolEnum reportLocationFlag;
+    private BoolEnum isreportenter;
     private String homeUrl;
-    private Integer customizedPublishStatus;
+    private AgentCustomizedPubStatus customizedPublishStatus;
 }
