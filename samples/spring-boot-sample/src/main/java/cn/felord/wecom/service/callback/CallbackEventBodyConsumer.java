@@ -23,7 +23,7 @@ import cn.felord.enumeration.CallbackEvent;
  * <p>
  * 一个{@link CallbackEvent} 对应一个实现
  *
- * @author xiafang
+ * @author dax
  * @since 2023 /5/30 11:16
  */
 public interface CallbackEventBodyConsumer {

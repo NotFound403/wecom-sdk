@@ -109,4 +109,13 @@ interface InternalMediaApi {
     @POST("media/get_upload_by_url_result")
     MediaJobResponse getUploadByUrlResult(@Body JobId jobId);
 
+    /**
+     * 创建对外收款账户-提交图片
+     *
+     * @param media the media
+     * @return the generic response
+     */
+    @POST("miniapppay/upload_image")
+    GenericResponse<String> uploadPayImage(@Body MultipartBody media);
+
 }

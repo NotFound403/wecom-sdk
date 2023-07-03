@@ -141,6 +141,16 @@ public class MediaApi {
         return internalMediaApi.getUploadByUrlResult(jobId);
     }
 
+    /**
+     * 创建对外收款账户-提交图片
+     *
+     * @param resource the resource
+     * @return the generic response
+     */
+    public GenericResponse<String> uploadPayImage(MultipartResource resource) {
+        return internalMediaApi.uploadPayImage(this.toMultipartBody(resource));
+    }
+
     private MultipartBody toMultipartBody(MultipartResource resource) {
         String fileName = resource.getFileName();
         MediaType mediaType = Objects.nonNull(resource.getMediaType()) ?

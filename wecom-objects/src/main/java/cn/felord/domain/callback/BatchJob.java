@@ -4,7 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
 /**
- * @author xiafang
+ * @author dax
  * @since 2023/7/3 9:44
  */
 @Data
