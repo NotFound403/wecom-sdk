@@ -15,16 +15,34 @@
 
 package cn.felord.domain.externalcontact;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author dax
  * @since 2021/3/14 16:07
  */
-@Data
+@ToString
+@Setter
+@Getter
 public class Link {
-    private String title;
+    private final String title;
+    private final String url;
     private String picurl;
     private String desc;
-    private String url;
+
+    public Link(String title, String url) {
+        this(title, url, null, null);
+    }
+
+    @JsonCreator
+    public Link(@JsonProperty("title") String title, @JsonProperty("url") String url, @JsonProperty("picurl") String picurl, @JsonProperty("desc") String desc) {
+        this.title = title;
+        this.url = url;
+        this.picurl = picurl;
+        this.desc = desc;
+    }
 }
