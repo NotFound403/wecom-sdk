@@ -23,7 +23,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
  * 回调事件
  *
  * @author felord.cn
- * @since 2021/6/10
+ * @since 2021 /6/10
  */
 @XStreamConverter(EventEnumConverter.class)
 public enum CallbackEvent {
@@ -70,7 +70,11 @@ public enum CallbackEvent {
     /**
      * 异步上传任务完成事件
      */
-    UPLOAD_MEDIA_JOB_FINISH("upload_media_job_finish");
+    UPLOAD_MEDIA_JOB_FINISH("upload_media_job_finish"),
+    /**
+     * 获客助手事件通知
+     */
+    CUSTOMER_ACQUISITION("customer_acquisition");
 
     private final String type;
 

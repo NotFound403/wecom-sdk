@@ -16,6 +16,7 @@
 package cn.felord.domain.callback;
 
 import cn.felord.domain.common.MediaId;
+import cn.felord.enumeration.CallbackChangeType;
 import cn.felord.enumeration.CallbackEvent;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
@@ -50,7 +51,7 @@ public class CallbackEventBody implements Xml {
     @XStreamAlias("Event")
     private final CallbackEvent event;
     @XStreamAlias("ChangeType")
-    private final String changeType;
+    private final CallbackChangeType changeType;
     @XStreamAlias("AgentID")
     private String agentId;
     private String xmlAgentId;
