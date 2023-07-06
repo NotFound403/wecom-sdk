@@ -141,10 +141,7 @@ public enum CallbackChangeType {
     /**
      * 修改收集表设置事件
      */
-    FORM_SETTINGS_CHANGE("form_settings_change"),
-
-
-    ;
+    FORM_SETTINGS_CHANGE("form_settings_change");
     private final String type;
 
     CallbackChangeType(String type) {
