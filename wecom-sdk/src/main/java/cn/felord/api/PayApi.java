@@ -72,4 +72,17 @@ public class PayApi {
                 .retrofit()
                 .create(ExternalCorPayApi.class);
     }
+
+    /**
+     * 对外收款账户
+     *
+     * @param agentDetails the agent details
+     * @return the external pay account api
+     */
+    public ExternalPayAccountApi externalPayAccountApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(ExternalPayAccountApi.class);
+    }
 }

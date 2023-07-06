@@ -14,40 +14,24 @@
  */
 package cn.felord.convert;
 
-import com.thoughtworks.xstream.InitializationException;
+import cn.felord.enumeration.CallbackEvent;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 
-import java.util.Map;
+import java.util.Arrays;
 import java.util.Objects;
 
 
 /**
- * A single value converter for a special enum type using its string representation.
+ * CallbackEvent
  *
- * @author J&ouml;rg Schaible
- * @since 1.4.5
+ * @author dax
+ * @since 1.1.1
  */
-public class EventEnumConverter<T extends Enum<T>> extends AbstractSingleValueConverter {
-
-    private final Class<T> enumType;
-    private final Map<String, T> strings;
-
-
-    public EventEnumConverter(Class<T> type, Map<String, T> strings) {
-        enumType = type;
-        this.strings = strings;
-    }
-
-
-    private static <T> void checkType(Class<T> type) {
-        if (!Enum.class.isAssignableFrom(type) && type != Enum.class) {
-            throw new InitializationException("Converter can only handle enum types");
-        }
-    }
+public class CallbackEventConverter extends AbstractSingleValueConverter {
 
     @Override
     public boolean canConvert(Class type) {
-        return type != null && enumType.isAssignableFrom(type);
+        return type != null && CallbackEvent.class.isAssignableFrom(type);
     }
 
     @Override
@@ -55,15 +39,15 @@ public class EventEnumConverter<T extends Enum<T>> extends AbstractSingleValueCo
         if (Objects.isNull(obj)) {
             return null;
         }
-        Enum<?> eventEnum = (Enum<?>) obj;
-        return eventEnum.name().toLowerCase();
+        CallbackEvent eventEnum = (CallbackEvent) obj;
+        return eventEnum.type();
     }
 
     @Override
     public Object fromString(String str) {
-        if (str == null) {
-            return null;
-        }
-        return strings.get(str);
+        return Arrays.stream(CallbackEvent.values())
+                .filter(callbackEvent -> Objects.equals(callbackEvent.type(), str))
+                .findFirst()
+                .orElse(null);
     }
 }

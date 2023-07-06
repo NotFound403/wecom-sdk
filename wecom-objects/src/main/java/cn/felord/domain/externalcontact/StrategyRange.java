@@ -26,5 +26,5 @@ import lombok.Data;
 public class StrategyRange {
     private RangeType type;
     private String userid;
-    private Integer partyid;
+    private Long partyid;
 }

@@ -24,5 +24,5 @@ import java.util.List;
  */
 @Data
 public class AllowParties {
-    private List<Integer> partyid;
+    private List<Long> partyid;
 }

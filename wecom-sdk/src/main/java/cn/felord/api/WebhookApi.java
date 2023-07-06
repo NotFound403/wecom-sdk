@@ -48,12 +48,11 @@ public class WebhookApi {
     /**
      * 发送机器人信息
      *
-     * @param <B>  the type parameter
      * @param key  the key
      * @param body the body
      * @return the we com response
      */
-    public <B extends WebhookBody> WeComResponse send(String key, B body) {
+    public WeComResponse send(String key, WebhookBody body) {
         return internalWebhookApi.send(key, body);
     }
 
@@ -75,6 +74,5 @@ public class WebhookApi {
                 .build();
         return internalWebhookApi.uploadMedia(webhookKey, "file", media);
     }
-
 
 }

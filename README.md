@@ -52,9 +52,9 @@
 
 ## 🔥技术栈
 
-- OkHttp
-- Retrofit
-- Rxjava
+- OkHttp4
+- Retrofit2
+- Rxjava3
 - Jackson2
 - XStream
 
@@ -66,7 +66,7 @@
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>wecom-sdk</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
@@ -77,7 +77,7 @@
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>rx-wecom-sdk</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
@@ -134,7 +134,7 @@
   - [x] 企业红包
   - [x] 向员工付款
   - [x] 对外收款
-  - [ ] 创建对外收款账户
+  - [x] 创建对外收款账户
 - 企业互联
 - 会话内容存档
 - 电子发票
@@ -146,7 +146,7 @@
 
 <div align="center" style="margin-bottom: 10px">
     <a target="_blank" href="https://www.jetbrains.com/">
-     	<img src="jb_beam.png" height="400" width="400" alt="jetbrains"/>
+     	<img src="jb_beam.png" height="200" width="200" alt="jetbrains"/>
     </a>
 </div>
 
