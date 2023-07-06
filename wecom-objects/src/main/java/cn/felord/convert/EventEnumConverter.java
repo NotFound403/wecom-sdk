@@ -17,11 +17,8 @@ package cn.felord.convert;
 import com.thoughtworks.xstream.InitializationException;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 
-import java.util.EnumSet;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 
 /**
@@ -36,22 +33,11 @@ public class EventEnumConverter<T extends Enum<T>> extends AbstractSingleValueCo
     private final Map<String, T> strings;
 
 
-    public EventEnumConverter(Class<T> type) {
-        this(type, extractStringMap(type));
-    }
-
     public EventEnumConverter(Class<T> type, Map<String, T> strings) {
         enumType = type;
         this.strings = strings;
     }
 
-
-    private static <T extends Enum<T>> Map<String, T> extractStringMap(Class<T> type) {
-        checkType(type);
-        return EnumSet.allOf(type)
-                .stream()
-                .collect(Collectors.toMap(t -> t.name().toLowerCase(), Function.identity()));
-    }
 
     private static <T> void checkType(Class<T> type) {
         if (!Enum.class.isAssignableFrom(type) && type != Enum.class) {
