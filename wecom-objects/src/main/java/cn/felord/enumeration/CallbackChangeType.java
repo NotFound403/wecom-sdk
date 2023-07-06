@@ -1,6 +1,6 @@
 package cn.felord.enumeration;
 
-import cn.felord.convert.EventEnumConverter;
+import cn.felord.convert.CallbackChangeTypeConverter;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 /**
@@ -9,7 +9,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
  * @author dax
  * @since 2023 /7/6 8:52
  */
-@XStreamConverter(EventEnumConverter.class)
+@XStreamConverter(CallbackChangeTypeConverter.class)
 public enum CallbackChangeType {
 
     /**
