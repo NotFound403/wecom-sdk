@@ -63,10 +63,10 @@ public enum AttendanceType {
 
 
     /**
-     * Deserialize date ctrl type.
+     * Deserialize AttendanceType.
      *
      * @param type the type
-     * @return the date ctrl type
+     * @return AttendanceType
      */
     @JsonCreator
     public static AttendanceType deserialize(int type) {

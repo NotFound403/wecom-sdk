@@ -63,10 +63,10 @@ public enum PayOrgType {
 
 
     /**
-     * Deserialize date ctrl type.
+     * Deserialize PayOrgType.
      *
      * @param type the type
-     * @return the date ctrl type
+     * @return the PayOrgType
      */
     @JsonCreator
     public static PayOrgType deserialize(int type) {

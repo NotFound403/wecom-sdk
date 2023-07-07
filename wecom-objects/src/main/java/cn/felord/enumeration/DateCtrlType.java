@@ -54,10 +54,10 @@ public enum DateCtrlType {
 
 
     /**
-     * Deserialize date ctrl type.
+     * Deserialize DateCtrlType.
      *
      * @param type the type
-     * @return the date ctrl type
+     * @return the DateCtrlType
      */
     @JsonCreator
     public static DateCtrlType deserialize(String type) {

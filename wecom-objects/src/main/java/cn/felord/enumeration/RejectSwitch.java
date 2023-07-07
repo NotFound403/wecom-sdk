@@ -56,10 +56,10 @@ public enum RejectSwitch {
 
 
     /**
-     * Deserialize date ctrl type.
+     * Deserialize RejectSwitch.
      *
      * @param type the type
-     * @return the date ctrl type
+     * @return the RejectSwitch
      */
     @JsonCreator
     public static RejectSwitch deserialize(int type) {

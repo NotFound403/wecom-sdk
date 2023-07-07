@@ -17,12 +17,11 @@ package cn.felord.utils;
 
 import cn.felord.WeComException;
 
-import javax.crypto.Mac;
+import javax.crypto.*;
+import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -121,6 +120,35 @@ public final class Algorithms {
         byte[] bytes = MD5.digest();
         String encodeHexString = Hex.encodeHexString(bytes);
         return upperCase ? encodeHexString.toUpperCase() : encodeHexString;
+    }
+
+    /**
+     * 解密响应体.
+     *
+     * @param aesKey         the aes key
+     * @param associatedData the associated data
+     * @param nonce          the nonce
+     * @param ciphertext     the ciphertext
+     * @return the string
+     */
+    public static String aesDecode(byte[] aesKey, String associatedData, String nonce, String ciphertext) {
+
+        try {
+            Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+
+            SecretKeySpec secretKeySpec = new SecretKeySpec(aesKey, "AES");
+            GCMParameterSpec spec = new GCMParameterSpec(128, nonce.getBytes(StandardCharsets.UTF_8));
+
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, spec);
+            cipher.updateAAD(associatedData.getBytes(StandardCharsets.UTF_8));
+
+            byte[] bytes = cipher.doFinal(Base64Utils.decodeFromString(ciphertext));
+            return new String(bytes, StandardCharsets.UTF_8);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException |
+                 InvalidAlgorithmParameterException | IllegalBlockSizeException |
+                 BadPaddingException e) {
+            throw new WeComException("Aes decrypt error", e);
+        }
     }
 
 }

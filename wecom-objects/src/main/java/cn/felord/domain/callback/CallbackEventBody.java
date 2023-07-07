@@ -16,13 +16,18 @@
 package cn.felord.domain.callback;
 
 import cn.felord.domain.common.MediaId;
+import cn.felord.domain.corpay.miniapppay.callback.RefundCallbackData;
+import cn.felord.domain.corpay.miniapppay.callback.TransactionCallbackData;
 import cn.felord.enumeration.CallbackChangeType;
 import cn.felord.enumeration.CallbackEvent;
+import cn.felord.enumeration.NotifyType;
+import cn.felord.enumeration.PayCallbackEventType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Data;
 
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 /**
@@ -48,9 +53,9 @@ public class CallbackEventBody implements Xml {
     @XStreamAlias("CreateTime")
     private final Instant createTime;
     @XStreamAlias("MsgType")
-    private final String msgType;
+    private String msgType;
     @XStreamAlias("Event")
-    private final CallbackEvent event;
+    private CallbackEvent event;
     @XStreamAlias("ChangeType")
     private final CallbackChangeType changeType;
     @XStreamAlias("AgentID")
@@ -215,4 +220,19 @@ public class CallbackEventBody implements Xml {
 
     @XStreamAlias("BatchJob")
     private BatchJob batchJob;
+
+    @XStreamAlias("notify_type")
+    private NotifyType notifyType;
+    @XStreamAlias("create_time")
+    private OffsetDateTime payCreateTime;
+    @XStreamAlias("event_type")
+    private PayCallbackEventType eventType;
+    @XStreamAlias("resource_type")
+    private String resourceType;
+    @XStreamAlias("resource")
+    private CallbackResource resource;
+    @XStreamAlias("summary")
+    private String summary;
+    private TransactionCallbackData transactionCallbackData;
+    private RefundCallbackData refundCallbackData;
 }
