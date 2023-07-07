@@ -87,6 +87,12 @@
 例子参见 [samples/spring-boot-sample](https://gitee.com/felord/wecom-sdk/tree/release/samples/spring-boot-sample)。
 > 相关概念请参考[QUICKSTART](QUICKSTART.md)
 
+## 📱微信扫码加入交流群
+
+<div align="center" style="margin-bottom: 10px">
+    <img src="contact_me_qr.png" height="30%" width="30%" alt="微信扫码入群"/>
+</div>
+
 ## 🔥API实现进度
 
 - 获取企业微信API域名IP段

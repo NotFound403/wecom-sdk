@@ -15,8 +15,8 @@
 
 package cn.felord.domain.externalcontact;
 
+import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.ContactScene;
-import cn.felord.enumeration.CreateRoomMode;
 import lombok.Data;
 
 import java.util.Set;
@@ -31,7 +31,7 @@ public class MutableGroupChatWayBody {
     private final String configId;
     private final ContactScene scene;
     private String remark;
-    private CreateRoomMode autoCreateRoom = CreateRoomMode.NEW;
+    private BoolEnum autoCreateRoom = BoolEnum.TRUE;
     private String roomBaseName;
     private Integer roomBaseId;
     private final Set<String> chatIdList;
