@@ -7,7 +7,8 @@ import lombok.ToString;
 import java.time.Instant;
 
 /**
- * The type Pay sign request.
+ * @author dax
+ * @since 2023/7/6 16:31
  */
 @ToString
 @Getter

@@ -2,12 +2,9 @@ package cn.felord.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.corpay.miniapppay.MiniPayRequest;
-import cn.felord.domain.corpay.miniapppay.MchIdAndOutTradeNo;
-import cn.felord.domain.corpay.miniapppay.PayOrderDetailResponse;
-import cn.felord.domain.corpay.miniapppay.PaySignRequest;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
+import cn.felord.domain.corpay.miniapppay.*;
+import okhttp3.ResponseBody;
+import retrofit2.http.*;
 
 /**
  * 小程序接入对外收款
@@ -65,6 +62,71 @@ public interface MiniAppPay {
     @POST("miniapppay/close_order")
     WeComResponse closeOrder(@Body MchIdAndOutTradeNo request);
 
+    /**
+     * 获取支付签名
+     * <p>
+     * 商户系统获取完预支付交易会话标识（prepay_id）后，在小程序端调用wxsdk前，需要调用本接口获取到必要的签名字段，再调起微信支付。
+     *
+     * @param request the request
+     * @return the sign
+     */
     @POST("miniapppay/get_sign")
     GenericResponse<String> getSign(@Body PaySignRequest request);
+
+    /**
+     * 申请退款
+     * <p>
+     * 当交易发生之后一段时间内，由于买家或者卖家的原因需要退款时，卖家可以通过退款接口将支付款退还给买家，企业微信将在收到退款请求并且验证成功之后，按照退款规则将支付款按原路退到买家账户上。
+     * <ol>
+     *     <li>交易时间超过一年的订单无法提交退款。</li>
+     *     <li>企业微信退款支持单笔交易分多次退款，多次退款需要提交原支付订单的商户订单号和设置不同的退款单号。申请退款总金额不能超过订单金额。 一笔退款失败后重新提交，请不要更换退款单号，请使用原商户退款单号。</li>
+     *     <li>请求频率限制：150qps，即每秒钟正常的申请退款请求次数不超过150次，单笔订单请求频率限制：1qpm，即单笔订单每分钟申请退款请求次数不超过1次。</li>
+     *     <li>每个支付订单的部分退款次数不能超过50次。</li>
+     *     <li>申请退款接口的返回仅代表业务的受理情况，具体退款是否成功，需要通过退款查询接口获取结果。</li>
+     * </ol>
+     *
+     * @param request the request
+     * @return the refund response
+     */
+    @POST("miniapppay/refund")
+    RefundResponse refund(@Body RefundRequest request);
+
+    /**
+     * 查询退款
+     * <p>
+     * 退款有一定延时，用零钱支付的退款20分钟内到账，银行卡支付的退款3个工作日后重新查询退款状态。
+     *
+     * @param request the request
+     * @return the refund detail
+     */
+    @POST("miniapppay/get_refund_detail")
+    RefundDetailResponse getRefundDetail(@Body MchIdAndOutRefundNo request);
+
+    /**
+     * 交易账单申请
+     * <p>
+     * 按天提供交易账单文件，服务商可以通过该接口获取账单文件的下载地址。文件内包含交易相关的金额、时间、营销等信息，供商户核对订单、退款、银行到账等情况。
+     *
+     * @param request the request
+     * @return the bill
+     */
+    @POST("miniapppay/get_bill")
+    BillResponse getBill(@Body BillRequest request);
+
+    /**
+     * 下载对账单
+     * <p>
+     * 文件说明
+     * <p>
+     * 交易账单文件内包含：明细数据表头、明细数据内容、汇总数据表头、汇总数据四个部分，每个字段使用英文逗号 , 间隔，明细数据内容每个字段前会增加1个字符 ` 用于避免获取的内容被excel展示为科学计数法的格式、丢失数据细节
+     *
+     * @param downloadUrl   the download url
+     * @param authorization the authorization
+     * @return the response body
+     * @see #getBill(BillRequest) 交易账单申请
+     * @see <a href="https://pay.weixin.qq.com/wiki/doc/apiv3/download/ALL.xlsx">对账单示例</a>
+     */
+    @GET
+    ResponseBody downloadBill(@Url String downloadUrl, @Header("Authorization") String authorization);
+
 }

@@ -3,7 +3,7 @@ package cn.felord.enumeration;
 /**
  * 优惠类型
  *
- * @author xiafang
+ * @author dax
  * @since 2023 /7/6 17:10
  */
 public enum CashType {

@@ -3,7 +3,7 @@ package cn.felord.enumeration;
 /**
  * 优惠范围
  *
- * @author xiafang
+ * @author dax
  * @since 2023 /7/6 17:08
  */
 public enum PromotionScope {
