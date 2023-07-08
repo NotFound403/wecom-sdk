@@ -27,6 +27,22 @@ import java.util.List;
 /**
  * ApplyContentData
  *
+ * <ol>
+ *     <li>文本、多行文本、说明文字对应 {@link TextValue}</li>
+ *     <li>数字对应 {@link NumberValue}</li>
+ *     <li>金额对应 {@link MoneyValue}</li>
+ *     <li>日期对应 {@link DateValue}</li>
+ *     <li>单选/多选对应 {@link SelectorConfig}</li>
+ *     <li>成员/部门对应 {@link ContactValue}</li>
+ *     <li>附件对应 {@link FileValue}</li>
+ *     <li>明细对应 {@link TableValue}，注意明细比较复杂，条目类型要对应模板配置</li>
+ *     <li>位置对应 {@link LocationValue}</li>
+ *     <li>关联审批单对应 {@link RelatedApprovalValue}</li>
+ *     <li>公式对应 {@link FormulaValue}</li>
+ *     <li>时长对应 {@link DateRangeValue}</li>
+ *     <li>手机号码对应 {@link PhoneNumberValue}</li>
+ * </ol>
+ *
  * @param <V> the type parameter
  * @author dax
  * @since 2023 /5/26
@@ -73,7 +89,7 @@ public abstract class ApplyContentData<V> {
      * @param hidden  the hidden
      * @param require the require
      */
-    public ApplyContentData(ApprovalCtrlType control, String id, List<ApprovalTitle> title, V value, Integer hidden,BoolEnum require) {
+    public ApplyContentData(ApprovalCtrlType control, String id, List<ApprovalTitle> title, V value, Integer hidden, BoolEnum require) {
         this.control = control;
         this.id = id;
         this.value = value;
@@ -91,7 +107,7 @@ public abstract class ApplyContentData<V> {
      * @return the apply content data
      */
     public static <V extends ContentDataValue> ApplyContentData<V> from(CtrlProperty property, V value) {
-        return new ApplyContentData<V>(property.getControl(), property.getId(), property.getTitle(), value, null,null) {
+        return new ApplyContentData<V>(property.getControl(), property.getId(), property.getTitle(), value, null, null) {
         };
     }
 }

@@ -50,7 +50,7 @@
 
 > 💡目前自建应用可轻松适配，服务商、代开发暂不开源。
 
-## 🔥技术栈
+## ✍️技术栈
 
 - OkHttp4
 - Retrofit2
@@ -58,7 +58,7 @@
 - Jackson2
 - XStream
 
-## 🔥Maven中央仓库坐标
+## 🕸️Maven中央仓库坐标
 
 - 普通版本
 
@@ -81,7 +81,7 @@
 </dependency>
 ```
 
-## 🔥入门
+## 📚入门
 
 **Spring Boot**
 例子参见 [samples/spring-boot-sample](https://gitee.com/felord/wecom-sdk/tree/release/samples/spring-boot-sample)。
@@ -93,7 +93,7 @@
     <img src="contact_me_qr.png" height="30%" width="30%" alt="微信扫码入群"/>
 </div>
 
-## 🔥API实现进度
+## 🏗️API实现进度
 
 - 获取企业微信API域名IP段
   - [x] 获取企业微信API域名IP段
