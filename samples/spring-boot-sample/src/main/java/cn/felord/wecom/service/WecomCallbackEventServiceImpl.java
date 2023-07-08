@@ -17,6 +17,7 @@ package cn.felord.wecom.service;
 
 import cn.felord.domain.callback.ApprovalInfo;
 import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.enumeration.CallbackChangeType;
 import cn.felord.enumeration.CallbackEvent;
 import cn.felord.enumeration.StatusChangeEvent;
 import cn.felord.wecom.service.callback.CallbackEventBodyConsumer;
@@ -53,7 +54,7 @@ public class WecomCallbackEventServiceImpl implements WecomCallbackEventService 
             String fromUserName = eventBody.getFromUserName();
             Instant createTime = eventBody.getCreateTime();
             String msgType = eventBody.getMsgType();
-            String changeType = eventBody.getChangeType();
+            CallbackChangeType changeType = eventBody.getChangeType();
             String agentId = eventBody.getAgentId();
             String nonce = eventBody.getNonce();
             String timeStamp = eventBody.getTimeStamp();

@@ -51,10 +51,10 @@ public enum HolidayType {
 
 
     /**
-     * Deserialize date ctrl type.
+     * Deserialize HolidayType.
      *
      * @param type the type
-     * @return the date ctrl type
+     * @return the HolidayType
      */
     @JsonCreator
     public static HolidayType deserialize(int type) {

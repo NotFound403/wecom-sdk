@@ -111,7 +111,15 @@ public enum CallbackEvent {
      *     <li>自定义菜单可以在管理后台的应用设置界面配置。</li>
      * </ul>
      */
-    CLICK("click");
+    CLICK("click"),
+    /**
+     * 支付事件（自定义）
+     */
+    PAY_TRANSACTION("pay_transaction"),
+    /**
+     * 退款事件（自定义）
+     */
+    PAY_REFUND("pay_refund");
 
     private final String type;
 

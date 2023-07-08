@@ -13,25 +13,25 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.externalcontact;
-
-import cn.felord.enumeration.BoolEnum;
-import cn.felord.enumeration.ContactScene;
-import lombok.Data;
-
-import java.util.Set;
+package cn.felord.enumeration;
 
 /**
- * @author felord.cn
- * @since 2021/9/19 10:57
+ * The MiniApyBillType
+ *
+ * @author dax
+ * @since 2021/9/8 10:47
  */
-@Data
-public class GroupChatWayBody {
-    private final ContactScene scene;
-    private String remark;
-    private BoolEnum autoCreateRoom = BoolEnum.TRUE;
-    private String roomBaseName;
-    private Integer roomBaseId;
-    private Set<String> chatIdList;
-    private String state;
+public enum MiniApyBillType {
+    /**
+     * 返回当日所有订单信息（不含充值退款订单）
+     */
+    ALL,
+    /**
+     * 返回当日成功支付的订单（不含充值退款订单）
+     */
+    SUCCESS,
+    /**
+     * 返回当日退款订单（不含充值退款订单）
+     */
+    REFUND
 }

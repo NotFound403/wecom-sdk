@@ -85,4 +85,31 @@ public class PayApi {
                 .retrofit()
                 .create(ExternalPayAccountApi.class);
     }
+
+    /**
+     * 小程序接入对外收款
+     * <p>
+     * 本接口适用于在 由企业微信向微信发出的小程序中使用对外收款账户进行收款。
+     * <p>
+     * 调用权限说明：
+     * <ul>
+     *     <li>目前本目录下所有接口仅支持『对外收款』应用调用，即获取access_token时需要使用『对外收款』应用的SECRET</li>
+     * </ul>
+     * 开发前准备
+     * <ol>
+     *     <li>在使用本接口前，需要在手机端或企业微信管理后台对外收款中申请收款账户；</li>
+     *     <li>在手机端「对外收款-小程序」中绑定需要接入的小程序和对外收款账户；</li>
+     *     <li>在企业微信管理后台「应用管理 - 对外收款 - API」中设置企业可信IP，仅企业可信IP可调用本目录相关接口；</li>
+     *     <li>在企业微信管理后台「应用管理 - 对外收款」中设置接收事件服务器，用于接收支付和退款相关的回调通知。</li>
+     * </ol>
+     *
+     * @param agentDetails the agent details
+     * @return the mini app pay
+     */
+    public MiniAppPay miniAppPay(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(MiniAppPay.class);
+    }
 }

@@ -56,10 +56,10 @@ public enum SingleOrMulti {
 
 
     /**
-     * Deserialize date ctrl type.
+     * Deserialize SingleOrMulti.
      *
      * @param type the type
-     * @return the date ctrl type
+     * @return the SingleOrMulti
      */
     @JsonCreator
     public static SingleOrMulti deserialize(String type) {

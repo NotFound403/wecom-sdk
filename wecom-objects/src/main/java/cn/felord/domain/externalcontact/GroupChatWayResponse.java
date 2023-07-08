@@ -15,8 +15,8 @@
 
 package cn.felord.domain.externalcontact;
 
+import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.ContactScene;
-import cn.felord.enumeration.CreateRoomMode;
 import lombok.Data;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class GroupChatWayResponse {
     private String configId;
     private ContactScene scene;
     private String remark;
-    private CreateRoomMode autoCreateRoom;
+    private BoolEnum autoCreateRoom;
     private String roomBaseName;
     private String qrCode;
     private Integer roomBaseId;

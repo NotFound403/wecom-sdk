@@ -54,10 +54,10 @@ public enum DateRangeType {
 
 
     /**
-     * Deserialize date ctrl type.
+     * Deserialize DateRangeType.
      *
      * @param type the type
-     * @return the date ctrl type
+     * @return the DateRangeType
      */
     @JsonCreator
     public static DateRangeType deserialize(String type) {

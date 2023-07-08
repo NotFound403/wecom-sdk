@@ -60,10 +60,10 @@ public enum MsgMenuContentType {
 
 
     /**
-     * Deserialize date ctrl type.
+     * Deserialize MsgMenuContentType.
      *
      * @param type the type
-     * @return the date ctrl type
+     * @return the MsgMenuContentType
      */
     @JsonCreator
     public static MsgMenuContentType deserialize(String type) {

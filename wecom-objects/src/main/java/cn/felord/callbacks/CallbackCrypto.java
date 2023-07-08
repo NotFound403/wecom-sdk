@@ -17,10 +17,18 @@ package cn.felord.callbacks;
 
 import cn.felord.WeComException;
 import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.domain.callback.CallbackResource;
+import cn.felord.domain.corpay.miniapppay.callback.RefundCallbackData;
+import cn.felord.domain.corpay.miniapppay.callback.TransactionCallbackData;
+import cn.felord.enumeration.CallbackEvent;
+import cn.felord.enumeration.PayCallbackEventType;
+import cn.felord.json.JacksonObjectMapperFactory;
 import cn.felord.utils.Base64Utils;
 import cn.felord.utils.Algorithms;
 import cn.felord.utils.StringUtils;
 import cn.felord.xml.XmlReader;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -295,7 +303,8 @@ public class CallbackCrypto {
     private <T> T doAccept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, T response) {
         CallbackXmlBody callbackXmlBody = xmlReader.read(xmlBody, CallbackXmlBody.class);
         String encrypt = callbackXmlBody.getEncrypt();
-        String xml = this.decryptMsg(agentId, corpId, msgSignature, timeStamp, nonce, encrypt);
+        CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
+        String xml = this.decryptMsg(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
         CallbackEventBody eventBody = xmlReader.read(xml, CallbackEventBody.class);
         eventBody.setAgentId(agentId);
         // 唯一性判断
@@ -307,8 +316,44 @@ public class CallbackCrypto {
         eventBody.setXmlAgentId(callbackXmlBody.getAgentId());
         eventBody.setOriginalXml(xml);
         // end 用来记录追踪
+        // begin 处理支付
+        if (Objects.nonNull(eventBody.getResource())) {
+            this.payCallback(eventBody, callbackSettings);
+        }
+        // end 处理支付
         this.callbackAsyncConsumer.asyncAction(eventBody);
         return response;
+    }
+
+    private void payCallback(CallbackEventBody eventBody, CallbackSettings callbackSettings) {
+        CallbackResource resource = eventBody.getResource();
+        String associatedData = resource.getAssociatedData();
+        String nonce = resource.getNonce();
+        String ciphertext = resource.getCiphertext();
+        String json = Algorithms.aesDecode(callbackSettings.getAesKey(), associatedData, nonce, ciphertext);
+        PayCallbackEventType eventType = eventBody.getEventType();
+
+        ObjectMapper objectMapper = JacksonObjectMapperFactory.create();
+        if (Objects.equals(eventType, PayCallbackEventType.TRANSACTION_SUCCESS)) {
+            try {
+                TransactionCallbackData transactionCallbackData = objectMapper.readValue(json, TransactionCallbackData.class);
+                eventBody.setTransactionCallbackData(transactionCallbackData);
+            } catch (JsonProcessingException e) {
+                throw new WeComException("pay transaction callback error on json conversion", e);
+            }
+        }
+        if (Objects.equals(eventType, PayCallbackEventType.REFUND_CLOSED) ||
+                Objects.equals(eventType, PayCallbackEventType.REFUND_ABNORMAL) ||
+                Objects.equals(eventType, PayCallbackEventType.REFUND_SUCCESS)) {
+            eventBody.setEvent(CallbackEvent.PAY_REFUND);
+            try {
+                RefundCallbackData refundCallbackData = objectMapper.readValue(json, RefundCallbackData.class);
+                eventBody.setRefundCallbackData(refundCallbackData);
+            } catch (JsonProcessingException e) {
+                throw new WeComException("pay refund callback error on json conversion", e);
+            }
+        }
+        eventBody.setMsgType("event");
     }
 
     /**
@@ -325,12 +370,26 @@ public class CallbackCrypto {
      */
     public String decryptMsg(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String encrypt) {
         CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
+        return decryptMsg(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
+    }
+
+    /**
+     * Decrypt msg string.
+     *
+     * @param callbackSettings the callback settings
+     * @param msgSignature     the msg signature
+     * @param timeStamp        the time stamp
+     * @param nonce            the nonce
+     * @param encrypt          the encrypt
+     * @return the string
+     */
+    public String decryptMsg(CallbackSettings callbackSettings, String msgSignature, String timeStamp, String nonce, String encrypt) {
         String token = callbackSettings.getToken();
         String signature = Algorithms.sha1Signature(token, timeStamp, nonce, encrypt);
         if (!Objects.equals(msgSignature, signature)) {
             throw new WeComException("callback signature not matched");
         }
         byte[] aesKey = callbackSettings.getAesKey();
-        return this.decrypt(corpId, aesKey, encrypt);
+        return this.decrypt(callbackSettings.getReceiveid(), aesKey, encrypt);
     }
 }
