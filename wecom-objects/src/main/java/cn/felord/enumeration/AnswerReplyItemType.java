@@ -24,19 +24,19 @@ package cn.felord.enumeration;
 public enum AnswerReplyItemType {
 
     /**
-     * Text answer reply item type.
+     * 文本
      */
     TEXT,
     /**
-     * Option answer reply item type.
+     * 选择
      */
     OPTION,
     /**
-     * File answer reply item type.
+     * 文件
      */
     FILE,
     /**
-     * Invalid answer reply item type.
+     * 不可用
      */
     INVALID
 

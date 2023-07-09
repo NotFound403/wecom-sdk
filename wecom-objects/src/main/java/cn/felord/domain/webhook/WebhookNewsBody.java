@@ -15,7 +15,6 @@
 
 package cn.felord.domain.webhook;
 
-import cn.felord.enumeration.HookMsgType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,8 +35,8 @@ public class WebhookNewsBody extends WebhookBody {
     private WebhookNews news;
 
     public WebhookNewsBody(WebhookNews news) {
-        super(HookMsgType.NEWS);
-        this.news =news;
+        super("news");
+        this.news = news;
     }
 
     /**
