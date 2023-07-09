@@ -1,6 +1,6 @@
 <div align="center" style="margin-bottom: 10px">
     <a target="_blank" href="https://mvnrepository.com/artifact/cn.felord/wecom-sdk">
-     	<img src="wechat-sdk.svg" height="50%" width="50%" alt="wecom-sdk"/>
+     	<img src="logo.svg" height="50%" width="50%" alt="wecom-sdk"/>
     </a>
 </div>
 <p align="center">
