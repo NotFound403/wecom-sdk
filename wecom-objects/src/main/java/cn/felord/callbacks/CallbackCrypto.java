@@ -23,8 +23,8 @@ import cn.felord.domain.corpay.miniapppay.callback.TransactionCallbackData;
 import cn.felord.enumeration.CallbackEvent;
 import cn.felord.enumeration.PayCallbackEventType;
 import cn.felord.json.JacksonObjectMapperFactory;
-import cn.felord.utils.Base64Utils;
 import cn.felord.utils.Algorithms;
+import cn.felord.utils.Base64Utils;
 import cn.felord.utils.StringUtils;
 import cn.felord.xml.XmlReader;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -60,6 +60,8 @@ public class CallbackCrypto {
     private static final String BASE_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final String MSG = "{\"encrypt\":\"%1$s\",\"msgsignature\":\"%2$s\",\"timestamp\":\"%3$s\",\"nonce\":\"%4$s\"}";
     private static final Random RANDOM = new SecureRandom();
+    private static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
+
     private final XmlReader xmlReader;
     private final CallbackAsyncConsumer callbackAsyncConsumer;
     private final CallbackSettingsService callbackSettingsService;
@@ -333,10 +335,9 @@ public class CallbackCrypto {
         String json = Algorithms.aesDecode(callbackSettings.getAesKey(), associatedData, nonce, ciphertext);
         PayCallbackEventType eventType = eventBody.getEventType();
 
-        ObjectMapper objectMapper = JacksonObjectMapperFactory.create();
         if (Objects.equals(eventType, PayCallbackEventType.TRANSACTION_SUCCESS)) {
             try {
-                TransactionCallbackData transactionCallbackData = objectMapper.readValue(json, TransactionCallbackData.class);
+                TransactionCallbackData transactionCallbackData = MAPPER.readValue(json, TransactionCallbackData.class);
                 eventBody.setTransactionCallbackData(transactionCallbackData);
             } catch (JsonProcessingException e) {
                 throw new WeComException("pay transaction callback error on json conversion", e);
@@ -347,7 +348,7 @@ public class CallbackCrypto {
                 Objects.equals(eventType, PayCallbackEventType.REFUND_SUCCESS)) {
             eventBody.setEvent(CallbackEvent.PAY_REFUND);
             try {
-                RefundCallbackData refundCallbackData = objectMapper.readValue(json, RefundCallbackData.class);
+                RefundCallbackData refundCallbackData = MAPPER.readValue(json, RefundCallbackData.class);
                 eventBody.setRefundCallbackData(refundCallbackData);
             } catch (JsonProcessingException e) {
                 throw new WeComException("pay refund callback error on json conversion", e);
