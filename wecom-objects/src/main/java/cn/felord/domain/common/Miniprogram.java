@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.contactbook.user;
+package cn.felord.domain.common;
 
 import lombok.Data;
 

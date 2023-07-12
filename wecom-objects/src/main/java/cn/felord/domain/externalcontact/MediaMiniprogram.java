@@ -26,14 +26,14 @@ import lombok.ToString;
  */
 @ToString
 @Getter
-public class Miniprogram {
+public class MediaMiniprogram {
     private final String title;
     private final String picMediaId;
     private final String appid;
     private final String page;
 
     @JsonCreator
-    public Miniprogram(@JsonProperty("title") String title, @JsonProperty("pic_media_id") String picMediaId, @JsonProperty("appid") String appid, @JsonProperty("page") String page) {
+    public MediaMiniprogram(@JsonProperty("title") String title, @JsonProperty("pic_media_id") String picMediaId, @JsonProperty("appid") String appid, @JsonProperty("page") String page) {
         this.title = title;
         this.picMediaId = picMediaId;
         this.appid = appid;

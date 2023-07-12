@@ -147,7 +147,7 @@ class SpringBootWecomSdkTests {
 
         // 小程序活动页面
         String page = "store/pages/hots/detail.html?sku=xd233243&state=QWPT2342";
-        Miniprogram miniprogram = new Miniprogram(title, appid, picMeidaId, page);
+        MediaMiniprogram miniprogram = new MediaMiniprogram(title, appid, picMeidaId, page);
         MiniprogramMsgAttachment o = new MiniprogramMsgAttachment(miniprogram);
         request.setAttachments(Collections.singletonList(o));
         AgentDetails nativedAgent = DefaultAgent.nativeAgent("企业id", "外部联系人密钥", NativeAgent.EXTERNAL);

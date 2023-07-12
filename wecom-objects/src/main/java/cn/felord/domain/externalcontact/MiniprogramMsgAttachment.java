@@ -30,10 +30,10 @@ import lombok.ToString;
 @ToString
 @Getter
 public class MiniprogramMsgAttachment extends MsgAttachment {
-    private final Miniprogram miniprogram;
+    private final MediaMiniprogram miniprogram;
 
     @JsonCreator
-    public MiniprogramMsgAttachment(@JsonProperty("miniprogram") Miniprogram miniprogram) {
+    public MiniprogramMsgAttachment(@JsonProperty("miniprogram") MediaMiniprogram miniprogram) {
         super(MsgAttachType.MINIPROGRAM);
         this.miniprogram = miniprogram;
     }
