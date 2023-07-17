@@ -22,6 +22,10 @@ import lombok.Data;
  * @since 2023/5/27 14:50
  */
 @Data
-public class FileId {
+public class FileInfo {
     private String fileId;
+    private String fileName;
+    private String fileSize;
+    private String fileType;
+    private String fileUrl;
 }

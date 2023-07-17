@@ -15,7 +15,9 @@
 
 package cn.felord.domain.approval;
 
+import cn.felord.enumeration.ApprovalCtrlType;
 import cn.felord.enumeration.ApprovalNotifyType;
+import cn.felord.enumeration.ApproverNodeMode;
 import cn.felord.enumeration.UseTemplateApprover;
 import lombok.Getter;
 import lombok.ToString;
@@ -43,26 +45,6 @@ public class ApprovalApplyRequest {
     private ApprovalNotifyType notifyType;
     private final ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData;
     private final List<Summary> summaryList;
-
-
-    /**
-     * 填充审批模板数据
-     * <p>
-     * 用来填充数据，降低使用难度
-     *
-     * @param controls   模板控件集合，通过获取审批模板详情接口获取
-     * @param dataValues 审批业务项填充值，按模板顺序
-     * @return 最终的审批单数据格式
-     */
-    public static ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData(List<? extends TmpControl<?>> controls, List<? extends ContentDataValue> dataValues) {
-        //必须保证 dataValues 和 controls 对应
-        List<ApprovalContentData<? extends ContentDataValue>> contents = IntStream.range(0, controls.size())
-                .mapToObj(index ->
-                        toDataValue(controls.get(index), dataValues.get(index))
-                ).collect(Collectors.toList());
-        // 业务数据
-        return new ApplyData<>(contents);
-    }
 
     /**
      * 通过接口指定审批人，不抄送
@@ -122,6 +104,55 @@ public class ApprovalApplyRequest {
                                                    ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData,
                                                    List<Summary> summaryList) {
         return new ApprovalApplyRequest(creatorUserid, templateId, applyData, summaryList, UseTemplateApprover.BACKEND_MODE);
+    }
+
+    /**
+     * 填充审批模板数据
+     * <p>
+     * 用来填充数据，降低使用难度
+     * <ul>
+     *     <li>creatorUserid，审批发起人企微ID，此审批申请将以此员工身份提交，发起人需在应用可见范围内</li>
+     *     <li>templateId，企业微信审批模板id，可通过浏览器链接中获取</li>
+     *     <li>dataValues，模板中你设计的字段填充值，在列表中索引位置要【按顺序】对应，并且类型{@link ApprovalCtrlType}要和{@link ContentDataValue}实现一致
+     *         <ol>
+     *             <li>文本、多行文本、说明文字对应 {@link TextValue}</li>
+     *             <li>数字对应 {@link NumberValue}</li>
+     *             <li>金额对应 {@link MoneyValue}</li>
+     *             <li>日期对应 {@link DateValue}</li>
+     *             <li>单选/多选对应 {@link SelectorConfig}</li>
+     *             <li>成员/部门对应 {@link ContactValue}</li>
+     *             <li>附件对应 {@link FileValue}，通过上传临时素材接口{@code MediaApi.uploadMedia}获得mediaid</li>
+     *             <li>明细对应 {@link ListContentDataValue}，注意明细比较复杂，条目类型要对应模板配置</li>
+     *             <li>位置对应 {@link LocationValue}</li>
+     *             <li>关联审批单对应 {@link RelatedApprovalValue}</li>
+     *             <li>公式对应 {@link FormulaValue}</li>
+     *             <li>时长对应 {@link DateRangeValue}</li>
+     *             <li>手机号码对应 {@link PhoneNumberValue}</li>
+     *         </ol>
+     *     </li>
+     *     <li>summaryTexts，摘要信息，最多三行，且每行不超过20个字</li>
+     *     <li>approvers，审批节点，包含人和层签方式{@link ApproverNodeMode}（1或签、2会签）</li>
+     *     <li>notifyType，抄送方式：
+     *         <ol>
+     *             <li>提单时抄送（默认值）</li>
+     *             <li>单据通过后抄送</li>
+     *             <li>提单和单据通过后抄送</li>
+     *         </ol>
+     *     </li>
+     * </ul>
+     *
+     * @param controls   模板控件集合，通过获取审批模板详情接口获取
+     * @param dataValues 审批业务项填充值，按模板顺序
+     * @return 最终的审批单数据格式
+     */
+    public static ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData(List<? extends TmpControl<?>> controls, List<? extends ContentDataValue> dataValues) {
+        //必须保证 dataValues 和 controls 对应
+        List<ApprovalContentData<? extends ContentDataValue>> contents = IntStream.range(0, controls.size())
+                .mapToObj(index ->
+                        toDataValue(controls.get(index), dataValues.get(index))
+                ).collect(Collectors.toList());
+        // 业务数据
+        return new ApplyData<>(contents);
     }
 
     private static ApprovalContentData<ContentDataValue> toDataValue(TmpControl<?> tmpControl, ContentDataValue dataValue) {

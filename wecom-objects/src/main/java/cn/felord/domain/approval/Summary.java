@@ -17,13 +17,38 @@ package cn.felord.domain.approval;
 
 import lombok.Data;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
+ * The type Summary.
+ *
  * @author dax
- * @since 2023/5/26
+ * @since 2023 /5/26
  */
 @Data
 public class Summary {
     private final List<ApprovalTitle> summaryInfo;
+
+
+    /**
+     * Zh cn summary.
+     *
+     * @param text the text
+     * @return the summary
+     */
+    public static Summary zhCN(String text) {
+        return new Summary(Collections.singletonList(ApprovalTitle.zhCN(text)));
+    }
+
+    /**
+     * Summary summary.
+     *
+     * @param title the title
+     * @return the summary
+     */
+    public static Summary summary(ApprovalTitle title) {
+        return new Summary(Collections.singletonList(title));
+    }
+
 }

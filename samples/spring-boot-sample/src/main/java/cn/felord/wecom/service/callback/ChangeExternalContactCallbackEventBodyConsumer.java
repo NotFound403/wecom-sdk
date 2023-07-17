@@ -16,10 +16,13 @@
 package cn.felord.wecom.service.callback;
 
 import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.enumeration.CallbackChangeType;
 import cn.felord.enumeration.CallbackEvent;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * 客户变更事件业务处理
@@ -31,7 +34,6 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class ChangeExternalContactCallbackEventBodyConsumer implements CallbackEventBodyConsumer {
-    private static final String ADD_EXTERNAL_CONTACT = "add_external_contact";
 
 
     @Override
@@ -42,9 +44,9 @@ public class ChangeExternalContactCallbackEventBodyConsumer implements CallbackE
     @Override
     public void consume(CallbackEventBody body) {
         String externalUserId = body.getExternalUserId();
-        String changeType = body.getChangeType();
+        CallbackChangeType changeType = body.getChangeType();
         //todo 自行处理客户变更事件业务处理
-        if (ADD_EXTERNAL_CONTACT.equals(changeType)) {
+        if (Objects.equals(changeType, CallbackChangeType.ADD_EXTERNAL_CONTACT)) {
             //TODO 添加客户事件 你也可以在抽成策略细分
         }
     }
