@@ -26,7 +26,7 @@ import java.util.Arrays;
  * @author dax
  * @since 2023 /5/25 16:19
  */
-public enum SingleOrMulti {
+public enum SelectType {
 
 
     /**
@@ -40,7 +40,7 @@ public enum SingleOrMulti {
     MULTI("multi");
     private final String type;
 
-    SingleOrMulti(String type) {
+    SelectType(String type) {
         this.type = type;
     }
 
@@ -62,8 +62,8 @@ public enum SingleOrMulti {
      * @return the SingleOrMulti
      */
     @JsonCreator
-    public static SingleOrMulti deserialize(String type) {
-        return Arrays.stream(SingleOrMulti.values())
+    public static SelectType deserialize(String type) {
+        return Arrays.stream(SelectType.values())
                 .filter(contactType -> contactType.type.equals(type))
                 .findFirst()
                 .orElse(null);

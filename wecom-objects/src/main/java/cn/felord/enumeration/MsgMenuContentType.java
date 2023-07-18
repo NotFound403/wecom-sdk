@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Date ctrl type.
+ * The enum MsgMenuContentType.
  *
  * @author dax
  * @since 2023 /5/25 16:19

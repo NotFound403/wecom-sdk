@@ -34,7 +34,6 @@ import java.util.Objects;
 public class TokenInterceptor implements Interceptor {
     public static final Integer INVALID_ACCESS_TOKEN = 42001;
     public static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
-    private static final MediaType OCTET_STREAM = MediaType.parse("application/octet-stream");
     private static final MediaType JSON_UTF_8 = MediaType.parse("application/json; charset=UTF-8");
     private static final MediaType JSON = MediaType.parse("application/json");
     private final TokenApi tokenApi;

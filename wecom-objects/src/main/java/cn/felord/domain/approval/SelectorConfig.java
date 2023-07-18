@@ -15,7 +15,7 @@
 
 package cn.felord.domain.approval;
 
-import cn.felord.enumeration.SingleOrMulti;
+import cn.felord.enumeration.SelectType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -40,7 +40,7 @@ public class SelectorConfig implements ContentDataValue {
 
     @Data
     public static class Wrapper {
-        private SingleOrMulti type;
+        private SelectType type;
         private List<CtrlOption> options;
     }
 }

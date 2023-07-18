@@ -21,19 +21,21 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Date ctrl type.
+ * The DateRangeType.
  *
  * @author dax
  * @since 2023 /5/25 16:19
  */
 public enum DateRangeType {
 
+
     /**
-     * Day date ctrl type.
+     * Half day date range type.
      */
     HALF_DAY("halfday"),
+
     /**
-     * Hour date ctrl type.
+     * Hour date range type.
      */
     HOUR("hour");
     private final String type;
