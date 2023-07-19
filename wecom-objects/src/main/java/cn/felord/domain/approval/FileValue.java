@@ -15,7 +15,7 @@
 
 package cn.felord.domain.approval;
 
-import cn.felord.domain.common.FileId;
+import cn.felord.domain.common.FileInfo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -30,10 +30,10 @@ import java.util.List;
 @ToString
 @Getter
 public class FileValue implements ContentDataValue {
-    private final List<FileId> files;
+    private final List<FileInfo> files;
 
     @JsonCreator
-    public FileValue(@JsonProperty("files") List<FileId> files) {
+    public FileValue(@JsonProperty("files") List<FileInfo> files) {
         this.files = files;
     }
 }

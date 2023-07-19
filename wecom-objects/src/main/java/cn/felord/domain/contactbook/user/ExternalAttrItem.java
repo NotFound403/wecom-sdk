@@ -15,6 +15,7 @@
 
 package cn.felord.domain.contactbook.user;
 
+import cn.felord.domain.common.Miniprogram;
 import lombok.Data;
 
 /**

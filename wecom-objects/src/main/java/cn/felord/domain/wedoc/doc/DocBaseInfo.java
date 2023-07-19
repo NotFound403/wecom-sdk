@@ -13,31 +13,22 @@
  *  limitations under the License.
  */
 
-package cn.felord.enumeration;
+package cn.felord.domain.wedoc.doc;
+
+import cn.felord.enumeration.DocType;
+import lombok.Data;
+
+import java.time.Instant;
 
 /**
- * The enum Answer reply item type.
- *
  * @author dax
- * @since 2023 /3/16 15:43
+ * @since 2023/7/19
  */
-public enum AnswerReplyItemType {
-
-    /**
-     * 文本
-     */
-    TEXT,
-    /**
-     * 选择
-     */
-    OPTION,
-    /**
-     * 文件
-     */
-    FILE,
-    /**
-     * 不可用
-     */
-    INVALID
-
+@Data
+public class DocBaseInfo {
+    private String docid;
+    private String docName;
+    private Instant createTime;
+    private Instant modifyTime;
+    private DocType docType;
 }

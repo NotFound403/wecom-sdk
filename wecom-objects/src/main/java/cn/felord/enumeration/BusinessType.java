@@ -21,30 +21,25 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum MsgMenuContentType.
+ * 业务类型
  *
- * @author dax
- * @since 2023 /5/25 16:19
+ * @author felord.cn
+ * @since 1.1.3
  */
-public enum MsgMenuContentType {
+public enum BusinessType {
 
     /**
-     * Click msg menu content type.
+     * 会议
      */
-    CLICK("click"),
-
+    MEETING(1),
     /**
-     * View msg menu content type.
+     * 收集表
      */
-    VIEW("view"),
+    COLLECT_FORM(2);
 
-    /**
-     * Miniprogram msg menu content type.
-     */
-    MINIPROGRAM("miniprogram");
-    private final String type;
+    private final int type;
 
-    MsgMenuContentType(String type) {
+    BusinessType(int type) {
         this.type = type;
     }
 
@@ -54,21 +49,20 @@ public enum MsgMenuContentType {
      * @return the type
      */
     @JsonValue
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-
     /**
-     * Deserialize MsgMenuContentType.
+     * Deserialize business type.
      *
      * @param type the type
-     * @return the MsgMenuContentType
+     * @return the business type
      */
     @JsonCreator
-    public static MsgMenuContentType deserialize(String type) {
-        return Arrays.stream(MsgMenuContentType.values())
-                .filter(contactType -> contactType.type.equals(type))
+    public static BusinessType deserialize(int type) {
+        return Arrays.stream(BusinessType.values())
+                .filter(boolEnum -> boolEnum.type == type)
                 .findFirst()
                 .orElse(null);
     }

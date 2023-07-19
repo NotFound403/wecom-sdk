@@ -16,6 +16,8 @@
 package cn.felord.api;
 
 /**
+ * 微盘API
+ *
  * @author dax
  * @since 2023/3/17 15:01
  */

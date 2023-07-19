@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (c) 2023. felord.cn
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,31 +14,19 @@
  *  limitations under the License.
  */
 
-package cn.felord.enumeration;
+package cn.felord.domain.wedoc.doc;
+
+import cn.felord.domain.WeComResponse;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- * The enum Answer reply item type.
- *
- * @author dax
- * @since 2023 /3/16 15:43
+ * @author felord
+ * @since 2021/10/12 16:53
  */
-public enum AnswerReplyItemType {
-
-    /**
-     * 文本
-     */
-    TEXT,
-    /**
-     * 选择
-     */
-    OPTION,
-    /**
-     * 文件
-     */
-    FILE,
-    /**
-     * 不可用
-     */
-    INVALID
-
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class CreateDocResponse extends WeComResponse {
+    private String url;
+    private String docid;
 }

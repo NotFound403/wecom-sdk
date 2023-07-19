@@ -21,31 +21,39 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum MsgMenuContentType.
+ * The DocType
  *
  * @author dax
- * @since 2023 /5/25 16:19
+ * @since 2021/9/8 10:47
  */
-public enum MsgMenuContentType {
-
+public enum DocType {
     /**
-     * Click msg menu content type.
+     * 文档
      */
-    CLICK("click"),
-
+    DOC(3),
     /**
-     * View msg menu content type.
+     * 表格
      */
-    VIEW("view"),
+    SHEET(4);
 
-    /**
-     * Miniprogram msg menu content type.
-     */
-    MINIPROGRAM("miniprogram");
-    private final String type;
+    private final int type;
 
-    MsgMenuContentType(String type) {
+    DocType(int type) {
         this.type = type;
+    }
+
+    /**
+     * Deserialize DocType.
+     *
+     * @param type the type
+     * @return the moment task type
+     */
+    @JsonCreator
+    public static DocType deserialize(int type) {
+        return Arrays.stream(DocType.values())
+                .filter(billType -> billType.type == type)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -54,22 +62,7 @@ public enum MsgMenuContentType {
      * @return the type
      */
     @JsonValue
-    public String getType() {
+    public int getType() {
         return type;
-    }
-
-
-    /**
-     * Deserialize MsgMenuContentType.
-     *
-     * @param type the type
-     * @return the MsgMenuContentType
-     */
-    @JsonCreator
-    public static MsgMenuContentType deserialize(String type) {
-        return Arrays.stream(MsgMenuContentType.values())
-                .filter(contactType -> contactType.type.equals(type))
-                .findFirst()
-                .orElse(null);
     }
 }

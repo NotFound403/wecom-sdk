@@ -16,7 +16,6 @@
 package cn.felord.domain.webhook;
 
 import cn.felord.domain.externalcontact.ContentText;
-import cn.felord.enumeration.HookMsgType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -32,7 +31,7 @@ public class WebhookMarkdownBody extends WebhookBody {
     private final ContentText markdown;
 
     public WebhookMarkdownBody(ContentText markdown) {
-        super(HookMsgType.MARKDOWN);
+        super("markdown");
         this.markdown = markdown;
     }
 

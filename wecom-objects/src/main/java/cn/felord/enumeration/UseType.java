@@ -21,26 +21,33 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Date ctrl type.
+ * 用户类型
  *
- * @author dax
- * @since 2023 /5/25 16:19
+ * @author felord.cn
+ * @since 1.1.3
  */
-public enum SingleOrMulti {
-
-
-    /**
-     * Single selector ctrl type.
-     */
-    SINGLE("single"),
+public enum UseType {
 
     /**
-     * Multi selector ctrl type.
+     * 客户
      */
-    MULTI("multi");
-    private final String type;
+    EX_USER(1),
+    /**
+     * 企业互联
+     */
+    CORP_LINK(2),
+    /**
+     * 上下游
+     */
+    CORP_GROUP(3),
+    /**
+     * 互联企业（圈子）
+     */
+    CORP_CONNECTED(4);
 
-    SingleOrMulti(String type) {
+    private final int type;
+
+    UseType(int type) {
         this.type = type;
     }
 
@@ -50,21 +57,20 @@ public enum SingleOrMulti {
      * @return the type
      */
     @JsonValue
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-
     /**
-     * Deserialize SingleOrMulti.
+     * Deserialize user type.
      *
      * @param type the type
-     * @return the SingleOrMulti
+     * @return the business type
      */
     @JsonCreator
-    public static SingleOrMulti deserialize(String type) {
-        return Arrays.stream(SingleOrMulti.values())
-                .filter(contactType -> contactType.type.equals(type))
+    public static UseType deserialize(int type) {
+        return Arrays.stream(UseType.values())
+                .filter(boolEnum -> boolEnum.type == type)
                 .findFirst()
                 .orElse(null);
     }

@@ -34,6 +34,15 @@ public class WedocApi {
     }
 
     /**
+     * 管理文档
+     *
+     * @return the doc api
+     */
+    public DocApi docApi() {
+        return workWeChatApiClient.retrofit().create(DocApi.class);
+    }
+
+    /**
      * 收集表
      *
      * @return the form api

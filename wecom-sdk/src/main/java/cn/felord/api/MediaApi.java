@@ -24,10 +24,7 @@ import cn.felord.domain.media.MultipartResource;
 import cn.felord.enumeration.FileMediaType;
 import cn.felord.enumeration.MediaAttachmentType;
 import cn.felord.enumeration.MediaTypeEnum;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import okhttp3.*;
 import retrofit2.Retrofit;
 import retrofit2.http.Body;
 
@@ -106,7 +103,7 @@ public class MediaApi {
      * @param mediaId the media id
      * @return the media
      */
-    public Response getMedia(String mediaId) {
+    public ResponseBody getMedia(String mediaId) {
         return internalMediaApi.getMedia(mediaId);
     }
 
@@ -117,7 +114,7 @@ public class MediaApi {
      * @param mediaId the media id
      * @return the media js sdk
      */
-    public Response getMediaJsSdk(String mediaId) {
+    public ResponseBody getMediaJsSdk(String mediaId) {
         return internalMediaApi.getMediaJsSdk(mediaId);
     }
 

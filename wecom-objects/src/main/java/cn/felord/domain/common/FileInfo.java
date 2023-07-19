@@ -13,37 +13,19 @@
  *  limitations under the License.
  */
 
-package cn.felord.enumeration;
+package cn.felord.domain.common;
+
+import lombok.Data;
 
 /**
- * The enum Msg type.
- *
- * @author n1
- * @since 2021 /6/16 14:39
+ * @author dax
+ * @since 2023/5/27 14:50
  */
-public enum HookMsgType {
-    /**
-     * 文本
-     */
-    TEXT,
-    /**
-     * Markdown
-     */
-    MARKDOWN,
-    /**
-     * 文件
-     */
-    FILE,
-    /**
-     * 图片
-     */
-    IMAGE,
-    /**
-     * 图文
-     */
-    NEWS,
-    /**
-     * 文本通知模板卡片
-     */
-    TEMPLATE_CARD
+@Data
+public class FileInfo {
+    private String fileId;
+    private String fileName;
+    private String fileSize;
+    private String fileType;
+    private String fileUrl;
 }

@@ -28,7 +28,7 @@ public class WelcomeTemplateAddRequest {
     private ContentText text;
     private Image image;
     private Link link;
-    private Miniprogram miniprogram;
+    private MediaMiniprogram miniprogram;
     private MediaId file;
     private MediaId video;
     private String agentid;

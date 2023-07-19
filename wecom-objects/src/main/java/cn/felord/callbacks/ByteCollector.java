@@ -27,7 +27,7 @@ class ByteCollector {
             this.byteContainer = bytes;
         } else {
             byte[] newByte = new byte[byteContainer.length + bytes.length];
-            System.arraycopy(bytes, 0, newByte, 0, bytes.length);
+            System.arraycopy(bytes, 0, newByte, byteContainer.length, bytes.length);
             System.arraycopy(byteContainer, 0, newByte, 0, byteContainer.length);
             this.byteContainer = newByte;
         }

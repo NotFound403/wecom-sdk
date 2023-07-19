@@ -21,30 +21,26 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum MsgMenuContentType.
+ * The enum Date ctrl type.
  *
  * @author dax
  * @since 2023 /5/25 16:19
  */
-public enum MsgMenuContentType {
+public enum SelectType {
+
 
     /**
-     * Click msg menu content type.
+     * Single selector ctrl type.
      */
-    CLICK("click"),
+    SINGLE("single"),
 
     /**
-     * View msg menu content type.
+     * Multi selector ctrl type.
      */
-    VIEW("view"),
-
-    /**
-     * Miniprogram msg menu content type.
-     */
-    MINIPROGRAM("miniprogram");
+    MULTI("multi");
     private final String type;
 
-    MsgMenuContentType(String type) {
+    SelectType(String type) {
         this.type = type;
     }
 
@@ -60,14 +56,14 @@ public enum MsgMenuContentType {
 
 
     /**
-     * Deserialize MsgMenuContentType.
+     * Deserialize SingleOrMulti.
      *
      * @param type the type
-     * @return the MsgMenuContentType
+     * @return the SingleOrMulti
      */
     @JsonCreator
-    public static MsgMenuContentType deserialize(String type) {
-        return Arrays.stream(MsgMenuContentType.values())
+    public static SelectType deserialize(String type) {
+        return Arrays.stream(SelectType.values())
                 .filter(contactType -> contactType.type.equals(type))
                 .findFirst()
                 .orElse(null);

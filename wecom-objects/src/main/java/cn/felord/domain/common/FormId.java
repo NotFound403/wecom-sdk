@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.wedoc.form;
+package cn.felord.domain.common;
 
 import lombok.Data;
 

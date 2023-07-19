@@ -13,31 +13,16 @@
  *  limitations under the License.
  */
 
-package cn.felord.enumeration;
+package cn.felord.domain.common;
+
+import lombok.Data;
 
 /**
- * The enum Answer reply item type.
- *
- * @author dax
- * @since 2023 /3/16 15:43
+ * @author n1
  */
-public enum AnswerReplyItemType {
-
-    /**
-     * 文本
-     */
-    TEXT,
-    /**
-     * 选择
-     */
-    OPTION,
-    /**
-     * 文件
-     */
-    FILE,
-    /**
-     * 不可用
-     */
-    INVALID
-
+@Data
+public class Miniprogram {
+    private String pagepath;
+    private String appid;
+    private String title;
 }

@@ -16,6 +16,7 @@
 package cn.felord.wecom.service.callback;
 
 import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.enumeration.CallbackChangeType;
 import cn.felord.enumeration.CallbackEvent;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ public class ChangeExternalChatCallbackEventBodyConsumer implements CallbackEven
     @Override
     public void consume(CallbackEventBody body) {
         String chatId = body.getChatId();
-        String changeType = body.getChangeType();
+        CallbackChangeType changeType = body.getChangeType();
         CallbackEvent event = body.getEvent();
 
         //TODO 这里编写你的客户群变更事件业务逻辑

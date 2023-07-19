@@ -16,6 +16,7 @@
 package cn.felord.domain.contactbook.user;
 
 import cn.felord.domain.WeComResponse;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,7 +27,11 @@ import java.time.Duration;
 public class UserDetailResponse extends WeComResponse {
     private String userid;
     private String openid;
-    private String externalUserid;
     private String userTicket;
+    private String externalUserid;
+    @JsonProperty("DeviceId")
+    private String deviceId;
+    private String parentUserid;
+    private String studentUserid;
     private Duration expiresIn;
 }

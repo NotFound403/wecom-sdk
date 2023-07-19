@@ -16,7 +16,7 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.ContactCtrlMode;
-import cn.felord.enumeration.SingleOrMulti;
+import cn.felord.enumeration.SelectType;
 import lombok.Data;
 
 /**
@@ -29,7 +29,7 @@ public class ContactConfig {
 
     @Data
     public static class Wrapper {
-        private SingleOrMulti type;
+        private SelectType type;
         private ContactCtrlMode mode;
     }
 }

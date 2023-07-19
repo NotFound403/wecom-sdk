@@ -35,7 +35,6 @@ import java.util.List;
  */
 public interface UserApi {
 
-
     /**
      * 自建应用与第三方应用的对接
      *
@@ -44,6 +43,15 @@ public interface UserApi {
      */
     @POST("batch/openuserid_to_userid")
     Single<UserIdConvertResponse> batchOpenUserIdToUserId(@Body UserIdConvertRequest request);
+
+    /**
+     * tmp_external_userid的转换
+     *
+     * @param request the request
+     * @return the user id convert response
+     */
+    @POST("idconvert/convert_tmp_external_userid")
+    Single<GenericResponse<List<TmpUser>>> batchOpenUserIdToUserId(@Body ConvertTmpUserRequest request);
 
     /**
      * 创建成员

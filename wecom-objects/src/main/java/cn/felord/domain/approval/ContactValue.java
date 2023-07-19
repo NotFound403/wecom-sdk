@@ -42,12 +42,40 @@ public class ContactValue implements ContentDataValue {
     private List<MemberInfo> members;
     private Set<ApprovalDeptInfo> departments;
 
+
+    /**
+     * 成员组件
+     *
+     * @param members the members
+     * @return the contact value
+     */
+    public static ContactValue user(List<MemberInfo> members) {
+        ContactValue contactValue = new ContactValue();
+        contactValue.contactCtrlMode = ContactCtrlMode.USER;
+        contactValue.members = members;
+        contactValue.departments = Collections.emptySet();
+        return contactValue;
+    }
+
+    /**
+     * 部门组件
+     *
+     * @param departments the departments
+     * @return the contact value
+     */
+    public static ContactValue dept(Set<ApprovalDeptInfo> departments) {
+        ContactValue contactValue = new ContactValue();
+        contactValue.contactCtrlMode = ContactCtrlMode.DEPARTMENT;
+        contactValue.members = Collections.emptyList();
+        contactValue.departments = departments;
+        return contactValue;
+    }
+
     /**
      * Instantiates a new Contact value.
      *
      * @param members the members
      */
-
     public void setMembers(List<MemberInfo> members) {
         this.contactCtrlMode = ContactCtrlMode.USER;
         this.members = members;

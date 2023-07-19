@@ -24,6 +24,7 @@ import cn.felord.enumeration.NotifyType;
 import cn.felord.enumeration.PayCallbackEventType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import io.reactivex.rxjava3.annotations.Nullable;
 import lombok.Data;
 
 import java.time.Instant;
@@ -54,8 +55,10 @@ public class CallbackEventBody implements Xml {
     private final Instant createTime;
     @XStreamAlias("MsgType")
     private String msgType;
+    @Nullable
     @XStreamAlias("Event")
     private CallbackEvent event;
+    @Nullable
     @XStreamAlias("ChangeType")
     private final CallbackChangeType changeType;
     @XStreamAlias("AgentID")

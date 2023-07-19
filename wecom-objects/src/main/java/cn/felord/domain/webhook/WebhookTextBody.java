@@ -15,7 +15,6 @@
 
 package cn.felord.domain.webhook;
 
-import cn.felord.enumeration.HookMsgType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,8 +32,13 @@ import java.util.List;
 public class WebhookTextBody extends WebhookBody {
     private final WebhookText text;
 
+    /**
+     * Instantiates a new Webhook text body.
+     *
+     * @param text the text
+     */
     public WebhookTextBody(WebhookText text) {
-        super(HookMsgType.TEXT);
+        super("text");
         this.text = text;
     }
 

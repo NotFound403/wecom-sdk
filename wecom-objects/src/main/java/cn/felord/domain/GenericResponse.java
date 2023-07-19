@@ -69,6 +69,10 @@ public class GenericResponse<T> extends WeComResponse {
             "data",
             "prepay_id",
             "pay_sign",
+            "link",
+            "results",
+            "share_url",
+            "doc_base_info",
             "error_description",
             "open_wx_pay_media_id",
             "sp_no"

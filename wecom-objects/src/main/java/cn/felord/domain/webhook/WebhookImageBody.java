@@ -15,7 +15,6 @@
 
 package cn.felord.domain.webhook;
 
-import cn.felord.enumeration.HookMsgType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,7 +31,7 @@ public class WebhookImageBody extends WebhookBody {
     private final WebhookImage image;
 
     public WebhookImageBody(WebhookImage image) {
-        super(HookMsgType.IMAGE);
+        super("image");
         this.image = image;
     }
 

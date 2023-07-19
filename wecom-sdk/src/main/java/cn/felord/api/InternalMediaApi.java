@@ -21,7 +21,7 @@ import cn.felord.domain.media.MediaJobResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.media.MediaUploadRequest;
 import okhttp3.MultipartBody;
-import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -75,7 +75,7 @@ interface InternalMediaApi {
      * @return the media
      */
     @GET("media/get")
-    Response getMedia(@Query("media_id") String mediaId);
+    ResponseBody getMedia(@Query("media_id") String mediaId);
 
     /**
      * 获取高清语音素材
@@ -84,7 +84,7 @@ interface InternalMediaApi {
      * @return the media
      */
     @GET("media/get/jssdk")
-    Response getMediaJsSdk(@Query("media_id") String mediaId);
+    ResponseBody getMediaJsSdk(@Query("media_id") String mediaId);
 
     /**
      * 生成异步上传任务

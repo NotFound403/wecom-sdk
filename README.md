@@ -1,6 +1,6 @@
 <div align="center" style="margin-bottom: 10px">
     <a target="_blank" href="https://mvnrepository.com/artifact/cn.felord/wecom-sdk">
-     	<img src="wechat-sdk.svg" height="50%" width="50%" alt="wecom-sdk"/>
+     	<img src="logo.svg" height="50%" width="50%" alt="wecom-sdk"/>
     </a>
 </div>
 <p align="center">
@@ -8,10 +8,10 @@
      	<img alt="" src="https://img.shields.io/github/license/NotFound403/wecom-sdk"/>
     </a>
     <a target="_blank" href="https://felord.cn">
-     	<img alt="" src="https://img.shields.io/badge/java-8-red"/>
+     	<img alt="" src="https://img.shields.io/badge/java-8+-red"/>
     </a>   
-    <a target="_blank" href="https://spring.io">
-     	<img alt="" src="https://img.shields.io/badge/spring%20boot-2.4%2B-brightgreen"/>
+    <a target="_blank" href="https://github.com/square/retrofit">
+     	<img alt="" src="https://img.shields.io/badge/retrofit-2-brightgreen"/>
     </a>   
     <a target="_blank" href="https://mvnrepository.com/artifact/cn.felord/wecom-sdk">
      	<img alt="" src="https://img.shields.io/maven-central/v/cn.felord/wecom-sdk.svg?style=flat-square"/>

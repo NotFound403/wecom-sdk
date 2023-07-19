@@ -34,6 +34,8 @@ import java.util.Objects;
 public class TokenInterceptor implements Interceptor {
     public static final Integer INVALID_ACCESS_TOKEN = 42001;
     public static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
+    private static final MediaType JSON_UTF_8 = MediaType.parse("application/json; charset=UTF-8");
+    private static final MediaType JSON = MediaType.parse("application/json");
     private final TokenApi tokenApi;
     private final String tokenParam;
 
@@ -55,22 +57,24 @@ public class TokenInterceptor implements Interceptor {
         ResponseBody body;
         Response response = doRequest(chain);
         body = response.body();
-        Headers headers = response.headers();
         if (body != null) {
-            String json = body.string();
-            WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
-            if (Objects.equals(INVALID_ACCESS_TOKEN, weComResponse.getErrcode())) {
-                tokenApi.clearToken();
-                return doRequest(chain);
-            }
+            //application/octet-stream
             MediaType mediaType = body.contentType();
+            String json = body.string();
+            if (Objects.equals(JSON_UTF_8, mediaType) || Objects.equals(JSON, mediaType)) {
+                WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
+                if (Objects.equals(INVALID_ACCESS_TOKEN, weComResponse.getErrcode())) {
+                    tokenApi.clearToken();
+                    return doRequest(chain);
+                }
+            }
+            Headers headers = response.headers();
             return response.newBuilder()
                     .headers(headers)
                     .body(ResponseBody.create(json, mediaType))
                     .build();
         }
         return response;
-
     }
 
 

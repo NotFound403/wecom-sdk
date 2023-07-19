@@ -16,6 +16,7 @@
 package cn.felord.domain.callcenter;
 
 import cn.felord.domain.WeComResponse;
+import cn.felord.enumeration.BoolEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -28,7 +29,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SyncMsgResponse extends WeComResponse {
-    private String next_cursor;
-    private Integer has_more;
+    private String nextCursor;
+    private BoolEnum hasMore;
     private List<KfMessage> msgList;
 }

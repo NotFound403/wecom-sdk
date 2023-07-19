@@ -41,6 +41,8 @@ import java.util.stream.Collectors;
 public abstract class AbstractXmlRequest implements XmlRequest, Xml {
     private static final TypeReference<TreeMap<String, String>> TYPE_REFERENCE = new TypeReference<TreeMap<String, String>>() {
     };
+    private static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
+
     @XStreamAlias("workwx_sign")
     private String workWxSign;
     @XStreamAlias("sign")
@@ -49,9 +51,8 @@ public abstract class AbstractXmlRequest implements XmlRequest, Xml {
     @Override
     public String xmlBody(String paySecret, PaySignType signType) {
         try {
-            ObjectMapper mapper = JacksonObjectMapperFactory.create();
-            String json = mapper.writeValueAsString(this);
-            TreeMap<String, String> treeMap = mapper.readValue(json, TYPE_REFERENCE);
+            String json = MAPPER.writeValueAsString(this);
+            TreeMap<String, String> treeMap = MAPPER.readValue(json, TYPE_REFERENCE);
             String src = treeMap.entrySet()
                     .stream()
                     .filter(entry ->

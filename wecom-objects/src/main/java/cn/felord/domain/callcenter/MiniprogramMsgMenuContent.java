@@ -15,8 +15,8 @@
 
 package cn.felord.domain.callcenter;
 
+import cn.felord.domain.common.Miniprogram;
 import cn.felord.enumeration.MsgMenuContentType;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -34,10 +34,4 @@ public class MiniprogramMsgMenuContent extends MsgMenuContent {
         this.miniprogram = miniprogram;
     }
 
-    @Data
-    public static class Miniprogram {
-        private String appid;
-        private String pagepath;
-        private String content;
-    }
 }

@@ -16,7 +16,6 @@
 package cn.felord.domain.webhook;
 
 import cn.felord.domain.common.MediaId;
-import cn.felord.enumeration.HookMsgType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -32,7 +31,7 @@ public class WebhookFileBody extends WebhookBody {
     private final MediaId file;
 
     public WebhookFileBody(MediaId file) {
-        super(HookMsgType.FILE);
+        super("file");
         this.file = file;
     }
 

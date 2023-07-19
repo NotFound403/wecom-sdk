@@ -16,12 +16,15 @@
 package cn.felord.wecom.service.callback;
 
 import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.enumeration.CallbackChangeType;
 import cn.felord.enumeration.CallbackEvent;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+
+import static cn.felord.enumeration.CallbackChangeType.FORM_COMPLETE;
 
 /**
  * 文档变更事件业务处理
@@ -33,7 +36,6 @@ import java.util.Objects;
 @Service
 @AllArgsConstructor
 public class DocChangeCallbackEventBodyConsumer implements CallbackEventBodyConsumer {
-    private static final String FORM_COMPLETE = "form_complete";
 
 
     @Override
@@ -44,7 +46,7 @@ public class DocChangeCallbackEventBodyConsumer implements CallbackEventBodyCons
     @Override
     public void consume(CallbackEventBody body) {
         CallbackEvent event = body.getEvent();
-        String changeType = body.getChangeType();
+        CallbackChangeType changeType = body.getChangeType();
         if (Objects.equals(FORM_COMPLETE, changeType)) {
             // 处理收集表完成事件
         }

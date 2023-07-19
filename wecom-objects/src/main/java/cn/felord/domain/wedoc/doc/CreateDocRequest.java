@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (c) 2023. felord.cn
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,16 +14,23 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.contactbook.user;
+package cn.felord.domain.wedoc.doc;
 
+import cn.felord.enumeration.DocType;
 import lombok.Data;
 
+import java.util.List;
+
 /**
- * @author n1
+ * @author felord
+ * @since 2021/10/12 16:53
  */
 @Data
-public class Miniprogram {
-    private String pagepath;
-    private String appid;
-    private String title;
+public class CreateDocRequest {
+
+    private final String docName;
+    private final DocType docType;
+    private List<String> adminUsers;
+    private String fatherid;
+    private String spaceid;
 }

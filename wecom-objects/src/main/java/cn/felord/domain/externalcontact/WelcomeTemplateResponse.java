@@ -30,7 +30,7 @@ public class WelcomeTemplateResponse extends WeComResponse {
     private ContentText text;
     private ImageUrl image;
     private Link link;
-    private Miniprogram miniprogram;
+    private MediaMiniprogram miniprogram;
     private MediaId file;
     private MediaId video;
 }
