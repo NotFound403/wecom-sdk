@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (c) 2023. felord.cn
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,25 +14,19 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.contactbook.user;
+package cn.felord.domain.wedoc.doc;
 
 import cn.felord.domain.WeComResponse;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.time.Duration;
-
+/**
+ * @author felord
+ * @since 2021/10/12 16:53
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UserDetailResponse extends WeComResponse {
-    private String userid;
-    private String openid;
-    private String userTicket;
-    private String externalUserid;
-    @JsonProperty("DeviceId")
-    private String deviceId;
-    private String parentUserid;
-    private String studentUserid;
-    private Duration expiresIn;
+public class CreateDocResponse extends WeComResponse {
+    private String url;
+    private String docid;
 }

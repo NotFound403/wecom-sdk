@@ -13,15 +13,15 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.wedoc.form;
+package cn.felord.domain.wedoc.doc;
 
 import lombok.Data;
 
 /**
  * @author dax
- * @since 2023/5/24 14:54
+ * @since 2023/7/19
  */
 @Data
-public class FormId {
-    private final String formid;
+public class DocId {
+    private final String docid;
 }

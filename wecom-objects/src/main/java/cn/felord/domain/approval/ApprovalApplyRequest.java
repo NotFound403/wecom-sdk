@@ -114,7 +114,7 @@ public class ApprovalApplyRequest {
      * <ul>
      *     <li>creatorUserid，审批发起人企微ID，此审批申请将以此员工身份提交，发起人需在应用可见范围内</li>
      *     <li>templateId，企业微信审批模板id，可通过浏览器链接中获取</li>
-     *     <li>dataValues，模板中你设计的字段填充值，在列表中索引位置要【按顺序】对应，并且类型{@link ApprovalCtrlType}要和{@link ContentDataValue}实现一致
+     *     <li>dataValues，模板中你设计的字段填充值，在列表中索引位置要『按顺序』对应，并且类型{@link ApprovalCtrlType}要和{@link ContentDataValue}实现一致
      *         <ol>
      *             <li>文本、多行文本、说明文字对应 {@link TextValue}</li>
      *             <li>数字对应 {@link NumberValue}</li>

@@ -13,25 +13,22 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.contactbook.user;
+package cn.felord.domain.wedoc.doc;
 
-import cn.felord.domain.WeComResponse;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import cn.felord.enumeration.DocType;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.time.Duration;
+import java.time.Instant;
 
-@EqualsAndHashCode(callSuper = true)
+/**
+ * @author dax
+ * @since 2023/7/19
+ */
 @Data
-public class UserDetailResponse extends WeComResponse {
-    private String userid;
-    private String openid;
-    private String userTicket;
-    private String externalUserid;
-    @JsonProperty("DeviceId")
-    private String deviceId;
-    private String parentUserid;
-    private String studentUserid;
-    private Duration expiresIn;
+public class DocBaseInfo {
+    private String docid;
+    private String docName;
+    private Instant createTime;
+    private Instant modifyTime;
+    private DocType docType;
 }
