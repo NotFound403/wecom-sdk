@@ -45,6 +45,15 @@ public interface UserApi {
     UserIdConvertResponse batchOpenUserIdToUserId(@Body UserIdConvertRequest request);
 
     /**
+     * tmp_external_userid的转换
+     *
+     * @param request the request
+     * @return the user id convert response
+     */
+    @POST("idconvert/convert_tmp_external_userid")
+    GenericResponse<List<TmpUser>> batchOpenUserIdToUserId(@Body ConvertTmpUserRequest request);
+
+    /**
      * 创建成员
      * <p>
      * 仅通讯录同步助手或第三方通讯录应用可调用。
