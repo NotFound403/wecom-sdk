@@ -19,6 +19,7 @@ import cn.felord.enumeration.ApprovalCtrlType;
 import cn.felord.enumeration.ApprovalNotifyType;
 import cn.felord.enumeration.ApproverNodeMode;
 import cn.felord.enumeration.UseTemplateApprover;
+import cn.felord.utils.CollectionUtils;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -147,7 +148,14 @@ public class ApprovalApplyRequest {
      */
     public static ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData(List<? extends TmpControl<?>> controls, List<? extends ContentDataValue> dataValues) {
         //必须保证 dataValues 和 controls 对应
-        List<ApprovalContentData<? extends ContentDataValue>> contents = IntStream.range(0, controls.size())
+        int ctrlSize = controls.size();
+        int valueSize = dataValues.size();
+
+        if (ctrlSize != valueSize) {
+            throw new IllegalArgumentException("ctrl size and table value size do not match");
+        }
+
+        List<ApprovalContentData<? extends ContentDataValue>> contents = IntStream.range(0, ctrlSize)
                 .mapToObj(index ->
                         toDataValue(controls.get(index), dataValues.get(index))
                 ).collect(Collectors.toList());
@@ -161,11 +169,21 @@ public class ApprovalApplyRequest {
         // 处理明细数据
         if (config != null && config.getClass().isAssignableFrom(TableConfig.class)) {
             ListContentDataValue internalValue = (ListContentDataValue) dataValue;
+            if (internalValue == null) {
+                throw new IllegalArgumentException("approval internalValue must not be null");
+            }
             List<? extends ContentDataValue> tableValues = internalValue.getValues();
+            if (CollectionUtils.isEmpty(tableValues)) {
+                throw new IllegalArgumentException("approval table values must not be empty");
+            }
             TableConfig tableConfig = (TableConfig) config;
             List<TableCtrlProperty> children = tableConfig.getTable()
                     .getChildren();
-            List<ApplyContentData<?>> applyContentData = IntStream.range(0, children.size())
+            int ctrlSize = children.size();
+            if (ctrlSize != tableValues.size()) {
+                throw new IllegalArgumentException("ctrl size and table value size do not match");
+            }
+            List<ApplyContentData<?>> applyContentData = IntStream.range(0, ctrlSize)
                     .mapToObj(index ->
                             ApplyContentData.from(children.get(index).getProperty(), tableValues.get(index)))
                     .collect(Collectors.toList());
