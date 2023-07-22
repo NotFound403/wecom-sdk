@@ -13,13 +13,24 @@
  *  limitations under the License.
  */
 
-package cn.felord.callbacks;
+package cn.felord.domain.callback;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.Data;
 
 /**
  * @author dax
- * @since 2023/5/28
+ * @since 2023/7/23
  */
-public interface CallbackNumberEnum {
-
-    int getType();
+@XStreamAlias("NotifyNode")
+@Data
+public class OpenNotifyNode implements Xml {
+    @XStreamAlias("ItemName")
+    private String itemName;
+    @XStreamAlias("ItemUserid")
+    private String itemUserid;
+    @XStreamAlias("ItemParty")
+    private String itemParty;
+    @XStreamAlias("ItemImage")
+    private String itemImage;
 }

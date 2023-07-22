@@ -40,7 +40,7 @@ public final class CallbackAsyncConsumer {
      * @param eventBodyConsumer the event body consumer
      */
     public CallbackAsyncConsumer(Consumer<CallbackEventBody> eventBodyConsumer) {
-        this(10, 100, 90L, 500, eventBodyConsumer);
+        this(20, 100, 90L, 1500, eventBodyConsumer);
     }
 
     /**

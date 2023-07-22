@@ -15,36 +15,31 @@
 
 package cn.felord.domain.callback;
 
+import cn.felord.enumeration.NodeStatus;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
+import java.time.Instant;
+
 /**
  * @author dax
- * @since 2022/2/7 14:55
+ * @since 2023/7/23
  */
 @XStreamAlias("Item")
 @Data
-public class CallbackExtAttrItem implements Xml {
-    @XStreamAlias("Type")
-    private Integer type;
-    @XStreamAlias("Name")
-    private String name;
-    @XStreamAlias("Web")
-    private Web web;
-    @XStreamAlias("Text")
-    private Text text;
-
-    @Data
-    public static class Web {
-        @XStreamAlias("Title")
-        private String title;
-        @XStreamAlias("Url")
-        private String url;
-    }
-
-    @Data
-    public static class Text {
-        @XStreamAlias("Value")
-        private String value;
-    }
+public class OpenApprovalNodeItem implements Xml {
+    @XStreamAlias("ItemName")
+    private String itemName;
+    @XStreamAlias("ItemUserid")
+    private String itemUserid;
+    @XStreamAlias("ItemParty")
+    private String itemParty;
+    @XStreamAlias("ItemImage")
+    private String itemImage;
+    @XStreamAlias("ItemStatus")
+    private NodeStatus itemStatus;
+    @XStreamAlias("ItemSpeech")
+    private String itemSpeech;
+    @XStreamAlias("ItemOpTime")
+    private Instant itemOpTime;
 }
