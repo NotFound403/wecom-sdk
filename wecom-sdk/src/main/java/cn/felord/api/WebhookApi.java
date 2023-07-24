@@ -52,7 +52,7 @@ public class WebhookApi {
      * @param body the body
      * @return the we com response
      */
-    public WeComResponse send(String key, WebhookBody body) {
+    public <B extends WebhookBody> WeComResponse send(String key, B body) {
         return internalWebhookApi.send(key, body);
     }
 
