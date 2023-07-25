@@ -62,6 +62,6 @@ public interface CalendarApi {
      * @param request the request
      * @return the we com response
      */
-    @POST("oa/calendar/update")
+    @POST("oa/calendar/del")
     WeComResponse del(@Body CalendarDelRequest request);
 }
