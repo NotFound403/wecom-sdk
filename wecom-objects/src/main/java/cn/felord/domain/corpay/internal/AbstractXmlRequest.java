@@ -75,7 +75,7 @@ public abstract class AbstractXmlRequest implements XmlRequest, Xml {
     @Override
     public void workWxSign(String payAgentSecret) {
         TreeMap<String, String> signParams = signParams();
-        if (!CollectionUtils.isEmpty(signParams)) {
+        if (CollectionUtils.isNotEmpty(signParams)) {
             String src = signParams.entrySet()
                     .stream()
                     .filter(entry ->
