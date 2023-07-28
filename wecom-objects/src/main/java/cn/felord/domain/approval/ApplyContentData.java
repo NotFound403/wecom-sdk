@@ -51,7 +51,10 @@ import java.util.List;
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "control", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = TextApplyContentData.class, names = {"Text", "Textarea", "Tips"}),
+//        @JsonSubTypes.Type(value = TextApplyContentData.class, names = {"Text", "Textarea", "Tips"}),
+        @JsonSubTypes.Type(value = TextApplyContentData.class, name = "Text"),
+        @JsonSubTypes.Type(value = TextApplyContentData.class, name = "Textarea"),
+        @JsonSubTypes.Type(value = TextApplyContentData.class, name = "Tips"),
         @JsonSubTypes.Type(value = NumberApplyContentData.class, name = "Number"),
         @JsonSubTypes.Type(value = MoneyApplyContentData.class, name = "Money"),
         @JsonSubTypes.Type(value = DateApplyContentData.class, name = "Date"),

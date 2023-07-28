@@ -25,7 +25,7 @@ import lombok.ToString;
  */
 @ToString
 @Data
-public class CallbackSelectedItem {
+public class CallbackSelectedItem implements Xml {
     @XStreamAlias("QuestionKey")
     private String questionKey;
     @XStreamAlias(value = "OptionIds")

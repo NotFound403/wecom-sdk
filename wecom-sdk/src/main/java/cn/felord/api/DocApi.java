@@ -18,10 +18,7 @@ package cn.felord.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.FormId;
-import cn.felord.domain.wedoc.doc.CreateDocRequest;
-import cn.felord.domain.wedoc.doc.CreateDocResponse;
-import cn.felord.domain.wedoc.doc.DocBaseInfo;
-import cn.felord.domain.wedoc.doc.DocId;
+import cn.felord.domain.wedoc.doc.*;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -74,11 +71,11 @@ public interface DocApi {
     /**
      * 删除收集表
      *
-     * @param docId the doc id
+     * @param formId the form id
      * @return the we com response
      */
     @POST("wedoc/del_doc")
-    WeComResponse delDoc(@Body FormId docId);
+    WeComResponse delDoc(@Body FormId formId);
 
     /**
      * Gets doc base info.
@@ -101,9 +98,45 @@ public interface DocApi {
     /**
      * 分享收集表
      *
-     * @param docId the doc id
+     * @param formId the form id
      * @return the we com response
      */
     @POST("wedoc/doc_share")
-    GenericResponse<String> docShare(@Body FormId docId);
+    GenericResponse<String> docShare(@Body FormId formId);
+
+    /**
+     * 获取文档权限信息
+     *
+     * @param docId the doc id
+     * @return the doc auth response
+     */
+    @POST("wedoc/doc_get_auth")
+    DocAuthResponse docGetAuth(@Body DocId docId);
+
+    /**
+     * 修改文档查看规则
+     *
+     * @param request the request
+     * @return the we com response
+     */
+    @POST("wedoc/mod_doc_join_rule")
+    WeComResponse modDocJoinRule(@Body AccessRuleUpdateRequest request);
+
+    /**
+     * 修改文档通知范围及权限
+     *
+     * @param request the request
+     * @return the we com response
+     */
+    @POST("wedoc/mod_doc_member")
+    WeComResponse modDocMember(@Body FileMemberUpdateRequest request);
+
+    /**
+     * 修改文档安全设置
+     *
+     * @param setting the setting
+     * @return the we com response
+     */
+    @POST("wedoc/mod_doc_safty_setting")
+    WeComResponse modDocSaftySetting(@Body DocSecuritySetting setting);
 }

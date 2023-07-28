@@ -58,8 +58,8 @@ public class AnswerReplyItem {
                            @JsonProperty("option_extend_reply") List<AnswerOptionExtendReply> optionExtendReply,
                            @JsonProperty("file_extend_reply") List<AnswerFileExtendReply> fileExtendReply) {
         this.itemType = StringUtils.hasText(textReply) ? AnswerReplyItemType.TEXT :
-                !CollectionUtils.isEmpty(optionReply) ? AnswerReplyItemType.OPTION :
-                        !CollectionUtils.isEmpty(fileExtendReply) ? AnswerReplyItemType.FILE : AnswerReplyItemType.INVALID;
+                CollectionUtils.isNotEmpty(optionReply) ? AnswerReplyItemType.OPTION :
+                        CollectionUtils.isNotEmpty(fileExtendReply) ? AnswerReplyItemType.FILE : AnswerReplyItemType.INVALID;
         this.questionId = questionId;
         this.textReply = textReply;
         this.optionReply = optionReply;

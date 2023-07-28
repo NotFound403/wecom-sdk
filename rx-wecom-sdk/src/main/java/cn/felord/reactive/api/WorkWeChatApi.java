@@ -186,6 +186,19 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 电子发票
+     *
+     * @param agentDetails the agent details
+     * @return the invoice api
+     */
+    public InvoiceApi invoiceApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(InvoiceApi.class);
+    }
+
+    /**
      * 日历相关接口
      *
      * @param agentDetails the agent details

@@ -19,8 +19,10 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
+ * The type Collection utils.
+ *
  * @author dax
- * @since 2023/5/24
+ * @since 2023 /5/24
  */
 public abstract class CollectionUtils {
     /**
@@ -35,6 +37,16 @@ public abstract class CollectionUtils {
     }
 
     /**
+     * Is not empty boolean.
+     *
+     * @param collection the collection
+     * @return the boolean
+     */
+    public static boolean isNotEmpty(Collection<?> collection) {
+        return !isEmpty(collection);
+    }
+
+    /**
      * Return {@code true} if the supplied Map is {@code null} or empty.
      * Otherwise, return {@code false}.
      *
@@ -45,4 +57,13 @@ public abstract class CollectionUtils {
         return (map == null || map.isEmpty());
     }
 
+    /**
+     * Is not empty boolean.
+     *
+     * @param map the map
+     * @return the boolean
+     */
+    public static boolean isNotEmpty(Map<?, ?> map) {
+        return !isEmpty(map);
+    }
 }

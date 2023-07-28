@@ -29,7 +29,7 @@ import java.util.List;
  * @since 2023/5/27
  */
 @Data
-public class ApprovalInfo {
+public class ApprovalInfo implements Xml {
     @XStreamAlias("SpNo")
     private String spNo;
     @XStreamAlias("SpName")
@@ -50,4 +50,27 @@ public class ApprovalInfo {
     private List<Comments> comments;
     @XStreamAlias("StatuChangeEvent")
     private StatusChangeEvent statuChangeEvent;
+
+    @XStreamAlias("ThirdNo")
+    private String thirdNo;
+    @XStreamAlias("OpenSpName")
+    private String openSpName;
+    @XStreamAlias("OpenTemplateId")
+    private String openTemplateId;
+    @XStreamAlias("OpenSpStatus")
+    private SpStatus openSpStatus;
+    @XStreamAlias("ApplyUserName")
+    private String applyUserName;
+    @XStreamAlias("ApplyUserId")
+    private String applyUserId;
+    @XStreamAlias("ApplyUserParty")
+    private String applyUserParty;
+    @XStreamAlias("ApplyUserImage")
+    private String applyUserImage;
+    @XStreamAlias(value = "ApprovalNodes", impl = List.class)
+    private List<OpenApprovalNode> approvalNodes;
+    @XStreamAlias(value = "NotifyNodes", impl = List.class)
+    private List<OpenNotifyNode> notifyNodes;
+    @XStreamAlias("ApproverStep")
+    private Integer ApproverStep;
 }
