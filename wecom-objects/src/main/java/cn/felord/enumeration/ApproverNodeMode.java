@@ -16,8 +16,8 @@
 package cn.felord.enumeration;
 
 
-import cn.felord.convert.CallbackNumberEnum;
-import cn.felord.convert.NumberEnumConverter;
+import cn.felord.xml.convert.CallbackNumberEnum;
+import cn.felord.xml.convert.NumberEnumConverter;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.thoughtworks.xstream.annotations.XStreamConverter;

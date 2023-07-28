@@ -13,13 +13,23 @@
  *  limitations under the License.
  */
 
-package cn.felord.callbacks;
+package cn.felord.domain.wedoc.doc;
 
-/**
- * @author dax
- * @since 2023/5/28
- */
-public interface CallbackNumberEnum {
+import cn.felord.enumeration.DocAuthType;
+import lombok.Data;
 
-    int getType();
+import java.util.List;
+
+@Data
+public class AccessRuleUpdateRequest {
+    private final String docid;
+    private Boolean banShareExternal;
+    private Boolean updateCoAuthList;
+    private Boolean enableCorpInternal;
+    private DocAuthType corpExternalAuth;
+    private Boolean enableCorpExternal;
+    private Boolean corpInternalApproveOnlyByAdmin;
+    private Boolean corpExternalApproveOnlyByAdmin;
+    private DocAuthType corpInternalAuth;
+    private List<CoAuthListItem> coAuthList;
 }

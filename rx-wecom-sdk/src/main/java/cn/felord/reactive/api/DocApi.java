@@ -18,10 +18,7 @@ package cn.felord.reactive.api;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.FormId;
-import cn.felord.domain.wedoc.doc.CreateDocRequest;
-import cn.felord.domain.wedoc.doc.CreateDocResponse;
-import cn.felord.domain.wedoc.doc.DocBaseInfo;
-import cn.felord.domain.wedoc.doc.DocId;
+import cn.felord.domain.wedoc.doc.*;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -100,11 +97,38 @@ public interface DocApi {
     Single<GenericResponse<String>> docShare(@Body DocId docId);
 
     /**
-     * 分享收集表
+     * 获取文档权限信息
      *
      * @param docId the doc id
+     * @return the doc auth response
+     */
+    @POST("wedoc/doc_get_auth")
+    Single<DocAuthResponse> docGetAuth(@Body DocId docId);
+
+    /**
+     * 修改文档查看规则
+     *
+     * @param request the request
      * @return the we com response
      */
-    @POST("wedoc/doc_share")
-    Single<GenericResponse<String>> docShare(@Body FormId docId);
+    @POST("wedoc/mod_doc_join_rule")
+    Single<WeComResponse> modDocJoinRule(@Body AccessRuleUpdateRequest request);
+
+    /**
+     * 修改文档通知范围及权限
+     *
+     * @param request the request
+     * @return the we com response
+     */
+    @POST("wedoc/mod_doc_member")
+    Single<WeComResponse> modDocMember(@Body FileMemberUpdateRequest request);
+
+    /**
+     * 修改文档安全设置
+     *
+     * @param setting the setting
+     * @return the we com response
+     */
+    @POST("wedoc/mod_doc_safty_setting")
+    Single<WeComResponse> modDocSaftySetting(@Body DocSecuritySetting setting);
 }

@@ -23,7 +23,7 @@ import lombok.Data;
  * @since 2023/5/28
  */
 @Data
-public class CallbackVideo {
+public class CallbackVideo implements Xml {
     @XStreamAlias("MediaId")
     private String mediaId;
     @XStreamAlias("Title")
