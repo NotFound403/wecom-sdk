@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.callcenter.*;
 import retrofit2.http.Body;
@@ -33,27 +34,30 @@ public interface KfSessionApi {
      *
      * @param kfAndExternalUser the kf and external user
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("kf/service_state/get")
-    KfSessionResponse getSessionState(@Body KfAndExternalUser kfAndExternalUser);
+    KfSessionResponse getSessionState(@Body KfAndExternalUser kfAndExternalUser) throws WeComException;
 
     /**
      * 变更会话状态
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("kf/service_state/trans")
-    GenericResponse<String> trans(@Body KfSessionUpdateRequest request);
+    GenericResponse<String> trans(@Body KfSessionUpdateRequest request) throws WeComException;
 
     /**
      * 读取消息
      *
      * @param request the request
      * @return the sync msg response
+     * @throws WeComException the we com exception
      */
     @POST("kf/sync_msg")
-    SyncMsgResponse syncMsg(@Body SyncMsgRequest request);
+    SyncMsgResponse syncMsg(@Body SyncMsgRequest request) throws WeComException;
 
     /**
      * 发送消息
@@ -64,9 +68,10 @@ public interface KfSessionApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("kf/send_msg")
-    GenericResponse<String> sendMsg(@Body KfMessageRequest request);
+    GenericResponse<String> sendMsg(@Body KfMessageRequest request) throws WeComException;
 
     /**
      * 发送欢迎语等事件响应消息
@@ -77,7 +82,8 @@ public interface KfSessionApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("kf/send_msg_on_event")
-    GenericResponse<String> sendEventMsg(@Body KfEventMessageRequest request);
+    GenericResponse<String> sendEventMsg(@Body KfEventMessageRequest request) throws WeComException;
 }

@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
@@ -25,7 +26,7 @@ import retrofit2.http.POST;
 import java.util.List;
 
 /**
- * The type Corp service user api.
+ * The type ContactMeWayApi.
  *
  * @author dax
  * @since 2021 /9/8 9:28
@@ -36,61 +37,68 @@ public interface ContactMeWayApi {
      * 获取配置了客户联系功能的成员列表
      *
      * @return the follow user list
+     * @throws WeComException the we com exception
      */
     @GET("externalcontact/get_follow_user_list")
-    GenericResponse<List<String>> getFollowUserList();
+    GenericResponse<List<String>> getFollowUserList() throws WeComException;
 
     /**
      * 配置客户联系「联系我」方式
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/add_contact_way")
-    ContactWayAddResponse addContactWay(@Body ContactWayBody request);
+    ContactWayAddResponse addContactWay(@Body ContactWayBody request) throws WeComException;
 
     /**
      * 获取企业已配置的「联系我」方式
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/get_contact_way")
-    GenericResponse<ContactWayBodyDetail> getContactWay(@Body ContactWayConfigRequest request);
+    GenericResponse<ContactWayBodyDetail> getContactWay(@Body ContactWayConfigRequest request) throws WeComException;
 
     /**
      * 获取企业已配置的「联系我」列表
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/list_contact_way")
-    ContactListResponse listContactWay(@Body ContactListRequest request);
+    ContactListResponse listContactWay(@Body ContactListRequest request) throws WeComException;
 
     /**
      * 更新企业已配置的「联系我」方式
      *
      * @param contactWay the contact way
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/update_contact_way")
-    WeComResponse updateContactWay(@Body MutableContactWay contactWay);
+    WeComResponse updateContactWay(@Body MutableContactWay contactWay) throws WeComException;
 
     /**
      * 删除企业已配置的「联系我」方式
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/del_contact_way")
-    WeComResponse delContactWay(@Body ContactWayConfigRequest request);
+    WeComResponse delContactWay(@Body ContactWayConfigRequest request) throws WeComException;
 
     /**
      * 结束临时会话
      *
      * @param chatPair the chat pair
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/close_temp_chat")
-    WeComResponse closeTempChat(@Body ChatPair chatPair);
+    WeComResponse closeTempChat(@Body ChatPair chatPair) throws WeComException;
 }

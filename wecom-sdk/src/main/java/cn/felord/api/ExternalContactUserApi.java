@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.PageRequest;
@@ -41,9 +42,10 @@ public interface ExternalContactUserApi {
      *
      * @param userId the user id
      * @return the follow user list
+     * @throws WeComException the we com exception
      */
     @GET("externalcontact/list")
-    GenericResponse<List<String>> listByUserId(@Query("userid") String userId);
+    GenericResponse<List<String>> listByUserId(@Query("userid") String userId) throws WeComException;
 
     /**
      * 获取客户详情
@@ -51,72 +53,80 @@ public interface ExternalContactUserApi {
      * @param externalUserid the external userid
      * @param cursor         the cursor
      * @return the by user id
+     * @throws WeComException the we com exception
      */
     @GET("externalcontact/get")
-    ExternalUserDetailResponse getByExUserId(@Query("external_userid") String externalUserid, @Query("cursor") String cursor);
+    ExternalUserDetailResponse getByExUserId(@Query("external_userid") String externalUserid, @Query("cursor") String cursor) throws WeComException;
 
     /**
      * 批量获取客户详情
      *
      * @param request the request
      * @return the by user id
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/batch/get_by_user")
-    ExternalUserListDetailResponse batchByUserIds(@Body ExternalUserListDetailRequest request);
+    ExternalUserListDetailResponse batchByUserIds(@Body ExternalUserListDetailRequest request) throws WeComException;
 
     /**
      * 修改客户备注信息
      *
      * @param request the request
      * @return the external user list detail response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/remark")
-    WeComResponse remark(@Body CustomerRemarkRequest request);
+    WeComResponse remark(@Body CustomerRemarkRequest request) throws WeComException;
 
     /**
      * 获取规则组列表
      *
      * @param request the request
      * @return the external user list detail response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/customer_strategy/list")
-    StrategyListResponse customerStrategyList(@Body PageRequest request);
+    StrategyListResponse customerStrategyList(@Body PageRequest request) throws WeComException;
 
     /**
      * 获取规则组详情
      *
      * @param strategyId the strategy id
      * @return the external user list detail response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/customer_strategy/get")
-    CustomerStrategyDetailResponse getCustomerStrategy(@Body StrategyId strategyId);
+    CustomerStrategyDetailResponse getCustomerStrategy(@Body StrategyId strategyId) throws WeComException;
 
     /**
      * 获取规则组管理范围
      *
      * @param request the request
      * @return the external user list detail response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/customer_strategy/get_range")
-    StrategyRangeResponse getCustomerStrategyRange(@Body StrategyRangeRequest request);
+    StrategyRangeResponse getCustomerStrategyRange(@Body StrategyRangeRequest request) throws WeComException;
 
     /**
      * 创建新的规则组
      *
      * @param request the request
      * @return the customer strategy range response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/customer_strategy/create")
-    GenericResponse<Integer> createCustomerStrategy(@Body CustomerStrategyRequest request);
+    GenericResponse<Integer> createCustomerStrategy(@Body CustomerStrategyRequest request) throws WeComException;
 
     /**
      * 编辑规则组及其管理范围
      *
      * @param request the request
      * @return the customer strategy range response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/customer_strategy/edit")
-    WeComResponse editCustomerStrategy(@Body MutableCustomerStrategy request);
+    WeComResponse editCustomerStrategy(@Body MutableCustomerStrategy request) throws WeComException;
 
 
     /**
@@ -124,9 +134,10 @@ public interface ExternalContactUserApi {
      *
      * @param strategyId the strategy id
      * @return the customer strategy range response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/customer_strategy/del")
-    WeComResponse delCustomerStrategy(@Body StrategyId strategyId);
+    WeComResponse delCustomerStrategy(@Body StrategyId strategyId) throws WeComException;
 
     /**
      * 家校沟通-外部联系人openid转换
@@ -136,7 +147,8 @@ public interface ExternalContactUserApi {
      *
      * @param externalUserId the external user id
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/convert_to_openid")
-    GenericResponse<String> convertToOpenid(@Body ExternalUserId externalUserId);
+    GenericResponse<String> convertToOpenid(@Body ExternalUserId externalUserId) throws WeComException;
 }

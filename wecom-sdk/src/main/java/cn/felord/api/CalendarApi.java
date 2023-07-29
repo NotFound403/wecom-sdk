@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.oa.*;
@@ -34,34 +35,38 @@ public interface CalendarApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("oa/calendar/add")
-    GenericResponse<String> add(@Body CalendarAddRequest request);
+    GenericResponse<String> add(@Body CalendarAddRequest request) throws WeComException;
 
     /**
      * 更新日历
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("oa/calendar/update")
-    WeComResponse update(@Body CalendarUpdateRequest request);
+    WeComResponse update(@Body CalendarUpdateRequest request) throws WeComException;
 
     /**
      * 获取日历详情
      *
      * @param request the request
      * @return the calendar detail response
+     * @throws WeComException the we com exception
      */
     @POST("oa/calendar/get")
-    CalendarDetailResponse get(@Body CalendarDetailRequest request);
+    CalendarDetailResponse get(@Body CalendarDetailRequest request) throws WeComException;
 
     /**
      * 删除日历
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("oa/calendar/update")
-    WeComResponse del(@Body CalendarDelRequest request);
+    WeComResponse del(@Body CalendarDelRequest request) throws WeComException;
 }

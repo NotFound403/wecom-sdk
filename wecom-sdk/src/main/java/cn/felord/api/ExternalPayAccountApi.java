@@ -1,5 +1,6 @@
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.corpay.external.account.ApplyStatusResponse;
 import cn.felord.domain.corpay.external.account.MchAccountRequest;
@@ -25,9 +26,10 @@ public interface ExternalPayAccountApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("miniapppay/apply_mch")
-    GenericResponse<String> applyMch(@Body MchAccountRequest request);
+    GenericResponse<String> applyMch(@Body MchAccountRequest request) throws WeComException;
 
     /**
      * 查询申请单状态
@@ -38,7 +40,8 @@ public interface ExternalPayAccountApi {
      *
      * @param outRequestNo the out request no
      * @return the applyment status
+     * @throws WeComException the we com exception
      */
     @POST("miniapppay/get_applyment_status")
-    ApplyStatusResponse getApplymentStatus(@Body OutRequestNo outRequestNo);
+    ApplyStatusResponse getApplymentStatus(@Body OutRequestNo outRequestNo) throws WeComException;
 }

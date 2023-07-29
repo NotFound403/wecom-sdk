@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.oa.*;
@@ -36,61 +37,68 @@ public interface ScheduleApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("oa/schedule/add")
-    GenericResponse<String> add(@Body ScheduleAddRequest request);
+    GenericResponse<String> add(@Body ScheduleAddRequest request) throws WeComException;
 
     /**
      * 更新日程
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("oa/schedule/update")
-    GenericResponse<String> update(@Body ScheduleUpdateRequest request);
+    GenericResponse<String> update(@Body ScheduleUpdateRequest request) throws WeComException;
 
     /**
      * 新增日程参与者
      *
      * @param attendees the attendees
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("oa/schedule/add_attendees")
-    WeComResponse addAttendees(@Body ScheduleAttendees attendees);
+    WeComResponse addAttendees(@Body ScheduleAttendees attendees) throws WeComException;
 
     /**
      * 删除日程参与者
      *
      * @param attendees the attendees
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("oa/schedule/del_attendees")
-    WeComResponse delAttendees(@Body ScheduleAttendees attendees);
+    WeComResponse delAttendees(@Body ScheduleAttendees attendees) throws WeComException;
 
     /**
      * 获取日程详情
      *
      * @param scheduleIds the schedule ids
      * @return the schedule detail response
+     * @throws WeComException the we com exception
      */
     @POST("oa/schedule/get")
-    ScheduleDetailResponse get(@Body Set<String> scheduleIds);
+    ScheduleDetailResponse get(@Body Set<String> scheduleIds) throws WeComException;
 
     /**
      * 取消日程
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("oa/schedule/del")
-    WeComResponse del(@Body ScheduleDelRequest request);
+    WeComResponse del(@Body ScheduleDelRequest request) throws WeComException;
 
     /**
      * 获取日历下的日程列表
      *
      * @param query the query
      * @return the by calendar
+     * @throws WeComException the we com exception
      */
     @POST("oa/schedule/get_by_calendar")
-    ScheduleDetailResponse getByCalendar(@Body ScheduleCalendarQuery query);
+    ScheduleDetailResponse getByCalendar(@Body ScheduleCalendarQuery query) throws WeComException;
 }

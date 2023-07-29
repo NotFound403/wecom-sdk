@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.common.FormId;
 import cn.felord.domain.wedoc.form.*;
@@ -35,62 +36,69 @@ public interface FormApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("wedoc/create_form")
-    GenericResponse<String> createForm(@Body CreateFormRequest request);
+    GenericResponse<String> createForm(@Body CreateFormRequest request) throws WeComException;
 
     /**
      * 编辑收集表信息
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("wedoc/modify_form")
-    GenericResponse<FormDetail> modifyForm(@Body AbstractUpdateFormRequest request);
+    GenericResponse<FormDetail> modifyForm(@Body AbstractUpdateFormRequest request) throws WeComException;
 
     /**
      * 获取收集表信息
      *
      * @param formid the formid
      * @return the form
+     * @throws WeComException the we com exception
      */
     @POST("wedoc/get_form_info")
-    GenericResponse<FormDetail> getForm(@Body FormId formid);
+    GenericResponse<FormDetail> getForm(@Body FormId formid) throws WeComException;
 
     /**
      * 收集表的统计信息查询（仅获取统计结果）
      *
      * @param request the request
      * @return the form statistic response
+     * @throws WeComException the we com exception
      */
     @POST("wedoc/get_form_statistic")
-    FormStatisticResponse getFormStatistic(@Body FormStatisticRequest request);
+    FormStatisticResponse getFormStatistic(@Body FormStatisticRequest request) throws WeComException;
 
     /**
      * 收集表的统计信息查询（获取已提交列表）
      *
      * @param request the request
      * @return the form statistic response
+     * @throws WeComException the we com exception
      */
     @POST("wedoc/get_form_statistic")
-    FormConfirmedResponse getFormStatistic(@Body FormConfirmedRequest request);
+    FormConfirmedResponse getFormStatistic(@Body FormConfirmedRequest request) throws WeComException;
 
     /**
      * 收集表的统计信息查询（获取未提交列表，仅当限制提交范围时有结果）
      *
      * @param request the request
      * @return the form statistic
+     * @throws WeComException the we com exception
      */
     @POST("wedoc/get_form_statistic")
-    FormUnConfirmedResponse getFormStatistic(@Body FormUnConfirmedRequest request);
+    FormUnConfirmedResponse getFormStatistic(@Body FormUnConfirmedRequest request) throws WeComException;
 
     /**
      * 读取收集表答案
      *
      * @param request the request
      * @return the form answer response
+     * @throws WeComException the we com exception
      */
     @POST("wedoc/get_form_answer")
-    FormAnswerResponse getFormAnswer(@Body FormAnswerRequest request);
+    FormAnswerResponse getFormAnswer(@Body FormAnswerRequest request) throws WeComException;
 
 }

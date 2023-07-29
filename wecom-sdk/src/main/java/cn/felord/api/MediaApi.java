@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.common.JobId;
 import cn.felord.domain.media.MediaJobResponse;
@@ -59,10 +60,11 @@ public class MediaApi {
      * @param attachmentType the attachment type
      * @param resource       the resource
      * @return the media response
+     * @throws WeComException the we com exception
      */
     public MediaResponse uploadAttachment(MediaTypeEnum mediaType,
                                           MediaAttachmentType attachmentType,
-                                          MultipartResource resource) {
+                                          MultipartResource resource) throws WeComException {
         return internalMediaApi.uploadAttachment(mediaType.type(), attachmentType.getType(), this.toMultipartBody(resource));
     }
 
@@ -77,8 +79,9 @@ public class MediaApi {
      * @param mediaType the media type
      * @param resource  the resource
      * @return the media response
+     * @throws WeComException the we com exception
      */
-    public MediaResponse uploadMedia(MediaTypeEnum mediaType, MultipartResource resource) {
+    public MediaResponse uploadMedia(MediaTypeEnum mediaType, MultipartResource resource) throws WeComException {
         return internalMediaApi.uploadMedia(mediaType.type(), this.toMultipartBody(resource));
     }
 
@@ -91,8 +94,9 @@ public class MediaApi {
      *
      * @param resource the resource
      * @return the media response
+     * @throws WeComException the we com exception
      */
-    public MediaResponse uploadImage(MultipartResource resource) {
+    public MediaResponse uploadImage(MultipartResource resource) throws WeComException {
         return internalMediaApi.uploadImage(this.toMultipartBody(resource));
     }
 
@@ -102,8 +106,9 @@ public class MediaApi {
      *
      * @param mediaId the media id
      * @return the media
+     * @throws WeComException the we com exception
      */
-    public ResponseBody getMedia(String mediaId) {
+    public ResponseBody getMedia(String mediaId) throws WeComException {
         return internalMediaApi.getMedia(mediaId);
     }
 
@@ -113,8 +118,9 @@ public class MediaApi {
      *
      * @param mediaId the media id
      * @return the media js sdk
+     * @throws WeComException the we com exception
      */
-    public ResponseBody getMediaJsSdk(String mediaId) {
+    public ResponseBody getMediaJsSdk(String mediaId) throws WeComException {
         return internalMediaApi.getMediaJsSdk(mediaId);
     }
 
@@ -123,8 +129,9 @@ public class MediaApi {
      *
      * @param request the request
      * @return the single
+     * @throws WeComException the we com exception
      */
-    public GenericResponse<String> uploadByUrl(MediaUploadRequest request) {
+    public GenericResponse<String> uploadByUrl(MediaUploadRequest request) throws WeComException {
         return internalMediaApi.uploadByUrl(request);
     }
 
@@ -133,8 +140,9 @@ public class MediaApi {
      *
      * @param jobId the job id
      * @return the upload by url result
+     * @throws WeComException the we com exception
      */
-    public MediaJobResponse getUploadByUrlResult(@Body JobId jobId) {
+    public MediaJobResponse getUploadByUrlResult(@Body JobId jobId) throws WeComException {
         return internalMediaApi.getUploadByUrlResult(jobId);
     }
 
@@ -143,8 +151,9 @@ public class MediaApi {
      *
      * @param resource the resource
      * @return the generic response
+     * @throws WeComException the we com exception
      */
-    public GenericResponse<String> uploadPayImage(MultipartResource resource) {
+    public GenericResponse<String> uploadPayImage(MultipartResource resource) throws WeComException {
         return internalMediaApi.uploadPayImage(this.toMultipartBody(resource));
     }
 

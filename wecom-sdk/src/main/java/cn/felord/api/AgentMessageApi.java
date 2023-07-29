@@ -16,6 +16,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.MsgId;
 import cn.felord.domain.message.*;
@@ -51,9 +52,10 @@ public class AgentMessageApi {
      * @param <B>  the type parameter
      * @param body the body
      * @return the message response
+     * @throws WeComException the we com exception
      * @see MessageBodyBuilders
      */
-    public <B extends AbstractMessageBody> MessageResponse send(B body) {
+    public <B extends AbstractMessageBody> MessageResponse send(B body) throws WeComException {
         String msgtype = body.getMsgtype();
         if (!Objects.equals("miniprogram_notice", msgtype)) {
             String agentId = this.agentDetails.getAgentId();
@@ -68,9 +70,10 @@ public class AgentMessageApi {
      * @param <R>     the type parameter
      * @param request the request
      * @return the message response
+     * @throws WeComException the we com exception
      * @see TemplateReplaceCardBuilders
      */
-    public <R extends AbstractUpdateTemplateCardRequest> MessageResponse updateTemplateCard(R request) {
+    public <R extends AbstractUpdateTemplateCardRequest> MessageResponse updateTemplateCard(R request) throws WeComException {
         return internalAgentMessageApi.updateTemplateCard(request);
     }
 
@@ -79,8 +82,9 @@ public class AgentMessageApi {
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the we com exception
      */
-    public WeComResponse recall(@Body MsgId request) {
+    public WeComResponse recall(@Body MsgId request) throws WeComException {
         return internalAgentMessageApi.recall(request);
     }
 }

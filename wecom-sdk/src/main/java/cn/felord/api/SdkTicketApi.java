@@ -17,6 +17,7 @@ package cn.felord.api;
 
 import cn.felord.AgentDetails;
 import cn.felord.WeComAgentTicketCacheable;
+import cn.felord.WeComException;
 import cn.felord.domain.authentication.JsTicketResponse;
 import cn.felord.domain.jssdk.AgentConfigResponse;
 import cn.felord.domain.jssdk.CorpConfigResponse;
@@ -53,7 +54,7 @@ public class SdkTicketApi {
      * @param url the url
      * @return the js ticket response
      */
-    public CorpConfigResponse corpTicket(String url) {
+    public CorpConfigResponse corpTicket(String url) throws WeComException {
         String corpId = agentDetails.getCorpId();
         String agentId = agentDetails.getAgentId();
 
@@ -79,7 +80,7 @@ public class SdkTicketApi {
      * @param url the url
      * @return the js ticket response
      */
-    public AgentConfigResponse agentTicket(String url) {
+    public AgentConfigResponse agentTicket(String url) throws WeComException {
         String corpId = agentDetails.getCorpId();
         String agentId = agentDetails.getAgentId();
         String agentTicket = weComAgentTicketCacheable.getAgentTicket(corpId, agentId);

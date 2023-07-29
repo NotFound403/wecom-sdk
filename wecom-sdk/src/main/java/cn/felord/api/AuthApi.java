@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.contactbook.user.UserDetailResponse;
 import cn.felord.domain.contactbook.user.UserSensitiveInfoResponse;
 import cn.felord.domain.contactbook.user.UserTicket;
@@ -37,10 +38,11 @@ public interface AuthApi {
      * 该接口用于根据code获取成员信息，适用于自建应用与代开发应用
      *
      * @param code 通过成员授权获取到的code
-     * @return UserDetailResponse
+     * @return UserDetailResponse user info
+     * @throws WeComException the we com exception
      */
     @GET("auth/getuserinfo")
-    UserDetailResponse getUserInfo(@Query("code") String code);
+    UserDetailResponse getUserInfo(@Query("code") String code) throws WeComException;
 
     /**
      * 获取访问用户敏感信息，需要授权scope包含{@code snsapi_privateinfo}
@@ -48,8 +50,9 @@ public interface AuthApi {
      * 自建应用与代开发应用可通过该接口获取成员授权的敏感字段
      *
      * @param userTicket 成员票据
-     * @return UserSensitiveInfoResponse
+     * @return UserSensitiveInfoResponse user detail
+     * @throws WeComException the we com exception
      */
     @POST("auth/getuserdetail")
-    UserSensitiveInfoResponse getUserDetail(@Body UserTicket userTicket);
+    UserSensitiveInfoResponse getUserDetail(@Body UserTicket userTicket) throws WeComException;
 }

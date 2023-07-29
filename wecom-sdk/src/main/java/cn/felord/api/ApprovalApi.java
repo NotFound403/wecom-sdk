@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.approval.*;
@@ -48,9 +49,10 @@ public interface ApprovalApi {
      *
      * @param template the template
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("oa/approval/create_template")
-    GenericResponse<String> createTemplate(@Body ApprovalTempAddRequest template);
+    GenericResponse<String> createTemplate(@Body ApprovalTempAddRequest template) throws WeComException;
 
     /**
      * 更新审批模板
@@ -65,18 +67,20 @@ public interface ApprovalApi {
      *
      * @param template the template
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("oa/approval/update_template")
-    WeComResponse updateTemplate(@Body ApprovalTempUpdateRequest template);
+    WeComResponse updateTemplate(@Body ApprovalTempUpdateRequest template) throws WeComException;
 
     /**
      * 提交审批申请
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("oa/applyevent")
-    GenericResponse<String> apply(@Body ApprovalApplyRequest request);
+    GenericResponse<String> apply(@Body ApprovalApplyRequest request) throws WeComException;
 
     /**
      * 批量获取审批单号
@@ -89,9 +93,10 @@ public interface ApprovalApi {
      *
      * @param request the request
      * @return the sp no list response
+     * @throws WeComException the we com exception
      */
     @POST("oa/getapprovalinfo")
-    SpNoListResponse queryApprovalInfos(@Body SpNoListRequest request);
+    SpNoListResponse queryApprovalInfos(@Body SpNoListRequest request) throws WeComException;
 
     /**
      * 获取审批申请详情
@@ -99,16 +104,18 @@ public interface ApprovalApi {
      *
      * @param spNo the sp no
      * @return sp no list response
+     * @throws WeComException the we com exception
      */
     @POST("oa/getapprovaldetail")
-    GenericResponse<ApprovalDetail> queryApprovalDetail(@Body ApprovalSpNo spNo);
+    GenericResponse<ApprovalDetail> queryApprovalDetail(@Body ApprovalSpNo spNo) throws WeComException;
 
     /**
      * 查询自建应用审批单当前状态
      *
      * @param thirdNo the third no thirdNo
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("corp/getopenapprovaldata")
-    GenericResponse<OpenApprovalData> queryOpenApprovalData(@Body ApprovalThirdNo thirdNo);
+    GenericResponse<OpenApprovalData> queryOpenApprovalData(@Body ApprovalThirdNo thirdNo) throws WeComException;
 }

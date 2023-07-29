@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.UserId;
@@ -40,18 +41,20 @@ public interface UserApi {
      *
      * @param request the request
      * @return the user id convert response
+     * @throws WeComException the we com exception
      */
     @POST("batch/openuserid_to_userid")
-    UserIdConvertResponse batchOpenUserIdToUserId(@Body UserIdConvertRequest request);
+    UserIdConvertResponse batchOpenUserIdToUserId(@Body UserIdConvertRequest request) throws WeComException;
 
     /**
      * tmp_external_userid的转换
      *
      * @param request the request
      * @return the user id convert response
+     * @throws WeComException the we com exception
      */
     @POST("idconvert/convert_tmp_external_userid")
-    GenericResponse<List<TmpUser>> batchOpenUserIdToUserId(@Body ConvertTmpUserRequest request);
+    GenericResponse<List<TmpUser>> batchOpenUserIdToUserId(@Body ConvertTmpUserRequest request) throws WeComException;
 
     /**
      * 创建成员
@@ -60,9 +63,10 @@ public interface UserApi {
      *
      * @param request the request
      * @return WeComResponse we com response
+     * @throws WeComException the we com exception
      */
     @POST("user/create")
-    WeComResponse createUser(@Body UserInfoRequest request);
+    WeComResponse createUser(@Body UserInfoRequest request) throws WeComException;
 
     /**
      * 读取成员（自建）
@@ -71,9 +75,10 @@ public interface UserApi {
      *
      * @param userId the user id
      * @return UserInfoResponse user
+     * @throws WeComException the we com exception
      */
     @GET("user/get")
-    UserInfoResponse getUser(@Query("userid") String userId);
+    UserInfoResponse getUser(@Query("userid") String userId) throws WeComException;
 
     /**
      * 更新成员，这里建议userid不可更改，虽然微信支持修改一次。
@@ -82,9 +87,10 @@ public interface UserApi {
      *
      * @param request the request
      * @return WeComResponse we com response
+     * @throws WeComException the we com exception
      */
     @POST("user/update")
-    WeComResponse updateUser(@Body UserInfoRequest request);
+    WeComResponse updateUser(@Body UserInfoRequest request) throws WeComException;
 
     /**
      * 删除成员
@@ -93,9 +99,10 @@ public interface UserApi {
      *
      * @param userId the user id
      * @return WeComResponse we com response
+     * @throws WeComException the we com exception
      */
     @GET("user/delete")
-    WeComResponse deleteUser(@Query("userid") String userId);
+    WeComResponse deleteUser(@Query("userid") String userId) throws WeComException;
 
     /**
      * 获取成员ID列表
@@ -103,9 +110,10 @@ public interface UserApi {
      * @param cursor the cursor
      * @param limit  the limit
      * @return the dept user list response
+     * @throws WeComException the we com exception
      */
     @GET("user/list_id")
-    DeptUserListResponse userList(@Query("cursor") String cursor, @Query("limit") int limit);
+    DeptUserListResponse userList(@Query("cursor") String cursor, @Query("limit") int limit) throws WeComException;
 
     /**
      * 批量删除成员
@@ -114,9 +122,10 @@ public interface UserApi {
      *
      * @param userIdList the user id list
      * @return WeComResponse we com response
+     * @throws WeComException the we com exception
      */
     @POST("user/batchdelete")
-    WeComResponse batchDelUser(@Body UserIds userIdList);
+    WeComResponse batchDelUser(@Body UserIds userIdList) throws WeComException;
 
     /**
      * 获取部门成员
@@ -125,9 +134,10 @@ public interface UserApi {
      *
      * @param departmentId departmentId
      * @return SimpleUserResponse dept users
+     * @throws WeComException the we com exception
      */
     @GET("user/simplelist")
-    GenericResponse<List<SimpleUser>> getDeptUsers(@Query("department_id") long departmentId);
+    GenericResponse<List<SimpleUser>> getDeptUsers(@Query("department_id") long departmentId) throws WeComException;
 
     /**
      * 获取部门成员详情（自建）
@@ -136,9 +146,10 @@ public interface UserApi {
      *
      * @param departmentId departmentId
      * @return UserDetailResponse dept user details
+     * @throws WeComException the we com exception
      */
     @GET("user/list")
-    GenericResponse<List<UserDetail>> getDeptUserDetails(@Query("department_id") long departmentId);
+    GenericResponse<List<UserDetail>> getDeptUserDetails(@Query("department_id") long departmentId) throws WeComException;
 
     /**
      * userid与openid互换
@@ -150,9 +161,10 @@ public interface UserApi {
      *
      * @param request the request
      * @return OpenIdResponse generic response
+     * @throws WeComException the we com exception
      */
     @POST("user/convert_to_openid")
-    GenericResponse<String> converToOpenid(@Body UserId request);
+    GenericResponse<String> converToOpenid(@Body UserId request) throws WeComException;
 
     /**
      * 二次验证
@@ -161,9 +173,10 @@ public interface UserApi {
      *
      * @param userId userId
      * @return WeComResponse we com response
+     * @throws WeComException the we com exception
      */
     @GET("user/authsucc")
-    WeComResponse userAuth(@Query("userid") String userId);
+    WeComResponse userAuth(@Query("userid") String userId) throws WeComException;
 
     /**
      * 邀请成员
@@ -172,9 +185,10 @@ public interface UserApi {
      *
      * @param request batchInviteRequest
      * @return BatchInviteResponse batch invite response
+     * @throws WeComException the we com exception
      */
     @POST("batch/invite")
-    BatchInviteResponse inviteUsers(@Body BatchInviteRequest request);
+    BatchInviteResponse inviteUsers(@Body BatchInviteRequest request) throws WeComException;
 
     /**
      * 获取加入企业二维码
@@ -183,9 +197,10 @@ public interface UserApi {
      *
      * @param userQrcodeSize 范围 [1,4]
      * @return WeComResponse join qrcode
+     * @throws WeComException the we com exception
      */
     @GET("corp/get_join_qrcode")
-    GenericResponse<String> getJoinQrcode(@Query("size_type") int userQrcodeSize);
+    GenericResponse<String> getJoinQrcode(@Query("size_type") int userQrcodeSize) throws WeComException;
 
 
     /**
@@ -195,16 +210,18 @@ public interface UserApi {
      *
      * @param mobile mobile
      * @return WeComResponse active stat
+     * @throws WeComException the we com exception
      */
     @POST("user/getuserid")
-    GenericResponse<String> getUserIdByMobile(@Body Mobile mobile);
+    GenericResponse<String> getUserIdByMobile(@Body Mobile mobile) throws WeComException;
 
     /**
      * 邮箱获取userid
      *
      * @param request the request
      * @return WeComResponse active stat
+     * @throws WeComException the we com exception
      */
     @POST("user/get_userid_by_email")
-    GenericResponse<String> getUserIdByEmail(@Body EmailUserRequest request);
+    GenericResponse<String> getUserIdByEmail(@Body EmailUserRequest request) throws WeComException;
 }

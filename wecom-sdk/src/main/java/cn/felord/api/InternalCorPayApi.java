@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.corpay.internal.*;
 import cn.felord.enumeration.PaySignType;
 import cn.felord.retrofit.RetrofitFactory;
@@ -56,8 +57,9 @@ public class InternalCorPayApi {
      *
      * @param request the request
      * @return the string
+     * @throws WeComException the we com exception
      */
-    public RedPackResponse sendWorkWxRedPack(RedPackRequest request) {
+    public RedPackResponse sendWorkWxRedPack(RedPackRequest request) throws WeComException {
         request.workWxSign(this.payAgentSecret);
         String xmlResponse = mmPayMktTransfersApi.sendWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5));
         return XStreamXmlReader.INSTANCE.read(xmlResponse, RedPackResponse.class);
@@ -69,8 +71,9 @@ public class InternalCorPayApi {
      *
      * @param request the request
      * @return the string
+     * @throws WeComException the we com exception
      */
-    public RedPackRecordResponse queryWorkWxRedPack(RedPackRecordRequest request) {
+    public RedPackRecordResponse queryWorkWxRedPack(RedPackRecordRequest request) throws WeComException {
         String xmlResponse = mmPayMktTransfersApi.queryWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5));
         return XStreamXmlReader.INSTANCE.read(xmlResponse, RedPackRecordResponse.class);
     }
@@ -81,8 +84,9 @@ public class InternalCorPayApi {
      *
      * @param request the request
      * @return the string
+     * @throws WeComException the we com exception
      */
-    public TransPocketResponse payWwSpTrans2Pocket(TransPocketRequest request) {
+    public TransPocketResponse payWwSpTrans2Pocket(TransPocketRequest request) throws WeComException {
         request.workWxSign(this.payAgentSecret);
         String xmlResponse = mmPayMktTransfersApi.payWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));
         return XStreamXmlReader.INSTANCE.read(xmlResponse, TransPocketResponse.class);
@@ -94,8 +98,9 @@ public class InternalCorPayApi {
      *
      * @param request the request
      * @return the string
+     * @throws WeComException the we com exception
      */
-    public TransPocketRecordResponse queryWwSpTrans2Pocket(TransPocketRecordRequest request) {
+    public TransPocketRecordResponse queryWwSpTrans2Pocket(TransPocketRecordRequest request) throws WeComException {
         String xmlResponse = mmPayMktTransfersApi.queryWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));
         return XStreamXmlReader.INSTANCE.read(xmlResponse, TransPocketRecordResponse.class);
     }

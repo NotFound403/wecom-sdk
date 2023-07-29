@@ -1,5 +1,6 @@
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.corpay.external.*;
@@ -25,9 +26,10 @@ public interface ExternalCorPayApi {
      *
      * @param mchId the mch id
      * @return the merchant
+     * @throws WeComException the we com exception
      */
     @POST("externalpay/getmerchant")
-    MchDetailResponse getMerchant(@Body MchId mchId);
+    MchDetailResponse getMerchant(@Body MchId mchId) throws WeComException;
 
     /**
      * 设置商户号使用范围
@@ -38,8 +40,9 @@ public interface ExternalCorPayApi {
      *
      * @param request the request
      * @return the mch use scope
+     * @throws WeComException the we com exception
      */
-    WeComResponse setMchUseScope(@Body MchScopeRequest request);
+    WeComResponse setMchUseScope(@Body MchScopeRequest request) throws WeComException;
 
     /**
      * 获取对外收款记录
@@ -63,9 +66,10 @@ public interface ExternalCorPayApi {
      *
      * @param request the request
      * @return the bill list
+     * @throws WeComException the we com exception
      */
     @POST("externalpay/get_bill_list")
-    BillResponse getBillList(@Body BillRequest request);
+    BillResponse getBillList(@Body BillRequest request) throws WeComException;
 
     /**
      * 获取收款项目的商户单号
@@ -80,9 +84,10 @@ public interface ExternalCorPayApi {
      *
      * @param paymentId the payment id
      * @return the payment info
+     * @throws WeComException the we com exception
      */
     @POST("externalpay/get_payment_info")
-    GenericResponse<List<OutTradeNo>> getPaymentInfo(@Body PaymentId paymentId);
+    GenericResponse<List<OutTradeNo>> getPaymentInfo(@Body PaymentId paymentId) throws WeComException;
 
     /**
      * 获取资金流水
@@ -105,7 +110,8 @@ public interface ExternalCorPayApi {
      *
      * @param request the request
      * @return the fund flow
+     * @throws WeComException the we com exception
      */
     @POST("externalpay/get_fund_flow")
-    FundFlowResponse getFundFlow(@Body FundFlowRequest request);
+    FundFlowResponse getFundFlow(@Body FundFlowRequest request) throws WeComException;
 }

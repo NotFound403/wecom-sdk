@@ -1,6 +1,7 @@
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;
@@ -32,8 +33,9 @@ public class AgentManagerApi {
      * Gets agent details.
      *
      * @return the agent details
+     * @throws WeComException the we com exception
      */
-    public AgentDetailsResponse getAgentDetails() {
+    public AgentDetailsResponse getAgentDetails() throws WeComException {
         return internalAgentManagerApi.getAgentDetails(agentDetails.getAgentId());
     }
 
@@ -42,8 +44,9 @@ public class AgentManagerApi {
      *
      * @param request the request
      * @return WeComResponse
+     * @throws WeComException the we com exception
      */
-    public WeComResponse settings(AgentSettingRequest request) {
+    public WeComResponse settings(AgentSettingRequest request) throws WeComException {
         return internalAgentManagerApi.settings(Settings.from(agentDetails.getAgentId(), request));
     }
 
@@ -51,7 +54,7 @@ public class AgentManagerApi {
     /**
      * The type Settings.
      */
-    public static class Settings extends AgentSettingRequest {
+    static class Settings extends AgentSettingRequest {
         private final String agentid;
 
 

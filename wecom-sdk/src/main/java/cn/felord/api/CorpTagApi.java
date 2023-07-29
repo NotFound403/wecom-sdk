@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
@@ -36,79 +37,88 @@ public interface CorpTagApi {
      *
      * @param request the request
      * @return the customer strategy detail response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/get_corp_tag_list")
-    GenericResponse<List<CorpTagGroup>> corpTagList(@Body CorpTagIterator request);
+    GenericResponse<List<CorpTagGroup>> corpTagList(@Body CorpTagIterator request) throws WeComException;
 
     /**
      * 添加企业客户标签
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/add_corp_tag")
-    GenericResponse<CorpTagGroup> addCorpTag(@Body CorpTagAddRequest request);
+    GenericResponse<CorpTagGroup> addCorpTag(@Body CorpTagAddRequest request) throws WeComException;
 
     /**
      * 编辑企业客户标签
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/edit_corp_tag")
-    WeComResponse editCorpTag(@Body CorpTagEditRequest request);
+    WeComResponse editCorpTag(@Body CorpTagEditRequest request) throws WeComException;
 
     /**
      * 删除企业客户标签
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/del_corp_tag")
-    WeComResponse delCorpTag(@Body AgentCorpTagIterator request);
+    WeComResponse delCorpTag(@Body AgentCorpTagIterator request) throws WeComException;
 
     /**
      * 管理企业规则组下的客户标签
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/get_strategy_tag_list")
-    GenericResponse<List<CorpTagGroup>> strategyCorpTagList(@Body StrategyCorpTagIterator request);
+    GenericResponse<List<CorpTagGroup>> strategyCorpTagList(@Body StrategyCorpTagIterator request) throws WeComException;
 
     /**
      * 为指定规则组创建企业客户标签
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/add_strategy_tag")
-    GenericResponse<CorpTagGroup> addStrategyCorpTag(@Body CorpTagStrategyAddRequest request);
+    GenericResponse<CorpTagGroup> addStrategyCorpTag(@Body CorpTagStrategyAddRequest request) throws WeComException;
 
     /**
      * 编辑指定规则组下的企业客户标签
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/edit_strategy_tag")
-    WeComResponse editStrategyCorpTag(@Body CorpTagStrategyEditRequest request);
+    WeComResponse editStrategyCorpTag(@Body CorpTagStrategyEditRequest request) throws WeComException;
 
     /**
      * 编辑指定规则组下的企业客户标签
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/del_strategy_tag")
-    WeComResponse delStrategyCorpTag(@Body CorpTagIterator request);
+    WeComResponse delStrategyCorpTag(@Body CorpTagIterator request) throws WeComException;
 
     /**
      * 编辑客户企业标签
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the we com exception
      */
     @POST("externalcontact/mark_tag")
-    WeComResponse markTag(@Body CorpTagOptRequest request);
+    WeComResponse markTag(@Body CorpTagOptRequest request) throws WeComException;
 }

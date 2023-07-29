@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.authentication.JsTicketResponse;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -31,16 +32,18 @@ interface JsApi {
      * 获取企业的jsapi_ticket
      *
      * @return the single
+     * @throws WeComException the we com exception
      */
     @GET("get_jsapi_ticket")
-    JsTicketResponse corpJsApiTicket();
+    JsTicketResponse corpJsApiTicket() throws WeComException;
 
     /**
      * 获取应用的jsapi_ticket
      *
      * @param agentConfig the agent config
      * @return the single
+     * @throws WeComException the we com exception
      */
     @GET("ticket/get")
-    JsTicketResponse agentJsApiTicket(@Query("type") String agentConfig);
+    JsTicketResponse agentJsApiTicket(@Query("type") String agentConfig) throws WeComException;
 }
