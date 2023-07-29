@@ -42,7 +42,7 @@ public interface ExternalContactUserApi {
      *
      * @param userId the user id
      * @return the follow user list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("externalcontact/list")
     GenericResponse<List<String>> listByUserId(@Query("userid") String userId) throws WeComException;
@@ -53,7 +53,7 @@ public interface ExternalContactUserApi {
      * @param externalUserid the external userid
      * @param cursor         the cursor
      * @return the by user id
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("externalcontact/get")
     ExternalUserDetailResponse getByExUserId(@Query("external_userid") String externalUserid, @Query("cursor") String cursor) throws WeComException;
@@ -63,7 +63,7 @@ public interface ExternalContactUserApi {
      *
      * @param request the request
      * @return the by user id
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/batch/get_by_user")
     ExternalUserListDetailResponse batchByUserIds(@Body ExternalUserListDetailRequest request) throws WeComException;
@@ -73,7 +73,7 @@ public interface ExternalContactUserApi {
      *
      * @param request the request
      * @return the external user list detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/remark")
     WeComResponse remark(@Body CustomerRemarkRequest request) throws WeComException;
@@ -83,7 +83,7 @@ public interface ExternalContactUserApi {
      *
      * @param request the request
      * @return the external user list detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_strategy/list")
     StrategyListResponse customerStrategyList(@Body PageRequest request) throws WeComException;
@@ -93,7 +93,7 @@ public interface ExternalContactUserApi {
      *
      * @param strategyId the strategy id
      * @return the external user list detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_strategy/get")
     CustomerStrategyDetailResponse getCustomerStrategy(@Body StrategyId strategyId) throws WeComException;
@@ -103,7 +103,7 @@ public interface ExternalContactUserApi {
      *
      * @param request the request
      * @return the external user list detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_strategy/get_range")
     StrategyRangeResponse getCustomerStrategyRange(@Body StrategyRangeRequest request) throws WeComException;
@@ -113,7 +113,7 @@ public interface ExternalContactUserApi {
      *
      * @param request the request
      * @return the customer strategy range response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_strategy/create")
     GenericResponse<Integer> createCustomerStrategy(@Body CustomerStrategyRequest request) throws WeComException;
@@ -123,7 +123,7 @@ public interface ExternalContactUserApi {
      *
      * @param request the request
      * @return the customer strategy range response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_strategy/edit")
     WeComResponse editCustomerStrategy(@Body MutableCustomerStrategy request) throws WeComException;
@@ -134,7 +134,7 @@ public interface ExternalContactUserApi {
      *
      * @param strategyId the strategy id
      * @return the customer strategy range response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_strategy/del")
     WeComResponse delCustomerStrategy(@Body StrategyId strategyId) throws WeComException;
@@ -147,7 +147,7 @@ public interface ExternalContactUserApi {
      *
      * @param externalUserId the external user id
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/convert_to_openid")
     GenericResponse<String> convertToOpenid(@Body ExternalUserId externalUserId) throws WeComException;

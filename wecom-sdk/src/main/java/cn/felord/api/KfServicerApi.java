@@ -37,7 +37,7 @@ public interface KfServicerApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/servicer/add")
     KfServicerResponse addKfServicer(@Body KfServicerRequest request) throws WeComException;
@@ -47,7 +47,7 @@ public interface KfServicerApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/servicer/del")
     KfServicerResponse delKfServicer(@Body KfServicerRequest request) throws WeComException;
@@ -57,7 +57,7 @@ public interface KfServicerApi {
      *
      * @param openKfid the openKfid
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("kf/servicer/list")
     KfServicerListResponse kfServicerList(@Query("open_kfid") String openKfid) throws WeComException;

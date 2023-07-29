@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.api;
 
 import cn.felord.WeComException;
@@ -24,7 +39,7 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/create_order")
     GenericResponse<String> createOrder(@Body MiniPayRequest request) throws WeComException;
@@ -43,7 +58,7 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the order
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/get_order")
     PayOrderDetailResponse getOrder(@Body MchIdAndOutTradeNo request) throws WeComException;
@@ -61,7 +76,7 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/close_order")
     WeComResponse closeOrder(@Body MchIdAndOutTradeNo request) throws WeComException;
@@ -73,7 +88,7 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the sign
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/get_sign")
     GenericResponse<String> getSign(@Body PaySignRequest request) throws WeComException;
@@ -92,7 +107,7 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the refund response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/refund")
     RefundResponse refund(@Body RefundRequest request) throws WeComException;
@@ -104,7 +119,7 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the refund detail
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/get_refund_detail")
     RefundDetailResponse getRefundDetail(@Body MchIdAndOutRefundNo request) throws WeComException;
@@ -116,7 +131,7 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the bill
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/get_bill")
     BillResponse getBill(@Body BillRequest request) throws WeComException;
@@ -131,7 +146,7 @@ public interface MiniAppPay {
      * @param downloadUrl   the download url
      * @param authorization the authorization
      * @return the response body
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      * @see #getBill(BillRequest) #getBill(BillRequest)交易账单申请
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/apiv3/download/ALL.xlsx">对账单示例</a>
      */

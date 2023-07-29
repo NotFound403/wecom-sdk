@@ -39,7 +39,7 @@ public interface ExternalStatisticApi {
      *
      * @param request the request
      * @return the user behavior data
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_user_behavior_data")
     UserBehaviorDataResponse getUserBehaviorData(@Body UserBehaviorDataRequest request) throws WeComException;
@@ -53,7 +53,7 @@ public interface ExternalStatisticApi {
      *
      * @param request the request
      * @return the group chat data
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/statistic")
     GroupChatDataResponse<GroupChatDataByOwner> getGroupChatData(@Body GroupChatOwnerDataRequest request) throws WeComException;
@@ -63,7 +63,7 @@ public interface ExternalStatisticApi {
      *
      * @param request the request
      * @return the group chat data by day
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/statistic_group_by_day")
     GroupChatDataResponse<GroupChatDataByDay> getGroupChatData(@Body GroupChatDayDataRequest request) throws WeComException;

@@ -35,7 +35,7 @@ public interface GroupChatApi {
      *
      * @param request the request
      * @return the transfer result response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/list")
     GroupChatListResponse groupChatList(@Body GroupChatListRequest request) throws WeComException;
@@ -45,7 +45,7 @@ public interface GroupChatApi {
      *
      * @param request the request
      * @return the group chat detail
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/get")
     GenericResponse<GroupChatDetail> getGroupChatDetail(@Body GroupChatDetailRequest request) throws WeComException;
@@ -55,7 +55,7 @@ public interface GroupChatApi {
      *
      * @param opengid the opengid
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/opengid_to_chatid")
     GenericResponse<String> opengidToChatid(@Body OpenGid opengid) throws WeComException;
@@ -67,7 +67,7 @@ public interface GroupChatApi {
      *
      * @param body the body
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/add_join_way")
     GenericResponse<String> addGroupChatWay(@Body GroupChatWayBody body) throws WeComException;
@@ -79,7 +79,7 @@ public interface GroupChatApi {
      *
      * @param configId the config id
      * @return the contact way
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/get_join_way")
     GenericResponse<GroupChatWayResponse> getGroupChatWay(@Body ConfigId configId) throws WeComException;
@@ -91,7 +91,7 @@ public interface GroupChatApi {
      *
      * @param body the body
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/update_join_way")
     WeComResponse updateGroupChatWay(@Body MutableGroupChatWayBody body) throws WeComException;
@@ -103,7 +103,7 @@ public interface GroupChatApi {
      *
      * @param configId the config id
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/del_join_way")
     WeComResponse delGroupChatWay(@Body ConfigId configId) throws WeComException;

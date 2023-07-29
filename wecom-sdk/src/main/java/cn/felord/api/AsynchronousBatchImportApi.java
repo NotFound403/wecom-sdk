@@ -39,7 +39,7 @@ public interface AsynchronousBatchImportApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("batch/syncuser")
     GenericResponse<String> batchSyncUser(@Body BatchUserRequest request) throws WeComException;
@@ -49,7 +49,7 @@ public interface AsynchronousBatchImportApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("batch/replaceuser")
     GenericResponse<String> batchSyncReplaceUser(@Body BatchUserRequest request) throws WeComException;
@@ -59,7 +59,7 @@ public interface AsynchronousBatchImportApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("batch/replaceparty")
     GenericResponse<String> batchSyncReplaceParty(@Body BatchPartyRequest request) throws WeComException;
@@ -69,7 +69,7 @@ public interface AsynchronousBatchImportApi {
      *
      * @param jobId the job id
      * @return the result
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("batch/getresult")
     BatchResultResponse getResult(@Query("jobid") String jobId) throws WeComException;

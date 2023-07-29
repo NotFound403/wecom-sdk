@@ -52,7 +52,7 @@ public class FileManagerApi {
      *
      * @param fileid the fileid
      * @return the file download response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public BufferSource downloadByFileId(String fileid) throws WeComException {
         FileDownloadResponse downloadResponse = internalFileManagerApi.getFileUrlByFileId(new FileId(fileid));
@@ -64,7 +64,7 @@ public class FileManagerApi {
      *
      * @param selectedTicket the selected ticket
      * @return the file download response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public BufferSource downloadBySelectedTicket(String selectedTicket) throws WeComException {
         FileDownloadResponse downloadResponse = internalFileManagerApi.getFileUrlBySelectedTicket(new SelectedTicket(selectedTicket));
@@ -91,7 +91,7 @@ public class FileManagerApi {
          * @param downloadUrl the download url
          * @param cookie      the cookie
          * @return the response body
-         * @throws WeComException the we com exception
+         * @throws WeComException the weComException
          */
         @POST
         ResponseBody download(@Url String downloadUrl, @Header("Cookie") String cookie) throws WeComException;

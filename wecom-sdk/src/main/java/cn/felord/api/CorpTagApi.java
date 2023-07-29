@@ -37,7 +37,7 @@ public interface CorpTagApi {
      *
      * @param request the request
      * @return the customer strategy detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_corp_tag_list")
     GenericResponse<List<CorpTagGroup>> corpTagList(@Body CorpTagIterator request) throws WeComException;
@@ -47,7 +47,7 @@ public interface CorpTagApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_corp_tag")
     GenericResponse<CorpTagGroup> addCorpTag(@Body CorpTagAddRequest request) throws WeComException;
@@ -57,7 +57,7 @@ public interface CorpTagApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/edit_corp_tag")
     WeComResponse editCorpTag(@Body CorpTagEditRequest request) throws WeComException;
@@ -67,7 +67,7 @@ public interface CorpTagApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/del_corp_tag")
     WeComResponse delCorpTag(@Body AgentCorpTagIterator request) throws WeComException;
@@ -77,7 +77,7 @@ public interface CorpTagApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_strategy_tag_list")
     GenericResponse<List<CorpTagGroup>> strategyCorpTagList(@Body StrategyCorpTagIterator request) throws WeComException;
@@ -87,7 +87,7 @@ public interface CorpTagApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_strategy_tag")
     GenericResponse<CorpTagGroup> addStrategyCorpTag(@Body CorpTagStrategyAddRequest request) throws WeComException;
@@ -97,7 +97,7 @@ public interface CorpTagApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/edit_strategy_tag")
     WeComResponse editStrategyCorpTag(@Body CorpTagStrategyEditRequest request) throws WeComException;
@@ -107,7 +107,7 @@ public interface CorpTagApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/del_strategy_tag")
     WeComResponse delStrategyCorpTag(@Body CorpTagIterator request) throws WeComException;
@@ -117,7 +117,7 @@ public interface CorpTagApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/mark_tag")
     WeComResponse markTag(@Body CorpTagOptRequest request) throws WeComException;

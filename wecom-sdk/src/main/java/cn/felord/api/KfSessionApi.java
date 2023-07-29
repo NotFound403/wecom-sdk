@@ -34,7 +34,7 @@ public interface KfSessionApi {
      *
      * @param kfAndExternalUser the kf and external user
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/service_state/get")
     KfSessionResponse getSessionState(@Body KfAndExternalUser kfAndExternalUser) throws WeComException;
@@ -44,7 +44,7 @@ public interface KfSessionApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/service_state/trans")
     GenericResponse<String> trans(@Body KfSessionUpdateRequest request) throws WeComException;
@@ -54,7 +54,7 @@ public interface KfSessionApi {
      *
      * @param request the request
      * @return the sync msg response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/sync_msg")
     SyncMsgResponse syncMsg(@Body SyncMsgRequest request) throws WeComException;
@@ -68,7 +68,7 @@ public interface KfSessionApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/send_msg")
     GenericResponse<String> sendMsg(@Body KfMessageRequest request) throws WeComException;
@@ -82,7 +82,7 @@ public interface KfSessionApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/send_msg_on_event")
     GenericResponse<String> sendEventMsg(@Body KfEventMessageRequest request) throws WeComException;

@@ -35,7 +35,7 @@ interface InternalFileManagerApi {
      *
      * @param fileid the fileid
      * @return the file download response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("wedrive/file_download")
     FileDownloadResponse getFileUrlByFileId(@Body FileId fileid) throws WeComException;
@@ -47,7 +47,7 @@ interface InternalFileManagerApi {
      *
      * @param selectedTicket the selected ticket
      * @return the file download response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("wedrive/file_download")
     FileDownloadResponse getFileUrlBySelectedTicket(@Body SelectedTicket selectedTicket) throws WeComException;

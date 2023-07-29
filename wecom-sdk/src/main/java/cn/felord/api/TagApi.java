@@ -42,7 +42,7 @@ public interface TagApi {
      *
      * @param request the request
      * @return GenericResponse generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("tag/create")
     GenericResponse<String> createTag(@Body Tag request) throws WeComException;
@@ -52,7 +52,7 @@ public interface TagApi {
      *
      * @param request the request
      * @return WeComResponse we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("tag/update")
     WeComResponse updateTag(@Body Tag request) throws WeComException;
@@ -62,7 +62,7 @@ public interface TagApi {
      *
      * @param tagId tagId
      * @return WeComResponse we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("tag/delete")
     WeComResponse deleteTag(@Query("tagid") int tagId) throws WeComException;
@@ -72,7 +72,7 @@ public interface TagApi {
      *
      * @param tagId tagId
      * @return UserInfoResponse tag users
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("tag/get")
     TagUserResponse getTagUsers(@Query("tagid") int tagId) throws WeComException;
@@ -82,7 +82,7 @@ public interface TagApi {
      *
      * @param request the request
      * @return WeComResponse tag user action response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("tag/addtagusers")
     TagUserActionResponse addTagUsers(@Body TagUserRequest request) throws WeComException;
@@ -92,7 +92,7 @@ public interface TagApi {
      *
      * @param request the request
      * @return WeComResponse tag user action response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("tag/deltagusers")
     TagUserActionResponse deleteTagUsers(@Body TagUserRequest request) throws WeComException;
@@ -101,7 +101,7 @@ public interface TagApi {
      * 获取标签列表
      *
      * @return UserInfoResponse tags
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("tag/list")
     GenericResponse<Tag> getTags() throws WeComException;

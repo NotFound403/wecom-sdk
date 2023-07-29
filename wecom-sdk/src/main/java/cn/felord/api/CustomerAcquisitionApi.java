@@ -37,7 +37,7 @@ public interface CustomerAcquisitionApi {
      *
      * @param request the request
      * @return the follow user list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/list_link")
     LinksResponse queryLinks(@Body PageRequest request) throws WeComException;
@@ -47,7 +47,7 @@ public interface CustomerAcquisitionApi {
      *
      * @param linkId the link id
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/get")
     LinkDetailResponse queryLinkDetail(@Body LinkId linkId) throws WeComException;
@@ -57,7 +57,7 @@ public interface CustomerAcquisitionApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/create_link")
     GenericResponse<AcquisitionLink> createLink(@Body AcquisitionLinkCreateRequest request) throws WeComException;
@@ -67,7 +67,7 @@ public interface CustomerAcquisitionApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/update_link")
     WeComResponse updateLink(@Body AcquisitionLinkUpdateRequest request) throws WeComException;
@@ -77,7 +77,7 @@ public interface CustomerAcquisitionApi {
      *
      * @param linkId the link id
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/delete_link")
     WeComResponse deleteLink(@Body LinkId linkId) throws WeComException;
@@ -87,7 +87,7 @@ public interface CustomerAcquisitionApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/customer")
     LinkCustomersResponse queryLinkCustomers(@Body LinkPageRequest request) throws WeComException;
@@ -96,7 +96,7 @@ public interface CustomerAcquisitionApi {
      * 查询获客链接剩余使用量
      *
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("externalcontact/customer_acquisition_quota")
     AcquisitionQuotaResponse queryCustomerAcquisitionQuotas() throws WeComException;

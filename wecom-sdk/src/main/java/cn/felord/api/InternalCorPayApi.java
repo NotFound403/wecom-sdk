@@ -57,7 +57,7 @@ public class InternalCorPayApi {
      *
      * @param request the request
      * @return the string
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public RedPackResponse sendWorkWxRedPack(RedPackRequest request) throws WeComException {
         request.workWxSign(this.payAgentSecret);
@@ -71,7 +71,7 @@ public class InternalCorPayApi {
      *
      * @param request the request
      * @return the string
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public RedPackRecordResponse queryWorkWxRedPack(RedPackRecordRequest request) throws WeComException {
         String xmlResponse = mmPayMktTransfersApi.queryWorkWxRedPack(request.xmlBody(paySecret, PaySignType.MD5));
@@ -84,7 +84,7 @@ public class InternalCorPayApi {
      *
      * @param request the request
      * @return the string
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public TransPocketResponse payWwSpTrans2Pocket(TransPocketRequest request) throws WeComException {
         request.workWxSign(this.payAgentSecret);
@@ -98,7 +98,7 @@ public class InternalCorPayApi {
      *
      * @param request the request
      * @return the string
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public TransPocketRecordResponse queryWwSpTrans2Pocket(TransPocketRecordRequest request) throws WeComException {
         String xmlResponse = mmPayMktTransfersApi.queryWwSpTrans2Pocket(request.xmlBody(paySecret, PaySignType.MD5));

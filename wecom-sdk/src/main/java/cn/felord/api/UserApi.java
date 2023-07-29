@@ -41,7 +41,7 @@ public interface UserApi {
      *
      * @param request the request
      * @return the user id convert response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("batch/openuserid_to_userid")
     UserIdConvertResponse batchOpenUserIdToUserId(@Body UserIdConvertRequest request) throws WeComException;
@@ -51,7 +51,7 @@ public interface UserApi {
      *
      * @param request the request
      * @return the user id convert response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("idconvert/convert_tmp_external_userid")
     GenericResponse<List<TmpUser>> batchOpenUserIdToUserId(@Body ConvertTmpUserRequest request) throws WeComException;
@@ -63,7 +63,7 @@ public interface UserApi {
      *
      * @param request the request
      * @return WeComResponse we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("user/create")
     WeComResponse createUser(@Body UserInfoRequest request) throws WeComException;
@@ -75,7 +75,7 @@ public interface UserApi {
      *
      * @param userId the user id
      * @return UserInfoResponse user
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("user/get")
     UserInfoResponse getUser(@Query("userid") String userId) throws WeComException;
@@ -87,7 +87,7 @@ public interface UserApi {
      *
      * @param request the request
      * @return WeComResponse we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("user/update")
     WeComResponse updateUser(@Body UserInfoRequest request) throws WeComException;
@@ -99,7 +99,7 @@ public interface UserApi {
      *
      * @param userId the user id
      * @return WeComResponse we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("user/delete")
     WeComResponse deleteUser(@Query("userid") String userId) throws WeComException;
@@ -110,7 +110,7 @@ public interface UserApi {
      * @param cursor the cursor
      * @param limit  the limit
      * @return the dept user list response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("user/list_id")
     DeptUserListResponse userList(@Query("cursor") String cursor, @Query("limit") int limit) throws WeComException;
@@ -122,7 +122,7 @@ public interface UserApi {
      *
      * @param userIdList the user id list
      * @return WeComResponse we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("user/batchdelete")
     WeComResponse batchDelUser(@Body UserIds userIdList) throws WeComException;
@@ -134,7 +134,7 @@ public interface UserApi {
      *
      * @param departmentId departmentId
      * @return SimpleUserResponse dept users
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("user/simplelist")
     GenericResponse<List<SimpleUser>> getDeptUsers(@Query("department_id") long departmentId) throws WeComException;
@@ -146,7 +146,7 @@ public interface UserApi {
      *
      * @param departmentId departmentId
      * @return UserDetailResponse dept user details
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("user/list")
     GenericResponse<List<UserDetail>> getDeptUserDetails(@Query("department_id") long departmentId) throws WeComException;
@@ -161,7 +161,7 @@ public interface UserApi {
      *
      * @param request the request
      * @return OpenIdResponse generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("user/convert_to_openid")
     GenericResponse<String> converToOpenid(@Body UserId request) throws WeComException;
@@ -173,7 +173,7 @@ public interface UserApi {
      *
      * @param userId userId
      * @return WeComResponse we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("user/authsucc")
     WeComResponse userAuth(@Query("userid") String userId) throws WeComException;
@@ -185,7 +185,7 @@ public interface UserApi {
      *
      * @param request batchInviteRequest
      * @return BatchInviteResponse batch invite response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("batch/invite")
     BatchInviteResponse inviteUsers(@Body BatchInviteRequest request) throws WeComException;
@@ -197,7 +197,7 @@ public interface UserApi {
      *
      * @param userQrcodeSize 范围 [1,4]
      * @return WeComResponse join qrcode
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("corp/get_join_qrcode")
     GenericResponse<String> getJoinQrcode(@Query("size_type") int userQrcodeSize) throws WeComException;
@@ -210,7 +210,7 @@ public interface UserApi {
      *
      * @param mobile mobile
      * @return WeComResponse active stat
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("user/getuserid")
     GenericResponse<String> getUserIdByMobile(@Body Mobile mobile) throws WeComException;
@@ -220,7 +220,7 @@ public interface UserApi {
      *
      * @param request the request
      * @return WeComResponse active stat
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("user/get_userid_by_email")
     GenericResponse<String> getUserIdByEmail(@Body EmailUserRequest request) throws WeComException;

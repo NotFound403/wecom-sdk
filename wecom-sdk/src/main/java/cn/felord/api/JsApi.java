@@ -32,7 +32,7 @@ interface JsApi {
      * 获取企业的jsapi_ticket
      *
      * @return the single
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("get_jsapi_ticket")
     JsTicketResponse corpJsApiTicket() throws WeComException;
@@ -42,7 +42,7 @@ interface JsApi {
      *
      * @param agentConfig the agent config
      * @return the single
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("ticket/get")
     JsTicketResponse agentJsApiTicket(@Query("type") String agentConfig) throws WeComException;

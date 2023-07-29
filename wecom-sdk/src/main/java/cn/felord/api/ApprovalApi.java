@@ -49,7 +49,7 @@ public interface ApprovalApi {
      *
      * @param template the template
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/approval/create_template")
     GenericResponse<String> createTemplate(@Body ApprovalTempAddRequest template) throws WeComException;
@@ -67,7 +67,7 @@ public interface ApprovalApi {
      *
      * @param template the template
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/approval/update_template")
     WeComResponse updateTemplate(@Body ApprovalTempUpdateRequest template) throws WeComException;
@@ -77,7 +77,7 @@ public interface ApprovalApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/applyevent")
     GenericResponse<String> apply(@Body ApprovalApplyRequest request) throws WeComException;
@@ -93,7 +93,7 @@ public interface ApprovalApi {
      *
      * @param request the request
      * @return the sp no list response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/getapprovalinfo")
     SpNoListResponse queryApprovalInfos(@Body SpNoListRequest request) throws WeComException;
@@ -104,7 +104,7 @@ public interface ApprovalApi {
      *
      * @param spNo the sp no
      * @return sp no list response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/getapprovaldetail")
     GenericResponse<ApprovalDetail> queryApprovalDetail(@Body ApprovalSpNo spNo) throws WeComException;
@@ -114,7 +114,7 @@ public interface ApprovalApi {
      *
      * @param thirdNo the third no thirdNo
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("corp/getopenapprovaldata")
     GenericResponse<OpenApprovalData> queryOpenApprovalData(@Body ApprovalThirdNo thirdNo) throws WeComException;

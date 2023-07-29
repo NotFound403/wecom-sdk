@@ -34,7 +34,7 @@ public interface KfUpgradeApi {
      * 获取配置的专员与客户群
      *
      * @return the upgrade service config
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("kf/customer/get_upgrade_service_config")
     UpgradeServiceConfig upgradeServiceConfig() throws WeComException;
@@ -44,7 +44,7 @@ public interface KfUpgradeApi {
      *
      * @param request the request
      * @return the upgrade service config
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/customer/upgrade_service")
     WeComResponse upgradeService(@Body UpgradeServiceRequest request) throws WeComException;
@@ -54,7 +54,7 @@ public interface KfUpgradeApi {
      *
      * @param kfAndExternalUser the kf and external user
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/customer/cancel_upgrade_service")
     WeComResponse cancelService(@Body KfAndExternalUser kfAndExternalUser) throws WeComException;
@@ -64,7 +64,7 @@ public interface KfUpgradeApi {
      *
      * @param request the request
      * @return the kf external user response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/customer/batchget")
     KfExternalUserResponse batchKfExternalUsers(@Body KfExternalUserRequest request) throws WeComException;

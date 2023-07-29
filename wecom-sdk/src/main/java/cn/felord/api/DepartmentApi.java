@@ -40,7 +40,7 @@ public interface DepartmentApi {
      *
      * @param request the request
      * @return CreateDeptResponse generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("department/create")
     GenericResponse<Long> createDept(@Body DeptInfo request) throws WeComException;
@@ -50,7 +50,7 @@ public interface DepartmentApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("department/update")
     WeComResponse updateDept(@Body DeptInfo request) throws WeComException;
@@ -62,7 +62,7 @@ public interface DepartmentApi {
      *
      * @param departmentId departmentId
      * @return WeComResponse we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("department/delete")
     WeComResponse deleteDept(@Query("id") long departmentId) throws WeComException;
@@ -72,7 +72,7 @@ public interface DepartmentApi {
      *
      * @param departmentId departmentId
      * @return DeptResponse generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("department/list")
     GenericResponse<List<DeptInfo>> deptList(@Query("id") long departmentId) throws WeComException;
@@ -81,7 +81,7 @@ public interface DepartmentApi {
      * 获取全部部门列表（自建）
      *
      * @return DeptResponse generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("department/list")
     GenericResponse<List<DeptInfo>> deptList() throws WeComException;
@@ -90,7 +90,7 @@ public interface DepartmentApi {
      * 获取全部子部门ID列表
      *
      * @return the simple list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("department/simplelist")
     GenericResponse<List<DeptSimpleInfo>> getSimpleList() throws WeComException;
@@ -100,7 +100,7 @@ public interface DepartmentApi {
      *
      * @param departmentId the department id
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("department/simplelist")
     GenericResponse<List<DeptSimpleInfo>> getSimpleList(@Query("id") long departmentId) throws WeComException;
@@ -110,7 +110,7 @@ public interface DepartmentApi {
      *
      * @param departmentId the department id
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("department/get")
     GenericResponse<DeptInfo> get(@Query("id") long departmentId) throws WeComException;

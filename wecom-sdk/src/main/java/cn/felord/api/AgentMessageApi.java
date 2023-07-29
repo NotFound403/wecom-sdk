@@ -52,7 +52,7 @@ public class AgentMessageApi {
      * @param <B>  the type parameter
      * @param body the body
      * @return the message response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      * @see MessageBodyBuilders
      */
     public <B extends AbstractMessageBody> MessageResponse send(B body) throws WeComException {
@@ -70,7 +70,7 @@ public class AgentMessageApi {
      * @param <R>     the type parameter
      * @param request the request
      * @return the message response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      * @see TemplateReplaceCardBuilders
      */
     public <R extends AbstractUpdateTemplateCardRequest> MessageResponse updateTemplateCard(R request) throws WeComException {
@@ -82,7 +82,7 @@ public class AgentMessageApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public WeComResponse recall(@Body MsgId request) throws WeComException {
         return internalAgentMessageApi.recall(request);

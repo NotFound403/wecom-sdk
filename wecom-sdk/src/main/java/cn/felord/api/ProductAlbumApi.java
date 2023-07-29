@@ -39,7 +39,7 @@ public interface ProductAlbumApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_product_album")
     GenericResponse<String> addProductAlbum(@Body ProductAlbumAddRequest request) throws WeComException;
@@ -49,7 +49,7 @@ public interface ProductAlbumApi {
      *
      * @param productId the product id
      * @return the product album
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_product_album")
     ProductAlbumDetailResponse getProductAlbum(@Body ProductId productId) throws WeComException;
@@ -59,7 +59,7 @@ public interface ProductAlbumApi {
      *
      * @param request the request
      * @return the product album detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_product_album_list")
     ProductAlbumDetailResponse productAlbumList(@Body PageRequest request) throws WeComException;
@@ -69,7 +69,7 @@ public interface ProductAlbumApi {
      *
      * @param productAlbumDetail the product album detail
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/update_product_album")
     WeComResponse updateProductAlbum(@Body ProductAlbumDetail productAlbumDetail) throws WeComException;
@@ -79,7 +79,7 @@ public interface ProductAlbumApi {
      *
      * @param productId the product id
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/delete_product_album")
     WeComResponse deleteProductAlbum(@Body ProductId productId) throws WeComException;

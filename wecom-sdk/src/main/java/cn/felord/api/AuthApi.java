@@ -39,7 +39,7 @@ public interface AuthApi {
      *
      * @param code 通过成员授权获取到的code
      * @return UserDetailResponse user info
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("auth/getuserinfo")
     UserDetailResponse getUserInfo(@Query("code") String code) throws WeComException;
@@ -51,7 +51,7 @@ public interface AuthApi {
      *
      * @param userTicket 成员票据
      * @return UserSensitiveInfoResponse user detail
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("auth/getuserdetail")
     UserSensitiveInfoResponse getUserDetail(@Body UserTicket userTicket) throws WeComException;

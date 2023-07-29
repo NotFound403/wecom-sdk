@@ -36,7 +36,7 @@ public interface ChatInterceptRuleApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_intercept_rule")
     GenericResponse<String> addInterceptRule(@Body ChatInterceptRuleAddRequest request) throws WeComException;
@@ -45,7 +45,7 @@ public interface ChatInterceptRuleApi {
      * 获取敏感词规则列表
      *
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("externalcontact/get_intercept_rule_list")
     GenericResponse<InterceptRuleInfo> interceptRuleList() throws WeComException;
@@ -55,7 +55,7 @@ public interface ChatInterceptRuleApi {
      *
      * @param request the request
      * @return the intercept rule
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_intercept_rule")
     GenericResponse<InterceptRuleDetail> getInterceptRule(@Body InterceptRuleRequest request) throws WeComException;
@@ -65,7 +65,7 @@ public interface ChatInterceptRuleApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/update_intercept_rule")
     WeComResponse updateInterceptRule(@Body ChatInterceptRuleUpdateRequest request) throws WeComException;
@@ -75,7 +75,7 @@ public interface ChatInterceptRuleApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/del_intercept_rule")
     WeComResponse deleteInterceptRule(@Body InterceptRuleRequest request) throws WeComException;

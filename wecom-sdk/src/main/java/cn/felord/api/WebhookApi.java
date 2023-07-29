@@ -53,7 +53,7 @@ public class WebhookApi {
      * @param key  the key
      * @param body the body
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public <B extends WebhookBody> WeComResponse send(String key, B body) throws WeComException {
         return internalWebhookApi.send(key, body);
@@ -65,7 +65,7 @@ public class WebhookApi {
      * @param webhookKey the webhook key
      * @param resource   the resource
      * @return the media response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public MediaResponse uploadMedia(String webhookKey, MultipartResource resource) throws WeComException {
         String fileName = resource.getFileName();

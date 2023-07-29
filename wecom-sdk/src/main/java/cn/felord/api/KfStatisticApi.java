@@ -33,7 +33,7 @@ public interface KfStatisticApi {
      *
      * @param request the request
      * @return the kf statistic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/get_corp_statistic")
     KfStatisticResponse<KfCorpStatisticDetail> corpStatistic(@Body KfCorpStatisticRequest request) throws WeComException;
@@ -43,7 +43,7 @@ public interface KfStatisticApi {
      *
      * @param request the request
      * @return the kf statistic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/get_servicer_statistic")
     KfStatisticResponse<KfServicerStatisticDetail> servicerStatistic(@Body KfServicerStatisticRequest request) throws WeComException;

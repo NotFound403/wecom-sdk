@@ -37,7 +37,7 @@ public interface ContactMeWayApi {
      * 获取配置了客户联系功能的成员列表
      *
      * @return the follow user list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("externalcontact/get_follow_user_list")
     GenericResponse<List<String>> getFollowUserList() throws WeComException;
@@ -47,7 +47,7 @@ public interface ContactMeWayApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_contact_way")
     ContactWayAddResponse addContactWay(@Body ContactWayBody request) throws WeComException;
@@ -57,7 +57,7 @@ public interface ContactMeWayApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_contact_way")
     GenericResponse<ContactWayBodyDetail> getContactWay(@Body ContactWayConfigRequest request) throws WeComException;
@@ -67,7 +67,7 @@ public interface ContactMeWayApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/list_contact_way")
     ContactListResponse listContactWay(@Body ContactListRequest request) throws WeComException;
@@ -77,7 +77,7 @@ public interface ContactMeWayApi {
      *
      * @param contactWay the contact way
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/update_contact_way")
     WeComResponse updateContactWay(@Body MutableContactWay contactWay) throws WeComException;
@@ -87,7 +87,7 @@ public interface ContactMeWayApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/del_contact_way")
     WeComResponse delContactWay(@Body ContactWayConfigRequest request) throws WeComException;
@@ -97,7 +97,7 @@ public interface ContactMeWayApi {
      *
      * @param chatPair the chat pair
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/close_temp_chat")
     WeComResponse closeTempChat(@Body ChatPair chatPair) throws WeComException;

@@ -43,7 +43,7 @@ interface InternalMediaApi {
      * @param attachmentType the attachment type
      * @param media          the media
      * @return the media response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("media/upload_attachment")
     MediaResponse uploadAttachment(@Query("media_type") String mediaType,
@@ -56,7 +56,7 @@ interface InternalMediaApi {
      * @param mediaType the media type
      * @param media     the media
      * @return the media response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("media/upload")
     MediaResponse uploadMedia(@Query("type") String mediaType,
@@ -67,7 +67,7 @@ interface InternalMediaApi {
      *
      * @param media the media
      * @return the media response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("media/uploadimg")
     MediaResponse uploadImage(@Body MultipartBody media) throws WeComException;
@@ -77,7 +77,7 @@ interface InternalMediaApi {
      *
      * @param mediaId the media id
      * @return the media
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("media/get")
     ResponseBody getMedia(@Query("media_id") String mediaId) throws WeComException;
@@ -87,7 +87,7 @@ interface InternalMediaApi {
      *
      * @param mediaId the media id
      * @return the media
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("media/get/jssdk")
     ResponseBody getMediaJsSdk(@Query("media_id") String mediaId) throws WeComException;
@@ -102,7 +102,7 @@ interface InternalMediaApi {
      *
      * @param request the request
      * @return the media js sdk
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("media/upload_by_url")
     GenericResponse<String> uploadByUrl(@Body MediaUploadRequest request) throws WeComException;
@@ -112,7 +112,7 @@ interface InternalMediaApi {
      *
      * @param jobId the job id
      * @return the upload by url result
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("media/get_upload_by_url_result")
     MediaJobResponse getUploadByUrlResult(@Body JobId jobId) throws WeComException;
@@ -122,7 +122,7 @@ interface InternalMediaApi {
      *
      * @param media the media
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/upload_image")
     GenericResponse<String> uploadPayImage(@Body MultipartBody media) throws WeComException;

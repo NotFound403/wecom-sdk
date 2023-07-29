@@ -37,7 +37,7 @@ public interface OffTransferApi {
      *
      * @param cursorPage the cursor page
      * @return TransferCustomerResponse transfer customer response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_unassigned_list")
     UnassignedListResponse getUnassignedList(@Body CursorPage cursorPage) throws WeComException;
@@ -48,7 +48,7 @@ public interface OffTransferApi {
      *
      * @param request the request
      * @return the transfer customer response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/resigned/transfer_customer")
     TransferCustomerResponse transferCustomer(@Body OffTransferCustomerRequest request) throws WeComException;
@@ -58,7 +58,7 @@ public interface OffTransferApi {
      *
      * @param request the request
      * @return the transfer customer response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/resigned/transfer_result")
     TransferResultResponse transferResult(@Body TransferResultRequest request) throws WeComException;
@@ -68,7 +68,7 @@ public interface OffTransferApi {
      *
      * @param request the request
      * @return the transfer result response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/transfer")
     GenericResponse<Set<TransferFailedGroupChat>> transferGroupChat(@Body TransferGroupChatRequest request) throws WeComException;

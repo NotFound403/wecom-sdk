@@ -36,7 +36,7 @@ public interface FormApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("wedoc/create_form")
     GenericResponse<String> createForm(@Body CreateFormRequest request) throws WeComException;
@@ -46,7 +46,7 @@ public interface FormApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("wedoc/modify_form")
     GenericResponse<FormDetail> modifyForm(@Body AbstractUpdateFormRequest request) throws WeComException;
@@ -56,7 +56,7 @@ public interface FormApi {
      *
      * @param formid the formid
      * @return the form
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("wedoc/get_form_info")
     GenericResponse<FormDetail> getForm(@Body FormId formid) throws WeComException;
@@ -66,7 +66,7 @@ public interface FormApi {
      *
      * @param request the request
      * @return the form statistic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("wedoc/get_form_statistic")
     FormStatisticResponse getFormStatistic(@Body FormStatisticRequest request) throws WeComException;
@@ -76,7 +76,7 @@ public interface FormApi {
      *
      * @param request the request
      * @return the form statistic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("wedoc/get_form_statistic")
     FormConfirmedResponse getFormStatistic(@Body FormConfirmedRequest request) throws WeComException;
@@ -86,7 +86,7 @@ public interface FormApi {
      *
      * @param request the request
      * @return the form statistic
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("wedoc/get_form_statistic")
     FormUnConfirmedResponse getFormStatistic(@Body FormUnConfirmedRequest request) throws WeComException;
@@ -96,7 +96,7 @@ public interface FormApi {
      *
      * @param request the request
      * @return the form answer response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("wedoc/get_form_answer")
     FormAnswerResponse getFormAnswer(@Body FormAnswerRequest request) throws WeComException;

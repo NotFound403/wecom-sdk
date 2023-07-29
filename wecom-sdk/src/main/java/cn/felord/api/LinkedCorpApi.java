@@ -39,7 +39,7 @@ public interface LinkedCorpApi {
      * 获取应用的可见范围
      *
      * @return the perm list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("linkedcorp/agent/get_perm_list")
     PermListResponse getPermList() throws WeComException;
@@ -49,7 +49,7 @@ public interface LinkedCorpApi {
      *
      * @param userId the user id
      * @return the user
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("linkedcorp/user/get")
     GenericResponse<CorpUserInfo> getUser(@Body UserId userId) throws WeComException;
@@ -59,7 +59,7 @@ public interface LinkedCorpApi {
      *
      * @param linkedDepartmentId the linked department id
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("linkedcorp/user/simplelist")
     GenericResponse<List<CorpSimpleUserInfo>> getUserSimplelist(@Body DepartmentId linkedDepartmentId) throws WeComException;
@@ -69,7 +69,7 @@ public interface LinkedCorpApi {
      *
      * @param linkedDepartmentId the linked department id
      * @return the dept list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("linkedcorp/department/list")
     GenericResponse<List<DeptInfo>> getDeptList(@Body DepartmentId linkedDepartmentId) throws WeComException;

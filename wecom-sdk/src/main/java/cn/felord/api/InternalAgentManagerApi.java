@@ -38,7 +38,7 @@ interface InternalAgentManagerApi {
      *
      * @param agentId the agent id
      * @return the agent details
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("agent/get")
     AgentDetailsResponse getAgentDetails(@Query("agentid") String agentId) throws WeComException;
@@ -48,7 +48,7 @@ interface InternalAgentManagerApi {
      *
      * @param settings the settings
      * @return WeComResponse
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("agent/set")
     WeComResponse settings(@Body AgentManagerApi.Settings settings) throws WeComException;

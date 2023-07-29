@@ -42,7 +42,7 @@ public interface MomentApi {
      * @param <T>  the type parameter
      * @param body the body
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_moment_task")
     <T extends MomentAttachment> GenericResponse<String> addMomentTask(@Body MomentBody<T> body) throws WeComException;
@@ -52,7 +52,7 @@ public interface MomentApi {
      *
      * @param jobId the job id
      * @return the moment task result response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("externalcontact/get_moment_task_result")
     MomentTaskResultResponse getMomentTaskResult(@Query("jobid") String jobId) throws WeComException;
@@ -62,7 +62,7 @@ public interface MomentApi {
      *
      * @param request the request
      * @return the moment list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_moment_list")
     MomentListResponse getMomentList(@Body MomentListRequest request) throws WeComException;
@@ -72,7 +72,7 @@ public interface MomentApi {
      *
      * @param request the request
      * @return the moment list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_moment_task")
     MomentMemberTaskResponse getMomentTask(@Body MomentTaskRequest request) throws WeComException;
@@ -84,7 +84,7 @@ public interface MomentApi {
      *
      * @param request the request
      * @return the moment customer list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_moment_customer_list")
     MomentCustomerListResponse getMomentCustomerList(@Body MomentInfoRequest request) throws WeComException;
@@ -96,7 +96,7 @@ public interface MomentApi {
      *
      * @param request the request
      * @return the moment send result
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_moment_send_result")
     MomentCustomerListResponse getMomentSendResult(@Body MomentInfoRequest request) throws WeComException;
@@ -106,7 +106,7 @@ public interface MomentApi {
      *
      * @param momentId the moment id
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/cancel_moment_task")
     WeComResponse cancelMomentTask(@Body MomentId momentId) throws WeComException;
@@ -118,7 +118,7 @@ public interface MomentApi {
      *
      * @param userId the user id
      * @return the moment 优化了企业微信给的数据结构
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_moment_comments")
     MomentCommentResponse getMomentComments(@Body UserMoment userId) throws WeComException;
@@ -128,7 +128,7 @@ public interface MomentApi {
      *
      * @param request the request
      * @return the external user list detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/list")
     StrategyListResponse momentStrategyList(@Body PageRequest request) throws WeComException;
@@ -138,7 +138,7 @@ public interface MomentApi {
      *
      * @param strategyId the strategy id
      * @return the external user list detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/get")
     MomentStrategyDetailResponse getMomentStrategy(@Body StrategyId strategyId) throws WeComException;
@@ -148,7 +148,7 @@ public interface MomentApi {
      *
      * @param request the request
      * @return the external user list detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/get_range")
     StrategyRangeResponse getMomentStrategyRange(@Body StrategyRangeRequest request) throws WeComException;
@@ -158,7 +158,7 @@ public interface MomentApi {
      *
      * @param request the request
      * @return the customer strategy range response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/create")
     GenericResponse<Integer> createMomentStrategy(@Body CustomerStrategyRequest request) throws WeComException;
@@ -168,7 +168,7 @@ public interface MomentApi {
      *
      * @param request the request
      * @return the customer strategy range response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/edit")
     WeComResponse editMomentStrategy(@Body MutableMomentStrategy request) throws WeComException;
@@ -178,7 +178,7 @@ public interface MomentApi {
      *
      * @param strategyId the strategy id
      * @return the customer strategy range response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/del")
     WeComResponse delMomentStrategy(@Body StrategyId strategyId) throws WeComException;

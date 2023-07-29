@@ -35,7 +35,7 @@ interface InternalAgentMessageApi {
      *
      * @param body the body
      * @return the message response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      * @see MessageBodyBuilders
      */
     @POST("message/send")
@@ -46,7 +46,7 @@ interface InternalAgentMessageApi {
      *
      * @param request the request
      * @return the message response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      * @see TemplateReplaceCardBuilders
      */
     @POST("message/update_template_card")
@@ -57,7 +57,7 @@ interface InternalAgentMessageApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("message/recall")
     WeComResponse recall(@Body MsgId request) throws WeComException;

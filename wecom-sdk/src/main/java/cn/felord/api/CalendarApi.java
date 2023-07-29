@@ -35,7 +35,7 @@ public interface CalendarApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/calendar/add")
     GenericResponse<String> add(@Body CalendarAddRequest request) throws WeComException;
@@ -45,7 +45,7 @@ public interface CalendarApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/calendar/update")
     WeComResponse update(@Body CalendarUpdateRequest request) throws WeComException;
@@ -55,7 +55,7 @@ public interface CalendarApi {
      *
      * @param request the request
      * @return the calendar detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/calendar/get")
     CalendarDetailResponse get(@Body CalendarDetailRequest request) throws WeComException;
@@ -65,7 +65,7 @@ public interface CalendarApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/calendar/update")
     WeComResponse del(@Body CalendarDelRequest request) throws WeComException;

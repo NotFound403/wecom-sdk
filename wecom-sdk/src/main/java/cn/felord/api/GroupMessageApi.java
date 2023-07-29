@@ -39,7 +39,7 @@ public interface GroupMessageApi {
      *
      * @param request the request
      * @return the moment list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_msg_template")
     MsgTemplateResponse addMsgTemplate(@Body MsgTemplateRequest request) throws WeComException;
@@ -51,7 +51,7 @@ public interface GroupMessageApi {
      *
      * @param msgId the msg id
      * @return the msg template response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/remind_groupmsg_send")
     WeComResponse remindGroupmsgSend(@Body MsgId msgId) throws WeComException;
@@ -61,7 +61,7 @@ public interface GroupMessageApi {
      *
      * @param msgId the msg id
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/cancel_groupmsg_send")
     WeComResponse cancelGroupmsgSend(@Body MsgId msgId) throws WeComException;
@@ -72,7 +72,7 @@ public interface GroupMessageApi {
      *
      * @param request the request
      * @return the groupmsg list v 2
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_groupmsg_list_v2")
     GroupMsgListResponse getGroupMsgListV2(@Body GroupMsgListRequest request) throws WeComException;
@@ -82,7 +82,7 @@ public interface GroupMessageApi {
      *
      * @param request the request
      * @return the group msg task
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_groupmsg_task")
     GroupMsgTaskResponse getGroupMsgTask(@Body GroupMsgTaskRequest request) throws WeComException;
@@ -92,7 +92,7 @@ public interface GroupMessageApi {
      *
      * @param request the request
      * @return the group msg send result
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_groupmsg_send_result")
     GroupMsgSendResultResponse getGroupMsgSendResult(@Body GroupMsgSendResultRequest request) throws WeComException;
@@ -102,7 +102,7 @@ public interface GroupMessageApi {
      *
      * @param request the request
      * @return group msg send result response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/send_welcome_msg")
     WeComResponse sendWelcomeGroupMsg(@Body WelcomeCodeRequest request) throws WeComException;
@@ -112,7 +112,7 @@ public interface GroupMessageApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/group_welcome_template/add")
     GenericResponse<String> addWelcomeTemplate(@Body WelcomeTemplateAddRequest request) throws WeComException;
@@ -122,7 +122,7 @@ public interface GroupMessageApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/group_welcome_template/edit")
     WeComResponse editWelcomeTemplate(@Body WelcomeTemplateEditRequest request) throws WeComException;
@@ -132,7 +132,7 @@ public interface GroupMessageApi {
      *
      * @param templateId the template id
      * @return the welcome template
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/group_welcome_template/get")
     WelcomeTemplateResponse getWelcomeTemplate(@Body TemplateId templateId) throws WeComException;
@@ -142,7 +142,7 @@ public interface GroupMessageApi {
      *
      * @param templateId the template id
      * @return the welcome template response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/group_welcome_template/del")
     WeComResponse delWelcomeTemplate(@Body TemplateId templateId) throws WeComException;
@@ -152,7 +152,7 @@ public interface GroupMessageApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/group_welcome_template/del")
     WeComResponse delWelcomeTemplate(@Body DelWelcomeTmpRequest request) throws WeComException;

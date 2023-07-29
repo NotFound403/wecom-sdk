@@ -37,7 +37,7 @@ public interface KfAccountApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/account/add")
     GenericResponse<String> addKfAccount(@Body KfAccountAddRequest request) throws WeComException;
@@ -47,7 +47,7 @@ public interface KfAccountApi {
      *
      * @param openKfid the open kfid
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/account/del")
     WeComResponse delKfAccount(@Body OpenKfid openKfid) throws WeComException;
@@ -57,7 +57,7 @@ public interface KfAccountApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/account/update")
     WeComResponse updateKfAccount(@Body KfAccountUpdateRequest request) throws WeComException;
@@ -67,7 +67,7 @@ public interface KfAccountApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/account/list")
     GenericResponse<List<KfAccountInfo>> kfAccountList(@Body KfAccountListRequest request) throws WeComException;
@@ -77,7 +77,7 @@ public interface KfAccountApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("kf/add_contact_way")
     GenericResponse<String> kfAccountLink(@Body KfAccountLinkRequest request) throws WeComException;

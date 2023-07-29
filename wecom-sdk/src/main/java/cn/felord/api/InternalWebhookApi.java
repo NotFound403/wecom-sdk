@@ -38,7 +38,7 @@ interface InternalWebhookApi {
      * @param key  the key
      * @param body the body
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("webhook/send")
     WeComResponse send(@Query("key") String key, @Body WebhookBody body) throws WeComException;
@@ -50,7 +50,7 @@ interface InternalWebhookApi {
      * @param type       the type
      * @param media      the media
      * @return the media response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("webhook/upload_media")
     MediaResponse uploadMedia(@Query("key") String webhookKey,

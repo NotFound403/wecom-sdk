@@ -20,17 +20,93 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Optional;
+
 /**
+ * The type Money value.
+ *
  * @author dax
- * @since 2023/5/26
+ * @since 2023 /5/26
  */
 @ToString
 @Getter
 public class MoneyValue implements ContentDataValue {
     private final String newMoney;
 
+    /**
+     * 仅反序列化时使用，初始化推荐使用{@code from(newMoney)}系列静态方法
+     *
+     * @param newMoney 最多保留两位小数，否则会报错
+     */
     @JsonCreator
     public MoneyValue(@JsonProperty("new_money") String newMoney) {
         this.newMoney = newMoney;
+    }
+
+    /**
+     * From money value.
+     *
+     * @param newMoney 强制四舍五入两位小数
+     * @return the money value
+     */
+    public static MoneyValue from(long newMoney) {
+        String money = BigDecimal.valueOf(newMoney)
+                .setScale(2, RoundingMode.HALF_UP)
+                .toPlainString();
+        return new MoneyValue(money);
+    }
+
+    /**
+     * From money value.
+     *
+     * @param newMoney 强制四舍五入两位小数
+     * @return the money value
+     */
+    public static MoneyValue from(int newMoney) {
+        String money = BigDecimal.valueOf(newMoney)
+                .setScale(2, RoundingMode.HALF_UP)
+                .toPlainString();
+        return new MoneyValue(money);
+    }
+
+    /**
+     * From money value.
+     *
+     * @param newMoney 强制四舍五入两位小数
+     * @return the money value
+     */
+    public static MoneyValue from(double newMoney) {
+        String money = BigDecimal.valueOf(newMoney)
+                .setScale(2, RoundingMode.HALF_UP)
+                .toPlainString();
+        return new MoneyValue(money);
+    }
+
+    /**
+     * From money value.
+     *
+     * @param newMoney 强制四舍五入两位小数
+     * @return the money value
+     */
+    public static MoneyValue from(float newMoney) {
+        String money = BigDecimal.valueOf(newMoney)
+                .setScale(2, RoundingMode.HALF_UP)
+                .toPlainString();
+        return new MoneyValue(money);
+    }
+
+    /**
+     * From money value.
+     *
+     * @param newMoney 传{@code null}将被转换为null，非空强制四舍五入两位小数
+     * @return the money value
+     */
+    public static MoneyValue from(BigDecimal newMoney) {
+        String money = Optional.ofNullable(newMoney).orElse(BigDecimal.ZERO)
+                .setScale(2, RoundingMode.HALF_UP)
+                .toPlainString();
+        return new MoneyValue(money);
     }
 }

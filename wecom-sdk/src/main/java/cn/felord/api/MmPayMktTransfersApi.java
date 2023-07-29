@@ -55,7 +55,7 @@ interface MmPayMktTransfersApi {
      *
      * @param xmlBody the xml body
      * @return the string
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("sendworkwxredpack")
     String sendWorkWxRedPack(@Body String xmlBody) throws WeComException;
@@ -74,7 +74,7 @@ interface MmPayMktTransfersApi {
      *
      * @param xmlBody the xml body
      * @return the string
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("queryworkwxredpack")
     String queryWorkWxRedPack(@Body String xmlBody) throws WeComException;
@@ -95,7 +95,7 @@ interface MmPayMktTransfersApi {
      *
      * @param xmlBody the xml body
      * @return the string
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("promotion/paywwsptrans2pocket")
     String payWwSpTrans2Pocket(@Body String xmlBody) throws WeComException;
@@ -108,7 +108,7 @@ interface MmPayMktTransfersApi {
      *
      * @param xmlBody the xml body
      * @return the string
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("promotion/querywwsptrans2pocket")
     String queryWwSpTrans2Pocket(@Body String xmlBody) throws WeComException;

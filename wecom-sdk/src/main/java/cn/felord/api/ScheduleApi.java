@@ -37,7 +37,7 @@ public interface ScheduleApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/schedule/add")
     GenericResponse<String> add(@Body ScheduleAddRequest request) throws WeComException;
@@ -47,7 +47,7 @@ public interface ScheduleApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/schedule/update")
     GenericResponse<String> update(@Body ScheduleUpdateRequest request) throws WeComException;
@@ -57,7 +57,7 @@ public interface ScheduleApi {
      *
      * @param attendees the attendees
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/schedule/add_attendees")
     WeComResponse addAttendees(@Body ScheduleAttendees attendees) throws WeComException;
@@ -67,7 +67,7 @@ public interface ScheduleApi {
      *
      * @param attendees the attendees
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/schedule/del_attendees")
     WeComResponse delAttendees(@Body ScheduleAttendees attendees) throws WeComException;
@@ -77,7 +77,7 @@ public interface ScheduleApi {
      *
      * @param scheduleIds the schedule ids
      * @return the schedule detail response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/schedule/get")
     ScheduleDetailResponse get(@Body Set<String> scheduleIds) throws WeComException;
@@ -87,7 +87,7 @@ public interface ScheduleApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/schedule/del")
     WeComResponse del(@Body ScheduleDelRequest request) throws WeComException;
@@ -97,7 +97,7 @@ public interface ScheduleApi {
      *
      * @param query the query
      * @return the by calendar
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/schedule/get_by_calendar")
     ScheduleDetailResponse getByCalendar(@Body ScheduleCalendarQuery query) throws WeComException;

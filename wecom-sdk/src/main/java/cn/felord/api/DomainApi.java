@@ -34,7 +34,7 @@ public interface DomainApi {
      * 获取企业微信API域名IP段
      *
      * @return the contact list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("get_api_domain_ip")
     GenericResponse<List<String>> getApiDomainIp() throws WeComException;
@@ -43,7 +43,7 @@ public interface DomainApi {
      * 获取企业微信服务器的ip段
      *
      * @return the api domain ip
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("getcallbackip")
     GenericResponse<List<String>> getCallbackIp() throws WeComException;
