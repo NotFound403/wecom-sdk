@@ -60,8 +60,8 @@ public abstract class StringUtils {
      *
      * @param str the {@code String} to check (may be {@code null})
      * @return {@code true} if the {@code String} is not {@code null} and has length
-     * @see #hasLength(CharSequence) #hasLength(CharSequence)#hasLength(CharSequence)#hasLength(CharSequence)#hasLength(CharSequence)
-     * @see #hasText(String) #hasText(String)#hasText(String)#hasText(String)#hasText(String)
+     * @see #hasLength(CharSequence) #hasLength(CharSequence)#hasLength(CharSequence)#hasLength(CharSequence)#hasLength(CharSequence)#hasLength(CharSequence)
+     * @see #hasText(String) #hasText(String)#hasText(String)#hasText(String)#hasText(String)#hasText(String)
      */
     public static boolean hasLength(String str) {
         return (str != null && !str.isEmpty());
@@ -86,6 +86,16 @@ public abstract class StringUtils {
      */
     public static boolean hasText(String str) {
         return (str != null && !str.isEmpty() && containsText(str));
+    }
+
+    /**
+     * Has no text boolean.
+     *
+     * @param str the str
+     * @return the boolean
+     */
+    public static boolean hasNoText(String str) {
+        return str == null || str.isEmpty() || !containsText(str);
     }
 
     private static boolean containsText(CharSequence str) {

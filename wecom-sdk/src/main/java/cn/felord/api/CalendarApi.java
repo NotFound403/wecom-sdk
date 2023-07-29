@@ -67,6 +67,6 @@ public interface CalendarApi {
      * @return the we com response
      * @throws WeComException the we com exception
      */
-    @POST("oa/calendar/update")
-    WeComResponse del(@Body CalendarDelRequest request) throws WeComException;
+    @POST("oa/calendar/del")
+    WeComResponse del(@Body CalendarDelRequest request);
 }

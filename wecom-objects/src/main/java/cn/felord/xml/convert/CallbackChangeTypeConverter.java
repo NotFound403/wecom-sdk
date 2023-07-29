@@ -12,7 +12,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.convert;
+package cn.felord.xml.convert;
 
 import cn.felord.enumeration.CallbackChangeType;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;

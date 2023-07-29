@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.convert;
+package cn.felord.json;
 
 import cn.felord.domain.approval.*;
 import cn.felord.enumeration.ApprovalCtrlType;

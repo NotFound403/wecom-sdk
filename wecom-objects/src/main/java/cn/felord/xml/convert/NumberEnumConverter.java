@@ -12,9 +12,8 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.convert;
+package cn.felord.xml.convert;
 
-import cn.felord.enumeration.CallbackEvent;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 
 import java.util.Arrays;
@@ -22,16 +21,21 @@ import java.util.Objects;
 
 
 /**
- * CallbackEvent
+ * A single value converter for a special enum type using its string representation.
  *
- * @author dax
- * @since 1.1.1
+ * @author J&ouml;rg Schaible
+ * @since 1.4.5
  */
-public class CallbackEventConverter extends AbstractSingleValueConverter {
+public class NumberEnumConverter<T extends Enum<T> & CallbackNumberEnum> extends AbstractSingleValueConverter {
+    private final Class<T> enumType;
+
+    public NumberEnumConverter(Class<T> type) {
+        this.enumType = type;
+    }
 
     @Override
     public boolean canConvert(Class type) {
-        return type != null && CallbackEvent.class.isAssignableFrom(type);
+        return type != null && enumType.isAssignableFrom(type);
     }
 
     @Override
@@ -39,15 +43,16 @@ public class CallbackEventConverter extends AbstractSingleValueConverter {
         if (Objects.isNull(obj)) {
             return null;
         }
-        CallbackEvent eventEnum = (CallbackEvent) obj;
-        return eventEnum.type();
+        CallbackNumberEnum callbackNumberEnum = (CallbackNumberEnum) obj;
+        return String.valueOf(callbackNumberEnum.getType());
     }
 
     @Override
     public Object fromString(String str) {
-        return Arrays.stream(CallbackEvent.values())
-                .filter(callbackEvent -> Objects.equals(callbackEvent.type(), str))
-                .findFirst()
+        return Arrays.stream(enumType.getEnumConstants())
+                .filter(enumInstance ->
+                        Objects.equals(String.valueOf(enumInstance.getType()), str))
+                .findAny()
                 .orElse(null);
     }
 }
