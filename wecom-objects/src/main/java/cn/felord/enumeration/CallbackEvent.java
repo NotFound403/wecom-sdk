@@ -16,7 +16,7 @@
 package cn.felord.enumeration;
 
 
-import cn.felord.convert.CallbackEventConverter;
+import cn.felord.xml.convert.CallbackEventConverter;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 /**
