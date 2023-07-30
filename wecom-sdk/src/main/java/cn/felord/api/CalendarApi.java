@@ -68,5 +68,5 @@ public interface CalendarApi {
      * @throws WeComException the weComException
      */
     @POST("oa/calendar/del")
-    WeComResponse del(@Body CalendarDelRequest request);
+    WeComResponse del(@Body CalendarDelRequest request) throws WeComException;
 }

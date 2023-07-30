@@ -21,7 +21,7 @@
 
     <groupId>cn.felord</groupId>
     <artifactId>wecom</artifactId>
-    <version>1.1.4</version>
+    <version>1.1.5.RC</version>
     <packaging>pom</packaging>
 
     <name>wecom</name>
@@ -48,6 +48,7 @@
         <module>wecom-objects</module>
         <module>wecom-sdk</module>
         <module>rx-wecom-sdk</module>
+        <module>wepay-objects</module>
     </modules>
 
     <scm>
