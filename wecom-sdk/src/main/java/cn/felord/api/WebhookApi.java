@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.media.MultipartResource;
@@ -48,11 +49,13 @@ public class WebhookApi {
     /**
      * 发送机器人信息
      *
+     * @param <B>  the type parameter
      * @param key  the key
      * @param body the body
      * @return the we com response
+     * @throws WeComException the weComException
      */
-    public <B extends WebhookBody> WeComResponse send(String key, B body) {
+    public <B extends WebhookBody> WeComResponse send(String key, B body) throws WeComException {
         return internalWebhookApi.send(key, body);
     }
 
@@ -62,8 +65,9 @@ public class WebhookApi {
      * @param webhookKey the webhook key
      * @param resource   the resource
      * @return the media response
+     * @throws WeComException the weComException
      */
-    public MediaResponse uploadMedia(String webhookKey, MultipartResource resource) {
+    public MediaResponse uploadMedia(String webhookKey, MultipartResource resource) throws WeComException {
         String fileName = resource.getFileName();
         MediaType mediaType = Objects.nonNull(resource.getMediaType()) ?
                 resource.getMediaType() : FileMediaType.fromFileName(fileName).mediaType();

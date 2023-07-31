@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.externalcontact.*;
 import retrofit2.http.Body;
@@ -39,7 +40,7 @@ public interface OnTransferApi {
      * @return TransferCustomerResponse transfer customer response
      */
     @POST("externalcontact/transfer_customer")
-    TransferCustomerResponse transferCustomer(@Body TransferCustomerRequest request);
+    TransferCustomerResponse transferCustomer(@Body TransferCustomerRequest request) throws WeComException;
 
     /**
      * 查询客户接替状态
@@ -48,7 +49,7 @@ public interface OnTransferApi {
      * @return the transfer customer response
      */
     @POST("externalcontact/transfer_result")
-    TransferResultResponse transferResult(@Body TransferResultRequest request);
+    TransferResultResponse transferResult(@Body TransferResultRequest request) throws WeComException;
 
     /**
      * 分配在职成员的客户群
@@ -57,5 +58,5 @@ public interface OnTransferApi {
      * @return the transfer result response
      */
     @POST("externalcontact/groupchat/onjob_transfer")
-    GenericResponse<Set<TransferFailedGroupChat>> transferGroupChat(@Body TransferGroupChatRequest request);
+    GenericResponse<Set<TransferFailedGroupChat>> transferGroupChat(@Body TransferGroupChatRequest request) throws WeComException;
 }

@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.urgentcall.CallResponse;
 import cn.felord.domain.urgentcall.CallStateRequest;
 import cn.felord.domain.urgentcall.CallStateResponse;
@@ -41,7 +42,7 @@ public interface UrgentCallApi {
      * @return the call response
      */
     @POST("pstncc/call")
-    CallResponse call(@Body CalleeUsers callUsers);
+    CallResponse call(@Body CalleeUsers callUsers) throws WeComException;
 
     /**
      * 获取接听状态
@@ -50,5 +51,5 @@ public interface UrgentCallApi {
      * @return the call state response
      */
     @POST("pstncc/getstates")
-    CallStateResponse queryCallStates(@Body CallStateRequest request);
+    CallStateResponse queryCallStates(@Body CallStateRequest request) throws WeComException;
 }

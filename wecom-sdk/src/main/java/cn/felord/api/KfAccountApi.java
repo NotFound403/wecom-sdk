@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.callcenter.*;
@@ -36,43 +37,48 @@ public interface KfAccountApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("kf/account/add")
-    GenericResponse<String> addKfAccount(@Body KfAccountAddRequest request);
+    GenericResponse<String> addKfAccount(@Body KfAccountAddRequest request) throws WeComException;
 
     /**
      * 删除客服账号
      *
      * @param openKfid the open kfid
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("kf/account/del")
-    WeComResponse delKfAccount(@Body OpenKfid openKfid);
+    WeComResponse delKfAccount(@Body OpenKfid openKfid) throws WeComException;
 
     /**
      * 修改客服账号
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("kf/account/update")
-    WeComResponse updateKfAccount(@Body KfAccountUpdateRequest request);
+    WeComResponse updateKfAccount(@Body KfAccountUpdateRequest request) throws WeComException;
 
     /**
      * 获取客服账号列表
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("kf/account/list")
-    GenericResponse<List<KfAccountInfo>> kfAccountList(@Body KfAccountListRequest request);
+    GenericResponse<List<KfAccountInfo>> kfAccountList(@Body KfAccountListRequest request) throws WeComException;
 
     /**
      * 获取客服账号链接
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("kf/add_contact_way")
-    GenericResponse<String> kfAccountLink(@Body KfAccountLinkRequest request);
+    GenericResponse<String> kfAccountLink(@Body KfAccountLinkRequest request) throws WeComException;
 }

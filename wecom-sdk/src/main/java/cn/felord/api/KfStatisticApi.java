@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.callcenter.*;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -32,16 +33,18 @@ public interface KfStatisticApi {
      *
      * @param request the request
      * @return the kf statistic response
+     * @throws WeComException the weComException
      */
     @POST("kf/get_corp_statistic")
-    KfStatisticResponse<KfCorpStatisticDetail> corpStatistic(@Body KfCorpStatisticRequest request);
+    KfStatisticResponse<KfCorpStatisticDetail> corpStatistic(@Body KfCorpStatisticRequest request) throws WeComException;
 
     /**
      * 获取「客户数据统计」接待人员明细数据
      *
      * @param request the request
      * @return the kf statistic response
+     * @throws WeComException the weComException
      */
     @POST("kf/get_servicer_statistic")
-    KfStatisticResponse<KfServicerStatisticDetail> servicerStatistic(@Body KfServicerStatisticRequest request);
+    KfStatisticResponse<KfServicerStatisticDetail> servicerStatistic(@Body KfServicerStatisticRequest request) throws WeComException;
 }

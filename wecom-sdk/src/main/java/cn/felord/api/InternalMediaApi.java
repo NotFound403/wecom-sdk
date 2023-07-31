@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.common.JobId;
 import cn.felord.domain.media.MediaJobResponse;
@@ -42,11 +43,12 @@ interface InternalMediaApi {
      * @param attachmentType the attachment type
      * @param media          the media
      * @return the media response
+     * @throws WeComException the weComException
      */
     @POST("media/upload_attachment")
     MediaResponse uploadAttachment(@Query("media_type") String mediaType,
                                    @Query("attachment_type") int attachmentType,
-                                   @Body MultipartBody media);
+                                   @Body MultipartBody media) throws WeComException;
 
     /**
      * 上传临时素材
@@ -54,37 +56,41 @@ interface InternalMediaApi {
      * @param mediaType the media type
      * @param media     the media
      * @return the media response
+     * @throws WeComException the weComException
      */
     @POST("media/upload")
     MediaResponse uploadMedia(@Query("type") String mediaType,
-                              @Body MultipartBody media);
+                              @Body MultipartBody media) throws WeComException;
 
     /**
      * 上传图片
      *
      * @param media the media
      * @return the media response
+     * @throws WeComException the weComException
      */
     @POST("media/uploadimg")
-    MediaResponse uploadImage(@Body MultipartBody media);
+    MediaResponse uploadImage(@Body MultipartBody media) throws WeComException;
 
     /**
      * 获取临时素材
      *
      * @param mediaId the media id
      * @return the media
+     * @throws WeComException the weComException
      */
     @GET("media/get")
-    ResponseBody getMedia(@Query("media_id") String mediaId);
+    ResponseBody getMedia(@Query("media_id") String mediaId) throws WeComException;
 
     /**
      * 获取高清语音素材
      *
      * @param mediaId the media id
      * @return the media
+     * @throws WeComException the weComException
      */
     @GET("media/get/jssdk")
-    ResponseBody getMediaJsSdk(@Query("media_id") String mediaId);
+    ResponseBody getMediaJsSdk(@Query("media_id") String mediaId) throws WeComException;
 
     /**
      * 生成异步上传任务
@@ -96,26 +102,29 @@ interface InternalMediaApi {
      *
      * @param request the request
      * @return the media js sdk
+     * @throws WeComException the weComException
      */
     @POST("media/upload_by_url")
-    GenericResponse<String> uploadByUrl(@Body MediaUploadRequest request);
+    GenericResponse<String> uploadByUrl(@Body MediaUploadRequest request) throws WeComException;
 
     /**
      * 查询异步任务结果
      *
      * @param jobId the job id
      * @return the upload by url result
+     * @throws WeComException the weComException
      */
     @POST("media/get_upload_by_url_result")
-    MediaJobResponse getUploadByUrlResult(@Body JobId jobId);
+    MediaJobResponse getUploadByUrlResult(@Body JobId jobId) throws WeComException;
 
     /**
      * 创建对外收款账户-提交图片
      *
      * @param media the media
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/upload_image")
-    GenericResponse<String> uploadPayImage(@Body MultipartBody media);
+    GenericResponse<String> uploadPayImage(@Body MultipartBody media) throws WeComException;
 
 }

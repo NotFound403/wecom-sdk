@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.wedrive.FileDownloadResponse;
 import cn.felord.domain.wedrive.FileId;
 import cn.felord.domain.wedrive.SelectedTicket;
@@ -34,9 +35,10 @@ interface InternalFileManagerApi {
      *
      * @param fileid the fileid
      * @return the file download response
+     * @throws WeComException the weComException
      */
     @POST("wedrive/file_download")
-    FileDownloadResponse getFileUrlByFileId(@Body FileId fileid);
+    FileDownloadResponse getFileUrlByFileId(@Body FileId fileid) throws WeComException;
 
     /**
      * 下载文件（微盘和文件选择器jsapi返回的selectedTicket）
@@ -45,7 +47,8 @@ interface InternalFileManagerApi {
      *
      * @param selectedTicket the selected ticket
      * @return the file download response
+     * @throws WeComException the weComException
      */
     @POST("wedrive/file_download")
-    FileDownloadResponse getFileUrlBySelectedTicket(@Body SelectedTicket selectedTicket);
+    FileDownloadResponse getFileUrlBySelectedTicket(@Body SelectedTicket selectedTicket) throws WeComException;
 }

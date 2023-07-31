@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.MsgId;
@@ -38,9 +39,10 @@ public interface GroupMessageApi {
      *
      * @param request the request
      * @return the moment list
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_msg_template")
-    MsgTemplateResponse addMsgTemplate(@Body MsgTemplateRequest request);
+    MsgTemplateResponse addMsgTemplate(@Body MsgTemplateRequest request) throws WeComException;
 
     /**
      * 提醒成员群发
@@ -49,18 +51,20 @@ public interface GroupMessageApi {
      *
      * @param msgId the msg id
      * @return the msg template response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/remind_groupmsg_send")
-    WeComResponse remindGroupmsgSend(@Body MsgId msgId);
+    WeComResponse remindGroupmsgSend(@Body MsgId msgId) throws WeComException;
 
     /**
      * 停止企业群发
      *
      * @param msgId the msg id
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/cancel_groupmsg_send")
-    WeComResponse cancelGroupmsgSend(@Body MsgId msgId);
+    WeComResponse cancelGroupmsgSend(@Body MsgId msgId) throws WeComException;
 
     /**
      * 获取群发记录列表
@@ -68,79 +72,88 @@ public interface GroupMessageApi {
      *
      * @param request the request
      * @return the groupmsg list v 2
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_groupmsg_list_v2")
-    GroupMsgListResponse getGroupMsgListV2(@Body GroupMsgListRequest request);
+    GroupMsgListResponse getGroupMsgListV2(@Body GroupMsgListRequest request) throws WeComException;
 
     /**
      * 获取群发成员发送任务列表
      *
      * @param request the request
      * @return the group msg task
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_groupmsg_task")
-    GroupMsgTaskResponse getGroupMsgTask(@Body GroupMsgTaskRequest request);
+    GroupMsgTaskResponse getGroupMsgTask(@Body GroupMsgTaskRequest request) throws WeComException;
 
     /**
      * 获取企业群发成员执行结果
      *
      * @param request the request
      * @return the group msg send result
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_groupmsg_send_result")
-    GroupMsgSendResultResponse getGroupMsgSendResult(@Body GroupMsgSendResultRequest request);
+    GroupMsgSendResultResponse getGroupMsgSendResult(@Body GroupMsgSendResultRequest request) throws WeComException;
 
     /**
      * 发送新客户欢迎语
      *
      * @param request the request
      * @return group msg send result response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/send_welcome_msg")
-    WeComResponse sendWelcomeGroupMsg(@Body WelcomeCodeRequest request);
+    WeComResponse sendWelcomeGroupMsg(@Body WelcomeCodeRequest request) throws WeComException;
 
     /**
      * 添加入群欢迎语素材
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/group_welcome_template/add")
-    GenericResponse<String> addWelcomeTemplate(@Body WelcomeTemplateAddRequest request);
+    GenericResponse<String> addWelcomeTemplate(@Body WelcomeTemplateAddRequest request) throws WeComException;
 
     /**
      * 编辑入群欢迎语素材
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/group_welcome_template/edit")
-    WeComResponse editWelcomeTemplate(@Body WelcomeTemplateEditRequest request);
+    WeComResponse editWelcomeTemplate(@Body WelcomeTemplateEditRequest request) throws WeComException;
 
     /**
      * 获取入群欢迎语素材
      *
      * @param templateId the template id
      * @return the welcome template
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/group_welcome_template/get")
-    WelcomeTemplateResponse getWelcomeTemplate(@Body TemplateId templateId);
+    WelcomeTemplateResponse getWelcomeTemplate(@Body TemplateId templateId) throws WeComException;
 
     /**
      * 删除入群欢迎语素材
      *
      * @param templateId the template id
      * @return the welcome template response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/group_welcome_template/del")
-    WeComResponse delWelcomeTemplate(@Body TemplateId templateId);
+    WeComResponse delWelcomeTemplate(@Body TemplateId templateId) throws WeComException;
 
     /**
      * 删除入群欢迎语素材（仅适用于旧的第三方多应用套件）
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/group_welcome_template/del")
-    WeComResponse delWelcomeTemplate(@Body DelWelcomeTmpRequest request);
+    WeComResponse delWelcomeTemplate(@Body DelWelcomeTmpRequest request) throws WeComException;
 }

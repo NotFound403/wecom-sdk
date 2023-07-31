@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.webhook.WebhookBody;
@@ -37,9 +38,10 @@ interface InternalWebhookApi {
      * @param key  the key
      * @param body the body
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("webhook/send")
-    WeComResponse send(@Query("key") String key, @Body WebhookBody body);
+    WeComResponse send(@Query("key") String key, @Body WebhookBody body) throws WeComException;
 
     /**
      * 机器人上传素材
@@ -48,9 +50,10 @@ interface InternalWebhookApi {
      * @param type       the type
      * @param media      the media
      * @return the media response
+     * @throws WeComException the weComException
      */
     @POST("webhook/upload_media")
     MediaResponse uploadMedia(@Query("key") String webhookKey,
                               @Query("type") String type,
-                              @Body MultipartBody media);
+                              @Body MultipartBody media) throws WeComException;
 }

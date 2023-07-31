@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.MomentId;
@@ -41,36 +42,40 @@ public interface MomentApi {
      * @param <T>  the type parameter
      * @param body the body
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_moment_task")
-    <T extends MomentAttachment> GenericResponse<String> addMomentTask(@Body MomentBody<T> body);
+    <T extends MomentAttachment> GenericResponse<String> addMomentTask(@Body MomentBody<T> body) throws WeComException;
 
     /**
      * 获取任务创建结果
      *
      * @param jobId the job id
      * @return the moment task result response
+     * @throws WeComException the weComException
      */
     @GET("externalcontact/get_moment_task_result")
-    MomentTaskResultResponse getMomentTaskResult(@Query("jobid") String jobId);
+    MomentTaskResultResponse getMomentTaskResult(@Query("jobid") String jobId) throws WeComException;
 
     /**
      * 获取企业全部的发表列表
      *
      * @param request the request
      * @return the moment list
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_moment_list")
-    MomentListResponse getMomentList(@Body MomentListRequest request);
+    MomentListResponse getMomentList(@Body MomentListRequest request) throws WeComException;
 
     /**
      * 获取客户朋友圈企业发表的列表
      *
      * @param request the request
      * @return the moment list
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_moment_task")
-    MomentMemberTaskResponse getMomentTask(@Body MomentTaskRequest request);
+    MomentMemberTaskResponse getMomentTask(@Body MomentTaskRequest request) throws WeComException;
 
     /**
      * 获取客户朋友圈发表时选择的可见范围
@@ -79,9 +84,10 @@ public interface MomentApi {
      *
      * @param request the request
      * @return the moment customer list
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_moment_customer_list")
-    MomentCustomerListResponse getMomentCustomerList(@Body MomentInfoRequest request);
+    MomentCustomerListResponse getMomentCustomerList(@Body MomentInfoRequest request) throws WeComException;
 
     /**
      * 获取客户朋友圈发表后的可见客户列表
@@ -90,18 +96,20 @@ public interface MomentApi {
      *
      * @param request the request
      * @return the moment send result
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_moment_send_result")
-    MomentCustomerListResponse getMomentSendResult(@Body MomentInfoRequest request);
+    MomentCustomerListResponse getMomentSendResult(@Body MomentInfoRequest request) throws WeComException;
 
     /**
      * 停止发表企业朋友圈
      *
      * @param momentId the moment id
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/cancel_moment_task")
-    WeComResponse cancelMomentTask(@Body MomentId momentId);
+    WeComResponse cancelMomentTask(@Body MomentId momentId) throws WeComException;
 
     /**
      * 获取客户朋友圈的互动数据
@@ -110,61 +118,68 @@ public interface MomentApi {
      *
      * @param userId the user id
      * @return the moment 优化了企业微信给的数据结构
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_moment_comments")
-    MomentCommentResponse getMomentComments(@Body UserMoment userId);
+    MomentCommentResponse getMomentComments(@Body UserMoment userId) throws WeComException;
 
     /**
      * 获取规则组列表
      *
      * @param request the request
      * @return the external user list detail response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/list")
-    StrategyListResponse momentStrategyList(@Body PageRequest request);
+    StrategyListResponse momentStrategyList(@Body PageRequest request) throws WeComException;
 
     /**
      * 获取规则组详情
      *
      * @param strategyId the strategy id
      * @return the external user list detail response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/get")
-    MomentStrategyDetailResponse getMomentStrategy(@Body StrategyId strategyId);
+    MomentStrategyDetailResponse getMomentStrategy(@Body StrategyId strategyId) throws WeComException;
 
     /**
      * 获取规则组管理范围
      *
      * @param request the request
      * @return the external user list detail response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/get_range")
-    StrategyRangeResponse getMomentStrategyRange(@Body StrategyRangeRequest request);
+    StrategyRangeResponse getMomentStrategyRange(@Body StrategyRangeRequest request) throws WeComException;
 
     /**
      * 创建新的规则组
      *
      * @param request the request
      * @return the customer strategy range response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/create")
-    GenericResponse<Integer> createMomentStrategy(@Body CustomerStrategyRequest request);
+    GenericResponse<Integer> createMomentStrategy(@Body CustomerStrategyRequest request) throws WeComException;
 
     /**
      * 编辑规则组及其管理范围
      *
      * @param request the request
      * @return the customer strategy range response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/edit")
-    WeComResponse editMomentStrategy(@Body MutableMomentStrategy request);
+    WeComResponse editMomentStrategy(@Body MutableMomentStrategy request) throws WeComException;
 
     /**
      * 删除规则组
      *
      * @param strategyId the strategy id
      * @return the customer strategy range response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/moment_strategy/del")
-    WeComResponse delMomentStrategy(@Body StrategyId strategyId);
+    WeComResponse delMomentStrategy(@Body StrategyId strategyId) throws WeComException;
 }

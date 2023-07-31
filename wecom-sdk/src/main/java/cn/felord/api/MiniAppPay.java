@@ -1,5 +1,21 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.corpay.miniapppay.*;
@@ -23,9 +39,10 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/create_order")
-    GenericResponse<String> createOrder(@Body MiniPayRequest request);
+    GenericResponse<String> createOrder(@Body MiniPayRequest request) throws WeComException;
 
     /**
      * 查询订单
@@ -41,9 +58,10 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the order
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/get_order")
-    PayOrderDetailResponse getOrder(@Body MchIdAndOutTradeNo request);
+    PayOrderDetailResponse getOrder(@Body MchIdAndOutTradeNo request) throws WeComException;
 
     /**
      * 关闭订单
@@ -58,9 +76,10 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/close_order")
-    WeComResponse closeOrder(@Body MchIdAndOutTradeNo request);
+    WeComResponse closeOrder(@Body MchIdAndOutTradeNo request) throws WeComException;
 
     /**
      * 获取支付签名
@@ -69,9 +88,10 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the sign
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/get_sign")
-    GenericResponse<String> getSign(@Body PaySignRequest request);
+    GenericResponse<String> getSign(@Body PaySignRequest request) throws WeComException;
 
     /**
      * 申请退款
@@ -87,9 +107,10 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the refund response
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/refund")
-    RefundResponse refund(@Body RefundRequest request);
+    RefundResponse refund(@Body RefundRequest request) throws WeComException;
 
     /**
      * 查询退款
@@ -98,9 +119,10 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the refund detail
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/get_refund_detail")
-    RefundDetailResponse getRefundDetail(@Body MchIdAndOutRefundNo request);
+    RefundDetailResponse getRefundDetail(@Body MchIdAndOutRefundNo request) throws WeComException;
 
     /**
      * 交易账单申请
@@ -109,9 +131,10 @@ public interface MiniAppPay {
      *
      * @param request the request
      * @return the bill
+     * @throws WeComException the weComException
      */
     @POST("miniapppay/get_bill")
-    BillResponse getBill(@Body BillRequest request);
+    BillResponse getBill(@Body BillRequest request) throws WeComException;
 
     /**
      * 下载对账单
@@ -123,10 +146,11 @@ public interface MiniAppPay {
      * @param downloadUrl   the download url
      * @param authorization the authorization
      * @return the response body
-     * @see #getBill(BillRequest) 交易账单申请
+     * @throws WeComException the weComException
+     * @see #getBill(BillRequest) #getBill(BillRequest)交易账单申请
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/apiv3/download/ALL.xlsx">对账单示例</a>
      */
     @GET
-    ResponseBody downloadBill(@Url String downloadUrl, @Header("Authorization") String authorization);
+    ResponseBody downloadBill(@Url String downloadUrl, @Header("Authorization") String authorization) throws WeComException;
 
 }

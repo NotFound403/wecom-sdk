@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.contactbook.department.DeptInfo;
@@ -39,18 +40,20 @@ public interface DepartmentApi {
      *
      * @param request the request
      * @return CreateDeptResponse generic response
+     * @throws WeComException the weComException
      */
     @POST("department/create")
-    GenericResponse<Long> createDept(@Body DeptInfo request);
+    GenericResponse<Long> createDept(@Body DeptInfo request) throws WeComException;
 
     /**
      * 创建部门
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("department/update")
-    WeComResponse updateDept(@Body DeptInfo request);
+    WeComResponse updateDept(@Body DeptInfo request) throws WeComException;
 
     /**
      * 删除部门,不能删除根部门；不能删除含有子部门、成员的部门
@@ -59,50 +62,56 @@ public interface DepartmentApi {
      *
      * @param departmentId departmentId
      * @return WeComResponse we com response
+     * @throws WeComException the weComException
      */
     @GET("department/delete")
-    WeComResponse deleteDept(@Query("id") long departmentId);
+    WeComResponse deleteDept(@Query("id") long departmentId) throws WeComException;
 
     /**
      * 获取部门列表（自建）
      *
      * @param departmentId departmentId
      * @return DeptResponse generic response
+     * @throws WeComException the weComException
      */
     @GET("department/list")
-    GenericResponse<List<DeptInfo>> deptList(@Query("id") long departmentId);
+    GenericResponse<List<DeptInfo>> deptList(@Query("id") long departmentId) throws WeComException;
 
     /**
      * 获取全部部门列表（自建）
      *
      * @return DeptResponse generic response
+     * @throws WeComException the weComException
      */
     @GET("department/list")
-    GenericResponse<List<DeptInfo>> deptList();
+    GenericResponse<List<DeptInfo>> deptList() throws WeComException;
 
     /**
      * 获取全部子部门ID列表
      *
      * @return the simple list
+     * @throws WeComException the weComException
      */
     @GET("department/simplelist")
-    GenericResponse<List<DeptSimpleInfo>> getSimpleList();
+    GenericResponse<List<DeptSimpleInfo>> getSimpleList() throws WeComException;
 
     /**
      * 获取子部门ID列表
      *
      * @param departmentId the department id
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @GET("department/simplelist")
-    GenericResponse<List<DeptSimpleInfo>> getSimpleList(@Query("id") long departmentId);
+    GenericResponse<List<DeptSimpleInfo>> getSimpleList(@Query("id") long departmentId) throws WeComException;
 
     /**
      * 获取单部门详情（自建）
      *
      * @param departmentId the department id
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @GET("department/get")
-    GenericResponse<DeptInfo> get(@Query("id") long departmentId);
+    GenericResponse<DeptInfo> get(@Query("id") long departmentId) throws WeComException;
 }

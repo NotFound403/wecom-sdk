@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.externalcontact.*;
@@ -35,42 +36,47 @@ public interface ChatInterceptRuleApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_intercept_rule")
-    GenericResponse<String> addInterceptRule(@Body ChatInterceptRuleAddRequest request);
+    GenericResponse<String> addInterceptRule(@Body ChatInterceptRuleAddRequest request) throws WeComException;
 
     /**
      * 获取敏感词规则列表
      *
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @GET("externalcontact/get_intercept_rule_list")
-    GenericResponse<InterceptRuleInfo> interceptRuleList();
+    GenericResponse<InterceptRuleInfo> interceptRuleList() throws WeComException;
 
     /**
      * 获取敏感词规则详情
      *
      * @param request the request
      * @return the intercept rule
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_intercept_rule")
-    GenericResponse<InterceptRuleDetail> getInterceptRule(@Body InterceptRuleRequest request);
+    GenericResponse<InterceptRuleDetail> getInterceptRule(@Body InterceptRuleRequest request) throws WeComException;
 
     /**
      * 修改敏感词规则
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/update_intercept_rule")
-    WeComResponse updateInterceptRule(@Body ChatInterceptRuleUpdateRequest request);
+    WeComResponse updateInterceptRule(@Body ChatInterceptRuleUpdateRequest request) throws WeComException;
 
     /**
      * 删除敏感词规则
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/del_intercept_rule")
-    WeComResponse deleteInterceptRule(@Body InterceptRuleRequest request);
+    WeComResponse deleteInterceptRule(@Body InterceptRuleRequest request) throws WeComException;
 }

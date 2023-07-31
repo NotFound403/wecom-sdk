@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.common.DepartmentId;
 import cn.felord.domain.common.UserId;
@@ -38,34 +39,38 @@ public interface LinkedCorpApi {
      * 获取应用的可见范围
      *
      * @return the perm list
+     * @throws WeComException the weComException
      */
     @POST("linkedcorp/agent/get_perm_list")
-    PermListResponse getPermList();
+    PermListResponse getPermList() throws WeComException;
 
     /**
      * 获取互联企业成员详细信息
      *
      * @param userId the user id
      * @return the user
+     * @throws WeComException the weComException
      */
     @POST("linkedcorp/user/get")
-    GenericResponse<CorpUserInfo> getUser(@Body UserId userId);
+    GenericResponse<CorpUserInfo> getUser(@Body UserId userId) throws WeComException;
 
     /**
      * 获取互联企业部门成员
      *
      * @param linkedDepartmentId the linked department id
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("linkedcorp/user/simplelist")
-    GenericResponse<List<CorpSimpleUserInfo>> getUserSimplelist(@Body DepartmentId linkedDepartmentId);
+    GenericResponse<List<CorpSimpleUserInfo>> getUserSimplelist(@Body DepartmentId linkedDepartmentId) throws WeComException;
 
     /**
      * 获取互联企业部门列表
      *
      * @param linkedDepartmentId the linked department id
      * @return the dept list
+     * @throws WeComException the weComException
      */
     @POST("linkedcorp/department/list")
-    GenericResponse<List<DeptInfo>> getDeptList(@Body DepartmentId linkedDepartmentId);
+    GenericResponse<List<DeptInfo>> getDeptList(@Body DepartmentId linkedDepartmentId) throws WeComException;
 }

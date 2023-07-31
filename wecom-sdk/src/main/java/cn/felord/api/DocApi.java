@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.FormId;
@@ -39,7 +40,7 @@ public interface DocApi {
      * @return the create doc response
      */
     @POST("wedoc/create_doc")
-    CreateDocResponse createDoc(@Body CreateDocRequest request);
+    CreateDocResponse createDoc(@Body CreateDocRequest request) throws WeComException;
 
     /**
      * 重命名文档
@@ -48,7 +49,7 @@ public interface DocApi {
      * @return the we com response
      */
     @POST("wedoc/rename_doc")
-    WeComResponse renameDoc(@Body DocId docId);
+    WeComResponse renameDoc(@Body DocId docId) throws WeComException;
 
     /**
      * 重命名收集表
@@ -57,7 +58,7 @@ public interface DocApi {
      * @return the we com response
      */
     @POST("wedoc/rename_doc")
-    WeComResponse renameDoc(@Body FormId docId);
+    WeComResponse renameDoc(@Body FormId docId) throws WeComException;
 
     /**
      * 删除文档
@@ -66,7 +67,7 @@ public interface DocApi {
      * @return the we com response
      */
     @POST("wedoc/del_doc")
-    WeComResponse delDoc(@Body DocId docId);
+    WeComResponse delDoc(@Body DocId docId) throws WeComException;
 
     /**
      * 删除收集表
@@ -75,7 +76,7 @@ public interface DocApi {
      * @return the we com response
      */
     @POST("wedoc/del_doc")
-    WeComResponse delDoc(@Body FormId formId);
+    WeComResponse delDoc(@Body FormId formId) throws WeComException;
 
     /**
      * Gets doc base info.
@@ -84,7 +85,7 @@ public interface DocApi {
      * @return the doc base info
      */
     @POST("wedoc/get_doc_base_info")
-    GenericResponse<DocBaseInfo> getDocBaseInfo(@Body DocId docId);
+    GenericResponse<DocBaseInfo> getDocBaseInfo(@Body DocId docId) throws WeComException;
 
     /**
      * 分享文档
@@ -93,7 +94,7 @@ public interface DocApi {
      * @return the we com response
      */
     @POST("wedoc/doc_share")
-    GenericResponse<String> docShare(@Body DocId docId);
+    GenericResponse<String> docShare(@Body DocId docId) throws WeComException;
 
     /**
      * 分享收集表
@@ -102,7 +103,7 @@ public interface DocApi {
      * @return the we com response
      */
     @POST("wedoc/doc_share")
-    GenericResponse<String> docShare(@Body FormId formId);
+    GenericResponse<String> docShare(@Body FormId formId) throws WeComException;
 
     /**
      * 获取文档权限信息
@@ -111,7 +112,7 @@ public interface DocApi {
      * @return the doc auth response
      */
     @POST("wedoc/doc_get_auth")
-    DocAuthResponse docGetAuth(@Body DocId docId);
+    DocAuthResponse docGetAuth(@Body DocId docId) throws WeComException;
 
     /**
      * 修改文档查看规则
@@ -120,7 +121,7 @@ public interface DocApi {
      * @return the we com response
      */
     @POST("wedoc/mod_doc_join_rule")
-    WeComResponse modDocJoinRule(@Body AccessRuleUpdateRequest request);
+    WeComResponse modDocJoinRule(@Body AccessRuleUpdateRequest request) throws WeComException;
 
     /**
      * 修改文档通知范围及权限
@@ -129,7 +130,7 @@ public interface DocApi {
      * @return the we com response
      */
     @POST("wedoc/mod_doc_member")
-    WeComResponse modDocMember(@Body FileMemberUpdateRequest request);
+    WeComResponse modDocMember(@Body FileMemberUpdateRequest request) throws WeComException;
 
     /**
      * 修改文档安全设置
@@ -138,5 +139,5 @@ public interface DocApi {
      * @return the we com response
      */
     @POST("wedoc/mod_doc_safty_setting")
-    WeComResponse modDocSaftySetting(@Body DocSecuritySetting setting);
+    WeComResponse modDocSaftySetting(@Body DocSecuritySetting setting) throws WeComException;
 }

@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.PageRequest;
@@ -36,60 +37,67 @@ public interface CustomerAcquisitionApi {
      *
      * @param request the request
      * @return the follow user list
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/list_link")
-    LinksResponse queryLinks(@Body PageRequest request);
+    LinksResponse queryLinks(@Body PageRequest request) throws WeComException;
 
     /**
      * 获取获客链接详情
      *
      * @param linkId the link id
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/get")
-    LinkDetailResponse queryLinkDetail(@Body LinkId linkId);
+    LinkDetailResponse queryLinkDetail(@Body LinkId linkId) throws WeComException;
 
     /**
      * 创建获客链接
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/create_link")
-    GenericResponse<AcquisitionLink> createLink(@Body AcquisitionLinkCreateRequest request);
+    GenericResponse<AcquisitionLink> createLink(@Body AcquisitionLinkCreateRequest request) throws WeComException;
 
     /**
      * 编辑获客链接
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/update_link")
-    WeComResponse updateLink(@Body AcquisitionLinkUpdateRequest request);
+    WeComResponse updateLink(@Body AcquisitionLinkUpdateRequest request) throws WeComException;
 
     /**
      * 删除获客链接
      *
      * @param linkId the link id
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/delete_link")
-    WeComResponse deleteLink(@Body LinkId linkId);
+    WeComResponse deleteLink(@Body LinkId linkId) throws WeComException;
 
     /**
      * 获取由获客链接添加的客户信息
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/customer")
-    LinkCustomersResponse queryLinkCustomers(@Body LinkPageRequest request);
+    LinkCustomersResponse queryLinkCustomers(@Body LinkPageRequest request) throws WeComException;
 
     /**
      * 查询获客链接剩余使用量
      *
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @GET("externalcontact/customer_acquisition_quota")
-    AcquisitionQuotaResponse queryCustomerAcquisitionQuotas();
+    AcquisitionQuotaResponse queryCustomerAcquisitionQuotas() throws WeComException;
 }

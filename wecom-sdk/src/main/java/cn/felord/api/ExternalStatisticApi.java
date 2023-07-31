@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.externalcontact.*;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -38,9 +39,10 @@ public interface ExternalStatisticApi {
      *
      * @param request the request
      * @return the user behavior data
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_user_behavior_data")
-    UserBehaviorDataResponse getUserBehaviorData(@Body UserBehaviorDataRequest request);
+    UserBehaviorDataResponse getUserBehaviorData(@Body UserBehaviorDataRequest request) throws WeComException;
 
     /**
      * 获取「群聊数据统计」数据-按群主聚合的方式
@@ -51,16 +53,18 @@ public interface ExternalStatisticApi {
      *
      * @param request the request
      * @return the group chat data
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/statistic")
-    GroupChatDataResponse<GroupChatDataByOwner> getGroupChatData(@Body GroupChatOwnerDataRequest request);
+    GroupChatDataResponse<GroupChatDataByOwner> getGroupChatData(@Body GroupChatOwnerDataRequest request) throws WeComException;
 
     /**
      * 获取「群聊数据统计」数据-按自然日聚合的方式
      *
      * @param request the request
      * @return the group chat data by day
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/statistic_group_by_day")
-    GroupChatDataResponse<GroupChatDataByDay> getGroupChatData(@Body GroupChatDayDataRequest request);
+    GroupChatDataResponse<GroupChatDataByDay> getGroupChatData(@Body GroupChatDayDataRequest request) throws WeComException;
 }

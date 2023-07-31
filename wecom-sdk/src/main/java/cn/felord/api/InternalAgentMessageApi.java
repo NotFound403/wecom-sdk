@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.MsgId;
 import cn.felord.domain.message.*;
@@ -34,27 +35,30 @@ interface InternalAgentMessageApi {
      *
      * @param body the body
      * @return the message response
+     * @throws WeComException the weComException
      * @see MessageBodyBuilders
      */
     @POST("message/send")
-    MessageResponse send(@Body AbstractMessageBody body);
+    MessageResponse send(@Body AbstractMessageBody body) throws WeComException;
 
     /**
      * 更新模版卡片消息
      *
      * @param request the request
      * @return the message response
+     * @throws WeComException the weComException
      * @see TemplateReplaceCardBuilders
      */
     @POST("message/update_template_card")
-    MessageResponse updateTemplateCard(@Body AbstractUpdateTemplateCardRequest request);
+    MessageResponse updateTemplateCard(@Body AbstractUpdateTemplateCardRequest request) throws WeComException;
 
     /**
      * 撤回应用消息
      *
      * @param request the request
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("message/recall")
-    WeComResponse recall(@Body MsgId request);
+    WeComResponse recall(@Body MsgId request) throws WeComException;
 }

@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.PageRequest;
@@ -38,43 +39,48 @@ public interface ProductAlbumApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/add_product_album")
-    GenericResponse<String> addProductAlbum(@Body ProductAlbumAddRequest request);
+    GenericResponse<String> addProductAlbum(@Body ProductAlbumAddRequest request) throws WeComException;
 
     /**
      * 获取商品图册
      *
      * @param productId the product id
      * @return the product album
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_product_album")
-    ProductAlbumDetailResponse getProductAlbum(@Body ProductId productId);
+    ProductAlbumDetailResponse getProductAlbum(@Body ProductId productId) throws WeComException;
 
     /**
      * 获取商品图册列表
      *
      * @param request the request
      * @return the product album detail response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_product_album_list")
-    ProductAlbumDetailResponse productAlbumList(@Body PageRequest request);
+    ProductAlbumDetailResponse productAlbumList(@Body PageRequest request) throws WeComException;
 
     /**
      * 编辑商品图册
      *
      * @param productAlbumDetail the product album detail
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/update_product_album")
-    WeComResponse updateProductAlbum(@Body ProductAlbumDetail productAlbumDetail);
+    WeComResponse updateProductAlbum(@Body ProductAlbumDetail productAlbumDetail) throws WeComException;
 
     /**
      * 删除商品图册
      *
      * @param productId the product id
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/delete_product_album")
-    WeComResponse deleteProductAlbum(@Body ProductId productId);
+    WeComResponse deleteProductAlbum(@Body ProductId productId) throws WeComException;
 }

@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import retrofit2.http.Body;
@@ -37,16 +38,18 @@ interface InternalAgentManagerApi {
      *
      * @param agentId the agent id
      * @return the agent details
+     * @throws WeComException the weComException
      */
     @GET("agent/get")
-    AgentDetailsResponse getAgentDetails(@Query("agentid") String agentId);
+    AgentDetailsResponse getAgentDetails(@Query("agentid") String agentId) throws WeComException;
 
     /**
      * 设置应用
      *
      * @param settings the settings
      * @return WeComResponse
+     * @throws WeComException the weComException
      */
     @POST("agent/set")
-    WeComResponse settings(@Body AgentManagerApi.Settings settings);
+    WeComResponse settings(@Body AgentManagerApi.Settings settings) throws WeComException;
 }

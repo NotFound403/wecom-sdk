@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.callcenter.*;
 import retrofit2.http.Body;
@@ -33,34 +34,38 @@ public interface KfUpgradeApi {
      * 获取配置的专员与客户群
      *
      * @return the upgrade service config
+     * @throws WeComException the weComException
      */
     @GET("kf/customer/get_upgrade_service_config")
-    UpgradeServiceConfig upgradeServiceConfig();
+    UpgradeServiceConfig upgradeServiceConfig() throws WeComException;
 
     /**
      * 为客户升级为专员或客户群服务
      *
      * @param request the request
      * @return the upgrade service config
+     * @throws WeComException the weComException
      */
     @POST("kf/customer/upgrade_service")
-    WeComResponse upgradeService(@Body UpgradeServiceRequest request);
+    WeComResponse upgradeService(@Body UpgradeServiceRequest request) throws WeComException;
 
     /**
      * 为客户取消推荐
      *
      * @param kfAndExternalUser the kf and external user
      * @return the we com response
+     * @throws WeComException the weComException
      */
     @POST("kf/customer/cancel_upgrade_service")
-    WeComResponse cancelService(@Body KfAndExternalUser kfAndExternalUser);
+    WeComResponse cancelService(@Body KfAndExternalUser kfAndExternalUser) throws WeComException;
 
     /**
      * 获取客户基础信息
      *
      * @param request the request
      * @return the kf external user response
+     * @throws WeComException the weComException
      */
     @POST("kf/customer/batchget")
-    KfExternalUserResponse batchKfExternalUsers(@Body KfExternalUserRequest request);
+    KfExternalUserResponse batchKfExternalUsers(@Body KfExternalUserRequest request) throws WeComException;
 }

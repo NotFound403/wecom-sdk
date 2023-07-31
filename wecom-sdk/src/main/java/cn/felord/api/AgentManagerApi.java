@@ -1,6 +1,22 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.api;
 
 import cn.felord.AgentDetails;
+import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.agent.AgentDetailsResponse;
 import cn.felord.domain.agent.AgentSettingRequest;
@@ -32,8 +48,9 @@ public class AgentManagerApi {
      * Gets agent details.
      *
      * @return the agent details
+     * @throws WeComException the weComException
      */
-    public AgentDetailsResponse getAgentDetails() {
+    public AgentDetailsResponse getAgentDetails() throws WeComException {
         return internalAgentManagerApi.getAgentDetails(agentDetails.getAgentId());
     }
 
@@ -42,8 +59,9 @@ public class AgentManagerApi {
      *
      * @param request the request
      * @return WeComResponse
+     * @throws WeComException the weComException
      */
-    public WeComResponse settings(AgentSettingRequest request) {
+    public WeComResponse settings(AgentSettingRequest request) throws WeComException {
         return internalAgentManagerApi.settings(Settings.from(agentDetails.getAgentId(), request));
     }
 
@@ -51,7 +69,7 @@ public class AgentManagerApi {
     /**
      * The type Settings.
      */
-    public static class Settings extends AgentSettingRequest {
+    static class Settings extends AgentSettingRequest {
         private final String agentid;
 
 

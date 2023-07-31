@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -54,9 +55,10 @@ interface MmPayMktTransfersApi {
      *
      * @param xmlBody the xml body
      * @return the string
+     * @throws WeComException the weComException
      */
     @POST("sendworkwxredpack")
-    String sendWorkWxRedPack(@Body String xmlBody);
+    String sendWorkWxRedPack(@Body String xmlBody) throws WeComException;
 
     /**
      * 查询红包记录
@@ -72,9 +74,10 @@ interface MmPayMktTransfersApi {
      *
      * @param xmlBody the xml body
      * @return the string
+     * @throws WeComException the weComException
      */
     @POST("queryworkwxredpack")
-    String queryWorkWxRedPack(@Body String xmlBody);
+    String queryWorkWxRedPack(@Body String xmlBody) throws WeComException;
 
     /**
      * 向员工付款
@@ -92,9 +95,10 @@ interface MmPayMktTransfersApi {
      *
      * @param xmlBody the xml body
      * @return the string
+     * @throws WeComException the weComException
      */
     @POST("promotion/paywwsptrans2pocket")
-    String payWwSpTrans2Pocket(@Body String xmlBody);
+    String payWwSpTrans2Pocket(@Body String xmlBody) throws WeComException;
 
     /**
      * 向员工付款-查询付款记录
@@ -104,7 +108,8 @@ interface MmPayMktTransfersApi {
      *
      * @param xmlBody the xml body
      * @return the string
+     * @throws WeComException the weComException
      */
     @POST("promotion/querywwsptrans2pocket")
-    String queryWwSpTrans2Pocket(@Body String xmlBody);
+    String queryWwSpTrans2Pocket(@Body String xmlBody) throws WeComException;
 }

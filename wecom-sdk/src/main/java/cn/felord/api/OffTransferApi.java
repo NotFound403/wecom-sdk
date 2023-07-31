@@ -15,6 +15,7 @@
 
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.common.CursorPage;
 import cn.felord.domain.externalcontact.*;
@@ -36,9 +37,10 @@ public interface OffTransferApi {
      *
      * @param cursorPage the cursor page
      * @return TransferCustomerResponse transfer customer response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/get_unassigned_list")
-    UnassignedListResponse getUnassignedList(@Body CursorPage cursorPage);
+    UnassignedListResponse getUnassignedList(@Body CursorPage cursorPage) throws WeComException;
 
 
     /**
@@ -46,25 +48,28 @@ public interface OffTransferApi {
      *
      * @param request the request
      * @return the transfer customer response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/resigned/transfer_customer")
-    TransferCustomerResponse transferCustomer(@Body OffTransferCustomerRequest request);
+    TransferCustomerResponse transferCustomer(@Body OffTransferCustomerRequest request) throws WeComException;
 
     /**
      * 查询离职成员客户接替状态
      *
      * @param request the request
      * @return the transfer customer response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/resigned/transfer_result")
-    TransferResultResponse transferResult(@Body TransferResultRequest request);
+    TransferResultResponse transferResult(@Body TransferResultRequest request) throws WeComException;
 
     /**
      * 分配离职成员的客户群
      *
      * @param request the request
      * @return the transfer result response
+     * @throws WeComException the weComException
      */
     @POST("externalcontact/groupchat/transfer")
-    GenericResponse<Set<TransferFailedGroupChat>> transferGroupChat(@Body TransferGroupChatRequest request);
+    GenericResponse<Set<TransferFailedGroupChat>> transferGroupChat(@Body TransferGroupChatRequest request) throws WeComException;
 }
