@@ -38,9 +38,10 @@ public interface ApprovalApi {
      *
      * @param templateId the template id
      * @return the detail
+     * @throws WeComException the we com exception
      */
     @POST("oa/gettemplatedetail")
-    ApprovalTmpDetailResponse getTemplateDetail(@Body TemplateId templateId);
+    ApprovalTmpDetailResponse getTemplateDetail(@Body TemplateId templateId) throws WeComException;
 
     /**
      * 创建审批模板
