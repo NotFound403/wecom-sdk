@@ -15,7 +15,7 @@
 
 package cn.felord.domain.approval;
 
-import cn.felord.domain.common.UserWrapper;
+import cn.felord.domain.common.UserId;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -29,7 +29,7 @@ import java.util.List;
 @Data
 public class ApprovalComment {
     @JsonProperty("commentUserInfo")
-    private UserWrapper commentUserInfo;
+    private UserId commentUserInfo;
     private Instant commenttime;
     private String commentcontent;
     private String commentid;
