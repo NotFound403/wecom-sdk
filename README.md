@@ -66,7 +66,7 @@
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>wecom-sdk</artifactId>
-  <version>1.1.5.RC</version>
+  <version>1.1.5</version>
 </dependency>
 ```
 
@@ -77,7 +77,7 @@
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>rx-wecom-sdk</artifactId>
-  <version>1.1.5.RC</version>
+  <version>1.1.5</version>
 </dependency>
 ```
 
