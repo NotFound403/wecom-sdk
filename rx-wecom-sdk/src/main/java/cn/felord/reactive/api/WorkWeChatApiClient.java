@@ -17,7 +17,7 @@ package cn.felord.reactive.api;
 
 
 import cn.felord.AgentDetails;
-import cn.felord.retrofit.RetrofitFactory;
+import cn.felord.retrofit.WorkWechatRetrofitFactory;
 import cn.felord.retrofit.TokenApi;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -54,7 +54,7 @@ public final class WorkWeChatApiClient {
      * @return the work we chat api client
      */
     public static <T extends TokenApi> WorkWeChatApiClient init(T tokenApi, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
-        return new WorkWeChatApiClient(tokenApi.getAgentDetails(), RetrofitFactory.create(tokenApi, connectionPool, level));
+        return new WorkWeChatApiClient(tokenApi.getAgentDetails(), WorkWechatRetrofitFactory.create(tokenApi, connectionPool, level));
     }
 
     /**

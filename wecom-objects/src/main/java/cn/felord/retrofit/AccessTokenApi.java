@@ -26,7 +26,7 @@ import cn.felord.domain.authentication.AccessTokenResponse;
  * @author felord.cn
  */
 public class AccessTokenApi extends AbstractTokenApi {
-    private static final RetrofitAccessTokenApi TOKEN_API = RetrofitFactory.RETROFIT_.create(RetrofitAccessTokenApi.class);
+    private static final RetrofitAccessTokenApi TOKEN_API = WorkWechatRetrofitFactory.RETROFIT_.create(RetrofitAccessTokenApi.class);
 
     /**
      * Instantiates a new Access token api.

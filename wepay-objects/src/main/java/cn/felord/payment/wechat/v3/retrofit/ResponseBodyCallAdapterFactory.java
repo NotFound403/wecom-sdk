@@ -12,11 +12,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.retrofit;
+package cn.felord.payment.wechat.v3.retrofit;
 
 
-import cn.felord.WeComException;
-import cn.felord.domain.WeComResponse;
+import cn.felord.payment.PayException;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Response;
@@ -29,8 +28,8 @@ import java.lang.reflect.Type;
 /**
  * Token interceptor.
  *
- * @author dax
- * @since 2023 /5/22 14:59
+ * @author felord.cn
+ * @since 2.0.0
  */
 public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
 
@@ -77,20 +76,13 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
             try {
                 response = call.execute();
             } catch (IOException e) {
-                throw new WeComException(e.getMessage(), e);
+                throw new PayException(e.getMessage(), e);
             }
 
             if (response.isSuccessful()) {
-                R body = response.body();
-                if (body != null && WeComResponse.class.isAssignableFrom(body.getClass())) {
-                    WeComResponse weComResponse = (WeComResponse) body;
-                    if (weComResponse.isError()) {
-                        throw new WeComException(weComResponse.getErrcode(), weComResponse.getErrmsg());
-                    }
-                }
-                return body;
+                return response.body();
             }
-            throw new WeComException(" response is not successful, " + response.message());
+            throw new PayException(" response is not successful, " + response.message());
         }
     }
 }

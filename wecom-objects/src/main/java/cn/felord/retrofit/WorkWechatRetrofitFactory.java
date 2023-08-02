@@ -16,6 +16,7 @@
 package cn.felord.retrofit;
 
 import cn.felord.json.JsonConverterFactory;
+import cn.felord.ssl.SSLManager;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -30,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  * @author dax
  * @since 2023 /5/21
  */
-public final class RetrofitFactory {
+public final class WorkWechatRetrofitFactory {
     private static final String BASE_URL = "https://qyapi.weixin.qq.com/cgi-bin/";
     private static final String BASE_PAY_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/";
     public static final Retrofit RETROFIT_ = new Retrofit.Builder()
@@ -41,7 +42,7 @@ public final class RetrofitFactory {
             .addConverterFactory(JsonConverterFactory.create())
             .build();
 
-    private RetrofitFactory() {
+    private WorkWechatRetrofitFactory() {
     }
 
     /**

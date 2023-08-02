@@ -18,7 +18,7 @@ package cn.felord.api;
 import cn.felord.AgentDetails;
 import cn.felord.WeComTokenCacheable;
 import cn.felord.retrofit.AccessTokenApi;
-import cn.felord.retrofit.RetrofitFactory;
+import cn.felord.retrofit.WorkWechatRetrofitFactory;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -170,7 +170,7 @@ public final class WorkWeChatApi {
      * @return the webhook api
      */
     public static WebhookApi webhookApi() {
-        return new WebhookApi(RetrofitFactory.RETROFIT_);
+        return new WebhookApi(WorkWechatRetrofitFactory.RETROFIT_);
     }
 
     /**

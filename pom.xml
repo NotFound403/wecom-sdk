@@ -21,7 +21,7 @@
 
     <groupId>cn.felord</groupId>
     <artifactId>wecom</artifactId>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
     <packaging>pom</packaging>
 
     <name>wecom</name>
@@ -45,9 +45,11 @@
         </developer>
     </developers>
     <modules>
+        <module>wecom-common</module>
         <module>wecom-objects</module>
         <module>wecom-sdk</module>
         <module>rx-wecom-sdk</module>
+        <module>wepay-objects</module>
     </modules>
 
     <scm>
@@ -121,6 +123,11 @@
                 <version>${jackson.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>cn.felord</groupId>
+                <artifactId>wecom-common</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.felord</groupId>

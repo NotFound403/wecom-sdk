@@ -13,11 +13,10 @@
  *  limitations under the License.
  */
 
-package cn.felord.retrofit;
+package cn.felord.ssl;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
 
 import javax.net.ssl.*;
 import java.io.IOException;
@@ -35,7 +34,6 @@ import java.util.Arrays;
  * @author dax
  * @since 2023 /6/27
  */
-@Getter
 public class SSLManager {
     private final X509TrustManager trustManager;
     private final SSLSocketFactory sslSocketFactory;
@@ -115,5 +113,13 @@ public class SSLManager {
     public SSLManager(@JsonProperty("trustManager") X509TrustManager trustManager, @JsonProperty("sslSocketFactory") SSLSocketFactory sslSocketFactory) {
         this.trustManager = trustManager;
         this.sslSocketFactory = sslSocketFactory;
+    }
+
+    public X509TrustManager getTrustManager() {
+        return trustManager;
+    }
+
+    public SSLSocketFactory getSslSocketFactory() {
+        return sslSocketFactory;
     }
 }
