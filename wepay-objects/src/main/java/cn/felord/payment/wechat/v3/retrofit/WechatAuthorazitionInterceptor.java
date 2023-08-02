@@ -15,8 +15,10 @@
 
 package cn.felord.payment.wechat.v3.retrofit;
 
+import cn.felord.payment.wechat.v3.crypto.MerchantConfig;
 import cn.felord.payment.wechat.v3.crypto.RequestAuthenticator;
 import cn.felord.utils.OkHttpUtil;
+import lombok.Getter;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,19 +36,18 @@ public class WechatAuthorazitionInterceptor implements Interceptor {
     private static final String APPLICATION_JSON_UTF_8 = "application/json; charset=UTF-8";
     private static final String APPLICATION_JSON = "application/json";
     private final RequestAuthenticator requestAuthenticator;
+    @Getter
+    private final MerchantConfig merchantConfig;
 
-    public WechatAuthorazitionInterceptor(RequestAuthenticator requestAuthenticator) {
+
+    public WechatAuthorazitionInterceptor(RequestAuthenticator requestAuthenticator, MerchantConfig merchantConfig) {
         this.requestAuthenticator = requestAuthenticator;
+        this.merchantConfig = merchantConfig;
     }
 
     @NotNull
     @Override
     public final Response intercept(@NotNull Chain chain) throws IOException {
-        return doAuthRequest(chain);
-    }
-
-
-    private Response doAuthRequest(Chain chain) throws IOException {
         Request request = chain.request();
         Headers headers = request.headers();
         String mediaBody = headers.get("Meta-Info");
@@ -54,9 +55,9 @@ public class WechatAuthorazitionInterceptor implements Interceptor {
                 Optional.ofNullable(request.body())
                         .map(OkHttpUtil::requestBodyToString)
                         .orElse("");
-        //TODO
+
         HttpUrl httpUrl = request.url();
-        String authorization = requestAuthenticator.authHeader("", httpUrl.uri(), request.method(), bodyStr);
+        String authorization = requestAuthenticator.authHeader(merchantConfig, httpUrl.uri(), request.method(), bodyStr);
 
         Headers.Builder headerBuilder = headers.newBuilder();
         headerBuilder.removeAll("Meta-Info");

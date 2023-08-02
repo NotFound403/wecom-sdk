@@ -15,21 +15,14 @@
 
 package cn.felord.payment.wechat.v3.crypto;
 
-import cn.felord.payment.PayException;
+import lombok.Data;
 
 /**
- * The interface Merchant key loader.
- *
- * @author felord.cn
- * @since 2.0.0
+ * @author dax
+ * @since 2023/8/2
  */
-public interface MerchantKeyLoader {
-    /**
-     * 加载商户Key
-     *
-     * @param merchantConfig the merchant config
-     * @return the merchant key
-     * @throws PayException the pay exception
-     */
-    MerchantKey loadByMerchantId(MerchantConfig merchantConfig) throws PayException;
+@Data
+public class MerchantConfig {
+    private final String merchantId;
+    private final RequestAuthType requestAuthType;
 }
