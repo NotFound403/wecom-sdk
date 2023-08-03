@@ -224,6 +224,13 @@ public class CallbackEventBody implements Xml {
     @XStreamAlias("BatchJob")
     private BatchJob batchJob;
 
+    @XStreamAlias("LinkId")
+    private String linkId;
+    @XStreamAlias("ExpireTime")
+    private Instant expireTime;
+    @XStreamAlias("ExpireQuotaNum")
+    private Long expireQuotaNum;
+
     @XStreamAlias("notify_type")
     private NotifyType notifyType;
     @XStreamAlias("create_time")

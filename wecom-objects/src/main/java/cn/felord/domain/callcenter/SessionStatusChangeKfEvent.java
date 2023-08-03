@@ -31,19 +31,21 @@ import lombok.ToString;
 public class SessionStatusChangeKfEvent extends KfEvent {
 
     private final SessionStatusChangeType changeType;
+    private final String externalUserid;
     private final String oldServicerUserid;
     private final String newServicerUserid;
     private final String msgCode;
 
     @JsonCreator
-    public SessionStatusChangeKfEvent(@JsonProperty("open_kfid")String openKfid,
+    public SessionStatusChangeKfEvent(@JsonProperty("open_kfid") String openKfid,
                                       @JsonProperty("external_userid") String externalUserid,
                                       @JsonProperty("change_type") SessionStatusChangeType changeType,
                                       @JsonProperty("old_servicer_userid") String oldServicerUserid,
                                       @JsonProperty("new_servicer_userid") String newServicerUserid,
                                       @JsonProperty("msg_code") String msgCode) {
-        super(KfEventType.SESSION_STATUS_CHANGE, openKfid, externalUserid);
+        super(KfEventType.SESSION_STATUS_CHANGE, openKfid);
         this.changeType = changeType;
+        this.externalUserid = externalUserid;
         this.oldServicerUserid = oldServicerUserid;
         this.newServicerUserid = newServicerUserid;
         this.msgCode = msgCode;

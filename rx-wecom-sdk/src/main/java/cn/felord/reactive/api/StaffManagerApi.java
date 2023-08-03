@@ -13,11 +13,11 @@
  *  limitations under the License.
  */
 
-package cn.felord.api;
+package cn.felord.reactive.api;
 
-import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.hr.*;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -38,10 +38,9 @@ public interface StaffManagerApi {
      * 通过这个接口获取员工字段配置信息
      *
      * @return the fields
-     * @throws WeComException the we com exception
      */
     @GET("hr/get_fields")
-    GenericResponse<List<FieldGroup>> getFields() throws WeComException;
+    Single<GenericResponse<List<FieldGroup>>> getFields();
 
     /**
      * 获取员工花名册信息
@@ -51,10 +50,9 @@ public interface StaffManagerApi {
      *
      * @param request the request
      * @return the staff info
-     * @throws WeComException the we com exception
      */
     @POST("hr/get_staff_info")
-    GenericResponse<List<FieldDetail>> getStaffInfo(@Body StaffInfoRequest request) throws WeComException;
+    Single<GenericResponse<List<FieldDetail>>> getStaffInfo(@Body StaffInfoRequest request);
 
     /**
      * 更新员工花名册信息
@@ -65,8 +63,7 @@ public interface StaffManagerApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
      */
     @POST("hr/update_staff_info")
-    StaffInfoUpdateResponse updateStaffInfo(@Body StaffInfoUpdateRequest request) throws WeComException;
+    Single<StaffInfoUpdateResponse> updateStaffInfo(@Body StaffInfoUpdateRequest request);
 }

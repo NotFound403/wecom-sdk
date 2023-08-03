@@ -17,6 +17,7 @@ package cn.felord.domain.callcenter;
 
 import cn.felord.enumeration.KfServiceStatus;
 import cn.felord.enumeration.KfServicerType;
+import cn.felord.enumeration.KfStopType;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 
@@ -27,6 +28,7 @@ import lombok.Data;
 @Data
 public class KfServicer {
     private String subId;
+    private KfStopType stopType;
     private KfServiceStatus status;
     private KfServicerType type;
 

@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The MomentTaskPubStatus
+ * The ScheduleAttendeeResponseStatus
  *
  * @author dax
  * @since 2021 /9/8 10:47
@@ -67,7 +67,7 @@ public enum ScheduleAttendeeResponseStatus {
     }
 
     /**
-     * Deserialize moment task status.
+     * Deserialize ScheduleAttendeeResponseStatus
      *
      * @param status the status
      * @return the moment task status
@@ -75,7 +75,7 @@ public enum ScheduleAttendeeResponseStatus {
     @JsonCreator
     public static ScheduleAttendeeResponseStatus deserialize(int status) {
         return Arrays.stream(ScheduleAttendeeResponseStatus.values())
-                .filter(contactScene -> contactScene.status == status)
+                .filter(responseStatus -> responseStatus.status == status)
                 .findFirst()
                 .orElse(null);
     }

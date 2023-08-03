@@ -15,18 +15,20 @@
 
 package cn.felord.domain.hr;
 
+import cn.felord.domain.WeComResponse;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author dax
  * @since 2023/8/3 14:46
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class StaffInfoUpdateRequest {
-    private final String userid;
-    private Set<? extends FieldBase> updateItems;
-    private Set<RemoveIdx> removeItems;
-    private Set<NewGroup> insertItems;
+public class StaffInfoUpdateResponse extends WeComResponse {
+    private List<FieldResult> updateResults;
+    private List<GroupResult> removeResults;
+    private List<GroupResult> insertResults;
 }

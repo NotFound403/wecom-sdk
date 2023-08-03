@@ -21,60 +21,51 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum GroupChatStatus.
+ * The KfServiceEventStatus
  *
  * @author dax
- * @since 2021/9/14 14:44
+ * @since 2021/9/8 10:47
  */
-public enum GroupChatStatus {
+public enum KfServiceEventStatus {
+
 
     /**
-     * Normal group chat status.
+     * 接待中
      */
-    NORMAL(0),
+    IN_RECEPTION(0),
 
     /**
-     * Waiting group chat status.
+     * 停止接待
      */
-    WAITING(1),
-
-    /**
-     * Pending group chat status.
-     */
-    PENDING(2),
-
-    /**
-     * Finished group chat status.
-     */
-    FINISHED(3);
+    OUT_RECEPTION(1);
 
     private final int status;
 
-    GroupChatStatus(int status) {
+    KfServiceEventStatus(int status) {
         this.status = status;
     }
 
     /**
-     * Gets type.
+     * Deserialize KfServiceEventStatus
      *
-     * @return the type
+     * @param status the status
+     * @return the moment task status
+     */
+    @JsonCreator
+    public static KfServiceEventStatus deserialize(int status) {
+        return Arrays.stream(KfServiceEventStatus.values())
+                .filter(kfServiceEventStatus -> kfServiceEventStatus.status == status)
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * Gets status.
+     *
+     * @return the status
      */
     @JsonValue
     public int getStatus() {
         return status;
-    }
-
-    /**
-     * Deserialize GroupChatStatus.
-     *
-     * @param status the status
-     * @return the takeover status
-     */
-    @JsonCreator
-    public static GroupChatStatus deserialize(int status) {
-        return Arrays.stream(GroupChatStatus.values())
-                .filter(groupChatStatus -> groupChatStatus.status == status)
-                .findFirst()
-                .orElse(null);
     }
 }

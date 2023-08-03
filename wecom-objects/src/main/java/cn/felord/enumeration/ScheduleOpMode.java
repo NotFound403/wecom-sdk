@@ -65,7 +65,7 @@ public enum ScheduleOpMode {
     @JsonCreator
     public static ScheduleOpMode deserialize(int mode) {
         return Arrays.stream(ScheduleOpMode.values())
-                .filter(contactScene -> contactScene.mode == mode)
+                .filter(scheduleOpMode -> scheduleOpMode.mode == mode)
                 .findFirst()
                 .orElse(null);
     }

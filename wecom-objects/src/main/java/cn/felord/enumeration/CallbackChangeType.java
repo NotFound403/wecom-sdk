@@ -134,6 +134,10 @@ public enum CallbackChangeType {
      */
     DELETE_LINK("delete_link"),
     /**
+     * 获客额度即将过期事件
+     */
+    QUOTA_EXPIRE_SOON("quota_expire_soon"),
+    /**
      * 会话存档
      */
     MSG_AUDIT_APPROVED("msg_audit_approved"),

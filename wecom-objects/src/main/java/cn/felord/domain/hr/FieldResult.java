@@ -15,18 +15,16 @@
 
 package cn.felord.domain.hr;
 
+import cn.felord.enumeration.ValueResult;
 import lombok.Data;
-
-import java.util.Set;
 
 /**
  * @author dax
- * @since 2023/8/3 14:46
+ * @since 2023/8/3
  */
 @Data
-public class StaffInfoUpdateRequest {
-    private final String userid;
-    private Set<? extends FieldBase> updateItems;
-    private Set<RemoveIdx> removeItems;
-    private Set<NewGroup> insertItems;
+public class FieldResult {
+    private Integer fieldid;
+    private Integer subIdx;
+    private ValueResult result;
 }

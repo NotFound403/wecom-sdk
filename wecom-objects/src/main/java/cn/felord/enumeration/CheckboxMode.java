@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Schedule op mode.
+ * The enum CheckboxMode
  *
  * @author dax
  * @since 2021 /9/8 10:47
@@ -55,7 +55,7 @@ public enum CheckboxMode {
     }
 
     /**
-     * Deserialize schedule op mode.
+     * Deserialize CheckboxMode
      *
      * @param mode the mode
      * @return the schedule op mode
@@ -63,7 +63,7 @@ public enum CheckboxMode {
     @JsonCreator
     public static CheckboxMode deserialize(int mode) {
         return Arrays.stream(CheckboxMode.values())
-                .filter(contactScene -> contactScene.mode == mode)
+                .filter(checkboxMode -> checkboxMode.mode == mode)
                 .findFirst()
                 .orElse(null);
     }

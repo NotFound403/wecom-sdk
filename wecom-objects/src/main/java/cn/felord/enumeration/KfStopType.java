@@ -21,37 +21,39 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum GroupChatStatus.
+ * The KfStopType.
  *
- * @author dax
- * @since 2021/9/14 14:44
+ * @author felord
+ * @since 2021 /11/23 17:01
  */
-public enum GroupChatStatus {
+public enum KfStopType {
+    /**
+     * 停止接待
+     */
+    STOP(0),
+    /**
+     * 暂时挂起
+     */
+    PAUSE(1);
+
+    private final int type;
+
+    KfStopType(int type) {
+        this.type = type;
+    }
 
     /**
-     * Normal group chat status.
+     * Deserialize KfStopType.
+     *
+     * @param type the type
+     * @return the button type
      */
-    NORMAL(0),
-
-    /**
-     * Waiting group chat status.
-     */
-    WAITING(1),
-
-    /**
-     * Pending group chat status.
-     */
-    PENDING(2),
-
-    /**
-     * Finished group chat status.
-     */
-    FINISHED(3);
-
-    private final int status;
-
-    GroupChatStatus(int status) {
-        this.status = status;
+    @JsonCreator
+    public static KfStopType deserialize(int type) {
+        return Arrays.stream(KfStopType.values())
+                .filter(stopType -> stopType.type == type)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -60,21 +62,7 @@ public enum GroupChatStatus {
      * @return the type
      */
     @JsonValue
-    public int getStatus() {
-        return status;
-    }
-
-    /**
-     * Deserialize GroupChatStatus.
-     *
-     * @param status the status
-     * @return the takeover status
-     */
-    @JsonCreator
-    public static GroupChatStatus deserialize(int status) {
-        return Arrays.stream(GroupChatStatus.values())
-                .filter(groupChatStatus -> groupChatStatus.status == status)
-                .findFirst()
-                .orElse(null);
+    public int getType() {
+        return type;
     }
 }

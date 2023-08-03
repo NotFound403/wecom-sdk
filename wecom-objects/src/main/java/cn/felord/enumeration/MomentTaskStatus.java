@@ -65,7 +65,7 @@ public enum MomentTaskStatus {
     @JsonCreator
     public static MomentTaskStatus deserialize(int status) {
         return Arrays.stream(MomentTaskStatus.values())
-                .filter(contactScene -> contactScene.status == status)
+                .filter(momentTaskStatus -> momentTaskStatus.status == status)
                 .findFirst()
                 .orElse(null);
     }

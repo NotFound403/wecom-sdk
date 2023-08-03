@@ -16,6 +16,8 @@
 package cn.felord.domain.callcenter;
 
 import cn.felord.enumeration.KfEventType;
+import cn.felord.enumeration.KfServiceEventStatus;
+import cn.felord.enumeration.KfStopType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -31,20 +33,24 @@ import lombok.ToString;
 @Getter
 public class ServicerStatusChangeKfEvent extends KfEvent {
 
-    private final String recallMsgid;
+    private final String servicerUserid;
+    private final KfServiceEventStatus status;
+    private final KfStopType stopType;
 
     /**
      * Instantiates a new Servicer status change kf event.
      *
      * @param openKfid       the open kfid
-     * @param externalUserid the external userid
-     * @param recallMsgid    the recall msgid
+     * @param servicerUserid the servicer userid
      */
     @JsonCreator
     public ServicerStatusChangeKfEvent(@JsonProperty("open_kfid") String openKfid,
-                                       @JsonProperty("external_userid") String externalUserid,
-                                       @JsonProperty("recall_msgid") String recallMsgid) {
-        super(KfEventType.SERVICER_STATUS_CHANGE, openKfid, externalUserid);
-        this.recallMsgid = recallMsgid;
+                                       @JsonProperty("servicer_userid") String servicerUserid,
+                                       @JsonProperty("status") KfServiceEventStatus status,
+                                       @JsonProperty("stop_type") KfStopType stopType) {
+        super(KfEventType.SERVICER_STATUS_CHANGE, openKfid);
+        this.servicerUserid = servicerUserid;
+        this.status = status;
+        this.stopType = stopType;
     }
 }

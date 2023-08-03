@@ -13,20 +13,19 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.hr;
+package cn.felord.domain.externalcontact;
 
+import cn.felord.domain.WeComResponse;
 import lombok.Data;
-
-import java.util.Set;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author dax
- * @since 2023/8/3 14:46
+ * @since 2021/5/18 16:08
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class StaffInfoUpdateRequest {
-    private final String userid;
-    private Set<? extends FieldBase> updateItems;
-    private Set<RemoveIdx> removeItems;
-    private Set<NewGroup> insertItems;
+public class LinkStatisticResponse extends WeComResponse {
+    private Long newCustomerCnt;
+    private Long clickLinkCustomerCnt;
 }

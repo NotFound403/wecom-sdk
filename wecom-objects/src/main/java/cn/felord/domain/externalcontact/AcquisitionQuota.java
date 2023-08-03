@@ -13,20 +13,18 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.hr;
+package cn.felord.domain.externalcontact;
 
 import lombok.Data;
 
-import java.util.Set;
+import java.time.Instant;
 
 /**
  * @author dax
- * @since 2023/8/3 14:46
+ * @since 2023/8/3
  */
 @Data
-public class StaffInfoUpdateRequest {
-    private final String userid;
-    private Set<? extends FieldBase> updateItems;
-    private Set<RemoveIdx> removeItems;
-    private Set<NewGroup> insertItems;
+public class AcquisitionQuota {
+    private Instant expireDate;
+    private Long balance;
 }
