@@ -75,7 +75,9 @@ public class GenericResponse<T> extends WeComResponse {
             "doc_base_info",
             "error_description",
             "open_wx_pay_media_id",
-            "sp_no"
+            "sp_no",
+            "field_info",
+            "group_list",
     })
     private T data;
 }
