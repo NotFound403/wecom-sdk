@@ -16,7 +16,10 @@
 package cn.felord.payment.wechat.v3.retrofit;
 
 import cn.felord.json.JsonConverterFactory;
-import cn.felord.ssl.SSLManager;
+import cn.felord.payment.wechat.v3.crypto.DefaultRequestAuthenticator;
+import cn.felord.payment.wechat.v3.crypto.MerchantConfig;
+import cn.felord.payment.wechat.v3.crypto.MerchantKeyLoader;
+import cn.felord.payment.wechat.v3.crypto.RequestAuthenticator;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -34,48 +37,72 @@ import java.util.concurrent.TimeUnit;
 public final class WechatPayRetrofitFactory {
     private static final String BASE_URL = "https://qyapi.weixin.qq.com/cgi-bin/";
     private final String baseUrl;
+    private final RequestAuthenticator requestAuthenticator;
 
     /**
      * Instantiates a new Wechat pay retrofit factory.
+     *
+     * @param requestAuthenticator the request authenticator
      */
-    public WechatPayRetrofitFactory() {
-        this(BASE_URL);
+    public WechatPayRetrofitFactory(RequestAuthenticator requestAuthenticator) {
+        this(BASE_URL, requestAuthenticator);
     }
 
     /**
      * Instantiates a new Wechat pay retrofit factory.
      *
-     * @param baseUrl the base url
+     * @param merchantKeyLoader the merchant key loader
      */
-    WechatPayRetrofitFactory(String baseUrl) {
+    public WechatPayRetrofitFactory(MerchantKeyLoader merchantKeyLoader) {
+        this(BASE_URL, merchantKeyLoader);
+    }
+
+    /**
+     * Instantiates a new Wechat pay retrofit factory.
+     *
+     * @param baseUrl              the base url
+     * @param requestAuthenticator the request authenticator
+     */
+    public WechatPayRetrofitFactory(String baseUrl, RequestAuthenticator requestAuthenticator) {
         this.baseUrl = baseUrl;
+        this.requestAuthenticator = requestAuthenticator;
+    }
+
+    /**
+     * Instantiates a new Wechat pay retrofit factory.
+     *
+     * @param baseUrl           the base url
+     * @param merchantKeyLoader the merchant key loader
+     */
+    public WechatPayRetrofitFactory(String baseUrl, MerchantKeyLoader merchantKeyLoader) {
+        this(baseUrl, new DefaultRequestAuthenticator(merchantKeyLoader));
     }
 
     /**
      * 带TokenApi拦截器的Retrofit客户端
      *
-     * @param <T>            the type parameter
-     * @param tokenApi       the token api
+     * @param merchantConfig the merchant config
      * @param connectionPool the connection pool
      * @param level          the level
      * @return the retrofit
      */
-    public <T> Retrofit create(T tokenApi, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    public Retrofit create(MerchantConfig merchantConfig, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(okHttpClient(tokenApi, connectionPool, level))
+                .client(okHttpClient(requestAuthenticator, merchantConfig, connectionPool, level))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
                 .addConverterFactory(JsonConverterFactory.create())
                 .build();
     }
 
-    private static OkHttpClient okHttpClient(TokenApi tokenApi, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    private static OkHttpClient okHttpClient(RequestAuthenticator requestAuthenticator, MerchantConfig merchantConfig, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.level(level);
+        WechatAuthorizationInterceptor authorizationInterceptor = new WechatAuthorizationInterceptor(requestAuthenticator, merchantConfig);
         return new OkHttpClient.Builder()
                 .connectionPool(connectionPool)
-                .addInterceptor(new TokenInterceptor(tokenApi))
+                .addInterceptor(authorizationInterceptor)
                 .addInterceptor(httpLoggingInterceptor)
                 .retryOnConnectionFailure(true)
                 .connectTimeout(20, TimeUnit.SECONDS)

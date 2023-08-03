@@ -32,7 +32,7 @@ import java.util.Optional;
  * @author felord.cn
  * @since 2.0.0
  */
-public class WechatAuthorazitionInterceptor implements Interceptor {
+class WechatAuthorizationInterceptor implements Interceptor {
     private static final String APPLICATION_JSON_UTF_8 = "application/json; charset=UTF-8";
     private static final String APPLICATION_JSON = "application/json";
     private final RequestAuthenticator requestAuthenticator;
@@ -40,7 +40,7 @@ public class WechatAuthorazitionInterceptor implements Interceptor {
     private final MerchantConfig merchantConfig;
 
 
-    public WechatAuthorazitionInterceptor(RequestAuthenticator requestAuthenticator, MerchantConfig merchantConfig) {
+    public WechatAuthorizationInterceptor(RequestAuthenticator requestAuthenticator, MerchantConfig merchantConfig) {
         this.requestAuthenticator = requestAuthenticator;
         this.merchantConfig = merchantConfig;
     }

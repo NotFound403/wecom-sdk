@@ -50,6 +50,7 @@
         <module>wecom-sdk</module>
         <module>rx-wecom-sdk</module>
         <module>wepay-objects</module>
+        <module>wepay-sdk</module>
     </modules>
 
     <scm>
@@ -133,6 +134,11 @@
             <dependency>
                 <groupId>cn.felord</groupId>
                 <artifactId>wecom-objects</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.felord</groupId>
+                <artifactId>wepay-objects</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

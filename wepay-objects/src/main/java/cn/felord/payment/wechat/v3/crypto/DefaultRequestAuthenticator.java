@@ -47,22 +47,6 @@ public class DefaultRequestAuthenticator implements RequestAuthenticator {
         this.merchantKeyLoader = merchantKeyLoader;
     }
 
-    @SneakyThrows
-    public static void main(String[] args) {
-        String path = "wechat/apiclient_cert.p12";
-
-//        String alias = "Tenpay Certificate";
-//        String pass = " ";
-//        ClassPathResource resource = new ClassPathResource(path);
-//        KeyStore jks = KeyStore.getInstance("pkcs12");
-//        char[] pin = pass.toCharArray();
-//        jks.load(resource.getInputStream(), pin);
-//        RSAKey rsaKey = RSAKey.load(jks, alias, pin);
-//
-//        System.out.println("rsaKey = " + rsaKey.toPrivateKey());
-
-    }
-
     /**
      * 请求时设置签名   组件
      *
@@ -90,10 +74,10 @@ public class DefaultRequestAuthenticator implements RequestAuthenticator {
         MerchantKey merchantKey = merchantKeyLoader.loadByMerchantId(merchantConfig);
         RequestAuthType authType = merchantConfig.getRequestAuthType();
         Signature signer = Signature.getInstance(authType.alg());
-        signer.initSign(merchantKey.getKeyPair().getPrivate());
+        signer.initSign(merchantKey.toPrivateKey());
         signer.update(signMessage.getBytes(StandardCharsets.UTF_8));
         String encoded = Base64Utils.encodeToString(signer.sign());
-        String token = String.format(TOKEN_PATTERN, merchantConfig.getMerchantId(), nonceStr, timestamp, merchantKey.getSerialNumber(), encoded);
+        String token = String.format(TOKEN_PATTERN, merchantConfig.getMerchantId(), nonceStr, timestamp, merchantKey.obtainSerialNumber(), encoded);
         return authType.toAuthHeader(token);
     }
 }
