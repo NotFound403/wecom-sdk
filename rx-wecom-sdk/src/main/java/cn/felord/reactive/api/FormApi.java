@@ -16,6 +16,7 @@
 package cn.felord.reactive.api;
 
 import cn.felord.domain.GenericResponse;
+import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.FormId;
 import cn.felord.domain.wedoc.form.*;
 import io.reactivex.rxjava3.core.Single;
@@ -47,7 +48,7 @@ public interface FormApi {
      * @return the generic response
      */
     @POST("wedoc/modify_form")
-    Single<GenericResponse<FormDetail>> modifyForm(@Body AbstractUpdateFormRequest request);
+    Single<WeComResponse> modifyForm(@Body AbstractUpdateFormRequest request);
 
     /**
      * 获取收集表信息
@@ -56,7 +57,7 @@ public interface FormApi {
      * @return the form
      */
     @POST("wedoc/get_form_info")
-    Single<GenericResponse<FormDetail>> getForm(@Body FormId formid);
+    Single<GenericResponse<FormDetail>> getFormInfo(@Body FormId formid);
 
     /**
      * 收集表的统计信息查询（仅获取统计结果）

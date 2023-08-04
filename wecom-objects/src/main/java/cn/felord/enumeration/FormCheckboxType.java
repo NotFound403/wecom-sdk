@@ -21,33 +21,48 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * 填写权限
+ * 收集表多选类型
  *
  * @author dax
- * @since 2023 /3/13 17:05
+ * @since 2023 /7/3 15:28
  */
-public enum FillOutAuth {
-
+public enum FormCheckboxType {
     /**
-     * 所有人
+     * 无限制
      */
-    ALL(0),
-
+    UN_LIMIT(0),
     /**
-     * 企业内指定人/部门
+     * 最少选择N个
      */
-    STAFF_OR_DEPT(1),
+    GTE(1),
     /**
-     * 家校所有范围
+     * 最多选择N个
      */
-    SCHOOL(4);
+    LTE(2),
+    /**
+     * 固定选择
+     */
+    EQ(3);
 
     private final int type;
 
-    FillOutAuth(int type) {
+    FormCheckboxType(int type) {
         this.type = type;
     }
 
+    /**
+     * Deserialize FormCheckboxType
+     *
+     * @param type the type
+     * @return the range type
+     */
+    @JsonCreator
+    public static FormCheckboxType deserialize(int type) {
+        return Arrays.stream(FormCheckboxType.values())
+                .filter(formCheckboxType -> formCheckboxType.type == type)
+                .findFirst()
+                .orElse(null);
+    }
 
     /**
      * Gets type.
@@ -57,20 +72,6 @@ public enum FillOutAuth {
     @JsonValue
     public int getType() {
         return type;
-    }
-
-    /**
-     * Deserialize fill out auth.
-     *
-     * @param type the type
-     * @return the fill out auth
-     */
-    @JsonCreator
-    public static FillOutAuth deserialize(int type) {
-        return Arrays.stream(FillOutAuth.values())
-                .filter(fillOutAuth -> fillOutAuth.type == type)
-                .findFirst()
-                .orElse(null);
     }
 
 }

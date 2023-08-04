@@ -29,12 +29,12 @@ import java.util.Arrays;
 public enum FormItemStatus {
 
     /**
-     * Normal form item status.
+     * 正常
      */
     NORMAL(1),
 
     /**
-     * Deleted form item status.
+     * 被删除
      */
     DELETED(2);
 

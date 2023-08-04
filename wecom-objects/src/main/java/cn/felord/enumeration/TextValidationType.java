@@ -21,33 +21,60 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * 填写权限
+ * 收集表文本校验类型
  *
  * @author dax
- * @since 2023 /3/13 17:05
+ * @since 2023 /7/3 15:28
  */
-public enum FillOutAuth {
-
+public enum TextValidationType {
     /**
-     * 所有人
+     * 字符个数
      */
-    ALL(0),
-
+    CHAR_LENGTH(0),
     /**
-     * 企业内指定人/部门
+     * 数字
      */
-    STAFF_OR_DEPT(1),
+    NUMERIC(1),
     /**
-     * 家校所有范围
+     * 电子邮箱
      */
-    SCHOOL(4);
+    EMAIL(2),
+    /**
+     * 网址
+     */
+    URL(3),
+    /**
+     * 身份证
+     */
+    ID_CARD(4),
+    /**
+     * 手机号（大陆地区）
+     */
+    CN_MOBILE(5),
+    /**
+     * 固定电话
+     */
+    LANDLINE(6);
 
     private final int type;
 
-    FillOutAuth(int type) {
+    TextValidationType(int type) {
         this.type = type;
     }
 
+    /**
+     * Deserialize ValidationType
+     *
+     * @param type the type
+     * @return the range type
+     */
+    @JsonCreator
+    public static TextValidationType deserialize(int type) {
+        return Arrays.stream(TextValidationType.values())
+                .filter(textValidationType -> textValidationType.type == type)
+                .findFirst()
+                .orElse(null);
+    }
 
     /**
      * Gets type.
@@ -57,20 +84,6 @@ public enum FillOutAuth {
     @JsonValue
     public int getType() {
         return type;
-    }
-
-    /**
-     * Deserialize fill out auth.
-     *
-     * @param type the type
-     * @return the fill out auth
-     */
-    @JsonCreator
-    public static FillOutAuth deserialize(int type) {
-        return Arrays.stream(FillOutAuth.values())
-                .filter(fillOutAuth -> fillOutAuth.type == type)
-                .findFirst()
-                .orElse(null);
     }
 
 }

@@ -30,10 +30,9 @@ public class UpdateFormQuestionRequest extends AbstractUpdateFormRequest {
     public UpdateFormQuestionRequest(String formid, String formTitle, String formDesc, String formHeader, FormQuestion formQuestion) {
         super(FormOperType.QUESTION);
         this.formid = formid;
-        FormInfo info = new FormInfo(formTitle);
+        FormInfo info = new FormInfo(formTitle, formQuestion);
         info.setFormDesc(formDesc);
         info.setFormHeader(formHeader);
-        info.setFormQuestion(formQuestion);
         this.formInfo = info;
     }
 }

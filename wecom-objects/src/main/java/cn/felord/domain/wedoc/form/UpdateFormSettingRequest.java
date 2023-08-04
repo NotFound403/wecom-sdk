@@ -30,7 +30,7 @@ public class UpdateFormSettingRequest extends AbstractUpdateFormRequest {
     protected UpdateFormSettingRequest(String formid, FormSetting formSetting) {
         super(FormOperType.SETTING);
         this.formid = formid;
-        FormInfo info = new FormInfo(null);
+        FormInfo info = new FormInfo(null, null);
         info.setFormSetting(formSetting);
         this.formInfo = info;
     }

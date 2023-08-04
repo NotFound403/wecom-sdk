@@ -22,9 +22,9 @@ import lombok.Data;
  * @since 2023/3/13 16:32
  */
 @Data
-public class FormInfo {
+public class SettingFormInfo {
     private final String formTitle;
-    private final FormQuestion formQuestion;
+    private final SettingFormQuestion formQuestion;
     private String formDesc;
     private String formHeader;
     private FormSetting formSetting;

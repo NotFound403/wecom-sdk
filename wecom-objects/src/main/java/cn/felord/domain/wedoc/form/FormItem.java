@@ -25,8 +25,10 @@ import lombok.ToString;
 import java.util.List;
 
 /**
+ * The type Form item.
+ *
  * @author dax
- * @since 2023/3/13 16:34
+ * @since 2023 /3/13 16:34
  */
 @ToString
 @Getter
@@ -42,15 +44,40 @@ public class FormItem {
     private final List<FormOptionItem> optionItem;
 
 
+    /**
+     * Instantiates a new Form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param replyType  the reply type
+     * @param mustReply  the must reply
+     * @param optionItem the option item
+     */
     public FormItem(int questionId,
                     String title,
                     int pos,
                     FormItemStatus status,
                     FormItemReplyType replyType,
-                    boolean mustReply) {
-        this(questionId, title, pos, status, replyType, mustReply, null, null, null);
+                    boolean mustReply,
+                    List<FormOptionItem> optionItem) {
+        this(questionId, title, pos, status, replyType, mustReply, null, null, optionItem);
     }
 
+    /**
+     * Instantiates a new Form item.
+     *
+     * @param questionId  the question id
+     * @param title       the title
+     * @param pos         the pos
+     * @param status      the status
+     * @param replyType   the reply type
+     * @param mustReply   the must reply
+     * @param note        the note
+     * @param placeholder the placeholder
+     * @param optionItem  the option item
+     */
     @JsonCreator
     public FormItem(@JsonProperty("question_id") int questionId,
                     @JsonProperty("title") String title,

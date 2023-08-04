@@ -19,13 +19,11 @@ import lombok.Data;
 
 /**
  * @author dax
- * @since 2023/3/13 16:32
+ * @since 2023/3/10 9:35
  */
 @Data
-public class FormInfo {
-    private final String formTitle;
-    private final FormQuestion formQuestion;
-    private String formDesc;
-    private String formHeader;
-    private FormSetting formSetting;
+public class CreateSettingFormRequest {
+    private final SettingFormInfo formInfo;
+    private String spaceId;
+    private String fatherid;
 }
