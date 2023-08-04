@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
+import static cn.felord.payment.wechat.v3.retrofit.WepaySdkVersion.USER_AGENT;
+
 /**
  * The type Token interceptor.
  *
@@ -34,7 +36,6 @@ import java.util.Optional;
  */
 class WechatAuthorizationInterceptor implements Interceptor {
     private static final String APPLICATION_JSON_UTF_8 = "application/json; charset=UTF-8";
-    private static final String APPLICATION_JSON = "application/json";
     private final RequestAuthenticator requestAuthenticator;
     @Getter
     private final MerchantConfig merchantConfig;
@@ -50,7 +51,7 @@ class WechatAuthorizationInterceptor implements Interceptor {
     public final Response intercept(@NotNull Chain chain) throws IOException {
         Request request = chain.request();
         Headers headers = request.headers();
-        String mediaBody = headers.get("Meta-Info");
+        String mediaBody = headers.get(HttpHeaders.META.headerName());
         String bodyStr = Objects.nonNull(mediaBody) ? mediaBody :
                 Optional.ofNullable(request.body())
                         .map(OkHttpUtil::requestBodyToString)
@@ -60,15 +61,16 @@ class WechatAuthorizationInterceptor implements Interceptor {
         String authorization = requestAuthenticator.authHeader(merchantConfig, httpUrl.uri(), request.method(), bodyStr);
 
         Headers.Builder headerBuilder = headers.newBuilder();
-        headerBuilder.removeAll("Meta-Info");
-        if (Objects.isNull(headers.get("Content-Type"))) {
-            headerBuilder.set("Content-Type", APPLICATION_JSON_UTF_8);
+        headerBuilder.removeAll(HttpHeaders.META.headerName());
+        String contentType = HttpHeaders.CONTENT_TYPE.headerName();
+        if (Objects.isNull(headers.get(contentType))) {
+            headerBuilder.set(contentType, APPLICATION_JSON_UTF_8);
         }
         Request requestWithAuth = request.newBuilder()
                 .url(httpUrl)
-                .header("Authorization", authorization)
-                .header("User-Agent", "Wepay")
-                .header("Accept", APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION.headerName(), authorization)
+                .header(HttpHeaders.USER_AGENT.headerName(), USER_AGENT)
+                .header(HttpHeaders.ACCEPT.headerName(), "*/*")
                 .headers(headerBuilder.build())
                 .build();
         return chain.proceed(requestWithAuth);

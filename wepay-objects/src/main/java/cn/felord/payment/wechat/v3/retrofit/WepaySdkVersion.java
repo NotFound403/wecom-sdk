@@ -13,23 +13,20 @@
  *  limitations under the License.
  */
 
-package cn.felord.payment.wechat.v3.crypto;
-
-import cn.felord.payment.PayException;
+package cn.felord.payment.wechat.v3.retrofit;
 
 /**
- *  商户证书加载器
- *
- * @author felord.cn
- * @since 2.0.0
+ * @author dax
+ * @since 2023/8/4
  */
-public interface MerchantKeyLoader {
-    /**
-     * 加载商户Key
-     *
-     * @param merchantConfig the merchant config
-     * @return the merchant key
-     * @throws PayException the pay exception
-     */
-    MerchantKey loadByMerchantId(MerchantConfig merchantConfig) throws PayException;
+public final class WepaySdkVersion {
+    public static final String WEPAY_VERSION = "1.1.61";
+    public static final String WEPAY_SDK = "Wepay-sdk/" + WEPAY_VERSION;
+    public static final String USER_AGENT = WEPAY_SDK + "/Java/" + System.getProperty("java.version") + "/" +
+            System.getProperty("os.name") + "/" + System.getProperty("os.version");
+
+    WepaySdkVersion() {
+    }
+
+
 }

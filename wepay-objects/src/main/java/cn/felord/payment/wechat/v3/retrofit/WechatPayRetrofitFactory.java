@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2.0.0
  */
 public final class WechatPayRetrofitFactory {
-    private static final String BASE_URL = "https://qyapi.weixin.qq.com/cgi-bin/";
+    private static final String BASE_URL = "https://api.mch.weixin.qq.com/";
     private final String baseUrl;
     private final RequestAuthenticator requestAuthenticator;
 

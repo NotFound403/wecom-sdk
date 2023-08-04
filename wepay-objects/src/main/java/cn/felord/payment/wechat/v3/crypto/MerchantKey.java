@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.payment.wechat.v3.crypto;
 
 import cn.felord.payment.PayException;
@@ -18,9 +33,7 @@ import java.util.Objects;
  */
 @Data
 public final class MerchantKey {
-    private final String merchantId;
-    private final JWK jwk;
-
+    private final JWK merchantJwk;
 
     /**
      * 获取私钥
@@ -29,11 +42,11 @@ public final class MerchantKey {
      */
     public PrivateKey toPrivateKey() {
         try {
-            if (Objects.equals(KeyType.RSA, jwk.getKeyType())) {
-                return jwk.toRSAKey().toPrivateKey();
+            if (Objects.equals(KeyType.RSA, merchantJwk.getKeyType())) {
+                return merchantJwk.toRSAKey().toPrivateKey();
             } else {
                 //TODO SM3
-                return jwk.toECKey().toPrivateKey();
+                return merchantJwk.toECKey().toPrivateKey();
             }
         } catch (JOSEException e) {
             throw new PayException("Fail to load key", e);
@@ -42,11 +55,11 @@ public final class MerchantKey {
 
     public PublicKey toPublicKey() {
         try {
-            if (Objects.equals(KeyType.RSA, jwk.getKeyType())) {
-                return jwk.toRSAKey().toPublicKey();
+            if (Objects.equals(KeyType.RSA, merchantJwk.getKeyType())) {
+                return merchantJwk.toRSAKey().toPublicKey();
             } else {
                 //TODO SM3
-                return jwk.toECKey().toPublicKey();
+                return merchantJwk.toECKey().toPublicKey();
             }
         } catch (JOSEException e) {
             throw new PayException("Fail to load key", e);
@@ -59,7 +72,7 @@ public final class MerchantKey {
      * @return the string
      */
     public String obtainSerialNumber() {
-        return jwk.toPublicJWK()
+        return merchantJwk.toPublicJWK()
                 .getParsedX509CertChain()
                 .get(0)
                 .getSerialNumber()

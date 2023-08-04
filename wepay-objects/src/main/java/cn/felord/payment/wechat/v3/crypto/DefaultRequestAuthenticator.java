@@ -66,11 +66,9 @@ public class DefaultRequestAuthenticator implements RequestAuthenticator {
                 .map(query ->
                         uri.getRawPath().concat("?").concat(query))
                 .orElse(uri.getRawPath());
-        String signBody = Optional.ofNullable(body).orElse("");
-
         String nonceStr = ID_GENERATOR.generate32();
         long timestamp = Instant.now().getEpochSecond();
-        final String signMessage = buildSignMessage(httpMethod, canonicalUrl, String.valueOf(timestamp), nonceStr, signBody);
+        final String signMessage = buildSignMessage(httpMethod, canonicalUrl, String.valueOf(timestamp), nonceStr, body);
         MerchantKey merchantKey = merchantKeyLoader.loadByMerchantId(merchantConfig);
         RequestAuthType authType = merchantConfig.getRequestAuthType();
         Signature signer = Signature.getInstance(authType.alg());
