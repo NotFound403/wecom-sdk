@@ -19,7 +19,7 @@ import cn.felord.payment.PayException;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.KeyType;
-import lombok.Data;
+import lombok.Getter;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -31,16 +31,28 @@ import java.util.Objects;
  * @author felord.cn
  * @since 2.0.0
  */
-@Data
+@Getter
 public final class MerchantKey {
+    private final String merchantId;
+    private final String serialNumber;
+    private final PrivateKey privateKey;
+    private final PublicKey publicKey;
     private final JWK merchantJwk;
+
+    public MerchantKey(JWK merchantJwk) {
+        this.merchantId = merchantJwk.getKeyID();
+        this.serialNumber = this.obtainSerialNumber(merchantJwk);
+        this.privateKey = this.toPrivateKey(merchantJwk);
+        this.publicKey = this.toPublicKey(merchantJwk);
+        this.merchantJwk = merchantJwk;
+    }
 
     /**
      * 获取私钥
      *
      * @return the private key
      */
-    public PrivateKey toPrivateKey() {
+    private PrivateKey toPrivateKey(JWK merchantJwk) {
         try {
             if (Objects.equals(KeyType.RSA, merchantJwk.getKeyType())) {
                 return merchantJwk.toRSAKey().toPrivateKey();
@@ -53,7 +65,12 @@ public final class MerchantKey {
         }
     }
 
-    public PublicKey toPublicKey() {
+    /**
+     * To public key public key.
+     *
+     * @return the public key
+     */
+    private PublicKey toPublicKey(JWK merchantJwk) {
         try {
             if (Objects.equals(KeyType.RSA, merchantJwk.getKeyType())) {
                 return merchantJwk.toRSAKey().toPublicKey();
@@ -67,11 +84,11 @@ public final class MerchantKey {
     }
 
     /**
-     * Obtain serial number string.
+     * 证书序列号
      *
      * @return the string
      */
-    public String obtainSerialNumber() {
+    private String obtainSerialNumber(JWK merchantJwk) {
         return merchantJwk.toPublicJWK()
                 .getParsedX509CertChain()
                 .get(0)

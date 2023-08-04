@@ -72,10 +72,10 @@ public class DefaultRequestAuthenticator implements RequestAuthenticator {
         MerchantKey merchantKey = merchantKeyLoader.loadByMerchantId(merchantConfig);
         RequestAuthType authType = merchantConfig.getRequestAuthType();
         Signature signer = Signature.getInstance(authType.alg());
-        signer.initSign(merchantKey.toPrivateKey());
+        signer.initSign(merchantKey.getPrivateKey());
         signer.update(signMessage.getBytes(StandardCharsets.UTF_8));
         String encoded = Base64Utils.encodeToString(signer.sign());
-        String token = String.format(TOKEN_PATTERN, merchantConfig.getMerchantId(), nonceStr, timestamp, merchantKey.obtainSerialNumber(), encoded);
+        String token = String.format(TOKEN_PATTERN, merchantConfig.getMerchantId(), nonceStr, timestamp, merchantKey.getSerialNumber(), encoded);
         return authType.toAuthHeader(token);
     }
 }
