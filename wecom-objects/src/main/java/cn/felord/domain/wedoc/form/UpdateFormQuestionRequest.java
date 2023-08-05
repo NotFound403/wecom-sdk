@@ -22,6 +22,7 @@ import lombok.Getter;
  * @author dax
  * @since 2023/3/10 9:35
  */
+@Deprecated
 @Getter
 public class UpdateFormQuestionRequest extends AbstractUpdateFormRequest {
     private final String formid;

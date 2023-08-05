@@ -21,6 +21,7 @@ import lombok.Data;
  * @author dax
  * @since 2023/3/13 16:32
  */
+@Deprecated
 @Data
 public class FormInfo {
     private final String formTitle;

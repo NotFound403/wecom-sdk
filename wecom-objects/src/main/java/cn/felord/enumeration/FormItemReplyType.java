@@ -28,7 +28,6 @@ import java.util.Arrays;
  */
 public enum FormItemReplyType {
 
-
     /**
      * 文本
      */
@@ -40,7 +39,7 @@ public enum FormItemReplyType {
     /**
      * 多选
      */
-    MULTI_SELECTION(3),
+    CHECKBOX(3),
     /**
      * 位置
      */

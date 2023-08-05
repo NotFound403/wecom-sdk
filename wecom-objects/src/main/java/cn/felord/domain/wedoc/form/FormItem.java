@@ -30,6 +30,7 @@ import java.util.List;
  * @author dax
  * @since 2023 /3/13 16:34
  */
+@Deprecated
 @ToString
 @Getter
 public class FormItem {

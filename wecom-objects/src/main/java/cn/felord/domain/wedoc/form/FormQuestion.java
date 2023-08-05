@@ -26,8 +26,10 @@ import java.util.List;
  * The type Form question.
  *
  * @author dax
+ * @see SettingFormQuestion
  * @since 2023 /3/13 16:33
  */
+@Deprecated
 @ToString
 @Getter
 public class FormQuestion {

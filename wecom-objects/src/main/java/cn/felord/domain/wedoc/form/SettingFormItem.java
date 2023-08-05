@@ -27,36 +27,36 @@ import java.util.List;
 /**
  * The type Form item.
  *
+ * @param <Q> the type parameter
  * @author dax
  * @since 2023 /3/13 16:34
  */
 @ToString
 @Getter
-public class SettingFormItem {
+public class SettingFormItem<Q extends QuestionExtendSetting> {
     private final int questionId;
     private final String title;
     private final int pos;
     private final FormItemStatus status;
     private final FormItemReplyType replyType;
     private final boolean mustReply;
-    private final String note;
-    private final String placeholder;
     private final List<FormOptionItem> optionItem;
-    private final QuestionExtendSetting questionExtendSetting;
+    private String note;
+    private String placeholder;
+    private Q questionExtendSetting;
 
     /**
      * Instantiates a new Form item.
      *
-     * @param questionId            the question id
-     * @param title                 the title
-     * @param pos                   the pos
-     * @param status                the status
-     * @param replyType             the reply type
-     * @param mustReply             the must reply
-     * @param note                  the note
-     * @param placeholder           the placeholder
-     * @param optionItem            the option item
-     * @param questionExtendSetting the question extend setting
+     * @param questionId  the question id
+     * @param title       the title
+     * @param pos         the pos
+     * @param status      the status
+     * @param replyType   the reply type
+     * @param mustReply   the must reply
+     * @param note        the note
+     * @param placeholder the placeholder
+     * @param optionItem  the option item
      */
     @JsonCreator
     public SettingFormItem(@JsonProperty("question_id") int questionId,
@@ -67,8 +67,7 @@ public class SettingFormItem {
                            @JsonProperty("must_reply") boolean mustReply,
                            @JsonProperty("note") String note,
                            @JsonProperty("placeholder") String placeholder,
-                           @JsonProperty("option_item") List<FormOptionItem> optionItem,
-                           @JsonProperty("question_extend_setting") QuestionExtendSetting questionExtendSetting) {
+                           @JsonProperty("option_item") List<FormOptionItem> optionItem) {
         this.questionId = questionId;
         this.title = title;
         this.pos = pos;
@@ -78,42 +77,387 @@ public class SettingFormItem {
         this.note = note;
         this.placeholder = placeholder;
         this.optionItem = optionItem;
-        this.questionExtendSetting = questionExtendSetting;
     }
 
+    /**
+     * Instantiates a new Setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param replyType  the reply type
+     * @param mustReply  the must reply
+     * @param optionItem the option item
+     */
+    SettingFormItem(int questionId, String title, int pos, FormItemStatus status, FormItemReplyType replyType, boolean mustReply, List<FormOptionItem> optionItem) {
+        this.questionId = questionId;
+        this.title = title;
+        this.pos = pos;
+        this.status = status;
+        this.replyType = replyType;
+        this.mustReply = mustReply;
+        this.optionItem = optionItem;
+    }
 
     /**
      * Text setting form item.
      *
-     * @param questionId            the question id
-     * @param title                 the title
-     * @param pos                   the pos
-     * @param status                the status
-     * @param mustReply             the must reply
-     * @param note                  the note
-     * @param placeholder           the placeholder
-     * @param questionExtendSetting the question extend setting
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
      * @return the setting form item
      */
-    public static SettingFormItem text(int questionId,
-                                       String title,
-                                       int pos,
-                                       FormItemStatus status,
-                                       boolean mustReply,
-                                       String note,
-                                       String placeholder,
-                                       TextQuestionExtendSetting questionExtendSetting) {
-        return new SettingFormItem(questionId,
+    public static SettingFormItem<TextQuestionExtendSetting> text(int questionId,
+                                                                  String title,
+                                                                  int pos,
+                                                                  FormItemStatus status,
+                                                                  boolean mustReply) {
+        return new SettingFormItem<>(questionId,
                 title,
                 pos,
                 status,
                 FormItemReplyType.TEXT,
-                mustReply,
-                note,
-                placeholder,
-                null,
-                questionExtendSetting);
+                mustReply, null);
     }
 
+    /**
+     * Radio setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @param optionItem the option item
+     * @return the setting form item
+     */
+    public static SettingFormItem<RadioQuestionExtendSetting> radio(int questionId,
+                                                                    String title,
+                                                                    int pos,
+                                                                    FormItemStatus status,
+                                                                    boolean mustReply,
+                                                                    List<FormOptionItem> optionItem) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.RADIO,
+                mustReply, optionItem);
+    }
 
+    /**
+     * Checkbox setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @param optionItem the option item
+     * @return the setting form item
+     */
+    public static SettingFormItem<CheckboxQuestionExtendSetting> checkbox(int questionId,
+                                                                          String title,
+                                                                          int pos,
+                                                                          FormItemStatus status,
+                                                                          boolean mustReply,
+                                                                          List<FormOptionItem> optionItem) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.CHECKBOX,
+                mustReply, optionItem);
+    }
+
+    /**
+     * Location setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @return the setting form item
+     */
+    public static SettingFormItem<LocationQuestionExtendSetting> location(int questionId,
+                                                                          String title,
+                                                                          int pos,
+                                                                          FormItemStatus status,
+                                                                          boolean mustReply) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.LOCATION,
+                mustReply, null);
+    }
+
+    /**
+     * Image setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @return the setting form item
+     */
+    public static SettingFormItem<ImageQuestionExtendSetting> image(int questionId,
+                                                                    String title,
+                                                                    int pos,
+                                                                    FormItemStatus status,
+                                                                    boolean mustReply) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.IMAGE,
+                mustReply, null);
+    }
+
+    /**
+     * File setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @return the setting form item
+     */
+    public static SettingFormItem<FileQuestionExtendSetting> file(int questionId,
+                                                                  String title,
+                                                                  int pos,
+                                                                  FormItemStatus status,
+                                                                  boolean mustReply) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.FILE,
+                mustReply, null);
+    }
+
+    /**
+     * Date setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @return the setting form item
+     */
+    public static SettingFormItem<DateQuestionExtendSetting> date(int questionId,
+                                                                  String title,
+                                                                  int pos,
+                                                                  FormItemStatus status,
+                                                                  boolean mustReply) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.DATE,
+                mustReply, null);
+    }
+
+    /**
+     * Time setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @return the setting form item
+     */
+    public static SettingFormItem<TextQuestionExtendSetting> time(int questionId,
+                                                                  String title,
+                                                                  int pos,
+                                                                  FormItemStatus status,
+                                                                  boolean mustReply) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.TIME,
+                mustReply, null);
+    }
+
+    /**
+     * Dropdown setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @param optionItem the option item
+     * @return the setting form item
+     */
+    public static SettingFormItem<NullQuestionExtendSetting> dropdown(int questionId,
+                                                                      String title,
+                                                                      int pos,
+                                                                      FormItemStatus status,
+                                                                      boolean mustReply,
+                                                                      List<FormOptionItem> optionItem) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.DROPDOWN,
+                mustReply, optionItem);
+    }
+
+    /**
+     * Temperature setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @return the setting form item
+     */
+    public static SettingFormItem<TemperatureQuestionExtendSetting> temperature(int questionId,
+                                                                                String title,
+                                                                                int pos,
+                                                                                FormItemStatus status,
+                                                                                boolean mustReply) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.TEMPERATURE,
+                mustReply, null);
+    }
+
+    /**
+     * Signature setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @return the setting form item
+     */
+    public static SettingFormItem<NullQuestionExtendSetting> signature(int questionId,
+                                                                       String title,
+                                                                       int pos,
+                                                                       FormItemStatus status,
+                                                                       boolean mustReply) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.SIGNATURE,
+                mustReply, null);
+    }
+
+    /**
+     * Department setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @return the setting form item
+     */
+    public static SettingFormItem<DepartmentQuestionExtendSetting> department(int questionId,
+                                                                              String title,
+                                                                              int pos,
+                                                                              FormItemStatus status,
+                                                                              boolean mustReply) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.DEPARTMENT,
+                mustReply, null);
+    }
+
+    /**
+     * Member setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @return the setting form item
+     */
+    public static SettingFormItem<MemberQuestionExtendSetting> member(int questionId,
+                                                                      String title,
+                                                                      int pos,
+                                                                      FormItemStatus status,
+                                                                      boolean mustReply) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.MEMBER,
+                mustReply, null);
+    }
+
+    /**
+     * Duration setting form item.
+     *
+     * @param questionId the question id
+     * @param title      the title
+     * @param pos        the pos
+     * @param status     the status
+     * @param mustReply  the must reply
+     * @return the setting form item
+     */
+    public static SettingFormItem<DurationQuestionExtendSetting> duration(int questionId,
+                                                                          String title,
+                                                                          int pos,
+                                                                          FormItemStatus status,
+                                                                          boolean mustReply) {
+        return new SettingFormItem<>(questionId,
+                title,
+                pos,
+                status,
+                FormItemReplyType.DURATION,
+                mustReply, null);
+    }
+
+    /**
+     * Note setting form item.
+     *
+     * @param note the note
+     * @return the setting form item
+     */
+    public SettingFormItem<Q> note(String note) {
+        this.note = note;
+        return this;
+    }
+
+    /**
+     * Placeholder setting form item.
+     *
+     * @param placeholder the placeholder
+     * @return the setting form item
+     */
+    public SettingFormItem<Q> placeholder(String placeholder) {
+        this.placeholder = placeholder;
+        return this;
+    }
+
+    /**
+     * Question extend setting setting form item.
+     *
+     * @param questionExtendSetting the question extend setting
+     * @return the setting form item
+     */
+    public SettingFormItem<Q> questionExtendSetting(Q questionExtendSetting) {
+        this.questionExtendSetting = questionExtendSetting;
+        return this;
+    }
 }

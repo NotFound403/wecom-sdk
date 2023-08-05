@@ -21,6 +21,7 @@ import lombok.Data;
  * @author dax
  * @since 2023/3/10 9:35
  */
+@Deprecated
 @Data
 public class CreateFormRequest {
     private String spaceId;

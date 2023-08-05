@@ -39,11 +39,12 @@ public interface FormApi {
      * @return the generic response
      * @throws WeComException the weComException
      */
+    @Deprecated
     @POST("wedoc/create_form")
     GenericResponse<String> createForm(@Body CreateFormRequest request) throws WeComException;
 
     /**
-     * Create form generic response.
+     * 创建收集表
      *
      * @param request the request
      * @return the generic response
@@ -70,7 +71,7 @@ public interface FormApi {
      * @throws WeComException the weComException
      */
     @POST("wedoc/get_form_info")
-    GenericResponse<FormDetail> getFormInfo(@Body FormId formid) throws WeComException;
+    GenericResponse<SettingFormDetail> getFormInfo(@Body FormId formid) throws WeComException;
 
     /**
      * 收集表的统计信息查询（仅获取统计结果）

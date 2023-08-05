@@ -15,31 +15,22 @@
 
 package cn.felord.domain.wedoc.form;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.util.List;
 
 /**
- * 收集表问题带配置，替代{@link FormQuestion}
- *
  * @author dax
- * @since 2023 /3/13 16:33
+ * @since 2023/3/16 11:34
  */
-@ToString
-@Getter
-public class SettingFormQuestion {
-    private final List<SettingFormItem<?>> items;
+@Data
+public class SettingFormDetail {
+    private String formid;
+    private String formTitle;
+    private String formDesc;
+    private String formHeader;
+    private SettingFormQuestion formQuestion;
+    private FormSettingDetail formSetting;
 
-    /**
-     * Instantiates a new Setting form question.
-     *
-     * @param items the items
-     */
-    @JsonCreator
-    public SettingFormQuestion(@JsonProperty("items") List<SettingFormItem<?>> items) {
-        this.items = items;
-    }
+    private List<String> repeatedId;
 }

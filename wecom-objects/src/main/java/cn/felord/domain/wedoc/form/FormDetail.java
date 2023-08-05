@@ -23,6 +23,7 @@ import java.util.List;
  * @author dax
  * @since 2023/3/16 11:34
  */
+@Deprecated
 @Data
 public class FormDetail {
     private String formid;
