@@ -30,7 +30,7 @@ import retrofit2.http.*;
  * @author dax
  * @since 2023 /7/6 16:24
  */
-public interface MiniAppPay {
+public interface MiniAppPayApi {
 
     /**
      * 小程序下单

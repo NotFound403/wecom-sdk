@@ -15,6 +15,7 @@
 
 package cn.felord.reactive.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.FormId;
@@ -37,9 +38,22 @@ public interface FormApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
+     * @see #createForm(CreateSettingFormRequest)
      */
+    @Deprecated
     @POST("wedoc/create_form")
     Single<GenericResponse<String>> createForm(@Body CreateFormRequest request);
+
+    /**
+     * 创建收集表
+     *
+     * @param request the request
+     * @return the generic response
+     * @throws WeComException the we com exception
+     */
+    @POST("wedoc/create_form")
+    Single<GenericResponse<String>> createForm(@Body CreateSettingFormRequest request);
 
     /**
      * 编辑收集表信息

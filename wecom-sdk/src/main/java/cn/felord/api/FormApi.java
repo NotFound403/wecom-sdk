@@ -38,6 +38,7 @@ public interface FormApi {
      * @param request the request
      * @return the generic response
      * @throws WeComException the weComException
+     * @see #createForm(CreateSettingFormRequest)
      */
     @Deprecated
     @POST("wedoc/create_form")
