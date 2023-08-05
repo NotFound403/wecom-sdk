@@ -97,4 +97,14 @@ public final class MerchantKey {
                 .toUpperCase();
     }
 
+    @Override
+    public String toString() {
+        return "MerchantKey{" +
+                "merchantId='" + merchantId + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", privateKey=[PROTECTED]" +
+                ", publicKey=[PROTECTED]" +
+                ", merchantJwk=[PROTECTED]" +
+                '}';
+    }
 }
