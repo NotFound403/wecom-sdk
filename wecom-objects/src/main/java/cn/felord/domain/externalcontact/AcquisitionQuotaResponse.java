@@ -19,6 +19,8 @@ import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 /**
  * The type Acquisition quota response.
  *
@@ -30,4 +32,5 @@ import lombok.EqualsAndHashCode;
 public class AcquisitionQuotaResponse extends WeComResponse {
     private Long total;
     private Long balance;
+    private List<AcquisitionQuota> quotaList;
 }

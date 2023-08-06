@@ -106,10 +106,10 @@ public class PayApi {
      * @param agentDetails the agent details
      * @return the mini app pay
      */
-    public MiniAppPay miniAppPay(AgentDetails agentDetails) {
+    public MiniAppPayApi miniAppPay(AgentDetails agentDetails) {
         AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
         return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
                 .retrofit()
-                .create(MiniAppPay.class);
+                .create(MiniAppPayApi.class);
     }
 }

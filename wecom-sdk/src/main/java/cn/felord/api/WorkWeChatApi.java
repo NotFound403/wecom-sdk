@@ -261,6 +261,19 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 人事助手API
+     *
+     * @param agentDetails the agent details
+     * @return the staff manager api
+     */
+    public StaffManagerApi staffManagerApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(StaffManagerApi.class);
+    }
+
+    /**
      * 紧急通知API（限医疗行业）
      *
      * @param agentDetails the agent details

@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Fill out auth.
+ * 填写权限
  *
  * @author dax
  * @since 2023 /3/13 17:05
@@ -29,16 +29,16 @@ import java.util.Arrays;
 public enum FillOutAuth {
 
     /**
-     * All fill out auth.
+     * 所有人
      */
     ALL(0),
 
     /**
-     * Staff or dept fill out auth.
+     * 企业内指定人/部门
      */
     STAFF_OR_DEPT(1),
     /**
-     * School fill out auth.
+     * 家校所有范围
      */
     SCHOOL(4);
 

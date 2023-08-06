@@ -17,6 +17,12 @@ package cn.felord.domain.oa;
 
 import lombok.Data;
 
+/**
+ * The type Schedule add request.
+ *
+ * @author felord.cn
+ * @since 1.0.0
+ */
 @Data
 public class ScheduleAddRequest {
     private final ScheduleRequestBody schedule;

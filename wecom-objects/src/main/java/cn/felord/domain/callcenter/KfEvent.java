@@ -42,11 +42,9 @@ import lombok.ToString;
 public abstract class KfEvent {
     private final KfEventType eventType;
     private final String openKfid;
-    private final String externalUserid;
 
-    public KfEvent(KfEventType eventType, String openKfid, String externalUserid) {
+    public KfEvent(KfEventType eventType, String openKfid) {
         this.eventType = eventType;
         this.openKfid = openKfid;
-        this.externalUserid = externalUserid;
     }
 }

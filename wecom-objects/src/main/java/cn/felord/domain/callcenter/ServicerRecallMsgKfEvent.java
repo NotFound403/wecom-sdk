@@ -28,7 +28,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class ServicerRecallMsgKfEvent extends KfEvent {
-
+    private final String externalUserid;
     private final String recallMsgid;
     private final String servicerUserid;
 
@@ -37,7 +37,8 @@ public class ServicerRecallMsgKfEvent extends KfEvent {
                                     @JsonProperty("external_userid") String externalUserid,
                                     @JsonProperty("recall_msgid") String recallMsgid,
                                     @JsonProperty("servicer_userid") String servicerUserid) {
-        super(KfEventType.SERVICER_RECALL_MSG, openKfid, externalUserid);
+        super(KfEventType.SERVICER_RECALL_MSG, openKfid);
+        this.externalUserid = externalUserid;
         this.recallMsgid = recallMsgid;
         this.servicerUserid = servicerUserid;
     }

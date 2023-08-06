@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Takeover status.
+ * The enum GroupChatStatus.
  *
  * @author dax
  * @since 2021/9/14 14:44
@@ -65,7 +65,7 @@ public enum GroupChatStatus {
     }
 
     /**
-     * Deserialize takeover status.
+     * Deserialize GroupChatStatus.
      *
      * @param status the status
      * @return the takeover status
@@ -73,7 +73,7 @@ public enum GroupChatStatus {
     @JsonCreator
     public static GroupChatStatus deserialize(int status) {
         return Arrays.stream(GroupChatStatus.values())
-                .filter(contactScene -> contactScene.status == status)
+                .filter(groupChatStatus -> groupChatStatus.status == status)
                 .findFirst()
                 .orElse(null);
     }

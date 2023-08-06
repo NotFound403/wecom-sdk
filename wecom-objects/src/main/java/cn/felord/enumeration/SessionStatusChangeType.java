@@ -69,7 +69,7 @@ public enum SessionStatusChangeType {
     @JsonCreator
     public static SessionStatusChangeType deserialize(int type) {
         return Arrays.stream(SessionStatusChangeType.values())
-                .filter(contactScene -> contactScene.type == type)
+                .filter(changeType -> changeType.type == type)
                 .findFirst()
                 .orElse(null);
     }

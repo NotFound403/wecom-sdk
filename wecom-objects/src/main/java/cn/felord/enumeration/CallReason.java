@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Button type.
+ * The enum CallReason
  *
  * @author felord
  * @since 2021 /11/23 17:01
@@ -122,7 +122,7 @@ public enum CallReason {
     }
 
     /**
-     * Deserialize button type.
+     * Deserialize CallReason
      *
      * @param type the type
      * @return the button type
@@ -130,7 +130,7 @@ public enum CallReason {
     @JsonCreator
     public static CallReason deserialize(int type) {
         return Arrays.stream(CallReason.values())
-                .filter(contactScene -> contactScene.type == type)
+                .filter(callReason -> callReason.type == type)
                 .findFirst()
                 .orElse(null);
     }

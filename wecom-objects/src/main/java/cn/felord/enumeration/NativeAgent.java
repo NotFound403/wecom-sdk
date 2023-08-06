@@ -63,6 +63,12 @@ public enum NativeAgent {
      */
     SCHEDULE("3010084", "日程"),
     /**
+     * 人事助手
+     *
+     * @since 1.1.6
+     */
+    STAFF_MANAGER("3010185", "人事助手"),
+    /**
      * 健康上报
      */
     HEALTH_REPORT("3010094", "健康上报"),

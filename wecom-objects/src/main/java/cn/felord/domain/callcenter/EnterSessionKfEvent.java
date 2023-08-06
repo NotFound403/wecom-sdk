@@ -29,6 +29,7 @@ import lombok.ToString;
 @Getter
 public class EnterSessionKfEvent extends KfEvent {
 
+    private final String externalUserid;
     private final String scene;
     private final String sceneParam;
     private final String welcomeCode;
@@ -41,7 +42,8 @@ public class EnterSessionKfEvent extends KfEvent {
                                @JsonProperty("scene_param") String sceneParam,
                                @JsonProperty("welcome_code") String welcomeCode,
                                @JsonProperty("wechat_channels") WechatChannels wechatChannels) {
-        super(KfEventType.ENTER_SESSION, openKfid, externalUserid);
+        super(KfEventType.ENTER_SESSION, openKfid);
+        this.externalUserid = externalUserid;
         this.scene = scene;
         this.sceneParam = sceneParam;
         this.welcomeCode = welcomeCode;

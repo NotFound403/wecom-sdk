@@ -69,7 +69,7 @@ public enum TakeoverStatus {
     @JsonCreator
     public static TakeoverStatus deserialize(int status) {
         return Arrays.stream(TakeoverStatus.values())
-                .filter(contactScene -> contactScene.status == status)
+                .filter(takeoverStatus -> takeoverStatus.status == status)
                 .findFirst()
                 .orElse(null);
     }

@@ -15,6 +15,7 @@
 
 package cn.felord.reactive.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.PageRequest;
@@ -23,6 +24,9 @@ import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
+
+import java.time.Instant;
 
 /**
  * 获客助手
@@ -39,7 +43,7 @@ public interface CustomerAcquisitionApi {
      * @return the follow user list
      */
     @POST("externalcontact/customer_acquisition/list_link")
-    Single<LinksResponse> queryLinks(@Body PageRequest request);
+    Single<LinksResponse> listLink(@Body PageRequest request);
 
     /**
      * 获取获客链接详情
@@ -48,7 +52,7 @@ public interface CustomerAcquisitionApi {
      * @return the we com response
      */
     @POST("externalcontact/customer_acquisition/get")
-    Single<LinkDetailResponse> queryLinkDetail(@Body LinkId linkId);
+    Single<LinkDetailResponse> get(@Body LinkId linkId);
 
     /**
      * 创建获客链接
@@ -84,7 +88,7 @@ public interface CustomerAcquisitionApi {
      * @return the we com response
      */
     @POST("externalcontact/customer_acquisition/customer")
-    Single<LinkCustomersResponse> queryLinkCustomers(@Body LinkPageRequest request);
+    Single<LinkCustomersResponse> customer(@Body LinkPageRequest request);
 
     /**
      * 查询获客链接剩余使用量
@@ -92,5 +96,21 @@ public interface CustomerAcquisitionApi {
      * @return the we com response
      */
     @GET("externalcontact/customer_acquisition_quota")
-    Single<AcquisitionQuotaResponse> queryCustomerAcquisitionQuotas();
+    Single<AcquisitionQuotaResponse> customerAcquisitionQuota();
+
+    /**
+     * 查询链接使用详情
+     * <p>
+     * 企业可通过此接口查询指定获客链接在指定时间范围内的访问情况。
+     *
+     * @param linkId    the link id
+     * @param startTime the start time
+     * @param endTime   the end time
+     * @return the link statistic response
+     * @throws WeComException the we com exception
+     */
+    @GET("externalcontact/customer_acquisition/statistic")
+    Single<LinkStatisticResponse> queryCustomerAcquisitionQuotas(@Query("link_id") String linkId,
+                                                                 @Query("start_time") Instant startTime,
+                                                                 @Query("end_time") Instant endTime) throws WeComException;
 }

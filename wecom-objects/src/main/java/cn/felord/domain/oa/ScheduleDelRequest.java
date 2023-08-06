@@ -20,24 +20,54 @@ import lombok.Getter;
 
 import java.time.Instant;
 
+/**
+ * The type Schedule del request.
+ *
+ * @author felord.cn
+ * @since 1.0.0
+ */
 @Getter
 public class ScheduleDelRequest {
     private final String scheduleId;
     private final ScheduleOpMode opMode;
     private final Instant opStartTime;
 
+    /**
+     * Instantiates a new Schedule del request.
+     *
+     * @param scheduleId the schedule id
+     */
     public ScheduleDelRequest(String scheduleId) {
         this(scheduleId, null, null);
     }
 
+    /**
+     * Instantiates a new Schedule del request.
+     *
+     * @param scheduleId the schedule id
+     * @param opMode     the op mode
+     */
     public ScheduleDelRequest(String scheduleId, ScheduleOpMode opMode) {
         this(scheduleId, opMode, null);
     }
 
+    /**
+     * Instantiates a new Schedule del request.
+     *
+     * @param scheduleId  the schedule id
+     * @param opStartTime the op start time
+     */
     public ScheduleDelRequest(String scheduleId, Instant opStartTime) {
         this(scheduleId, null, opStartTime);
     }
 
+    /**
+     * Instantiates a new Schedule del request.
+     *
+     * @param scheduleId  the schedule id
+     * @param opMode      the op mode
+     * @param opStartTime the op start time
+     */
     public ScheduleDelRequest(String scheduleId, ScheduleOpMode opMode, Instant opStartTime) {
         this.scheduleId = scheduleId;
         this.opMode = opMode;

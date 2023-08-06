@@ -21,6 +21,12 @@ import lombok.Data;
 
 import java.time.Instant;
 
+/**
+ * The type Schedule update request.
+ *
+ * @author felord.cn
+ * @since 1.0.0
+ */
 @Data
 public class ScheduleUpdateRequest {
     private BoolEnum skipAttendees;
