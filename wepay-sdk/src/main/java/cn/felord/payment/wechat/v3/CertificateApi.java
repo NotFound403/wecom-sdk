@@ -13,23 +13,28 @@
  *  limitations under the License.
  */
 
-package cn.felord.payment.wechat.v3.crypto;
+package cn.felord.payment.wechat.v3;
 
-import cn.felord.payment.PayException;
+import cn.felord.payment.wechat.v3.domain.WechatPayResponse;
+import cn.felord.payment.wechat.v3.domain.certificate.TenpayCertificate;
+import retrofit2.http.GET;
+
+import java.util.List;
 
 /**
- * 商户证书加载器
+ * 获取平台证书列表API
  *
- * @author felord.cn
- * @since 2.0.0
+ * @author dax
+ * @since 2023 /8/6
  */
-public interface MerchantKeyLoader {
+public interface CertificateApi {
+
+
     /**
-     * 加载商户Key
+     * 获取商户当前可用的平台证书列表。微信支付提供该接口，帮助商户后台系统实现平台证书的平滑更换。
      *
-     * @param merchantId the merchant id
-     * @return the merchant key
-     * @throws PayException the pay exception
+     * @return the wepay response
      */
-    MerchantKey loadByMerchantId(String merchantId) throws PayException;
+    @GET("v3/certificates")
+    WechatPayResponse<List<TenpayCertificate>> certificates();
 }

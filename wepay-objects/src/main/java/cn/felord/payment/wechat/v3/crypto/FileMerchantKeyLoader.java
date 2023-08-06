@@ -33,6 +33,11 @@ import java.security.cert.CertificateException;
 public class FileMerchantKeyLoader implements MerchantKeyLoader {
     private static final String TENPAY_ALIAS = "Tenpay Certificate";
     private static final KeyStore PKCS12_KEY_STORE;
+    private final MerchantConfigService merchantConfigService;
+
+    public FileMerchantKeyLoader(MerchantConfigService merchantConfigService) {
+        this.merchantConfigService = merchantConfigService;
+    }
 
     static {
         try {
@@ -43,8 +48,8 @@ public class FileMerchantKeyLoader implements MerchantKeyLoader {
     }
 
     @Override
-    public MerchantKey loadByMerchantId(MerchantConfig merchantConfig) throws PayException {
-
+    public MerchantKey loadByMerchantId(String merchantId) throws PayException {
+        MerchantConfig merchantConfig = merchantConfigService.loadConfig(merchantId);
         char[] pin = merchantConfig.getPassword().toCharArray();
 
         try (FileInputStream fileInputStream = new FileInputStream(merchantConfig.getSourcePath())) {

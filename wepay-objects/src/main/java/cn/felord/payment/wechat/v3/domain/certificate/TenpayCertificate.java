@@ -13,23 +13,20 @@
  *  limitations under the License.
  */
 
-package cn.felord.payment.wechat.v3.crypto;
+package cn.felord.payment.wechat.v3.domain.certificate;
 
-import cn.felord.payment.PayException;
+import lombok.Data;
 
 /**
- * 商户证书加载器
+ * 微信支付平台证书
  *
- * @author felord.cn
- * @since 2.0.0
+ * @author dax
+ * @since 2023/8/6
  */
-public interface MerchantKeyLoader {
-    /**
-     * 加载商户Key
-     *
-     * @param merchantId the merchant id
-     * @return the merchant key
-     * @throws PayException the pay exception
-     */
-    MerchantKey loadByMerchantId(String merchantId) throws PayException;
+@Data
+public class TenpayCertificate {
+    private EncryptCertificate encryptCertificate;
+    private String expireTime;
+    private String serialNo;
+    private String effectiveTime;
 }

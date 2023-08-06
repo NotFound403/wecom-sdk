@@ -60,7 +60,7 @@ public class DefaultRequestAuthenticator implements RequestAuthenticator {
 
     @SneakyThrows
     @Override
-    public final String authHeader(MerchantConfig merchantConfig, URI uri, String httpMethod, String body) {
+    public final String authHeader(String merchantId, URI uri, String httpMethod, String body) {
 
         String canonicalUrl = Optional.ofNullable(uri.getRawQuery())
                 .map(query ->
@@ -69,13 +69,13 @@ public class DefaultRequestAuthenticator implements RequestAuthenticator {
         String nonceStr = ID_GENERATOR.generate32();
         long timestamp = Instant.now().getEpochSecond();
         final String signMessage = buildSignMessage(httpMethod, canonicalUrl, String.valueOf(timestamp), nonceStr, body);
-        MerchantKey merchantKey = merchantKeyLoader.loadByMerchantId(merchantConfig);
-        RequestAuthType authType = merchantConfig.getRequestAuthType();
+        MerchantKey merchantKey = merchantKeyLoader.loadByMerchantId(merchantId);
+        RequestAuthType authType = merchantKey.getAuthType();
         Signature signer = Signature.getInstance(authType.alg());
         signer.initSign(merchantKey.getPrivateKey());
         signer.update(signMessage.getBytes(StandardCharsets.UTF_8));
         String encoded = Base64Utils.encodeToString(signer.sign());
-        String token = String.format(TOKEN_PATTERN, merchantConfig.getMerchantId(), nonceStr, timestamp, merchantKey.getSerialNumber(), encoded);
+        String token = String.format(TOKEN_PATTERN, merchantKey.getMerchantId(), nonceStr, timestamp, merchantKey.getSerialNumber(), encoded);
         return authType.toAuthHeader(token);
     }
 }

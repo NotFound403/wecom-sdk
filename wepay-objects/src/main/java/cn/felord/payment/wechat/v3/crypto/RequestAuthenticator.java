@@ -28,11 +28,11 @@ public interface RequestAuthenticator {
     /**
      * Auth header string.
      *
-     * @param merchantConfig the merchant config
-     * @param uri            the uri
-     * @param httpMethod     the http method
-     * @param body           the body
+     * @param merchantId the merchant id
+     * @param uri        the uri
+     * @param httpMethod the http method
+     * @param body       the body
      * @return the string
      */
-    String authHeader(MerchantConfig merchantConfig, URI uri, String httpMethod, String body);
+    String authHeader(String merchantId, URI uri, String httpMethod, String body);
 }

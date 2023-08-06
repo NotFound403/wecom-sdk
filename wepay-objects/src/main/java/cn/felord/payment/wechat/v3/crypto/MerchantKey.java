@@ -37,13 +37,20 @@ public final class MerchantKey {
     private final String serialNumber;
     private final PrivateKey privateKey;
     private final PublicKey publicKey;
+    private final RequestAuthType authType;
     private final JWK merchantJwk;
 
+    /**
+     * Instantiates a new Merchant key.
+     *
+     * @param merchantJwk the merchant jwk
+     */
     public MerchantKey(JWK merchantJwk) {
         this.merchantId = merchantJwk.getKeyID();
         this.serialNumber = this.obtainSerialNumber(merchantJwk);
         this.privateKey = this.toPrivateKey(merchantJwk);
         this.publicKey = this.toPublicKey(merchantJwk);
+        this.authType = this.obtainAuthType(merchantJwk);
         this.merchantJwk = merchantJwk;
     }
 
@@ -96,6 +103,20 @@ public final class MerchantKey {
                 .toString(16)
                 .toUpperCase();
     }
+
+    /**
+     * 获取证书类型
+     *
+     * @return RequestAuthType
+     */
+    private RequestAuthType obtainAuthType(JWK merchantJwk) {
+
+        if (Objects.equals(KeyType.RSA, merchantJwk.getKeyType())) {
+            return RequestAuthType.SHA256_RSA2048;
+        }
+        throw new PayException("Not Support Type");
+    }
+
 
     @Override
     public String toString() {
