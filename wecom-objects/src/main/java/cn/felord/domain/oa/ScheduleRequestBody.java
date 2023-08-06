@@ -15,21 +15,30 @@
 
 package cn.felord.domain.oa;
 
+import cn.felord.domain.common.UserId;
+import cn.felord.enumeration.BoolEnum;
 import lombok.Data;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The type Schedule request body.
+ *
+ * @author felord.cn
+ * @since 1.0.0
+ */
 @Data
 public class ScheduleRequestBody {
     private final Instant startTime;
     private final Instant endTime;
     private Set<String> admins;
-    private List<AttendeesItem> attendees;
+    private List<UserId> attendees;
     private String summary;
     private String description;
     private Reminders reminders;
     private String calId;
     private String location;
+    private BoolEnum isWholeDay;
 }

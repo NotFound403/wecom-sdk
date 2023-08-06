@@ -13,11 +13,17 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.oa;
+package cn.felord.domain.approval;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+/**
+ * @author dax
+ * @since 2023/6/9 15:13
+ */
 @Data
-public class AttendeesItem {
-    private final String userid;
+public class ApprovalThirdNo {
+    @JsonProperty("thirdNo")
+    private final String thirdNo;
 }

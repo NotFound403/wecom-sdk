@@ -20,8 +20,6 @@ import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.approval.*;
 import cn.felord.domain.common.TemplateId;
-import cn.felord.domain.oa.ApprovalSpNo;
-import cn.felord.domain.oa.ApprovalThirdNo;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 

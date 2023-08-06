@@ -15,6 +15,7 @@
 
 package cn.felord.domain.oa;
 
+import cn.felord.domain.common.UserId;
 import lombok.Data;
 
 import java.util.Set;
@@ -26,5 +27,5 @@ import java.util.Set;
 @Data
 public class ScheduleAttendees {
     private final String scheduleId;
-    private final Set<AttendeesItem> attendees;
+    private final Set<UserId> attendees;
 }

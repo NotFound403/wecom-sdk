@@ -21,38 +21,37 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The ScheduleAttendeeResponseStatus
+ * 日程参与者的接受状态
  *
  * @author dax
  * @since 2021 /9/8 10:47
  */
-public enum ScheduleAttendeeResponseStatus {
+public enum AttendeeResponseStatus {
 
     /**
-     * Untreated schedule attendee response status.
+     * 未处理
      */
-    UNTREATED(0),
+    UNDO(0),
     /**
-     * Cancel schedule attendee response status.
+     * 待定
      */
-    CANCEL(1),
+    UNDETERMINED(1),
     /**
-     * All schedule attendee response status.
+     * 全部接受
      */
-    ALL(2),
+    ALL_ACCEPTED(2),
     /**
-     * Once schedule attendee response status.
+     * 仅接受一次
      */
     ONCE(3),
     /**
-     * Refused schedule attendee response status.
+     * 拒绝
      */
-    REFUSED(4),
-    ;
+    REFUSED(4);
 
     private final int status;
 
-    ScheduleAttendeeResponseStatus(int status) {
+    AttendeeResponseStatus(int status) {
         this.status = status;
     }
 
@@ -67,14 +66,14 @@ public enum ScheduleAttendeeResponseStatus {
     }
 
     /**
-     * Deserialize ScheduleAttendeeResponseStatus
+     * Deserialize AttendeeResponseStatus
      *
      * @param status the status
      * @return the moment task status
      */
     @JsonCreator
-    public static ScheduleAttendeeResponseStatus deserialize(int status) {
-        return Arrays.stream(ScheduleAttendeeResponseStatus.values())
+    public static AttendeeResponseStatus deserialize(int status) {
+        return Arrays.stream(AttendeeResponseStatus.values())
                 .filter(responseStatus -> responseStatus.status == status)
                 .findFirst()
                 .orElse(null);

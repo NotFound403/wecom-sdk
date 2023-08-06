@@ -15,20 +15,29 @@
 
 package cn.felord.domain.oa;
 
-import lombok.Getter;
+import cn.felord.domain.common.UserId;
+import cn.felord.enumeration.BoolEnum;
+import lombok.Data;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author felord
  * @since 2021/11/21 15:46
  */
-@Getter
-public class ScheduleUpdateBody extends ScheduleRequestBody {
+@Data
+public class ScheduleUpdateBody {
     private final String scheduleId;
-
-    public ScheduleUpdateBody(String scheduleId, Instant startTime, Instant endTime) {
-        super(startTime, endTime);
-        this.scheduleId = scheduleId;
-    }
+    private final Instant startTime;
+    private final Instant endTime;
+    private Set<String> admins;
+    private List<UserId> attendees;
+    private String summary;
+    private String description;
+    private Reminders reminders;
+    private String calId;
+    private String location;
+    private BoolEnum isAllday;
 }

@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.oa;
+package cn.felord.domain.approval;
 
 import lombok.Data;
 
