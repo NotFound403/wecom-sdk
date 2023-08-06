@@ -51,7 +51,10 @@ import java.time.Instant;
         @JsonSubTypes.Type(value = MenuKfMessage.class, name = "msgmenu"),
         @JsonSubTypes.Type(value = ChannelsShopProductKfMessage.class, name = "channels_shop_product"),
         @JsonSubTypes.Type(value = ChannelsShopOrderKfMessage.class, name = "channels_shop_order"),
-        @JsonSubTypes.Type(value = KfMessage.class, names = {"merged_msg", "channels", "meeting", "schedule"}),
+        @JsonSubTypes.Type(value = KfMessage.class, name = "merged_msg"),
+        @JsonSubTypes.Type(value = KfMessage.class, name = "channels"),
+        @JsonSubTypes.Type(value = KfMessage.class, name = "meeting"),
+        @JsonSubTypes.Type(value = KfMessage.class, name = "schedule"),
         @JsonSubTypes.Type(value = EventKfMessage.class, name = "event")
 })
 @ToString

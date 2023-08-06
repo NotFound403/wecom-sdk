@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Moment task status.
+ * The enum msgSendOptStatus
  *
  * @author dax
  * @since 2021 /4/18 10:47
@@ -55,7 +55,7 @@ public enum MsgSendOptStatus {
     }
 
     /**
-     * Deserialize moment task status.
+     * Deserialize msgSendOptStatus
      *
      * @param status the status
      * @return the moment task status
@@ -63,7 +63,7 @@ public enum MsgSendOptStatus {
     @JsonCreator
     public static MsgSendOptStatus deserialize(int status) {
         return Arrays.stream(MsgSendOptStatus.values())
-                .filter(contactScene -> contactScene.status == status)
+                .filter(msgSendOptStatus -> msgSendOptStatus.status == status)
                 .findFirst()
                 .orElse(null);
     }

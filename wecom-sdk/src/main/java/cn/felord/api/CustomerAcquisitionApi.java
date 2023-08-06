@@ -23,6 +23,9 @@ import cn.felord.domain.externalcontact.*;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
+
+import java.time.Instant;
 
 /**
  * 获客助手
@@ -40,7 +43,7 @@ public interface CustomerAcquisitionApi {
      * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/list_link")
-    LinksResponse queryLinks(@Body PageRequest request) throws WeComException;
+    LinksResponse listLink(@Body PageRequest request) throws WeComException;
 
     /**
      * 获取获客链接详情
@@ -50,7 +53,7 @@ public interface CustomerAcquisitionApi {
      * @throws WeComException the weComException
      */
     @POST("externalcontact/customer_acquisition/get")
-    LinkDetailResponse queryLinkDetail(@Body LinkId linkId) throws WeComException;
+    LinkDetailResponse get(@Body LinkId linkId) throws WeComException;
 
     /**
      * 创建获客链接
@@ -99,5 +102,21 @@ public interface CustomerAcquisitionApi {
      * @throws WeComException the weComException
      */
     @GET("externalcontact/customer_acquisition_quota")
-    AcquisitionQuotaResponse queryCustomerAcquisitionQuotas() throws WeComException;
+    AcquisitionQuotaResponse customerAcquisitionQuota() throws WeComException;
+
+    /**
+     * 查询链接使用详情
+     * <p>
+     * 企业可通过此接口查询指定获客链接在指定时间范围内的访问情况。
+     *
+     * @param linkId    the link id
+     * @param startTime the start time
+     * @param endTime   the end time
+     * @return the link statistic response
+     * @throws WeComException the we com exception
+     */
+    @GET("externalcontact/customer_acquisition/statistic")
+    LinkStatisticResponse queryCustomerAcquisitionQuotas(@Query("link_id") String linkId,
+                                                         @Query("start_time") Instant startTime,
+                                                         @Query("end_time") Instant endTime) throws WeComException;
 }

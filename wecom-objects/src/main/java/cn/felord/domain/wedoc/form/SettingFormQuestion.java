@@ -13,17 +13,33 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.oa;
+package cn.felord.domain.wedoc.form;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
+
+import java.util.List;
 
 /**
+ * 收集表问题带配置，替代{@link FormQuestion}
+ *
  * @author dax
- * @since 2023/6/9 15:13
+ * @since 2023 /3/13 16:33
  */
-@Data
-public class ApprovalThirdNo {
-    @JsonProperty("thirdNo")
-    private final String thirdNo;
+@ToString
+@Getter
+public class SettingFormQuestion {
+    private final List<SettingFormItem<?>> items;
+
+    /**
+     * Instantiates a new Setting form question.
+     *
+     * @param items the items
+     */
+    @JsonCreator
+    public SettingFormQuestion(@JsonProperty("items") List<SettingFormItem<?>> items) {
+        this.items = items;
+    }
 }

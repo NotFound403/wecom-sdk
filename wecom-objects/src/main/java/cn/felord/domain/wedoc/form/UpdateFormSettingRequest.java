@@ -25,12 +25,12 @@ import lombok.Getter;
 @Getter
 public class UpdateFormSettingRequest extends AbstractUpdateFormRequest {
     private final String formid;
-    private final FormInfo formInfo;
+    private final SettingFormInfo formInfo;
 
     protected UpdateFormSettingRequest(String formid, FormSetting formSetting) {
         super(FormOperType.SETTING);
         this.formid = formid;
-        FormInfo info = new FormInfo(null);
+        SettingFormInfo info = new SettingFormInfo(null, null);
         info.setFormSetting(formSetting);
         this.formInfo = info;
     }

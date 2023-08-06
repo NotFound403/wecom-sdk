@@ -31,6 +31,7 @@ import lombok.ToString;
 @Getter
 public class UserRecallMsgKfEvent extends KfEvent {
     private final String recallMsgid;
+    private final String externalUserid;
 
     /**
      * Instantiates a new User recall msg kf event.
@@ -43,7 +44,8 @@ public class UserRecallMsgKfEvent extends KfEvent {
     public UserRecallMsgKfEvent(@JsonProperty("open_kfid") String openKfid,
                                 @JsonProperty("external_userid") String externalUserid,
                                 @JsonProperty("recall_msgid") String recallMsgid) {
-        super(KfEventType.USER_RECALL_MSG, openKfid, externalUserid);
+        super(KfEventType.USER_RECALL_MSG, openKfid);
         this.recallMsgid = recallMsgid;
+        this.externalUserid = externalUserid;
     }
 }

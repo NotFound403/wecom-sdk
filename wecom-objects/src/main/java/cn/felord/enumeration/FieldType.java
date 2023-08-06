@@ -21,61 +21,63 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The MomentTaskPubStatus
+ * 字段类型说明
  *
  * @author dax
- * @since 2021 /9/8 10:47
+ * @since 2021 /9/8 11:14
  */
-public enum ScheduleAttendeeResponseStatus {
+public enum FieldType {
+    /**
+     * 文本类型
+     */
+    TEXT(1),
+    /**
+     * 选项类型
+     */
+    OPTION(2),
+    /**
+     * 时间类型
+     */
+    TIME(3),
+    /**
+     * 图片类型
+     */
+    IMAGE(4),
+    /**
+     * 单个文件类型
+     */
+    SINGLE_FILE(5),
+    /**
+     * 多个文件类型
+     */
+    MULTIPLE_FILE(6);
 
-    /**
-     * Untreated schedule attendee response status.
-     */
-    UNTREATED(0),
-    /**
-     * Cancel schedule attendee response status.
-     */
-    CANCEL(1),
-    /**
-     * All schedule attendee response status.
-     */
-    ALL(2),
-    /**
-     * Once schedule attendee response status.
-     */
-    ONCE(3),
-    /**
-     * Refused schedule attendee response status.
-     */
-    REFUSED(4),
-    ;
+    private final int type;
 
-    private final int status;
-
-    ScheduleAttendeeResponseStatus(int status) {
-        this.status = status;
+    FieldType(int type) {
+        this.type = type;
     }
 
     /**
-     * Gets status.
+     * Gets type.
      *
-     * @return the status
+     * @return the type
      */
     @JsonValue
-    public int getStatus() {
-        return status;
+    public int getType() {
+        return type;
     }
 
     /**
-     * Deserialize moment task status.
+     * Deserialize FieldType.
      *
-     * @param status the status
-     * @return the moment task status
+     * @param type the type
+     * @return the value type
      */
     @JsonCreator
-    public static ScheduleAttendeeResponseStatus deserialize(int status) {
-        return Arrays.stream(ScheduleAttendeeResponseStatus.values())
-                .filter(contactScene -> contactScene.status == status)
+    public static FieldType deserialize(int type) {
+        return Arrays.stream(FieldType.values())
+                .filter(valueResult -> valueResult.type == type)
                 .findFirst()
                 .orElse(null);
     }

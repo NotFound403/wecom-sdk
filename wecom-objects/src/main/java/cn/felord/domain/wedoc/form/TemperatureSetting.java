@@ -13,11 +13,18 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.oa;
+package cn.felord.domain.wedoc.form;
 
+import cn.felord.enumeration.TemperatureUnitType;
 import lombok.Data;
 
+/**
+ * The type Temperature setting.
+ *
+ * @author dax
+ * @since 2023 /8/4 14:54
+ */
 @Data
-public class AttendeesItem {
-    private final String userid;
+public class TemperatureSetting {
+    private TemperatureUnitType unitType;
 }

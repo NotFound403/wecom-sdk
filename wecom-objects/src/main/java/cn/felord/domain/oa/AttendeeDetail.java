@@ -15,7 +15,7 @@
 
 package cn.felord.domain.oa;
 
-import cn.felord.enumeration.ScheduleAttendeeResponseStatus;
+import cn.felord.enumeration.AttendeeResponseStatus;
 import lombok.Data;
 
 /**
@@ -25,5 +25,5 @@ import lombok.Data;
 @Data
 public class AttendeeDetail {
     private String userid;
-    private ScheduleAttendeeResponseStatus responseStatus;
+    private AttendeeResponseStatus responseStatus;
 }

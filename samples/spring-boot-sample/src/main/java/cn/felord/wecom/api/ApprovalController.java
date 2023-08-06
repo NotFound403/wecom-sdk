@@ -19,7 +19,7 @@ import cn.felord.AgentDetails;
 import cn.felord.DefaultAgent;
 import cn.felord.api.WorkWeChatApi;
 import cn.felord.domain.approval.ApprovalDetail;
-import cn.felord.domain.oa.ApprovalSpNo;
+import cn.felord.domain.approval.ApprovalSpNo;
 import cn.felord.enumeration.NativeAgent;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

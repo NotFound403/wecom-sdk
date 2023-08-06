@@ -65,7 +65,7 @@ public enum GroupChatJoinScene {
     @JsonCreator
     public static GroupChatJoinScene deserialize(int type) {
         return Arrays.stream(GroupChatJoinScene.values())
-                .filter(contactScene -> contactScene.type == type)
+                .filter(groupChatJoinScene -> groupChatJoinScene.type == type)
                 .findFirst()
                 .orElse(null);
     }

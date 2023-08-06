@@ -28,59 +28,62 @@ import java.util.Arrays;
  */
 public enum FormItemReplyType {
 
-
     /**
-     * Text form item reply type.
+     * 文本
      */
     TEXT(1),
     /**
-     * Radio form item reply type.
+     * 单选
      */
     RADIO(2),
     /**
-     * Multi selection form item reply type.
+     * 多选
      */
-    MULTI_SELECTION(3),
+    CHECKBOX(3),
     /**
-     * Location form item reply type.
+     * 位置
      */
     LOCATION(5),
     /**
-     * Username form item reply type.
-     */
-    USERNAME(6),
-    /**
-     * Department form item reply type.
-     */
-    DEPARTMENT(7),
-    /**
-     * Image form item reply type.
+     * 图片
      */
     IMAGE(9),
     /**
-     * File form item reply type.
+     * 文件
      */
     FILE(10),
     /**
-     * Date form item reply type.
+     * 日期
      */
     DATE(11),
     /**
-     * Time form item reply type.
+     * 时间
      */
     TIME(14),
     /**
-     * Dropdown form item reply type.
+     * 下拉列表
      */
     DROPDOWN(15),
     /**
-     * Temperature form item reply type.
+     * 体温
      */
     TEMPERATURE(16),
     /**
-     * Signature form item reply type.
+     * 签名
      */
-    SIGNATURE(17);
+    SIGNATURE(17),
+    /**
+     * 部门
+     */
+    DEPARTMENT(18),
+    /**
+     * 成员
+     */
+    MEMBER(19),
+    /**
+     * 时长
+     */
+    DURATION(22);
 
     private final int type;
 

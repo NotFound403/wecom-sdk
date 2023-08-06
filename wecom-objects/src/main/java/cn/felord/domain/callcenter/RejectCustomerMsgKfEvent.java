@@ -29,16 +29,17 @@ import lombok.ToString;
 @ToString
 @Getter
 public class RejectCustomerMsgKfEvent extends KfEvent {
-
+    private final String externalUserid;
     private final String servicerUserid;
     private final RejectSwitch rejectSwitch;
 
     @JsonCreator
-    public RejectCustomerMsgKfEvent(@JsonProperty("open_kfid")String openKfid,
+    public RejectCustomerMsgKfEvent(@JsonProperty("open_kfid") String openKfid,
                                     @JsonProperty("external_userid") String externalUserid,
-                                    @JsonProperty("servicer_userid")String servicerUserid,
+                                    @JsonProperty("servicer_userid") String servicerUserid,
                                     @JsonProperty("reject_switch") RejectSwitch rejectSwitch) {
-        super(KfEventType.REJECT_CUSTOMER_MSG_SWITCH_CHANGE,openKfid,externalUserid);
+        super(KfEventType.REJECT_CUSTOMER_MSG_SWITCH_CHANGE, openKfid);
+        this.externalUserid = externalUserid;
         this.servicerUserid = servicerUserid;
         this.rejectSwitch = rejectSwitch;
     }

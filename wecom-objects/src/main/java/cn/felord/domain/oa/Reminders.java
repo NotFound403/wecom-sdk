@@ -17,12 +17,19 @@ package cn.felord.domain.oa;
 
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.RemindBeforeEventSecs;
+import cn.felord.enumeration.RemindTimeDiffs;
 import cn.felord.enumeration.RepeatType;
 import lombok.Data;
 
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * 提醒相关信息
+ *
+ * @author felord.cn
+ * @since 1.0.0
+ */
 @Data
 public class Reminders {
     private BoolEnum isRemind;
@@ -35,4 +42,5 @@ public class Reminders {
     private List<Integer> repeatDayOfMonth;
     private List<Integer> repeatDayOfWeek;
     private BoolEnum isCustomRepeat;
+    private RemindTimeDiffs remindTimeDiffs;
 }

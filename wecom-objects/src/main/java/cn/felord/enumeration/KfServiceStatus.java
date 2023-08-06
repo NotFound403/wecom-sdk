@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The MomentTaskPubStatus
+ * The KfServiceStatus
  *
  * @author dax
  * @since 2021/9/8 10:47
@@ -30,12 +30,12 @@ public enum KfServiceStatus {
 
 
     /**
-     * In reception kf service status.
+     * 接待中
      */
     IN_RECEPTION(0),
 
     /**
-     * Out reception kf service status.
+     * 停止接待
      */
     OUT_RECEPTION(1) ;
 
@@ -56,7 +56,7 @@ public enum KfServiceStatus {
     }
 
     /**
-     * Deserialize moment task status.
+     * Deserialize KfServiceStatus
      *
      * @param status the status
      * @return the moment task status
@@ -64,7 +64,7 @@ public enum KfServiceStatus {
     @JsonCreator
     public static KfServiceStatus deserialize(int status) {
         return Arrays.stream(KfServiceStatus.values())
-                .filter(contactScene -> contactScene.status == status)
+                .filter(kfServiceStatus -> kfServiceStatus.status == status)
                 .findFirst()
                 .orElse(null);
     }

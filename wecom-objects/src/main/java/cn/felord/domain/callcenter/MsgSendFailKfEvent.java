@@ -31,7 +31,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class MsgSendFailKfEvent extends KfEvent {
-
+    private final String externalUserid;
     private final String failMsgid;
     private final FailKfEventType failType;
 
@@ -48,7 +48,8 @@ public class MsgSendFailKfEvent extends KfEvent {
                               @JsonProperty("external_userid") String externalUserid,
                               @JsonProperty("fail_msgid") String failMsgid,
                               @JsonProperty("fail_type") FailKfEventType failType) {
-        super(KfEventType.MSG_SEND_FAIL, openKfid, externalUserid);
+        super(KfEventType.MSG_SEND_FAIL, openKfid);
+        this.externalUserid = externalUserid;
         this.failMsgid = failMsgid;
         this.failType = failType;
     }

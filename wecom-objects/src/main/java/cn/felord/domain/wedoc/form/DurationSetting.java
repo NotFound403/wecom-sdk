@@ -15,25 +15,20 @@
 
 package cn.felord.domain.wedoc.form;
 
-import cn.felord.enumeration.FormOperType;
-import lombok.Getter;
+import cn.felord.enumeration.DurationDateType;
+import cn.felord.enumeration.DurationTimeScale;
+import lombok.Data;
 
 /**
+ * The type Duration setting.
+ *
  * @author dax
- * @since 2023/3/10 9:35
+ * @since 2023 /8/4 14:37
  */
-@Getter
-public class UpdateFormQuestionRequest extends AbstractUpdateFormRequest {
-    private final String formid;
-    private final FormInfo formInfo;
-
-    public UpdateFormQuestionRequest(String formid, String formTitle, String formDesc, String formHeader, FormQuestion formQuestion) {
-        super(FormOperType.QUESTION);
-        this.formid = formid;
-        FormInfo info = new FormInfo(formTitle);
-        info.setFormDesc(formDesc);
-        info.setFormHeader(formHeader);
-        info.setFormQuestion(formQuestion);
-        this.formInfo = info;
-    }
+@Data
+public class DurationSetting {
+    private DurationTimeScale timeScale;
+    private DurationDateType dateType;
+    // [1, 24] ，默认为24
+    private Integer dayRange;
 }

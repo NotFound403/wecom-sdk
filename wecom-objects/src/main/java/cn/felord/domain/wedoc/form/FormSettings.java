@@ -31,7 +31,7 @@ import java.util.Set;
 @ToString
 @Getter
 @Setter
-public class FormSettingDetail {
+public class FormSettings {
     private final FillOutAuth fillOutAuth;
     private FillInRange fillInRange;
     private Set<String> settingManagerRange;
@@ -42,7 +42,7 @@ public class FormSettingDetail {
     private Boolean canNotifySubmit;
 
     @JsonCreator
-    public FormSettingDetail(@JsonProperty("fill_out_auth") FillOutAuth fillOutAuth) {
+    public FormSettings(@JsonProperty("fill_out_auth") FillOutAuth fillOutAuth) {
         this.fillOutAuth = fillOutAuth;
     }
 }

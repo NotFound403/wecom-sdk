@@ -19,13 +19,15 @@ import lombok.Data;
 
 /**
  * @author dax
+ * @see SettingFormInfo
  * @since 2023/3/13 16:32
  */
+@Deprecated
 @Data
 public class FormInfo {
     private final String formTitle;
+    private final FormQuestion formQuestion;
     private String formDesc;
     private String formHeader;
-    private FormQuestion formQuestion;
     private FormSetting formSetting;
 }

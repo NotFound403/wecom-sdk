@@ -61,7 +61,7 @@ public enum ButtonType {
     @JsonCreator
     public static ButtonType deserialize(int type) {
         return Arrays.stream(ButtonType.values())
-                .filter(contactScene -> contactScene.type == type)
+                .filter(buttonType -> buttonType.type == type)
                 .findFirst()
                 .orElse(null);
     }
