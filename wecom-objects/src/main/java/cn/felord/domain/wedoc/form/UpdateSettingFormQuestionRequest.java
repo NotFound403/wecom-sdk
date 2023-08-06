@@ -51,8 +51,9 @@ public class UpdateSettingFormQuestionRequest extends AbstractUpdateFormRequest 
     /**
      * Instantiates a new Update setting form question request.
      *
-     * @param formid    the formid
-     * @param formTitle the form title
+     * @param formid       the formid
+     * @param formTitle    the form title
+     * @param formQuestion the form question
      */
     public UpdateSettingFormQuestionRequest(String formid, String formTitle, SettingFormQuestion formQuestion) {
         super(FormOperType.QUESTION);

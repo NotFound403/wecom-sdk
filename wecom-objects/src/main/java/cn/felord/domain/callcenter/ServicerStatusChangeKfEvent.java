@@ -42,6 +42,8 @@ public class ServicerStatusChangeKfEvent extends KfEvent {
      *
      * @param openKfid       the open kfid
      * @param servicerUserid the servicer userid
+     * @param status         the status
+     * @param stopType       the stop type
      */
     @JsonCreator
     public ServicerStatusChangeKfEvent(@JsonProperty("open_kfid") String openKfid,
