@@ -21,41 +21,42 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Date format type.
+ * 数量限制类型
  *
  * @author dax
- * @since 2023 /8/4 14:28
+ * @since 2023 /8/5
  */
-public enum DateFormatType {
+public enum CountLimitType {
+
     /**
-     * 年/月/日/时/分
+     * 等于count数量
+     * <p>
+     * count = [1,9]
      */
-    YMDHM(0),
+    EQ(0),
     /**
-     * 年/月/日
+     * 小于等于count数量
+     * <p>
+     * count = [1,9]
      */
-    YMD(1),
-    /**
-     * 年/月
-     */
-    YM(2);
+    LTE(1);
 
     private final int type;
 
-    DateFormatType(int type) {
+    CountLimitType(int type) {
         this.type = type;
     }
 
     /**
-     * Deserialize DateFormatType
+     * Deserialize CountLimitType.
      *
      * @param type the type
-     * @return the range type
+     * @return the contact type
      */
     @JsonCreator
-    public static DateFormatType deserialize(int type) {
-        return Arrays.stream(DateFormatType.values())
-                .filter(dateFormatType -> dateFormatType.type == type)
+    public static CountLimitType deserialize(int type) {
+        return Arrays.stream(CountLimitType.values())
+                .filter(countLimitType -> countLimitType.type == type)
                 .findFirst()
                 .orElse(null);
     }

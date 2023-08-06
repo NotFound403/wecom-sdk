@@ -15,25 +15,34 @@
 
 package cn.felord.domain.wedoc.form;
 
-import cn.felord.enumeration.FormOperType;
+import cn.felord.enumeration.FillOutAuth;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.Set;
 
 /**
  * @author dax
- * @since 2023/3/10 9:35
+ * @since 2023/3/13 17:03
  */
-@Deprecated
+@ToString
 @Getter
-public class UpdateFormQuestionRequest extends AbstractUpdateFormRequest {
-    private final String formid;
-    private final FormInfo formInfo;
+@Setter
+public class FormSettings {
+    private final FillOutAuth fillOutAuth;
+    private FillInRange fillInRange;
+    private Set<String> settingManagerRange;
+    private TimedRepeatInfoDetail timedRepeatInfo;
+    private Integer maxFillCnt;
+    private Integer timedFinish;
+    private Boolean canAnonymous;
+    private Boolean canNotifySubmit;
 
-    public UpdateFormQuestionRequest(String formid, String formTitle, String formDesc, String formHeader, FormQuestion formQuestion) {
-        super(FormOperType.QUESTION);
-        this.formid = formid;
-        FormInfo info = new FormInfo(formTitle, formQuestion);
-        info.setFormDesc(formDesc);
-        info.setFormHeader(formHeader);
-        this.formInfo = info;
+    @JsonCreator
+    public FormSettings(@JsonProperty("fill_out_auth") FillOutAuth fillOutAuth) {
+        this.fillOutAuth = fillOutAuth;
     }
 }

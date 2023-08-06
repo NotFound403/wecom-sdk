@@ -18,8 +18,11 @@ package cn.felord.domain.wedoc.form;
 import lombok.Data;
 
 /**
+ * The type Create form request.
+ *
  * @author dax
- * @since 2023/3/10 9:35
+ * @see CreateSettingFormRequest
+ * @since 2023 /3/10 9:35
  */
 @Deprecated
 @Data

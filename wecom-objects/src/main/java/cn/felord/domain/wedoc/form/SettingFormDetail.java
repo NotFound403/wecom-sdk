@@ -30,7 +30,6 @@ public class SettingFormDetail {
     private String formDesc;
     private String formHeader;
     private SettingFormQuestion formQuestion;
-    private FormSettingDetail formSetting;
-
+    private FormSettings formSetting;
     private List<String> repeatedId;
 }

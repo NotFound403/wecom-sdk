@@ -31,8 +31,8 @@ public class TimedRepeatInfo {
     private Boolean enable;
     private Instant remindTime;
     private FormRepeatType repeatType;
-    private FormWeekFlag weekFlag;
     private Boolean skipHoliday;
+    private FormWeekFlag weekFlag;
     private Integer dayOfMonth;
     private FormForkFinishType formForkFinishType;
 }

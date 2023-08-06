@@ -20,8 +20,11 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * The type Form detail.
+ *
  * @author dax
- * @since 2023/3/16 11:34
+ * @see SettingFormDetail
+ * @since 2023 /3/16 11:34
  */
 @Deprecated
 @Data
@@ -31,7 +34,6 @@ public class FormDetail {
     private String formDesc;
     private String formHeader;
     private FormQuestion formQuestion;
-    private FormSettingDetail formSetting;
-
+    private FormSettings formSetting;
     private List<String> repeatedId;
 }
