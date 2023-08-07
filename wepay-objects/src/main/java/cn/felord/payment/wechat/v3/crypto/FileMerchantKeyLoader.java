@@ -50,7 +50,7 @@ public class FileMerchantKeyLoader implements MerchantKeyLoader {
     @Override
     public MerchantKey loadByMerchantId(String merchantId) throws PayException {
         MerchantConfig merchantConfig = merchantConfigService.loadConfig(merchantId);
-        char[] pin = merchantConfig.getPassword().toCharArray();
+        char[] pin = merchantConfig.getStorePassword().toCharArray();
 
         try (FileInputStream fileInputStream = new FileInputStream(merchantConfig.getSourcePath())) {
             PKCS12_KEY_STORE.load(fileInputStream, pin);

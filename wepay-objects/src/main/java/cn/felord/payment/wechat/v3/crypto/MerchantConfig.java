@@ -28,7 +28,8 @@ import lombok.Getter;
 @Getter
 public class MerchantConfig {
     private final String merchantId;
-    private final String password;
+    private final String storePassword;
+    private final String appV3Secret;
     private final String sourcePath;
     private final RequestAuthType requestAuthType;
 
@@ -36,13 +37,15 @@ public class MerchantConfig {
      * 商户证书初始化参数
      *
      * @param merchantId      商户ID
-     * @param password        证书密码，默认是商户ID
+     * @param storePassword   证书密码，默认是商户ID
+     * @param appV3Secret     V3 Secret
      * @param sourcePath      证书资源路径，根据实现可能是路径、URL
      * @param requestAuthType 签名类型，RSA或者国密SM
      */
-    MerchantConfig(String merchantId, String password, String sourcePath, RequestAuthType requestAuthType) {
+    MerchantConfig(String merchantId, String storePassword, String appV3Secret, String sourcePath, RequestAuthType requestAuthType) {
         this.merchantId = merchantId;
-        this.password = password;
+        this.storePassword = storePassword;
+        this.appV3Secret = appV3Secret;
         this.sourcePath = sourcePath;
         this.requestAuthType = requestAuthType;
     }
@@ -52,31 +55,34 @@ public class MerchantConfig {
      *
      * @param merchantId      the merchant id
      * @param sourcePath      the source path
+     * @param appV3Secret     the app v 3 secret
      * @param requestAuthType the request auth type
      * @return the merchant config
      */
-    public static MerchantConfig create(String merchantId, String sourcePath, RequestAuthType requestAuthType) {
-        return create(merchantId, merchantId, sourcePath, requestAuthType);
+    public static MerchantConfig create(String merchantId, String sourcePath, String appV3Secret, RequestAuthType requestAuthType) {
+        return create(merchantId, merchantId, appV3Secret, sourcePath, requestAuthType);
     }
 
     /**
      * 非默认情况
      *
      * @param merchantId      the merchant id
-     * @param password        the password
+     * @param storePassword   the storePassword
+     * @param appV3Secret     the app v 3 secret
      * @param sourcePath      the source path
      * @param requestAuthType the request auth type
      * @return the merchant config
      */
-    public static MerchantConfig create(String merchantId, String password, String sourcePath, RequestAuthType requestAuthType) {
-        return new MerchantConfig(merchantId, password, sourcePath, requestAuthType);
+    public static MerchantConfig create(String merchantId, String storePassword, String appV3Secret, String sourcePath, RequestAuthType requestAuthType) {
+        return new MerchantConfig(merchantId, storePassword, appV3Secret, sourcePath, requestAuthType);
     }
 
     @Override
     public String toString() {
         return "MerchantConfig{" +
                 "merchantId='" + merchantId + '\'' +
-                ", password=[PROTECTED]" +
+                ", storePassword=[PROTECTED]" +
+                ", appV3Secret=[PROTECTED]" +
                 ", sourcePath=[PROTECTED]" +
                 ", requestAuthType=" + requestAuthType +
                 '}';

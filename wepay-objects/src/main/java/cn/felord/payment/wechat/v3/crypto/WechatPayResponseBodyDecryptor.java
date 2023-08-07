@@ -18,15 +18,24 @@ package cn.felord.payment.wechat.v3.crypto;
 import cn.felord.payment.PayException;
 
 /**
+ * 敏感信息加密解密工具
+ *
  * @author dax
- * @since 2023/8/6
+ * @since 2023 /8/7
  */
-public class InMemoryMerchantConfigService implements MerchantConfigService {
-    @Override
-    public MerchantConfig loadConfig(String merchantId) throws PayException {
+public interface WechatPayResponseBodyDecryptor {
 
-        String path = "C:\\Users\\xfa00\\IdeaProjects\\payment-spring-boot-samples\\src\\main\\resources\\wechat\\apiclient_cert.p12";
-        return MerchantConfig.create("1900006891", "514D90B6A480D7C289EE1F93D8A2830B",
-                path, RequestAuthType.SHA256_RSA2048);
-    }
+
+    /**
+     * 解密
+     *
+     * @param appV3Secret    v3 secret
+     * @param associatedData 额外的认证加密数据
+     * @param nonce          初始化向量
+     * @param cipherText     密文
+     * @return 编码的明文 utf8格式
+     * @throws PayException the pay exception
+     */
+    String decrypt(String appV3Secret, String associatedData, String nonce, String cipherText) throws PayException;
+
 }

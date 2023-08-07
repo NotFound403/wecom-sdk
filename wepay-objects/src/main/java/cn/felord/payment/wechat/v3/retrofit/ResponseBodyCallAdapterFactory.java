@@ -16,6 +16,7 @@ package cn.felord.payment.wechat.v3.retrofit;
 
 
 import cn.felord.payment.PayException;
+import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Response;
@@ -80,6 +81,8 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
             }
 
             if (response.isSuccessful()) {
+
+                Headers headers = response.headers();
                 return response.body();
             }
             throw new PayException(" response is not successful, " + response.message());

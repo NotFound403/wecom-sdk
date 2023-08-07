@@ -15,18 +15,40 @@
 
 package cn.felord.payment.wechat.v3.crypto;
 
-import cn.felord.payment.PayException;
-
 /**
+ * The enum CipherAlg.
+ *
  * @author dax
- * @since 2023/8/6
+ * @since 2023 /8/7
  */
-public class InMemoryMerchantConfigService implements MerchantConfigService {
-    @Override
-    public MerchantConfig loadConfig(String merchantId) throws PayException {
+public enum CipherAlg {
+    /**
+     * Aead aes 256 gcm decrypt algs.
+     */
+    AEAD_AES_256_GCM("AES", "AES/GCM/NoPadding"),
+    /**
+     * Sm 4 decrypt algs.
+     */
+    SM4("SM4", "SM4/GCM/NoPadding");
 
-        String path = "C:\\Users\\xfa00\\IdeaProjects\\payment-spring-boot-samples\\src\\main\\resources\\wechat\\apiclient_cert.p12";
-        return MerchantConfig.create("1900006891", "514D90B6A480D7C289EE1F93D8A2830B",
-                path, RequestAuthType.SHA256_RSA2048);
+    private final String alg;
+    private final String transformation;
+
+    CipherAlg(String alg, String transformation) {
+        this.alg = alg;
+        this.transformation = transformation;
+    }
+
+    public String alg() {
+        return alg;
+    }
+
+    /**
+     * Transformation string.
+     *
+     * @return the string
+     */
+    public String transformation() {
+        return transformation;
     }
 }

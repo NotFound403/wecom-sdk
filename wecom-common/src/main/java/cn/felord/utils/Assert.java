@@ -13,20 +13,31 @@
  *  limitations under the License.
  */
 
-package cn.felord.payment.wechat.v3.crypto;
-
-import cn.felord.payment.PayException;
+package cn.felord.utils;
 
 /**
+ * The type Assert.
+ *
  * @author dax
- * @since 2023/8/6
+ * @since 2023 /8/7
  */
-public class InMemoryMerchantConfigService implements MerchantConfigService {
-    @Override
-    public MerchantConfig loadConfig(String merchantId) throws PayException {
+public final class Assert {
 
-        String path = "C:\\Users\\xfa00\\IdeaProjects\\payment-spring-boot-samples\\src\\main\\resources\\wechat\\apiclient_cert.p12";
-        return MerchantConfig.create("1900006891", "514D90B6A480D7C289EE1F93D8A2830B",
-                path, RequestAuthType.SHA256_RSA2048);
+    /**
+     * Instantiates a new Assert.
+     */
+    Assert() {
+    }
+
+    /**
+     * Has text.
+     *
+     * @param text    the text
+     * @param message the message
+     */
+    public static void hasText(String text, String message) {
+        if (StringUtils.hasNoText(text)) {
+            throw new IllegalArgumentException(message);
+        }
     }
 }

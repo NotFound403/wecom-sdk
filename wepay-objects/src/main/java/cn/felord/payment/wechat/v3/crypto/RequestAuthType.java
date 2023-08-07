@@ -22,17 +22,24 @@ package cn.felord.payment.wechat.v3.crypto;
  * @since 2.0.0
  */
 public enum RequestAuthType {
+
     /**
      * SHA256-RSA2048签名算法
      */
-    SHA256_RSA2048("SHA256withRSA", "WECHATPAY2-SHA256-RSA2048 ");
+    SHA256_RSA2048("SHA256withRSA", "WECHATPAY2-SHA256-RSA2048 ", "RSA/ECB/OAEPWithSHA-1AndMGF1Padding"),
+    /**
+     * 国密SM签名算法
+     */
+    SM2_WITH_SM3("SM2", "WECHATPAY2-SM2-WITH-SM3 ", "SM2");
 
     private final String alg;
     private final String authPrefix;
+    private final String transformation;
 
-    RequestAuthType(String alg, String authPrefix) {
+    RequestAuthType(String alg, String authPrefix, String transformation) {
         this.alg = alg;
         this.authPrefix = authPrefix;
+        this.transformation = transformation;
     }
 
     /**
@@ -42,6 +49,15 @@ public enum RequestAuthType {
      */
     public String alg() {
         return alg;
+    }
+
+    /**
+     * Transformation string.
+     *
+     * @return the string
+     */
+    public String transformation() {
+        return transformation;
     }
 
     /**

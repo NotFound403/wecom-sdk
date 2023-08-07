@@ -15,6 +15,7 @@
 
 package cn.felord.payment.wechat.v3.domain.certificate;
 
+import cn.felord.payment.wechat.v3.crypto.CipherAlg;
 import lombok.Data;
 
 /**
@@ -26,5 +27,5 @@ public class EncryptCertificate {
     private String associatedData;
     private String ciphertext;
     private String nonce;
-    private String algorithm;
+    private CipherAlg algorithm;
 }
