@@ -41,7 +41,7 @@ public class MoneyValue implements ContentDataValue {
      * @param newMoney 最多保留两位小数，否则会报错
      */
     @JsonCreator
-    public MoneyValue(@JsonProperty("new_money") String newMoney) {
+    MoneyValue(@JsonProperty("new_money") String newMoney) {
         this.newMoney = newMoney;
     }
 
