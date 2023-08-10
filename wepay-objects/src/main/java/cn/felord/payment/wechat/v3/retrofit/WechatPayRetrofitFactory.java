@@ -16,7 +16,7 @@
 package cn.felord.payment.wechat.v3.retrofit;
 
 import cn.felord.json.JsonConverterFactory;
-import cn.felord.payment.wechat.v3.crypto.RequestAuthenticator;
+import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -32,30 +32,41 @@ import java.util.concurrent.TimeUnit;
  * @since 2.0.0
  */
 public final class WechatPayRetrofitFactory {
+    private static final String DEFAULT_BASE_URL = "https://api.mch.weixin.qq.com/";
     private final String baseUrl;
-    private final RequestAuthenticator requestAuthenticator;
+    private final WechatPaySigner wechatPaySigner;
     private final ConnectionPool connectionPool;
     private final HttpLoggingInterceptor.Level level;
+
 
     /**
      * Instantiates a new Wechat pay retrofit factory.
      *
-     * @param baseUrl              the base url
-     * @param requestAuthenticator the request authenticator
-     * @param connectionPool       the connection pool
-     * @param level                the level
+     * @param wechatPaySigner the wechat pay signer
      */
-    public WechatPayRetrofitFactory(String baseUrl, RequestAuthenticator requestAuthenticator, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    public WechatPayRetrofitFactory(WechatPaySigner wechatPaySigner) {
+        this(DEFAULT_BASE_URL, wechatPaySigner, new ConnectionPool(), HttpLoggingInterceptor.Level.NONE);
+    }
+
+    /**
+     * Instantiates a new Wechat pay retrofit factory.
+     *
+     * @param baseUrl         the base url
+     * @param wechatPaySigner the wechat pay signer
+     * @param connectionPool  the connection pool
+     * @param level           the level
+     */
+    public WechatPayRetrofitFactory(String baseUrl, WechatPaySigner wechatPaySigner, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         this.baseUrl = baseUrl;
-        this.requestAuthenticator = requestAuthenticator;
+        this.wechatPaySigner = wechatPaySigner;
         this.connectionPool = connectionPool;
         this.level = level;
     }
 
-    private static OkHttpClient okHttpClient(String merchantId, RequestAuthenticator requestAuthenticator, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    private static OkHttpClient okHttpClient(String merchantId, WechatPaySigner wechatPaySigner, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.level(level);
-        WechatAuthorizationInterceptor authorizationInterceptor = new WechatAuthorizationInterceptor(merchantId, requestAuthenticator);
+        WechatAuthorizationInterceptor authorizationInterceptor = new WechatAuthorizationInterceptor(merchantId, wechatPaySigner);
         return new OkHttpClient.Builder()
                 .connectionPool(connectionPool)
                 .addInterceptor(authorizationInterceptor)
@@ -73,10 +84,10 @@ public final class WechatPayRetrofitFactory {
      * @param merchantId the merchant id
      * @return the retrofit
      */
-    public Retrofit create(String merchantId) {
+    public Retrofit merchant(String merchantId) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(okHttpClient(merchantId, requestAuthenticator, connectionPool, level))
+                .client(okHttpClient(merchantId, wechatPaySigner, connectionPool, level))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
                 .addConverterFactory(JsonConverterFactory.create())

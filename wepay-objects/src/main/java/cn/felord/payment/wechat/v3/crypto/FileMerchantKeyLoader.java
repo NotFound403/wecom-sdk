@@ -49,14 +49,14 @@ public class FileMerchantKeyLoader implements MerchantKeyLoader {
 
     @Override
     public MerchantKey loadByMerchantId(String merchantId) throws PayException {
-        MerchantConfig merchantConfig = merchantConfigService.loadConfig(merchantId);
-        char[] pin = merchantConfig.getStorePassword().toCharArray();
+        Merchant merchant = merchantConfigService.loadConfig(merchantId);
+        char[] pin = merchant.getStorePassword().toCharArray();
 
-        try (FileInputStream fileInputStream = new FileInputStream(merchantConfig.getSourcePath())) {
+        try (FileInputStream fileInputStream = new FileInputStream(merchant.getSourcePath())) {
             PKCS12_KEY_STORE.load(fileInputStream, pin);
             RSAKey rsaKey = RSAKey.load(PKCS12_KEY_STORE, TENPAY_ALIAS, pin);
             RSAKey merchantJwk = new RSAKey.Builder(rsaKey)
-                    .keyID(merchantConfig.getMerchantId())
+                    .keyID(merchant.getMerchantId())
                     .build();
             //todo cache
             return new MerchantKey(merchantJwk);

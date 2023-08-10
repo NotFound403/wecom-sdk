@@ -31,5 +31,5 @@ public interface MerchantConfigService {
      * @return the merchant config
      * @throws PayException the pay exception
      */
-    MerchantConfig loadConfig(String merchantId) throws PayException;
+    Merchant loadConfig(String merchantId) throws PayException;
 }

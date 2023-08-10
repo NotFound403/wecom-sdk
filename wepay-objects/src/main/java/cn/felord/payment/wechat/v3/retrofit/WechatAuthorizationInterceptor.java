@@ -16,7 +16,7 @@
 package cn.felord.payment.wechat.v3.retrofit;
 
 import cn.felord.payment.PayException;
-import cn.felord.payment.wechat.v3.crypto.RequestAuthenticator;
+import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
 import cn.felord.utils.OkHttpUtil;
 import cn.felord.utils.StringUtils;
 import okhttp3.*;
@@ -37,20 +37,22 @@ import static cn.felord.payment.wechat.v3.retrofit.WepaySdkVersion.USER_AGENT;
 class WechatAuthorizationInterceptor implements Interceptor {
     private static final String APPLICATION_JSON_UTF_8 = "application/json; charset=UTF-8";
     private final String merchantId;
-    private final RequestAuthenticator requestAuthenticator;
+    private final WechatPaySigner wechatPaySigner;
+    private final TenpayCertificateApi tenpayCertificateApi;
 
     /**
      * Instantiates a new Wechat authorization interceptor.
      *
-     * @param merchantId           the merchant id
-     * @param requestAuthenticator the request authenticator
+     * @param merchantId      the merchant id
+     * @param wechatPaySigner the wechat pay signer
      */
-    WechatAuthorizationInterceptor(String merchantId, RequestAuthenticator requestAuthenticator) {
+    WechatAuthorizationInterceptor(String merchantId, WechatPaySigner wechatPaySigner) {
         if (StringUtils.hasNoText(merchantId)) {
             throw new PayException("merchantId is required");
         }
         this.merchantId = merchantId;
-        this.requestAuthenticator = requestAuthenticator;
+        this.wechatPaySigner = wechatPaySigner;
+        this.tenpayCertificateApi = new TenpayCertificateApi(wechatPaySigner);
     }
 
     @NotNull
@@ -64,7 +66,7 @@ class WechatAuthorizationInterceptor implements Interceptor {
                         .map(OkHttpUtil::requestBodyToString)
                         .orElse("");
         HttpUrl httpUrl = request.url();
-        String authorization = requestAuthenticator.authHeader(merchantId, httpUrl.uri(), request.method(), bodyStr);
+        String authorization = wechatPaySigner.sign(merchantId, httpUrl.uri(), request.method(), bodyStr);
 
         Headers.Builder headerBuilder = headers.newBuilder();
         String contentType = HttpHeaders.CONTENT_TYPE.headerName();

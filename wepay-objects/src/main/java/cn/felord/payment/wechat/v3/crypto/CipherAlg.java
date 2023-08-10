@@ -25,20 +25,23 @@ public enum CipherAlg {
     /**
      * Aead aes 256 gcm decrypt algs.
      */
-    AEAD_AES_256_GCM("AES", "AES/GCM/NoPadding"),
-    /**
-     * Sm 4 decrypt algs.
-     */
-    SM4("SM4", "SM4/GCM/NoPadding");
+    AEAD_AES_256_GCM("AES", "AES/GCM/NoPadding", 128);
 
     private final String alg;
     private final String transformation;
+    private final int tagLength;
 
-    CipherAlg(String alg, String transformation) {
+    CipherAlg(String alg, String transformation, int tagLength) {
         this.alg = alg;
         this.transformation = transformation;
+        this.tagLength = tagLength;
     }
 
+    /**
+     * Alg string.
+     *
+     * @return the string
+     */
     public String alg() {
         return alg;
     }
@@ -50,5 +53,23 @@ public enum CipherAlg {
      */
     public String transformation() {
         return transformation;
+    }
+
+    /**
+     * Tag length int.
+     *
+     * @return the int
+     */
+    public int tagLength() {
+        return tagLength;
+    }
+
+    /**
+     * Wecom cipher wecom cipher.
+     *
+     * @return the wecom cipher
+     */
+    public WecomCipher wecomCipher() {
+        return new DefaultWecomCipher(this);
     }
 }

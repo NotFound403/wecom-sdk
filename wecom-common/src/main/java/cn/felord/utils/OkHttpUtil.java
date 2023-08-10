@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * The type Ok http util.
  *
- * @author xiafang
+ * @author dax
  * @since 2023 /8/2 18:12
  */
 public final class OkHttpUtil {

@@ -55,6 +55,10 @@ public enum HttpHeaders {
      */
     WECHAT_PAY_SIGNATURE("Wechatpay-Signature"),
     /**
+     * Wechatpay signature type http headers.
+     */
+    WECHAT_PAY_SIGNATURE_TYPE("Wechatpay-Signature-Type"),
+    /**
      * Wechat pay timestamp http headers.
      */
     WECHAT_PAY_TIMESTAMP("Wechatpay-Timestamp"),

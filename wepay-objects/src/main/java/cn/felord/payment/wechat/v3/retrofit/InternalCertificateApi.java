@@ -13,8 +13,9 @@
  *  limitations under the License.
  */
 
-package cn.felord.payment.wechat.v3;
+package cn.felord.payment.wechat.v3.retrofit;
 
+import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.v3.domain.WechatPayResponse;
 import cn.felord.payment.wechat.v3.domain.certificate.TenpayCertificate;
 import retrofit2.http.GET;
@@ -27,14 +28,14 @@ import java.util.List;
  * @author dax
  * @since 2023 /8/6
  */
-public interface CertificateApi {
-
+interface InternalCertificateApi {
 
     /**
      * 获取商户当前可用的平台证书列表。微信支付提供该接口，帮助商户后台系统实现平台证书的平滑更换。
      *
-     * @return the wepay response
+     * @return the Wepay Response
+     * @throws PayException the pay exception
      */
     @GET("v3/certificates")
-    WechatPayResponse<List<TenpayCertificate>> certificates();
+    WechatPayResponse<List<TenpayCertificate>> certificates() throws PayException;
 }

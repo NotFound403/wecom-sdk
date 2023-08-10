@@ -15,27 +15,36 @@
 
 package cn.felord.payment.wechat.v3.crypto;
 
-import cn.felord.payment.PayException;
-
 /**
  * 敏感信息加密解密工具
  *
  * @author dax
  * @since 2023 /8/7
  */
-public interface WechatPayResponseBodyDecryptor {
+public interface WecomCipher {
 
+    /**
+     * Encrypt string.
+     *
+     * @param key            密钥
+     * @param associatedData 额外的认证加密数据
+     * @param iv             初始化向量随机串
+     * @param plainText      明文
+     * @return the string
+     * @throws IllegalArgumentException the illegal argument exception
+     */
+    String encrypt(String key, String associatedData, String iv, String plainText) throws IllegalArgumentException;
 
     /**
      * 解密
      *
-     * @param appV3Secret    v3 secret
+     * @param key            密钥
      * @param associatedData 额外的认证加密数据
-     * @param nonce          初始化向量
+     * @param iv             初始化向量随机串
      * @param cipherText     密文
      * @return 编码的明文 utf8格式
-     * @throws PayException the pay exception
+     * @throws IllegalArgumentException the illegal argument exception
      */
-    String decrypt(String appV3Secret, String associatedData, String nonce, String cipherText) throws PayException;
+    String decrypt(String key, String associatedData, String iv, String cipherText) throws IllegalArgumentException;
 
 }

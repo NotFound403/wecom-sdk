@@ -80,12 +80,15 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
                 throw new PayException(e.getMessage(), e);
             }
 
+            Headers responseHeaders = response.headers();
             if (response.isSuccessful()) {
+                responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
 
-                Headers headers = response.headers();
+
                 return response.body();
             }
-            throw new PayException(" response is not successful, " + response.message());
+
+            throw new PayException("RequestID: " + responseHeaders.get(HttpHeaders.REQUEST_ID.headerName()) + " Response is not successful, " + response.message());
         }
     }
 }

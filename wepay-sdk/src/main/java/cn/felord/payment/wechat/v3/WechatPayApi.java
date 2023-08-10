@@ -15,7 +15,7 @@
 
 package cn.felord.payment.wechat.v3;
 
-import cn.felord.payment.wechat.v3.crypto.RequestAuthenticator;
+import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
 import cn.felord.payment.wechat.v3.retrofit.WechatPayRetrofitFactory;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -34,33 +34,20 @@ public final class WechatPayApi {
         this.factory = factory;
     }
 
-    /**
-     * Certificate api certificate api.
-     *
-     * @param merchantId the merchant id
-     * @return the certificate api
-     */
-    public CertificateApi certificateApi(String merchantId) {
-        return this.factory.create(merchantId).create(CertificateApi.class);
-    }
 
     /**
      * The type Builder.
      */
     public static class Builder {
         private static final String DEFAULT_BASE_URL = "https://api.mch.weixin.qq.com/";
-        private final RequestAuthenticator requestAuthenticator;
+        private final WechatPaySigner wechatPaySigner;
         private String baseUrl = DEFAULT_BASE_URL;
         private ConnectionPool connectionPool = new ConnectionPool();
         private HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.NONE;
 
-        /**
-         * Instantiates a new Builder.
-         *
-         * @param requestAuthenticator the request authenticator
-         */
-        public Builder(RequestAuthenticator requestAuthenticator) {
-            this.requestAuthenticator = requestAuthenticator;
+
+        public Builder(WechatPaySigner wechatPaySigner) {
+            this.wechatPaySigner = wechatPaySigner;
         }
 
         /**
@@ -102,7 +89,7 @@ public final class WechatPayApi {
          * @return the wechat pay api
          */
         public WechatPayApi build() {
-            return new WechatPayApi(new WechatPayRetrofitFactory(baseUrl, requestAuthenticator, connectionPool, logLevel));
+            return new WechatPayApi(new WechatPayRetrofitFactory(baseUrl, wechatPaySigner, connectionPool, logLevel));
         }
     }
 

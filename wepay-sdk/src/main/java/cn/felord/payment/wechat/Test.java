@@ -15,33 +15,27 @@
 
 package cn.felord.payment.wechat;
 
-import cn.felord.payment.wechat.v3.CertificateApi;
 import cn.felord.payment.wechat.v3.WechatPayApi;
-import cn.felord.payment.wechat.v3.crypto.DefaultRequestAuthenticator;
-import cn.felord.payment.wechat.v3.crypto.FileMerchantKeyLoader;
-import cn.felord.payment.wechat.v3.crypto.InMemoryMerchantConfigService;
-import cn.felord.payment.wechat.v3.domain.WechatPayResponse;
-import cn.felord.payment.wechat.v3.domain.certificate.TenpayCertificate;
+import cn.felord.payment.wechat.v3.crypto.*;
+import com.nimbusds.jose.JOSEException;
 import okhttp3.logging.HttpLoggingInterceptor;
-
-import java.util.List;
 
 /**
  * @author dax
  * @since 2023/8/6
  */
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JOSEException {
 
-        WechatPayApi wechatPayApi = new WechatPayApi.Builder(new DefaultRequestAuthenticator(new FileMerchantKeyLoader(new InMemoryMerchantConfigService())))
+        InMemoryMerchantConfigService merchantConfigService = new InMemoryMerchantConfigService();
+        FileMerchantKeyLoader merchantKeyLoader = new FileMerchantKeyLoader(merchantConfigService);
+        WechatPaySigner wechatPaySigner = new DefaultWechatPaySigner(merchantKeyLoader);
+        WechatPayApi wechatPayApi = new WechatPayApi.Builder(wechatPaySigner)
                 .logLevel(HttpLoggingInterceptor.Level.BODY)
                 .build();
+        Merchant merchant = Merchant.create("1900006891", "", "514D90B6A480D7C289EE1F93D8A2830B", AuthType.SHA256_RSA2048);
 
-        CertificateApi certificateApi = wechatPayApi.certificateApi("1900006891");
 
-        WechatPayResponse<List<TenpayCertificate>> certificates = certificateApi.certificates();
-// 信息: {"code":"INVALID_REQUEST","message":"Http头缺少Accept或User-Agent"}
-        System.out.println("certificates = " + certificates);
 
 
     }

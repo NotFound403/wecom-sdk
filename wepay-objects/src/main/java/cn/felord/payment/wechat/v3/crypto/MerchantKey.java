@@ -33,25 +33,33 @@ import java.util.Objects;
  */
 @Getter
 public final class MerchantKey {
-    private final String merchantId;
-    private final String serialNumber;
-    private final PrivateKey privateKey;
-    private final PublicKey publicKey;
-    private final RequestAuthType authType;
+    /**
+     * V3 Secret
+     */
+    private final String apiV3Secret;
+    /**
+     * JWK
+     */
     private final JWK merchantJwk;
 
     /**
      * Instantiates a new Merchant key.
      *
+     * @param apiV3Secret the api v3 secret
      * @param merchantJwk the merchant jwk
      */
-    public MerchantKey(JWK merchantJwk) {
-        this.merchantId = merchantJwk.getKeyID();
-        this.serialNumber = this.obtainSerialNumber(merchantJwk);
-        this.privateKey = this.toPrivateKey(merchantJwk);
-        this.publicKey = this.toPublicKey(merchantJwk);
-        this.authType = this.obtainAuthType(merchantJwk);
+    public MerchantKey(String apiV3Secret, JWK merchantJwk) {
+        this.apiV3Secret = apiV3Secret;
         this.merchantJwk = merchantJwk;
+    }
+
+    /**
+     * 获取商户号
+     *
+     * @return the string
+     */
+    public String merchantId() {
+        return merchantJwk.getKeyID();
     }
 
     /**
@@ -59,13 +67,13 @@ public final class MerchantKey {
      *
      * @return the private key
      */
-    private PrivateKey toPrivateKey(JWK merchantJwk) {
+    public PrivateKey privateKey() {
         try {
             if (Objects.equals(KeyType.RSA, merchantJwk.getKeyType())) {
-                return merchantJwk.toRSAKey().toPrivateKey();
+                return this.merchantJwk.toRSAKey().toPrivateKey();
             } else {
-                //TODO SM3
-                return merchantJwk.toECKey().toPrivateKey();
+                //TODO SM2
+                return this.merchantJwk.toECKey().toPrivateKey();
             }
         } catch (JOSEException e) {
             throw new PayException("Fail to load key", e);
@@ -73,11 +81,11 @@ public final class MerchantKey {
     }
 
     /**
-     * To public key public key.
+     * 获取公钥
      *
      * @return the public key
      */
-    private PublicKey toPublicKey(JWK merchantJwk) {
+    public PublicKey publicKey() {
         try {
             if (Objects.equals(KeyType.RSA, merchantJwk.getKeyType())) {
                 return merchantJwk.toRSAKey().toPublicKey();
@@ -95,7 +103,7 @@ public final class MerchantKey {
      *
      * @return the string
      */
-    private String obtainSerialNumber(JWK merchantJwk) {
+    public String serialNumber() {
         return merchantJwk.toPublicJWK()
                 .getParsedX509CertChain()
                 .get(0)
@@ -107,25 +115,30 @@ public final class MerchantKey {
     /**
      * 获取证书类型
      *
-     * @return RequestAuthType
+     * @return RequestAuthType auth type
      */
-    private RequestAuthType obtainAuthType(JWK merchantJwk) {
+    public AuthType authType() {
 
         if (Objects.equals(KeyType.RSA, merchantJwk.getKeyType())) {
-            return RequestAuthType.SHA256_RSA2048;
+            return AuthType.SHA256_RSA2048;
         }
         throw new PayException("Not Support Type");
     }
 
+    /**
+     * 获取api v3 secret
+     *
+     * @return the string
+     */
+    public String apiV3Secret() {
+        return apiV3Secret;
+    }
 
     @Override
     public String toString() {
         return "MerchantKey{" +
-                "merchantId='" + merchantId + '\'' +
-                ", serialNumber='" + serialNumber + '\'' +
-                ", privateKey=[PROTECTED]" +
-                ", publicKey=[PROTECTED]" +
-                ", merchantJwk=[PROTECTED]" +
+                "apiV3Secret=[PROTECTED]" +
+                ", merchantJwk=" + merchantJwk +
                 '}';
     }
 }

@@ -15,30 +15,35 @@
 
 package cn.felord.payment.wechat.v3.crypto;
 
+import cn.felord.payment.PayException;
+
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * The enum Request auth type.
  *
  * @author felord.cn
  * @since 2.0.0
  */
-public enum RequestAuthType {
+public enum AuthType {
 
     /**
      * SHA256-RSA2048签名算法
      */
-    SHA256_RSA2048("SHA256withRSA", "WECHATPAY2-SHA256-RSA2048 ", "RSA/ECB/OAEPWithSHA-1AndMGF1Padding"),
+    SHA256_RSA2048("SHA256withRSA", "WECHATPAY2-SHA256-RSA2048", "RSA/ECB/OAEPWithSHA-1AndMGF1Padding"),
     /**
      * 国密SM签名算法
      */
-    SM2_WITH_SM3("SM2", "WECHATPAY2-SM2-WITH-SM3 ", "SM2");
+    SM2_WITH_SM3("SM2", "WECHATPAY2-SM2-WITH-SM3", "SM2");
 
     private final String alg;
-    private final String authPrefix;
+    private final String signType;
     private final String transformation;
 
-    RequestAuthType(String alg, String authPrefix, String transformation) {
+    AuthType(String alg, String signType, String transformation) {
         this.alg = alg;
-        this.authPrefix = authPrefix;
+        this.signType = signType;
         this.transformation = transformation;
     }
 
@@ -61,12 +66,26 @@ public enum RequestAuthType {
     }
 
     /**
+     * From sign type request auth type.
+     *
+     * @param signType the sign type
+     * @return the request auth type
+     */
+    public static AuthType fromSignType(String signType) {
+        return Arrays.stream(AuthType.values())
+                .filter(requestAuthType ->
+                        Objects.equals(requestAuthType.signType, signType))
+                .findAny()
+                .orElseThrow(() -> new PayException("This signType is not supported"));
+    }
+
+    /**
      * Auth prefix string.
      *
      * @param token the token
      * @return the string
      */
     public String toAuthHeader(String token) {
-        return authPrefix.concat(token);
+        return signType.concat(" ").concat(token);
     }
 }
