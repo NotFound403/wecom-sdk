@@ -18,12 +18,14 @@ package cn.felord.payment.wechat.v3.crypto;
 import cn.felord.payment.PayException;
 
 /**
+ * 从内存中加载商户基本信息
+ *
  * @author dax
- * @since 2023/8/6
+ * @since 2023 /8/6
  */
-public class InMemoryMerchantConfigService implements MerchantConfigService {
+public class InMemoryMerchantService implements MerchantService {
     @Override
-    public Merchant loadConfig(String merchantId) throws PayException {
+    public Merchant loadMerchant(String merchantId) throws PayException {
 
         String path = "C:\\Users\\Administrator\\IdeaProjects\\myproject\\wecom\\wepay-sdk\\src\\main\\apiclient_cert.p12";
         return Merchant.create("1900006891", path, "514D90B6A480D7C289EE1F93D8A2830B",

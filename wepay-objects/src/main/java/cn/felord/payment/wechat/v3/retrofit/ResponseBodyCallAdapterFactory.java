@@ -32,14 +32,12 @@ import java.lang.reflect.Type;
  * @author felord.cn
  * @since 2.0.0
  */
-public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
+final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
+    private final TenpayCertificateApi tenpayCertificateApi;
 
-    /**
-     * The constant INSTANCE.
-     */
-    public static final ResponseBodyCallAdapterFactory INSTANCE = new ResponseBodyCallAdapterFactory();
 
-    private ResponseBodyCallAdapterFactory() {
+    ResponseBodyCallAdapterFactory(TenpayCertificateApi tenpayCertificateApi) {
+        this.tenpayCertificateApi = tenpayCertificateApi;
     }
 
     @Override

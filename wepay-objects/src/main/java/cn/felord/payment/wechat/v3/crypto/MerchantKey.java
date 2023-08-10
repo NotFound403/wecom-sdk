@@ -16,6 +16,8 @@
 package cn.felord.payment.wechat.v3.crypto;
 
 import cn.felord.payment.PayException;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.KeyType;
@@ -48,7 +50,8 @@ public final class MerchantKey {
      * @param apiV3Secret the api v3 secret
      * @param merchantJwk the merchant jwk
      */
-    public MerchantKey(String apiV3Secret, JWK merchantJwk) {
+    @JsonCreator
+    public MerchantKey(@JsonProperty("apiV3Secret") String apiV3Secret, @JsonProperty("merchantJwk") JWK merchantJwk) {
         this.apiV3Secret = apiV3Secret;
         this.merchantJwk = merchantJwk;
     }

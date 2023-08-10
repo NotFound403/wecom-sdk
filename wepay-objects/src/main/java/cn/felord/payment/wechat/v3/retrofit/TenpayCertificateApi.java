@@ -1,11 +1,25 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.payment.wechat.v3.retrofit;
 
 import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.v3.crypto.Merchant;
 import cn.felord.payment.wechat.v3.crypto.TenpayKey;
-import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -17,32 +31,65 @@ import java.util.stream.Collectors;
 final class TenpayCertificateApi {
 
     private final WechatPayRetrofitFactory factory;
+    private static final Set<TenpayKey> TENPAY_KEYS = Collections.synchronizedSet(new HashSet<>());
 
     /**
      * Instantiates a new Tenpay certificate api.
      *
-     * @param wechatPaySigner the wechat pay signer
+     * @param factory the factory
      */
-    TenpayCertificateApi(WechatPaySigner wechatPaySigner) {
-        this.factory = new WechatPayRetrofitFactory(wechatPaySigner);
+    TenpayCertificateApi(WechatPayRetrofitFactory factory) {
+        this.factory = factory;
     }
 
     /**
      * 根据商户号和v3密钥获取平台证书列表
      *
-     * @param merchant the merchant
+     * @param merchantId the merchant id
      * @return the list
      * @throws PayException the pay exception
      */
-    public List<TenpayKey> certificates(Merchant merchant) throws PayException {
-        return factory.merchant(merchant.getMerchantId())
+    public void certificates(String merchantId) throws PayException {
+        Merchant merchant = factory.merchantService().loadMerchant(merchantId);
+        Set<TenpayKey> tenpayKeys = factory.merchant(merchant.getMerchantId())
                 .create(InternalCertificateApi.class)
                 .certificates()
                 .getData()
                 .stream()
                 .map(tenpayCertificate ->
                         new TenpayKey(tenpayCertificate.getSerialNo(),
-                                tenpayCertificate.getEncryptCertificate().toJwk(merchant.getAppV3Secret())))
-                .collect(Collectors.toList());
+                                tenpayCertificate.getEncryptCertificate().toJwk(merchant.getApiV3Secret())))
+                .collect(Collectors.toSet());
+        TENPAY_KEYS.addAll(tenpayKeys);
     }
+
+    /**
+     * Gets tenpay key.
+     *
+     * @param serialNumber the serial number
+     * @param merchantId   the merchant id
+     * @return the tenpay key
+     */
+    public TenpayKey getTenpayKey(String serialNumber, String merchantId) {
+        return TENPAY_KEYS.stream()
+                .filter(tenpayKey ->
+                        Objects.equals(tenpayKey.getSerialNumber(), serialNumber))
+                .filter(tenpayKey -> {
+                    boolean after = tenpayKey.getTenPayJwk().getExpirationTime().after(new Date());
+                    if (!after) {
+                        TENPAY_KEYS.remove(tenpayKey);
+                    }
+                    return after;
+                })
+                .findAny()
+                .orElseGet(() -> {
+                    certificates(merchantId);
+                    return TENPAY_KEYS.stream()
+                            .filter(tenpayKey ->
+                                    Objects.equals(tenpayKey.getSerialNumber(), serialNumber))
+                            .findAny()
+                            .orElseThrow(() -> new PayException("Fail to load tenpayKey"));
+                });
+    }
+
 }

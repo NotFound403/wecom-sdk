@@ -15,6 +15,7 @@
 
 package cn.felord.payment.wechat.v3;
 
+import cn.felord.payment.wechat.v3.crypto.MerchantService;
 import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
 import cn.felord.payment.wechat.v3.retrofit.WechatPayRetrofitFactory;
 import okhttp3.ConnectionPool;
@@ -41,13 +42,15 @@ public final class WechatPayApi {
     public static class Builder {
         private static final String DEFAULT_BASE_URL = "https://api.mch.weixin.qq.com/";
         private final WechatPaySigner wechatPaySigner;
+        private final MerchantService merchantService;
         private String baseUrl = DEFAULT_BASE_URL;
         private ConnectionPool connectionPool = new ConnectionPool();
         private HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.NONE;
 
 
-        public Builder(WechatPaySigner wechatPaySigner) {
+        public Builder(WechatPaySigner wechatPaySigner, MerchantService merchantService) {
             this.wechatPaySigner = wechatPaySigner;
+            this.merchantService = merchantService;
         }
 
         /**
@@ -89,7 +92,8 @@ public final class WechatPayApi {
          * @return the wechat pay api
          */
         public WechatPayApi build() {
-            return new WechatPayApi(new WechatPayRetrofitFactory(baseUrl, wechatPaySigner, connectionPool, logLevel));
+            WechatPayRetrofitFactory retrofitFactory = new WechatPayRetrofitFactory(baseUrl, wechatPaySigner, merchantService, connectionPool, logLevel);
+            return new WechatPayApi(retrofitFactory);
         }
     }
 

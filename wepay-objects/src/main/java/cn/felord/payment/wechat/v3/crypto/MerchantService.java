@@ -18,18 +18,18 @@ package cn.felord.payment.wechat.v3.crypto;
 import cn.felord.payment.PayException;
 
 /**
- * The interface Merchant config service.
+ * 获取商户配置信息
  *
  * @author dax
  * @since 2023 /8/6
  */
-public interface MerchantConfigService {
+public interface MerchantService {
     /**
-     * Load config merchant config.
+     * Load merchant merchant.
      *
      * @param merchantId the merchant id
      * @return the merchant config
      * @throws PayException the pay exception
      */
-    Merchant loadConfig(String merchantId) throws PayException;
+    Merchant loadMerchant(String merchantId) throws PayException;
 }

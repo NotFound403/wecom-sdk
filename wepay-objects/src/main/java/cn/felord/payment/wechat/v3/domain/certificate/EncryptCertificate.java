@@ -47,8 +47,8 @@ public class EncryptCertificate {
      * @return the x 509 certificate
      */
     public JWK toJwk(String apiV3Secret) throws PayException {
-        String tenPayPublicKey = this.getAlgorithm().
-                wecomCipher()
+        String tenPayPublicKey = this.getAlgorithm()
+                .wecomCipher()
                 .decrypt(apiV3Secret, this.associatedData, this.nonce, this.ciphertext);
         try {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X509");

@@ -31,7 +31,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * The type Abstract wecom cipher.
+ * 默认敏感信息加密解密工具
  *
  * @author dax
  * @since 2023 /8/7

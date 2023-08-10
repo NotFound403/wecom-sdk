@@ -15,11 +15,13 @@
 
 package cn.felord.payment.wechat.v3.crypto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * 商户信息
+ * 商户基本信息
  *
  * @author dax
  * @since 2023 /8/2
@@ -42,7 +44,12 @@ public class Merchant {
      * @param sourcePath    证书资源路径，根据实现可能是路径、URL
      * @param authType      签名类型，RSA或者国密SM
      */
-    Merchant(String merchantId, String storePassword, String apiV3Secret, String sourcePath, AuthType authType) {
+    @JsonCreator
+    Merchant(@JsonProperty("merchantId") String merchantId,
+             @JsonProperty("storePassword") String storePassword,
+             @JsonProperty("apiV3Secret") String apiV3Secret,
+             @JsonProperty("sourcePath") String sourcePath,
+             @JsonProperty("authType") AuthType authType) {
         this.merchantId = merchantId;
         this.storePassword = storePassword;
         this.apiV3Secret = apiV3Secret;

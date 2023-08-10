@@ -27,29 +27,36 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 
 /**
+ * 从文件中加载商户KEY信息
+ *
  * @author dax
- * @since 2023/8/4
+ * @since 2023 /8/4
  */
 public class FileMerchantKeyLoader implements MerchantKeyLoader {
     private static final String TENPAY_ALIAS = "Tenpay Certificate";
     private static final KeyStore PKCS12_KEY_STORE;
-    private final MerchantConfigService merchantConfigService;
-
-    public FileMerchantKeyLoader(MerchantConfigService merchantConfigService) {
-        this.merchantConfigService = merchantConfigService;
-    }
-
     static {
         try {
             PKCS12_KEY_STORE = KeyStore.getInstance("PKCS12");
         } catch (KeyStoreException var1) {
-            throw new PayException(" wechat pay keystore initialization failed");
+            throw new PayException("Wechat pay keystore initialization failed");
         }
+    }
+
+    private final MerchantService merchantService;
+
+    /**
+     * Instantiates a new File merchant key loader.
+     *
+     * @param merchantService the merchant service
+     */
+    public FileMerchantKeyLoader(MerchantService merchantService) {
+        this.merchantService = merchantService;
     }
 
     @Override
     public MerchantKey loadByMerchantId(String merchantId) throws PayException {
-        Merchant merchant = merchantConfigService.loadConfig(merchantId);
+        Merchant merchant = merchantService.loadMerchant(merchantId);
         char[] pin = merchant.getStorePassword().toCharArray();
 
         try (FileInputStream fileInputStream = new FileInputStream(merchant.getSourcePath())) {
@@ -59,9 +66,13 @@ public class FileMerchantKeyLoader implements MerchantKeyLoader {
                     .keyID(merchant.getMerchantId())
                     .build();
             //todo cache
-            return new MerchantKey(merchantJwk);
-        } catch (IOException | KeyStoreException | CertificateException | NoSuchAlgorithmException | JOSEException e) {
-            throw new PayException("fail to load tenpay certificate", e);
+            return new MerchantKey(merchant.getApiV3Secret(), merchantJwk);
+        } catch (IOException
+                 | KeyStoreException
+                 | CertificateException
+                 | NoSuchAlgorithmException
+                 | JOSEException e) {
+            throw new PayException("Fail to load tenpay certificate", e);
         }
 
     }

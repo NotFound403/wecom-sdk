@@ -16,7 +16,7 @@
 package cn.felord.payment.wechat.v3.crypto;
 
 /**
- * The enum CipherAlg.
+ * 加密算法
  *
  * @author dax
  * @since 2023 /8/7

@@ -27,13 +27,13 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class Test {
     public static void main(String[] args) throws JOSEException {
 
-        InMemoryMerchantConfigService merchantConfigService = new InMemoryMerchantConfigService();
+        InMemoryMerchantService merchantConfigService = new InMemoryMerchantService();
         FileMerchantKeyLoader merchantKeyLoader = new FileMerchantKeyLoader(merchantConfigService);
         WechatPaySigner wechatPaySigner = new DefaultWechatPaySigner(merchantKeyLoader);
-        WechatPayApi wechatPayApi = new WechatPayApi.Builder(wechatPaySigner)
+        WechatPayApi wechatPayApi = new WechatPayApi.Builder(wechatPaySigner, merchantConfigService)
                 .logLevel(HttpLoggingInterceptor.Level.BODY)
                 .build();
-        Merchant merchant = Merchant.create("1900006891", "", "514D90B6A480D7C289EE1F93D8A2830B", AuthType.SHA256_RSA2048);
+        Merchant merchant = Merchant.create("1900006891", "514D90B6A480D7C289EE1F93D8A2830B", "", AuthType.SHA256_RSA2048);
 
 
 

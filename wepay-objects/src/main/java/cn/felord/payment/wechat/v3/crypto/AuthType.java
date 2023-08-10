@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * The enum Request auth type.
+ * 签名类型
  *
  * @author felord.cn
  * @since 2.0.0

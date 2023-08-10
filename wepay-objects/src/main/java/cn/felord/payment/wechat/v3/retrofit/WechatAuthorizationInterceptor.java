@@ -38,7 +38,7 @@ class WechatAuthorizationInterceptor implements Interceptor {
     private static final String APPLICATION_JSON_UTF_8 = "application/json; charset=UTF-8";
     private final String merchantId;
     private final WechatPaySigner wechatPaySigner;
-    private final TenpayCertificateApi tenpayCertificateApi;
+
 
     /**
      * Instantiates a new Wechat authorization interceptor.
@@ -52,7 +52,6 @@ class WechatAuthorizationInterceptor implements Interceptor {
         }
         this.merchantId = merchantId;
         this.wechatPaySigner = wechatPaySigner;
-        this.tenpayCertificateApi = new TenpayCertificateApi(wechatPaySigner);
     }
 
     @NotNull
