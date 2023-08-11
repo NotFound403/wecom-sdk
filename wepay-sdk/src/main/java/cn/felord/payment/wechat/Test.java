@@ -15,8 +15,8 @@
 
 package cn.felord.payment.wechat;
 
-import cn.felord.payment.wechat.v3.WechatPayApi;
 import cn.felord.payment.wechat.v3.crypto.*;
+import cn.felord.payment.wechat.v3.direct.WechatPayApi;
 import com.nimbusds.jose.JOSEException;
 import okhttp3.logging.HttpLoggingInterceptor;
 

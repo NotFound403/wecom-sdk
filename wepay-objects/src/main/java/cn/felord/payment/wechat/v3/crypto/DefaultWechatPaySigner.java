@@ -62,6 +62,18 @@ public class DefaultWechatPaySigner implements WechatPaySigner {
         return authType.toAuthHeader(token);
     }
 
+    @SneakyThrows
+    @Override
+    public String sign(String merchantId, String... orderedComponents) {
+        final String signMessage = buildSignMessage(orderedComponents);
+        MerchantKey merchantKey = merchantKeyLoader.loadByMerchantId(merchantId);
+        AuthType authType = merchantKey.authType();
+        Signature signer = Signature.getInstance(authType.alg());
+        signer.initSign(merchantKey.privateKey());
+        signer.update(signMessage.getBytes(StandardCharsets.UTF_8));
+        return Base64Utils.encodeToString(signer.sign());
+    }
+
     @Override
     public boolean verify(ResponseSignVerifyParams params) {
         return false;

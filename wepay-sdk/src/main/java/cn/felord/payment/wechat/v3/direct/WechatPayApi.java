@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.payment.wechat.v3;
+package cn.felord.payment.wechat.v3.direct;
 
 import cn.felord.payment.wechat.v3.crypto.MerchantService;
 import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
@@ -35,6 +35,16 @@ public final class WechatPayApi {
         this.factory = factory;
     }
 
+    /**
+     * Direct base pay api direct base pay api.
+     *
+     * @param merchantId the merchant id
+     * @return the direct base pay api
+     */
+    public DirectBasePayApi directBasePayApi(String merchantId) {
+        return new DirectBasePayApi(factory, merchantId);
+    }
+
 
     /**
      * The type Builder.
@@ -48,6 +58,12 @@ public final class WechatPayApi {
         private HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.NONE;
 
 
+        /**
+         * Instantiates a new Builder.
+         *
+         * @param wechatPaySigner the wechat pay signer
+         * @param merchantService the merchant service
+         */
         public Builder(WechatPaySigner wechatPaySigner, MerchantService merchantService) {
             this.wechatPaySigner = wechatPaySigner;
             this.merchantService = merchantService;
