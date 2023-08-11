@@ -57,7 +57,7 @@ final class TenpayCertificateApi {
                 .getData()
                 .stream()
                 .map(tenpayCertificate ->
-                        new TenpayKey(tenpayCertificate.getSerialNo(),
+                        new TenpayKey(merchantId, tenpayCertificate.getSerialNo(),
                                 tenpayCertificate.getEncryptCertificate().toJwk(merchant.getApiV3Secret())))
                 .collect(Collectors.toSet());
         TENPAY_KEYS.addAll(tenpayKeys);
@@ -75,7 +75,9 @@ final class TenpayCertificateApi {
                 .filter(tenpayKey ->
                         Objects.equals(tenpayKey.getSerialNumber(), serialNumber))
                 .filter(tenpayKey -> {
-                    boolean after = tenpayKey.getTenPayJwk().getExpirationTime().after(new Date());
+                    boolean after = tenpayKey.getTenPayJwk()
+                            .getExpirationTime()
+                            .after(new Date());
                     if (!after) {
                         TENPAY_KEYS.remove(tenpayKey);
                     }

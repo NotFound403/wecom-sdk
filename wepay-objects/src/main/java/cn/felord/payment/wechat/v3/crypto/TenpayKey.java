@@ -34,17 +34,22 @@ import java.util.Objects;
  */
 @Getter
 public class TenpayKey {
+    private final String merchantId;
     private final String serialNumber;
     private final JWK tenPayJwk;
 
     /**
      * Instantiates a new Tenpay public key.
      *
+     * @param merchantId   the merchant id
      * @param serialNumber the serial number
      * @param tenPayJwk    the tenPay jwk
      */
     @JsonCreator
-    public TenpayKey(@JsonProperty("serialNumber") String serialNumber, @JsonProperty("tenPayJwk") JWK tenPayJwk) {
+    public TenpayKey(@JsonProperty("merchantId") String merchantId,
+                     @JsonProperty("serialNumber") String serialNumber,
+                     @JsonProperty("tenPayJwk") JWK tenPayJwk) {
+        this.merchantId = merchantId;
         this.serialNumber = serialNumber;
         this.tenPayJwk = tenPayJwk;
     }
@@ -81,11 +86,14 @@ public class TenpayKey {
 
         TenpayKey tenpayKey = (TenpayKey) o;
 
+        if (!Objects.equals(merchantId, tenpayKey.merchantId)) return false;
         return Objects.equals(serialNumber, tenpayKey.serialNumber);
     }
 
     @Override
     public int hashCode() {
-        return serialNumber != null ? serialNumber.hashCode() : 0;
+        int result = merchantId != null ? merchantId.hashCode() : 0;
+        result = 31 * result + (serialNumber != null ? serialNumber.hashCode() : 0);
+        return result;
     }
 }

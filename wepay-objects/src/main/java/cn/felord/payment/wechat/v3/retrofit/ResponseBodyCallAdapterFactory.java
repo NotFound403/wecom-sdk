@@ -16,6 +16,7 @@ package cn.felord.payment.wechat.v3.retrofit;
 
 
 import cn.felord.payment.PayException;
+import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
 import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
@@ -33,16 +34,16 @@ import java.lang.reflect.Type;
  * @since 2.0.0
  */
 final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
-    private final TenpayCertificateApi tenpayCertificateApi;
+    private final WechatPaySigner wechatPaySigner;
 
 
-    ResponseBodyCallAdapterFactory(TenpayCertificateApi tenpayCertificateApi) {
-        this.tenpayCertificateApi = tenpayCertificateApi;
+    ResponseBodyCallAdapterFactory(WechatPaySigner wechatPaySigner) {
+        this.wechatPaySigner = wechatPaySigner;
     }
 
     @Override
     public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        return new ResponseBodyCallAdapter<>(returnType);
+        return new ResponseBodyCallAdapter<>(wechatPaySigner, returnType);
     }
 
     /**
@@ -51,15 +52,11 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
      * @param <R> the type parameter
      */
     static final class ResponseBodyCallAdapter<R> implements CallAdapter<R, R> {
-
+        private final WechatPaySigner wechatPaySigner;
         private final Type returnType;
 
-        /**
-         * Instantiates a new Body call adapter.
-         *
-         * @param returnType the return type
-         */
-        ResponseBodyCallAdapter(Type returnType) {
+        ResponseBodyCallAdapter(WechatPaySigner wechatPaySigner, Type returnType) {
+            this.wechatPaySigner = wechatPaySigner;
             this.returnType = returnType;
         }
 
@@ -80,7 +77,7 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
 
             Headers responseHeaders = response.headers();
             if (response.isSuccessful()) {
-                responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
+                String serialNumber = responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
 
 
                 return response.body();
