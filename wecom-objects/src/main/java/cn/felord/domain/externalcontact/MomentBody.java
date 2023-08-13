@@ -19,6 +19,7 @@ import lombok.Getter;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author dax
@@ -30,31 +31,34 @@ public class MomentBody<T extends MomentAttachment> {
     private ContentText text;
     private Set<T> attachments;
 
-    protected MomentBody(VisibleRange visibleRange) {
+    MomentBody(VisibleRange visibleRange) {
         this.visibleRange = visibleRange;
     }
 
-    public static MomentBody<MomentAttachment> textMoment(ContentText text, VisibleRange visibleRange) {
+    public static MomentBody<MomentAttachment> textMoment(String content, VisibleRange visibleRange) {
         MomentBody<MomentAttachment> momentAttachmentMomentBody = new MomentBody<>(visibleRange);
-        momentAttachmentMomentBody.setText(text);
+        momentAttachmentMomentBody.setText(new ContentText(content));
         return momentAttachmentMomentBody;
     }
 
-    public static MomentBody<ImageMomentAttachment> imageMoment(Set<ImageMomentAttachment> attachments, VisibleRange visibleRange) {
-        MomentBody<ImageMomentAttachment> imageMomentAttachmentMomentBody = new MomentBody<>(visibleRange);
-        imageMomentAttachmentMomentBody.setAttachments(attachments);
+    public static MomentBody<MomentAttachment> imageMoment(Set<String> imageMediaIds, VisibleRange visibleRange) {
+        MomentBody<MomentAttachment> imageMomentAttachmentMomentBody = new MomentBody<>(visibleRange);
+        Set<MomentAttachment> momentAttachments = imageMediaIds.stream()
+                .map(ImageMomentAttachment::new)
+                .collect(Collectors.toSet());
+        imageMomentAttachmentMomentBody.setAttachments(momentAttachments);
         return imageMomentAttachmentMomentBody;
     }
 
-    public static MomentBody<VideoMomentAttachment> videoMoment(VideoMomentAttachment attachment, VisibleRange visibleRange) {
-        MomentBody<VideoMomentAttachment> videoMomentAttachmentMomentBody = new MomentBody<>(visibleRange);
-        videoMomentAttachmentMomentBody.setAttachments(Collections.singleton(attachment));
+    public static MomentBody<MomentAttachment> videoMoment(String videoMediaId, VisibleRange visibleRange) {
+        MomentBody<MomentAttachment> videoMomentAttachmentMomentBody = new MomentBody<>(visibleRange);
+        videoMomentAttachmentMomentBody.setAttachments(Collections.singleton(new VideoMomentAttachment(videoMediaId)));
         return videoMomentAttachmentMomentBody;
     }
 
-    public static MomentBody<LinkMomentAttachment> linkMoment(LinkMomentAttachment attachment, VisibleRange visibleRange) {
-        MomentBody<LinkMomentAttachment> linkMomentAttachmentMomentBody = new MomentBody<>(visibleRange);
-        linkMomentAttachmentMomentBody.setAttachments(Collections.singleton(attachment));
+    public static MomentBody<MomentAttachment> linkMoment(MomentLink momentLink, VisibleRange visibleRange) {
+        MomentBody<MomentAttachment> linkMomentAttachmentMomentBody = new MomentBody<>(visibleRange);
+        linkMomentAttachmentMomentBody.setAttachments(Collections.singleton(new LinkMomentAttachment(momentLink)));
         return linkMomentAttachmentMomentBody;
     }
 

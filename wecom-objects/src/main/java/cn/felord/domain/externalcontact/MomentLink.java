@@ -15,15 +15,47 @@
 
 package cn.felord.domain.externalcontact;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type Moment link.
+ *
  * @author dax
- * @since 2021/8/21 19:34
+ * @since 2021 /8/21 19:34
  */
-@Data
+@ToString
+@Getter
 public class MomentLink {
-    private String title;
+    private final String title;
     private final String url;
     private final String mediaId;
+
+    /**
+     * Instantiates a new Moment link.
+     *
+     * @param url     the url
+     * @param mediaId the media id
+     */
+    public MomentLink(String url, String mediaId) {
+        this(null, url, mediaId);
+    }
+
+    /**
+     * Instantiates a new Moment link.
+     *
+     * @param title   the title
+     * @param url     the url
+     * @param mediaId the media id
+     */
+    @JsonCreator
+    public MomentLink(@JsonProperty("title") String title,
+                      @JsonProperty("url") String url,
+                      @JsonProperty("media_id") String mediaId) {
+        this.title = title;
+        this.url = url;
+        this.mediaId = mediaId;
+    }
 }

@@ -39,13 +39,12 @@ public interface MomentApi {
     /**
      * 创建发表任务
      *
-     * @param <T>  the type parameter
      * @param body the body
      * @return the generic response
      * @throws WeComException the weComException
      */
     @POST("externalcontact/add_moment_task")
-    <T extends MomentAttachment> GenericResponse<String> addMomentTask(@Body MomentBody<T> body) throws WeComException;
+    GenericResponse<String> addMomentTask(@Body MomentBody<MomentAttachment> body) throws WeComException;
 
     /**
      * 获取任务创建结果
