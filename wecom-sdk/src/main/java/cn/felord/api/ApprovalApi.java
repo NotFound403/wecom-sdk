@@ -20,8 +20,11 @@ import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.approval.*;
 import cn.felord.domain.common.TemplateId;
+import cn.felord.domain.common.UserId;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+
+import java.util.List;
 
 /**
  * 企业微信审批
@@ -79,7 +82,7 @@ public interface ApprovalApi {
      * @throws WeComException the weComException
      */
     @POST("oa/applyevent")
-    GenericResponse<String> apply(@Body ApprovalApplyRequest request) throws WeComException;
+    GenericResponse<String> applyEvent(@Body ApprovalApplyRequest request) throws WeComException;
 
     /**
      * 批量获取审批单号
@@ -95,7 +98,7 @@ public interface ApprovalApi {
      * @throws WeComException the weComException
      */
     @POST("oa/getapprovalinfo")
-    SpNoListResponse queryApprovalInfos(@Body SpNoListRequest request) throws WeComException;
+    SpNoListResponse getApprovalInfo(@Body SpNoListRequest request) throws WeComException;
 
     /**
      * 获取审批申请详情
@@ -106,7 +109,7 @@ public interface ApprovalApi {
      * @throws WeComException the weComException
      */
     @POST("oa/getapprovaldetail")
-    GenericResponse<ApprovalDetail> queryApprovalDetail(@Body ApprovalSpNo spNo) throws WeComException;
+    GenericResponse<ApprovalDetail> getApprovalDetail(@Body ApprovalSpNo spNo) throws WeComException;
 
     /**
      * 查询自建应用审批单当前状态
@@ -116,5 +119,27 @@ public interface ApprovalApi {
      * @throws WeComException the weComException
      */
     @POST("corp/getopenapprovaldata")
-    GenericResponse<OpenApprovalData> queryOpenApprovalData(@Body ApprovalThirdNo thirdNo) throws WeComException;
+    GenericResponse<OpenApprovalData> getOpenApprovalData(@Body ApprovalThirdNo thirdNo) throws WeComException;
+
+    /**
+     * 获取成员假期余额
+     * <p>
+     * 数据来源为人事助手-假期管理
+     *
+     * @param userId the user id
+     * @return the user vacation quota
+     * @throws WeComException the we com exception
+     */
+    @POST("oa/vacation/getuservacationquota")
+    GenericResponse<List<VacationQuota>> getUserVacationQuota(@Body UserId userId) throws WeComException;
+
+    /**
+     * 修改成员假期余额
+     *
+     * @param request the request
+     * @return the one user quota
+     * @throws WeComException the we com exception
+     */
+    @POST("oa/vacation/setoneuserquota")
+    WeComResponse setOneUserQuota(@Body UserQuotaSettingRequest request) throws WeComException;
 }
