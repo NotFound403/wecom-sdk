@@ -51,6 +51,7 @@ public class RelatedApprovalValue implements ContentDataValue {
      * Instantiates a new Related approval value.
      *
      * @param spNo the sp no
+     * @return the related approval value
      */
     public static RelatedApprovalValue from(List<String> spNo) {
         List<Wrapper> wrappers = spNo.stream()

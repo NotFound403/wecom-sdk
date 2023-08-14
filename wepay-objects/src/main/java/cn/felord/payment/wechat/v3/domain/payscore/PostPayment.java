@@ -17,7 +17,6 @@ package cn.felord.payment.wechat.v3.domain.payscore;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -29,7 +28,6 @@ import lombok.ToString;
  * @since 1.0.2.RELEASE
  */
 @ToString
-@RequiredArgsConstructor
 @Getter
 public class PostPayment {
     /**
