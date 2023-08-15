@@ -27,7 +27,7 @@ public class InMemoryMerchantService implements MerchantService {
     @Override
     public Merchant loadMerchant(String merchantId) throws PayException {
         String path = "C:\\Users\\Administrator\\IdeaProjects\\myproject\\wecom\\wepay-sdk\\src\\main\\apiclient_cert.p12";
-        return Merchant.create("1900006891", path, "514D90B6A480D7C289EE1F93D8A2830B",
+        return Merchant.create("1900006891", "514D90B6A480D7C289EE1F93D8A2830B", path,
                 AuthType.SHA256_RSA2048);
     }
 }

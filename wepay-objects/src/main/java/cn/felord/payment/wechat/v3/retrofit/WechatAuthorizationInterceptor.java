@@ -78,7 +78,12 @@ class WechatAuthorizationInterceptor implements Interceptor {
                 .header(HttpHeaders.USER_AGENT.headerName(), USER_AGENT)
                 .header(HttpHeaders.ACCEPT.headerName(), "*/*")
                 .build();
-        return chain.proceed(requestWithAuth);
+        Response response = chain.proceed(requestWithAuth);
+        return response.newBuilder()
+                .headers(response.headers())
+                .addHeader(HttpHeaders.MERCHANT_ID.headerName(), merchantId)
+                .body(response.body())
+                .build();
     }
 
 }

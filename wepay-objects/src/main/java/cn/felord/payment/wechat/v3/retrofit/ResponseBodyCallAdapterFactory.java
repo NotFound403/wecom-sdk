@@ -68,22 +68,20 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
         @Override
         public R adapt(Call<R> call) {
 
-            Response<R> response;
             try {
-                response = call.execute();
+                Response<R> response = call.execute();
+                Headers responseHeaders = response.headers();
+                if (response.isSuccessful()) {
+                    String serialNumber = responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
+                    String merchantId = responseHeaders.get(HttpHeaders.MERCHANT_ID.headerName());
+
+                    return response.body();
+                } else {
+                    throw new PayException("RequestID: " + responseHeaders.get(HttpHeaders.REQUEST_ID.headerName()) + " Response is not successful, " + response.message());
+                }
             } catch (IOException e) {
                 throw new PayException(e.getMessage(), e);
             }
-
-            Headers responseHeaders = response.headers();
-            if (response.isSuccessful()) {
-                String serialNumber = responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
-
-
-                return response.body();
-            }
-
-            throw new PayException("RequestID: " + responseHeaders.get(HttpHeaders.REQUEST_ID.headerName()) + " Response is not successful, " + response.message());
         }
     }
 }

@@ -50,6 +50,10 @@ public class ResponseSignVerifyParams {
      * response.body 微信服务器的响应体
      */
     private final String body;
+    /**
+     * 微信支付平台证书
+     */
+    private final TenpayKey tenpayKey;
 
     /**
      * Instantiates a new Response sign verify params.
@@ -61,6 +65,7 @@ public class ResponseSignVerifyParams {
      * @param wechatpayTimestamp     the wechatpay timestamp
      * @param wechatpayNonce         the wechatpay nonce
      * @param body                   the body
+     * @param tenpayKey              the tenpay key
      */
     public ResponseSignVerifyParams(String merchantId,
                                     String wechatpaySerial,
@@ -68,7 +73,8 @@ public class ResponseSignVerifyParams {
                                     String wechatpaySignatureType,
                                     String wechatpayTimestamp,
                                     String wechatpayNonce,
-                                    String body) {
+                                    String body,
+                                    TenpayKey tenpayKey) {
         this.merchantId = merchantId;
         this.wechatpaySerial = wechatpaySerial;
         this.wechatpaySignature = wechatpaySignature;
@@ -76,5 +82,6 @@ public class ResponseSignVerifyParams {
         this.wechatpayTimestamp = wechatpayTimestamp;
         this.wechatpayNonce = wechatpayNonce;
         this.body = body;
+        this.tenpayKey = tenpayKey;
     }
 }

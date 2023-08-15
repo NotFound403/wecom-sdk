@@ -46,7 +46,6 @@ final class TenpayCertificateApi {
      * 根据商户号和v3密钥获取平台证书列表
      *
      * @param merchantId the merchant id
-     * @return the list
      * @throws PayException the pay exception
      */
     public void certificates(String merchantId) throws PayException {

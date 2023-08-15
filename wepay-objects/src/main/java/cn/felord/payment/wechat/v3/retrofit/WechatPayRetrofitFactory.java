@@ -48,7 +48,18 @@ public final class WechatPayRetrofitFactory {
      * @param merchantService the merchant service
      */
     public WechatPayRetrofitFactory(WechatPaySigner wechatPaySigner, MerchantService merchantService) {
-        this(DEFAULT_BASE_URL, wechatPaySigner, merchantService, new ConnectionPool(), HttpLoggingInterceptor.Level.NONE);
+        this(DEFAULT_BASE_URL, wechatPaySigner, merchantService);
+    }
+
+    /**
+     * Instantiates a new Wechat pay retrofit factory.
+     *
+     * @param baseUrl         the base url
+     * @param wechatPaySigner the wechat pay signer
+     * @param merchantService the merchant service
+     */
+    public WechatPayRetrofitFactory(String baseUrl, WechatPaySigner wechatPaySigner, MerchantService merchantService) {
+        this(baseUrl, wechatPaySigner, merchantService, new ConnectionPool(), HttpLoggingInterceptor.Level.NONE);
     }
 
     /**
@@ -94,7 +105,7 @@ public final class WechatPayRetrofitFactory {
                 .baseUrl(baseUrl)
                 .client(okHttpClient(merchantId, wechatPaySigner, connectionPool, level))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .addCallAdapterFactory(new ResponseBodyCallAdapterFactory(new TenpayCertificateApi(this)))
+                .addCallAdapterFactory(new ResponseBodyCallAdapterFactory(wechatPaySigner))
                 .addConverterFactory(JsonConverterFactory.create())
                 .build();
     }

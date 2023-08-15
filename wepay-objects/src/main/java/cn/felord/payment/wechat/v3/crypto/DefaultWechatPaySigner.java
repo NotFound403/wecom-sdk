@@ -15,13 +15,14 @@
 
 package cn.felord.payment.wechat.v3.crypto;
 
+import cn.felord.payment.PayException;
 import cn.felord.utils.AlternativeJdkIdGenerator;
 import cn.felord.utils.Base64Utils;
 import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.security.Signature;
+import java.security.*;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Optional;
@@ -76,7 +77,15 @@ public class DefaultWechatPaySigner implements WechatPaySigner {
 
     @Override
     public boolean verify(ResponseSignVerifyParams params) {
-        return false;
+        final String message = buildSignMessage(params.getWechatpayTimestamp(), params.getWechatpayNonce(), params.getBody());
+        try {
+            Signature signer = Signature.getInstance(params.getWechatpaySignatureType().alg());
+            signer.initVerify(params.getTenpayKey().toPublicKey());
+            signer.update(message.getBytes(StandardCharsets.UTF_8));
+            return signer.verify(Base64Utils.decodeFromString(params.getWechatpaySignature()));
+        } catch (NoSuchAlgorithmException | InvalidKeyException | SignatureException e) {
+            throw new PayException("Signature verification failed", e);
+        }
     }
 
     /**
