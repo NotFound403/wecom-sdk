@@ -16,7 +16,7 @@
 package cn.felord.payment.wechat.v3.retrofit;
 
 import cn.felord.json.JsonConverterFactory;
-import cn.felord.payment.wechat.v3.crypto.MerchantService;
+import cn.felord.payment.wechat.v3.crypto.AppMerchantService;
 import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
@@ -36,7 +36,8 @@ public final class WechatPayRetrofitFactory {
     private static final String DEFAULT_BASE_URL = "https://api.mch.weixin.qq.com/";
     private final String baseUrl;
     private final WechatPaySigner wechatPaySigner;
-    private final MerchantService merchantService;
+    private final TenpayCertificateApi tenpayCertificateApi;
+    private final AppMerchantService appMerchantService;
     private final ConnectionPool connectionPool;
     private final HttpLoggingInterceptor.Level level;
 
@@ -45,10 +46,10 @@ public final class WechatPayRetrofitFactory {
      * Instantiates a new Wechat pay retrofit factory.
      *
      * @param wechatPaySigner the wechat pay signer
-     * @param merchantService the merchant service
+     * @param appMerchantService the merchant service
      */
-    public WechatPayRetrofitFactory(WechatPaySigner wechatPaySigner, MerchantService merchantService) {
-        this(DEFAULT_BASE_URL, wechatPaySigner, merchantService);
+    public WechatPayRetrofitFactory(WechatPaySigner wechatPaySigner, AppMerchantService appMerchantService) {
+        this(DEFAULT_BASE_URL, wechatPaySigner, appMerchantService);
     }
 
     /**
@@ -56,10 +57,10 @@ public final class WechatPayRetrofitFactory {
      *
      * @param baseUrl         the base url
      * @param wechatPaySigner the wechat pay signer
-     * @param merchantService the merchant service
+     * @param appMerchantService the merchant service
      */
-    public WechatPayRetrofitFactory(String baseUrl, WechatPaySigner wechatPaySigner, MerchantService merchantService) {
-        this(baseUrl, wechatPaySigner, merchantService, new ConnectionPool(), HttpLoggingInterceptor.Level.NONE);
+    public WechatPayRetrofitFactory(String baseUrl, WechatPaySigner wechatPaySigner, AppMerchantService appMerchantService) {
+        this(baseUrl, wechatPaySigner, appMerchantService, new ConnectionPool(), HttpLoggingInterceptor.Level.NONE);
     }
 
     /**
@@ -67,22 +68,27 @@ public final class WechatPayRetrofitFactory {
      *
      * @param baseUrl         the base url
      * @param wechatPaySigner the wechat pay signer
-     * @param merchantService the merchant service
+     * @param appMerchantService the merchant service
      * @param connectionPool  the connection pool
      * @param level           the level
      */
-    public WechatPayRetrofitFactory(String baseUrl, WechatPaySigner wechatPaySigner, MerchantService merchantService, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    public WechatPayRetrofitFactory(String baseUrl, WechatPaySigner wechatPaySigner, AppMerchantService appMerchantService, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         this.baseUrl = baseUrl;
         this.wechatPaySigner = wechatPaySigner;
-        this.merchantService = merchantService;
+        this.tenpayCertificateApi = new TenpayCertificateApi(this);
+        this.appMerchantService = appMerchantService;
         this.connectionPool = connectionPool;
         this.level = level;
     }
 
-    private static OkHttpClient okHttpClient(String merchantId, WechatPaySigner wechatPaySigner, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    private static OkHttpClient okHttpClient(String merchantId,
+                                             WechatPaySigner wechatPaySigner,
+                                             TenpayCertificateApi tenpayCertificateApi,
+                                             ConnectionPool connectionPool,
+                                             HttpLoggingInterceptor.Level level) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.level(level);
-        WechatAuthorizationInterceptor authorizationInterceptor = new WechatAuthorizationInterceptor(merchantId, wechatPaySigner);
+        WechatAuthorizationInterceptor authorizationInterceptor = new WechatAuthorizationInterceptor(merchantId, wechatPaySigner, tenpayCertificateApi);
         return new OkHttpClient.Builder()
                 .connectionPool(connectionPool)
                 .addInterceptor(authorizationInterceptor)
@@ -95,6 +101,15 @@ public final class WechatPayRetrofitFactory {
     }
 
     /**
+     * Wechat pay signer wechat pay signer.
+     *
+     * @return the wechat pay signer
+     */
+    public WechatPaySigner wechatPaySigner() {
+        return wechatPaySigner;
+    }
+
+    /**
      * 带TokenApi拦截器的Retrofit客户端
      *
      * @param merchantId the merchant id
@@ -103,11 +118,20 @@ public final class WechatPayRetrofitFactory {
     public Retrofit merchant(String merchantId) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(okHttpClient(merchantId, wechatPaySigner, connectionPool, level))
+                .client(okHttpClient(merchantId, wechatPaySigner, tenpayCertificateApi, connectionPool, level))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .addCallAdapterFactory(new ResponseBodyCallAdapterFactory(wechatPaySigner))
+                .addCallAdapterFactory(new ResponseBodyCallAdapterFactory())
                 .addConverterFactory(JsonConverterFactory.create())
                 .build();
+    }
+
+    /**
+     * Tenpay certificate api tenpay certificate api.
+     *
+     * @return the tenpay certificate api
+     */
+    public TenpayCertificateApi tenpayCertificateApi() {
+        return tenpayCertificateApi;
     }
 
     /**
@@ -115,16 +139,7 @@ public final class WechatPayRetrofitFactory {
      *
      * @return the merchant service
      */
-    public MerchantService merchantService() {
-        return merchantService;
-    }
-
-    /**
-     * Wechat pay signer wechat pay signer.
-     *
-     * @return the wechat pay signer
-     */
-    public WechatPaySigner wechatPaySigner() {
-        return wechatPaySigner;
+    public AppMerchantService merchantService() {
+        return appMerchantService;
     }
 }

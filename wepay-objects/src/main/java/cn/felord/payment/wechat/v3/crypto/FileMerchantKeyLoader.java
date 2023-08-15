@@ -17,6 +17,7 @@ package cn.felord.payment.wechat.v3.crypto;
 
 import cn.felord.payment.PayException;
 import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.RSAKey;
 
 import java.io.FileInputStream;
@@ -32,9 +33,10 @@ import java.security.cert.CertificateException;
  * @author dax
  * @since 2023 /8/4
  */
-public class FileMerchantKeyLoader implements MerchantKeyLoader {
+public class FileMerchantKeyLoader {
     private static final String TENPAY_ALIAS = "Tenpay Certificate";
     private static final KeyStore PKCS12_KEY_STORE;
+
     static {
         try {
             PKCS12_KEY_STORE = KeyStore.getInstance("PKCS12");
@@ -43,30 +45,16 @@ public class FileMerchantKeyLoader implements MerchantKeyLoader {
         }
     }
 
-    private final MerchantService merchantService;
+    public static JWK rsaJwk(String storePassword, String path, String merchantId) throws PayException {
 
-    /**
-     * Instantiates a new File merchant key loader.
-     *
-     * @param merchantService the merchant service
-     */
-    public FileMerchantKeyLoader(MerchantService merchantService) {
-        this.merchantService = merchantService;
-    }
+        char[] pin = storePassword.toCharArray();
 
-    @Override
-    public MerchantKey loadByMerchantId(String merchantId) throws PayException {
-        Merchant merchant = merchantService.loadMerchant(merchantId);
-        char[] pin = merchant.getStorePassword().toCharArray();
-
-        try (FileInputStream fileInputStream = new FileInputStream(merchant.getSourcePath())) {
+        try (FileInputStream fileInputStream = new FileInputStream(path)) {
             PKCS12_KEY_STORE.load(fileInputStream, pin);
             RSAKey rsaKey = RSAKey.load(PKCS12_KEY_STORE, TENPAY_ALIAS, pin);
-            RSAKey merchantJwk = new RSAKey.Builder(rsaKey)
-                    .keyID(merchant.getMerchantId())
+            return new RSAKey.Builder(rsaKey)
+                    .keyID(merchantId)
                     .build();
-            //todo cache
-            return new MerchantKey(merchant.getApiV3Secret(), merchantJwk);
         } catch (IOException
                  | KeyStoreException
                  | CertificateException

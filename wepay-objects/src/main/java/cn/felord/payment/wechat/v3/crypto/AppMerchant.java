@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.KeyType;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.security.PrivateKey;
@@ -28,30 +29,30 @@ import java.security.PublicKey;
 import java.util.Objects;
 
 /**
- * 商户证书对象
+ * 商户基本信息
  *
- * @author felord.cn
- * @since 2.0.0
+ * @author dax
+ * @since 2023 /8/2
  */
+@EqualsAndHashCode
 @Getter
-public final class MerchantKey {
-    /**
-     * V3 Secret
-     */
+public class AppMerchant {
+    private final String appid;
     private final String apiV3Secret;
-    /**
-     * JWK
-     */
     private final JWK merchantJwk;
 
     /**
-     * Instantiates a new Merchant key.
+     * 商户证书初始化参数
      *
-     * @param apiV3Secret the api v3 secret
-     * @param merchantJwk the merchant jwk
+     * @param appid       the appid
+     * @param apiV3Secret V3 Secret
+     * @param merchantJwk 商户证书JWK
      */
     @JsonCreator
-    public MerchantKey(@JsonProperty("apiV3Secret") String apiV3Secret, @JsonProperty("merchantJwk") JWK merchantJwk) {
+    public AppMerchant(@JsonProperty("appid") String appid,
+                       @JsonProperty("apiV3Secret") String apiV3Secret,
+                       @JsonProperty("merchantJwk") JWK merchantJwk) {
+        this.appid = appid;
         this.apiV3Secret = apiV3Secret;
         this.merchantJwk = merchantJwk;
     }
@@ -63,6 +64,16 @@ public final class MerchantKey {
      */
     public String merchantId() {
         return merchantJwk.getKeyID();
+    }
+
+    /**
+     * 签名类型
+     *
+     * @return the auth type
+     */
+    public AuthType authType() {
+        return Objects.equals(KeyType.RSA, merchantJwk.getKeyType()) ?
+                AuthType.SHA256_RSA2048 : AuthType.SM2_WITH_SM3;
     }
 
     /**
@@ -115,33 +126,11 @@ public final class MerchantKey {
                 .toUpperCase();
     }
 
-    /**
-     * 获取证书类型
-     *
-     * @return RequestAuthType auth type
-     */
-    public AuthType authType() {
-
-        if (Objects.equals(KeyType.RSA, merchantJwk.getKeyType())) {
-            return AuthType.SHA256_RSA2048;
-        }
-        throw new PayException("Not Support Type");
-    }
-
-    /**
-     * 获取api v3 secret
-     *
-     * @return the string
-     */
-    public String apiV3Secret() {
-        return apiV3Secret;
-    }
-
     @Override
     public String toString() {
-        return "MerchantKey{" +
-                "apiV3Secret=[PROTECTED]" +
-                ", merchantJwk=" + merchantJwk +
+        return "AppMerchant{" +
+                "appid=" + appid +
+                ", apiV3Secret=[PROTECTED]" +
                 '}';
     }
 }

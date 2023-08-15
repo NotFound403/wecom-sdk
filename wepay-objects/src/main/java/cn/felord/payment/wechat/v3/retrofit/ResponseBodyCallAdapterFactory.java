@@ -16,8 +16,6 @@ package cn.felord.payment.wechat.v3.retrofit;
 
 
 import cn.felord.payment.PayException;
-import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
-import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Response;
@@ -34,16 +32,14 @@ import java.lang.reflect.Type;
  * @since 2.0.0
  */
 final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
-    private final WechatPaySigner wechatPaySigner;
 
 
-    ResponseBodyCallAdapterFactory(WechatPaySigner wechatPaySigner) {
-        this.wechatPaySigner = wechatPaySigner;
+    ResponseBodyCallAdapterFactory() {
     }
 
     @Override
     public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        return new ResponseBodyCallAdapter<>(wechatPaySigner, returnType);
+        return new ResponseBodyCallAdapter<>(returnType);
     }
 
     /**
@@ -52,11 +48,10 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
      * @param <R> the type parameter
      */
     static final class ResponseBodyCallAdapter<R> implements CallAdapter<R, R> {
-        private final WechatPaySigner wechatPaySigner;
+
         private final Type returnType;
 
-        ResponseBodyCallAdapter(WechatPaySigner wechatPaySigner, Type returnType) {
-            this.wechatPaySigner = wechatPaySigner;
+        ResponseBodyCallAdapter(Type returnType) {
             this.returnType = returnType;
         }
 
@@ -67,18 +62,9 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
 
         @Override
         public R adapt(Call<R> call) {
-
             try {
                 Response<R> response = call.execute();
-                Headers responseHeaders = response.headers();
-                if (response.isSuccessful()) {
-                    String serialNumber = responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
-                    String merchantId = responseHeaders.get(HttpHeaders.MERCHANT_ID.headerName());
-
-                    return response.body();
-                } else {
-                    throw new PayException("RequestID: " + responseHeaders.get(HttpHeaders.REQUEST_ID.headerName()) + " Response is not successful, " + response.message());
-                }
+                return response.body();
             } catch (IOException e) {
                 throw new PayException(e.getMessage(), e);
             }

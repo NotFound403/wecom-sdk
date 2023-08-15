@@ -15,7 +15,7 @@
 
 package cn.felord.payment.wechat.v3.direct;
 
-import cn.felord.payment.wechat.v3.crypto.MerchantService;
+import cn.felord.payment.wechat.v3.crypto.AppMerchantService;
 import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
 import cn.felord.payment.wechat.v3.retrofit.WechatPayRetrofitFactory;
 import okhttp3.ConnectionPool;
@@ -52,7 +52,7 @@ public final class WechatPayApi {
     public static class Builder {
         private static final String DEFAULT_BASE_URL = "https://api.mch.weixin.qq.com/";
         private final WechatPaySigner wechatPaySigner;
-        private final MerchantService merchantService;
+        private final AppMerchantService appMerchantService;
         private String baseUrl = DEFAULT_BASE_URL;
         private ConnectionPool connectionPool = new ConnectionPool();
         private HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.NONE;
@@ -62,11 +62,11 @@ public final class WechatPayApi {
          * Instantiates a new Builder.
          *
          * @param wechatPaySigner the wechat pay signer
-         * @param merchantService the merchant service
+         * @param appMerchantService the merchant service
          */
-        public Builder(WechatPaySigner wechatPaySigner, MerchantService merchantService) {
+        public Builder(WechatPaySigner wechatPaySigner, AppMerchantService appMerchantService) {
             this.wechatPaySigner = wechatPaySigner;
-            this.merchantService = merchantService;
+            this.appMerchantService = appMerchantService;
         }
 
         /**
@@ -108,7 +108,7 @@ public final class WechatPayApi {
          * @return the wechat pay api
          */
         public WechatPayApi build() {
-            WechatPayRetrofitFactory retrofitFactory = new WechatPayRetrofitFactory(baseUrl, wechatPaySigner, merchantService, connectionPool, logLevel);
+            WechatPayRetrofitFactory retrofitFactory = new WechatPayRetrofitFactory(baseUrl, wechatPaySigner, appMerchantService, connectionPool, logLevel);
             return new WechatPayApi(retrofitFactory);
         }
     }

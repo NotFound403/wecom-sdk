@@ -35,10 +35,6 @@ public enum HttpHeaders {
      */
     ACCEPT("Accept"),
     /**
-     * Merchant id http headers.
-     */
-    MERCHANT_ID("Merchant-Id"),
-    /**
      * User agent http headers.
      */
     USER_AGENT("User-Agent"),

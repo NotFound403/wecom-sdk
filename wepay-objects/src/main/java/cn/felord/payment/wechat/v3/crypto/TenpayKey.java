@@ -74,7 +74,8 @@ public class TenpayKey {
     @Override
     public String toString() {
         return "TenpayKey{" +
-                ", serialNumber='" + serialNumber + '\'' +
+                "merchantId=" + merchantId +
+                ", serialNumber=" + serialNumber +
                 ", tenPayJwk=[PROTECTED]" +
                 '}';
     }

@@ -15,6 +15,8 @@
 
 package cn.felord.payment.wechat.v3.crypto;
 
+import okhttp3.Headers;
+
 import java.net.URI;
 
 /**
@@ -29,29 +31,31 @@ public interface WechatPaySigner {
     /**
      * 生成请求签名
      *
-     * @param merchantId 商户ID
+     * @param appId 应用ID
      * @param uri        请求URI
      * @param httpMethod 请求方法
      * @param body       请求体
      * @return the string
      */
-    String sign(String merchantId, URI uri, String httpMethod, String body);
+    String sign(String appId, URI uri, String httpMethod, String body);
 
     /**
      * 生成签名
      *
-     * @param merchantId        the merchant id
+     * @param appId        the app id
      * @param orderedComponents the ordered components
      * @return the string
      */
-    String sign(String merchantId, String... orderedComponents);
+    String sign(String appId, String... orderedComponents);
 
     /**
      * 签名验证
      *
-     * @param params the params
+     * @param responseHeaders the response headers
+     * @param body            the body
+     * @param tenpayKey       the tenpay key
      * @return the boolean
      */
-    boolean verify(ResponseSignVerifyParams params);
+    boolean verify(Headers responseHeaders, String body, TenpayKey tenpayKey);
 
 }

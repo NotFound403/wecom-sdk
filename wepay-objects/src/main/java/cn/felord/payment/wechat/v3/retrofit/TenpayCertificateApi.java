@@ -16,7 +16,7 @@
 package cn.felord.payment.wechat.v3.retrofit;
 
 import cn.felord.payment.PayException;
-import cn.felord.payment.wechat.v3.crypto.Merchant;
+import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.crypto.TenpayKey;
 
 import java.util.*;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * @author dax
  * @since 2023 /8/10 10:04
  */
-final class TenpayCertificateApi {
+public final class TenpayCertificateApi {
 
     private final WechatPayRetrofitFactory factory;
     private static final Set<TenpayKey> TENPAY_KEYS = Collections.synchronizedSet(new HashSet<>());
@@ -49,17 +49,18 @@ final class TenpayCertificateApi {
      * @throws PayException the pay exception
      */
     public void certificates(String merchantId) throws PayException {
-        Merchant merchant = factory.merchantService().loadMerchant(merchantId);
-        Set<TenpayKey> tenpayKeys = factory.merchant(merchant.getMerchantId())
+        AppMerchant appMerchant = factory.merchantService().loadMerchant(merchantId);
+        Set<TenpayKey> tenpayKeys = factory.merchant(appMerchant.merchantId())
                 .create(InternalCertificateApi.class)
                 .certificates()
                 .getData()
                 .stream()
                 .map(tenpayCertificate ->
                         new TenpayKey(merchantId, tenpayCertificate.getSerialNo(),
-                                tenpayCertificate.getEncryptCertificate().toJwk(merchant.getApiV3Secret())))
+                                tenpayCertificate.getEncryptCertificate().toJwk(appMerchant.getApiV3Secret())))
                 .collect(Collectors.toSet());
         TENPAY_KEYS.addAll(tenpayKeys);
+        System.out.println("tenpayKeys = " + TENPAY_KEYS);
     }
 
     /**

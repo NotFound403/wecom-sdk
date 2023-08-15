@@ -23,13 +23,13 @@ import cn.felord.payment.PayException;
  * @author dax
  * @since 2023 /8/6
  */
-public interface MerchantService {
+public interface AppMerchantService {
     /**
      * Load merchant merchant.
      *
-     * @param merchantId the merchant id
+     * @param appid the app id
      * @return the merchant config
      * @throws PayException the pay exception
      */
-    Merchant loadMerchant(String merchantId) throws PayException;
+    AppMerchant loadMerchant(String appid) throws PayException;
 }

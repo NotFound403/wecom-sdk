@@ -16,15 +16,21 @@
 package cn.felord.payment.wechat.v3.crypto;
 
 import cn.felord.payment.PayException;
+import cn.felord.payment.wechat.v3.retrofit.HttpHeaders;
 import cn.felord.utils.AlternativeJdkIdGenerator;
 import cn.felord.utils.Base64Utils;
 import lombok.SneakyThrows;
+import okhttp3.Headers;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.security.*;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
+import java.security.SignatureException;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,15 +43,15 @@ import java.util.stream.Collectors;
 public class DefaultWechatPaySigner implements WechatPaySigner {
     private static final String TOKEN_PATTERN = "mchid=\"%s\",nonce_str=\"%s\",timestamp=\"%d\",serial_no=\"%s\",signature=\"%s\"";
     private static final AlternativeJdkIdGenerator ID_GENERATOR = new AlternativeJdkIdGenerator();
-    private final MerchantKeyLoader merchantKeyLoader;
+    private final AppMerchantService appMerchantService;
 
-    public DefaultWechatPaySigner(MerchantKeyLoader merchantKeyLoader) {
-        this.merchantKeyLoader = merchantKeyLoader;
+    public DefaultWechatPaySigner(AppMerchantService appMerchantService) {
+        this.appMerchantService = appMerchantService;
     }
 
     @SneakyThrows
     @Override
-    public String sign(String merchantId, URI uri, String httpMethod, String body) {
+    public String sign(String appId, URI uri, String httpMethod, String body) {
         String canonicalUrl = Optional.ofNullable(uri.getRawQuery())
                 .map(query ->
                         uri.getRawPath().concat("?").concat(query))
@@ -53,36 +59,41 @@ public class DefaultWechatPaySigner implements WechatPaySigner {
         String nonceStr = ID_GENERATOR.generate32();
         long timestamp = Instant.now().getEpochSecond();
         final String signMessage = buildSignMessage(httpMethod, canonicalUrl, String.valueOf(timestamp), nonceStr, body);
-        MerchantKey merchantKey = merchantKeyLoader.loadByMerchantId(merchantId);
-        AuthType authType = merchantKey.authType();
+        AppMerchant appMerchant = appMerchantService.loadMerchant(appId);
+        AuthType authType = appMerchant.authType();
         Signature signer = Signature.getInstance(authType.alg());
-        signer.initSign(merchantKey.privateKey());
+        signer.initSign(appMerchant.privateKey());
         signer.update(signMessage.getBytes(StandardCharsets.UTF_8));
         String encoded = Base64Utils.encodeToString(signer.sign());
-        String token = String.format(TOKEN_PATTERN, merchantId, nonceStr, timestamp, merchantKey.serialNumber(), encoded);
+        String token = String.format(TOKEN_PATTERN, appMerchant.merchantId(), nonceStr, timestamp, appMerchant.serialNumber(), encoded);
         return authType.toAuthHeader(token);
     }
 
     @SneakyThrows
     @Override
-    public String sign(String merchantId, String... orderedComponents) {
+    public String sign(String appId, String... orderedComponents) {
         final String signMessage = buildSignMessage(orderedComponents);
-        MerchantKey merchantKey = merchantKeyLoader.loadByMerchantId(merchantId);
-        AuthType authType = merchantKey.authType();
+        AppMerchant appMerchant = appMerchantService.loadMerchant(appId);
+        AuthType authType = appMerchant.authType();
         Signature signer = Signature.getInstance(authType.alg());
-        signer.initSign(merchantKey.privateKey());
+        signer.initSign(appMerchant.privateKey());
         signer.update(signMessage.getBytes(StandardCharsets.UTF_8));
         return Base64Utils.encodeToString(signer.sign());
     }
 
     @Override
-    public boolean verify(ResponseSignVerifyParams params) {
-        final String message = buildSignMessage(params.getWechatpayTimestamp(), params.getWechatpayNonce(), params.getBody());
+    public boolean verify(Headers responseHeaders, String body, TenpayKey tenpayKey) {
+        String wechatpaySignature = Objects.requireNonNull(responseHeaders.get(HttpHeaders.WECHAT_PAY_SIGNATURE.headerName()));
+        String wechatpaySignatureType = responseHeaders.get(HttpHeaders.WECHAT_PAY_SIGNATURE_TYPE.headerName());
+        String wechatpayTimestamp = responseHeaders.get(HttpHeaders.WECHAT_PAY_TIMESTAMP.headerName());
+        String wechatpayNonce = responseHeaders.get(HttpHeaders.WECHAT_PAY_NONCE.headerName());
+        final String message = buildSignMessage(wechatpayTimestamp, wechatpayNonce, body);
+        AuthType authType = AuthType.fromSignType(wechatpaySignatureType);
         try {
-            Signature signer = Signature.getInstance(params.getWechatpaySignatureType().alg());
-            signer.initVerify(params.getTenpayKey().toPublicKey());
+            Signature signer = Signature.getInstance(authType.alg());
+            signer.initVerify(tenpayKey.toPublicKey());
             signer.update(message.getBytes(StandardCharsets.UTF_8));
-            return signer.verify(Base64Utils.decodeFromString(params.getWechatpaySignature()));
+            return signer.verify(Base64Utils.decodeFromString(wechatpaySignature));
         } catch (NoSuchAlgorithmException | InvalidKeyException | SignatureException e) {
             throw new PayException("Signature verification failed", e);
         }
