@@ -28,7 +28,12 @@ import java.time.OffsetDateTime;
  */
 @Data
 public class PayParams {
-
+    private final String appid;
+    private final String mchid;
+    /**
+     * 通知URL必须为直接可访问的URL，不允许携带查询串。
+     */
+    private final String notifyUrl;
     /**
      * 商品描述
      * Image形象店-深圳腾大-QQ公仔
@@ -39,10 +44,6 @@ public class PayParams {
      * 示例值：1217752501201407033233368018
      */
     private final String outTradeNo;
-    /**
-     * 通知URL必须为直接可访问的URL，不允许携带查询串。
-     */
-    private final String notifyUrl;
     /**
      * 支付金额
      */
@@ -55,19 +56,19 @@ public class PayParams {
      * 订单失效时间 rfc 3339 YYYY-MM-DDTHH:mm:ss+TIMEZONE
      */
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private OffsetDateTime timeExpire;
+    private final OffsetDateTime timeExpire;
     /**
      * 附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用
      */
-    private String attach;
+    private final String attach;
     /**
      * 订单优惠标记
      */
-    private String goodsTag;
+    private final String goodsTag;
     /**
      * 优惠功能
      */
-    private Detail detail;
+    private final Detail detail;
     /**
      * 电子发票入口开放标识
      * <p>
@@ -75,13 +76,13 @@ public class PayParams {
      *
      * @since 1.0.16.RELEASE
      */
-    private Boolean supportFapiao;
+    private final Boolean supportFapiao;
     /**
      * 场景信息
      */
-    private SceneInfo sceneInfo;
+    private final SceneInfo sceneInfo;
     /**
      * 结算信息
      */
-    private SettleInfo settleInfo;
+    private final SettleInfo settleInfo;
 }

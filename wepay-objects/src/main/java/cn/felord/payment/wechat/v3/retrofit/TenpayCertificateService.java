@@ -19,14 +19,16 @@ import cn.felord.json.JsonConverterFactory;
 import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.crypto.TenpayKey;
-import okhttp3.*;
+import com.nimbusds.jose.jwk.JWK;
+import okhttp3.ConnectionPool;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 
-import java.util.*;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * 微信支付平台证书API
@@ -34,19 +36,26 @@ import java.util.stream.Collectors;
  * @author dax
  * @since 2023 /8/10 10:04
  */
-public final class TenpayCertificateApi {
+class TenpayCertificateService {
 
     private final AppMerchant appMerchant;
+    private final TenpayKeyCache tenpayKeyCache;
     private final InternalCertificateApi certificateApi;
-    private static final Set<TenpayKey> TENPAY_KEYS = Collections.synchronizedSet(new HashSet<>());
+
 
     /**
      * Instantiates a new Tenpay certificate api.
+     *
+     * @param baseUrl        the base url
+     * @param appMerchant    the app merchant
+     * @param tenpayKeyCache the tenpay key cache
      */
-    TenpayCertificateApi(AppMerchant appMerchant) {
-        this.certificateApi = new TenpayCertificateRetrofitFactory().app(appMerchant)
-                .create(InternalCertificateApi.class);
+    TenpayCertificateService(String baseUrl, AppMerchant appMerchant, TenpayKeyCache tenpayKeyCache) {
         this.appMerchant = appMerchant;
+        this.tenpayKeyCache = tenpayKeyCache;
+        this.certificateApi = new TenpayCertificateRetrofitFactory(baseUrl)
+                .app(appMerchant)
+                .create(InternalCertificateApi.class);
     }
 
     /**
@@ -55,14 +64,18 @@ public final class TenpayCertificateApi {
      * @throws PayException the pay exception
      */
     public void certificates() throws PayException {
-        Set<TenpayKey> tenpayKeys = certificateApi.certificates()
-                .getData()
-                .stream()
-                .map(tenpayCertificate ->
-                        new TenpayKey(appMerchant.merchantId(), tenpayCertificate.getSerialNo(),
-                                tenpayCertificate.getEncryptCertificate().toJwk(appMerchant.getApiV3Secret())))
-                .collect(Collectors.toSet());
-        TENPAY_KEYS.addAll(tenpayKeys);
+        synchronized (appMerchant) {
+            certificateApi.certificates()
+                    .getData()
+                    .forEach(tenpayCertificate -> {
+                        String merchantId = appMerchant.merchantId();
+                        String serialNo = tenpayCertificate.getSerialNo();
+                        JWK tenPayJwk = tenpayCertificate.getEncryptCertificate()
+                                .toJwk(appMerchant.getApiV3Secret());
+                        TenpayKey tenpayKey = new TenpayKey(merchantId, serialNo, tenPayJwk);
+                        tenpayKeyCache.putTenpayKey(merchantId, serialNo, tenpayKey);
+                    });
+        }
     }
 
     /**
@@ -72,27 +85,15 @@ public final class TenpayCertificateApi {
      * @return the tenpay key
      */
     public TenpayKey getTenpayKey(String serialNumber) {
-        return TENPAY_KEYS.stream()
-                .filter(tenpayKey ->
-                        Objects.equals(tenpayKey.getSerialNumber(), serialNumber))
-                .filter(tenpayKey -> {
-                    boolean after = tenpayKey.getTenPayJwk()
-                            .getExpirationTime()
-                            .after(new Date());
-                    if (!after) {
-                        TENPAY_KEYS.remove(tenpayKey);
-                    }
-                    return after;
-                })
-                .findAny()
-                .orElseGet(() -> {
-                    certificates();
-                    return TENPAY_KEYS.stream()
-                            .filter(tenpayKey ->
-                                    Objects.equals(tenpayKey.getSerialNumber(), serialNumber))
-                            .findAny()
-                            .orElseThrow(() -> new PayException("Fail to load tenpayKey"));
-                });
+        TenpayKey tenpayKey = tenpayKeyCache.getTenpayKey(appMerchant.merchantId(), serialNumber);
+        if (Objects.isNull(tenpayKey)) {
+            this.certificates();
+            tenpayKey = tenpayKeyCache.getTenpayKey(appMerchant.merchantId(), serialNumber);
+            if (Objects.isNull(tenpayKey)) {
+                throw new PayException("Fail to load tenpayKey");
+            }
+        }
+        return tenpayKey;
     }
 
 
@@ -172,6 +173,11 @@ public final class TenpayCertificateApi {
      * The type Wechat authorization interceptor.
      */
     static class TenpayCertificateAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
+        /**
+         * Instantiates a new Tenpay certificate authorization interceptor.
+         *
+         * @param appMerchant the app merchant
+         */
         public TenpayCertificateAuthorizationInterceptor(AppMerchant appMerchant) {
             super(appMerchant);
         }

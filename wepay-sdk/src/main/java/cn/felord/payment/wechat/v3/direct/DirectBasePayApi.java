@@ -19,11 +19,8 @@ import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.enumeration.PayType;
 import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
-import cn.felord.payment.wechat.v3.domain.basepay.PayParams;
 import cn.felord.payment.wechat.v3.domain.basepay.PrepayResponse;
-import cn.felord.payment.wechat.v3.domain.basepay.direct.AppPayResponse;
-import cn.felord.payment.wechat.v3.domain.basepay.direct.JsPayResponse;
-import cn.felord.payment.wechat.v3.domain.basepay.direct.PayRequest;
+import cn.felord.payment.wechat.v3.domain.basepay.direct.*;
 import cn.felord.payment.wechat.v3.retrofit.WechatPayRetrofitFactory;
 import cn.felord.utils.AlternativeJdkIdGenerator;
 
@@ -54,14 +51,14 @@ public class DirectBasePayApi {
     /**
      * JSAPI/小程序下单API
      *
-     * @param payParams the pay params
+     * @param request the request
      * @return the js pay response
      * @throws PayException the pay exception
      */
-    public JsPayResponse jsapi(PayParams payParams) throws PayException {
+    public JsPayResponse jsapi(JsPayRequest request) throws PayException {
         String mchid = appMerchant.merchantId();
         String appid = appMerchant.getAppid();
-        PrepayResponse prepayResponse = wechatDirectPayApi.prePay(PayType.JSAPI.type(), new PayRequest(mchid, appid, payParams));
+        PrepayResponse prepayResponse = wechatDirectPayApi.prePay(PayType.JSAPI.type(), request.toPayParams(appid, mchid));
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
         String nonceStr = idGenerator.generate32();
         String packageStr = "prepay_id=" + prepayResponse.getPrepayId();
@@ -72,14 +69,14 @@ public class DirectBasePayApi {
     /**
      * APP下单API
      *
-     * @param payParams the pay params
+     * @param request the request
      * @return the app pay response
      * @throws PayException the pay exception
      */
-    public AppPayResponse app(PayParams payParams) throws PayException {
+    public AppPayResponse app(AppNativePayRequest request) throws PayException {
         String mchid = appMerchant.merchantId();
         String appid = appMerchant.getAppid();
-        PrepayResponse prepayResponse = wechatDirectPayApi.prePay(PayType.APP.type(), new PayRequest(mchid, appid, payParams));
+        PrepayResponse prepayResponse = wechatDirectPayApi.prePay(PayType.APP.type(), request.toPayParams(appid, mchid));
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
         String nonceStr = idGenerator.generate32();
         String preId = prepayResponse.getPrepayId();
@@ -90,26 +87,26 @@ public class DirectBasePayApi {
     /**
      * Native下单API
      *
-     * @param payParams the pay params
+     * @param request the request
      * @return the prepay response
      * @throws PayException the pay exception
      */
-    public PrepayResponse nativePay(PayParams payParams) throws PayException {
+    public PrepayResponse nativePay(AppNativePayRequest request) throws PayException {
         String mchid = appMerchant.merchantId();
         String appid = appMerchant.getAppid();
-        return wechatDirectPayApi.prePay(PayType.NATIVE.type(), new PayRequest(mchid, appid, payParams));
+        return wechatDirectPayApi.prePay(PayType.NATIVE.type(), request.toPayParams(appid, mchid));
     }
 
     /**
      * H5下单API
      *
-     * @param payParams the pay params
+     * @param request the request
      * @return the prepay response
      * @throws PayException the pay exception
      */
-    public PrepayResponse h5(PayParams payParams) throws PayException {
+    public PrepayResponse h5(H5PayRequest request) throws PayException {
         String mchid = appMerchant.merchantId();
         String appid = appMerchant.getAppid();
-        return wechatDirectPayApi.prePay(PayType.H5.type(), new PayRequest(mchid, appid, payParams));
+        return wechatDirectPayApi.prePay(PayType.H5.type(), request.toPayParams(appid, mchid));
     }
 }

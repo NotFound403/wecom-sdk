@@ -14,7 +14,9 @@
  */
 package cn.felord.payment.wechat.v3.domain.basepay;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 /**
  * 支付金额 货币单位【分】默认使用人民币标识CNY
@@ -22,7 +24,7 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
-@Data
+@Getter
 public class Amount {
     /**
      * 金额，单位【分】。
@@ -31,5 +33,26 @@ public class Amount {
     /**
      * 货币单位，固定为 CNY 。
      */
-    private String currency = "CNY";
+    private final String currency;
+
+    /**
+     * Instantiates a new Amount.
+     *
+     * @param total the total
+     */
+    public Amount(int total) {
+        this(total, "CNY");
+    }
+
+    /**
+     * Instantiates a new Amount.
+     *
+     * @param total    the total
+     * @param currency the currency
+     */
+    @JsonCreator
+    Amount(@JsonProperty("total") Integer total, @JsonProperty("currency") String currency) {
+        this.total = total;
+        this.currency = currency;
+    }
 }

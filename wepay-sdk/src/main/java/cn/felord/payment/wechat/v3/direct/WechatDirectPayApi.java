@@ -16,8 +16,8 @@
 package cn.felord.payment.wechat.v3.direct;
 
 import cn.felord.payment.PayException;
+import cn.felord.payment.wechat.v3.domain.basepay.PayParams;
 import cn.felord.payment.wechat.v3.domain.basepay.PrepayResponse;
-import cn.felord.payment.wechat.v3.domain.basepay.direct.PayRequest;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -33,11 +33,12 @@ interface WechatDirectPayApi {
     /**
      * 生成预支付交易单
      *
-     * @param payType the pay type
-     * @param request the request
+     * @param payType   the pay type
+     * @param payParams the pay params
      * @return the prepay id
+     * @throws PayException the pay exception
      */
     @POST("v3/pay/transactions/{payType}")
-    PrepayResponse prePay(@Path("payType") String payType, @Body PayRequest request) throws PayException;
+    PrepayResponse prePay(@Path("payType") String payType, @Body PayParams payParams) throws PayException;
 
 }

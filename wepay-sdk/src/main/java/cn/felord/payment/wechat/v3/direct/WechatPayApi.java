@@ -16,6 +16,8 @@
 package cn.felord.payment.wechat.v3.direct;
 
 import cn.felord.payment.wechat.v3.crypto.AppMerchant;
+import cn.felord.payment.wechat.v3.retrofit.InMemoryTenpayKeyCache;
+import cn.felord.payment.wechat.v3.retrofit.TenpayKeyCache;
 import cn.felord.payment.wechat.v3.retrofit.WechatPayRetrofitFactory;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -51,8 +53,21 @@ public final class WechatPayApi {
     public static class Builder {
         private static final String DEFAULT_BASE_URL = "https://api.mch.weixin.qq.com/";
         private String baseUrl = DEFAULT_BASE_URL;
+        private TenpayKeyCache tenpayKeyCache = new InMemoryTenpayKeyCache();
         private ConnectionPool connectionPool = new ConnectionPool();
         private HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.NONE;
+
+
+        /**
+         * Instantiates a new Builder.
+         *
+         * @param tenpayKeyCache the tenpay key cache
+         * @return the builder
+         */
+        public Builder tenpayKeyCache(TenpayKeyCache tenpayKeyCache) {
+            this.tenpayKeyCache = tenpayKeyCache;
+            return this;
+        }
 
         /**
          * Base url builder.
@@ -93,7 +108,7 @@ public final class WechatPayApi {
          * @return the wechat pay api
          */
         public WechatPayApi build() {
-            WechatPayRetrofitFactory retrofitFactory = new WechatPayRetrofitFactory(baseUrl, connectionPool, logLevel);
+            WechatPayRetrofitFactory retrofitFactory = new WechatPayRetrofitFactory(baseUrl, tenpayKeyCache, connectionPool, logLevel);
             return new WechatPayApi(retrofitFactory);
         }
     }

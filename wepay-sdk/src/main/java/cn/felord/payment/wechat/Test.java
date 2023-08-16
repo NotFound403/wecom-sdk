@@ -15,7 +15,12 @@
 
 package cn.felord.payment.wechat;
 
+import cn.felord.payment.wechat.v3.crypto.AppMerchant;
+import cn.felord.payment.wechat.v3.crypto.InMemoryAppMerchantService;
 import cn.felord.payment.wechat.v3.direct.WechatPayApi;
+import cn.felord.payment.wechat.v3.domain.basepay.Amount;
+import cn.felord.payment.wechat.v3.domain.basepay.direct.AppNativePayRequest;
+import cn.felord.payment.wechat.v3.domain.basepay.direct.AppPayResponse;
 import com.nimbusds.jose.JOSEException;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -26,10 +31,16 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class Test {
     public static void main(String[] args) throws JOSEException {
 
-        WechatPayApi wechatPayApi = new WechatPayApi.Builder()
+
+        InMemoryAppMerchantService merchantService = new InMemoryAppMerchantService();
+        AppMerchant appMerchant = merchantService.loadMerchant("");
+        AppPayResponse appPayResponse = new WechatPayApi.Builder()
                 .logLevel(HttpLoggingInterceptor.Level.BODY)
-                .build();
+                .build()
+                .directBasePayApi(appMerchant)
+                .app(new AppNativePayRequest("https://felord.cn/wx/callback",
+                        "felord.cn精品", "X1231231244343", new Amount(100)));
 
-
+        System.out.println("appPayResponse = " + appPayResponse);
     }
 }

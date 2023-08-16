@@ -16,6 +16,7 @@
 package cn.felord.payment.wechat.v3.crypto;
 
 import cn.felord.payment.PayException;
+import com.nimbusds.jose.jwk.JWK;
 
 /**
  * 从内存中加载商户基本信息
@@ -29,6 +30,8 @@ public class InMemoryAppMerchantService implements AppMerchantService {
         String path = "C:\\Users\\Administrator\\IdeaProjects\\myproject\\wecom\\wepay-sdk\\src\\main\\apiclient_cert.p12";
         String path1 = "C:\\Users\\xfa00\\IdeaProjects\\payment-spring-boot-samples\\src\\main\\resources\\wechat\\apiclient_cert.p12";
 // "1900006891",
-        return new AppMerchant("wxdace645e0bc2c424", "514D90B6A480D7C289EE1F93D8A2830B", null);
+        String mchid = "1900006891";
+        JWK jwk = FileMerchantKeyLoader.rsaJwk(mchid, path, mchid);
+        return new AppMerchant("wxdace645e0bc2c424", "514D90B6A480D7C289EE1F93D8A2830B", jwk);
     }
 }

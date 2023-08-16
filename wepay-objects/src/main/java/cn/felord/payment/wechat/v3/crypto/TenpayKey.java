@@ -21,9 +21,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.KeyType;
-import lombok.Getter;
+import lombok.SneakyThrows;
 
 import java.security.PublicKey;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -32,7 +34,6 @@ import java.util.Objects;
  * @author dax
  * @since 2023 /8/10 13:54
  */
-@Getter
 public class TenpayKey {
     private final String merchantId;
     private final String serialNumber;
@@ -43,19 +44,60 @@ public class TenpayKey {
      *
      * @param merchantId   the merchant id
      * @param serialNumber the serial number
-     * @param tenPayJwk    the tenPay jwk
+     * @param jsonJwk      the json jwk
      */
+    @SneakyThrows
     @JsonCreator
-    public TenpayKey(@JsonProperty("merchantId") String merchantId,
-                     @JsonProperty("serialNumber") String serialNumber,
-                     @JsonProperty("tenPayJwk") JWK tenPayJwk) {
+    TenpayKey(@JsonProperty("merchantId") String merchantId,
+              @JsonProperty("serialNumber") String serialNumber,
+              @JsonProperty("tenPayJwk") String jsonJwk) {
+        this.merchantId = merchantId;
+        this.serialNumber = serialNumber;
+        this.tenPayJwk = JWK.parse(jsonJwk);
+    }
+
+    /**
+     * Instantiates a new Tenpay key.
+     *
+     * @param merchantId   the merchant id
+     * @param serialNumber the serial number
+     * @param tenPayJwk    the ten pay jwk
+     */
+    public TenpayKey(String merchantId, String serialNumber, JWK tenPayJwk) {
         this.merchantId = merchantId;
         this.serialNumber = serialNumber;
         this.tenPayJwk = tenPayJwk;
     }
 
     /**
-     * To public key
+     * Gets merchant id.
+     *
+     * @return the merchant id
+     */
+    public String getMerchantId() {
+        return merchantId;
+    }
+
+    /**
+     * Gets serial number.
+     *
+     * @return the serial number
+     */
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    /**
+     * Gets ten pay jwk.
+     *
+     * @return the ten pay jwk
+     */
+    public String getTenPayJwk() {
+        return tenPayJwk.toJSONString();
+    }
+
+    /**
+     * 获取公钥
      *
      * @return the public key
      */
@@ -69,6 +111,16 @@ public class TenpayKey {
         } catch (JOSEException e) {
             throw new PayException("Fail to load key", e);
         }
+    }
+
+    /**
+     * 证书是否过期
+     *
+     * @return the boolean
+     */
+    public boolean expired() {
+        return tenPayJwk.getExpirationTime()
+                .before(Date.from(Instant.now()));
     }
 
     @Override

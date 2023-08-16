@@ -34,35 +34,40 @@ import java.util.concurrent.TimeUnit;
 public final class WechatPayRetrofitFactory {
     private static final String DEFAULT_BASE_URL = "https://api.mch.weixin.qq.com/";
     private final String baseUrl;
+    private final TenpayKeyCache tenpayKeyCache;
     private final ConnectionPool connectionPool;
     private final HttpLoggingInterceptor.Level level;
 
     /**
      * Instantiates a new Wechat pay retrofit factory.
      *
+     * @param tenpayKeyCache the tenpay key cache
      */
-    public WechatPayRetrofitFactory() {
-        this(DEFAULT_BASE_URL);
-    }
-
-    /**
-     * Instantiates a new Wechat pay retrofit factory.
-     *
-     * @param baseUrl the base url
-     */
-    public WechatPayRetrofitFactory(String baseUrl) {
-        this(baseUrl, new ConnectionPool(), HttpLoggingInterceptor.Level.NONE);
+    public WechatPayRetrofitFactory(TenpayKeyCache tenpayKeyCache) {
+        this(DEFAULT_BASE_URL, tenpayKeyCache);
     }
 
     /**
      * Instantiates a new Wechat pay retrofit factory.
      *
      * @param baseUrl        the base url
+     * @param tenpayKeyCache the tenpay key cache
+     */
+    public WechatPayRetrofitFactory(String baseUrl, TenpayKeyCache tenpayKeyCache) {
+        this(baseUrl, tenpayKeyCache, new ConnectionPool(), HttpLoggingInterceptor.Level.NONE);
+    }
+
+    /**
+     * Instantiates a new Wechat pay retrofit factory.
+     *
+     * @param baseUrl        the base url
+     * @param tenpayKeyCache the tenpay key cache
      * @param connectionPool the connection pool
      * @param level          the level
      */
-    public WechatPayRetrofitFactory(String baseUrl, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    public WechatPayRetrofitFactory(String baseUrl, TenpayKeyCache tenpayKeyCache, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         this.baseUrl = baseUrl;
+        this.tenpayKeyCache = tenpayKeyCache;
         this.connectionPool = connectionPool;
         this.level = level;
     }
@@ -76,19 +81,21 @@ public final class WechatPayRetrofitFactory {
     public Retrofit app(AppMerchant appMerchant) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(okHttpClient(appMerchant, connectionPool, level))
+                .client(okHttpClient(baseUrl, appMerchant, tenpayKeyCache, connectionPool, level))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addCallAdapterFactory(new ResponseBodyCallAdapterFactory())
                 .addConverterFactory(JsonConverterFactory.create())
                 .build();
     }
 
-    private static OkHttpClient okHttpClient(AppMerchant appMerchant,
+    private static OkHttpClient okHttpClient(String baseUrl, AppMerchant appMerchant,
+                                             TenpayKeyCache tenpayKeyCache,
                                              ConnectionPool connectionPool,
                                              HttpLoggingInterceptor.Level level) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.level(level);
-        WechatAuthorizationInterceptor authorizationInterceptor = new WechatAuthorizationInterceptor(appMerchant, new TenpayCertificateApi(appMerchant));
+        TenpayCertificateService tenpayCertificateService = new TenpayCertificateService(baseUrl, appMerchant, tenpayKeyCache);
+        WechatAuthorizationInterceptor authorizationInterceptor = new WechatAuthorizationInterceptor(appMerchant, tenpayCertificateService);
         return new OkHttpClient.Builder()
                 .connectionPool(connectionPool)
                 .addInterceptor(authorizationInterceptor)
