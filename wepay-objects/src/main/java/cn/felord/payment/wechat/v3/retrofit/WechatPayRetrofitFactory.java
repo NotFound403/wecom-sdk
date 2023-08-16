@@ -16,8 +16,7 @@
 package cn.felord.payment.wechat.v3.retrofit;
 
 import cn.felord.json.JsonConverterFactory;
-import cn.felord.payment.wechat.v3.crypto.AppMerchantService;
-import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
+import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -35,60 +34,61 @@ import java.util.concurrent.TimeUnit;
 public final class WechatPayRetrofitFactory {
     private static final String DEFAULT_BASE_URL = "https://api.mch.weixin.qq.com/";
     private final String baseUrl;
-    private final WechatPaySigner wechatPaySigner;
-    private final TenpayCertificateApi tenpayCertificateApi;
-    private final AppMerchantService appMerchantService;
     private final ConnectionPool connectionPool;
     private final HttpLoggingInterceptor.Level level;
 
-
     /**
      * Instantiates a new Wechat pay retrofit factory.
      *
-     * @param wechatPaySigner the wechat pay signer
-     * @param appMerchantService the merchant service
      */
-    public WechatPayRetrofitFactory(WechatPaySigner wechatPaySigner, AppMerchantService appMerchantService) {
-        this(DEFAULT_BASE_URL, wechatPaySigner, appMerchantService);
+    public WechatPayRetrofitFactory() {
+        this(DEFAULT_BASE_URL);
     }
 
     /**
      * Instantiates a new Wechat pay retrofit factory.
      *
-     * @param baseUrl         the base url
-     * @param wechatPaySigner the wechat pay signer
-     * @param appMerchantService the merchant service
+     * @param baseUrl the base url
      */
-    public WechatPayRetrofitFactory(String baseUrl, WechatPaySigner wechatPaySigner, AppMerchantService appMerchantService) {
-        this(baseUrl, wechatPaySigner, appMerchantService, new ConnectionPool(), HttpLoggingInterceptor.Level.NONE);
+    public WechatPayRetrofitFactory(String baseUrl) {
+        this(baseUrl, new ConnectionPool(), HttpLoggingInterceptor.Level.NONE);
     }
 
     /**
      * Instantiates a new Wechat pay retrofit factory.
      *
-     * @param baseUrl         the base url
-     * @param wechatPaySigner the wechat pay signer
-     * @param appMerchantService the merchant service
-     * @param connectionPool  the connection pool
-     * @param level           the level
+     * @param baseUrl        the base url
+     * @param connectionPool the connection pool
+     * @param level          the level
      */
-    public WechatPayRetrofitFactory(String baseUrl, WechatPaySigner wechatPaySigner, AppMerchantService appMerchantService, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    public WechatPayRetrofitFactory(String baseUrl, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         this.baseUrl = baseUrl;
-        this.wechatPaySigner = wechatPaySigner;
-        this.tenpayCertificateApi = new TenpayCertificateApi(this);
-        this.appMerchantService = appMerchantService;
         this.connectionPool = connectionPool;
         this.level = level;
     }
 
-    private static OkHttpClient okHttpClient(String merchantId,
-                                             WechatPaySigner wechatPaySigner,
-                                             TenpayCertificateApi tenpayCertificateApi,
+    /**
+     * 带拦截器的Retrofit客户端
+     *
+     * @param appMerchant the app merchant
+     * @return the retrofit
+     */
+    public Retrofit app(AppMerchant appMerchant) {
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(okHttpClient(appMerchant, connectionPool, level))
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .addCallAdapterFactory(new ResponseBodyCallAdapterFactory())
+                .addConverterFactory(JsonConverterFactory.create())
+                .build();
+    }
+
+    private static OkHttpClient okHttpClient(AppMerchant appMerchant,
                                              ConnectionPool connectionPool,
                                              HttpLoggingInterceptor.Level level) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.level(level);
-        WechatAuthorizationInterceptor authorizationInterceptor = new WechatAuthorizationInterceptor(merchantId, wechatPaySigner, tenpayCertificateApi);
+        WechatAuthorizationInterceptor authorizationInterceptor = new WechatAuthorizationInterceptor(appMerchant, new TenpayCertificateApi(appMerchant));
         return new OkHttpClient.Builder()
                 .connectionPool(connectionPool)
                 .addInterceptor(authorizationInterceptor)
@@ -98,48 +98,5 @@ public final class WechatPayRetrofitFactory {
                 .readTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .build();
-    }
-
-    /**
-     * Wechat pay signer wechat pay signer.
-     *
-     * @return the wechat pay signer
-     */
-    public WechatPaySigner wechatPaySigner() {
-        return wechatPaySigner;
-    }
-
-    /**
-     * 带TokenApi拦截器的Retrofit客户端
-     *
-     * @param merchantId the merchant id
-     * @return the retrofit
-     */
-    public Retrofit merchant(String merchantId) {
-        return new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .client(okHttpClient(merchantId, wechatPaySigner, tenpayCertificateApi, connectionPool, level))
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .addCallAdapterFactory(new ResponseBodyCallAdapterFactory())
-                .addConverterFactory(JsonConverterFactory.create())
-                .build();
-    }
-
-    /**
-     * Tenpay certificate api tenpay certificate api.
-     *
-     * @return the tenpay certificate api
-     */
-    public TenpayCertificateApi tenpayCertificateApi() {
-        return tenpayCertificateApi;
-    }
-
-    /**
-     * Merchant service merchant service.
-     *
-     * @return the merchant service
-     */
-    public AppMerchantService merchantService() {
-        return appMerchantService;
     }
 }

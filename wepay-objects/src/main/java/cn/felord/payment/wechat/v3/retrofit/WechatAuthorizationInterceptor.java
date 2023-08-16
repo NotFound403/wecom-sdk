@@ -16,18 +16,14 @@
 package cn.felord.payment.wechat.v3.retrofit;
 
 import cn.felord.payment.PayException;
+import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.crypto.TenpayKey;
 import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
-import cn.felord.utils.OkHttpUtil;
-import cn.felord.utils.StringUtils;
-import okhttp3.*;
-import org.jetbrains.annotations.NotNull;
+import okhttp3.Headers;
+import okhttp3.Response;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Optional;
-
-import static cn.felord.payment.wechat.v3.retrofit.WepaySdkVersion.USER_AGENT;
 
 /**
  * The type Token interceptor.
@@ -35,75 +31,37 @@ import static cn.felord.payment.wechat.v3.retrofit.WepaySdkVersion.USER_AGENT;
  * @author felord.cn
  * @since 2.0.0
  */
-class WechatAuthorizationInterceptor implements Interceptor {
-    private static final String APPLICATION_JSON_UTF_8 = "application/json; charset=UTF-8";
-    private static final String CERTIFICATES_PATH = "v3/certificates";
-    private final String merchantId;
-    private final WechatPaySigner wechatPaySigner;
+class WechatAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
     private final TenpayCertificateApi tenpayCertificateApi;
 
 
     /**
      * Instantiates a new Wechat authorization interceptor.
      *
-     * @param merchantId           the merchant id
-     * @param wechatPaySigner      the wechat pay signer
+     * @param appMerchant          the app merchant
      * @param tenpayCertificateApi the tenpay certificate api
      */
-    WechatAuthorizationInterceptor(String merchantId, WechatPaySigner wechatPaySigner, TenpayCertificateApi tenpayCertificateApi) {
+    public WechatAuthorizationInterceptor(AppMerchant appMerchant, TenpayCertificateApi tenpayCertificateApi) {
+        super(appMerchant);
         this.tenpayCertificateApi = tenpayCertificateApi;
-        if (StringUtils.hasNoText(merchantId)) {
-            throw new PayException("merchantId is required");
-        }
-        this.merchantId = merchantId;
-        this.wechatPaySigner = wechatPaySigner;
     }
 
-    @NotNull
     @Override
-    public final Response intercept(@NotNull Chain chain) throws IOException {
-        Request request = chain.request();
-        Headers headers = request.headers();
-        String mediaBody = headers.get(HttpHeaders.META.headerName());
-        String bodyStr = Objects.nonNull(mediaBody) ? mediaBody :
-                Optional.ofNullable(request.body())
-                        .map(OkHttpUtil::requestBodyToString)
-                        .orElse("");
-        HttpUrl httpUrl = request.url();
-        String authorization = wechatPaySigner.sign(merchantId, httpUrl.uri(), request.method(), bodyStr);
-
-        Headers.Builder headerBuilder = headers.newBuilder();
-        String contentType = HttpHeaders.CONTENT_TYPE.headerName();
-        if (Objects.isNull(headers.get(contentType))) {
-            headerBuilder.set(contentType, APPLICATION_JSON_UTF_8);
+    protected void consume(Response response) throws PayException {
+        Headers responseHeaders = response.headers();
+        String serialNumber = responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
+        TenpayKey tenpayKey = tenpayCertificateApi.getTenpayKey(serialNumber);
+        String body = Optional.ofNullable(response.body())
+                .map(b -> {
+                    try {
+                        return b.string();
+                    } catch (IOException e) {
+                        throw new PayException("Body string error", e);
+                    }
+                }).orElse("");
+        if (!WechatPaySigner.verify(responseHeaders, body, tenpayKey)) {
+            String requestId = responseHeaders.get(HttpHeaders.REQUEST_ID.headerName());
+            throw new PayException("wechat pay signature verify failed, Request-ID: " + requestId);
         }
-        Request requestWithAuth = request.newBuilder()
-                .url(httpUrl)
-                .header(HttpHeaders.AUTHORIZATION.headerName(), authorization)
-                .header(HttpHeaders.USER_AGENT.headerName(), USER_AGENT)
-                .header(HttpHeaders.ACCEPT.headerName(), "*/*")
-                .build();
-        Response response = chain.proceed(requestWithAuth);
-        String path = String.join("/", httpUrl.pathSegments());
-        if (response.isSuccessful() && !Objects.equals(CERTIFICATES_PATH, path)) {
-            Headers responseHeaders = response.headers();
-            String serialNumber = responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
-            TenpayKey tenpayKey = tenpayCertificateApi.getTenpayKey(serialNumber, merchantId);
-            String body = Optional.ofNullable(response.body())
-                    .map(b -> {
-                        try {
-                            return b.string();
-                        } catch (IOException e) {
-                            throw new PayException("Body string error", e);
-                        }
-                    }).orElse("");
-            if (!wechatPaySigner.verify(responseHeaders, body, tenpayKey)) {
-                String requestId = responseHeaders.get(HttpHeaders.REQUEST_ID.headerName());
-                throw new PayException("wechat pay signature verify failed, Request-ID: " + requestId);
-            }
-        }
-
-        return response;
     }
-
 }

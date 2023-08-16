@@ -15,7 +15,6 @@
 package cn.felord.payment.wechat.v3.domain.basepay.direct;
 
 
-import cn.felord.payment.wechat.v3.domain.basepay.AppPayParams;
 import cn.felord.payment.wechat.v3.domain.basepay.PayParams;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -37,11 +36,12 @@ public class PayRequest extends PayParams {
      * Instantiates a new Pay request.
      *
      * @param mchid     the mchid
+     * @param appid     the appid
      * @param payParams the pay params
      */
-    public PayRequest(String mchid, AppPayParams payParams) {
+    public PayRequest(String mchid, String appid, PayParams payParams) {
         super(payParams.getDescription(), payParams.getOutTradeNo(), payParams.getNotifyUrl(), payParams.getAmount(), payParams.getPayer());
-        this.appid = payParams.getAppid();
+        this.appid = appid;
         this.mchid = mchid;
     }
 }

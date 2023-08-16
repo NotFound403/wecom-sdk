@@ -15,8 +15,7 @@
 
 package cn.felord.payment.wechat.v3.direct;
 
-import cn.felord.payment.wechat.v3.crypto.AppMerchantService;
-import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
+import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.retrofit.WechatPayRetrofitFactory;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -38,11 +37,11 @@ public final class WechatPayApi {
     /**
      * Direct base pay api direct base pay api.
      *
-     * @param merchantId the merchant id
+     * @param appMerchant the app merchant
      * @return the direct base pay api
      */
-    public DirectBasePayApi directBasePayApi(String merchantId) {
-        return new DirectBasePayApi(factory, merchantId);
+    public DirectBasePayApi directBasePayApi(AppMerchant appMerchant) {
+        return new DirectBasePayApi(factory, appMerchant);
     }
 
 
@@ -51,23 +50,9 @@ public final class WechatPayApi {
      */
     public static class Builder {
         private static final String DEFAULT_BASE_URL = "https://api.mch.weixin.qq.com/";
-        private final WechatPaySigner wechatPaySigner;
-        private final AppMerchantService appMerchantService;
         private String baseUrl = DEFAULT_BASE_URL;
         private ConnectionPool connectionPool = new ConnectionPool();
         private HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.NONE;
-
-
-        /**
-         * Instantiates a new Builder.
-         *
-         * @param wechatPaySigner the wechat pay signer
-         * @param appMerchantService the merchant service
-         */
-        public Builder(WechatPaySigner wechatPaySigner, AppMerchantService appMerchantService) {
-            this.wechatPaySigner = wechatPaySigner;
-            this.appMerchantService = appMerchantService;
-        }
 
         /**
          * Base url builder.
@@ -108,7 +93,7 @@ public final class WechatPayApi {
          * @return the wechat pay api
          */
         public WechatPayApi build() {
-            WechatPayRetrofitFactory retrofitFactory = new WechatPayRetrofitFactory(baseUrl, wechatPaySigner, appMerchantService, connectionPool, logLevel);
+            WechatPayRetrofitFactory retrofitFactory = new WechatPayRetrofitFactory(baseUrl, connectionPool, logLevel);
             return new WechatPayApi(retrofitFactory);
         }
     }

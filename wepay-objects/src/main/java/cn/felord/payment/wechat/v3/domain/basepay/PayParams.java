@@ -27,7 +27,7 @@ import java.time.OffsetDateTime;
  * @since 1.0.8.RELEASE
  */
 @Data
-public abstract class PayParams {
+public class PayParams {
 
     /**
      * 商品描述

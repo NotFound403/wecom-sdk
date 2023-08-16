@@ -17,8 +17,9 @@ package cn.felord.payment.wechat.v3.direct;
 
 import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.enumeration.PayType;
+import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
-import cn.felord.payment.wechat.v3.domain.basepay.AppPayParams;
+import cn.felord.payment.wechat.v3.domain.basepay.PayParams;
 import cn.felord.payment.wechat.v3.domain.basepay.PrepayResponse;
 import cn.felord.payment.wechat.v3.domain.basepay.direct.AppPayResponse;
 import cn.felord.payment.wechat.v3.domain.basepay.direct.JsPayResponse;
@@ -37,19 +38,17 @@ import java.time.Instant;
 public class DirectBasePayApi {
     private final AlternativeJdkIdGenerator idGenerator = new AlternativeJdkIdGenerator();
     private final WechatDirectPayApi wechatDirectPayApi;
-    private final WechatPaySigner wechatPaySigner;
-    private final String mchid;
+    private final AppMerchant appMerchant;
 
     /**
      * Instantiates a new Base pay api.
      *
-     * @param factory the factory
-     * @param mchid   the mchid
+     * @param factory     the factory
+     * @param appMerchant the app merchant
      */
-    public DirectBasePayApi(WechatPayRetrofitFactory factory, String mchid) {
-        this.wechatDirectPayApi = factory.merchant(mchid).create(WechatDirectPayApi.class);
-        this.wechatPaySigner = factory.wechatPaySigner();
-        this.mchid = mchid;
+    public DirectBasePayApi(WechatPayRetrofitFactory factory, AppMerchant appMerchant) {
+        this.wechatDirectPayApi = factory.app(appMerchant).create(WechatDirectPayApi.class);
+        this.appMerchant = appMerchant;
     }
 
     /**
@@ -59,13 +58,14 @@ public class DirectBasePayApi {
      * @return the js pay response
      * @throws PayException the pay exception
      */
-    public JsPayResponse jsapi(AppPayParams payParams) throws PayException {
-        PrepayResponse prepayResponse = wechatDirectPayApi.prePay(PayType.JSAPI.type(), new PayRequest(mchid, payParams));
+    public JsPayResponse jsapi(PayParams payParams) throws PayException {
+        String mchid = appMerchant.merchantId();
+        String appid = appMerchant.getAppid();
+        PrepayResponse prepayResponse = wechatDirectPayApi.prePay(PayType.JSAPI.type(), new PayRequest(mchid, appid, payParams));
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
         String nonceStr = idGenerator.generate32();
         String packageStr = "prepay_id=" + prepayResponse.getPrepayId();
-        String appid = payParams.getAppid();
-        String paySign = wechatPaySigner.sign(mchid, appid, timestamp, nonceStr, packageStr);
+        String paySign = WechatPaySigner.sign(appMerchant, appid, timestamp, nonceStr, packageStr);
         return new JsPayResponse(appid, timestamp, nonceStr, packageStr, "RSA", paySign);
     }
 
@@ -76,13 +76,14 @@ public class DirectBasePayApi {
      * @return the app pay response
      * @throws PayException the pay exception
      */
-    public AppPayResponse app(AppPayParams payParams) throws PayException {
-        PrepayResponse prepayResponse = wechatDirectPayApi.prePay(PayType.APP.type(), new PayRequest(mchid, payParams));
+    public AppPayResponse app(PayParams payParams) throws PayException {
+        String mchid = appMerchant.merchantId();
+        String appid = appMerchant.getAppid();
+        PrepayResponse prepayResponse = wechatDirectPayApi.prePay(PayType.APP.type(), new PayRequest(mchid, appid, payParams));
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
         String nonceStr = idGenerator.generate32();
         String preId = prepayResponse.getPrepayId();
-        String appid = payParams.getAppid();
-        String paySign = wechatPaySigner.sign(mchid, appid, timestamp, nonceStr, preId);
+        String paySign = WechatPaySigner.sign(appMerchant, appid, timestamp, nonceStr, preId);
         return new AppPayResponse(appid, mchid, preId, "Sign=WXPay", nonceStr, timestamp, "RSA", paySign);
     }
 
@@ -93,8 +94,10 @@ public class DirectBasePayApi {
      * @return the prepay response
      * @throws PayException the pay exception
      */
-    public PrepayResponse nativePay(AppPayParams payParams) throws PayException {
-        return wechatDirectPayApi.prePay(PayType.NATIVE.type(), new PayRequest(mchid, payParams));
+    public PrepayResponse nativePay(PayParams payParams) throws PayException {
+        String mchid = appMerchant.merchantId();
+        String appid = appMerchant.getAppid();
+        return wechatDirectPayApi.prePay(PayType.NATIVE.type(), new PayRequest(mchid, appid, payParams));
     }
 
     /**
@@ -104,7 +107,9 @@ public class DirectBasePayApi {
      * @return the prepay response
      * @throws PayException the pay exception
      */
-    public PrepayResponse h5(AppPayParams payParams) throws PayException {
-        return wechatDirectPayApi.prePay(PayType.H5.type(), new PayRequest(mchid, payParams));
+    public PrepayResponse h5(PayParams payParams) throws PayException {
+        String mchid = appMerchant.merchantId();
+        String appid = appMerchant.getAppid();
+        return wechatDirectPayApi.prePay(PayType.H5.type(), new PayRequest(mchid, appid, payParams));
     }
 }

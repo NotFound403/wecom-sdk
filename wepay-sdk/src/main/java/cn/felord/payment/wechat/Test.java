@@ -15,9 +15,6 @@
 
 package cn.felord.payment.wechat;
 
-import cn.felord.payment.wechat.v3.crypto.DefaultWechatPaySigner;
-import cn.felord.payment.wechat.v3.crypto.InMemoryAppMerchantService;
-import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
 import cn.felord.payment.wechat.v3.direct.WechatPayApi;
 import com.nimbusds.jose.JOSEException;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -29,9 +26,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class Test {
     public static void main(String[] args) throws JOSEException {
 
-        InMemoryAppMerchantService merchantConfigService = new InMemoryAppMerchantService();
-        WechatPaySigner wechatPaySigner = new DefaultWechatPaySigner(merchantConfigService);
-        WechatPayApi wechatPayApi = new WechatPayApi.Builder(wechatPaySigner, merchantConfigService)
+        WechatPayApi wechatPayApi = new WechatPayApi.Builder()
                 .logLevel(HttpLoggingInterceptor.Level.BODY)
                 .build();
 

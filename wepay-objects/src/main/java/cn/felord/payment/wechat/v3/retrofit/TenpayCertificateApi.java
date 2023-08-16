@@ -15,11 +15,17 @@
 
 package cn.felord.payment.wechat.v3.retrofit;
 
+import cn.felord.json.JsonConverterFactory;
 import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.crypto.TenpayKey;
+import okhttp3.*;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -30,47 +36,42 @@ import java.util.stream.Collectors;
  */
 public final class TenpayCertificateApi {
 
-    private final WechatPayRetrofitFactory factory;
+    private final AppMerchant appMerchant;
+    private final InternalCertificateApi certificateApi;
     private static final Set<TenpayKey> TENPAY_KEYS = Collections.synchronizedSet(new HashSet<>());
 
     /**
      * Instantiates a new Tenpay certificate api.
-     *
-     * @param factory the factory
      */
-    TenpayCertificateApi(WechatPayRetrofitFactory factory) {
-        this.factory = factory;
+    TenpayCertificateApi(AppMerchant appMerchant) {
+        this.certificateApi = new TenpayCertificateRetrofitFactory().app(appMerchant)
+                .create(InternalCertificateApi.class);
+        this.appMerchant = appMerchant;
     }
 
     /**
      * 根据商户号和v3密钥获取平台证书列表
      *
-     * @param merchantId the merchant id
      * @throws PayException the pay exception
      */
-    public void certificates(String merchantId) throws PayException {
-        AppMerchant appMerchant = factory.merchantService().loadMerchant(merchantId);
-        Set<TenpayKey> tenpayKeys = factory.merchant(appMerchant.merchantId())
-                .create(InternalCertificateApi.class)
-                .certificates()
+    public void certificates() throws PayException {
+        Set<TenpayKey> tenpayKeys = certificateApi.certificates()
                 .getData()
                 .stream()
                 .map(tenpayCertificate ->
-                        new TenpayKey(merchantId, tenpayCertificate.getSerialNo(),
+                        new TenpayKey(appMerchant.merchantId(), tenpayCertificate.getSerialNo(),
                                 tenpayCertificate.getEncryptCertificate().toJwk(appMerchant.getApiV3Secret())))
                 .collect(Collectors.toSet());
         TENPAY_KEYS.addAll(tenpayKeys);
-        System.out.println("tenpayKeys = " + TENPAY_KEYS);
     }
 
     /**
      * Gets tenpay key.
      *
      * @param serialNumber the serial number
-     * @param merchantId   the merchant id
      * @return the tenpay key
      */
-    public TenpayKey getTenpayKey(String serialNumber, String merchantId) {
+    public TenpayKey getTenpayKey(String serialNumber) {
         return TENPAY_KEYS.stream()
                 .filter(tenpayKey ->
                         Objects.equals(tenpayKey.getSerialNumber(), serialNumber))
@@ -85,7 +86,7 @@ public final class TenpayCertificateApi {
                 })
                 .findAny()
                 .orElseGet(() -> {
-                    certificates(merchantId);
+                    certificates();
                     return TENPAY_KEYS.stream()
                             .filter(tenpayKey ->
                                     Objects.equals(tenpayKey.getSerialNumber(), serialNumber))
@@ -94,4 +95,91 @@ public final class TenpayCertificateApi {
                 });
     }
 
+
+    /**
+     * The type Tenpay certificate retrofit factory.
+     */
+    static class TenpayCertificateRetrofitFactory {
+        private static final String DEFAULT_BASE_URL = "https://api.mch.weixin.qq.com/";
+        private final String baseUrl;
+        private final ConnectionPool connectionPool;
+        private final HttpLoggingInterceptor.Level level;
+
+        /**
+         * Instantiates a new Wechat pay retrofit factory.
+         */
+        public TenpayCertificateRetrofitFactory() {
+            this(DEFAULT_BASE_URL);
+        }
+
+        /**
+         * Instantiates a new Wechat pay retrofit factory.
+         *
+         * @param baseUrl the base url
+         */
+        public TenpayCertificateRetrofitFactory(String baseUrl) {
+            this(baseUrl, new ConnectionPool(), HttpLoggingInterceptor.Level.NONE);
+        }
+
+        /**
+         * Instantiates a new Wechat pay retrofit factory.
+         *
+         * @param baseUrl        the base url
+         * @param connectionPool the connection pool
+         * @param level          the level
+         */
+        public TenpayCertificateRetrofitFactory(String baseUrl, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+            this.baseUrl = baseUrl;
+            this.connectionPool = connectionPool;
+            this.level = level;
+        }
+
+        /**
+         * 带拦截器的Retrofit客户端
+         *
+         * @param appMerchant the app merchant
+         * @return the retrofit
+         */
+        public Retrofit app(AppMerchant appMerchant) {
+            return new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .client(okHttpClient(appMerchant, connectionPool, level))
+                    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                    .addCallAdapterFactory(new ResponseBodyCallAdapterFactory())
+                    .addConverterFactory(JsonConverterFactory.create())
+                    .build();
+        }
+
+        private static OkHttpClient okHttpClient(AppMerchant appMerchant,
+                                                 ConnectionPool connectionPool,
+                                                 HttpLoggingInterceptor.Level level) {
+            HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+            httpLoggingInterceptor.level(level);
+            TenpayCertificateAuthorizationInterceptor authorizationInterceptor = new TenpayCertificateAuthorizationInterceptor(appMerchant);
+            return new OkHttpClient.Builder()
+                    .connectionPool(connectionPool)
+                    .addInterceptor(authorizationInterceptor)
+                    .addInterceptor(httpLoggingInterceptor)
+                    .retryOnConnectionFailure(true)
+                    .connectTimeout(20, TimeUnit.SECONDS)
+                    .readTimeout(20, TimeUnit.SECONDS)
+                    .writeTimeout(20, TimeUnit.SECONDS)
+                    .build();
+        }
+    }
+
+    /**
+     * The type Wechat authorization interceptor.
+     */
+    static class TenpayCertificateAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
+        public TenpayCertificateAuthorizationInterceptor(AppMerchant appMerchant) {
+            super(appMerchant);
+        }
+
+        @Override
+        protected void consume(Response response) throws PayException {
+            // do nothing
+        }
+
+    }
 }
