@@ -12,30 +12,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.model;
+package cn.felord.payment.wechat.v3.domain.direct.basepay;
 
 import lombok.Data;
 
 /**
+ * 场景信息
+ *
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
 @Data
-public class StoreInfo {
+public class SimpleSceneInfo {
     /**
-     * 门店编号
+     * 商户端设备号
      */
-    private final String id;
-    /**
-     * 门店名称
-     */
-    private String name;
-    /**
-     * 地区编码
-     */
-    private String areaCode;
-    /**
-     * 详细地址
-     */
-    private String address;
+    private String deviceId;
 }

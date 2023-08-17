@@ -12,30 +12,25 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.model;
 
+package cn.felord.payment.wechat.v3.domain.direct.basepay;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
- * @author felord.cn
- * @since 1.0.0.RELEASE
+ * @author dax
+ * @since 2023/8/11
  */
 @Data
-public class StoreInfo {
-    /**
-     * 门店编号
-     */
-    private final String id;
-    /**
-     * 门店名称
-     */
-    private String name;
-    /**
-     * 地区编码
-     */
-    private String areaCode;
-    /**
-     * 详细地址
-     */
-    private String address;
+public class AppPayResponse {
+    private final String appid;
+    private final String partnerid;
+    private final String prepayid;
+    @JsonProperty("package")
+    private final String packAge;
+    private final String nonceStr;
+    private final String timeStamp;
+    private final String signType;
+    private final String paySign;
 }

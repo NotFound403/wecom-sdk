@@ -12,30 +12,26 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.model;
 
-import lombok.Data;
+package cn.felord.payment.wechat.v3;
+
+import java.util.Optional;
 
 /**
- * @author felord.cn
- * @since 1.0.0.RELEASE
+ * @author dax
+ * @since 2023/8/4
  */
-@Data
-public class StoreInfo {
-    /**
-     * 门店编号
-     */
-    private final String id;
-    /**
-     * 门店名称
-     */
-    private String name;
-    /**
-     * 地区编码
-     */
-    private String areaCode;
-    /**
-     * 详细地址
-     */
-    private String address;
+public final class WepaySdkVersion {
+    public static final String WEPAY_VERSION = "1.2";
+    public static final String WEPAY_SDK = "Wepay-sdk/";
+    public static final String USER_AGENT = WEPAY_SDK +
+            Optional.ofNullable(WepaySdkVersion.class.getPackage().getImplementationVersion()).orElse(WEPAY_VERSION) +
+            "/Java/" + System.getProperty("java.version") +
+            "/" + System.getProperty("os.name") +
+            "/" + System.getProperty("os.version");
+
+    WepaySdkVersion() {
+    }
+
+
 }

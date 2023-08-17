@@ -15,7 +15,7 @@
 
 package cn.felord.payment.wechat.v3.domain.model.payscore.parking;
 
-import cn.felord.payment.wechat.v3.domain.basepay.Payer;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.Payer;
 import lombok.Data;
 
 import java.time.OffsetDateTime;

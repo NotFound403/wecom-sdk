@@ -14,7 +14,7 @@ import lombok.ToString;
 public class GoodsDetailItem {
     private final String merchantGoodsId;
     private final Integer quantity;
-    private final Integer unitPrice;
+    private final Long unitPrice;
     private final String goodsName;
     private final String wechatpayGoodsId;
 
@@ -25,7 +25,7 @@ public class GoodsDetailItem {
      * @param quantity        the quantity
      * @param unitPrice       the unit price
      */
-    public GoodsDetailItem(String merchantGoodsId, int quantity, int unitPrice) {
+    public GoodsDetailItem(String merchantGoodsId, int quantity, long unitPrice) {
         this(merchantGoodsId, quantity, unitPrice, null);
     }
 
@@ -37,7 +37,7 @@ public class GoodsDetailItem {
      * @param unitPrice       the unit price
      * @param goodsName       the goods name
      */
-    public GoodsDetailItem(String merchantGoodsId, int quantity, int unitPrice, String goodsName) {
+    public GoodsDetailItem(String merchantGoodsId, int quantity, long unitPrice, String goodsName) {
         this(merchantGoodsId, quantity, unitPrice, goodsName, null);
     }
 
@@ -53,7 +53,7 @@ public class GoodsDetailItem {
     @JsonCreator
     public GoodsDetailItem(@JsonProperty("merchant_goods_id") String merchantGoodsId,
                            @JsonProperty("quantity") int quantity,
-                           @JsonProperty("unit_price") int unitPrice,
+                           @JsonProperty("unit_price") long unitPrice,
                            @JsonProperty("goods_name") String goodsName,
                            @JsonProperty("wechatpay_goods_id") String wechatpayGoodsId) {
         this.merchantGoodsId = merchantGoodsId;

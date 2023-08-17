@@ -59,7 +59,10 @@ class WechatAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
         Headers responseHeaders = response.headers();
         if (!response.isSuccessful()) {
             String requestId = responseHeaders.get(HttpHeaders.REQUEST_ID.headerName());
-            String errorMessage = " Code: " + response.code() + "\n Request-ID: " + requestId + "\n Message: " + response.message() + "\n Body: " + body;
+            String errorMessage = " Code: " + response.code() +
+                    "\n Request-ID: " + requestId +
+                    "\n Message: " + response.message() +
+                    "\n Body: " + body;
             throw new PayException(errorMessage);
         }
         String serialNumber = responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());

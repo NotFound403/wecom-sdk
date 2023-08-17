@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
-import static cn.felord.payment.wechat.v3.retrofit.WepaySdkVersion.USER_AGENT;
+import static cn.felord.payment.wechat.v3.WepaySdkVersion.USER_AGENT;
 
 /**
  * The type Abstract authorization interceptor.

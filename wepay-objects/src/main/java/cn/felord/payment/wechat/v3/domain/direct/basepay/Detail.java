@@ -12,30 +12,30 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.model;
+package cn.felord.payment.wechat.v3.domain.direct.basepay;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
+ * 支付优惠功能.
+ *
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
 @Data
-public class StoreInfo {
+public class Detail {
     /**
-     * 门店编号
+     * 订单原价
      */
-    private final String id;
+    private int costPrice;
     /**
-     * 门店名称
+     * 商品小票ID
      */
-    private String name;
+    private String invoiceId;
     /**
-     * 地区编码
+     * 单品列表
      */
-    private String areaCode;
-    /**
-     * 详细地址
-     */
-    private String address;
+    private List<Goods> goodsDetail;
 }

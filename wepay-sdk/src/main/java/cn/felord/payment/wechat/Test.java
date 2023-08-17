@@ -15,14 +15,17 @@
 
 package cn.felord.payment.wechat;
 
+import cn.felord.payment.wechat.v3.api.direct.DirectBasePayApi;
 import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.crypto.InMemoryAppMerchantService;
-import cn.felord.payment.wechat.v3.direct.WechatPayApi;
-import cn.felord.payment.wechat.v3.domain.basepay.Amount;
-import cn.felord.payment.wechat.v3.domain.basepay.direct.AppNativePayRequest;
-import cn.felord.payment.wechat.v3.domain.basepay.direct.AppPayResponse;
+import cn.felord.payment.wechat.v3.api.direct.WechatPayApi;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.Amount;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.AppNativePayRequest;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.AppPayResponse;
 import com.nimbusds.jose.JOSEException;
 import okhttp3.logging.HttpLoggingInterceptor;
+
+import java.time.OffsetDateTime;
 
 /**
  * @author dax
@@ -34,12 +37,20 @@ public class Test {
 
         InMemoryAppMerchantService merchantService = new InMemoryAppMerchantService();
         AppMerchant appMerchant = merchantService.loadMerchant("");
-        AppPayResponse appPayResponse = new WechatPayApi.Builder()
+
+        WechatPayApi wechatPayApi = new WechatPayApi.Builder()
                 .logLevel(HttpLoggingInterceptor.Level.BODY)
-                .build()
-                .directBasePayApi(appMerchant)
-                .app(new AppNativePayRequest("https://felord.cn/wx/callback",
-                        "felord.cn精品", "X1231231244343", new Amount(100)));
+                .build();
+
+
+        DirectBasePayApi directBasePayApi = wechatPayApi
+                .directBasePayApi(appMerchant);
+
+        AppNativePayRequest payRequest = new AppNativePayRequest("https://felord.cn/wx/callback",
+                "felord.cn精品", "X12312312442343", new Amount(100))
+                .timeExpire(OffsetDateTime.now().plusMinutes(10));
+        AppPayResponse appPayResponse = directBasePayApi
+                .app(payRequest);
 
         System.out.println("appPayResponse = " + appPayResponse);
     }

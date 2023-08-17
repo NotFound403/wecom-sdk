@@ -12,7 +12,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.model;
+package cn.felord.payment.wechat.v3.domain.direct.basepay;
 
 import lombok.Data;
 
@@ -21,21 +21,25 @@ import lombok.Data;
  * @since 1.0.0.RELEASE
  */
 @Data
-public class StoreInfo {
+public class Goods {
     /**
-     * 门店编号
+     * 商户侧商品编码
      */
-    private final String id;
+    private final String merchantGoodsId;
     /**
-     * 门店名称
+     * 商品数量
      */
-    private String name;
+    private final Integer quantity;
     /**
-     * 地区编码
+     * 商品单价
      */
-    private String areaCode;
+    private final Long unitPrice;
     /**
-     * 详细地址
+     * 微信侧商品编码
      */
-    private String address;
+    private String wechatpayGoodsId;
+    /**
+     * 商品名称
+     */
+    private String goodsName;
 }

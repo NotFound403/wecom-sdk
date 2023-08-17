@@ -12,30 +12,23 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.model;
+package cn.felord.payment.wechat.v3.domain.direct.basepay.combine;
 
+import cn.felord.payment.wechat.v3.domain.model.H5Info;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * 合单支付 H5场景信息.
+ *
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class StoreInfo {
+public class CombineH5SceneInfo extends CombineSceneInfo {
     /**
-     * 门店编号
+     * H5 支付信息.
      */
-    private final String id;
-    /**
-     * 门店名称
-     */
-    private String name;
-    /**
-     * 地区编码
-     */
-    private String areaCode;
-    /**
-     * 详细地址
-     */
-    private String address;
+    private H5Info h5Info;
 }

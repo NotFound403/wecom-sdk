@@ -12,30 +12,33 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.model;
+package cn.felord.payment.wechat.v3.domain.direct.basepay;
 
-import lombok.Data;
+import lombok.Getter;
 
 /**
+ * 订单金额信息
+ *
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
-@Data
-public class StoreInfo {
+@Getter
+public class PayOrderAmount {
     /**
-     * 门店编号
+     * 金额，单位【分】。
      */
-    private final String id;
+    private Long total;
     /**
-     * 门店名称
+     * 用户支付金额，单位为分。（指使用优惠券的情况下，这里等于总金额-优惠券金额）
      */
-    private String name;
+    private Long payerTotal;
     /**
-     * 地区编码
+     * 货币单位，固定为 CNY 。
      */
-    private String areaCode;
+    private String currency;
     /**
-     * 详细地址
+     * 用户支付币种
      */
-    private String address;
+    private String payerCurrency;
+
 }
