@@ -27,8 +27,8 @@ import com.nimbusds.jose.jwk.JWK;
 public class InMemoryAppMerchantService implements AppMerchantService {
     @Override
     public AppMerchant loadMerchant(String appid) throws PayException {
-        String path = "C:\\Users\\Administrator\\IdeaProjects\\myproject\\wecom\\wepay-sdk\\src\\main\\apiclient_cert.p12";
-        String path1 = "C:\\Users\\xfa00\\IdeaProjects\\payment-spring-boot-samples\\src\\main\\resources\\wechat\\apiclient_cert.p12";
+        String path1 = "C:\\Users\\Administrator\\IdeaProjects\\myproject\\wecom\\wepay-sdk\\src\\main\\apiclient_cert.p12";
+        String path = "C:\\Users\\xfa00\\IdeaProjects\\payment-spring-boot-samples\\src\\main\\resources\\wechat\\apiclient_cert.p12";
 // "1900006891",
         String mchid = "1900006891";
         JWK jwk = FileMerchantKeyLoader.rsaJwk(mchid, path, mchid);

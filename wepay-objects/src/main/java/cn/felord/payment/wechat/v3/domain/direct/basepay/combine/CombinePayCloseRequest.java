@@ -12,33 +12,38 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.direct.basepay;
 
-import lombok.Data;
+package cn.felord.payment.wechat.v3.domain.direct.basepay.combine;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+import java.util.Set;
 
 /**
- * 订单金额信息
+ * 合单关闭订单请求参数
  *
- * @author felord.cn
- * @since 1.0.0.RELEASE
+ * @author dax
+ * @since 2023 /8/17
  */
-@Data
-public class PayOrderAmount {
+@RequiredArgsConstructor
+@Getter
+public class CombinePayCloseRequest {
     /**
-     * 金额，单位【分】。
+     * 合单商户订单号
      */
-    private Long total;
+    private final String combineOutTradeNo;
     /**
-     * 用户支付金额，单位为分。（指使用优惠券的情况下，这里等于总金额-优惠券金额）
+     * 合单发起方的appid
      */
-    private Long payerTotal;
+    private final String combineAppid;
     /**
-     * 货币单位，固定为 CNY 。
+     * 最多支持子单条数：10
      */
-    private String currency;
-    /**
-     * 用户支付币种
-     */
-    private String payerCurrency;
+    private final Set<CombineCloseOrder> subOrders;
+
+    public CombinePayCloseParams toPayParams(String combineAppid) {
+        return new CombinePayCloseParams(combineAppid, subOrders);
+    }
 
 }

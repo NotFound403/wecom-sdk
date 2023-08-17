@@ -12,33 +12,26 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.direct.basepay;
+
+package cn.felord.payment.wechat.v3.domain.direct.basepay.combine;
 
 import lombok.Data;
 
 /**
- * 订单金额信息
+ * 要关闭的合单子单
  *
- * @author felord.cn
- * @since 1.0.0.RELEASE
+ * @author dax
+ * @since 2023 /8/17
  */
 @Data
-public class PayOrderAmount {
+public class CombineCloseOrder {
     /**
-     * 金额，单位【分】。
+     * 子单发起方商户号，必须与发起方appid有绑定关系。
      */
-    private Long total;
+    private final String mchid;
     /**
-     * 用户支付金额，单位为分。（指使用优惠券的情况下，这里等于总金额-优惠券金额）
+     * 商户系统内部订单号，要求32个字符内，
+     * 只能是数字、大小写字母_-|*@ ，且在同一个商户号下唯一。
      */
-    private Long payerTotal;
-    /**
-     * 货币单位，固定为 CNY 。
-     */
-    private String currency;
-    /**
-     * 用户支付币种
-     */
-    private String payerCurrency;
-
+    private final String outTradeNo;
 }

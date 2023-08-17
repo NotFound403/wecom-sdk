@@ -17,8 +17,12 @@ package cn.felord.payment.wechat.v3.api.direct;
 
 import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.PrepayResponse;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombinePayCloseParams;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombinePayDetailResponse;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombinePayParams;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -40,5 +44,25 @@ interface InternalCombinePayApi {
      */
     @POST("v3/pay/combine-transactions/{payType}")
     PrepayResponse prePay(@Path("payType") String payType, @Body CombinePayParams combinePayParams) throws PayException;
+
+    /**
+     * 合单查询订单API
+     *
+     * @param combineOutTradeNo the combine out trade no
+     * @return the combine pay detail response
+     * @throws PayException the pay exception
+     */
+    @GET("v3/combine-transactions/out-trade-no/{combine_out_trade_no}")
+    CombinePayDetailResponse queryTransactionByOutTradeNo(@Path("combine_out_trade_no") String combineOutTradeNo) throws PayException;
+
+    /**
+     * 合单关闭订单API
+     *
+     * @param combineOutTradeNo the combine out trade no
+     * @return the response body
+     * @throws PayException the pay exception
+     */
+    @POST("v3/combine-transactions/out-trade-no/{combine_out_trade_no}/close")
+    ResponseBody close(@Path("combine_out_trade_no") String combineOutTradeNo, @Body CombinePayCloseParams combinePayCloseParams) throws PayException;
 
 }

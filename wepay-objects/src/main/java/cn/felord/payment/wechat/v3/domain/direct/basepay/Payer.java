@@ -14,7 +14,10 @@
  */
 package cn.felord.payment.wechat.v3.domain.direct.basepay;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * The type Payer.
@@ -22,11 +25,16 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
-@Data
+@ToString
+@Getter
 public class Payer {
     /**
      * 用户标识
      */
     private final String openid;
 
+    @JsonCreator
+    public Payer(@JsonProperty("openid") String openid) {
+        this.openid = openid;
+    }
 }

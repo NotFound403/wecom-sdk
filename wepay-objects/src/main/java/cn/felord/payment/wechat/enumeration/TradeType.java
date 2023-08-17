@@ -57,4 +57,8 @@ public enum TradeType {
      * @since 1.0.0.RELEASE
      */
     FACEPAY,
+    /**
+     * 委托代扣
+     */
+    PAP
 }
