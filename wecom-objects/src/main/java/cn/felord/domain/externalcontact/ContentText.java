@@ -18,11 +18,13 @@ package cn.felord.domain.externalcontact;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author dax
  * @since 2021/7/23 15:11
  */
+@ToString
 @Getter
 public class ContentText {
     private final String content;
