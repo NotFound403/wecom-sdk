@@ -88,6 +88,35 @@ public final class WechatPayRetrofitFactory {
                 .build();
     }
 
+    /**
+     * 不走过滤器的Retrofit
+     *
+     * @return the retrofit
+     */
+    public static Retrofit withNoAuth() {
+        return new Retrofit.Builder()
+                .baseUrl(DEFAULT_BASE_URL)
+                .client(okHttpClient(new ConnectionPool(), HttpLoggingInterceptor.Level.NONE))
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .addCallAdapterFactory(new ResponseBodyCallAdapterFactory())
+                .addConverterFactory(JsonConverterFactory.create())
+                .build();
+    }
+
+    private static OkHttpClient okHttpClient(ConnectionPool connectionPool,
+                                             HttpLoggingInterceptor.Level level) {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.level(level);
+        return new OkHttpClient.Builder()
+                .connectionPool(connectionPool)
+                .addInterceptor(httpLoggingInterceptor)
+                .retryOnConnectionFailure(true)
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(120, TimeUnit.SECONDS)
+                .writeTimeout(120, TimeUnit.SECONDS)
+                .build();
+    }
+
     private static OkHttpClient okHttpClient(String baseUrl, AppMerchant appMerchant,
                                              TenpayKeyCache tenpayKeyCache,
                                              ConnectionPool connectionPool,

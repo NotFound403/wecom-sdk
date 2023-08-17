@@ -16,9 +16,14 @@
 package cn.felord.payment.wechat.v3.api.direct;
 
 import cn.felord.payment.PayException;
+import cn.felord.payment.wechat.enumeration.FundFlowAccountType;
+import cn.felord.payment.wechat.enumeration.TarType;
+import cn.felord.payment.wechat.enumeration.TradeBillType;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.*;
 import okhttp3.ResponseBody;
 import retrofit2.http.*;
+
+import java.time.LocalDate;
 
 /**
  * 普通支付-直连模式.
@@ -47,8 +52,8 @@ interface InternalBasePayApi {
      * @return the prepay response
      * @throws PayException the pay exception
      */
-    @GET("v3/pay/transactions/id/{transactionId}")
-    PayDetailResponse queryTransactionById(@Path("transactionId") String transactionId, @Query("mchid") String mchid) throws PayException;
+    @GET("v3/pay/transactions/id/{transaction_id}")
+    PayDetailResponse queryTransactionById(@Path("transaction_id") String transactionId, @Query("mchid") String mchid) throws PayException;
 
     /**
      * 商户订单号查询API
@@ -58,8 +63,8 @@ interface InternalBasePayApi {
      * @return the prepay response
      * @throws PayException the pay exception
      */
-    @GET("v3/pay/transactions/out-trade-no/{outTradeNo}")
-    PayDetailResponse queryTransactionByOutTradeNo(@Path("outTradeNo") String outTradeNo, @Query("mchid") String mchid) throws PayException;
+    @GET("v3/pay/transactions/out-trade-no/{out_trade_no}")
+    PayDetailResponse queryTransactionByOutTradeNo(@Path("out_trade_no") String outTradeNo, @Query("mchid") String mchid) throws PayException;
 
     /**
      * 关闭订单API
@@ -75,7 +80,8 @@ interface InternalBasePayApi {
     /**
      * 申请退款API
      *
-     * @param request@return the refund response
+     * @param request @return the refund response
+     * @return the refund response
      * @throws PayException the pay exception
      */
     @POST("v3/refund/domestic/refunds")
@@ -91,4 +97,41 @@ interface InternalBasePayApi {
     @GET("v3/refund/domestic/refunds/{out_refund_no}")
     RefundResponse queryRefundInfo(@Path("out_refund_no") String outRefundNo) throws PayException;
 
+    /**
+     * 申请交易账单API
+     *
+     * @param billDate the bill date
+     * @param billType the bill type
+     * @param tarType  the tar type
+     * @return the bill url response
+     * @throws PayException the pay exception
+     */
+    @GET("v3/bill/tradebill")
+    BillUrlResponse downloadTradeBill(@Query("bill_date") LocalDate billDate,
+                                      @Query("bill_type") TradeBillType billType,
+                                      @Query("tar_type") TarType tarType) throws PayException;
+
+    /**
+     * 申请资金账单API
+     *
+     * @param billDate    the bill date
+     * @param accountType the account type
+     * @param tarType     the tar type
+     * @return the bill url response
+     * @throws PayException the pay exception
+     */
+    @GET("v3/bill/fundflowbill")
+    BillUrlResponse downloadFundFlowBill(@Query("bill_date") LocalDate billDate,
+                                         @Query("account_type") FundFlowAccountType accountType,
+                                         @Query("tar_type") TarType tarType) throws PayException;
+
+    /**
+     * 通过链接下载文件
+     *
+     * @param downloadUrl the download url
+     * @return the response body
+     * @throws PayException the pay exception
+     */
+    @GET
+    ResponseBody download(@Url String downloadUrl) throws PayException;
 }

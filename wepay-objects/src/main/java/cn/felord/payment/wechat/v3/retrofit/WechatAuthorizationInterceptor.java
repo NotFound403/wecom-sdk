@@ -49,7 +49,8 @@ class WechatAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
     }
 
     @Override
-    protected void consume(Response response) throws PayException {
+    protected void verifyResponse(Response response) throws PayException {
+        String s = response.request().url().encodedPath();
         String body = Optional.ofNullable(response.body())
                 .map(ResponseBody::source)
                 .map(BufferedSource::getBuffer)

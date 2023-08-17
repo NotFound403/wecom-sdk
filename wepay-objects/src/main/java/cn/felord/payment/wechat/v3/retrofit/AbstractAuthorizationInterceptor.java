@@ -21,6 +21,7 @@ import static cn.felord.payment.wechat.v3.WepaySdkVersion.USER_AGENT;
  */
 public abstract class AbstractAuthorizationInterceptor implements Interceptor {
     private static final String APPLICATION_JSON_UTF_8 = "application/json; charset=UTF-8";
+    private static final String DOWNLOAD_FILE_PATH = "/v3/billdownload/file";
     private final AppMerchant appMerchant;
 
     /**
@@ -38,13 +39,13 @@ public abstract class AbstractAuthorizationInterceptor implements Interceptor {
         Request request = chain.request();
         Headers headers = request.headers();
         String mediaBody = headers.get(HttpHeaders.META.headerName());
-        String bodyStr = Objects.nonNull(mediaBody) ? mediaBody :
-                Optional.ofNullable(request.body())
-                        .map(OkHttpUtil::requestBodyToString)
-                        .orElse("");
+        String bodyStr = Optional.ofNullable(mediaBody)
+                .orElseGet(() ->
+                        Optional.ofNullable(request.body())
+                                .map(OkHttpUtil::requestBodyToString)
+                                .orElse(""));
         HttpUrl httpUrl = request.url();
         String authorization = WechatPaySigner.sign(appMerchant, httpUrl.uri(), request.method(), bodyStr);
-
         Headers.Builder headerBuilder = headers.newBuilder();
         String contentType = HttpHeaders.CONTENT_TYPE.headerName();
         if (Objects.isNull(headers.get(contentType))) {
@@ -57,7 +58,9 @@ public abstract class AbstractAuthorizationInterceptor implements Interceptor {
                 .header(HttpHeaders.ACCEPT.headerName(), "*/*")
                 .build();
         Response response = chain.proceed(requestWithAuth);
-        this.consume(response);
+        if (!Objects.equals(DOWNLOAD_FILE_PATH, httpUrl.encodedPath())) {
+            this.verifyResponse(response);
+        }
         return response;
     }
 
@@ -67,6 +70,6 @@ public abstract class AbstractAuthorizationInterceptor implements Interceptor {
      * @param response the response
      * @throws PayException the pay exception
      */
-    protected abstract void consume(Response response) throws PayException;
+    protected abstract void verifyResponse(Response response) throws PayException;
 
 }

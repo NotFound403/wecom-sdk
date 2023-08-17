@@ -183,7 +183,7 @@ class TenpayCertificateService {
         }
 
         @Override
-        protected void consume(Response response) throws PayException {
+        protected void verifyResponse(Response response) throws PayException {
             // do nothing
         }
 

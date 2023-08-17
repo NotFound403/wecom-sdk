@@ -16,16 +16,15 @@
 package cn.felord.payment.wechat;
 
 import cn.felord.payment.wechat.v3.api.direct.DirectBasePayApi;
+import cn.felord.payment.wechat.v3.api.direct.WechatPayApi;
 import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.crypto.InMemoryAppMerchantService;
-import cn.felord.payment.wechat.v3.api.direct.WechatPayApi;
-import cn.felord.payment.wechat.v3.domain.direct.basepay.Amount;
-import cn.felord.payment.wechat.v3.domain.direct.basepay.AppNativePayRequest;
-import cn.felord.payment.wechat.v3.domain.direct.basepay.AppPayResponse;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.BufferSource;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.TradeBillRequest;
 import com.nimbusds.jose.JOSEException;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 
 /**
  * @author dax
@@ -34,24 +33,31 @@ import java.time.OffsetDateTime;
 public class Test {
     public static void main(String[] args) throws JOSEException {
 
-
+        // 读取配置
         InMemoryAppMerchantService merchantService = new InMemoryAppMerchantService();
-        AppMerchant appMerchant = merchantService.loadMerchant("");
-
+        AppMerchant appMerchant = merchantService.loadMerchant("wx13123123123213123123");
+        // 初始化API入口
         WechatPayApi wechatPayApi = new WechatPayApi.Builder()
                 .logLevel(HttpLoggingInterceptor.Level.BODY)
                 .build();
-
-
+        // 初始化对应API
         DirectBasePayApi directBasePayApi = wechatPayApi
                 .directBasePayApi(appMerchant);
 
-        AppNativePayRequest payRequest = new AppNativePayRequest("https://felord.cn/wx/callback",
-                "felord.cn精品", "X12312312442343", new Amount(100))
+        BufferSource bufferSource = directBasePayApi.downloadTradeBill(new TradeBillRequest(LocalDate.now().minusMonths(2)));
+        System.out.println("bufferSource = " + bufferSource);
+
+/*       // 组织参数
+        AppNativePayRequest payRequest = new AppNativePayRequest(
+                "https://felord.cn/wx/callback",
+                "felord.cn精品",
+                "X12312312442343",
+                new Amount(100))
                 .timeExpire(OffsetDateTime.now().plusMinutes(10));
+        // 调用
         AppPayResponse appPayResponse = directBasePayApi
                 .app(payRequest);
 
-        System.out.println("appPayResponse = " + appPayResponse);
+        System.out.println("appPayResponse = " + appPayResponse.getPackAge());*/
     }
 }

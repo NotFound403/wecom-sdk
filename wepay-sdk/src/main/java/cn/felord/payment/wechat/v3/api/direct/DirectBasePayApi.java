@@ -83,7 +83,10 @@ public class DirectBasePayApi {
         String nonceStr = idGenerator.generate32();
         String preId = prepayResponse.getPrepayId();
         String paySign = WechatPaySigner.sign(appMerchant, appid, timestamp, nonceStr, preId);
-        return new AppPayResponse(appid, mchid, preId, "Sign=WXPay", nonceStr, timestamp, "RSA", paySign);
+        return new AppPayResponse(appid, mchid,
+                preId, "Sign=WXPay",
+                nonceStr, timestamp,
+                "RSA", paySign);
     }
 
     /**
@@ -171,6 +174,40 @@ public class DirectBasePayApi {
      */
     public RefundResponse queryRefundInfo(String outRefundNo) throws PayException {
         return internalBasePayApi.queryRefundInfo(outRefundNo);
+    }
+
+    /**
+     * 申请交易账单API
+     *
+     * @param request the request
+     * @return the bill url response
+     * @throws PayException the pay exception
+     */
+    public BufferSource downloadTradeBill(TradeBillRequest request) throws PayException {
+        BillUrlResponse billUrlResponse = internalBasePayApi.downloadTradeBill(
+                request.getBillDate(),
+                request.getBillType(),
+                request.getTarType());
+        try (ResponseBody body = internalBasePayApi.download(billUrlResponse.getDownloadUrl())) {
+            return new BufferSource(body.contentType(), body.contentLength(), body.source());
+        }
+    }
+
+    /**
+     * 申请资金账单API
+     *
+     * @param request the request
+     * @return the bill url response
+     * @throws PayException the pay exception
+     */
+    public BufferSource downloadFundFlowBill(FundFlowBillRequest request) throws PayException {
+        BillUrlResponse billUrlResponse = internalBasePayApi.downloadFundFlowBill(
+                request.getBillDate(),
+                request.getAccountType(),
+                request.getTarType());
+        try (ResponseBody body = internalBasePayApi.download(billUrlResponse.getDownloadUrl())) {
+            return new BufferSource(body.contentType(), body.contentLength(), body.source());
+        }
     }
 
     /**
