@@ -19,12 +19,9 @@ import cn.felord.payment.wechat.v3.api.direct.DirectBasePayApi;
 import cn.felord.payment.wechat.v3.api.direct.WechatPayApi;
 import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.crypto.InMemoryAppMerchantService;
-import cn.felord.payment.wechat.v3.domain.direct.basepay.BufferSource;
-import cn.felord.payment.wechat.v3.domain.direct.basepay.TradeBillRequest;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.PayDetailResponse;
 import com.nimbusds.jose.JOSEException;
 import okhttp3.logging.HttpLoggingInterceptor;
-
-import java.time.LocalDate;
 
 /**
  * @author dax
@@ -44,14 +41,16 @@ public class Test {
         DirectBasePayApi directBasePayApi = wechatPayApi
                 .directBasePayApi(appMerchant);
 
-        BufferSource bufferSource = directBasePayApi.downloadTradeBill(new TradeBillRequest(LocalDate.now().minusMonths(2)));
-        System.out.println("bufferSource = " + bufferSource);
 
-/*       // 组织参数
+        PayDetailResponse payDetailResponse = directBasePayApi.queryTransactionByOutTradeNo("18_2147796244_5236");
+        System.out.println("payDetailResponse = " + payDetailResponse);
+
+
+ /*      // 组织参数
         AppNativePayRequest payRequest = new AppNativePayRequest(
                 "https://felord.cn/wx/callback",
                 "felord.cn精品",
-                "X12312312442343",
+                "X12312312442xxx343",
                 new Amount(100))
                 .timeExpire(OffsetDateTime.now().plusMinutes(10));
         // 调用
@@ -59,5 +58,7 @@ public class Test {
                 .app(payRequest);
 
         System.out.println("appPayResponse = " + appPayResponse.getPackAge());*/
+
+
     }
 }
