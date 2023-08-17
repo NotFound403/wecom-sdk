@@ -13,11 +13,11 @@
  *  limitations under the License.
  */
 
-package cn.felord.retrofit;
+package cn.felord.mp.retrofit;
 
 
-import cn.felord.AgentDetails;
-import cn.felord.WeComTokenCacheable;
+import cn.felord.mp.MpApp;
+import cn.felord.mp.WeMpTokenCacheable;
 
 /**
  * The type Token api.
@@ -26,18 +26,18 @@ import cn.felord.WeComTokenCacheable;
  * @since 2021 /10/7 15:19
  */
 public abstract class AbstractTokenApi implements TokenApi {
-    private final WeComTokenCacheable wecomCacheable;
-    private final AgentDetails agentDetails;
+    private final WeMpTokenCacheable wecomCacheable;
+    private final MpApp mpApp;
 
     /**
      * Instantiates a new Token api.
      *
      * @param wecomCacheable the wecom cacheable
-     * @param agentDetails   the agent details
+     * @param mpApp          the mp app
      */
-    protected AbstractTokenApi(WeComTokenCacheable wecomCacheable, AgentDetails agentDetails) {
+    protected AbstractTokenApi(WeMpTokenCacheable wecomCacheable, MpApp mpApp) {
         this.wecomCacheable = wecomCacheable;
-        this.agentDetails = agentDetails;
+        this.mpApp = mpApp;
     }
 
     /**
@@ -47,14 +47,14 @@ public abstract class AbstractTokenApi implements TokenApi {
      */
     @Override
     public final String getToken() {
-        String corpId = agentDetails.getCorpId();
-        final String agentId = agentDetails.getAgentId();
-        String tokenCache = wecomCacheable.getAccessToken(corpId, agentId);
+
+        final String appid = mpApp.getAppid();
+        String tokenCache = wecomCacheable.getAccessToken(appid);
         if (tokenCache == null) {
             synchronized (this) {
-                tokenCache = wecomCacheable.getAccessToken(corpId, agentId);
+                tokenCache = wecomCacheable.getAccessToken(appid);
                 if (tokenCache == null) {
-                    tokenCache = wecomCacheable.putAccessToken(corpId, agentId, doGetToken(agentDetails));
+                    tokenCache = wecomCacheable.putAccessToken(appid, doGetToken(mpApp));
                 }
             }
         }
@@ -62,21 +62,21 @@ public abstract class AbstractTokenApi implements TokenApi {
     }
 
     @Override
-    public AgentDetails getAgentDetails() {
-        return agentDetails;
+    public MpApp mpApp() {
+        return mpApp;
     }
 
     @Override
     public void clearToken() {
-        wecomCacheable.clearAccessToken(agentDetails.getCorpId(), agentDetails.getAgentId());
+        wecomCacheable.clearAccessToken(mpApp().getAppid());
     }
 
     /**
      * Do get token string.
      *
-     * @param agentDetails the agent details
+     * @param mpApp the mp app
      * @return the string
      */
-    protected abstract String doGetToken(AgentDetails agentDetails);
+    protected abstract String doGetToken(MpApp mpApp);
 
 }
