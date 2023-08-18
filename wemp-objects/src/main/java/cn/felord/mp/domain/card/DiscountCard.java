@@ -13,13 +13,30 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import cn.felord.mp.enumeration.CardType;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
+ * 折扣券
  *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023 /8/18
  */
-public class CardTimeType {
+@ToString
+@Getter
+public class DiscountCard extends AbstractCard {
+    private final DiscountInfo discount;
+
+    /**
+     * Instantiates a new Discount card.
+     *
+     * @param discount the discount
+     */
+    public DiscountCard(DiscountInfo discount) {
+        super(CardType.DISCOUNT);
+        this.discount = discount;
+    }
 }

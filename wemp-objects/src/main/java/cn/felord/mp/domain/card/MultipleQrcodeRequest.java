@@ -13,13 +13,29 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import lombok.Getter;
+import lombok.ToString;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
+ * 多张发送
  *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023 /8/18
  */
-public class CardTimeType {
+@ToString
+@Getter
+public class MultipleQrcodeRequest extends CardQrcodeRequest {
+    private final MultipleCard multipleCard;
+
+    /**
+     * Instantiates a new Multiple qrcode request.
+     *
+     * @param multipleCard the multiple card
+     */
+    public MultipleQrcodeRequest(MultipleCard multipleCard) {
+        super("QR_MULTIPLE_CARD");
+        this.multipleCard = multipleCard;
+    }
 }

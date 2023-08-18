@@ -13,13 +13,22 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import lombok.Data;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
+ * 兑换券信息
  *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023 /8/18
  */
-public class CardTimeType {
+@Data
+public class GiftInfo {
+    private final BaseInfo baseInfo;
+    /**
+     * 兑换券专用，填写兑换内容的名称
+     */
+    private final String gift;
+    private AdvancedInfo advancedInfo;
 }

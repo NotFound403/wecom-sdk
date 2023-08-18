@@ -13,13 +13,24 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import lombok.Data;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
+ * 团购券信息
  *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023 /8/18
  */
-public class CardTimeType {
+@Data
+public class GroupOnInfo {
+    private final BaseInfo baseInfo;
+    /**
+     * 团购券专用，团购详情。
+     * <p>
+     * 双人套餐\n -进口红酒一支。\n孜然牛肉一份。
+     */
+    private final String dealDetail;
+    private AdvancedInfo advancedInfo;
 }

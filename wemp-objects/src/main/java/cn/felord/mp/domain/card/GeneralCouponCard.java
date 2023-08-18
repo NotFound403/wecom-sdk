@@ -13,13 +13,30 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import cn.felord.mp.enumeration.CardType;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
+ * 优惠券
  *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023 /8/18
  */
-public class CardTimeType {
+@ToString
+@Getter
+public class GeneralCouponCard extends AbstractCard {
+    private final GeneralCouponInfo generalCoupon;
+
+    /**
+     * Instantiates a new General coupon card.
+     *
+     * @param generalCoupon the general coupon
+     */
+    public GeneralCouponCard(GeneralCouponInfo generalCoupon) {
+        super(CardType.GENERAL_COUPON);
+        this.generalCoupon = generalCoupon;
+    }
 }

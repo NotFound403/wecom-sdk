@@ -13,13 +13,21 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import cn.felord.mp.domain.MpResponse;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
- *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023/8/18 11:15
  */
-public class CardTimeType {
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class CardQrcodeResponse extends MpResponse {
+    private String ticket;
+    private String showQrcodeUrl;
+    private Integer expireSeconds;
+    private String url;
 }

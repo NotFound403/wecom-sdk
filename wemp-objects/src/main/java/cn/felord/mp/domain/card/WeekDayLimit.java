@@ -1,15 +1,34 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.mp.domain.card;
 
 import cn.felord.mp.enumeration.WeekDay;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  * 使用时段限制
  *
- * @author xiafang
+ * @author dax
  * @since 2023 /8/18 16:02
  */
-@Data
+@ToString
+@RequiredArgsConstructor
+@Getter
 public class WeekDayLimit {
 
     /**
@@ -36,4 +55,48 @@ public class WeekDayLimit {
      * 如当前结构体内填写了MONDAY， begin_hour填写10，此处填写了59， 则此处表示周一 10:59-00:59可用
      */
     private Integer endMinute;
+
+    /**
+     * Begin hour week day limit.
+     *
+     * @param beginHour the begin hour
+     * @return the week day limit
+     */
+    public WeekDayLimit beginHour(Integer beginHour) {
+        this.beginHour = beginHour;
+        return this;
+    }
+
+    /**
+     * Begin minute week day limit.
+     *
+     * @param beginMinute the begin minute
+     * @return the week day limit
+     */
+    public WeekDayLimit beginMinute(Integer beginMinute) {
+        this.beginMinute = beginMinute;
+        return this;
+    }
+
+    /**
+     * End hour week day limit.
+     *
+     * @param endHour the end hour
+     * @return the week day limit
+     */
+    public WeekDayLimit endHour(Integer endHour) {
+        this.endHour = endHour;
+        return this;
+    }
+
+    /**
+     * End minute week day limit.
+     *
+     * @param endMinute the end minute
+     * @return the week day limit
+     */
+    public WeekDayLimit endMinute(Integer endMinute) {
+        this.endMinute = endMinute;
+        return this;
+    }
 }

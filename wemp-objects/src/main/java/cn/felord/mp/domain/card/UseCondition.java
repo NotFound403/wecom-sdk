@@ -1,6 +1,22 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.mp.domain.card;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 使用门槛（条件）字段，
@@ -9,7 +25,8 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
-@Data
+@ToString
+@Getter
 public class UseCondition {
     /**
      * 指定可用的商品类目，仅用于代金券类型 ，填入后将在券面拼写适用于xxx
@@ -29,7 +46,63 @@ public class UseCondition {
     private String objectUseFor;
     /**
      * 不可以与其他类型共享门槛 ，
-     * 填写false时系统将在使用须知里 拼写“不可与其他优惠共享”， 填写true时系统将在使用须知里 拼写“可与其他优惠共享”， 默认为true
+     * 填写false时系统将在使用须知里 拼写“不可与其他优惠共享”，
+     * 填写true时系统将在使用须知里 拼写“可与其他优惠共享”， 默认为true
      */
     private Boolean canUseWithOtherDiscount;
+
+    /**
+     * Accept category use condition.
+     *
+     * @param acceptCategory the accept category
+     * @return the use condition
+     */
+    public UseCondition acceptCategory(String acceptCategory) {
+        this.acceptCategory = acceptCategory;
+        return this;
+    }
+
+    /**
+     * Reject category use condition.
+     *
+     * @param rejectCategory the reject category
+     * @return the use condition
+     */
+    public UseCondition rejectCategory(String rejectCategory) {
+        this.rejectCategory = rejectCategory;
+        return this;
+    }
+
+    /**
+     * Least cost use condition.
+     *
+     * @param leastCost the least cost
+     * @return the use condition
+     */
+    public UseCondition leastCost(Integer leastCost) {
+        this.leastCost = leastCost;
+        return this;
+    }
+
+    /**
+     * Object use for use condition.
+     *
+     * @param objectUseFor the object use for
+     * @return the use condition
+     */
+    public UseCondition objectUseFor(String objectUseFor) {
+        this.objectUseFor = objectUseFor;
+        return this;
+    }
+
+    /**
+     * Can use with other discount use condition.
+     *
+     * @param canUseWithOtherDiscount the can use with other discount
+     * @return the use condition
+     */
+    public UseCondition canUseWithOtherDiscount(Boolean canUseWithOtherDiscount) {
+        this.canUseWithOtherDiscount = canUseWithOtherDiscount;
+        return this;
+    }
 }

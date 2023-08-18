@@ -13,13 +13,26 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import lombok.Data;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
+ * 代金券信息
  *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023 /8/18
  */
-public class CardTimeType {
+@Data
+public class CashInfo {
+    private final BaseInfo baseInfo;
+    /**
+     * 代金券专用，表示起用金额（单位为分）,如果无起用门槛则填0
+     */
+    private final Long least_cost;
+    /**
+     * 代金券专用，表示减免金额。（单位为分）
+     */
+    private final Long reduce_cost;
+    private AdvancedInfo advancedInfo;
 }

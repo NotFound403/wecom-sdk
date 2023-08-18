@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.mp.domain.card;
 
 import cn.felord.mp.enumeration.DateInfoType;
@@ -52,11 +67,11 @@ public class DateInfo {
      * @param fixedBeginTerm the fixed begin term
      */
     @JsonCreator
-    DateInfo(@JsonProperty("type") DateInfoType type,
-             @JsonProperty("begin_timestamp") Long beginTimestamp,
-             @JsonProperty("end_timestamp") Long endTimestamp,
-             @JsonProperty("fixed_term") Long fixedTerm,
-             @JsonProperty("fixed_begin_term") Long fixedBeginTerm) {
+    public DateInfo(@JsonProperty("type") DateInfoType type,
+                    @JsonProperty("begin_timestamp") Long beginTimestamp,
+                    @JsonProperty("end_timestamp") Long endTimestamp,
+                    @JsonProperty("fixed_term") Long fixedTerm,
+                    @JsonProperty("fixed_begin_term") Long fixedBeginTerm) {
         this.type = type;
         this.beginTimestamp = beginTimestamp;
         this.endTimestamp = endTimestamp;
@@ -79,28 +94,8 @@ public class DateInfo {
      * @param beginTimestamp the begin timestamp
      * @return the date info
      */
-    public static DateInfo timeRange(Instant beginTimestamp) {
-        return new DateInfo(DateInfoType.DATE_TYPE_FIX_TIME_RANGE, beginTimestamp.getEpochSecond(), null, null, null);
+    public static DateInfo timeRange(Instant beginTimestamp, Instant endTimestamp) {
+        return new DateInfo(DateInfoType.DATE_TYPE_FIX_TIME_RANGE, beginTimestamp.getEpochSecond(), endTimestamp.getEpochSecond(), null, null);
     }
 
-    /**
-     * Term range date info.
-     *
-     * @param endTimestamp the end timestamp
-     * @return the date info
-     */
-    public static DateInfo termRange(Instant endTimestamp) {
-        return new DateInfo(DateInfoType.DATE_TYPE_FIX_TIME_RANGE, null, endTimestamp.getEpochSecond(), null, null);
-    }
-
-    /**
-     * Term date info.
-     *
-     * @param fixedTerm      the fixed term
-     * @param fixedBeginTerm the fixed begin term
-     * @return the date info
-     */
-    public static DateInfo term(Long fixedTerm, Long fixedBeginTerm) {
-        return new DateInfo(DateInfoType.DATE_TYPE_FIX_TIME_RANGE, null, null, fixedTerm, fixedBeginTerm);
-    }
 }

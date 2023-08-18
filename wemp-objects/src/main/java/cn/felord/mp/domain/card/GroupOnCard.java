@@ -13,13 +13,30 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import cn.felord.mp.enumeration.CardType;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
+ * 团购券
  *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023 /8/18
  */
-public class CardTimeType {
+@ToString
+@Getter
+public class GroupOnCard extends AbstractCard {
+    private final GroupOnInfo groupon;
+
+    /**
+     * Instantiates a new Group on card.
+     *
+     * @param groupon the groupon
+     */
+    public GroupOnCard(GroupOnInfo groupon) {
+        super(CardType.GROUPON);
+        this.groupon = groupon;
+    }
 }

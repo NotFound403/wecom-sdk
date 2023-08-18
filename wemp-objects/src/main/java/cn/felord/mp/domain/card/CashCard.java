@@ -13,13 +13,30 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import cn.felord.mp.enumeration.CardType;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
+ * 代金券
  *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023 /8/18
  */
-public class CardTimeType {
+@ToString
+@Getter
+public class CashCard extends AbstractCard {
+    private final CashInfo cash;
+
+    /**
+     * Instantiates a new Cash card.
+     *
+     * @param cash the cash
+     */
+    public CashCard(CashInfo cash) {
+        super(CardType.CASH);
+        this.cash = cash;
+    }
 }

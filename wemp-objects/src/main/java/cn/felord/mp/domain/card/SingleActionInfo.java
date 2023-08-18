@@ -13,13 +13,19 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
- *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023/8/18
  */
-public class CardTimeType {
+@ToString
+@RequiredArgsConstructor
+@Getter
+public class SingleActionInfo {
+    private final SingleCard card;
 }

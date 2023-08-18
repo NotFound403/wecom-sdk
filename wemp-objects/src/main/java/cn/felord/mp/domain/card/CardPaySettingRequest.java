@@ -13,13 +13,16 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.enumeration;
+package cn.felord.mp.domain.card;
+
+import lombok.Data;
 
 /**
- * 使用时间的类型，旧文档采用的1和2依然生效。
- *
  * @author dax
- * @since 2023/8/18 15:20
+ * @since 2023/8/18 11:15
  */
-public class CardTimeType {
+@Data
+public class CardPaySettingRequest {
+    private final Boolean isOpen;
+    private final String cardId;
 }
