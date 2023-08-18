@@ -12,17 +12,21 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.enumeration;
+package cn.felord.mp.enumeration;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
- * 优惠券背景色
- * <p>
- * 详见<a target= "_blank" href= "https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/marketing/convention/chapter3_1.shtml#menu1">优惠券背景色参考</a>
+ * 背景色
  *
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
-public enum CouponBgColor {
+public enum CardBgColor {
     /**
      * Color 010 coupon bg color.
      */
@@ -64,10 +68,9 @@ public enum CouponBgColor {
      */
     COLOR100("Color100");
 
-
     private final String value;
 
-    CouponBgColor(String value) {
+    CardBgColor(String value) {
         this.value = value;
     }
 
@@ -76,7 +79,22 @@ public enum CouponBgColor {
      *
      * @return the value
      */
+    @JsonValue
     public String getValue() {
         return value;
+    }
+
+    /**
+     * Deserialize card bg color.
+     *
+     * @param value the value
+     * @return the card bg color
+     */
+    @JsonCreator
+    public static CardBgColor deserialize(String value) {
+        return Arrays.stream(CardBgColor.values())
+                .filter(cardBgColor -> Objects.equals(cardBgColor.value, value))
+                .findFirst()
+                .orElse(null);
     }
 }

@@ -15,11 +15,11 @@
 
 package cn.felord.reactive.api;
 
+import cn.felord.common.FileMediaType;
+import cn.felord.common.MultipartResource;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.media.MediaResponse;
-import cn.felord.domain.media.MultipartResource;
 import cn.felord.domain.webhook.WebhookBody;
-import cn.felord.enumeration.FileMediaType;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -76,6 +76,5 @@ public class WebhookApi {
                 .build();
         return internalWebhookApi.uploadMedia(webhookKey, "file", media);
     }
-
 
 }

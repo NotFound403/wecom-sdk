@@ -34,6 +34,6 @@ interface RetrofitAccessTokenApi {
      * @param secret    the secret
      * @return the token response
      */
-    @GET("token")
+    @GET("cgi-bin/token")
     AccessTokenResponse getTokenResponse(@Query("grant_type") String grantType, @Query("appid") String appid, @Query("secret") String secret);
 }

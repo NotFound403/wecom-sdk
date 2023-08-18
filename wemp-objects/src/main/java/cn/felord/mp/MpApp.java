@@ -24,5 +24,5 @@ import lombok.Data;
 @Data
 public class MpApp {
     private final String appid;
-    private final String secret;
+    private final String appsecret;
 }

@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.enumeration;
+package cn.felord.common;
 
 import cn.felord.utils.StringUtils;
 import okhttp3.MediaType;

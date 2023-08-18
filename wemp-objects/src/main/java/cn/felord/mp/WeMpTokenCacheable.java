@@ -18,7 +18,7 @@ package cn.felord.mp;
 /**
  * The interface We mp token cacheable.
  */
-public interface WeMpTokenCacheable extends WeMpTicketCacheable {
+public interface WeMpTokenCacheable {
 
     /**
      * 存入accessToken

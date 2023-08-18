@@ -13,11 +13,9 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.media;
+package cn.felord.common;
 
-import cn.felord.WeComException;
 import cn.felord.utils.FileTools;
-import lombok.Getter;
 import okhttp3.MediaType;
 
 import java.io.IOException;
@@ -31,7 +29,6 @@ import java.util.regex.Pattern;
  * @author dax
  * @since 2023 /6/27 10:24
  */
-@Getter
 public class MultipartResource {
     private static final Pattern pattern = Pattern.compile("\\.([^.]+)$");
     private final MediaType mediaType;
@@ -62,6 +59,12 @@ public class MultipartResource {
         this(mediaType, fileName, FileTools.copyToByteArray(inputStream));
     }
 
+    /**
+     * Instantiates a new Multipart resource.
+     *
+     * @param fileName the file name
+     * @param source   the source
+     */
     public MultipartResource(String fileName, byte[] source) {
         this(null, fileName, source);
     }
@@ -76,10 +79,37 @@ public class MultipartResource {
     public MultipartResource(MediaType mediaType, String fileName, byte[] source) {
         Matcher matcher = pattern.matcher(fileName);
         if (!matcher.find()) {
-            throw new WeComException("the fileName must have extension, eg. pic.png");
+            throw new IllegalArgumentException("the fileName must have extension, eg. pic.png");
         }
         this.mediaType = mediaType;
         this.fileName = fileName;
         this.source = source;
+    }
+
+    /**
+     * Gets media type.
+     *
+     * @return the media type
+     */
+    public MediaType getMediaType() {
+        return mediaType;
+    }
+
+    /**
+     * Gets file name.
+     *
+     * @return the file name
+     */
+    public String getFileName() {
+        return fileName;
+    }
+
+    /**
+     * Get source byte [ ].
+     *
+     * @return the byte [ ]
+     */
+    public byte[] getSource() {
+        return source;
     }
 }

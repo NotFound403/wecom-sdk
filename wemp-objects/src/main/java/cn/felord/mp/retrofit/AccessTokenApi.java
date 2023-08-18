@@ -33,7 +33,7 @@ public class AccessTokenApi extends AbstractTokenApi {
 
     @Override
     protected String doGetToken(MpApp mpApp) {
-        AccessTokenResponse tokenResponse = TOKEN_API.getTokenResponse("client_credential", mpApp().getAppid(), mpApp().getSecret());
+        AccessTokenResponse tokenResponse = TOKEN_API.getTokenResponse("client_credential", mpApp().getAppid(), mpApp().getAppsecret());
         return tokenResponse.getAccessToken();
     }
 }

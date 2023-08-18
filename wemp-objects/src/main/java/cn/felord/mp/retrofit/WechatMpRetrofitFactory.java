@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2023 /5/21
  */
 public final class WechatMpRetrofitFactory {
-    private static final String BASE_URL = "https://api.weixin.qq.com/cgi-bin/";
+    private static final String BASE_URL = "https://api.weixin.qq.com/";
     public static final Retrofit RETROFIT_ = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient(HttpLoggingInterceptor.Level.NONE))

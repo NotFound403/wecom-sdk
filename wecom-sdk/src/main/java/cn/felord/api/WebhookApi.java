@@ -16,11 +16,11 @@
 package cn.felord.api;
 
 import cn.felord.WeComException;
+import cn.felord.common.FileMediaType;
+import cn.felord.common.MultipartResource;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.media.MediaResponse;
-import cn.felord.domain.media.MultipartResource;
 import cn.felord.domain.webhook.WebhookBody;
-import cn.felord.enumeration.FileMediaType;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
