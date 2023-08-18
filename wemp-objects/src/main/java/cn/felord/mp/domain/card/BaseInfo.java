@@ -51,48 +51,77 @@ public class BaseInfo {
      */
     private DateInfo dateInfo;
     /**
-     *
-     */
-    private Integer getLimit;
-    /**
-     *
-     */
-    private String customUrlName;
-    /**
-     *
-     */
-    private String promotionUrlName;
-    /**
-     *
-     */
-    private Boolean canGiveFriend;
-    /**
-     *
-     */
-    private List<Integer> locationIdList;
-    /**
-     *
+     * 是否自定义Code码。填写true或false，
+     * 默认为false 通常自有优惠码系统的开发者选择自定义Code码，详情见 是否自定义code
      */
     private Boolean useCustomCode;
     /**
-     *
+     * 是否指定用户领取，填写true或false。默认为false
+     */
+    private Boolean bindOpenid;
+    /**
+     * 客服电话
      */
     private String servicePhone;
     /**
-     *
+     * 门店位置ID。调用 POI门店管理接口 获取门店位置ID
      */
-    private String promotionUrl;
+    private List<Integer> locationIdList;
     /**
-     *
+     * 会员卡是否支持全部门店，填写后商户门店更新时会自动同步至卡券
+     */
+    private Boolean useAllLocations;
+    /**
+     * 卡券中部居中的按钮，仅在卡券激活后且可用状态 时显示
+     */
+    private String centerTitle;
+    /**
+     * 显示在入口下方的提示语 ， 仅在卡券激活后且可用状态时显示
+     */
+    private String centerSubTitle;
+    /**
+     * 顶部居中的url ，仅在卡券激活后且可用状态时显示
+     */
+    private String centerUrl;
+    /**
+     * 自定义跳转外链的入口名字
+     */
+    private String customUrlName;
+    /**
+     * 自定义跳转的URL
+     */
+    private String customUrl;
+    /**
+     * 显示在入口右侧的提示语
      */
     private String customUrlSubTitle;
     /**
-     *
+     * 营销场景的自定义入口名称
+     */
+    private String promotionUrlName;
+    /**
+     * 营销入口跳转外链的地址链接
+     */
+    private String promotionUrl;
+    /**
+     * 显示在营销入口右侧的提示语
+     */
+    private String promotionUrlSubTitle;
+    /**
+     * 每人可领券的数量限制，建议会员卡每人限领一张
+     */
+    private Integer getLimit;
+    /**
+     * 卡券领取页面是否可分享，默认为true
+     */
+    private Boolean canShare;
+    /**
+     * 卡券是否可转赠,默认为true
+     */
+    private Boolean canGiveFriend;
+    /**
+     * 填写true为用户点击进入会员卡时推送事件，默认为false。详情见 进入会员卡事件推送
      */
     private Boolean needPushOnView;
-    /**
-     *
-     */
-    private String customUrl;
 
 }
