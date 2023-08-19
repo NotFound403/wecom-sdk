@@ -15,13 +15,22 @@
 
 package cn.felord.mp.domain.card;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author dax
  * @since 2023/8/18 11:15
  */
-@Data
+@ToString
+@Getter
 public class Sku {
     private final Integer quantity;
+
+    @JsonCreator
+    public Sku(@JsonProperty("quantity") Integer quantity) {
+        this.quantity = quantity;
+    }
 }

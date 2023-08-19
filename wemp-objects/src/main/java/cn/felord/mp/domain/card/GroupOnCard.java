@@ -16,6 +16,8 @@
 package cn.felord.mp.domain.card;
 
 import cn.felord.mp.enumeration.CardType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -35,7 +37,8 @@ public class GroupOnCard extends AbstractCard {
      *
      * @param groupon the groupon
      */
-    public GroupOnCard(GroupOnInfo groupon) {
+    @JsonCreator
+    public GroupOnCard(@JsonProperty("groupon") GroupOnInfo groupon) {
         super(CardType.GROUPON);
         this.groupon = groupon;
     }

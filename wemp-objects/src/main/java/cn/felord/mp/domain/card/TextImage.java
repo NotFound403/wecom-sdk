@@ -15,7 +15,10 @@
 
 package cn.felord.mp.domain.card;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 图文
@@ -23,7 +26,8 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
-@Data
+@ToString
+@Getter
 public class TextImage {
     /**
      * 图片链接，必须调用 上传图片接口 上传图片获得链接，并在此填入， 否则报错
@@ -33,4 +37,16 @@ public class TextImage {
      * 图文描述
      */
     private final String text;
+
+    /**
+     * Instantiates a new Text image.
+     *
+     * @param imageUrl the image url
+     * @param text     the text
+     */
+    @JsonCreator
+    public TextImage(@JsonProperty("image_url") String imageUrl, @JsonProperty("text") String text) {
+        this.imageUrl = imageUrl;
+        this.text = text;
+    }
 }

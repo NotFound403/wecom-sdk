@@ -15,7 +15,11 @@
 
 package cn.felord.mp.domain.card;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  * 会员卡信息
@@ -25,7 +29,9 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
-@Data
+@ToString
+@Getter
+@RequiredArgsConstructor
 public class MemberCardInfo {
     /**
      * 商家自定义会员卡背景图，须先调用 上传图片接口 将背景图上传至CDN，否则报错，
@@ -52,7 +58,7 @@ public class MemberCardInfo {
     /**
      * 显示积分，填写true或false，如填写true，积分相关字段均为必填,若设置为true则后续不可以被关闭
      */
-    private final Boolean supplyBonus;
+    private Boolean supplyBonus = false;
     /**
      * 设置跳转外链查看积分详情。仅适用于积分无法通过激活接口同步的情况下使用该字段
      */
@@ -61,7 +67,7 @@ public class MemberCardInfo {
      * 是否支持储值，填写true或false。如填写true，储值相关字段均为必填
      * 若设置为true则后续不可以被关闭。该字段须开通储值功能后方可使用， 详情见： 获取特殊权限
      */
-    private final Boolean supplyBalance;
+    private Boolean supplyBalance = false;
     /**
      * 设置跳转外链查看余额详情。仅适用于余额无法通过激活接口同步的情况下使用该字段
      */
@@ -118,4 +124,238 @@ public class MemberCardInfo {
      * 折扣，该会员卡享受的折扣优惠, (100-discount)%
      */
     private Integer discount;
+
+    /**
+     * Instantiates a new Member card info.
+     *
+     * @param backgroundPicUrl         the background pic url
+     * @param baseInfo                 the base info
+     * @param prerogative              the prerogative
+     * @param autoActivate             the auto activate
+     * @param wxActivate               the wx activate
+     * @param supplyBonus              the supply bonus
+     * @param bonusUrl                 the bonus url
+     * @param supplyBalance            the supply balance
+     * @param balanceUrl               the balance url
+     * @param customField1             the custom field 1
+     * @param customField2             the custom field 2
+     * @param customField3             the custom field 3
+     * @param bonusCleared             the bonus cleared
+     * @param bonusRules               the bonus rules
+     * @param balanceRules             the balance rules
+     * @param activateUrl              the activate url
+     * @param activateAppBrandUserName the activate app brand user name
+     * @param activateAppBrandPass     the activate app brand pass
+     * @param customCell1              the custom cell 1
+     * @param bonusRule                the bonus rule
+     * @param advancedInfo             the advanced info
+     * @param discount                 the discount
+     */
+    @JsonCreator
+    MemberCardInfo(@JsonProperty("background_pic_url") String backgroundPicUrl, @JsonProperty("base_info") MemberCardBaseInfo baseInfo,
+                   @JsonProperty("prerogative") String prerogative, @JsonProperty("auto_activate") Boolean autoActivate,
+                   @JsonProperty("wx_activate") Boolean wxActivate, @JsonProperty("supply_bonus") Boolean supplyBonus,
+                   @JsonProperty("bonus_url") String bonusUrl, @JsonProperty("supply_balance") Boolean supplyBalance,
+                   @JsonProperty("balance_url") String balanceUrl, @JsonProperty("custom_field1") CustomField customField1,
+                   @JsonProperty("custom_field2") CustomField customField2, @JsonProperty("custom_field3") CustomField customField3,
+                   @JsonProperty("bonus_cleared") String bonusCleared, @JsonProperty("bonus_rules") String bonusRules,
+                   @JsonProperty("balance_rules") String balanceRules, @JsonProperty("activate_url") String activateUrl,
+                   @JsonProperty("activate_app_brand_user_name") String activateAppBrandUserName, @JsonProperty("activate_app_brand_pass") String activateAppBrandPass,
+                   @JsonProperty("custom_cell1") CustomCell customCell1, @JsonProperty("bonus_rule") BonusRule bonusRule,
+                   @JsonProperty("advanced_info") AdvancedInfo advancedInfo, @JsonProperty("discount") Integer discount) {
+        this.backgroundPicUrl = backgroundPicUrl;
+        this.baseInfo = baseInfo;
+        this.prerogative = prerogative;
+        this.autoActivate = autoActivate;
+        this.wxActivate = wxActivate;
+        this.supplyBonus = supplyBonus;
+        this.bonusUrl = bonusUrl;
+        this.supplyBalance = supplyBalance;
+        this.balanceUrl = balanceUrl;
+        this.customField1 = customField1;
+        this.customField2 = customField2;
+        this.customField3 = customField3;
+        this.bonusCleared = bonusCleared;
+        this.bonusRules = bonusRules;
+        this.balanceRules = balanceRules;
+        this.activateUrl = activateUrl;
+        this.activateAppBrandUserName = activateAppBrandUserName;
+        this.activateAppBrandPass = activateAppBrandPass;
+        this.customCell1 = customCell1;
+        this.bonusRule = bonusRule;
+        this.advancedInfo = advancedInfo;
+        this.discount = discount;
+    }
+
+    /**
+     * Background pic url member card info.
+     *
+     * @param backgroundPicUrl the background pic url
+     * @return the member card info
+     */
+    public MemberCardInfo backgroundPicUrl(String backgroundPicUrl) {
+        this.backgroundPicUrl = backgroundPicUrl;
+        return this;
+    }
+
+    /**
+     * Auto activate member card info.
+     *
+     * @param autoActivate the auto activate
+     * @return the member card info
+     */
+    public MemberCardInfo autoActivate(boolean autoActivate) {
+        this.autoActivate = autoActivate;
+        return this;
+    }
+
+    /**
+     * Wx activate member card info.
+     *
+     * @param wxActivate the wx activate
+     * @return the member card info
+     */
+    public MemberCardInfo wxActivate(boolean wxActivate) {
+        this.wxActivate = wxActivate;
+        if (wxActivate) {
+            this.activateUrl = null;
+        }
+        return this;
+    }
+
+    /**
+     * Enable supply bonus member card info.
+     *
+     * @param bonusUrl     the bonus url
+     * @param bonusRules   the bonus rules
+     * @param bonusCleared the bonus cleared
+     * @param bonusRule    the bonus rule
+     * @return the member card info
+     */
+    public MemberCardInfo enableSupplyBonus(String bonusUrl, String bonusRules, String bonusCleared, BonusRule bonusRule) {
+        this.supplyBonus = true;
+        this.bonusUrl = bonusUrl;
+        this.bonusRules = bonusRules;
+        this.bonusCleared = bonusCleared;
+        this.bonusRule = bonusRule;
+        return this;
+    }
+
+    /**
+     * Disable supply bonus member card info.
+     *
+     * @return the member card info
+     */
+    public MemberCardInfo disableSupplyBonus() {
+        this.supplyBonus = false;
+        this.bonusUrl = null;
+        this.bonusRules = null;
+        this.bonusCleared = null;
+        this.bonusRule = null;
+        return this;
+    }
+
+    /**
+     * Supply balance member card info.
+     *
+     * @param balanceUrl   the balance url
+     * @param balanceRules the balance rules
+     * @return the member card info
+     */
+    public MemberCardInfo supplyBalance(String balanceUrl, String balanceRules) {
+        this.supplyBalance = true;
+        this.balanceUrl = balanceUrl;
+        this.balanceRules = balanceRules;
+        return this;
+    }
+
+    /**
+     * Custom field 1 member card info.
+     *
+     * @param customField1 the custom field 1
+     * @return the member card info
+     */
+    public MemberCardInfo customField1(CustomField customField1) {
+        this.customField1 = customField1;
+        return this;
+    }
+
+    /**
+     * Custom field 2 member card info.
+     *
+     * @param customField2 the custom field 2
+     * @return the member card info
+     */
+    public MemberCardInfo customField2(CustomField customField2) {
+        this.customField2 = customField2;
+        return this;
+    }
+
+    /**
+     * Custom field 3 member card info.
+     *
+     * @param customField3 the custom field 3
+     * @return the member card info
+     */
+    public MemberCardInfo customField3(CustomField customField3) {
+        this.customField3 = customField3;
+        return this;
+    }
+
+    /**
+     * Activate url member card info.
+     *
+     * @param activateUrl the activate url
+     * @return the member card info
+     */
+    public MemberCardInfo activateUrl(String activateUrl) {
+        this.activateUrl = activateUrl;
+        return this;
+    }
+
+    /**
+     * Activate app brand user name member card info.
+     *
+     * @param activateAppBrandUserName the activate app brand user name
+     * @param activateAppBrandPass     the activate app brand pass
+     * @return the member card info
+     */
+    public MemberCardInfo activateAppBrandUserName(String activateAppBrandUserName, String activateAppBrandPass) {
+        this.activateAppBrandUserName = activateAppBrandUserName;
+        this.activateAppBrandPass = activateAppBrandPass;
+        return this;
+    }
+
+    /**
+     * Custom cell 1 member card info.
+     *
+     * @param customCell1 the custom cell 1
+     * @return the member card info
+     */
+    public MemberCardInfo customCell1(CustomCell customCell1) {
+        this.customCell1 = customCell1;
+        return this;
+    }
+
+    /**
+     * Advanced info member card info.
+     *
+     * @param advancedInfo the advanced info
+     * @return the member card info
+     */
+    public MemberCardInfo advancedInfo(AdvancedInfo advancedInfo) {
+        this.advancedInfo = advancedInfo;
+        return this;
+    }
+
+    /**
+     * Discount member card info.
+     *
+     * @param discount the discount
+     * @return the member card info
+     */
+    public MemberCardInfo discount(int discount) {
+        this.discount = discount;
+        return this;
+    }
 }

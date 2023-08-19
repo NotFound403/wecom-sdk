@@ -15,15 +15,37 @@
 
 package cn.felord.mp.domain.card;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type Custom cell.
+ *
  * @author dax
- * @since 2023/8/18 11:15
+ * @since 2023 /8/18 11:15
  */
-@Data
+@ToString
+@Getter
 public class CustomCell {
     private final String name;
     private final String tips;
     private final String url;
+
+    /**
+     * Instantiates a new Custom cell.
+     *
+     * @param name the name
+     * @param tips the tips
+     * @param url  the url
+     */
+    @JsonCreator
+    public CustomCell(@JsonProperty("name") String name,
+                      @JsonProperty("tips") String tips,
+                      @JsonProperty("url") String url) {
+        this.name = name;
+        this.tips = tips;
+        this.url = url;
+    }
 }

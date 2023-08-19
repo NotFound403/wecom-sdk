@@ -15,8 +15,10 @@
 
 package cn.felord.mp.domain.card;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -24,9 +26,10 @@ import java.util.List;
  * 封面摘要结构体名称
  *
  * @author dax
- * @since 2023/8/18 17:06
+ * @since 2023 /8/18 17:06
  */
-@Data
+@ToString
+@Getter
 public class AbstractInfo {
     /**
      * 封面摘要简介 24个字符
@@ -38,4 +41,16 @@ public class AbstractInfo {
      * 上传图片接口 上传获取图片获得链接，填写 非CDN链接会报错，并在此填入。 建议图片尺寸像素850*350
      */
     private final List<String> iconUrlList;
+
+    /**
+     * Instantiates a new Abstract info.
+     *
+     * @param info        the info
+     * @param iconUrlList the icon url list
+     */
+    @JsonCreator
+    public AbstractInfo(@JsonProperty("info") String info, @JsonProperty("icon_url_list") List<String> iconUrlList) {
+        this.info = info;
+        this.iconUrlList = iconUrlList;
+    }
 }

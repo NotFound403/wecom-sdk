@@ -15,7 +15,10 @@
 
 package cn.felord.mp.domain.card;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 折扣券信息
@@ -23,12 +26,39 @@ import lombok.Data;
  * @author dax
  * @since 2023 /8/18
  */
-@Data
+@ToString
+@Getter
 public class DiscountInfo {
     private final BaseInfo baseInfo;
     /**
      * 折扣，该会员卡享受的折扣优惠, (100-x)%
      */
     private final Integer discount;
-    private AdvancedInfo advancedInfo;
+    private final AdvancedInfo advancedInfo;
+
+    /**
+     * Instantiates a new Discount info.
+     *
+     * @param baseInfo the base info
+     * @param discount the discount
+     */
+    public DiscountInfo(BaseInfo baseInfo, Integer discount) {
+        this(baseInfo, discount, null);
+    }
+
+    /**
+     * Instantiates a new Discount info.
+     *
+     * @param baseInfo     the base info
+     * @param discount     the discount
+     * @param advancedInfo the advanced info
+     */
+    @JsonCreator
+    public DiscountInfo(@JsonProperty("base_info") BaseInfo baseInfo,
+                        @JsonProperty("discount") Integer discount,
+                        @JsonProperty("advanced_info") AdvancedInfo advancedInfo) {
+        this.baseInfo = baseInfo;
+        this.discount = discount;
+        this.advancedInfo = advancedInfo;
+    }
 }

@@ -16,14 +16,37 @@
 package cn.felord.mp.domain.card;
 
 import cn.felord.mp.enumeration.CardType;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
+ * 卡券
+ * <ol>
+ *     <li>团购券类型对应 {@link GroupOnCard}</li>
+ *     <li>代金券类型对应 {@link CashCard}</li>
+ *     <li>折扣券类型对应 {@link DiscountCard}</li>
+ *     <li>兑换券类型对应 {@link GiftCard}</li>
+ *     <li>优惠券类型对应 {@link GeneralCouponCard}</li>
+ *     <li>会员卡类型对应 {@link MemberCard}</li>
+ * </ol>
+ *
  * @author dax
- * @since 2023/8/18 16:01
+ * @since 2023 /8/18 16:01
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.EXISTING_PROPERTY,
+        property = "card_type", visible = true)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = GroupOnCard.class, name = "GROUPON"),
+        @JsonSubTypes.Type(value = CashCard.class, name = "CASH"),
+        @JsonSubTypes.Type(value = DiscountCard.class, name = "DISCOUNT"),
+        @JsonSubTypes.Type(value = GiftCard.class, name = "GIFT"),
+        @JsonSubTypes.Type(value = GeneralCouponCard.class, name = "GENERAL_COUPON"),
+        @JsonSubTypes.Type(value = MemberCard.class, name = "MEMBER_CARD")
+})
 @ToString
 @RequiredArgsConstructor
 @Getter

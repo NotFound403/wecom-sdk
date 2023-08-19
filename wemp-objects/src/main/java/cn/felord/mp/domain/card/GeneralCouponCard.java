@@ -16,6 +16,8 @@
 package cn.felord.mp.domain.card;
 
 import cn.felord.mp.enumeration.CardType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -35,7 +37,8 @@ public class GeneralCouponCard extends AbstractCard {
      *
      * @param generalCoupon the general coupon
      */
-    public GeneralCouponCard(GeneralCouponInfo generalCoupon) {
+    @JsonCreator
+    public GeneralCouponCard(@JsonProperty("general_coupon") GeneralCouponInfo generalCoupon) {
         super(CardType.GENERAL_COUPON);
         this.generalCoupon = generalCoupon;
     }

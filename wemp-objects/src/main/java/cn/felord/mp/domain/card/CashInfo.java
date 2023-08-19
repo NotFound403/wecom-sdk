@@ -15,7 +15,10 @@
 
 package cn.felord.mp.domain.card;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 代金券信息
@@ -23,16 +26,45 @@ import lombok.Data;
  * @author dax
  * @since 2023 /8/18
  */
-@Data
+@ToString
+@Getter
 public class CashInfo {
     private final BaseInfo baseInfo;
     /**
      * 代金券专用，表示起用金额（单位为分）,如果无起用门槛则填0
      */
-    private final Long least_cost;
+    private final Long leastCost;
     /**
      * 代金券专用，表示减免金额。（单位为分）
      */
-    private final Long reduce_cost;
-    private AdvancedInfo advancedInfo;
+    private final Long reduceCost;
+    private final AdvancedInfo advancedInfo;
+
+    /**
+     * Instantiates a new Cash info.
+     *
+     * @param baseInfo   the base info
+     * @param leastCost  the least cost
+     * @param reduceCost the reduce cost
+     */
+    public CashInfo(BaseInfo baseInfo, Long leastCost, Long reduceCost) {
+        this(baseInfo, leastCost, reduceCost, null);
+    }
+
+    /**
+     * Instantiates a new Cash info.
+     *
+     * @param baseInfo     the base info
+     * @param leastCost    the least cost
+     * @param reduceCost   the reduce cost
+     * @param advancedInfo the advanced info
+     */
+    @JsonCreator
+    public CashInfo(@JsonProperty("base_info") BaseInfo baseInfo, @JsonProperty("least_cost") Long leastCost,
+                    @JsonProperty("reduce_cost") Long reduceCost, @JsonProperty("advanced_info") AdvancedInfo advancedInfo) {
+        this.baseInfo = baseInfo;
+        this.leastCost = leastCost;
+        this.reduceCost = reduceCost;
+        this.advancedInfo = advancedInfo;
+    }
 }

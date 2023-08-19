@@ -15,6 +15,8 @@
 
 package cn.felord.mp.domain.card;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -31,4 +33,30 @@ public class GiftInfo {
      */
     private final String gift;
     private AdvancedInfo advancedInfo;
+
+    /**
+     * Instantiates a new Gift info.
+     *
+     * @param baseInfo the base info
+     * @param gift     the gift
+     */
+    public GiftInfo(BaseInfo baseInfo, String gift) {
+        this(baseInfo, gift, null);
+    }
+
+    /**
+     * Instantiates a new Gift info.
+     *
+     * @param baseInfo     the base info
+     * @param gift         the gift
+     * @param advancedInfo the advanced info
+     */
+    @JsonCreator
+    public GiftInfo(@JsonProperty("base_info") BaseInfo baseInfo,
+                    @JsonProperty("gift") String gift,
+                    @JsonProperty("advanced_info") AdvancedInfo advancedInfo) {
+        this.baseInfo = baseInfo;
+        this.gift = gift;
+        this.advancedInfo = advancedInfo;
+    }
 }

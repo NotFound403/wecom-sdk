@@ -16,6 +16,8 @@
 package cn.felord.mp.domain.card;
 
 import cn.felord.mp.enumeration.WeekDay;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -55,6 +57,28 @@ public class WeekDayLimit {
      * 如当前结构体内填写了MONDAY， begin_hour填写10，此处填写了59， 则此处表示周一 10:59-00:59可用
      */
     private Integer endMinute;
+
+    /**
+     * Instantiates a new Week day limit.
+     *
+     * @param type        the type
+     * @param beginHour   the begin hour
+     * @param beginMinute the begin minute
+     * @param endHour     the end hour
+     * @param endMinute   the end minute
+     */
+    @JsonCreator
+    public WeekDayLimit(@JsonProperty("type") WeekDay type,
+                        @JsonProperty("begin_hour") Integer beginHour,
+                        @JsonProperty("begin_minute") Integer beginMinute,
+                        @JsonProperty("end_hour") Integer endHour,
+                        @JsonProperty("end_minute") Integer endMinute) {
+        this.type = type;
+        this.beginHour = beginHour;
+        this.beginMinute = beginMinute;
+        this.endHour = endHour;
+        this.endMinute = endMinute;
+    }
 
     /**
      * Begin hour week day limit.

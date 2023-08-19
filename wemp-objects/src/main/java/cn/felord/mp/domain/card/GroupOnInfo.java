@@ -15,7 +15,10 @@
 
 package cn.felord.mp.domain.card;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 团购券信息
@@ -23,7 +26,8 @@ import lombok.Data;
  * @author dax
  * @since 2023 /8/18
  */
-@Data
+@ToString
+@Getter
 public class GroupOnInfo {
     private final BaseInfo baseInfo;
     /**
@@ -32,5 +36,31 @@ public class GroupOnInfo {
      * 双人套餐\n -进口红酒一支。\n孜然牛肉一份。
      */
     private final String dealDetail;
-    private AdvancedInfo advancedInfo;
+    private final AdvancedInfo advancedInfo;
+
+    /**
+     * Instantiates a new Group on info.
+     *
+     * @param baseInfo   the base info
+     * @param dealDetail the deal detail
+     */
+    public GroupOnInfo(BaseInfo baseInfo, String dealDetail) {
+        this(baseInfo, dealDetail, null);
+    }
+
+    /**
+     * Instantiates a new Group on info.
+     *
+     * @param baseInfo     the base info
+     * @param dealDetail   the deal detail
+     * @param advancedInfo the advanced info
+     */
+    @JsonCreator
+    public GroupOnInfo(@JsonProperty("base_info") BaseInfo baseInfo,
+                       @JsonProperty("deal_detail") String dealDetail,
+                       @JsonProperty("advanced_info") AdvancedInfo advancedInfo) {
+        this.baseInfo = baseInfo;
+        this.dealDetail = dealDetail;
+        this.advancedInfo = advancedInfo;
+    }
 }

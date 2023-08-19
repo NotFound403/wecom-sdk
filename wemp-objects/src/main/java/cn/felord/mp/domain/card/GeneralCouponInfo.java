@@ -15,6 +15,8 @@
 
 package cn.felord.mp.domain.card;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -31,4 +33,30 @@ public class GeneralCouponInfo {
      */
     private final String defaultDetail;
     private AdvancedInfo advancedInfo;
+
+    /**
+     * Instantiates a new General coupon info.
+     *
+     * @param baseInfo      the base info
+     * @param defaultDetail the default detail
+     */
+    public GeneralCouponInfo(BaseInfo baseInfo, String defaultDetail) {
+        this(baseInfo, defaultDetail, null);
+    }
+
+    /**
+     * Instantiates a new General coupon info.
+     *
+     * @param baseInfo      the base info
+     * @param defaultDetail the default detail
+     * @param advancedInfo  the advanced info
+     */
+    @JsonCreator
+    public GeneralCouponInfo(@JsonProperty("base_info") BaseInfo baseInfo,
+                             @JsonProperty("default_detail") String defaultDetail,
+                             @JsonProperty("advanced_info") AdvancedInfo advancedInfo) {
+        this.baseInfo = baseInfo;
+        this.defaultDetail = defaultDetail;
+        this.advancedInfo = advancedInfo;
+    }
 }

@@ -51,7 +51,6 @@ import java.util.List;
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "control", visible = true)
 @JsonSubTypes({
-//        @JsonSubTypes.Type(value = TextApplyContentData.class, names = {"Text", "Textarea", "Tips"}),
         @JsonSubTypes.Type(value = TextApplyContentData.class, name = "Text"),
         @JsonSubTypes.Type(value = TextApplyContentData.class, name = "Textarea"),
         @JsonSubTypes.Type(value = TextApplyContentData.class, name = "Tips"),
@@ -69,7 +68,7 @@ import java.util.List;
         @JsonSubTypes.Type(value = LocationApplyContentData.class, name = "Location"),
         @JsonSubTypes.Type(value = RelatedApprovalApplyContentData.class, name = "RelatedApproval"),
         @JsonSubTypes.Type(value = FormulaApplyContentData.class, name = "Formula"),
-        @JsonSubTypes.Type(value = PhoneNumberApplyContentData.class, name = "PhoneNumber"),
+        @JsonSubTypes.Type(value = PhoneNumberApplyContentData.class, name = "PhoneNumber")
 })
 @ToString
 @Getter

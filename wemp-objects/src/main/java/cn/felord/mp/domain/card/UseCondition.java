@@ -15,6 +15,8 @@
 
 package cn.felord.mp.domain.card;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -50,6 +52,34 @@ public class UseCondition {
      * 填写true时系统将在使用须知里 拼写“可与其他优惠共享”， 默认为true
      */
     private Boolean canUseWithOtherDiscount;
+
+    /**
+     * Instantiates a new Use condition.
+     */
+    public UseCondition() {
+    }
+
+    /**
+     * Instantiates a new Use condition.
+     *
+     * @param acceptCategory          the accept category
+     * @param rejectCategory          the reject category
+     * @param leastCost               the least cost
+     * @param objectUseFor            the object use for
+     * @param canUseWithOtherDiscount the can use with other discount
+     */
+    @JsonCreator
+    UseCondition(@JsonProperty("accept_category") String acceptCategory,
+                 @JsonProperty("reject_category") String rejectCategory,
+                 @JsonProperty("least_cost") Integer leastCost,
+                 @JsonProperty("object_use_for") String objectUseFor,
+                 @JsonProperty("can_use_with_other_discount") Boolean canUseWithOtherDiscount) {
+        this.acceptCategory = acceptCategory;
+        this.rejectCategory = rejectCategory;
+        this.leastCost = leastCost;
+        this.objectUseFor = objectUseFor;
+        this.canUseWithOtherDiscount = canUseWithOtherDiscount;
+    }
 
     /**
      * Accept category use condition.

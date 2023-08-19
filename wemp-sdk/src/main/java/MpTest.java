@@ -64,7 +64,7 @@ public class MpTest {
 //        CardLandingResponse landingpage = cardApi.landingpage(request);
 
 
-        CardUpdateUserResponse updateuser = cardApi.updateuser(to());
+        CardUpdateUserResponse updateuser = cardApi.updateUser(to());
 
         System.out.println("updateuser = " + updateuser);
 

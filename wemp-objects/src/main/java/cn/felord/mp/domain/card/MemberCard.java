@@ -16,6 +16,8 @@
 package cn.felord.mp.domain.card;
 
 import cn.felord.mp.enumeration.CardType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -23,14 +25,20 @@ import lombok.ToString;
  * 会员卡
  *
  * @author dax
- * @since 2023/8/18 16:15
+ * @since 2023 /8/18 16:15
  */
 @ToString
 @Getter
 public class MemberCard extends AbstractCard {
     private final MemberCardInfo memberCard;
 
-    public MemberCard(MemberCardInfo memberCard) {
+    /**
+     * Instantiates a new Member card.
+     *
+     * @param memberCard the member card
+     */
+    @JsonCreator
+    public MemberCard(@JsonProperty("member_card") MemberCardInfo memberCard) {
         super(CardType.MEMBER_CARD);
         this.memberCard = memberCard;
     }

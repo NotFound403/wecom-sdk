@@ -17,6 +17,8 @@ package cn.felord.mp.domain.card;
 
 import cn.felord.mp.enumeration.CardBgColor;
 import cn.felord.mp.enumeration.CardCodeType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -155,6 +157,88 @@ public class BaseInfo {
      * 填写true为用户点击进入会员卡时推送事件，默认为false。详情见 进入会员卡事件推送
      */
     private Boolean needPushOnView;
+
+    /**
+     * Instantiates a new Base info.
+     *
+     * @param logoUrl                the logo url
+     * @param codeType               the code type
+     * @param brandName              the brand name
+     * @param title                  the title
+     * @param color                  the color
+     * @param description            the description
+     * @param notice                 the notice
+     * @param sku                    the sku
+     * @param dateInfo               the date info
+     * @param useCustomCode          the use custom code
+     * @param getCustomCodeMode      the get custom code mode
+     * @param bindOpenid             the bind openid
+     * @param servicePhone           the service phone
+     * @param locationIdList         the location id list
+     * @param useAllLocations        the use all locations
+     * @param centerTitle            the center title
+     * @param centerSubTitle         the center sub title
+     * @param centerUrl              the center url
+     * @param centerAppBrandUserName the center app brand user name
+     * @param centerAppBrandPass     the center app brand pass
+     * @param customUrlName          the custom url name
+     * @param customUrl              the custom url
+     * @param customUrlSubTitle      the custom url sub title
+     * @param promotionUrlName       the promotion url name
+     * @param promotionUrl           the promotion url
+     * @param promotionUrlSubTitle   the promotion url sub title
+     * @param getLimit               the get limit
+     * @param canShare               the can share
+     * @param canGiveFriend          the can give friend
+     * @param needPushOnView         the need push on view
+     */
+    @JsonCreator
+    BaseInfo(@JsonProperty("logo_url") String logoUrl, @JsonProperty("code_type") CardCodeType codeType,
+             @JsonProperty("brand_name") String brandName, @JsonProperty("title") String title,
+             @JsonProperty("color") CardBgColor color, @JsonProperty("description") String description,
+             @JsonProperty("notice") String notice, @JsonProperty("sku") Sku sku,
+             @JsonProperty("date_info") DateInfo dateInfo, @JsonProperty("use_custom_code") Boolean useCustomCode,
+             @JsonProperty("get_custom_code_mode") String getCustomCodeMode, @JsonProperty("bind_openid") Boolean bindOpenid,
+             @JsonProperty("service_phone") String servicePhone, @JsonProperty("location_id_list") List<Integer> locationIdList,
+             @JsonProperty("use_all_locations") Boolean useAllLocations, @JsonProperty("center_title") String centerTitle,
+             @JsonProperty("center_sub_title") String centerSubTitle, @JsonProperty("center_url") String centerUrl,
+             @JsonProperty("center_app_brand_user_name") String centerAppBrandUserName, @JsonProperty("center_app_brand_pass") String centerAppBrandPass,
+             @JsonProperty("custom_url_name") String customUrlName, @JsonProperty("custom_url") String customUrl,
+             @JsonProperty("custom_url_sub_title") String customUrlSubTitle, @JsonProperty("promotion_url_name") String promotionUrlName,
+             @JsonProperty("promotion_url") String promotionUrl, @JsonProperty("promotion_url_sub_title") String promotionUrlSubTitle,
+             @JsonProperty("get_limit") Integer getLimit, @JsonProperty("can_share") Boolean canShare,
+             @JsonProperty("can_give_friend") Boolean canGiveFriend, @JsonProperty("need_push_on_view") Boolean needPushOnView) {
+        this.logoUrl = logoUrl;
+        this.codeType = codeType;
+        this.brandName = brandName;
+        this.title = title;
+        this.color = color;
+        this.description = description;
+        this.notice = notice;
+        this.sku = sku;
+        this.dateInfo = dateInfo;
+        this.useCustomCode = useCustomCode;
+        this.getCustomCodeMode = getCustomCodeMode;
+        this.bindOpenid = bindOpenid;
+        this.servicePhone = servicePhone;
+        this.locationIdList = locationIdList;
+        this.useAllLocations = useAllLocations;
+        this.centerTitle = centerTitle;
+        this.centerSubTitle = centerSubTitle;
+        this.centerUrl = centerUrl;
+        this.centerAppBrandUserName = centerAppBrandUserName;
+        this.centerAppBrandPass = centerAppBrandPass;
+        this.customUrlName = customUrlName;
+        this.customUrl = customUrl;
+        this.customUrlSubTitle = customUrlSubTitle;
+        this.promotionUrlName = promotionUrlName;
+        this.promotionUrl = promotionUrl;
+        this.promotionUrlSubTitle = promotionUrlSubTitle;
+        this.getLimit = getLimit;
+        this.canShare = canShare;
+        this.canGiveFriend = canGiveFriend;
+        this.needPushOnView = needPushOnView;
+    }
 
     /**
      * Use custom code base info.

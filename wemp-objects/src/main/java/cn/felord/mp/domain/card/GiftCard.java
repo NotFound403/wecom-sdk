@@ -16,6 +16,8 @@
 package cn.felord.mp.domain.card;
 
 import cn.felord.mp.enumeration.CardType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -35,7 +37,8 @@ public class GiftCard extends AbstractCard {
      *
      * @param gift the gift
      */
-    public GiftCard(GiftInfo gift) {
+    @JsonCreator
+    public GiftCard(@JsonProperty("gift") GiftInfo gift) {
         super(CardType.GIFT);
         this.gift = gift;
     }
