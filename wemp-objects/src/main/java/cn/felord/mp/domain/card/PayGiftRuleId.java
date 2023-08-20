@@ -15,31 +15,15 @@
 
 package cn.felord.mp.domain.card;
 
-import cn.felord.mp.enumeration.CardType;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
- * 兑换券
+ * The type Pay gift rule id.
  *
  * @author dax
- * @since 2023 /8/18
+ * @since 2023 /8/20
  */
-@ToString
-@Getter
-public class GiftCard extends AbstractCard {
-    private final GiftInfo gift;
-
-    /**
-     * Instantiates a new Gift card.
-     *
-     * @param gift the gift
-     */
-    @JsonCreator
-    public GiftCard(@JsonProperty("gift") GiftInfo gift) {
-        super(CardType.GIFT);
-        this.gift = gift;
-    }
+@Data
+public class PayGiftRuleId {
+    private final String ruleId;
 }

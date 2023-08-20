@@ -46,10 +46,17 @@ public class MemberCardInfo {
      * 会员卡特权说明,限制1024汉字
      */
     private final String prerogative;
+
+    //  autoActivate activateUrl wxActivate 必须选择一个
+
     /**
      * 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口
      */
     private Boolean autoActivate;
+    /**
+     * 激活会员卡的url
+     */
+    private String activateUrl;
     /**
      * 设置为true时会员卡支持一键开卡，不允许同时传入activate_url字段，
      * 否则设置wx_activate失效。填入该字段后仍需调用接口设置开卡项方可生效
@@ -96,10 +103,6 @@ public class MemberCardInfo {
      * 储值说明
      */
     private String balanceRules;
-    /**
-     * 激活会员卡的url
-     */
-    private String activateUrl;
     /**
      * 激活会员卡url对应的小程序user_name，仅可跳转该公众号绑定的小程序
      */
@@ -224,7 +227,7 @@ public class MemberCardInfo {
     }
 
     /**
-     * Enable supply bonus member card info.
+     * Supply bonus member card info.
      *
      * @param bonusUrl     the bonus url
      * @param bonusRules   the bonus rules
@@ -232,26 +235,12 @@ public class MemberCardInfo {
      * @param bonusRule    the bonus rule
      * @return the member card info
      */
-    public MemberCardInfo enableSupplyBonus(String bonusUrl, String bonusRules, String bonusCleared, BonusRule bonusRule) {
+    public MemberCardInfo supplyBonus(String bonusUrl, String bonusRules, String bonusCleared, BonusRule bonusRule) {
         this.supplyBonus = true;
         this.bonusUrl = bonusUrl;
         this.bonusRules = bonusRules;
         this.bonusCleared = bonusCleared;
         this.bonusRule = bonusRule;
-        return this;
-    }
-
-    /**
-     * Disable supply bonus member card info.
-     *
-     * @return the member card info
-     */
-    public MemberCardInfo disableSupplyBonus() {
-        this.supplyBonus = false;
-        this.bonusUrl = null;
-        this.bonusRules = null;
-        this.bonusCleared = null;
-        this.bonusRule = null;
         return this;
     }
 

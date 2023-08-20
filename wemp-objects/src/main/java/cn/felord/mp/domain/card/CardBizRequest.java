@@ -13,19 +13,24 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.domain;
+package cn.felord.mp.domain.card;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import cn.felord.mp.enumeration.CondSource;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.time.LocalDate;
 
 /**
- * @author dax
- * @since 2023/8/19
+ * 卡券概况数据
+ * <p>
+ * 查询时间区间需<=62天。只能拉取非当天的数据，不能拉取当天的卡券数据，否则报错。
+ *
+ * @author felord.cn
+ * @since 1.0.0.RELEASE
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class GenericMpResponse<T> extends MpResponse {
-    @JsonAlias({"code", "card_id", "card", "send_check"})
-    private T data;
+public class CardBizRequest {
+    private final LocalDate beginDate;
+    private final LocalDate endDate;
+    private final CondSource condSource;
 }

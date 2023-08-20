@@ -15,31 +15,21 @@
 
 package cn.felord.mp.domain.card;
 
-import cn.felord.mp.enumeration.CardType;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.ToString;
+import cn.felord.mp.domain.MpResponse;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 /**
- * 优惠券
+ * The type Batch card response.
  *
- * @author dax
- * @since 2023 /8/18
+ * @author felord.cn
+ * @since 1.0.0.RELEASE
  */
-@ToString
-@Getter
-public class GeneralCouponCard extends AbstractCard {
-    private final GeneralCouponInfo generalCoupon;
-
-    /**
-     * Instantiates a new General coupon card.
-     *
-     * @param generalCoupon the general coupon
-     */
-    @JsonCreator
-    public GeneralCouponCard(@JsonProperty("general_coupon") GeneralCouponInfo generalCoupon) {
-        super(CardType.GENERAL_COUPON);
-        this.generalCoupon = generalCoupon;
-    }
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class BatchCardResponse extends MpResponse {
+    private Integer totalNum;
+    private List<String> cardIdList;
 }

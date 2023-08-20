@@ -16,42 +16,54 @@
 package cn.felord.mp.enumeration;
 
 /**
- * The enum Week day.
+ * The enum Common field.
  *
  * @author dax
- * @since 2023 /8/18 17:36
+ * @since 2023 /8/20
  */
-public enum WeekDay {
+public enum CommonField {
     /**
-     * 周日
+     * 手机号
      */
-    SUNDAY,
+    USER_FORM_INFO_FLAG_MOBILE,
     /**
-     * 周一
+     * 性别
      */
-    MONDAY,
+    USER_FORM_INFO_FLAG_SEX,
     /**
-     * 周二
+     * 姓名
      */
-    TUESDAY,
+    USER_FORM_INFO_FLAG_NAME,
     /**
-     * 周三
+     * 生日
      */
-    WEDNESDAY,
+    USER_FORM_INFO_FLAG_BIRTHDAY,
     /**
-     * 周四
+     * 身份证
      */
-    THURSDAY,
+    USER_FORM_INFO_FLAG_IDCARD,
     /**
-     * 周五
+     * 邮箱
      */
-    FRIDAY,
+    USER_FORM_INFO_FLAG_EMAIL,
     /**
-     * 周六
+     * 详细地址
      */
-    SATURDAY,
+    USER_FORM_INFO_FLAG_LOCATION,
     /**
-     * 节假日
+     * 教育背景
      */
-    HOLIDAY
+    USER_FORM_INFO_FLAG_EDUCATION_BACKGRO,
+    /**
+     * 行业
+     */
+    USER_FORM_INFO_FLAG_INDUSTRY,
+    /**
+     * 收入
+     */
+    USER_FORM_INFO_FLAG_INCOME,
+    /**
+     * 兴趣爱好
+     */
+    USER_FORM_INFO_FLAG_HABIT
 }

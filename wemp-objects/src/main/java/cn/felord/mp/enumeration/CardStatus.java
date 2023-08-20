@@ -13,19 +13,34 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.domain;
-
-import com.fasterxml.jackson.annotation.JsonAlias;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+package cn.felord.mp.enumeration;
 
 /**
+ * 卡券状态
+ *
  * @author dax
- * @since 2023/8/19
+ * @since 2023 /8/19
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-public class GenericMpResponse<T> extends MpResponse {
-    @JsonAlias({"code", "card_id", "card", "send_check"})
-    private T data;
+public enum CardStatus {
+
+    /**
+     * 待审核
+     */
+    CARD_STATUS_NOT_VERIFY,
+    /**
+     * 审核失败
+     */
+    CARD_STATUS_VERIFY_FAIL,
+    /**
+     * 通过审核
+     */
+    CARD_STATUS_VERIFY_OK,
+    /**
+     * 卡券被商户删除
+     */
+    CARD_STATUS_DELETE,
+    /**
+     * 在公众平台投放过的卡券
+     */
+    CARD_STATUS_DISPATCH
 }

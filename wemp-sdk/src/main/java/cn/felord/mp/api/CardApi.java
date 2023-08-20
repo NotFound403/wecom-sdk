@@ -19,6 +19,9 @@ import cn.felord.mp.WeMpException;
 import cn.felord.mp.domain.GenericMpResponse;
 import cn.felord.mp.domain.MpResponse;
 import cn.felord.mp.domain.card.*;
+import cn.felord.mp.domain.card.PayGiftRuleId;
+import cn.felord.mp.domain.card.PayGiftRulesRequest;
+import cn.felord.mp.domain.card.PayGiftRulesResponse;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -40,15 +43,10 @@ public interface CardApi {
      * @param request the request
      * @return the generic mp response
      * @throws WeMpException the we mp exception
-     * @see CashCard
-     * @see DiscountCard
-     * @see GeneralCouponCard
-     * @see GiftCard
-     * @see GroupOnCard
      * @see MemberCard
      */
     @POST("card/create")
-    GenericMpResponse<String> create(@Body CardRequest<AbstractCard> request) throws WeMpException;
+    GenericMpResponse<String> createCard(@Body CardRequest<AbstractCard> request) throws WeMpException;
 
     /**
      * 创建二维码接口
@@ -187,10 +185,111 @@ public interface CardApi {
      * @throws WeMpException the we mp exception
      */
     @POST("card/get")
-    CardListResponse getCard(@Body CardId request) throws WeMpException;
+    GenericMpResponse<AbstractCard> getCard(@Body CardId request) throws WeMpException;
 
     /**
-     * Update user card update user response.
+     * 删除卡券接口
+     * <p>
+     * 删除卡券接口允许商户删除任意一类卡券。
+     * 删除卡券后，该卡券对应已生成的领取用二维码、添加到卡包JS API均会失效。
+     * <p>
+     * 注意：如用户在商家删除卡券前已领取一张或多张该卡券依旧有效。
+     * 即删除卡券不能删除已被用户领取，保存在微信客户端中的卡券。
+     *
+     * @param request the request
+     * @return the mp response
+     * @throws WeMpException the we mp exception
+     */
+    @POST("card/delete")
+    MpResponse deleteCard(@Body CardId request) throws WeMpException;
+
+    /**
+     * 设置卡券失效接口
+     * <p>
+     * 为满足改票、退款等异常情况，可调用卡券失效接口将用户的卡券设置为失效状态。
+     *
+     * @param request the request
+     * @return the mp response
+     * @throws WeMpException the we mp exception
+     */
+    @POST("card/code/unavailable")
+    MpResponse unavailableCardCode(@Body AbandonCardCodeRequest request) throws WeMpException;
+
+    /**
+     * 批量查询卡券列表
+     *
+     * @param request the request
+     * @return the batch card response
+     * @throws WeMpException the we mp exception
+     */
+    @POST("card/batchget")
+    BatchCardResponse batchGetCard(@Body BatchCardRequest request) throws WeMpException;
+
+    /**
+     * 更改卡券信息接口
+     * <p>
+     * 支持更新所有卡券类型的部分通用字段及特殊卡券（会员卡、飞机票、电影票、会议门票）中特定字段的信息。
+     *
+     * @param request the request
+     * @return the generic mp response
+     * @throws WeMpException the we mp exception
+     */
+    @POST("card/update")
+    GenericMpResponse<Boolean> updateCard(@Body UpdateCardRequest request) throws WeMpException;
+
+    /**
+     * 修改库存接口
+     * <p>
+     * 调用修改库存接口增减某张卡券的库存。
+     *
+     * @param request the request
+     * @return the mp response
+     * @throws WeMpException the we mp exception
+     */
+    @POST("card/modifystock")
+    MpResponse modifyStock(@Body ModifyStockRequest request) throws WeMpException;
+
+    /**
+     * Activate member card mp response.
+     *
+     * @param request the request
+     * @return the mp response
+     * @throws WeMpException the we mp exception
+     */
+    @POST("card/membercard/activate")
+    MpResponse activateMemberCard(@Body MemberCardActivateRequest request) throws WeMpException;
+
+    /**
+     * 设置开卡字段接口
+     * <p>
+     * 开发者在创建时填入wx_activate字段后，需要调用该接口设置用户激活时需要填写的选项，否则一键开卡设置不生效。
+     * <p>
+     * <img src ="https://mmbiz.qpic.cn/mmbiz/PiajxSqBRaEIQxibpLbyuSK8ghZh6u55AiafY7UDDlAkOVnox1ABdGuKSeWhF78sF4nrtLjx2yLb85zmfIyseZ9eQ/0?wx_fmt=png" />
+     *
+     * @param request the request
+     * @return the activate form
+     * @throws WeMpException the we mp exception UserCardInfo
+     */
+    @POST("card/membercard/activateuserform/set")
+    MpResponse setActivateForm(@Body MemberCardActivateForm request) throws WeMpException;
+
+    /**
+     * 步骤五：拉取会员信息接口
+     * <p>
+     * 支持开发者根据CardID和Code查询会员信息。
+     *
+     * @param request the request
+     * @return userinfo userinfo
+     * @throws WeMpException the we mp exception
+     */
+    @POST("card/membercard/userinfo/get")
+    CardUserInfoResponse getUserinfo(@Body UserCardInfo request) throws WeMpException;
+
+    /**
+     * 更新会员信息
+     * <p>
+     * 当会员持卡消费后，支持开发者调用该接口更新会员信息。
+     * 会员卡交易后的每次信息变更需通过该接口通知微信，便于后续消息通知及其他扩展功能。
      *
      * @param request the request
      * @return the card landing response
@@ -198,5 +297,93 @@ public interface CardApi {
      */
     @POST("card/membercard/updateuser")
     CardUpdateUserResponse updateUser(@Body CardUpdateUserRequest request) throws WeMpException;
+
+    /**
+     * 更改Code接口
+     * <p>
+     * 为确保转赠后的安全性，微信允许自定义Code的商户对已下发的code进行更改。
+     * <p>
+     * 注：为避免用户疑惑，建议仅在发生转赠行为后（发生转赠后，微信会通过事件推送的方式告知商户被转赠的卡券Code）对用户的Code进行更改。
+     *
+     * @param request the request
+     * @return the mp response
+     * @throws WeMpException the we mp exception
+     */
+    @POST("card/code/update")
+    MpResponse updateCode(@Body UpdateCodeRequest request) throws WeMpException;
+
+    /**
+     * 设置支付后投放卡券接口
+     * <p>
+     * 开通微信支付的商户可以设置在用户微信支付后自动为用户发送一条领卡消息，用户点击消息即可领取会员卡/优惠券。
+     * 目前该功能仅支持微信支付商户号主体和制作会员卡公众号主体一致的情况下配置，否则报错。
+     *
+     * @param request the request
+     * @return the mp response
+     * @throws WeMpException the we mp exception
+     */
+    @POST("card/paygiftcard/add")
+    PayGiftRulesResponse addPayGiftCard(@Body PayGiftRulesRequest request) throws WeMpException;
+
+    /**
+     * 删除支付后投放卡券规则接口
+     * <p>
+     * 删除之前已经设置的支付即会员规则。
+     *
+     * @param request the request
+     * @return the mp response
+     * @throws WeMpException the we mp exception
+     */
+    @POST("card/paygiftcard/delete")
+    MpResponse deletePayGiftCard(@Body PayGiftRuleId request) throws WeMpException;
+
+
+    /**
+     * 拉取卡券概况数据接口
+     * <p>
+     * 支持调用该接口拉取本商户的总体数据情况，包括时间区间内的各指标总量。
+     *
+     * @param request the request
+     * @return the card bizuin info
+     * @throws WeMpException the we mp exception
+     */
+    @POST("datacube/getcardbizuininfo")
+    CardDataList<CardBiz> getCardBizuinInfo(@Body CardBizRequest request) throws WeMpException;
+
+    /**
+     * 获取免费券数据接口
+     * <p>
+     * 支持开发者调用该接口拉取免费券（优惠券、团购券、折扣券、礼品券）在固定时间区间内的相关数据。
+     *
+     * @param request the request
+     * @return the card card info
+     * @throws WeMpException the we mp exception
+     */
+    @POST("datacube/getcardcardinfo")
+    CardDataList<FreeCardBiz> getCardCardInfo(@Body CardInfoRequest request) throws WeMpException;
+
+    /**
+     * 拉取会员卡概况数据接口
+     * <p>
+     * 支持开发者调用该接口拉取公众平台创建的会员卡相关数据。
+     *
+     * @param request the request
+     * @return the card member card info
+     * @throws WeMpException the we mp exception
+     */
+    @POST("datacube/getcardmembercardinfo")
+    CardDataList<MemberCardBiz> getCardMemberCardInfo(@Body CardBizRequest request) throws WeMpException;
+
+    /**
+     * 拉取单张会员卡数据接口
+     * <p>
+     * 支持开发者调用该接口拉取API创建的会员卡数据情况
+     *
+     * @param request the request
+     * @return the card member card info
+     * @throws WeMpException the we mp exception
+     */
+    @POST("datacube/getcardmembercarddetail")
+    CardDataList<MemberCardDetail> getCardMemberCardInfo(@Body MemberCardDetailRequest request) throws WeMpException;
 
 }

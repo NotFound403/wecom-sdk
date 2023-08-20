@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.domain.card;
+package cn.felord.mp.domain.media;
 
 import lombok.Data;
 

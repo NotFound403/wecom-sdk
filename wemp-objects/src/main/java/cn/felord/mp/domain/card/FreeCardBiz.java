@@ -15,31 +15,16 @@
 
 package cn.felord.mp.domain.card;
 
-import cn.felord.mp.enumeration.CardType;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- * 卡券
- * <ol>
- *     <li>会员卡类型对应 {@link MemberCard}</li>
- * </ol>
- *
  * @author dax
- * @since 2023 /8/18 16:01
+ * @since 2023/8/20
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.EXISTING_PROPERTY,
-        property = "card_type", visible = true)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = MemberCard.class, name = "MEMBER_CARD")
-})
-@ToString
-@RequiredArgsConstructor
-@Getter
-public abstract class AbstractCard {
-    private final CardType cardType;
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class FreeCardBiz extends CardBiz {
+    private String cardId;
+    private Integer cardType;
 }

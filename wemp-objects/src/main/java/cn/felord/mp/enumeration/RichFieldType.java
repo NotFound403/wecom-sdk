@@ -13,19 +13,26 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.domain;
-
-import com.fasterxml.jackson.annotation.JsonAlias;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+package cn.felord.mp.enumeration;
 
 /**
+ * The enum Rich field type.
+ *
  * @author dax
- * @since 2023/8/19
+ * @since 2023 /8/20
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-public class GenericMpResponse<T> extends MpResponse {
-    @JsonAlias({"code", "card_id", "card", "send_check"})
-    private T data;
+public enum RichFieldType {
+
+    /**
+     * 自定义单选
+     */
+    FORM_FIELD_RADIO,
+    /**
+     * 自定义选择项
+     */
+    FORM_FIELD_SELECT,
+    /**
+     * 自定义多选
+     */
+    FORM_FIELD_CHECK_BOX
 }

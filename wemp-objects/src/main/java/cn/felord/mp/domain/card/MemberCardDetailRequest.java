@@ -13,19 +13,21 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.domain;
+package cn.felord.mp.domain.card;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.time.LocalDate;
 
 /**
- * @author dax
- * @since 2023/8/19
+ * 单张会员卡数据接口参数
+ *
+ * @author felord.cn
+ * @since 1.0.0.RELEASE
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class GenericMpResponse<T> extends MpResponse {
-    @JsonAlias({"code", "card_id", "card", "send_check"})
-    private T data;
+public class MemberCardDetailRequest {
+    private final LocalDate endDate;
+    private final LocalDate beginDate;
+    private final String cardId;
 }

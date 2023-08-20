@@ -15,31 +15,12 @@
 
 package cn.felord.mp.domain.card;
 
-import cn.felord.mp.enumeration.CardType;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
- * 代金券
- *
- * @author dax
- * @since 2023 /8/18
+ * 推荐类型
  */
-@ToString
-@Getter
-public class CashCard extends AbstractCard {
-    private final CashInfo cash;
-
-    /**
-     * Instantiates a new Cash card.
-     *
-     * @param cash the cash
-     */
-    @JsonCreator
-    public CashCard(@JsonProperty("cash") CashInfo cash) {
-        super(CardType.CASH);
-        this.cash = cash;
-    }
+@Data
+public class MsgOperation {
+    private UrlCell urlCell;
 }

@@ -49,7 +49,7 @@ public class AbstractInfo {
      * @param iconUrlList the icon url list
      */
     @JsonCreator
-    public AbstractInfo(@JsonProperty("info") String info, @JsonProperty("icon_url_list") List<String> iconUrlList) {
+    public AbstractInfo(@JsonProperty("abstract") String info, @JsonProperty("icon_url_list") List<String> iconUrlList) {
         this.info = info;
         this.iconUrlList = iconUrlList;
     }

@@ -13,19 +13,15 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.domain;
+package cn.felord.mp.domain.card;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import cn.felord.mp.domain.common.KV;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-/**
- * @author dax
- * @since 2023/8/19
- */
-@EqualsAndHashCode(callSuper = true)
+import java.util.List;
+
 @Data
-public class GenericMpResponse<T> extends MpResponse {
-    @JsonAlias({"code", "card_id", "card", "send_check"})
-    private T data;
+public class CardUserInfo {
+    private List<CustomFieldValue> customFieldList;
+    private List<KV> commonFieldList;
 }

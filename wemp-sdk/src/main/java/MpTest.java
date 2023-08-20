@@ -13,19 +13,25 @@
  *  limitations under the License.
  */
 
-import cn.felord.json.JacksonObjectMapperFactory;
+import cn.felord.common.MultipartResource;
 import cn.felord.mp.MpApp;
 import cn.felord.mp.WeMpTokenCacheable;
 import cn.felord.mp.api.CardApi;
 import cn.felord.mp.api.MediaApi;
 import cn.felord.mp.api.WechatMpApi;
+import cn.felord.mp.domain.GenericMpResponse;
 import cn.felord.mp.domain.card.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import cn.felord.mp.domain.media.MediaUrl;
+import cn.felord.mp.enumeration.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -50,146 +56,73 @@ public class MpTest {
         CardApi cardApi = wechatMpApi.cardApi(mpApp);
 //        ResponseBody responseBody = cardApi.create(toRequest());
 //        System.out.println("responseBody = " + responseBody);
+        String cardId = "pUSi66OPKdaivX3jeZePoyfOSdkI";
+        String cardId2 = "pUSi66Cnn77UPk7IsRm2p6XBEVoc";
+        String cardId3 = "pUSi66C-EWJj8AO91SG9a8__Xn0A";
 
-        CardLandingRequest request = new CardLandingRequest();
+        GenericMpResponse<String> card = cardApi.createCard(new CardRequest<>(create()));
+        System.out.println("card = " + card);
+//        MpResponse mpResponse = cardApi.deleteCard(new CardId(cardId2));
 
-        request.setPageTitle("会员卡");
-        request.setCanShare(false);
-        request.setBanner("http://mmbiz.qpic.cn/sz_mmbiz_png/ards8DC4cLgibz8vniaexK6QK14LiaSGkXNJ1ZYLgEicFWQaJ83pd0p1oP1STBT6XdlNITYcD80f7gRI5Aw4upQIug/0");
-        request.setScene("SCENE_QRCODE");
-        CardIdInfo idInfo = new CardIdInfo();
-        idInfo.setCardId("pUSi66OPKdaivX3jeZePoyfOSdkI");
-        idInfo.setThumbUrl("https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_1280.png");
-        request.setCardList(Collections.singletonList(idInfo));
-//        CardLandingResponse landingpage = cardApi.landingpage(request);
-
-
-        CardUpdateUserResponse updateuser = cardApi.updateUser(to());
-
-        System.out.println("updateuser = " + updateuser);
-
+        CardQrcodeResponse qrcode = cardApi.createQrcode(new SingleQrcodeRequest(new SingleActionInfo(new SingleCard().cardId(cardId2))));
+        System.out.println("qrcode = " + qrcode);
 
     }
 
 
-    public static CardUpdateUserRequest to() throws JsonProcessingException {
-        String json = "{\n" +
-                "  \"code\": \"366021428358\",\n" +
-                "  \"card_id\": \"pUSi66OPKdaivX3jeZePoyfOSdkI\",\n" +
-                "  \"record_bonus\": \"1500积分兑换周边\",\n" +
-                "  \"bonus\": 1500,\n" +
-                "  \"add_bonus\": -1500,\n" +
-                "  \"notify_optional\": {\n" +
-                "    \"is_notify_bonus\": true,\n" +
-                "    \"is_notify_custom_field1\":true\n" +
-                "  }\n" +
-                "}";
+    public static MemberCard create() {
+        String bg = "http://mmbiz.qpic.cn/sz_mmbiz_png/ards8DC4cLgibz8vniaexK6QK14LiaSGkXNJ1ZYLgEicFWQaJ83pd0p1oP1STBT6XdlNITYcD80f7gRI5Aw4upQIug/0";
 
-        return JacksonObjectMapperFactory.create().readValue(json, CardUpdateUserRequest.class);
+        String logoUrl = "http://mmbiz.qpic.cn/sz_mmbiz_png/ards8DC4cLhnNibKX9Bpdj7DQgiciayHOhJ98rN8qWzY1Giaic7RSruac9kDfDLugmkXN73l7V7Sdajj71pVrMltjnQ/0";
+
+
+        MemberCardBaseInfo baseInfo = new MemberCardBaseInfo(
+                "哈什科技",
+                "VIP会员",
+                logoUrl,
+                CardCodeType.CODE_TYPE_BARCODE,
+                "支付时请出示此券",
+                "不可与其他优惠同享，\n不兑换不找零，\n满100元可用，\n如需团购券发票，请在消费时向商户提出",
+                CardBgColor.COLOR080,
+                new Sku(500L),
+                DateInfo.permanent())
+                .canGiveFriend(false)
+                .canShare(false)
+                .getLimit(1)
+                .useAllLocations(true)
+                .servicePhone("400-8888888")
+                .customUrl("VIP专区", "汇聚优选", "https://felord.cn")
+                .promotionUrl("新品推荐", "欢迎选购", "https://felord.cn");
+
+
+        AdvancedInfo advancedInfo = new AdvancedInfo()
+                .timeLimit(Arrays.asList(new WeekDayLimit(WeekDay.MONDAY),
+                        new WeekDayLimit(WeekDay.TUESDAY),
+                        new WeekDayLimit(WeekDay.WEDNESDAY),
+                        new WeekDayLimit(WeekDay.THURSDAY),
+                        new WeekDayLimit(WeekDay.FRIDAY),
+                        new WeekDayLimit(WeekDay.SATURDAY),
+                        new WeekDayLimit(WeekDay.SUNDAY)
+                ))
+                .businessService(new HashSet<>(Arrays.asList(BusinessService.BIZ_SERVICE_FREE_WIFI, BusinessService.BIZ_SERVICE_FREE_PARK)));
+
+        MemberCardInfo memberCardInfo = new MemberCardInfo(baseInfo, "持此卡可在本集团门店享受会员权益")
+                .backgroundPicUrl(bg)
+                .customCell1(new CustomCell("转介绍", "介绍有礼", "https://felord.cn"))
+                .customField1(new CustomField(MemberCardFieldType.FIELD_NAME_TYPE_LEVEL, "https://felord.cn"))
+                .customField2(new CustomField(MemberCardFieldType.FIELD_NAME_TYPE_COUPON, "https://felord.cn"))
+                .customField3(new CustomField(MemberCardFieldType.FIELD_NAME_TYPE_DISCOUNT, "https://felord.cn"))
+                .autoActivate(true)
+                .advancedInfo(advancedInfo);
+        return new MemberCard(memberCardInfo);
     }
 
 
-    public static CardRequest toRequest() throws JsonProcessingException {
-
-        String json = "{\n" +
-                "    \"card\": {\n" +
-                "        \"card_type\": \"MEMBER_CARD\",\n" +
-                "        \"member_card\": {\n" +
-                "            \"background_pic_url\": \"http://mmbiz.qpic.cn/sz_mmbiz_png/ards8DC4cLgibz8vniaexK6QK14LiaSGkXNJ1ZYLgEicFWQaJ83pd0p1oP1STBT6XdlNITYcD80f7gRI5Aw4upQIug/0\",\n" +
-                "            \"base_info\": {\n" +
-                "                \"logo_url\": \"http://mmbiz.qpic.cn/sz_mmbiz_png/ards8DC4cLgibz8vniaexK6QK14LiaSGkXNc7vnmJIasOiaVvAF5YHRLknYb0nbLIxZjPxSAN5uhQyicWIjJSCASibDA/0\",\n" +
-                "                \"brand_name\": \"12312\",\n" +
-                "                \"code_type\": \"CODE_TYPE_TEXT\",\n" +
-                "                \"title\": \"1231\",\n" +
-                "                \"color\": \"Color010\",\n" +
-                "                \"notice\": \"使用时向服务员出示此券\",\n" +
-                "                \"service_phone\": \"020-88888888\",\n" +
-                "                \"description\": \"不可与其他优惠同享\",\n" +
-                "                \"date_info\": {\n" +
-                "                    \"type\": \"DATE_TYPE_PERMANENT\"\n" +
-                "                },\n" +
-                "                \"sku\": {\n" +
-                "                    \"quantity\": 50000000\n" +
-                "                },\n" +
-                "                \"get_limit\": 3,\n" +
-                "                \"use_custom_code\": false,\n" +
-                "                \"can_give_friend\": true,\n" +
-                "                \"location_id_list\": [\n" +
-                "                    123,\n" +
-                "                    12321\n" +
-                "                ],\n" +
-                "                \"custom_url_name\": \"立即使用\",\n" +
-                "                \"custom_url\": \"http://weixin.qq.com\",\n" +
-                "                \"custom_url_sub_title\": \"6个汉字tips\",\n" +
-                "                \"promotion_url_name\": \"营销入口1\",\n" +
-                "                \"promotion_url\": \"http://www.qq.com\",\n" +
-                "                \"need_push_on_view\": true\n" +
-                "            },\n" +
-                "             \"advanced_info\": {\n" +
-                "               \"use_condition\": {\n" +
-                "                   \"accept_category\": \"鞋类\",\n" +
-                "                   \"reject_category\": \"阿迪达斯\",\n" +
-                "                   \"can_use_with_other_discount\": true\n" +
-                "               },\n" +
-                "               \"text_image_list\": [\n" +
-                "                   {\n" +
-                "                       \"image_url\": \"http://mmbiz.qpic.cn/mmbiz/p98FjXy8LacgHxp3sJ3vn97bGLz0ib0Sfz1bjiaoOYA027iasqSG0sjpiby4vce3AtaPu6cIhBHkt6IjlkY9YnDsfw/0\",\n" +
-                "                       \"text\": \"此菜品精选食材，以独特的烹饪方法，最大程度地刺激食 客的味蕾\"\n" +
-                "                   },\n" +
-                "                   {\n" +
-                "                       \"image_url\": \"http://mmbiz.qpic.cn/mmbiz/p98FjXy8LacgHxp3sJ3vn97bGLz0ib0Sfz1bjiaoOYA027iasqSG0sj piby4vce3AtaPu6cIhBHkt6IjlkY9YnDsfw/0\",\n" +
-                "                       \"text\": \"此菜品迎合大众口味，老少皆宜，营养均衡\"\n" +
-                "                   }\n" +
-                "               ],\n" +
-                "               \"time_limit\": [\n" +
-                "                   {\n" +
-                "                       \"type\": \"MONDAY\",\n" +
-                "                       \"begin_hour\":0,\n" +
-                "                       \"end_hour\":10,\n" +
-                "                       \"begin_minute\":10,\n" +
-                "                       \"end_minute\":59\n" +
-                "                   },\n" +
-                "                   {\n" +
-                "                       \"type\": \"HOLIDAY\"\n" +
-                "                   }\n" +
-                "               ],\n" +
-                "               \"business_service\": [\n" +
-                "                   \"BIZ_SERVICE_FREE_WIFI\",\n" +
-                "                   \"BIZ_SERVICE_WITH_PET\",\n" +
-                "                   \"BIZ_SERVICE_FREE_PARK\",\n" +
-                "                   \"BIZ_SERVICE_DELIVER\"\n" +
-                "               ]\n" +
-                "           },\n" +
-                "            \"supply_bonus\": true,\n" +
-                "            \"supply_balance\": false,\n" +
-                "            \"prerogative\": \"test_prerogative\",\n" +
-                "            \"auto_activate\": true,\n" +
-                "            \"custom_field1\": {\n" +
-                "                \"name_type\": \"FIELD_NAME_TYPE_LEVEL\",\n" +
-                "                \"url\": \"http://www.qq.com\"\n" +
-                "            },\n" +
-                "            \"activate_url\": \"http://www.qq.com\",\n" +
-                "            \"custom_cell1\": {\n" +
-                "                \"name\": \"使用入口2\",\n" +
-                "                \"tips\": \"激活后显示\",\n" +
-                "                \"url\": \"http://www.qq.com\"\n" +
-                "            },\n" +
-                "            \"bonus_rule\": {\n" +
-                "                \"cost_money_unit\": 100,\n" +
-                "                \"increase_bonus\": 1,\n" +
-                "                \"max_increase_bonus\": 200,\n" +
-                "                \"init_increase_bonus\": 10,\n" +
-                "                \"cost_bonus_unit\": 5,\n" +
-                "                \"reduce_money\": 100,\n" +
-                "                \"least_money_to_use_bonus\": 1000,\n" +
-                "                \"max_reduce_bonus\": 50\n" +
-                "            },\n" +
-                "            \"discount\": 10\n" +
-                "        }\n" +
-                "    }\n" +
-                "}";
-        return JacksonObjectMapperFactory.create().readValue(json, CardRequest.class);
-
+    public static void update(MediaApi mediaApi) throws IOException {
+        String path = "C:\\Users\\xfa00\\Pictures\\12312321.png";
+        InputStream inputStream = Files.newInputStream(Paths.get(path));
+        MediaUrl mediaUrl = mediaApi.uploadImg(new MultipartResource("123.png", inputStream));
+        System.out.println("mediaUrl = " + mediaUrl);
     }
 
 

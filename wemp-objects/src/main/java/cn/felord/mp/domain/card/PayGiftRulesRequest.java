@@ -15,31 +15,9 @@
 
 package cn.felord.mp.domain.card;
 
-import cn.felord.mp.enumeration.CardType;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
-/**
- * 折扣券
- *
- * @author dax
- * @since 2023 /8/18
- */
-@ToString
-@Getter
-public class DiscountCard extends AbstractCard {
-    private final DiscountInfo discount;
-
-    /**
-     * Instantiates a new Discount card.
-     *
-     * @param discount the discount
-     */
-    @JsonCreator
-    public DiscountCard(@JsonProperty("discount") DiscountInfo discount) {
-        super(CardType.DISCOUNT);
-        this.discount = discount;
-    }
+@Data
+public class PayGiftRulesRequest {
+    private final PayGiftRuleInfo ruleInfo;
 }

@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.mp.domain.card;
 
 import cn.felord.mp.enumeration.MemberCardFieldType;
@@ -33,20 +48,20 @@ public class CustomField {
      * Instantiates a new Custom field.
      *
      * @param nameType the name type
+     * @param url      the url
      */
-    public CustomField(MemberCardFieldType nameType) {
-        this(nameType, null);
-
+    public CustomField(MemberCardFieldType nameType, String url) {
+        this(nameType, null, url);
     }
 
     /**
      * Instantiates a new Custom field.
      *
-     * @param nameType the name type
-     * @param name     the name
+     * @param name the name
+     * @param url  the url
      */
-    public CustomField(MemberCardFieldType nameType, String name) {
-        this(nameType, name, null);
+    public CustomField(String name, String url) {
+        this(null, name, url);
     }
 
     /**
@@ -57,9 +72,9 @@ public class CustomField {
      * @param url      the url
      */
     @JsonCreator
-    public CustomField(@JsonProperty("name_type") MemberCardFieldType nameType,
-                       @JsonProperty("name") String name,
-                       @JsonProperty("url") String url) {
+    CustomField(@JsonProperty("name_type") MemberCardFieldType nameType,
+                @JsonProperty("name") String name,
+                @JsonProperty("url") String url) {
         this.nameType = nameType;
         this.name = name;
         this.url = url;

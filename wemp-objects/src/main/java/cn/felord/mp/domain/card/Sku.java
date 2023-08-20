@@ -21,16 +21,36 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Sku.
+ *
  * @author dax
- * @since 2023/8/18 11:15
+ * @since 2023 /8/18 11:15
  */
 @ToString
 @Getter
 public class Sku {
-    private final Integer quantity;
+    private final Long quantity;
+    private final Long totalQuantity;
 
+
+    /**
+     * Instantiates a new Sku.
+     *
+     * @param quantity the quantity
+     */
+    public Sku(@JsonProperty("quantity") Long quantity) {
+        this(quantity, null);
+    }
+
+    /**
+     * Instantiates a new Sku.
+     *
+     * @param quantity      the quantity
+     * @param totalQuantity the total quantity
+     */
     @JsonCreator
-    public Sku(@JsonProperty("quantity") Integer quantity) {
+    Sku(@JsonProperty("quantity") Long quantity, @JsonProperty("total_quantity") Long totalQuantity) {
         this.quantity = quantity;
+        this.totalQuantity = totalQuantity;
     }
 }

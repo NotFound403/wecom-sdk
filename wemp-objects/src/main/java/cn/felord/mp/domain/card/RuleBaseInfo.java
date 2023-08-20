@@ -13,19 +13,28 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.domain;
+package cn.felord.mp.domain.card;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.time.Instant;
+import java.util.List;
 
 /**
- * @author dax
- * @since 2023/8/19
+ * The type Rule base info.
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class GenericMpResponse<T> extends MpResponse {
-    @JsonAlias({"code", "card_id", "card", "send_check"})
-    private T data;
+public class RuleBaseInfo {
+    /**
+     * 商户号列表，是一个数组结构，建议单词 请求100个以下商户号
+     */
+    private final List<String> mchidList;
+    /**
+     * 规则开始时间
+     */
+    private final Instant endTime;
+    /**
+     * 规则结束时间
+     */
+    private final Instant beginTime;
 }

@@ -16,7 +16,7 @@
 package cn.felord.mp.api;
 
 import cn.felord.mp.WeMpException;
-import cn.felord.mp.domain.card.MediaUrl;
+import cn.felord.mp.domain.media.MediaUrl;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.POST;

@@ -15,31 +15,33 @@
 
 package cn.felord.mp.domain.card;
 
-import cn.felord.mp.enumeration.CardType;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 /**
- * 团购券
+ * 修改卡券请求参数
  *
  * @author dax
- * @since 2023 /8/18
+ * @since 2023 /8/19
  */
 @ToString
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Setter(AccessLevel.PRIVATE)
 @Getter
-public class GroupOnCard extends AbstractCard {
-    private final GroupOnInfo groupon;
+public class UpdateCardRequest {
+    private final String cardId;
+    private UpdateCard memberCard;
 
     /**
-     * Instantiates a new Group on card.
+     * 修改会员卡
      *
-     * @param groupon the groupon
+     * @param cardId     the card id
+     * @param updateCard the update card
+     * @return the update card request
      */
-    @JsonCreator
-    public GroupOnCard(@JsonProperty("groupon") GroupOnInfo groupon) {
-        super(CardType.GROUPON);
-        this.groupon = groupon;
+    public static UpdateCardRequest memberCard(String cardId, UpdateCard updateCard) {
+        UpdateCardRequest updateCardRequest = new UpdateCardRequest(cardId);
+        updateCardRequest.setMemberCard(updateCard);
+        return updateCardRequest;
     }
+
 }

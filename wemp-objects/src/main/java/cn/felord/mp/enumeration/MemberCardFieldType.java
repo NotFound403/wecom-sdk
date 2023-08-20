@@ -41,10 +41,6 @@ public enum MemberCardFieldType {
      */
     FIELD_NAME_TYPE_DISCOUNT,
     /**
-     * 成就
-     */
-    FIELD_NAME_TYPE_ACHIEVEMEN,
-    /**
      * 里程
      */
     FIELD_NAME_TYPE_MILEAGE,

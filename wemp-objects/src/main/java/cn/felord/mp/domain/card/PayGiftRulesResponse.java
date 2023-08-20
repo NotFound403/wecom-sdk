@@ -13,19 +13,19 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.domain;
+package cn.felord.mp.domain.card;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import cn.felord.mp.domain.MpResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-/**
- * @author dax
- * @since 2023/8/19
- */
+import java.util.List;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class GenericMpResponse<T> extends MpResponse {
-    @JsonAlias({"code", "card_id", "card", "send_check"})
-    private T data;
+public class PayGiftRulesResponse extends MpResponse {
+
+    private Integer ruleId;
+    private List<PayGiftFailMchid> failMchidList;
+    private List<String> succMchidList;
 }
