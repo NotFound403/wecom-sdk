@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.Optional;
+
 /**
  * 自定义会员信息类目
  *
@@ -51,7 +53,7 @@ public class CustomField {
      * @param url      the url
      */
     public CustomField(MemberCardFieldType nameType, String url) {
-        this(nameType.name(), null, url);
+        this(Optional.ofNullable(nameType).map(Enum::name).orElse(null), null, url);
     }
 
     /**
