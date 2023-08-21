@@ -15,6 +15,7 @@
 
 package cn.felord.mp.domain.card;
 
+import cn.felord.utils.StringUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -29,13 +30,13 @@ import lombok.RequiredArgsConstructor;
 public class UpdateCard {
     private final UpdateBaseInfo baseInfo;
     /**
-     * 会员卡模版消息推荐类型，代表积分余额等变动消息赠券
+     * 会员卡自定义卡面背景图
      */
-    private MsgOperation modifyMsgOperation;
+    private String backgroundPicUrl;
     /**
-     * 会员卡模版消息推荐类型，代表会员卡激活消息赠券
+     * 是否支持积分，仅支持从false变为true，默认为false
      */
-    private MsgOperation activateMsgOperation;
+    private Boolean supplyBonus;
     /**
      * 积分清零规则
      */
@@ -45,6 +46,19 @@ public class UpdateCard {
      */
     private String bonusRules;
     /**
+     * 积分信息类目跳转的url
+     */
+    private String bonusUrl;
+    /**
+     * 余额信息类目跳转的url
+     */
+    private String balanceUrl;
+    /**
+     * 是否支持储值，
+     * 仅支持从false变为true，默认为fals e 该字段须开通储值功能后方可使用， 详情见： 获取特殊权限
+     */
+    private String supplyBalance;
+    /**
      * 储值说明
      */
     private String balanceRules;
@@ -52,6 +66,20 @@ public class UpdateCard {
      * 会员卡特权说明,限制1024汉字
      */
     private String prerogative;
+    /**
+     * 是否开通一键开卡，
+     * 设置为true时，该卡将支持一键开卡详情见 一键开卡 。 该选项与activate_url互斥。
+     */
+    private Boolean wxActivate;
+    /**
+     * 是否开通自动激活 ，
+     * 设置为true时用户领取会员卡自动设置为激活， 详情见 自动激活 。
+     */
+    private Boolean autoActivate;
+    /**
+     * 激活链接，与wxActivate互斥
+     */
+    private String activateUrl;
     /**
      * 自定义会员信息类目，会员卡激活后显示,包含name_type (name) 和url字段
      */
@@ -68,26 +96,35 @@ public class UpdateCard {
      * 自定义会员信息类目，会员卡激活后显示
      */
     private CustomCell customCell1;
+    private BonusRule bonusRule;
+    /**
+     * 会员卡模版消息推荐类型，代表积分余额等变动消息赠券
+     */
+    private MsgOperation modifyMsgOperation;
+    /**
+     * 会员卡模版消息推荐类型，代表会员卡激活消息赠券
+     */
+    private MsgOperation activateMsgOperation;
 
     /**
-     * 会员卡专用
+     * Background pic url update card.
      *
-     * @param modifyMsgOperation the modify msg operation
+     * @param backgroundPicUrl the background pic url
      * @return the update card
      */
-    public UpdateCard modifyMsgOperation(MsgOperation modifyMsgOperation) {
-        this.modifyMsgOperation = modifyMsgOperation;
+    public UpdateCard backgroundPicUrl(String backgroundPicUrl) {
+        this.backgroundPicUrl = backgroundPicUrl;
         return this;
     }
 
     /**
-     * 会员卡专用
+     * Supply bonus update card.
      *
-     * @param activateMsgOperation the activate msg operation
+     * @param supplyBonus the supply bonus
      * @return the update card
      */
-    public UpdateCard activateMsgOperation(MsgOperation activateMsgOperation) {
-        this.activateMsgOperation = activateMsgOperation;
+    public UpdateCard supplyBonus(Boolean supplyBonus) {
+        this.supplyBonus = supplyBonus;
         return this;
     }
 
@@ -114,6 +151,39 @@ public class UpdateCard {
     }
 
     /**
+     * Bonus url update card.
+     *
+     * @param bonusUrl the bonus url
+     * @return the update card
+     */
+    public UpdateCard bonusUrl(String bonusUrl) {
+        this.bonusUrl = bonusUrl;
+        return this;
+    }
+
+    /**
+     * Balance url update card.
+     *
+     * @param balanceUrl the balance url
+     * @return the update card
+     */
+    public UpdateCard balanceUrl(String balanceUrl) {
+        this.balanceUrl = balanceUrl;
+        return this;
+    }
+
+    /**
+     * Supply balance update card.
+     *
+     * @param supplyBalance the supply balance
+     * @return the update card
+     */
+    public UpdateCard supplyBalance(String supplyBalance) {
+        this.supplyBalance = supplyBalance;
+        return this;
+    }
+
+    /**
      * Balance rules update card.
      *
      * @param balanceRules the balance rules
@@ -132,6 +202,45 @@ public class UpdateCard {
      */
     public UpdateCard prerogative(String prerogative) {
         this.prerogative = prerogative;
+        return this;
+    }
+
+    /**
+     * Wx activate update card.
+     *
+     * @param wxActivate the wx activate
+     * @return the update card
+     */
+    public UpdateCard wxActivate(Boolean wxActivate) {
+        this.wxActivate = wxActivate;
+        if (wxActivate) {
+            this.activateUrl = null;
+        }
+        return this;
+    }
+
+    /**
+     * Auto activate update card.
+     *
+     * @param autoActivate the auto activate
+     * @return the update card
+     */
+    public UpdateCard autoActivate(Boolean autoActivate) {
+        this.autoActivate = autoActivate;
+        return this;
+    }
+
+    /**
+     * Activate url update card.
+     *
+     * @param activateUrl the activate url
+     * @return the update card
+     */
+    public UpdateCard activateUrl(String activateUrl) {
+        this.activateUrl = activateUrl;
+        if (StringUtils.hasText(activateUrl)) {
+            this.wxActivate = false;
+        }
         return this;
     }
 
@@ -176,6 +285,39 @@ public class UpdateCard {
      */
     public UpdateCard customCell1(CustomCell customCell1) {
         this.customCell1 = customCell1;
+        return this;
+    }
+
+    /**
+     * Bonus rule update card.
+     *
+     * @param bonusRule the bonus rule
+     * @return the update card
+     */
+    public UpdateCard bonusRule(BonusRule bonusRule) {
+        this.bonusRule = bonusRule;
+        return this;
+    }
+
+    /**
+     * Modify msg operation update card.
+     *
+     * @param modifyMsgOperation the modify msg operation
+     * @return the update card
+     */
+    public UpdateCard modifyMsgOperation(MsgOperation modifyMsgOperation) {
+        this.modifyMsgOperation = modifyMsgOperation;
+        return this;
+    }
+
+    /**
+     * Activate msg operation update card.
+     *
+     * @param activateMsgOperation the activate msg operation
+     * @return the update card
+     */
+    public UpdateCard activateMsgOperation(MsgOperation activateMsgOperation) {
+        this.activateMsgOperation = activateMsgOperation;
         return this;
     }
 }

@@ -32,7 +32,7 @@ public class CustomField {
      * 会员信息类目半自定义名称，
      * 当开发者变更这类类目信息的value值时 可以选择触发系统模板消息通知用户
      */
-    private final MemberCardFieldType nameType;
+    private final String nameType;
     /**
      * 会员信息类目自定义名称，
      * 当开发者变更这类类目信息的value值时 不会触发系统模板消息通知用户
@@ -51,7 +51,7 @@ public class CustomField {
      * @param url      the url
      */
     public CustomField(MemberCardFieldType nameType, String url) {
-        this(nameType, null, url);
+        this(nameType.name(), null, url);
     }
 
     /**
@@ -72,11 +72,20 @@ public class CustomField {
      * @param url      the url
      */
     @JsonCreator
-    CustomField(@JsonProperty("name_type") MemberCardFieldType nameType,
+    CustomField(@JsonProperty("name_type") String nameType,
                 @JsonProperty("name") String name,
                 @JsonProperty("url") String url) {
         this.nameType = nameType;
         this.name = name;
         this.url = url;
+    }
+
+    /**
+     * 从配置中删除自定义类目调用此方法
+     *
+     * @return the custom field
+     */
+    public static CustomField remove() {
+        return new CustomField("", "", "");
     }
 }

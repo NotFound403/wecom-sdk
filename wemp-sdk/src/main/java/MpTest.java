@@ -19,10 +19,10 @@ import cn.felord.mp.WeMpTokenCacheable;
 import cn.felord.mp.api.CardApi;
 import cn.felord.mp.api.MediaApi;
 import cn.felord.mp.api.WechatMpApi;
-import cn.felord.mp.domain.GenericMpResponse;
 import cn.felord.mp.domain.card.*;
 import cn.felord.mp.domain.media.MediaUrl;
 import cn.felord.mp.enumeration.*;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
@@ -58,15 +58,46 @@ public class MpTest {
 //        System.out.println("responseBody = " + responseBody);
         String cardId = "pUSi66OPKdaivX3jeZePoyfOSdkI";
         String cardId2 = "pUSi66Cnn77UPk7IsRm2p6XBEVoc";
-        String cardId3 = "pUSi66C-EWJj8AO91SG9a8__Xn0A";
 
-        GenericMpResponse<String> card = cardApi.createCard(new CardRequest<>(create()));
-        System.out.println("card = " + card);
-//        MpResponse mpResponse = cardApi.deleteCard(new CardId(cardId2));
 
-        CardQrcodeResponse qrcode = cardApi.createQrcode(new SingleQrcodeRequest(new SingleActionInfo(new SingleCard().cardId(cardId2))));
-        System.out.println("qrcode = " + qrcode);
+//        GenericMpResponse<String> card = cardApi.createCard(new CardRequest<>(create()));
+//        System.out.println("card = " + card);
+//         MpResponse mpResponse = cardApi.deleteCard(new CardId("pUSi66C-EWJj8AO91SG9a8__Xn0A"));
 
+//        CardQrcodeResponse qrcode = cardApi.createQrcode(new SingleQrcodeRequest(new SingleActionInfo(new SingleCard().cardId(cardId2))));
+//        System.out.println("qrcode = " + qrcode);
+
+//        GenericMpResponse<Boolean> booleanGenericMpResponse = cardApi.updateCard(updateCard());
+//        System.out.println("booleanGenericMpResponse = " + booleanGenericMpResponse);
+
+        ResponseBody merchantCategory = wechatMpApi.storeMiniProgramApi(mpApp)
+                .getMerchantCategory();
+
+        System.out.println("merchantCategory = " + merchantCategory);
+
+
+    }
+
+
+    public static UpdateCardRequest updateCard() {
+        UpdateBaseInfo baseInfo = new UpdateBaseInfo();
+        BonusRule bonusRule = new BonusRule()
+                .costMoneyUnit(1000)
+                .increaseBonus(1000)
+                .maxIncreaseBonus(5000)
+                .initIncreaseBonus(100)
+                .costBonusUnit(1000)
+                .reduceMoney(100)
+                .leastMoneyToUseBonus(200000)
+                .maxIncreaseBonus(30000);
+
+        UpdateCard updateCard = new UpdateCard(baseInfo)
+                .customField3(CustomField.remove())
+                .supplyBonus(true)
+                .bonusRules("积分有效期为一年；\n积分不可交易；")
+                .bonusCleared("次年1月计算清零积分；")
+                .bonusRule(bonusRule);
+        return UpdateCardRequest.memberCard("pUSi66Cnn77UPk7IsRm2p6XBEVoc", updateCard);
     }
 
 

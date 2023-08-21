@@ -15,6 +15,7 @@
 
 package cn.felord.mp.domain.card;
 
+import cn.felord.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -299,6 +300,9 @@ public class MemberCardInfo {
      */
     public MemberCardInfo activateUrl(String activateUrl) {
         this.activateUrl = activateUrl;
+        if (StringUtils.hasText(activateUrl)) {
+            this.wxActivate = false;
+        }
         return this;
     }
 

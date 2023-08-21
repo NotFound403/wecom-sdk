@@ -75,7 +75,7 @@ public class WechatMpApi {
     }
 
     /**
-     * Media api media api.
+     * 素材API
      *
      * @param mpApp the mp app
      * @return the media api
@@ -86,7 +86,9 @@ public class WechatMpApi {
     }
 
     /**
-     * Card api card api.
+     * 微信会员卡1.0API
+     * <p>
+     * 品牌商户可升级为 <a href="https://pay.weixin.qq.com/wiki/doc/apiv3/Offline/open/chapter5_9_1.shtml">会员卡2.0</a>
      *
      * @param mpApp the mp app
      * @return the card api
@@ -98,4 +100,16 @@ public class WechatMpApi {
                 .create(CardApi.class);
     }
 
+    /**
+     * 门店小程序API
+     *
+     * @param mpApp the mp app
+     * @return the store mini program api
+     */
+    public StoreMiniProgramApi storeMiniProgramApi(MpApp mpApp) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weMpTokenCacheable, mpApp);
+        return WeChatMpApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(StoreMiniProgramApi.class);
+    }
 }
