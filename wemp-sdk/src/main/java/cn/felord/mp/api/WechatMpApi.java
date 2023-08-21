@@ -99,17 +99,4 @@ public class WechatMpApi {
                 .retrofit()
                 .create(CardApi.class);
     }
-
-    /**
-     * 门店小程序API
-     *
-     * @param mpApp the mp app
-     * @return the store mini program api
-     */
-    public StoreMiniProgramApi storeMiniProgramApi(MpApp mpApp) {
-        AccessTokenApi tokenApi = new AccessTokenApi(weMpTokenCacheable, mpApp);
-        return WeChatMpApiClient.init(tokenApi, connectionPool, level)
-                .retrofit()
-                .create(StoreMiniProgramApi.class);
-    }
 }
