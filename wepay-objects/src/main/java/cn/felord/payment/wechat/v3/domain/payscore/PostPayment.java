@@ -14,6 +14,8 @@
  */
 package cn.felord.payment.wechat.v3.domain.payscore;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -55,6 +57,25 @@ public class PostPayment {
      * 特殊规则：数量限制100，不填时默认1。
      */
     private Long count = 1L;
+
+    /**
+     * Instantiates a new Post payment.
+     *
+     * @param amount      the amount
+     * @param name        the name
+     * @param description the description
+     * @param count       the count
+     */
+    @JsonCreator
+    PostPayment(@JsonProperty("amount") Long amount,
+                @JsonProperty("name") String name,
+                @JsonProperty("description") String description,
+                @JsonProperty("count") Long count) {
+        this.amount = amount;
+        this.name = name;
+        this.description = description;
+        this.count = count;
+    }
 
     /**
      * Name post payment.

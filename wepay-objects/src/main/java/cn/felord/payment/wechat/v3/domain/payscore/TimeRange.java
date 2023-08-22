@@ -14,6 +14,8 @@
  */
 package cn.felord.payment.wechat.v3.domain.payscore;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -50,10 +52,6 @@ public class TimeRange {
      */
     private final String startTime;
     /**
-     * 服务开始时间备注说明，服务开始时间有填时，可填写服务开始时间备注，不超过20个字符，超出报错处理。
-     */
-    private String startTimeRemark;
-    /**
      * 用户端展示用途，支持两种格式：yyyyMMddHHmmss和yyyyMMdd
      * ● 传入20091225091010表示2009年12月25日9点10分10秒。
      * <p>
@@ -77,9 +75,24 @@ public class TimeRange {
      */
     private String endTime;
     /**
+     * 服务开始时间备注说明，服务开始时间有填时，可填写服务开始时间备注，不超过20个字符，超出报错处理。
+     */
+    private String startTimeRemark;
+    /**
      * 预计服务结束时间备注说明，预计服务结束时间有填时，可填写预计服务结束时间备注，不超过20个字符，超出报错处理。
      */
     private String endTimeRemark;
+
+    @JsonCreator
+    TimeRange(@JsonProperty("start_time") String startTime,
+              @JsonProperty("end_time") String endTime,
+              @JsonProperty("start_time_remark") String startTimeRemark,
+              @JsonProperty("end_time_remark") String endTimeRemark) {
+        this.startTime = startTime;
+        this.startTimeRemark = startTimeRemark;
+        this.endTime = endTime;
+        this.endTimeRemark = endTimeRemark;
+    }
 
     /**
      * Start time remark time range.
