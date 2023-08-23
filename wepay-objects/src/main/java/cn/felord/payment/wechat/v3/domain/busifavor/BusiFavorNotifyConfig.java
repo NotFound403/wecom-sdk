@@ -31,5 +31,5 @@ public class BusiFavorNotifyConfig {
      * 用于回调通知时，计算返回操作用户的openid（诸如领券用户），支持小程序or公众号的APPID；
      * 如该字段不填写，则回调通知中涉及到用户身份信息的openid与unionid都将为空。
      */
-    private String notifyAppid;
+    private final String notifyAppid;
 }

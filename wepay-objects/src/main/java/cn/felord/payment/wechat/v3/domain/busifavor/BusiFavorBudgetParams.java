@@ -14,7 +14,8 @@
  */
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 修改商家券批次预算API请求参数
@@ -22,21 +23,18 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
-@Data
+@ToString
+@Getter
 public class BusiFavorBudgetParams {
 
     /**
-     * 批次号
-     */
-    private String stockId;
-    /**
      * 目标批次最大发放个数，同{@link #targetMaxCouponsByDay}二选一
      */
-    private Integer targetMaxCoupons;
+    private final Integer targetMaxCoupons;
     /**
      * 目标单天发放上限个数，同{@link #targetMaxCoupons}二选一
      */
-    private Integer targetMaxCouponsByDay;
+    private final Integer targetMaxCouponsByDay;
     /**
      * 当前批次最大发放个数，当传入{@link #targetMaxCoupons}大于0时，必传
      */
@@ -48,5 +46,62 @@ public class BusiFavorBudgetParams {
     /**
      * 修改预算请求单据号
      */
-    private String modifyBudgetRequestNo;
+    private final String modifyBudgetRequestNo;
+
+    /**
+     * With target max coupons by day busi favor budget params.
+     *
+     * @param targetMaxCouponsByDay the target max coupons by day
+     * @param modifyBudgetRequestNo the modify budget request no
+     * @return the busi favor budget params
+     */
+    public static BusiFavorBudgetParams withTargetMaxCouponsByDay(Integer targetMaxCouponsByDay, String modifyBudgetRequestNo) {
+        return new BusiFavorBudgetParams(null, targetMaxCouponsByDay, modifyBudgetRequestNo);
+    }
+
+    /**
+     * With target max coupons busi favor budget params.
+     *
+     * @param targetMaxCoupons      the target max coupons
+     * @param modifyBudgetRequestNo the modify budget request no
+     * @return the busi favor budget params
+     */
+    public static BusiFavorBudgetParams withTargetMaxCoupons(Integer targetMaxCoupons, String modifyBudgetRequestNo) {
+        return new BusiFavorBudgetParams(targetMaxCoupons, null, modifyBudgetRequestNo);
+    }
+
+    /**
+     * Instantiates a new Busi favor budget params.
+     *
+     * @param targetMaxCoupons      the target max coupons
+     * @param targetMaxCouponsByDay the target max coupons by day
+     * @param modifyBudgetRequestNo the modify budget request no
+     */
+    BusiFavorBudgetParams(Integer targetMaxCoupons, Integer targetMaxCouponsByDay, String modifyBudgetRequestNo) {
+        this.targetMaxCoupons = targetMaxCoupons;
+        this.targetMaxCouponsByDay = targetMaxCouponsByDay;
+        this.modifyBudgetRequestNo = modifyBudgetRequestNo;
+    }
+
+    /**
+     * Current max coupons busi favor budget params.
+     *
+     * @param currentMaxCoupons the current max coupons
+     * @return the busi favor budget params
+     */
+    public BusiFavorBudgetParams currentMaxCoupons(Integer currentMaxCoupons) {
+        this.currentMaxCoupons = currentMaxCoupons;
+        return this;
+    }
+
+    /**
+     * Current max coupons by day busi favor budget params.
+     *
+     * @param currentMaxCouponsByDay the current max coupons by day
+     * @return the busi favor budget params
+     */
+    public BusiFavorBudgetParams currentMaxCouponsByDay(Integer currentMaxCouponsByDay) {
+        this.currentMaxCouponsByDay = currentMaxCouponsByDay;
+        return this;
+    }
 }

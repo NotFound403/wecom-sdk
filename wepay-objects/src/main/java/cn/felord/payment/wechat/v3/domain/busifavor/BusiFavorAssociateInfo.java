@@ -28,17 +28,17 @@ public class BusiFavorAssociateInfo {
     /**
      * 批次号
      */
-    private String stockId;
+    private final String stockId;
     /**
      * 券code
      */
-    private String couponCode;
+    private final String couponCode;
     /**
      * 关联的商户订单号
      */
-    private String outTradeNo;
+    private final String outTradeNo;
     /**
      * 商户请求单号，参考 {@code BusiFavorCreateParams#getOutRequestNo()}
      */
-    private String outRequestNo;
+    private final String outRequestNo;
 }

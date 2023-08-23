@@ -16,7 +16,8 @@ package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import cn.felord.payment.wechat.enumeration.BusiFavorUseMethod;
 import cn.felord.payment.wechat.enumeration.StockType;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 商家券核销规则
@@ -24,23 +25,24 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
-@Data
+@ToString
+@Getter
 public class CouponUseRule {
 
     /**
      * 核销方式
      */
-    private BusiFavorUseMethod useMethod;
+    private final BusiFavorUseMethod useMethod;
     /**
      * 换购券使用规则
      *
      * @see StockType#EXCHANGE
      */
-    private ExchangeCoupon exchangeCoupon;
+    private final ExchangeCoupon exchangeCoupon;
     /**
      * 券可核销时间
      */
-    private CouponAvailableTime couponAvailableTime;
+    private final CouponAvailableTime couponAvailableTime;
     /**
      * 核销小程序appid
      *
@@ -58,12 +60,86 @@ public class CouponUseRule {
      *
      * @see StockType#NORMAL
      */
-    private FixedNormalCoupon fixedNormalCoupon;
+    private final FixedNormalCoupon fixedNormalCoupon;
     /**
      * 折扣券使用规则
      *
      * @see StockType#DISCOUNT
      */
-    private DiscountCoupon discountCoupon;
+    private final DiscountCoupon discountCoupon;
 
+    /**
+     * Exchange coupon coupon use rule.
+     *
+     * @param useMethod      the use method
+     * @param availableTime  the available time
+     * @param exchangeCoupon the exchange coupon
+     * @return the coupon use rule
+     */
+    public static CouponUseRule exchangeCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, ExchangeCoupon exchangeCoupon) {
+        return new CouponUseRule(useMethod, availableTime, exchangeCoupon, null, null);
+    }
+
+    /**
+     * Fixed normal coupon coupon use rule.
+     *
+     * @param useMethod         the use method
+     * @param availableTime     the available time
+     * @param fixedNormalCoupon the fixed normal coupon
+     * @return the coupon use rule
+     */
+    public static CouponUseRule fixedNormalCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, FixedNormalCoupon fixedNormalCoupon) {
+        return new CouponUseRule(useMethod, availableTime, null, fixedNormalCoupon, null);
+    }
+
+    /**
+     * Fixed normal coupon coupon use rule.
+     *
+     * @param useMethod      the use method
+     * @param availableTime  the available time
+     * @param discountCoupon the discount coupon
+     * @return the coupon use rule
+     */
+    public static CouponUseRule fixedNormalCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, DiscountCoupon discountCoupon) {
+        return new CouponUseRule(useMethod, availableTime, null, null, discountCoupon);
+    }
+
+    /**
+     * Instantiates a new Coupon use rule.
+     *
+     * @param useMethod           the use method
+     * @param couponAvailableTime the coupon available time
+     * @param exchangeCoupon      the exchange coupon
+     * @param fixedNormalCoupon   the fixed normal coupon
+     * @param discountCoupon      the discount coupon
+     */
+    CouponUseRule(BusiFavorUseMethod useMethod, CouponAvailableTime couponAvailableTime, ExchangeCoupon exchangeCoupon, FixedNormalCoupon fixedNormalCoupon, DiscountCoupon discountCoupon) {
+        this.useMethod = useMethod;
+        this.couponAvailableTime = couponAvailableTime;
+        this.exchangeCoupon = exchangeCoupon;
+        this.fixedNormalCoupon = fixedNormalCoupon;
+        this.discountCoupon = discountCoupon;
+    }
+
+    /**
+     * Mini programs appid coupon use rule.
+     *
+     * @param miniProgramsAppid the mini programs appid
+     * @return the coupon use rule
+     */
+    public CouponUseRule miniProgramsAppid(String miniProgramsAppid) {
+        this.miniProgramsAppid = miniProgramsAppid;
+        return this;
+    }
+
+    /**
+     * Mini programs path coupon use rule.
+     *
+     * @param miniProgramsPath the mini programs path
+     * @return the coupon use rule
+     */
+    public CouponUseRule miniProgramsPath(String miniProgramsPath) {
+        this.miniProgramsPath = miniProgramsPath;
+        return this;
+    }
 }

@@ -24,7 +24,7 @@ import retrofit2.http.*;
  * 微信支付商家券
  *
  * @author dax
- * @since 2023/8/22
+ * @since 2023 /8/22
  */
 public interface MarketingBusiFavorApi {
     /**
@@ -50,7 +50,7 @@ public interface MarketingBusiFavorApi {
     ResponseBody queryStockDetail(@Path("stock_id") String stockId);
 
     /**
-     * 核销用户券API，暂时appid需要手工在参数中传递
+     * 核销用户券API
      * <p>
      * 在用户满足优惠门槛后，服务商可通过该接口核销用户微信卡包中具体某一张商家券。
      *
@@ -110,11 +110,11 @@ public interface MarketingBusiFavorApi {
      *     <li>如果需要领券回调中的参数openid。需要创券时候传入 notify_appid参数。</li>
      * </ul>
      *
-     * @param params the params
+     * @param setting the setting
      * @return callbacks callbacks
      */
     @POST("v3/marketing/busifavor/callbacks")
-    ResponseBody setCallbacks(@Body BusiFavorCallbackSettingParams params);
+    ResponseBody setCallbacks(@Body BusiFavorCallbackSetting setting);
 
     /**
      * 查询商家券事件通知地址API
@@ -130,7 +130,15 @@ public interface MarketingBusiFavorApi {
      * @return callbacks callbacks
      */
     @GET("v3/marketing/busifavor/callbacks")
-    ResponseBody getCallbacks(String mchId);
+    BusiFavorCallbackSetting getCallbacks(@Query("mchid") String mchId);
+
+    /**
+     * 查询调用方商家券事件通知地址API
+     *
+     * @return the callbacks
+     */
+    @GET("v3/marketing/busifavor/callbacks")
+    BusiFavorCallbackSetting getCallbacks();
 
     /**
      * 商家券关联订单信息API
@@ -141,10 +149,10 @@ public interface MarketingBusiFavorApi {
      * 仅对有关联订单需求的券进行该操作
      *
      * @param associateInfo the associate info
-     * @return wechat response entity
+     * @return the associate time
      */
     @POST("v3/marketing/busifavor/coupons/associate")
-    ResponseBody associate(BusiFavorAssociateInfo associateInfo);
+    AssociateTime associate(@Body BusiFavorAssociateInfo associateInfo);
 
     /**
      * 商家券取消关联订单信息API
@@ -155,10 +163,10 @@ public interface MarketingBusiFavorApi {
      * 建议取消前调用查询接口，查到当前关联的商户单号并确认后，再进行取消操作
      *
      * @param associateInfo the associate info
-     * @return wechat response entity
+     * @return the associate time
      */
     @POST("v3/marketing/busifavor/coupons/disassociate")
-    ResponseBody disassociate(BusiFavorAssociateInfo associateInfo);
+    AssociateTime disassociate(@Body BusiFavorAssociateInfo associateInfo);
 
     /**
      * 修改批次预算API
@@ -169,18 +177,18 @@ public interface MarketingBusiFavorApi {
      * @return wechat response entity
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}/budget")
-    ResponseBody budget(BusiFavorBudgetParams params);
+    BusiFavorBudgetResponse budget(@Path("stock_id") String stockId, @Body BusiFavorBudgetParams params);
 
     /**
      * 修改商家券基本信息API
      * <p>
-     * 商户可以通过该接口修改商家券基本信息
+     * 商户可以通过该接口修改商家券基本信息，已创建商家券批次，且修改时间位于有效期结束时间前
      *
      * @param params the params
      * @return wechat response entity
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}")
-    ResponseBody updateStock(BusiFavorUpdateParams params);
+    ResponseBody updateStock(@Path("stock_id") String stockId, @Body BusiFavorUpdateParams params);
 
     /**
      * 申请退券API
@@ -191,7 +199,7 @@ public interface MarketingBusiFavorApi {
      * @return wechat response entity
      */
     @POST("v3/marketing/busifavor/coupons/return")
-    ResponseBody refund(BusiFavorRefundParams params);
+    ResponseBody refund(@Body BusiFavorRefundParams params);
 
     /**
      * 使券失效API

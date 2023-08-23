@@ -15,7 +15,9 @@
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import cn.felord.payment.wechat.enumeration.BusiFavorCodeDisplayMode;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  * 商家券核销规则-自定义入口
@@ -25,7 +27,9 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
-@Data
+@ToString
+@RequiredArgsConstructor
+@Getter
 public class CustomEntrance {
 
     /**
@@ -53,4 +57,58 @@ public class CustomEntrance {
      */
     private BusiFavorCodeDisplayMode codeDisplayMode;
 
+    /**
+     * Store id custom entrance.
+     *
+     * @param storeId the store id
+     * @return the custom entrance
+     */
+    public CustomEntrance storeId(String storeId) {
+        this.storeId = storeId;
+        return this;
+    }
+
+    /**
+     * Sets hall id.
+     *
+     * @param hallId the hall id
+     * @return the hall id
+     */
+    public CustomEntrance hallId(String hallId) {
+        this.hallId = hallId;
+        return this;
+    }
+
+    /**
+     * Sets mini programs info.
+     *
+     * @param miniProgramsInfo the mini programs info
+     * @return the mini programs info
+     */
+    public CustomEntrance miniProgramsInfo(MiniProgramsInfo miniProgramsInfo) {
+        this.miniProgramsInfo = miniProgramsInfo;
+        return this;
+    }
+
+    /**
+     * Sets appid.
+     *
+     * @param appid the appid
+     * @return the appid
+     */
+    public CustomEntrance appid(String appid) {
+        this.appid = appid;
+        return this;
+    }
+
+    /**
+     * Sets code display mode.
+     *
+     * @param codeDisplayMode the code display mode
+     * @return the code display mode
+     */
+    public CustomEntrance codeDisplayMode(BusiFavorCodeDisplayMode codeDisplayMode) {
+        this.codeDisplayMode = codeDisplayMode;
+        return this;
+    }
 }

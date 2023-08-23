@@ -14,7 +14,9 @@
  */
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  * 商家券核销规则-自定义入口-小程序入口
@@ -22,7 +24,9 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
-@Data
+@ToString
+@Getter
+@RequiredArgsConstructor
 public class MiniProgramsInfo {
 
     /**
@@ -30,17 +34,25 @@ public class MiniProgramsInfo {
      * <p>
      * 商家小程序appid要与归属商户号有M-A or M-m-suba关系。
      */
-    private String miniProgramsAppid;
+    private final String miniProgramsAppid;
     /**
      * 商家小程序path
      */
-    private String miniProgramsPath;
+    private final String miniProgramsPath;
+    /**
+     * 小程序入口引导文案，用户自定义字段。字数上限为6个，一个中文汉字/英文字母/数字均占用一个字数。
+     */
+    private final String entranceWords;
     /**
      * 入口文案，字数上限为5个，一个中文汉字/英文字母/数字均占用一个字数。
      */
     private String guidingWords;
-    /**
-     * 小程序入口引导文案，用户自定义字段。字数上限为6个，一个中文汉字/英文字母/数字均占用一个字数。
-     */
-    private String entranceWords;
+
+
+    public MiniProgramsInfo(String miniProgramsAppid, String miniProgramsPath, String entranceWords, String guidingWords) {
+        this.miniProgramsAppid = miniProgramsAppid;
+        this.miniProgramsPath = miniProgramsPath;
+        this.entranceWords = entranceWords;
+        this.guidingWords = guidingWords;
+    }
 }

@@ -26,11 +26,6 @@ import lombok.Data;
  */
 @Data
 public class BusiFavorUpdateParams {
-
-    /**
-     * 商家券批次号，必传
-     */
-    private String stockId;
     /**
      * 自定义入口
      */

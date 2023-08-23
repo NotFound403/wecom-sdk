@@ -16,7 +16,9 @@ package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import cn.felord.payment.wechat.enumeration.CouponCodeMode;
 import cn.felord.payment.wechat.enumeration.StockType;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  * 创建商家券请求参数.
@@ -24,7 +26,9 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
-@Data
+@ToString
+@RequiredArgsConstructor
+@Getter
 public class BusiFavorCreateParams {
 
     /**
@@ -48,11 +52,11 @@ public class BusiFavorCreateParams {
     /**
      * 批次类型
      */
-    private StockType stockType;
+    private final StockType stockType;
     /**
      * 核销规则
      */
-    private CouponUseRule couponUseRule;
+    private final CouponUseRule couponUseRule;
     /**
      * 自定义入口
      */
@@ -60,7 +64,7 @@ public class BusiFavorCreateParams {
     /**
      * 商家券code模式枚举
      */
-    private CouponCodeMode couponCodeMode;
+    private final CouponCodeMode couponCodeMode;
     /**
      * 样式信息
      */
@@ -68,16 +72,59 @@ public class BusiFavorCreateParams {
     /**
      * 券发放规则
      */
-    private StockSendRule stockSendRule;
+    private final StockSendRule stockSendRule;
     /**
      * 商户请求单号
      * <p>
      * 商户创建批次凭据号（格式：商户id+日期+流水号），商户侧需保持唯一性。
      */
-    private String outRequestNo;
+    private final String outRequestNo;
     /**
      * 事件通知配置
      */
     private BusiFavorNotifyConfig notifyConfig;
 
+    /**
+     * Comment busi favor create params.
+     *
+     * @param comment the comment
+     * @return the busi favor create params
+     */
+    public BusiFavorCreateParams comment(String comment) {
+        this.comment = comment;
+        return this;
+    }
+
+    /**
+     * Custom entrance busi favor create params.
+     *
+     * @param customEntrance the custom entrance
+     * @return the busi favor create params
+     */
+    public BusiFavorCreateParams customEntrance(CustomEntrance customEntrance) {
+        this.customEntrance = customEntrance;
+        return this;
+    }
+
+    /**
+     * Display pattern info busi favor create params.
+     *
+     * @param displayPatternInfo the display pattern info
+     * @return the busi favor create params
+     */
+    public BusiFavorCreateParams displayPatternInfo(DisplayPatternInfo displayPatternInfo) {
+        this.displayPatternInfo = displayPatternInfo;
+        return this;
+    }
+
+    /**
+     * Notify config busi favor create params.
+     *
+     * @param notifyConfig the notify config
+     * @return the busi favor create params
+     */
+    public BusiFavorCreateParams notifyConfig(BusiFavorNotifyConfig notifyConfig) {
+        this.notifyConfig = notifyConfig;
+        return this;
+    }
 }
