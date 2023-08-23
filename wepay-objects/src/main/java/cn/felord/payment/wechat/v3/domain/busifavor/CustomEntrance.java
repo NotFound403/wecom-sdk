@@ -15,8 +15,9 @@
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import cn.felord.payment.wechat.enumeration.BusiFavorCodeDisplayMode;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -28,7 +29,6 @@ import lombok.ToString;
  * @since 1.0.4.RELEASE
  */
 @ToString
-@RequiredArgsConstructor
 @Getter
 public class CustomEntrance {
 
@@ -56,6 +56,19 @@ public class CustomEntrance {
      * code展示模式
      */
     private BusiFavorCodeDisplayMode codeDisplayMode;
+
+    @JsonCreator
+    CustomEntrance(@JsonProperty("store_id") String storeId,
+                   @JsonProperty("hall_id") String hallId,
+                   @JsonProperty("mini_programs_info") MiniProgramsInfo miniProgramsInfo,
+                   @JsonProperty("APPID") String appid,
+                   @JsonProperty("code_display_mode") BusiFavorCodeDisplayMode codeDisplayMode) {
+        this.storeId = storeId;
+        this.hallId = hallId;
+        this.miniProgramsInfo = miniProgramsInfo;
+        this.appid = appid;
+        this.codeDisplayMode = codeDisplayMode;
+    }
 
     /**
      * Store id custom entrance.

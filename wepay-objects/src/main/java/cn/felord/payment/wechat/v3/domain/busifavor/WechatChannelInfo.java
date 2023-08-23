@@ -12,6 +12,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,30 +21,31 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * 事件通知配置
+ * The type Wechat channel info.
  *
- * @author felord.cn
- * @since 1.0.4.RELEASE
+ * @author dax
+ * @since 2023 /8/23
  */
 @ToString
 @Getter
-public class BusiFavorNotifyConfig {
+public class WechatChannelInfo {
+    private final String finderId;
+    private final String finderVideoId;
+    private final String finderVideoCoverImageUrl;
 
     /**
-     * 事件通知appid
-     * <p>
-     * 用于回调通知时，计算返回操作用户的openid（诸如领券用户），支持小程序or公众号的APPID；
-     * 如该字段不填写，则回调通知中涉及到用户身份信息的openid与unionid都将为空。
-     */
-    private final String notifyAppid;
-
-    /**
-     * Instantiates a new Busi favor notify config.
+     * Instantiates a new Wechat channel info.
      *
-     * @param notifyAppid the notify appid
+     * @param finderId                 the finder id
+     * @param finderVideoId            the finder video id
+     * @param finderVideoCoverImageUrl the finder video cover image url
      */
     @JsonCreator
-    public BusiFavorNotifyConfig(@JsonProperty("notify_appid") String notifyAppid) {
-        this.notifyAppid = notifyAppid;
+    public WechatChannelInfo(@JsonProperty("finder_id") String finderId,
+                             @JsonProperty("finder_video_id") String finderVideoId,
+                             @JsonProperty("finder_video_cover_image_url") String finderVideoCoverImageUrl) {
+        this.finderId = finderId;
+        this.finderVideoId = finderVideoId;
+        this.finderVideoCoverImageUrl = finderVideoCoverImageUrl;
     }
 }

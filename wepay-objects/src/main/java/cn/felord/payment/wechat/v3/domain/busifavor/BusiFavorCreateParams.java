@@ -83,6 +83,10 @@ public class BusiFavorCreateParams {
      * 事件通知配置
      */
     private BusiFavorNotifyConfig notifyConfig;
+    /**
+     * 是否允许营销补贴
+     */
+    private Boolean subsidy;
 
     /**
      * Comment busi favor create params.
@@ -125,6 +129,17 @@ public class BusiFavorCreateParams {
      */
     public BusiFavorCreateParams notifyConfig(BusiFavorNotifyConfig notifyConfig) {
         this.notifyConfig = notifyConfig;
+        return this;
+    }
+
+    /**
+     * Subsidy busi favor create params.
+     *
+     * @param subsidy the subsidy
+     * @return the busi favor create params
+     */
+    public BusiFavorCreateParams subsidy(Boolean subsidy) {
+        this.subsidy = subsidy;
         return this;
     }
 }

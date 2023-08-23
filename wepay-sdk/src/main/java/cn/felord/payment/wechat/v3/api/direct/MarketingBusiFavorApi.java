@@ -36,7 +36,7 @@ public interface MarketingBusiFavorApi {
      * @return the wechat response entity
      */
     @POST("v3/marketing/busifavor/stocks")
-    ResponseBody createStock(@Body BusiFavorCreateParams params);
+    StockResponse createStock(@Body BusiFavorCreateParams params);
 
     /**
      * 查询商家券详情API
@@ -47,7 +47,7 @@ public interface MarketingBusiFavorApi {
      * @return the wechat response entity
      */
     @GET("v3/marketing/busifavor/stocks/{stock_id}")
-    ResponseBody queryStockDetail(@Path("stock_id") String stockId);
+    StockDetailResponse queryStockDetail(@Path("stock_id") String stockId);
 
     /**
      * 核销用户券API

@@ -15,7 +15,10 @@
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import cn.felord.payment.wechat.enumeration.StockType;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 商家券发放规则.
@@ -23,7 +26,8 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
-@Data
+@ToString
+@Getter
 public class StockSendRule {
 
     /**
@@ -62,4 +66,109 @@ public class StockSendRule {
      * 是否允许分享链接
      */
     private Boolean shareable;
+
+    /**
+     * Instantiates a new Stock send rule.
+     *
+     * @param maxCoupons         the max coupons
+     * @param maxCouponsPerUser  the max coupons per user
+     * @param maxCouponsByDay    the max coupons by day
+     * @param naturalPersonLimit the natural person limit
+     * @param preventApiAbuse    the prevent api abuse
+     * @param transferable       the transferable
+     * @param shareable          the shareable
+     */
+    @JsonCreator
+    StockSendRule(@JsonProperty("max_coupons") Integer maxCoupons,
+                  @JsonProperty("max_coupons_per_user") Integer maxCouponsPerUser,
+                  @JsonProperty("max_coupons_by_day") Integer maxCouponsByDay,
+                  @JsonProperty("natural_person_limit") Boolean naturalPersonLimit,
+                  @JsonProperty("prevent_api_abuse") Boolean preventApiAbuse,
+                  @JsonProperty("transferable") Boolean transferable,
+                  @JsonProperty("shareable") Boolean shareable) {
+        this.maxCoupons = maxCoupons;
+        this.maxCouponsPerUser = maxCouponsPerUser;
+        this.maxCouponsByDay = maxCouponsByDay;
+        this.naturalPersonLimit = naturalPersonLimit;
+        this.preventApiAbuse = preventApiAbuse;
+        this.transferable = transferable;
+        this.shareable = shareable;
+    }
+
+    /**
+     * Max coupons stock send rule.
+     *
+     * @param maxCoupons the max coupons
+     * @return the stock send rule
+     */
+    public StockSendRule maxCoupons(Integer maxCoupons) {
+        this.maxCoupons = maxCoupons;
+        return this;
+    }
+
+    /**
+     * Max coupons per user stock send rule.
+     *
+     * @param maxCouponsPerUser the max coupons per user
+     * @return the stock send rule
+     */
+    public StockSendRule maxCouponsPerUser(Integer maxCouponsPerUser) {
+        this.maxCouponsPerUser = maxCouponsPerUser;
+        return this;
+    }
+
+    /**
+     * Max coupons by day stock send rule.
+     *
+     * @param maxCouponsByDay the max coupons by day
+     * @return the stock send rule
+     */
+    public StockSendRule maxCouponsByDay(Integer maxCouponsByDay) {
+        this.maxCouponsByDay = maxCouponsByDay;
+        return this;
+    }
+
+    /**
+     * Natural person limit stock send rule.
+     *
+     * @param naturalPersonLimit the natural person limit
+     * @return the stock send rule
+     */
+    public StockSendRule naturalPersonLimit(Boolean naturalPersonLimit) {
+        this.naturalPersonLimit = naturalPersonLimit;
+        return this;
+    }
+
+    /**
+     * Prevent api abuse stock send rule.
+     *
+     * @param preventApiAbuse the prevent api abuse
+     * @return the stock send rule
+     */
+    public StockSendRule preventApiAbuse(Boolean preventApiAbuse) {
+        this.preventApiAbuse = preventApiAbuse;
+        return this;
+    }
+
+    /**
+     * Transferable stock send rule.
+     *
+     * @param transferable the transferable
+     * @return the stock send rule
+     */
+    public StockSendRule transferable(Boolean transferable) {
+        this.transferable = transferable;
+        return this;
+    }
+
+    /**
+     * Shareable stock send rule.
+     *
+     * @param shareable the shareable
+     * @return the stock send rule
+     */
+    public StockSendRule shareable(Boolean shareable) {
+        this.shareable = shareable;
+        return this;
+    }
 }

@@ -16,6 +16,8 @@ package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import cn.felord.payment.wechat.enumeration.BusiFavorUseMethod;
 import cn.felord.payment.wechat.enumeration.StockType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -117,6 +119,23 @@ public class CouponUseRule {
         this.useMethod = useMethod;
         this.couponAvailableTime = couponAvailableTime;
         this.exchangeCoupon = exchangeCoupon;
+        this.fixedNormalCoupon = fixedNormalCoupon;
+        this.discountCoupon = discountCoupon;
+    }
+
+    @JsonCreator
+    CouponUseRule(@JsonProperty("use_method") BusiFavorUseMethod useMethod,
+                  @JsonProperty("exchange_coupon") ExchangeCoupon exchangeCoupon,
+                  @JsonProperty("coupon_available_time") CouponAvailableTime couponAvailableTime,
+                  @JsonProperty("mini_programs_appid") String miniProgramsAppid,
+                  @JsonProperty("mini_programs_path") String miniProgramsPath,
+                  @JsonProperty("fixed_normal_coupon") FixedNormalCoupon fixedNormalCoupon,
+                  @JsonProperty("discount_coupon") DiscountCoupon discountCoupon) {
+        this.useMethod = useMethod;
+        this.exchangeCoupon = exchangeCoupon;
+        this.couponAvailableTime = couponAvailableTime;
+        this.miniProgramsAppid = miniProgramsAppid;
+        this.miniProgramsPath = miniProgramsPath;
         this.fixedNormalCoupon = fixedNormalCoupon;
         this.discountCoupon = discountCoupon;
     }

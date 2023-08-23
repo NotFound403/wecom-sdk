@@ -14,8 +14,11 @@
  */
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -26,7 +29,8 @@ import java.util.List;
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
-@Data
+@ToString
+@Getter
 public class CouponAvailableTime {
 
     /**
@@ -53,12 +57,12 @@ public class CouponAvailableTime {
      * 批次开始时间 rfc 3339   yyyy-MM-ddTHH:mm:ss+TIMEZONE
      */
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private OffsetDateTime availableBeginTime;
+    private final OffsetDateTime availableBeginTime;
     /**
      * 批次结束时间 rfc 3339  yyyy-MM-ddTHH:mm:ss+TIMEZONE
      */
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private OffsetDateTime availableEndTime;
+    private final OffsetDateTime availableEndTime;
     /**
      * 固定周期有效时间段
      */
@@ -69,4 +73,83 @@ public class CouponAvailableTime {
     private List<IrregularyAvaliableTimeItem> irregularyAvaliableTime;
 
 
+    /**
+     * Instantiates a new Coupon available time.
+     *
+     * @param availableBeginTime the available begin time
+     * @param availableEndTime   the available end time
+     */
+    public CouponAvailableTime(OffsetDateTime availableBeginTime, OffsetDateTime availableEndTime) {
+        this.availableBeginTime = availableBeginTime;
+        this.availableEndTime = availableEndTime;
+    }
+
+    /**
+     * Instantiates a new Coupon available time.
+     *
+     * @param waitDaysAfterReceive     the wait days after receive
+     * @param availableDayAfterReceive the available day after receive
+     * @param availableBeginTime       the available begin time
+     * @param availableEndTime         the available end time
+     * @param availableWeek            the available week
+     * @param irregularyAvaliableTime  the irregulary avaliable time
+     */
+    @JsonCreator
+    CouponAvailableTime(@JsonProperty("wait_days_after_receive") Integer waitDaysAfterReceive,
+                        @JsonProperty("available_day_after_receive") Integer availableDayAfterReceive,
+                        @JsonProperty("available_begin_time") OffsetDateTime availableBeginTime,
+                        @JsonProperty("available_end_time") OffsetDateTime availableEndTime,
+                        @JsonProperty("available_week") AvailableWeek availableWeek,
+                        @JsonProperty("irregulary_avaliable_time") List<IrregularyAvaliableTimeItem> irregularyAvaliableTime) {
+        this.waitDaysAfterReceive = waitDaysAfterReceive;
+        this.availableDayAfterReceive = availableDayAfterReceive;
+        this.availableBeginTime = availableBeginTime;
+        this.availableEndTime = availableEndTime;
+        this.availableWeek = availableWeek;
+        this.irregularyAvaliableTime = irregularyAvaliableTime;
+    }
+
+    /**
+     * Wait days after receive coupon available time.
+     *
+     * @param waitDaysAfterReceive the wait days after receive
+     * @return the coupon available time
+     */
+    public CouponAvailableTime waitDaysAfterReceive(Integer waitDaysAfterReceive) {
+        this.waitDaysAfterReceive = waitDaysAfterReceive;
+        return this;
+    }
+
+    /**
+     * Available day after receive coupon available time.
+     *
+     * @param availableDayAfterReceive the available day after receive
+     * @return the coupon available time
+     */
+    public CouponAvailableTime availableDayAfterReceive(Integer availableDayAfterReceive) {
+        this.availableDayAfterReceive = availableDayAfterReceive;
+        return this;
+    }
+
+    /**
+     * Available week coupon available time.
+     *
+     * @param availableWeek the available week
+     * @return the coupon available time
+     */
+    public CouponAvailableTime availableWeek(AvailableWeek availableWeek) {
+        this.availableWeek = availableWeek;
+        return this;
+    }
+
+    /**
+     * Irregulary avaliable time coupon available time.
+     *
+     * @param irregularyAvaliableTime the irregulary avaliable time
+     * @return the coupon available time
+     */
+    public CouponAvailableTime irregularyAvaliableTime(List<IrregularyAvaliableTimeItem> irregularyAvaliableTime) {
+        this.irregularyAvaliableTime = irregularyAvaliableTime;
+        return this;
+    }
 }

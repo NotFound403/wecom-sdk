@@ -14,8 +14,9 @@
  */
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -26,7 +27,6 @@ import lombok.ToString;
  */
 @ToString
 @Getter
-@RequiredArgsConstructor
 public class MiniProgramsInfo {
 
     /**
@@ -46,10 +46,33 @@ public class MiniProgramsInfo {
     /**
      * 入口文案，字数上限为5个，一个中文汉字/英文字母/数字均占用一个字数。
      */
-    private String guidingWords;
+    private final String guidingWords;
 
 
-    public MiniProgramsInfo(String miniProgramsAppid, String miniProgramsPath, String entranceWords, String guidingWords) {
+    /**
+     * Instantiates a new Mini programs info.
+     *
+     * @param miniProgramsAppid the mini programs appid
+     * @param miniProgramsPath  the mini programs path
+     * @param entranceWords     the entrance words
+     */
+    public MiniProgramsInfo(String miniProgramsAppid, String miniProgramsPath, String entranceWords) {
+        this(miniProgramsAppid, miniProgramsPath, entranceWords, null);
+    }
+
+    /**
+     * Instantiates a new Mini programs info.
+     *
+     * @param miniProgramsAppid the mini programs appid
+     * @param miniProgramsPath  the mini programs path
+     * @param entranceWords     the entrance words
+     * @param guidingWords      the guiding words
+     */
+    @JsonCreator
+    public MiniProgramsInfo(@JsonProperty("mini_programs_appid") String miniProgramsAppid,
+                            @JsonProperty("mini_programs_path") String miniProgramsPath,
+                            @JsonProperty("entrance_words") String entranceWords,
+                            @JsonProperty("guiding_words") String guidingWords) {
         this.miniProgramsAppid = miniProgramsAppid;
         this.miniProgramsPath = miniProgramsPath;
         this.entranceWords = entranceWords;

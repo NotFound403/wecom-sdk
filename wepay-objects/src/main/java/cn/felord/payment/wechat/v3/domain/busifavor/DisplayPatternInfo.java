@@ -15,7 +15,10 @@
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import cn.felord.payment.wechat.enumeration.CouponBgColor;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 商家券样式信息.
@@ -23,13 +26,14 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
-@Data
+@ToString
+@Getter
 public class DisplayPatternInfo {
 
     /**
      * 背景颜色
      */
-    private String backgroundColor;
+    private CouponBgColor backgroundColor;
     /**
      * 商户logo
      * <ol>
@@ -61,17 +65,100 @@ public class DisplayPatternInfo {
      * 商户名称,字数上限为16个
      */
     private String merchantName;
+    /**
+     * 视频号信息
+     */
+    private WechatChannelInfo finderInfo;
+
 
     /**
-     * Sets background color.
+     * Instantiates a new Display pattern info.
      *
      * @param backgroundColor the background color
+     * @param merchantLogoUrl the merchant logo url
+     * @param couponImageUrl  the coupon image url
+     * @param description     the description
+     * @param merchantName    the merchant name
+     * @param finderInfo      the finder info
      */
-    public void setBackgroundColor(CouponBgColor backgroundColor) {
-        this.backgroundColor = backgroundColor.getValue();
+    @JsonCreator
+    DisplayPatternInfo(@JsonProperty("background_color") CouponBgColor backgroundColor,
+                       @JsonProperty("merchant_logo_url") String merchantLogoUrl,
+                       @JsonProperty("coupon_image_url") String couponImageUrl,
+                       @JsonProperty("DESCRIPTION") String description,
+                       @JsonProperty("merchant_name") String merchantName,
+                       @JsonProperty("finder_info") WechatChannelInfo finderInfo) {
+        this.backgroundColor = backgroundColor;
+        this.merchantLogoUrl = merchantLogoUrl;
+        this.couponImageUrl = couponImageUrl;
+        this.description = description;
+        this.merchantName = merchantName;
+        this.finderInfo = finderInfo;
     }
 
-    private void setBackgroundColor(String backgroundColor) {
+    /**
+     * Background color display pattern info.
+     *
+     * @param backgroundColor the background color
+     * @return the display pattern info
+     */
+    public DisplayPatternInfo backgroundColor(CouponBgColor backgroundColor) {
         this.backgroundColor = backgroundColor;
+        return this;
+    }
+
+    /**
+     * Merchant logo url display pattern info.
+     *
+     * @param merchantLogoUrl the merchant logo url
+     * @return the display pattern info
+     */
+    public DisplayPatternInfo merchantLogoUrl(String merchantLogoUrl) {
+        this.merchantLogoUrl = merchantLogoUrl;
+        return this;
+    }
+
+    /**
+     * Coupon image url display pattern info.
+     *
+     * @param couponImageUrl the coupon image url
+     * @return the display pattern info
+     */
+    public DisplayPatternInfo couponImageUrl(String couponImageUrl) {
+        this.couponImageUrl = couponImageUrl;
+        return this;
+    }
+
+    /**
+     * Description display pattern info.
+     *
+     * @param description the description
+     * @return the display pattern info
+     */
+    public DisplayPatternInfo description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Merchant name display pattern info.
+     *
+     * @param merchantName the merchant name
+     * @return the display pattern info
+     */
+    public DisplayPatternInfo merchantName(String merchantName) {
+        this.merchantName = merchantName;
+        return this;
+    }
+
+    /**
+     * Finder info display pattern info.
+     *
+     * @param finderInfo the finder info
+     * @return the display pattern info
+     */
+    public DisplayPatternInfo finderInfo(WechatChannelInfo finderInfo) {
+        this.finderInfo = finderInfo;
+        return this;
     }
 }
