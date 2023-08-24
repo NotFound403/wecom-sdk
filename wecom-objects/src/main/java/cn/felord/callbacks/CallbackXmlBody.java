@@ -15,7 +15,6 @@
 
 package cn.felord.callbacks;
 
-import cn.felord.domain.callback.Xml;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
@@ -25,7 +24,7 @@ import lombok.Data;
  */
 @XStreamAlias("xml")
 @Data
-public class CallbackXmlBody implements Xml {
+public class CallbackXmlBody {
     @XStreamAlias("ToUserName")
     private final String toUserName;
     @XStreamAlias("Encrypt")

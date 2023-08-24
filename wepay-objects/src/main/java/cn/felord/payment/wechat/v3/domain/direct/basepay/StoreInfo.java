@@ -1,8 +1,10 @@
 /*
- *  Copyright (c) 2023. felord.cn
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
+ *  Copyright 2019-2022 felord.cn
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
+ *
  *       https://www.apache.org/licenses/LICENSE-2.0
  *  Website:
  *       https://felord.cn
@@ -12,23 +14,30 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.direct.basepay.combine;
+package cn.felord.payment.wechat.v3.domain.direct.basepay;
 
-import cn.felord.payment.wechat.v3.domain.direct.basepay.H5Info;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
- * 合单支付 H5场景信息.
- *
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class CombineH5SceneInfo extends CombineSceneInfo {
+public class StoreInfo {
     /**
-     * H5 支付信息.
+     * 门店编号
      */
-    private H5Info h5Info;
+    private final String id;
+    /**
+     * 门店名称
+     */
+    private String name;
+    /**
+     * 地区编码
+     */
+    private String areaCode;
+    /**
+     * 详细地址
+     */
+    private String address;
 }

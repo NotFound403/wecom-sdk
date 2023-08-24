@@ -15,7 +15,7 @@
 
 package cn.felord.wecom.service;
 
-import cn.felord.callbacks.CallbackSettings;
+import cn.felord.callback.CallbackSettings;
 import cn.felord.wecom.cache.EhcacheWeComCallbackSettingsCache;
 import cn.felord.wecom.entity.WecomCallbackSettings;
 import lombok.AllArgsConstructor;

@@ -13,34 +13,14 @@
  *  limitations under the License.
  */
 
-package cn.felord.xml;
-
-import cn.felord.domain.callback.Xml;
+package cn.felord.callback;
 
 /**
- * The interface Xml reader.
+ * The interface Callback body.
  *
- * @author felord
- * @since 2021 /10/10 14:14
+ * @author dax
+ * @since 2023 /5/31 12:23
  */
-public interface XmlReader {
+public interface Xml {
 
-    /**
-     * Read t.
-     *
-     * @param <T>   the type parameter
-     * @param xml   the xml
-     * @param clazz the clazz
-     * @return the t
-     */
-    <T extends Xml> T read(String xml, Class<T> clazz);
-
-    /**
-     * Write string.
-     *
-     * @param <T> the type parameter
-     * @param t   the t
-     * @return the string
-     */
-    <T extends Xml> String write(T t);
 }

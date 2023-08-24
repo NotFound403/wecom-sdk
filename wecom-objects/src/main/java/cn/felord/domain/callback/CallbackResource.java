@@ -23,7 +23,7 @@ import lombok.Data;
  * @since 2023/7/7 11:46
  */
 @Data
-public class CallbackResource implements Xml {
+public class CallbackResource {
     /**
      * 对开启结果数据进行加密的加密算法，目前只支持AEAD_AES_256_GCM。
      */

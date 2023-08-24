@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.xml.convert;
+package cn.felord.xml;
 
 import com.thoughtworks.xstream.converters.ConversionException;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;

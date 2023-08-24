@@ -15,7 +15,6 @@
 
 package cn.felord.domain.corpay.internal;
 
-import cn.felord.domain.callback.Xml;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
@@ -26,7 +25,7 @@ import java.util.Objects;
  * @since 2023/6/26 13:50
  */
 @Data
-public abstract class AbstractXmlResponse implements Xml {
+public abstract class AbstractXmlResponse {
     @XStreamAlias("return_code")
     private String returnCode;
     @XStreamAlias("return_msg")

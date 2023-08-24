@@ -28,7 +28,7 @@ import java.util.List;
  */
 @ToString
 @Getter
-public class CallbackSelectedItems implements Xml {
+public class CallbackSelectedItems {
     @XStreamImplicit(itemFieldName = "SelectedItem")
     private final List<CallbackSelectedItem> optionIds;
 

@@ -99,4 +99,17 @@ public class WechatMpApi {
                 .retrofit()
                 .create(CardApi.class);
     }
+
+    /**
+     * Message api message api.
+     *
+     * @param mpApp the mp app
+     * @return the message api
+     */
+    public MessageApi messageApi(MpApp mpApp) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weMpTokenCacheable, mpApp);
+        return WeChatMpApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(MessageApi.class);
+    }
 }

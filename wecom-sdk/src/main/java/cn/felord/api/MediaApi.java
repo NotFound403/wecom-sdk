@@ -16,7 +16,7 @@
 package cn.felord.api;
 
 import cn.felord.WeComException;
-import cn.felord.common.MultipartResource;
+import cn.felord.domain.MultipartResource;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.common.JobId;
 import cn.felord.domain.media.MediaJobResponse;

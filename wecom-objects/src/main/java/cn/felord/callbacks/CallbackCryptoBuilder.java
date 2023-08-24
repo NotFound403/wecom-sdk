@@ -15,7 +15,7 @@
 
 package cn.felord.callbacks;
 
-import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.callback.CallbackAsyncConsumer;
 import cn.felord.xml.XStreamXmlReader;
 import cn.felord.xml.XmlReader;
 
@@ -30,7 +30,7 @@ import java.util.function.Consumer;
  */
 public class CallbackCryptoBuilder {
 
-    private final CallbackAsyncConsumer callbackAsyncConsumer;
+    private final CallbackAsyncConsumer<CallbackEventBody> callbackAsyncConsumer;
     private final XmlReader xmlReader;
 
     /**
@@ -38,7 +38,7 @@ public class CallbackCryptoBuilder {
      *
      * @param callbackAsyncConsumer the callback async consumer
      */
-    public CallbackCryptoBuilder(CallbackAsyncConsumer callbackAsyncConsumer) {
+    public CallbackCryptoBuilder(CallbackAsyncConsumer<CallbackEventBody> callbackAsyncConsumer) {
         this(XStreamXmlReader.INSTANCE, callbackAsyncConsumer);
     }
 
@@ -48,7 +48,7 @@ public class CallbackCryptoBuilder {
      * @param eventBodyConsumer the event body consumer
      */
     public CallbackCryptoBuilder(Consumer<CallbackEventBody> eventBodyConsumer) {
-        this(XStreamXmlReader.INSTANCE, new CallbackAsyncConsumer(eventBodyConsumer));
+        this(XStreamXmlReader.INSTANCE, new CallbackAsyncConsumer<>(eventBodyConsumer));
     }
 
     /**
@@ -57,7 +57,7 @@ public class CallbackCryptoBuilder {
      * @param xmlReader             the xml reader
      * @param callbackAsyncConsumer the callback async consumer
      */
-    public CallbackCryptoBuilder(XmlReader xmlReader, CallbackAsyncConsumer callbackAsyncConsumer) {
+    public CallbackCryptoBuilder(XmlReader xmlReader, CallbackAsyncConsumer<CallbackEventBody> callbackAsyncConsumer) {
         this.xmlReader = xmlReader;
         this.callbackAsyncConsumer = callbackAsyncConsumer;
     }
@@ -69,7 +69,7 @@ public class CallbackCryptoBuilder {
      * @param eventBodyConsumer the event body consumer
      */
     public CallbackCryptoBuilder(ExecutorService executor, Consumer<CallbackEventBody> eventBodyConsumer) {
-        this(new CallbackAsyncConsumer(executor, eventBodyConsumer));
+        this(new CallbackAsyncConsumer<>(executor, eventBodyConsumer));
     }
 
     /**
@@ -80,7 +80,7 @@ public class CallbackCryptoBuilder {
      * @param eventBodyConsumer the event body consumer
      */
     public CallbackCryptoBuilder(XmlReader xmlReader, ExecutorService executor, Consumer<CallbackEventBody> eventBodyConsumer) {
-        this(xmlReader, new CallbackAsyncConsumer(executor, eventBodyConsumer));
+        this(xmlReader, new CallbackAsyncConsumer<>(executor, eventBodyConsumer));
     }
 
     /**
@@ -90,7 +90,7 @@ public class CallbackCryptoBuilder {
      * @param eventBodyConsumer the event body consumer
      */
     public CallbackCryptoBuilder(XmlReader xmlReader, Consumer<CallbackEventBody> eventBodyConsumer) {
-        this(xmlReader, new CallbackAsyncConsumer(eventBodyConsumer));
+        this(xmlReader, new CallbackAsyncConsumer<>(eventBodyConsumer));
     }
 
 

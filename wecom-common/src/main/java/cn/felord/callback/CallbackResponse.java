@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.callbacks;
+package cn.felord.callback;
 
 /**
  * @author dax

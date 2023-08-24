@@ -15,7 +15,7 @@
 
 package cn.felord.wecom.service;
 
-import cn.felord.callbacks.CallbackSettings;
+import cn.felord.callback.CallbackSettings;
 
 /**
  * The interface Wecom callback settings service.

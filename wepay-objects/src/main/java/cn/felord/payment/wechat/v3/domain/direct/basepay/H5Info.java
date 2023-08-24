@@ -1,8 +1,10 @@
 /*
- *  Copyright (c) 2023. felord.cn
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
+ *  Copyright 2019-2022 felord.cn
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
+ *
  *       https://www.apache.org/licenses/LICENSE-2.0
  *  Website:
  *       https://felord.cn
@@ -14,30 +16,36 @@
  */
 package cn.felord.payment.wechat.v3.domain.direct.basepay;
 
+import cn.felord.payment.wechat.enumeration.H5SceneType;
 import lombok.Data;
 
 /**
- * 场景信息
+ * H5 信息
  *
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
 @Data
-public class SceneInfo {
+public class H5Info {
     /**
-     * 用户终端IP
+     * 场景类型
      */
-    private final String payerClientIp;
+    private H5SceneType type;
     /**
-     * 商户端设备号
+     * 应用名称
      */
-    private String deviceId;
+    private String appName;
     /**
-     * 商户门店信息
+     * 网站URL
      */
-    private StoreInfo storeInfo;
+    private String appUrl;
     /**
-     * H5 场景信息
+     * IOS 平台 BundleID
      */
-    private H5Info h5Info;
+    private String bundleId;
+    /**
+     * Android 平台 PackageName
+     */
+    private String packageName;
+
 }

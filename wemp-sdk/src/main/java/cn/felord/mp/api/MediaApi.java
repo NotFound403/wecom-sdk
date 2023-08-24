@@ -15,7 +15,7 @@
 
 package cn.felord.mp.api;
 
-import cn.felord.common.MultipartResource;
+import cn.felord.domain.MultipartResource;
 import cn.felord.mp.WeMpException;
 import cn.felord.mp.domain.media.MediaUrl;
 import cn.felord.utils.MediaUtil;
