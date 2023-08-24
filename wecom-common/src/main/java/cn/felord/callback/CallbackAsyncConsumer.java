@@ -13,9 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.callbacks;
-
-import cn.felord.domain.callback.CallbackEventBody;
+package cn.felord.callback;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -24,14 +22,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 /**
- * The interface Callback consumer.
+ * 异步消费事件数据
  *
+ * @param <EVENT> the type parameter
  * @author felord.cn
  * @since 1.0.0
  */
-public final class CallbackAsyncConsumer {
+public final class CallbackAsyncConsumer<EVENT> {
     private final ExecutorService executor;
-    private final Consumer<CallbackEventBody> eventBodyConsumer;
+    private final Consumer<EVENT> eventBodyConsumer;
 
 
     /**
@@ -39,7 +38,7 @@ public final class CallbackAsyncConsumer {
      *
      * @param eventBodyConsumer the event body consumer
      */
-    public CallbackAsyncConsumer(Consumer<CallbackEventBody> eventBodyConsumer) {
+    public CallbackAsyncConsumer(Consumer<EVENT> eventBodyConsumer) {
         this(20, 100, 90L, 1500, eventBodyConsumer);
     }
 
@@ -56,7 +55,7 @@ public final class CallbackAsyncConsumer {
                                  int maximumPoolSize,
                                  long keepAliveSecond,
                                  int capacity,
-                                 Consumer<CallbackEventBody> eventBodyConsumer) {
+                                 Consumer<EVENT> eventBodyConsumer) {
 
         this(new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
                 keepAliveSecond, TimeUnit.SECONDS,
@@ -72,7 +71,7 @@ public final class CallbackAsyncConsumer {
      * @param executor          the executor
      * @param eventBodyConsumer the event body consumer
      */
-    public CallbackAsyncConsumer(ExecutorService executor, Consumer<CallbackEventBody> eventBodyConsumer) {
+    public CallbackAsyncConsumer(ExecutorService executor, Consumer<EVENT> eventBodyConsumer) {
         this.executor = executor;
         this.eventBodyConsumer = eventBodyConsumer;
     }
@@ -82,10 +81,8 @@ public final class CallbackAsyncConsumer {
      *
      * @param eventBody the event body
      */
-    public void asyncAction(CallbackEventBody eventBody) {
+    public void asyncAction(EVENT eventBody) {
         Thread thread = new Thread(() -> eventBodyConsumer.accept(eventBody));
         executor.execute(thread);
     }
-
-
 }

@@ -16,8 +16,8 @@
 package cn.felord.api;
 
 import cn.felord.WeComException;
-import cn.felord.common.FileMediaType;
-import cn.felord.common.MultipartResource;
+import cn.felord.domain.FileMediaType;
+import cn.felord.domain.MultipartResource;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.webhook.WebhookBody;

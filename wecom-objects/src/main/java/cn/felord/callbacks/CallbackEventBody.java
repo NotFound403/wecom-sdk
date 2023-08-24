@@ -13,8 +13,10 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.callback;
+package cn.felord.callbacks;
 
+import cn.felord.callback.Xml;
+import cn.felord.domain.callback.*;
 import cn.felord.domain.common.MediaId;
 import cn.felord.domain.corpay.miniapppay.callback.RefundCallbackData;
 import cn.felord.domain.corpay.miniapppay.callback.TransactionCallbackData;

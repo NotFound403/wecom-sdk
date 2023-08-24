@@ -16,7 +16,7 @@
 package cn.felord.wecom.service;
 
 import cn.felord.domain.callback.ApprovalInfo;
-import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.callbacks.CallbackEventBody;
 import cn.felord.enumeration.CallbackChangeType;
 import cn.felord.enumeration.CallbackEvent;
 import cn.felord.enumeration.StatusChangeEvent;

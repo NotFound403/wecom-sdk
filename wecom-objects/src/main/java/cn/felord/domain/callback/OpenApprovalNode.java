@@ -29,7 +29,7 @@ import java.util.List;
  */
 @XStreamAlias("ApprovalNode")
 @Data
-public class OpenApprovalNode implements Xml {
+public class OpenApprovalNode {
 
     @XStreamAlias("NodeStatus")
     private NodeStatus nodeStatus;

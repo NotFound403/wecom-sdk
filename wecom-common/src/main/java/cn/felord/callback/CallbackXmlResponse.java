@@ -13,19 +13,15 @@
  *  limitations under the License.
  */
 
-package cn.felord.callbacks;
+package cn.felord.callback;
 
-import cn.felord.callback.CallbackResponse;
-import cn.felord.callback.Xml;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import lombok.Data;
 
 /**
  * @author felord
  * @since 2021/10/10 14:21
  */
 @XStreamAlias("xml")
-@Data
 public class CallbackXmlResponse implements CallbackResponse, Xml {
     @XStreamAlias("Encrypt")
     private final String encrypt;
@@ -35,4 +31,37 @@ public class CallbackXmlResponse implements CallbackResponse, Xml {
     private final String timeStamp;
     @XStreamAlias("Nonce")
     private final String nonce;
+
+    CallbackXmlResponse(String encrypt, String msgSignature, String timeStamp, String nonce) {
+        this.encrypt = encrypt;
+        this.msgSignature = msgSignature;
+        this.timeStamp = timeStamp;
+        this.nonce = nonce;
+    }
+
+    public String getEncrypt() {
+        return encrypt;
+    }
+
+    public String getMsgSignature() {
+        return msgSignature;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public String getNonce() {
+        return nonce;
+    }
+
+    @Override
+    public String toString() {
+        return "CallbackXmlResponse{" +
+                "encrypt='" + encrypt + '\'' +
+                ", msgSignature='" + msgSignature + '\'' +
+                ", timeStamp='" + timeStamp + '\'' +
+                ", nonce='" + nonce + '\'' +
+                '}';
+    }
 }

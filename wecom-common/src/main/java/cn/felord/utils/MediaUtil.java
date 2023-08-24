@@ -15,8 +15,8 @@
 
 package cn.felord.utils;
 
-import cn.felord.common.FileMediaType;
-import cn.felord.common.MultipartResource;
+import cn.felord.domain.FileMediaType;
+import cn.felord.domain.MultipartResource;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

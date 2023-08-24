@@ -15,8 +15,7 @@
 
 package cn.felord.xml;
 
-import cn.felord.domain.callback.Xml;
-import cn.felord.xml.convert.UnixInstantConverter;
+import cn.felord.callback.Xml;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
@@ -39,12 +38,12 @@ public class XStreamXmlReader implements XmlReader {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Xml> T read(String xml, Class<T> clazz) {
+    public <T> T read(String xml, Class<T> clazz) {
         return (T) X_STREAM_HOLDER.computeIfAbsent(clazz, XStreamXmlReader::newXStream).fromXML(xml);
     }
 
     @Override
-    public <T extends Xml> String write(T t) {
+    public <T> String write(T t) {
         Class<?> clazz = t.getClass();
         return X_STREAM_HOLDER.computeIfAbsent(clazz, XStreamXmlReader::newXStream).toXML(t);
     }

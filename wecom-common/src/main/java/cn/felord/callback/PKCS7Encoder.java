@@ -15,7 +15,7 @@
 
 // ------------------------------------------------------------------------
 
-package cn.felord.callbacks;
+package cn.felord.callback;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;

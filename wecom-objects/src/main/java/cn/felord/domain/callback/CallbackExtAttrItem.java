@@ -24,7 +24,7 @@ import lombok.Data;
  */
 @XStreamAlias("Item")
 @Data
-public class CallbackExtAttrItem implements Xml {
+public class CallbackExtAttrItem {
     @XStreamAlias("Type")
     private Integer type;
     @XStreamAlias("Name")

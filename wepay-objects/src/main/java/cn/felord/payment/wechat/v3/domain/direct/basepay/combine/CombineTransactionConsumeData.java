@@ -17,8 +17,8 @@ package cn.felord.payment.wechat.v3.domain.direct.basepay.combine;
 import cn.felord.payment.wechat.enumeration.TradeState;
 import cn.felord.payment.wechat.enumeration.TradeType;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.Payer;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.PromotionDetail;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.SceneInfo;
-import cn.felord.payment.wechat.v3.domain.model.PromotionDetail;
 import lombok.Data;
 
 import java.util.List;

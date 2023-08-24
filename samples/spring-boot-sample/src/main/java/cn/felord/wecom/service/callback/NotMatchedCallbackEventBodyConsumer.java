@@ -15,7 +15,7 @@
 
 package cn.felord.wecom.service.callback;
 
-import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.callbacks.CallbackEventBody;
 import cn.felord.enumeration.CallbackEvent;
 import lombok.extern.slf4j.Slf4j;
 

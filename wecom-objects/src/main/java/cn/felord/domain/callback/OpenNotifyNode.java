@@ -24,7 +24,7 @@ import lombok.Data;
  */
 @XStreamAlias("NotifyNode")
 @Data
-public class OpenNotifyNode implements Xml {
+public class OpenNotifyNode {
     @XStreamAlias("ItemName")
     private String itemName;
     @XStreamAlias("ItemUserid")

@@ -15,7 +15,7 @@
 
 package cn.felord.wecom.service;
 
-import cn.felord.domain.callback.CallbackEventBody;
+import cn.felord.callbacks.CallbackEventBody;
 
 /**
  * @author dax

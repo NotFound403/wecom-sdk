@@ -13,11 +13,9 @@
  *  limitations under the License.
  */
 
-package cn.felord.callbacks;
+package cn.felord.callback;
 
-import cn.felord.WeComException;
 import cn.felord.utils.Base64Utils;
-import lombok.Getter;
 
 /**
  * The type Callback authentication.
@@ -25,7 +23,6 @@ import lombok.Getter;
  * @author felord
  * @since 2021 /10/12 20:30
  */
-@Getter
 public class CallbackSettings {
     private final String token;
     private final byte[] aesKey;
@@ -40,10 +37,22 @@ public class CallbackSettings {
      */
     public CallbackSettings(String token, String encodingAesKey, String receiveid) {
         if (encodingAesKey.length() != 43) {
-            throw new WeComException("Illegal Aes Key");
+            throw new IllegalArgumentException("Illegal Aes Key");
         }
         this.token = token;
         this.aesKey = Base64Utils.decodeFromString(encodingAesKey + "=");
         this.receiveid = receiveid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public byte[] getAesKey() {
+        return aesKey;
+    }
+
+    public String getReceiveid() {
+        return receiveid;
     }
 }
