@@ -15,22 +15,28 @@
 
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import cn.felord.payment.wechat.enumeration.SubsidyFailReason;
+import cn.felord.payment.wechat.enumeration.SubsidyStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
 
 @Data
-public class AssociateTime {
-    /**
-     * 系统关联券/取消关联券成功的时间
-     */
+public class FavorSubsidyResponse {
+    private String transactionId;
+    private String payeeMerchant;
+    private Integer amount;
+    private String couponCode;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    @JsonAlias({"wechatpay_associate_time",
-            "wechatpay_disassociate_time",
-            "wechatpay_return_time",
-            "wechatpay_deactivate_time"
-    })
-    private OffsetDateTime dateTime;
+    private OffsetDateTime createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime successTime;
+    private String payerMerchant;
+    private String description;
+    private String stockId;
+    private String subsidyReceiptId;
+    private String outSubsidyNo;
+    private SubsidyFailReason failReason;
+    private SubsidyStatus status;
 }

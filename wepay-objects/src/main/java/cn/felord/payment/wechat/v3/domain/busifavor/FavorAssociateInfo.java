@@ -12,25 +12,33 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.time.OffsetDateTime;
-
+/**
+ * 商家券关联订单信息API请求参数
+ *
+ * @author felord.cn
+ * @since 1.0.4.RELEASE
+ */
 @Data
-public class AssociateTime {
+public class FavorAssociateInfo {
+
     /**
-     * 系统关联券/取消关联券成功的时间
+     * 批次号
      */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    @JsonAlias({"wechatpay_associate_time",
-            "wechatpay_disassociate_time",
-            "wechatpay_return_time",
-            "wechatpay_deactivate_time"
-    })
-    private OffsetDateTime dateTime;
+    private final String stockId;
+    /**
+     * 券code
+     */
+    private final String couponCode;
+    /**
+     * 关联的商户订单号
+     */
+    private final String outTradeNo;
+    /**
+     * 商户请求单号，参考 {@code BusiFavorCreateParams#getOutRequestNo()}
+     */
+    private final String outRequestNo;
 }

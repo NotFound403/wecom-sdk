@@ -27,7 +27,7 @@ import java.time.OffsetDateTime;
  * @since 1.0.4.RELEASE
  */
 @Data
-public class BusiFavorReceiveConsumeData {
+public class FavorReceiveConsumeData {
 
     /**
      * 业务细分事件类型

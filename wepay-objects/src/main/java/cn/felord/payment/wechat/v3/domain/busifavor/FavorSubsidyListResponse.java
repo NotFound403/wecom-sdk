@@ -12,33 +12,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
- * 商家券关联订单信息API请求参数
- *
- * @author felord.cn
- * @since 1.0.4.RELEASE
+ * @author dax
+ * @since 2023/8/25
  */
 @Data
-public class BusiFavorAssociateInfo {
-
-    /**
-     * 批次号
-     */
-    private final String stockId;
-    /**
-     * 券code
-     */
-    private final String couponCode;
-    /**
-     * 关联的商户订单号
-     */
-    private final String outTradeNo;
-    /**
-     * 商户请求单号，参考 {@code BusiFavorCreateParams#getOutRequestNo()}
-     */
-    private final String outRequestNo;
+public class FavorSubsidyListResponse {
+    private List<FavorSubsidyResponse> payReceiptList;
 }

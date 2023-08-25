@@ -17,13 +17,13 @@ package cn.felord.payment.wechat.v3.domain.busifavor;
 import lombok.Data;
 
 /**
- * 使券失效API请求参数
+ * 修改商家券基本信息API请求参数
  *
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
 @Data
-public class BusiFavorDeactivateParams {
+public class FavorRefundParams {
 
     /**
      * 券code
@@ -34,11 +34,7 @@ public class BusiFavorDeactivateParams {
      */
     private String stockId;
     /**
-     * 失效请求单据号
+     * 退券请求单据号
      */
-    private String deactivateRequestNo;
-    /**
-     * 失效原因
-     */
-    private String deactivateReason;
+    private String returnRequestNo;
 }

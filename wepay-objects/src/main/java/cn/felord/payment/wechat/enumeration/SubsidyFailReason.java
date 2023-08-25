@@ -13,24 +13,33 @@
  *  limitations under the License.
  */
 
-package cn.felord.payment.wechat.v3.domain.busifavor;
+package cn.felord.payment.wechat.enumeration;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-
-import java.time.OffsetDateTime;
-
-@Data
-public class AssociateTime {
+/**
+ * The enum Subsidy fail reason.
+ *
+ * @author dax
+ * @since 2023 /8/25
+ */
+public enum SubsidyFailReason {
     /**
-     * 系统关联券/取消关联券成功的时间
+     * 扣款商户余额不足
      */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    @JsonAlias({"wechatpay_associate_time",
-            "wechatpay_disassociate_time",
-            "wechatpay_return_time",
-            "wechatpay_deactivate_time"
-    })
-    private OffsetDateTime dateTime;
+    INSUFFICIENT_BALANCE,
+    /**
+     * 非分账订单
+     */
+    NOT_INCOMESPLIT_ORDER,
+    /**
+     * 超出订单补差总额限制
+     */
+    EXCEED_SUBSIDY_AMOUNT_QUOTA,
+    /**
+     * 超出订单补差总数限制
+     */
+    EXCEED_SUBSIDY_COUNT_QUOTA,
+    /**
+     * 其他原因
+     */
+    OTHER,
 }

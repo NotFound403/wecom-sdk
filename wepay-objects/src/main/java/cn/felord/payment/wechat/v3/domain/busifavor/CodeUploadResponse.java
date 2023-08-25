@@ -15,22 +15,22 @@
 
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Data
-public class AssociateTime {
-    /**
-     * 系统关联券/取消关联券成功的时间
-     */
+public class CodeUploadResponse {
+    private String stockId;
+    private Long totalCount;
+    private Long successCount;
+    private List<String> successCodes;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    @JsonAlias({"wechatpay_associate_time",
-            "wechatpay_disassociate_time",
-            "wechatpay_return_time",
-            "wechatpay_deactivate_time"
-    })
-    private OffsetDateTime dateTime;
+    private OffsetDateTime successTime;
+    private Long failCount;
+    private List<FailCode> failCodes;
+    private List<String> existCodes;
+    private List<String> duplicateCodes;
 }

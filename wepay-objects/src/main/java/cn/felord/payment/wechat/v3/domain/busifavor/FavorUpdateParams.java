@@ -25,7 +25,7 @@ import lombok.Data;
  * @since 1.0.4.RELEASE
  */
 @Data
-public class BusiFavorUpdateParams {
+public class FavorUpdateParams {
     /**
      * 自定义入口
      */
@@ -65,7 +65,7 @@ public class BusiFavorUpdateParams {
     /**
      * 事件通知配置
      */
-    private BusiFavorNotifyConfig notifyConfig;
+    private FavorNotifyConfig notifyConfig;
 
 
     /**

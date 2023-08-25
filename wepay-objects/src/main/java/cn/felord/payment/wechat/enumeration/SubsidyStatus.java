@@ -12,29 +12,38 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.payment.wechat.v3.domain.busifavor;
 
-import lombok.Data;
+package cn.felord.payment.wechat.enumeration;
 
 /**
- * 修改商家券基本信息API请求参数
+ * The enum Subsidy status.
  *
- * @author felord.cn
- * @since 1.0.4.RELEASE
+ * @author dax
+ * @since 2023 /8/25
  */
-@Data
-public class BusiFavorRefundParams {
-
+public enum SubsidyStatus {
     /**
-     * 券code
+     * 受理成功
      */
-    private String couponCode;
+    ACCEPTED,
     /**
-     * 批次号
+     * 补差补款成功
      */
-    private String stockId;
+    SUCCESS,
     /**
-     * 退券请求单据号
+     * 补差付款失败
      */
-    private String returnRequestNo;
+    FAIL,
+    /**
+     * 补差回退中
+     */
+    RETURNING,
+    /**
+     * 补差部分回退
+     */
+    PARTIAL_RETURN,
+    /**
+     * 补差全额回退
+     */
+    FULL_RETURN,
 }

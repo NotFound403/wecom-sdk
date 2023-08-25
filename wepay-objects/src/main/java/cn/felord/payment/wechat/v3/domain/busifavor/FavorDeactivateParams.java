@@ -16,29 +16,29 @@ package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import lombok.Data;
 
-import java.util.Set;
-
 /**
- * 商家券上传预存code API请求参数
+ * 使券失效API请求参数
  *
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
 @Data
-public class BusiCouponCodeUploadParams {
+public class FavorDeactivateParams {
 
+    /**
+     * 券code
+     */
+    private String couponCode;
     /**
      * 批次号
      */
     private String stockId;
     /**
-     * 券code列表
-     * <p>
-     * 特殊规则：单个券code长度为【1，32】，条目个数限制为【1，200】。
+     * 失效请求单据号
      */
-    private Set<String> couponCodeList;
+    private String deactivateRequestNo;
     /**
-     * 请求业务单据号
+     * 失效原因
      */
-    private String uploadRequestNo;
+    private String deactivateReason;
 }

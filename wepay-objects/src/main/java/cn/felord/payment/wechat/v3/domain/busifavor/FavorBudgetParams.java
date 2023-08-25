@@ -25,7 +25,7 @@ import lombok.ToString;
  */
 @ToString
 @Getter
-public class BusiFavorBudgetParams {
+public class FavorBudgetParams {
 
     /**
      * 目标批次最大发放个数，同{@link #targetMaxCouponsByDay}二选一
@@ -49,14 +49,27 @@ public class BusiFavorBudgetParams {
     private final String modifyBudgetRequestNo;
 
     /**
+     * Instantiates a new Busi favor budget params.
+     *
+     * @param targetMaxCoupons      the target max coupons
+     * @param targetMaxCouponsByDay the target max coupons by day
+     * @param modifyBudgetRequestNo the modify budget request no
+     */
+    FavorBudgetParams(Integer targetMaxCoupons, Integer targetMaxCouponsByDay, String modifyBudgetRequestNo) {
+        this.targetMaxCoupons = targetMaxCoupons;
+        this.targetMaxCouponsByDay = targetMaxCouponsByDay;
+        this.modifyBudgetRequestNo = modifyBudgetRequestNo;
+    }
+
+    /**
      * With target max coupons by day busi favor budget params.
      *
      * @param targetMaxCouponsByDay the target max coupons by day
      * @param modifyBudgetRequestNo the modify budget request no
      * @return the busi favor budget params
      */
-    public static BusiFavorBudgetParams withTargetMaxCouponsByDay(Integer targetMaxCouponsByDay, String modifyBudgetRequestNo) {
-        return new BusiFavorBudgetParams(null, targetMaxCouponsByDay, modifyBudgetRequestNo);
+    public static FavorBudgetParams withTargetMaxCouponsByDay(Integer targetMaxCouponsByDay, String modifyBudgetRequestNo) {
+        return new FavorBudgetParams(null, targetMaxCouponsByDay, modifyBudgetRequestNo);
     }
 
     /**
@@ -66,21 +79,8 @@ public class BusiFavorBudgetParams {
      * @param modifyBudgetRequestNo the modify budget request no
      * @return the busi favor budget params
      */
-    public static BusiFavorBudgetParams withTargetMaxCoupons(Integer targetMaxCoupons, String modifyBudgetRequestNo) {
-        return new BusiFavorBudgetParams(targetMaxCoupons, null, modifyBudgetRequestNo);
-    }
-
-    /**
-     * Instantiates a new Busi favor budget params.
-     *
-     * @param targetMaxCoupons      the target max coupons
-     * @param targetMaxCouponsByDay the target max coupons by day
-     * @param modifyBudgetRequestNo the modify budget request no
-     */
-    BusiFavorBudgetParams(Integer targetMaxCoupons, Integer targetMaxCouponsByDay, String modifyBudgetRequestNo) {
-        this.targetMaxCoupons = targetMaxCoupons;
-        this.targetMaxCouponsByDay = targetMaxCouponsByDay;
-        this.modifyBudgetRequestNo = modifyBudgetRequestNo;
+    public static FavorBudgetParams withTargetMaxCoupons(Integer targetMaxCoupons, String modifyBudgetRequestNo) {
+        return new FavorBudgetParams(targetMaxCoupons, null, modifyBudgetRequestNo);
     }
 
     /**
@@ -89,7 +89,7 @@ public class BusiFavorBudgetParams {
      * @param currentMaxCoupons the current max coupons
      * @return the busi favor budget params
      */
-    public BusiFavorBudgetParams currentMaxCoupons(Integer currentMaxCoupons) {
+    public FavorBudgetParams currentMaxCoupons(Integer currentMaxCoupons) {
         this.currentMaxCoupons = currentMaxCoupons;
         return this;
     }
@@ -100,7 +100,7 @@ public class BusiFavorBudgetParams {
      * @param currentMaxCouponsByDay the current max coupons by day
      * @return the busi favor budget params
      */
-    public BusiFavorBudgetParams currentMaxCouponsByDay(Integer currentMaxCouponsByDay) {
+    public FavorBudgetParams currentMaxCouponsByDay(Integer currentMaxCouponsByDay) {
         this.currentMaxCouponsByDay = currentMaxCouponsByDay;
         return this;
     }

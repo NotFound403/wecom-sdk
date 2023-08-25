@@ -27,7 +27,7 @@ import lombok.ToString;
  */
 @ToString
 @Getter
-public class BusiFavorNotifyConfig {
+public class FavorNotifyConfig {
 
     /**
      * 事件通知appid
@@ -43,7 +43,7 @@ public class BusiFavorNotifyConfig {
      * @param notifyAppid the notify appid
      */
     @JsonCreator
-    public BusiFavorNotifyConfig(@JsonProperty("notify_appid") String notifyAppid) {
+    public FavorNotifyConfig(@JsonProperty("notify_appid") String notifyAppid) {
         this.notifyAppid = notifyAppid;
     }
 }

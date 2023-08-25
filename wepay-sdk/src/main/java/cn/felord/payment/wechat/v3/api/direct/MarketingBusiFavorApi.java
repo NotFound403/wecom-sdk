@@ -16,31 +16,9 @@
 package cn.felord.payment.wechat.v3.api.direct;
 
 import cn.felord.payment.wechat.enumeration.CouponState;
-import cn.felord.payment.wechat.v3.domain.busifavor.AssociateTime;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiCouponCodeUploadParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorAssociateInfo;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorBudgetParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorBudgetResponse;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorCallbackSetting;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorCreateParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorDeactivateParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorRefundParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorSubsidyParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorUpdateParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorUseParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.FavorUseResponse;
-import cn.felord.payment.wechat.v3.domain.busifavor.StockDetailResponse;
-import cn.felord.payment.wechat.v3.domain.busifavor.StockResponse;
-import cn.felord.payment.wechat.v3.domain.busifavor.UserCouponDetailResponse;
-import cn.felord.payment.wechat.v3.domain.busifavor.UserFavorQueryParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.*;
 import okhttp3.ResponseBody;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.PATCH;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
+import retrofit2.http.*;
 
 /**
  * 微信支付商家券
@@ -58,7 +36,7 @@ public interface MarketingBusiFavorApi {
      * @return the wechat response entity
      */
     @POST("v3/marketing/busifavor/stocks")
-    StockResponse createStock(@Body BusiFavorCreateParams params);
+    StockResponse createStock(@Body FavorCreateParams params);
 
     /**
      * 查询商家券详情API
@@ -80,7 +58,7 @@ public interface MarketingBusiFavorApi {
      * @return the wechat response entity
      */
     @POST("v3/marketing/busifavor/coupons/use")
-    FavorUseResponse use(@Body BusiFavorUseParams params);
+    FavorUseResponse use(@Body FavorUseParams params);
 
     /**
      * 根据过滤条件查询用户券API
@@ -92,7 +70,7 @@ public interface MarketingBusiFavorApi {
      * @return the user coupon detail response
      */
     @GET("v3/marketing/busifavor/users/{openid}/coupons")
-    UserCouponDetailResponse queryUserStocks(@Path("openid") String openid, @QueryMap UserFavorQueryParams params);
+    UserCouponsDetailResponse queryUserStocks(@Path("openid") String openid, @QueryMap UserFavorQueryParams params);
 
     /**
      * 查询用户单张券详情API
@@ -105,9 +83,9 @@ public interface MarketingBusiFavorApi {
      * @return the wechat response entity
      */
     @GET("v3/marketing/busifavor/users/{openid}/coupons/{coupon_code}/appids/{appid}")
-    ResponseBody queryUserCoupon(@Path("openid") String openid,
-                                 @Path("coupon_code") String couponCode,
-                                 @Path("appid") String appid);
+    UserCouponResponse queryUserCoupon(@Path("openid") String openid,
+                                       @Path("coupon_code") String couponCode,
+                                       @Path("appid") String appid);
 
     /**
      * 上传预存code API
@@ -116,11 +94,12 @@ public interface MarketingBusiFavorApi {
      * 如商家已有自己的优惠券系统，可直接使用自定义模式。
      * 即商家预先向微信支付上传券Code，当券在发放时，微信支付自动从已导入的Code中随机取值（不能指定），派发给用户。
      *
-     * @param params the params
+     * @param stockId the stock id
+     * @param params  the params
      * @return wechat response entity
      */
     @POST("v3/marketing/busifavor/stocks/{stock_id}/couponcodes")
-    ResponseBody uploadCouponCodes(@Body BusiCouponCodeUploadParams params);
+    CodeUploadResponse uploadCouponCodes(@Path("stock_id") String stockId, @Body CouponCodeUploadParams params);
 
     /**
      * 设置商家券事件通知地址API
@@ -141,7 +120,7 @@ public interface MarketingBusiFavorApi {
      * @return callbacks callbacks
      */
     @POST("v3/marketing/busifavor/callbacks")
-    ResponseBody setCallbacks(@Body BusiFavorCallbackSetting setting);
+    FavorCallbackSetting setCallbacks(@Body FavorCallbackSetting setting);
 
     /**
      * 查询商家券事件通知地址API
@@ -157,7 +136,7 @@ public interface MarketingBusiFavorApi {
      * @return callbacks callbacks
      */
     @GET("v3/marketing/busifavor/callbacks")
-    BusiFavorCallbackSetting getCallbacks(@Query("mchid") String mchId);
+    FavorCallbackSetting getCallbacks(@Query("mchid") String mchId);
 
     /**
      * 查询调用方商家券事件通知地址API
@@ -165,7 +144,7 @@ public interface MarketingBusiFavorApi {
      * @return the callbacks
      */
     @GET("v3/marketing/busifavor/callbacks")
-    BusiFavorCallbackSetting getCallbacks();
+    FavorCallbackSetting getCallbacks();
 
     /**
      * 商家券关联订单信息API
@@ -179,7 +158,7 @@ public interface MarketingBusiFavorApi {
      * @return the associate time
      */
     @POST("v3/marketing/busifavor/coupons/associate")
-    AssociateTime associate(@Body BusiFavorAssociateInfo associateInfo);
+    AssociateTime associate(@Body FavorAssociateInfo associateInfo);
 
     /**
      * 商家券取消关联订单信息API
@@ -193,7 +172,7 @@ public interface MarketingBusiFavorApi {
      * @return the associate time
      */
     @POST("v3/marketing/busifavor/coupons/disassociate")
-    AssociateTime disassociate(@Body BusiFavorAssociateInfo associateInfo);
+    AssociateTime disassociate(@Body FavorAssociateInfo associateInfo);
 
     /**
      * 修改批次预算API
@@ -205,7 +184,7 @@ public interface MarketingBusiFavorApi {
      * @return wechat response entity
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}/budget")
-    BusiFavorBudgetResponse budget(@Path("stock_id") String stockId, @Body BusiFavorBudgetParams params);
+    FavorBudgetResponse budget(@Path("stock_id") String stockId, @Body FavorBudgetParams params);
 
     /**
      * 修改商家券基本信息API
@@ -217,7 +196,7 @@ public interface MarketingBusiFavorApi {
      * @return wechat response entity
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}")
-    ResponseBody updateStock(@Path("stock_id") String stockId, @Body BusiFavorUpdateParams params);
+    ResponseBody updateStock(@Path("stock_id") String stockId, @Body FavorUpdateParams params);
 
     /**
      * 申请退券API
@@ -228,7 +207,7 @@ public interface MarketingBusiFavorApi {
      * @return wechat response entity
      */
     @POST("v3/marketing/busifavor/coupons/return")
-    ResponseBody refund(@Body BusiFavorRefundParams params);
+    AssociateTime refund(@Body FavorRefundParams params);
 
     /**
      * 使券失效API
@@ -241,7 +220,7 @@ public interface MarketingBusiFavorApi {
      * @return wechat response entity
      */
     @POST("v3/marketing/busifavor/coupons/deactivate")
-    ResponseBody deactivate(@Body BusiFavorDeactivateParams params);
+    AssociateTime deactivate(@Body FavorDeactivateParams params);
 
     /**
      * 营销补差付款API
@@ -255,7 +234,17 @@ public interface MarketingBusiFavorApi {
      * @since 1.0.13.RELEASE
      */
     @POST("v3/marketing/busifavor/subsidy/pay-receipts")
-    ResponseBody payMakeup(@Body BusiFavorSubsidyParams params);
+    FavorSubsidyResponse payReceipt(@Body FavorSubsidyParams params);
+
+
+    /**
+     * 查询营销补差付款单列表API
+     *
+     * @param request the request
+     * @return the favor subsidy list response
+     */
+    @GET("v3/marketing/busifavor/subsidy/pay-receipts")
+    FavorSubsidyListResponse payReceiptList(@QueryMap FavorSubsidyListRequest request);
 
     /**
      * 查询营销补差付款单详情API
@@ -267,6 +256,6 @@ public interface MarketingBusiFavorApi {
      * @since 1.0.13.RELEASE
      */
     @GET("v3/marketing/busifavor/subsidy/pay-receipts/{subsidy_receipt_id}")
-    ResponseBody queryMakeup(@Path("subsidy_receipt_id") String subsidyReceiptId);
+    FavorSubsidyResponse queryMakeup(@Path("subsidy_receipt_id") String subsidyReceiptId);
 
 }

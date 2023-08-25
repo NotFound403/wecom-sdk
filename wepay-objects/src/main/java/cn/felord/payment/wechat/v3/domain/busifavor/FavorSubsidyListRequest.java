@@ -15,22 +15,22 @@
 
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import java.util.HashMap;
 
-import java.time.OffsetDateTime;
+/**
+ * @author dax
+ * @since 2023/8/25
+ */
+public class FavorSubsidyListRequest extends HashMap<String, String> {
 
-@Data
-public class AssociateTime {
-    /**
-     * 系统关联券/取消关联券成功的时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    @JsonAlias({"wechatpay_associate_time",
-            "wechatpay_disassociate_time",
-            "wechatpay_return_time",
-            "wechatpay_deactivate_time"
-    })
-    private OffsetDateTime dateTime;
+
+    public FavorSubsidyListRequest(String stockId, String couponCode) {
+        this(stockId, couponCode, null);
+    }
+
+    public FavorSubsidyListRequest(String stockId, String couponCode, String outSubsidyNo) {
+        this.put("stock_id", stockId);
+        this.put("coupon_code", couponCode);
+        this.put("out_subsidy_no", outSubsidyNo);
+    }
 }

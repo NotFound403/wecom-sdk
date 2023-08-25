@@ -28,7 +28,7 @@ import java.time.OffsetDateTime;
  */
 @ToString
 @Getter
-public class BusiFavorUseParams {
+public class FavorUseParams {
     /**
      * 券code
      */
@@ -63,7 +63,7 @@ public class BusiFavorUseParams {
      * @param useTime      the use time
      * @param useRequestNo the use request no
      */
-    public BusiFavorUseParams(String couponCode, String appid, OffsetDateTime useTime, String useRequestNo) {
+    public FavorUseParams(String couponCode, String appid, OffsetDateTime useTime, String useRequestNo) {
         this(couponCode, appid, useTime, useRequestNo, null);
     }
 
@@ -76,7 +76,7 @@ public class BusiFavorUseParams {
      * @param useRequestNo the use request no
      * @param stockId      the stock id
      */
-    public BusiFavorUseParams(String couponCode, String appid, OffsetDateTime useTime, String useRequestNo, String stockId) {
+    public FavorUseParams(String couponCode, String appid, OffsetDateTime useTime, String useRequestNo, String stockId) {
         this(couponCode, appid, useTime, useRequestNo, stockId, null);
     }
 
@@ -90,7 +90,7 @@ public class BusiFavorUseParams {
      * @param stockId      the stock id
      * @param openid       the openid
      */
-    public BusiFavorUseParams(String couponCode, String appid, OffsetDateTime useTime, String useRequestNo, String stockId, String openid) {
+    public FavorUseParams(String couponCode, String appid, OffsetDateTime useTime, String useRequestNo, String stockId, String openid) {
         this.couponCode = couponCode;
         this.stockId = stockId;
         this.appid = appid;

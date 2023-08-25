@@ -30,7 +30,7 @@ import java.time.OffsetDateTime;
  */
 @ToString
 @Getter
-public class BusiFavorCallbackSetting {
+public class FavorCallbackSetting {
 
     /**
      * 微信支付商户的商户号，由微信支付生成并下发，不填默认查询调用方商户的通知URL。
@@ -51,7 +51,7 @@ public class BusiFavorCallbackSetting {
      *
      * @param notifyUrl the notify url
      */
-    public BusiFavorCallbackSetting(String notifyUrl) {
+    public FavorCallbackSetting(String notifyUrl) {
         this.notifyUrl = notifyUrl;
     }
 
@@ -62,7 +62,7 @@ public class BusiFavorCallbackSetting {
      * @param notifyUrl the notify url
      * @param mchid     the mchid
      */
-    public BusiFavorCallbackSetting(String notifyUrl, String mchid) {
+    public FavorCallbackSetting(String notifyUrl, String mchid) {
         this.notifyUrl = notifyUrl;
         this.mchid = mchid;
     }
@@ -75,9 +75,9 @@ public class BusiFavorCallbackSetting {
      * @param updateTime the update time
      */
     @JsonCreator
-    BusiFavorCallbackSetting(String mchid,
-                             @JsonProperty("notify_url") String notifyUrl,
-                             @JsonProperty("update_time") OffsetDateTime updateTime) {
+    FavorCallbackSetting(String mchid,
+                         @JsonProperty("notify_url") String notifyUrl,
+                         @JsonProperty("update_time") OffsetDateTime updateTime) {
         this.mchid = mchid;
         this.notifyUrl = notifyUrl;
         this.updateTime = updateTime;

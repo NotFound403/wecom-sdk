@@ -29,7 +29,7 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 @Getter
-public class BusiFavorCreateParams {
+public class FavorCreateParams {
 
     /**
      * 商家券批次名称,[1,21],必填
@@ -82,7 +82,7 @@ public class BusiFavorCreateParams {
     /**
      * 事件通知配置
      */
-    private BusiFavorNotifyConfig notifyConfig;
+    private FavorNotifyConfig notifyConfig;
     /**
      * 是否允许营销补贴
      */
@@ -94,7 +94,7 @@ public class BusiFavorCreateParams {
      * @param comment the comment
      * @return the busi favor create params
      */
-    public BusiFavorCreateParams comment(String comment) {
+    public FavorCreateParams comment(String comment) {
         this.comment = comment;
         return this;
     }
@@ -105,7 +105,7 @@ public class BusiFavorCreateParams {
      * @param customEntrance the custom entrance
      * @return the busi favor create params
      */
-    public BusiFavorCreateParams customEntrance(CustomEntrance customEntrance) {
+    public FavorCreateParams customEntrance(CustomEntrance customEntrance) {
         this.customEntrance = customEntrance;
         return this;
     }
@@ -116,7 +116,7 @@ public class BusiFavorCreateParams {
      * @param displayPatternInfo the display pattern info
      * @return the busi favor create params
      */
-    public BusiFavorCreateParams displayPatternInfo(DisplayPatternInfo displayPatternInfo) {
+    public FavorCreateParams displayPatternInfo(DisplayPatternInfo displayPatternInfo) {
         this.displayPatternInfo = displayPatternInfo;
         return this;
     }
@@ -127,7 +127,7 @@ public class BusiFavorCreateParams {
      * @param notifyConfig the notify config
      * @return the busi favor create params
      */
-    public BusiFavorCreateParams notifyConfig(BusiFavorNotifyConfig notifyConfig) {
+    public FavorCreateParams notifyConfig(FavorNotifyConfig notifyConfig) {
         this.notifyConfig = notifyConfig;
         return this;
     }
@@ -138,7 +138,7 @@ public class BusiFavorCreateParams {
      * @param subsidy the subsidy
      * @return the busi favor create params
      */
-    public BusiFavorCreateParams subsidy(Boolean subsidy) {
+    public FavorCreateParams subsidy(Boolean subsidy) {
         this.subsidy = subsidy;
         return this;
     }

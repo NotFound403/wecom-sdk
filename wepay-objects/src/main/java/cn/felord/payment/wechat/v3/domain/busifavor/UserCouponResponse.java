@@ -15,17 +15,19 @@
 
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
-import cn.felord.payment.wechat.enumeration.BusiFavorState;
-import cn.felord.payment.wechat.enumeration.CouponCodeMode;
+import cn.felord.payment.wechat.enumeration.CouponState;
 import cn.felord.payment.wechat.enumeration.StockType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.time.OffsetDateTime;
 
 /**
  * @author dax
- * @since 2023/8/23
+ * @since 2023/8/25
  */
 @Data
-public class StockDetailResponse {
+public class UserCouponResponse {
     /**
      * 商家券批次名称,[1,21]
      */
@@ -35,15 +37,15 @@ public class StockDetailResponse {
      */
     private String belongMerchant;
     /**
+     * 批次备注,[1,20],选填
+     */
+    private String comment;
+    /**
      * 适用商品范围
      * <p>
      * 用来描述批次在哪些商品可用，会显示在微信卡包中。字数上限为15个，一个中文汉字/英文字母/数字均占用一个字数。
      */
     private String goodsName;
-    /**
-     * 批次备注,[1,20],选填
-     */
-    private String comment;
     /**
      * 批次类型
      */
@@ -57,37 +59,58 @@ public class StockDetailResponse {
      */
     private CustomEntrance customEntrance;
     /**
-     * 商家券code模式枚举
-     */
-    private CouponCodeMode couponCodeMode;
-    /**
      * 样式信息
      */
     private DisplayPatternInfo displayPatternInfo;
     /**
-     * 券发放规则
+     * 券的唯一标识
      */
-    private StockSendRule stockSendRule;
+    private String couponCode;
     /**
-     * 批次状态
+     * 商家券状态
      */
-    private BusiFavorState stockState;
-    /**
-     * 商户请求单号
-     * <p>
-     * 商户创建批次凭据号（格式：商户id+日期+流水号），商户侧需保持唯一性。
-     */
-    private String outRequestNo;
+    private CouponState couponState;
     /**
      * 批次唯一标识
      */
     private String stockId;
     /**
-     * 事件通知配置
+     * 是否允许转赠
      */
-    private FavorNotifyConfig notifyConfig;
+    private Boolean transferable;
     /**
-     * 是否允许营销补贴
+     * 是否允许分享领券链接
      */
-    private Boolean subsidy;
+    private Boolean shareable;
+    /**
+     * 发券请求单号
+     * <p>
+     * 发券时传入的唯一凭证
+     */
+    private String sendRequestNo;
+    /**
+     * 核销请求单号
+     */
+    private String useRequestNo;
+    /**
+     * 券可使用开始时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime availableStartTime;
+    /**
+     * 券过期时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime expireTime;
+    /**
+     * 券领取时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime receiveTime;
+
+    /**
+     * 券核销时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime useTime;
 }

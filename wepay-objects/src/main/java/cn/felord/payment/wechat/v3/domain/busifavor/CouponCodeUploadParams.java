@@ -12,49 +12,29 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import lombok.Data;
 
+import java.util.Set;
+
 /**
- * 营销补差付款API请求参数
+ * 商家券上传预存code API请求参数
  *
  * @author felord.cn
- * @since 1.0.13.RELEASE
+ * @since 1.0.4.RELEASE
  */
 @Data
-public class BusiFavorSubsidyParams {
+public class CouponCodeUploadParams {
+
     /**
-     * 商家券批次号，必传
+     * 请求业务单据号
      */
-    private String stockId;
+    private final String uploadRequestNo;
     /**
-     * 商家券Code，必传
+     * 券code列表
+     * <p>
+     * 特殊规则：单个券code长度为【1，32】，条目个数限制为【1，200】。
      */
-    private String couponCode;
-    /**
-     * 微信支付订单号，必传
-     */
-    private String transactionId;
-    /**
-     * 营销补差扣款商户号，必传
-     */
-    private String payerMerchant;
-    /**
-     * 营销补差入账商户号，必传
-     */
-    private String payeeMerchant;
-    /**
-     * 补差付款金额，必传
-     */
-    private Integer amount;
-    /**
-     * 补差付款描述，必传
-     */
-    private String description;
-    /**
-     * 业务请求唯一单号，必传
-     */
-    private String outSubsidyNo;
+    private Set<String> couponCodeList;
 }
