@@ -15,7 +15,8 @@
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.time.OffsetDateTime;
 
@@ -25,32 +26,76 @@ import java.time.OffsetDateTime;
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
-@Data
+@ToString
+@Getter
 public class BusiFavorUseParams {
     /**
      * 券code
      */
-    private String couponCode;
+    private final String couponCode;
     /**
      * 批次号
      */
-    private String stockId;
+    private final String stockId;
     /**
      * 公众账号ID
      */
-    private String appid;
+    private final String appid;
     /**
      * 请求核销时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private OffsetDateTime useTime;
+    private final OffsetDateTime useTime;
     /**
      * 核销请求单据号,商户侧保证唯一
      */
-    private String useRequestNo;
+    private final String useRequestNo;
     /**
      * 用户标识，用户的唯一标识，做安全校验使用
      */
-    private String openid;
+    private final String openid;
 
+    /**
+     * Instantiates a new Busi favor use params.
+     *
+     * @param couponCode   the coupon code
+     * @param appid        the appid
+     * @param useTime      the use time
+     * @param useRequestNo the use request no
+     */
+    public BusiFavorUseParams(String couponCode, String appid, OffsetDateTime useTime, String useRequestNo) {
+        this(couponCode, appid, useTime, useRequestNo, null);
+    }
+
+    /**
+     * Instantiates a new Busi favor use params.
+     *
+     * @param couponCode   the coupon code
+     * @param appid        the appid
+     * @param useTime      the use time
+     * @param useRequestNo the use request no
+     * @param stockId      the stock id
+     */
+    public BusiFavorUseParams(String couponCode, String appid, OffsetDateTime useTime, String useRequestNo, String stockId) {
+        this(couponCode, appid, useTime, useRequestNo, stockId, null);
+    }
+
+    /**
+     * Instantiates a new Busi favor use params.
+     *
+     * @param couponCode   the coupon code
+     * @param appid        the appid
+     * @param useTime      the use time
+     * @param useRequestNo the use request no
+     * @param stockId      the stock id
+     * @param openid       the openid
+     */
+    public BusiFavorUseParams(String couponCode, String appid, OffsetDateTime useTime, String useRequestNo, String stockId, String openid) {
+        this.couponCode = couponCode;
+        this.stockId = stockId;
+        this.appid = appid;
+        this.useTime = useTime;
+        this.useRequestNo = useRequestNo;
+        this.openid = openid;
+    }
 }

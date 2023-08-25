@@ -13,14 +13,14 @@
  *  limitations under the License.
  */
 
-package cn.felord.mp.domain.card;
-
-import lombok.Data;
+package cn.felord.callback;
 
 /**
- * 推荐类型
+ * The interface Callback body.
+ *
+ * @author dax
+ * @since 2023 /5/31 12:23
  */
-@Data
-public class MsgOperation {
-    private UrlCell urlCell;
+public interface XmlEntity {
+
 }

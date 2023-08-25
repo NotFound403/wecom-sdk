@@ -34,6 +34,6 @@ public class DiscountCoupon {
      * <p>
      * 特殊规则：取值范围 1 ≤ transactionMinimum ≤ 10000000
      */
-    private Integer transactionMinimum;
+    private Long transactionMinimum;
 
 }

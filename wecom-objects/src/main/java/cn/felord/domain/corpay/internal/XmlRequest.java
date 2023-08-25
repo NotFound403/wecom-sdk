@@ -15,6 +15,7 @@
 
 package cn.felord.domain.corpay.internal;
 
+import cn.felord.callback.XmlEntity;
 import cn.felord.enumeration.PaySignType;
 
 /**
@@ -23,7 +24,7 @@ import cn.felord.enumeration.PaySignType;
  * @author dax
  * @since 2023 /6/25 15:24
  */
-public interface XmlRequest {
+public interface XmlRequest extends XmlEntity {
 
     /**
      * Xml string.

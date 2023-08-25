@@ -40,10 +40,10 @@ public class BusiFavorCallbackSetting {
      * 商户提供的用于接收商家券事件通知的url地址，必须支持https。
      */
     private final String notifyUrl;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
     /**
      * 修改时间,返回
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
     private OffsetDateTime updateTime;
 
     /**

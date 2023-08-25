@@ -15,7 +15,7 @@
 
 package cn.felord.callbacks;
 
-import cn.felord.callback.Xml;
+import cn.felord.callback.XmlEntity;
 import cn.felord.domain.callback.*;
 import cn.felord.domain.common.MediaId;
 import cn.felord.domain.corpay.miniapppay.callback.RefundCallbackData;
@@ -41,7 +41,7 @@ import java.util.List;
  */
 @XStreamAlias("xml")
 @Data
-public class CallbackEventBody implements Xml {
+public class CallbackEventBody implements XmlEntity {
     private String msgSignature;
     private String timeStamp;
     private String nonce;

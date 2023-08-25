@@ -15,7 +15,7 @@
 
 package cn.felord.xml;
 
-import cn.felord.callback.Xml;
+import cn.felord.callback.XmlEntity;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
@@ -38,20 +38,19 @@ public class XStreamXmlReader implements XmlReader {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> T read(String xml, Class<T> clazz) {
+    public <T extends XmlEntity> T read(String xml, Class<T> clazz) {
         return (T) X_STREAM_HOLDER.computeIfAbsent(clazz, XStreamXmlReader::newXStream).fromXML(xml);
     }
 
     @Override
-    public <T> String write(T t) {
-        Class<?> clazz = t.getClass();
-        return X_STREAM_HOLDER.computeIfAbsent(clazz, XStreamXmlReader::newXStream).toXML(t);
+    public <T extends XmlEntity> String write(T t) {
+        return X_STREAM_HOLDER.computeIfAbsent(t.getClass(), XStreamXmlReader::newXStream).toXML(t);
     }
 
     private static XStream newXStream(Class<?> clazz) {
         XStream xStream = new XStream(DOM_DRIVER);
         // 安全白名单
-        xStream.allowTypeHierarchy(Xml.class);
+        xStream.allowTypeHierarchy(XmlEntity.class);
         xStream.registerConverter(new UnixInstantConverter());
         xStream.ignoreUnknownElements();
         xStream.processAnnotations(clazz);

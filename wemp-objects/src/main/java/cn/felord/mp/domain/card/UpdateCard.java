@@ -17,7 +17,7 @@ package cn.felord.mp.domain.card;
 
 import cn.felord.utils.StringUtils;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  * The type Update card.
@@ -25,10 +25,10 @@ import lombok.RequiredArgsConstructor;
  * @author dax
  * @since 2023 /8/20
  */
-@RequiredArgsConstructor
+@ToString
 @Getter
 public class UpdateCard {
-    private final UpdateBaseInfo baseInfo;
+    private UpdateBaseInfo baseInfo;
     /**
      * 会员卡自定义卡面背景图
      */
@@ -97,14 +97,12 @@ public class UpdateCard {
      */
     private CustomCell customCell1;
     private BonusRule bonusRule;
-    /**
-     * 会员卡模版消息推荐类型，代表积分余额等变动消息赠券
-     */
-    private MsgOperation modifyMsgOperation;
-    /**
-     * 会员卡模版消息推荐类型，代表会员卡激活消息赠券
-     */
-    private MsgOperation activateMsgOperation;
+
+
+    public UpdateCard baseInfo(UpdateBaseInfo baseInfo) {
+        this.baseInfo = baseInfo;
+        return this;
+    }
 
     /**
      * Background pic url update card.
@@ -296,28 +294,6 @@ public class UpdateCard {
      */
     public UpdateCard bonusRule(BonusRule bonusRule) {
         this.bonusRule = bonusRule;
-        return this;
-    }
-
-    /**
-     * Modify msg operation update card.
-     *
-     * @param modifyMsgOperation the modify msg operation
-     * @return the update card
-     */
-    public UpdateCard modifyMsgOperation(MsgOperation modifyMsgOperation) {
-        this.modifyMsgOperation = modifyMsgOperation;
-        return this;
-    }
-
-    /**
-     * Activate msg operation update card.
-     *
-     * @param activateMsgOperation the activate msg operation
-     * @return the update card
-     */
-    public UpdateCard activateMsgOperation(MsgOperation activateMsgOperation) {
-        this.activateMsgOperation = activateMsgOperation;
         return this;
     }
 }

@@ -30,11 +30,11 @@ public class ExchangeCoupon {
      * <p>
      * 特殊规则：取值范围 1 ≤ exchangePrice ≤ 10000000
      */
-    private Integer exchangePrice;
+    private Long exchangePrice;
     /**
      * 消费门槛，单位：分。
      * <p>
      * 特殊规则：取值范围 1 ≤ transactionMinimum ≤ 10000000
      */
-    private Integer transactionMinimum;
+    private Long transactionMinimum;
 }

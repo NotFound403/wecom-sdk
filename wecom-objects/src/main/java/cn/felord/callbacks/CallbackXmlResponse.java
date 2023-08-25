@@ -16,7 +16,7 @@
 package cn.felord.callbacks;
 
 import cn.felord.callback.CallbackResponse;
-import cn.felord.callback.Xml;
+import cn.felord.callback.XmlEntity;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
@@ -26,7 +26,7 @@ import lombok.Data;
  */
 @XStreamAlias("xml")
 @Data
-public class CallbackXmlResponse implements CallbackResponse, Xml {
+public class CallbackXmlResponse implements CallbackResponse, XmlEntity {
     @XStreamAlias("Encrypt")
     private final String encrypt;
     @XStreamAlias("MsgSignature")

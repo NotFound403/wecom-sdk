@@ -22,7 +22,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @since 2021/10/10 14:21
  */
 @XStreamAlias("xml")
-public class CallbackXmlResponse implements CallbackResponse, Xml {
+public class CallbackXmlResponse implements CallbackResponse, XmlEntity {
     @XStreamAlias("Encrypt")
     private final String encrypt;
     @XStreamAlias("MsgSignature")

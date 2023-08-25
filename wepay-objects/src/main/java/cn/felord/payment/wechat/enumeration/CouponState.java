@@ -20,7 +20,7 @@ package cn.felord.payment.wechat.enumeration;
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
-public enum CouponStatus {
+public enum CouponState {
     /**
      * 可用.
      *
@@ -38,5 +38,13 @@ public enum CouponStatus {
      *
      * @since 1.0.0.RELEASE
      */
-    EXPIRED
+    EXPIRED,
+    /**
+     * 已删除
+     */
+    DELETED,
+    /**
+     * 已失效
+     */
+    DEACTIVATED
 }

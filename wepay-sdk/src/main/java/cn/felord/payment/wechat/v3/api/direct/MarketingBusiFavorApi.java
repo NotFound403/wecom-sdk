@@ -15,10 +15,32 @@
 
 package cn.felord.payment.wechat.v3.api.direct;
 
-import cn.felord.payment.wechat.enumeration.CouponStatus;
-import cn.felord.payment.wechat.v3.domain.busifavor.*;
+import cn.felord.payment.wechat.enumeration.CouponState;
+import cn.felord.payment.wechat.v3.domain.busifavor.AssociateTime;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiCouponCodeUploadParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorAssociateInfo;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorBudgetParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorBudgetResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorCallbackSetting;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorCreateParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorDeactivateParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorRefundParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorSubsidyParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorUpdateParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorUseParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorUseResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.StockDetailResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.StockResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.UserCouponDetailResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.UserFavorQueryParams;
 import okhttp3.ResponseBody;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * 微信支付商家券
@@ -58,29 +80,34 @@ public interface MarketingBusiFavorApi {
      * @return the wechat response entity
      */
     @POST("v3/marketing/busifavor/coupons/use")
-    ResponseBody use(BusiFavorUseParams params);
+    FavorUseResponse use(@Body BusiFavorUseParams params);
 
     /**
      * 根据过滤条件查询用户券API
      * <p>
      * 商户自定义筛选条件（如创建商户号、归属商户号、发放商户号等），查询指定微信用户卡包中满足对应条件的所有商家券信息。
      *
+     * @param openid the openid
      * @param params the params
-     * @return the wechat response entity
+     * @return the user coupon detail response
      */
     @GET("v3/marketing/busifavor/users/{openid}/coupons")
-    ResponseBody queryUserStocks(UserBusiFavorQueryParams params);
+    UserCouponDetailResponse queryUserStocks(@Path("openid") String openid, @QueryMap UserFavorQueryParams params);
 
     /**
      * 查询用户单张券详情API
      * <p>
      * 服务商可通过该接口查询微信用户卡包中某一张商家券的详情信息。
      *
-     * @param params the params
+     * @param openid     the openid
+     * @param couponCode the coupon code
+     * @param appid      the appid
      * @return the wechat response entity
      */
     @GET("v3/marketing/busifavor/users/{openid}/coupons/{coupon_code}/appids/{appid}")
-    ResponseBody queryUserCoupon(UserBusiCouponQueryParams params);
+    ResponseBody queryUserCoupon(@Path("openid") String openid,
+                                 @Path("coupon_code") String couponCode,
+                                 @Path("appid") String appid);
 
     /**
      * 上传预存code API
@@ -173,7 +200,8 @@ public interface MarketingBusiFavorApi {
      * <p>
      * 商户可以通过该接口修改批次单天发放上限数量或者批次最大发放数量
      *
-     * @param params the params
+     * @param stockId the stock id
+     * @param params  the params
      * @return wechat response entity
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}/budget")
@@ -184,7 +212,8 @@ public interface MarketingBusiFavorApi {
      * <p>
      * 商户可以通过该接口修改商家券基本信息，已创建商家券批次，且修改时间位于有效期结束时间前
      *
-     * @param params the params
+     * @param stockId the stock id
+     * @param params  the params
      * @return wechat response entity
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}")
@@ -204,7 +233,7 @@ public interface MarketingBusiFavorApi {
     /**
      * 使券失效API
      * <p>
-     * 前置条件：券的状态为{@link CouponStatus#SENDED}
+     * 前置条件：券的状态为{@link CouponState#SENDED}
      * <p>
      * 商户可以通过该接口将可用券进行失效处理，券被失效后无法再被核销
      *

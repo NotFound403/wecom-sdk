@@ -27,15 +27,15 @@ import lombok.Data;
 @Data
 public class StockDetailResponse {
     /**
-     * 商家券批次名称,[1,21],必填
+     * 商家券批次名称,[1,21]
      */
     private String stockName;
     /**
-     * 批次归属商户号,必填
+     * 批次归属商户号
      */
     private String belongMerchant;
     /**
-     * 适用商品范围,必填
+     * 适用商品范围
      * <p>
      * 用来描述批次在哪些商品可用，会显示在微信卡包中。字数上限为15个，一个中文汉字/英文字母/数字均占用一个字数。
      */

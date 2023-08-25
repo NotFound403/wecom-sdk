@@ -223,7 +223,7 @@ public abstract class AbstractCallbackCrypto<EVENT> {
      * @param clazz   the clazz
      * @return the t
      */
-    public <T> T readXml(String xmlBody, Class<T> clazz) {
+    public <T extends XmlEntity> T readXml(String xmlBody, Class<T> clazz) {
         return this.xmlReader.read(xmlBody, clazz);
     }
 

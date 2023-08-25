@@ -19,9 +19,20 @@ import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.enumeration.FundFlowAccountType;
 import cn.felord.payment.wechat.enumeration.TarType;
 import cn.felord.payment.wechat.enumeration.TradeBillType;
-import cn.felord.payment.wechat.v3.domain.direct.basepay.*;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.BillUrlResponse;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.MchId;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.PayDetailResponse;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.PayParams;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.PrepayResponse;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.RefundRequest;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.RefundResponse;
 import okhttp3.ResponseBody;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 import java.time.LocalDate;
 
