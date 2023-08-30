@@ -35,7 +35,7 @@ public class TableValue implements ContentDataValue {
     private final List<Wrapper> children;
 
     @JsonCreator
-    public TableValue(@JsonProperty("children") List<Wrapper> children) {
+    TableValue(@JsonProperty("children") List<Wrapper> children) {
         this.children = children;
     }
 
