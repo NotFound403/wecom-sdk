@@ -17,9 +17,32 @@ package cn.felord.payment.wechat.v3.api.direct;
 
 import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.enumeration.CouponState;
-import cn.felord.payment.wechat.v3.domain.busifavor.*;
+import cn.felord.payment.wechat.v3.domain.busifavor.AssociateTime;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiCouponCodeUploadParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorAssociateInfo;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorBudgetParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorBudgetResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorCallbackSetting;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorCreateParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorDeactivateParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorRefundParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorSubsidyParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorUpdateParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorUseParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorUseResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.StockDetailResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.StockResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.UserCouponDetailResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.UserFavorQueryParams;
 import okhttp3.ResponseBody;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
+
 
 /**
  * 微信支付商家券
