@@ -17,7 +17,7 @@ package cn.felord.retrofit;
 
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
-import cn.felord.json.JacksonObjectMapperFactory;
+import cn.felord.retrofit.json.JacksonObjectMapperFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;

@@ -15,7 +15,7 @@
 
 package cn.felord.payment.wechat.v3.retrofit;
 
-import cn.felord.json.JsonConverterFactory;
+import cn.felord.retrofit.json.JsonConverterFactory;
 import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
@@ -83,7 +83,7 @@ public final class WechatPayRetrofitFactory {
                 .baseUrl(baseUrl)
                 .client(okHttpClient(baseUrl, appMerchant, tenpayKeyCache, connectionPool, level))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .addCallAdapterFactory(new ResponseBodyCallAdapterFactory())
+                .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
                 .addConverterFactory(JsonConverterFactory.create())
                 .build();
     }
@@ -98,7 +98,7 @@ public final class WechatPayRetrofitFactory {
                 .baseUrl(DEFAULT_BASE_URL)
                 .client(okHttpClient(new ConnectionPool(), HttpLoggingInterceptor.Level.NONE))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .addCallAdapterFactory(new ResponseBodyCallAdapterFactory())
+                .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
                 .addConverterFactory(JsonConverterFactory.create())
                 .build();
     }

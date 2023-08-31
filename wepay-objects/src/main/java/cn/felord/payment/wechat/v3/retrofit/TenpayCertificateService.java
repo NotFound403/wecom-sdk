@@ -15,7 +15,7 @@
 
 package cn.felord.payment.wechat.v3.retrofit;
 
-import cn.felord.json.JsonConverterFactory;
+import cn.felord.retrofit.json.JsonConverterFactory;
 import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.v3.crypto.AppMerchant;
 import cn.felord.payment.wechat.v3.crypto.TenpayKey;

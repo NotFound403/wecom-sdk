@@ -12,27 +12,27 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.felord.json;
+package cn.felord.retrofit.json;
 
-import com.fasterxml.jackson.databind.ObjectReader;
-import okhttp3.ResponseBody;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Converter;
 
 import java.io.IOException;
 
-final class JacksonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
-    private final ObjectReader adapter;
+final class JacksonRequestBodyConverter<T> implements Converter<T, RequestBody> {
+    private static final MediaType MEDIA_TYPE = MediaType.get("application/json; charset=UTF-8");
 
-    JacksonResponseBodyConverter(ObjectReader adapter) {
+    private final ObjectMapper adapter;
+
+    JacksonRequestBodyConverter(ObjectMapper adapter) {
         this.adapter = adapter;
     }
 
     @Override
-    public T convert(ResponseBody value) throws IOException {
-        try {
-            return adapter.readValue(value.charStream());
-        } finally {
-            value.close();
-        }
+    public RequestBody convert(T value) throws IOException {
+        byte[] bytes = adapter.writeValueAsBytes(value);
+        return RequestBody.create(MEDIA_TYPE, bytes);
     }
 }

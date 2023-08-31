@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.ssl;
+package cn.felord.retrofit.ssl;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
