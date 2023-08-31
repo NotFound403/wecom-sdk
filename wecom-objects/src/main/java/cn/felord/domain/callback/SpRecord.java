@@ -16,7 +16,7 @@
 package cn.felord.domain.callback;
 
 import cn.felord.enumeration.ApproverNodeMode;
-import cn.felord.enumeration.SpStatus;
+import cn.felord.enumeration.NodeStatus;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Data;
@@ -30,7 +30,7 @@ import java.util.List;
 @Data
 public class SpRecord {
     @XStreamAlias("SpStatus")
-    private SpStatus spStatus;
+    private NodeStatus spStatus;
     @XStreamAlias("ApproverAttr")
     private ApproverNodeMode approverAttr;
     @XStreamImplicit(itemFieldName = "Details")
