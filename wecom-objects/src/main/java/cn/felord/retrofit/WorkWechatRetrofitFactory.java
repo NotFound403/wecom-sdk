@@ -15,8 +15,8 @@
 
 package cn.felord.retrofit;
 
-import cn.felord.json.JsonConverterFactory;
-import cn.felord.ssl.SSLManager;
+import cn.felord.retrofit.json.JsonConverterFactory;
+import cn.felord.retrofit.ssl.SSLManager;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

@@ -15,6 +15,7 @@
 
 package cn.felord.payment.wechat.v3.api.direct;
 
+import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.enumeration.CouponState;
 import cn.felord.payment.wechat.v3.domain.busifavor.*;
 import okhttp3.ResponseBody;
@@ -34,9 +35,10 @@ public interface MarketingBusiFavorApi {
      *
      * @param params the params
      * @return the wechat response entity
+     * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/stocks")
-    StockResponse createStock(@Body FavorCreateParams params);
+    StockResponse createStock(@Body BusiFavorCreateParams params) throws PayException;
 
     /**
      * 查询商家券详情API
@@ -45,9 +47,10 @@ public interface MarketingBusiFavorApi {
      *
      * @param stockId the stock id
      * @return the wechat response entity
+     * @throws PayException the pay exception
      */
     @GET("v3/marketing/busifavor/stocks/{stock_id}")
-    StockDetailResponse queryStockDetail(@Path("stock_id") String stockId);
+    StockDetailResponse queryStockDetail(@Path("stock_id") String stockId) throws PayException;
 
     /**
      * 核销用户券API
@@ -56,9 +59,10 @@ public interface MarketingBusiFavorApi {
      *
      * @param params the params
      * @return the wechat response entity
+     * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/use")
-    FavorUseResponse use(@Body FavorUseParams params);
+    FavorUseResponse use(@Body BusiFavorUseParams params) throws PayException;
 
     /**
      * 根据过滤条件查询用户券API
@@ -68,9 +72,10 @@ public interface MarketingBusiFavorApi {
      * @param openid the openid
      * @param params the params
      * @return the user coupon detail response
+     * @throws PayException the pay exception
      */
     @GET("v3/marketing/busifavor/users/{openid}/coupons")
-    UserCouponsDetailResponse queryUserStocks(@Path("openid") String openid, @QueryMap UserFavorQueryParams params);
+    UserCouponDetailResponse queryUserStocks(@Path("openid") String openid, @QueryMap UserFavorQueryParams params) throws PayException;
 
     /**
      * 查询用户单张券详情API
@@ -81,11 +86,12 @@ public interface MarketingBusiFavorApi {
      * @param couponCode the coupon code
      * @param appid      the appid
      * @return the wechat response entity
+     * @throws PayException the pay exception
      */
     @GET("v3/marketing/busifavor/users/{openid}/coupons/{coupon_code}/appids/{appid}")
-    UserCouponResponse queryUserCoupon(@Path("openid") String openid,
-                                       @Path("coupon_code") String couponCode,
-                                       @Path("appid") String appid);
+    ResponseBody queryUserCoupon(@Path("openid") String openid,
+                                 @Path("coupon_code") String couponCode,
+                                 @Path("appid") String appid) throws PayException;
 
     /**
      * 上传预存code API
@@ -97,9 +103,10 @@ public interface MarketingBusiFavorApi {
      * @param stockId the stock id
      * @param params  the params
      * @return wechat response entity
+     * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/stocks/{stock_id}/couponcodes")
-    CodeUploadResponse uploadCouponCodes(@Path("stock_id") String stockId, @Body CouponCodeUploadParams params);
+    ResponseBody uploadCouponCodes(@Body BusiCouponCodeUploadParams params) throws PayException;
 
     /**
      * 设置商家券事件通知地址API
@@ -118,9 +125,10 @@ public interface MarketingBusiFavorApi {
      *
      * @param setting the setting
      * @return callbacks callbacks
+     * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/callbacks")
-    FavorCallbackSetting setCallbacks(@Body FavorCallbackSetting setting);
+    ResponseBody setCallbacks(@Body BusiFavorCallbackSetting setting) throws PayException;
 
     /**
      * 查询商家券事件通知地址API
@@ -134,17 +142,19 @@ public interface MarketingBusiFavorApi {
      *
      * @param mchId the mch id
      * @return callbacks callbacks
+     * @throws PayException the pay exception
      */
     @GET("v3/marketing/busifavor/callbacks")
-    FavorCallbackSetting getCallbacks(@Query("mchid") String mchId);
+    BusiFavorCallbackSetting getCallbacks(@Query("mchid") String mchId) throws PayException;
 
     /**
      * 查询调用方商家券事件通知地址API
      *
      * @return the callbacks
+     * @throws PayException the pay exception
      */
     @GET("v3/marketing/busifavor/callbacks")
-    FavorCallbackSetting getCallbacks();
+    BusiFavorCallbackSetting getCallbacks() throws PayException;
 
     /**
      * 商家券关联订单信息API
@@ -156,9 +166,10 @@ public interface MarketingBusiFavorApi {
      *
      * @param associateInfo the associate info
      * @return the associate time
+     * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/associate")
-    AssociateTime associate(@Body FavorAssociateInfo associateInfo);
+    AssociateTime associate(@Body BusiFavorAssociateInfo associateInfo) throws PayException;
 
     /**
      * 商家券取消关联订单信息API
@@ -170,9 +181,10 @@ public interface MarketingBusiFavorApi {
      *
      * @param associateInfo the associate info
      * @return the associate time
+     * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/disassociate")
-    AssociateTime disassociate(@Body FavorAssociateInfo associateInfo);
+    AssociateTime disassociate(@Body BusiFavorAssociateInfo associateInfo) throws PayException;
 
     /**
      * 修改批次预算API
@@ -182,9 +194,10 @@ public interface MarketingBusiFavorApi {
      * @param stockId the stock id
      * @param params  the params
      * @return wechat response entity
+     * @throws PayException the pay exception
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}/budget")
-    FavorBudgetResponse budget(@Path("stock_id") String stockId, @Body FavorBudgetParams params);
+    BusiFavorBudgetResponse budget(@Path("stock_id") String stockId, @Body BusiFavorBudgetParams params) throws PayException;
 
     /**
      * 修改商家券基本信息API
@@ -194,9 +207,10 @@ public interface MarketingBusiFavorApi {
      * @param stockId the stock id
      * @param params  the params
      * @return wechat response entity
+     * @throws PayException the pay exception
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}")
-    ResponseBody updateStock(@Path("stock_id") String stockId, @Body FavorUpdateParams params);
+    ResponseBody updateStock(@Path("stock_id") String stockId, @Body BusiFavorUpdateParams params) throws PayException;
 
     /**
      * 申请退券API
@@ -205,9 +219,10 @@ public interface MarketingBusiFavorApi {
      *
      * @param params the params
      * @return wechat response entity
+     * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/return")
-    AssociateTime refund(@Body FavorRefundParams params);
+    ResponseBody refund(@Body BusiFavorRefundParams params) throws PayException;
 
     /**
      * 使券失效API
@@ -218,9 +233,10 @@ public interface MarketingBusiFavorApi {
      *
      * @param params the params
      * @return wechat response entity
+     * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/deactivate")
-    AssociateTime deactivate(@Body FavorDeactivateParams params);
+    ResponseBody deactivate(@Body BusiFavorDeactivateParams params) throws PayException;
 
     /**
      * 营销补差付款API
@@ -231,20 +247,11 @@ public interface MarketingBusiFavorApi {
      *
      * @param params the params
      * @return the wechat response entity
+     * @throws PayException the pay exception
      * @since 1.0.13.RELEASE
      */
     @POST("v3/marketing/busifavor/subsidy/pay-receipts")
-    FavorSubsidyResponse payReceipt(@Body FavorSubsidyParams params);
-
-
-    /**
-     * 查询营销补差付款单列表API
-     *
-     * @param request the request
-     * @return the favor subsidy list response
-     */
-    @GET("v3/marketing/busifavor/subsidy/pay-receipts")
-    FavorSubsidyListResponse payReceiptList(@QueryMap FavorSubsidyListRequest request);
+    ResponseBody payMakeup(@Body BusiFavorSubsidyParams params) throws PayException;
 
     /**
      * 查询营销补差付款单详情API
@@ -253,9 +260,10 @@ public interface MarketingBusiFavorApi {
      *
      * @param subsidyReceiptId the subsidyReceiptId
      * @return the wechat response entity
+     * @throws PayException the pay exception
      * @since 1.0.13.RELEASE
      */
     @GET("v3/marketing/busifavor/subsidy/pay-receipts/{subsidy_receipt_id}")
-    FavorSubsidyResponse queryMakeup(@Path("subsidy_receipt_id") String subsidyReceiptId);
+    ResponseBody queryMakeup(@Path("subsidy_receipt_id") String subsidyReceiptId) throws PayException;
 
 }

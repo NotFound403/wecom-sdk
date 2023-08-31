@@ -18,7 +18,7 @@ package cn.felord.reactive.api;
 import cn.felord.domain.corpay.internal.*;
 import cn.felord.enumeration.PaySignType;
 import cn.felord.retrofit.WorkWechatRetrofitFactory;
-import cn.felord.ssl.SSLManager;
+import cn.felord.retrofit.ssl.SSLManager;
 import cn.felord.xml.XStreamXmlReader;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.ConnectionPool;

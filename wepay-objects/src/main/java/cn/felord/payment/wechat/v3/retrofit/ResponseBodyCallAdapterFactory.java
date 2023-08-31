@@ -24,6 +24,7 @@ import retrofit2.Retrofit;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Token interceptor.
@@ -33,12 +34,26 @@ import java.lang.reflect.Type;
  */
 final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
 
+    /**
+     * The constant INSTANCE.
+     */
+    static final ResponseBodyCallAdapterFactory INSTANCE = new ResponseBodyCallAdapterFactory();
 
     ResponseBodyCallAdapterFactory() {
     }
 
     @Override
     public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        Class<?> rawType = getRawType(returnType);
+        if (Response.class.isAssignableFrom(rawType)) {
+            return null;
+        }
+        if (Call.class.isAssignableFrom(rawType)) {
+            return null;
+        }
+        if (CompletableFuture.class.isAssignableFrom(rawType)) {
+            return null;
+        }
         return new ResponseBodyCallAdapter<>(returnType);
     }
 

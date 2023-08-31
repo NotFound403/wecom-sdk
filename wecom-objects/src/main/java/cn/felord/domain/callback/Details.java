@@ -15,7 +15,7 @@
 
 package cn.felord.domain.callback;
 
-import cn.felord.enumeration.SpStatus;
+import cn.felord.enumeration.NodeStatus;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
@@ -34,7 +34,7 @@ public class Details {
     @XStreamAlias("Speech")
     private String speech;
     @XStreamAlias("SpStatus")
-    private SpStatus spStatus;
+    private NodeStatus spStatus;
     @XStreamAlias("SpTime")
     private Instant spTime;
     @XStreamAlias("Attach")

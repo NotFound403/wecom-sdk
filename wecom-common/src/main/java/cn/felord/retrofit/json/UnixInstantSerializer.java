@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.json;
+package cn.felord.retrofit.json;
 
 
 import com.fasterxml.jackson.core.JsonGenerator;

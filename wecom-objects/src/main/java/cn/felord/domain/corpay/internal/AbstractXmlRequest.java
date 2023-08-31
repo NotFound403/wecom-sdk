@@ -17,7 +17,7 @@ package cn.felord.domain.corpay.internal;
 
 import cn.felord.WeComException;
 import cn.felord.enumeration.PaySignType;
-import cn.felord.json.JacksonObjectMapperFactory;
+import cn.felord.retrofit.json.JacksonObjectMapperFactory;
 import cn.felord.utils.Algorithms;
 import cn.felord.utils.CollectionUtils;
 import cn.felord.utils.StringUtils;

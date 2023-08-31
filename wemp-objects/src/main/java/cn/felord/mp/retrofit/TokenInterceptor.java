@@ -15,7 +15,7 @@
 
 package cn.felord.mp.retrofit;
 
-import cn.felord.json.JacksonObjectMapperFactory;
+import cn.felord.retrofit.json.JacksonObjectMapperFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
@@ -47,22 +47,7 @@ public class TokenInterceptor implements Interceptor {
     @NotNull
     @Override
     public final Response intercept(@NotNull Chain chain) throws IOException {
-        ResponseBody body;
-        Response response = doRequest(chain);
-/*        body = response.body();
-        if (body != null) {
-            //application/octet-stream
-            MediaType mediaType = body.contentType();
-            String json = body.source().getBuffer().clone().readUtf8();
-            if (Objects.equals(JSON_UTF_8, mediaType) || Objects.equals(JSON, mediaType)) {
-                WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
-                if (Objects.equals(INVALID_ACCESS_TOKEN, weComResponse.getErrcode())) {
-                    tokenApi.clearToken();
-                    return doRequest(chain);
-                }
-            }
-        }*/
-        return response;
+        return doRequest(chain);
     }
 
 

@@ -15,7 +15,7 @@
 
 package cn.felord.mp.retrofit;
 
-import cn.felord.json.JsonConverterFactory;
+import cn.felord.retrofit.json.JsonConverterFactory;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

@@ -15,9 +15,10 @@
 
 package cn.felord.payment.wechat.v3.api.direct;
 
+import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.v3.domain.payscore.PayScoreOrder;
-import cn.felord.payment.wechat.v3.domain.payscore.QueryServiceOrderParams;
 import cn.felord.payment.wechat.v3.domain.payscore.PayScoreOrderResponse;
+import cn.felord.payment.wechat.v3.domain.payscore.QueryServiceOrderParams;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -37,25 +38,28 @@ interface InternalPayScoreApi {
      *
      * @param order the order
      * @return the response body
+     * @throws PayException the pay exception
      */
     @POST("v3/payscore/serviceorder")
-    PayScoreOrderResponse serviceOrder(@Body PayScoreOrder order);
+    PayScoreOrderResponse serviceOrder(@Body PayScoreOrder order) throws PayException;
 
     /**
      * 查询支付分订单API
      *
      * @param params the params
      * @return the response body
+     * @throws PayException the pay exception
      */
     @GET("v3/payscore/serviceorder")
-    PayScoreOrder serviceOrder(QueryServiceOrderParams params);
+    PayScoreOrder serviceOrder(QueryServiceOrderParams params) throws PayException;
 
     /**
      * Cancel response body.
      *
      * @param params the params
      * @return the response body
+     * @throws PayException the pay exception
      */
     @POST("v3/payscore/serviceorder/{out_order_no}/cancel")
-    ResponseBody cancel(@Body QueryServiceOrderParams params);
+    ResponseBody cancel(@Body QueryServiceOrderParams params) throws PayException;
 }

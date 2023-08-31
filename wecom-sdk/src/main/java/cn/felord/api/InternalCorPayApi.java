@@ -19,7 +19,7 @@ import cn.felord.WeComException;
 import cn.felord.domain.corpay.internal.*;
 import cn.felord.enumeration.PaySignType;
 import cn.felord.retrofit.WorkWechatRetrofitFactory;
-import cn.felord.ssl.SSLManager;
+import cn.felord.retrofit.ssl.SSLManager;
 import cn.felord.xml.XStreamXmlReader;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
