@@ -18,21 +18,21 @@ package cn.felord.payment.wechat.v3.api.direct;
 import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.enumeration.CouponState;
 import cn.felord.payment.wechat.v3.domain.busifavor.AssociateTime;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiCouponCodeUploadParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorAssociateInfo;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorBudgetParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorBudgetResponse;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorCallbackSetting;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorCreateParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorDeactivateParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorRefundParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorSubsidyParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorUpdateParams;
-import cn.felord.payment.wechat.v3.domain.busifavor.BusiFavorUseParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.CouponCodeUploadParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorAssociateInfo;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorBudgetParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorBudgetResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorCallbackSetting;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorCreateParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorDeactivateParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorRefundParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorSubsidyParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorUpdateParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorUseParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorUseResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.StockDetailResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.StockResponse;
-import cn.felord.payment.wechat.v3.domain.busifavor.UserCouponDetailResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.UserCouponsDetailResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.UserFavorQueryParams;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
@@ -61,7 +61,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/stocks")
-    StockResponse createStock(@Body BusiFavorCreateParams params) throws PayException;
+    StockResponse createStock(@Body FavorCreateParams params) throws PayException;
 
     /**
      * 查询商家券详情API
@@ -85,7 +85,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/use")
-    FavorUseResponse use(@Body BusiFavorUseParams params) throws PayException;
+    FavorUseResponse use(@Body FavorUseParams params) throws PayException;
 
     /**
      * 根据过滤条件查询用户券API
@@ -98,7 +98,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @GET("v3/marketing/busifavor/users/{openid}/coupons")
-    UserCouponDetailResponse queryUserStocks(@Path("openid") String openid, @QueryMap UserFavorQueryParams params) throws PayException;
+    UserCouponsDetailResponse queryUserStocks(@Path("openid") String openid, @QueryMap UserFavorQueryParams params) throws PayException;
 
     /**
      * 查询用户单张券详情API
@@ -123,13 +123,12 @@ public interface MarketingBusiFavorApi {
      * 如商家已有自己的优惠券系统，可直接使用自定义模式。
      * 即商家预先向微信支付上传券Code，当券在发放时，微信支付自动从已导入的Code中随机取值（不能指定），派发给用户。
      *
-     * @param stockId the stock id
-     * @param params  the params
+     * @param params the params
      * @return wechat response entity
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/stocks/{stock_id}/couponcodes")
-    ResponseBody uploadCouponCodes(@Body BusiCouponCodeUploadParams params) throws PayException;
+    ResponseBody uploadCouponCodes(@Body CouponCodeUploadParams params) throws PayException;
 
     /**
      * 设置商家券事件通知地址API
@@ -151,7 +150,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/callbacks")
-    ResponseBody setCallbacks(@Body BusiFavorCallbackSetting setting) throws PayException;
+    ResponseBody setCallbacks(@Body FavorCallbackSetting setting) throws PayException;
 
     /**
      * 查询商家券事件通知地址API
@@ -168,7 +167,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @GET("v3/marketing/busifavor/callbacks")
-    BusiFavorCallbackSetting getCallbacks(@Query("mchid") String mchId) throws PayException;
+    FavorCallbackSetting getCallbacks(@Query("mchid") String mchId) throws PayException;
 
     /**
      * 查询调用方商家券事件通知地址API
@@ -177,7 +176,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @GET("v3/marketing/busifavor/callbacks")
-    BusiFavorCallbackSetting getCallbacks() throws PayException;
+    FavorCallbackSetting getCallbacks() throws PayException;
 
     /**
      * 商家券关联订单信息API
@@ -192,7 +191,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/associate")
-    AssociateTime associate(@Body BusiFavorAssociateInfo associateInfo) throws PayException;
+    AssociateTime associate(@Body FavorAssociateInfo associateInfo) throws PayException;
 
     /**
      * 商家券取消关联订单信息API
@@ -207,7 +206,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/disassociate")
-    AssociateTime disassociate(@Body BusiFavorAssociateInfo associateInfo) throws PayException;
+    AssociateTime disassociate(@Body FavorAssociateInfo associateInfo) throws PayException;
 
     /**
      * 修改批次预算API
@@ -220,7 +219,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}/budget")
-    BusiFavorBudgetResponse budget(@Path("stock_id") String stockId, @Body BusiFavorBudgetParams params) throws PayException;
+    FavorBudgetResponse budget(@Path("stock_id") String stockId, @Body FavorBudgetParams params) throws PayException;
 
     /**
      * 修改商家券基本信息API
@@ -233,7 +232,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}")
-    ResponseBody updateStock(@Path("stock_id") String stockId, @Body BusiFavorUpdateParams params) throws PayException;
+    ResponseBody updateStock(@Path("stock_id") String stockId, @Body FavorUpdateParams params) throws PayException;
 
     /**
      * 申请退券API
@@ -245,7 +244,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/return")
-    ResponseBody refund(@Body BusiFavorRefundParams params) throws PayException;
+    ResponseBody refund(@Body FavorRefundParams params) throws PayException;
 
     /**
      * 使券失效API
@@ -259,7 +258,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/deactivate")
-    ResponseBody deactivate(@Body BusiFavorDeactivateParams params) throws PayException;
+    ResponseBody deactivate(@Body FavorDeactivateParams params) throws PayException;
 
     /**
      * 营销补差付款API
@@ -274,7 +273,7 @@ public interface MarketingBusiFavorApi {
      * @since 1.0.13.RELEASE
      */
     @POST("v3/marketing/busifavor/subsidy/pay-receipts")
-    ResponseBody payMakeup(@Body BusiFavorSubsidyParams params) throws PayException;
+    ResponseBody payMakeup(@Body FavorSubsidyParams params) throws PayException;
 
     /**
      * 查询营销补差付款单详情API
