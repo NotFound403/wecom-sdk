@@ -89,7 +89,7 @@ public abstract class AbstractCallbackCrypto<EVENT> {
             byte[] encrypted = cipher.doFinal(unencrypted);
             return Base64Utils.encodeToString(encrypted);
         } catch (Exception e) {
-            throw new IllegalArgumentException("error when encrypt with AES");
+            throw new IllegalArgumentException("error when encrypt with AES", e);
         }
     }
 
@@ -112,7 +112,7 @@ public abstract class AbstractCallbackCrypto<EVENT> {
             // 解密
             original = cipher.doFinal(Base64Utils.decodeFromString(text));
         } catch (Exception e) {
-            throw new IllegalArgumentException("error when decrypt with AES");
+            throw new IllegalArgumentException("error when decrypt with AES", e);
         }
         try {
             // 去除 补位 字符
@@ -125,7 +125,7 @@ public abstract class AbstractCallbackCrypto<EVENT> {
             String content = jsonContent.startsWith(BOM) ? jsonContent.substring(1) : jsonContent;
             return new CallbackDecrypted(content, fromReceiveid);
         } catch (Exception e) {
-            throw new IllegalArgumentException("invalid buffer when callback decrypted");
+            throw new IllegalArgumentException("invalid buffer when callback decrypted", e);
         }
 
     }

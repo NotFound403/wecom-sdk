@@ -18,9 +18,23 @@ package cn.felord.wecom.service;
 import cn.felord.callbacks.CallbackEventBody;
 
 /**
+ * The interface Wecom callback event service.
+ *
  * @author dax
- * @since 2023/7/2
+ * @since 2023 /7/2
  */
 public interface WecomCallbackEventService {
+    /**
+     * Handler event body.
+     *
+     * @param eventBody the event body
+     */
     void handlerEventBody(CallbackEventBody eventBody);
+
+    /**
+     * Save event body.
+     *
+     * @param eventBody the event body
+     */
+    void saveEventBody(CallbackEventBody eventBody);
 }
