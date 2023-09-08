@@ -232,7 +232,7 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
         CallbackDecrypted decrypted = this.decrypt(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
         // receiveid不相同的情况
         if (!Objects.equals(decrypted.getReceiveid(), callbackSettings.getReceiveid())) {
-            throw new WeComException(" invalid corpid");
+            throw new WeComException("invalid corpid");
         }
         return decrypted.getContent();
     }

@@ -44,6 +44,9 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
     @Override
     public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
         Class<?> rawType = getRawType(returnType);
+        if (Void.TYPE.isAssignableFrom(rawType)) {
+            return null;
+        }
         if (Response.class.isAssignableFrom(rawType)) {
             return null;
         }
