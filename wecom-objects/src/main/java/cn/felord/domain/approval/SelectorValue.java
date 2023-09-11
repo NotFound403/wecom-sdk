@@ -25,19 +25,55 @@ import lombok.ToString;
 import java.util.List;
 
 /**
+ * The type Selector config.
+ *
  * @author dax
- * @since 2023/5/25 16:22
+ * @since 2023 /5/25 16:22
  */
 @ToString
 @Getter
-public class SelectorConfig implements ContentDataValue {
+public class SelectorValue implements ContentDataValue {
     private final Wrapper selector;
 
+    /**
+     * Instantiates a new Selector config.
+     *
+     * @param selector the selector
+     */
     @JsonCreator
-    public SelectorConfig(@JsonProperty("selector") Wrapper selector) {
+    SelectorValue(@JsonProperty("selector") Wrapper selector) {
         this.selector = selector;
     }
 
+    /**
+     * Single selector config.
+     *
+     * @param options the options
+     * @return the selector config
+     */
+    public static SelectorValue single(List<CtrlOption> options) {
+        Wrapper wrapper = new Wrapper();
+        wrapper.setType(SelectType.SINGLE);
+        wrapper.setOptions(options);
+        return new SelectorValue(wrapper);
+    }
+
+    /**
+     * Multiple selector config.
+     *
+     * @param options the options
+     * @return the selector config
+     */
+    public static SelectorValue multiple(List<CtrlOption> options) {
+        Wrapper wrapper = new Wrapper();
+        wrapper.setType(SelectType.MULTI);
+        wrapper.setOptions(options);
+        return new SelectorValue(wrapper);
+    }
+
+    /**
+     * The type Wrapper.
+     */
     @Data
     public static class Wrapper {
         private SelectType type;

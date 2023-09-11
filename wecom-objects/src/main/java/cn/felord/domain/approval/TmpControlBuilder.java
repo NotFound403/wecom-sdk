@@ -140,7 +140,7 @@ public final class TmpControlBuilder<C> {
      * @param title the title
      * @return the tmp control builder
      */
-    public static TmpControlBuilder<SelectorConfig> selector(String title) {
+    public static TmpControlBuilder<SelectorValue> selector(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.SELECTOR, title);
     }
 

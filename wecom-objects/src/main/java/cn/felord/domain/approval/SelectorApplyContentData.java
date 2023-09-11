@@ -26,12 +26,12 @@ import java.util.List;
  * @author dax
  * @since 2023/5/27
  */
-public class SelectorApplyContentData extends ApplyContentData<SelectorConfig> {
+public class SelectorApplyContentData extends ApplyContentData<SelectorValue> {
     @JsonCreator
     public SelectorApplyContentData(@JsonProperty("control") ApprovalCtrlType control,
                                     @JsonProperty("id") String id,
                                     @JsonProperty("title") List<ApprovalTitle> title,
-                                    @JsonProperty("value") SelectorConfig value,
+                                    @JsonProperty("value") SelectorValue value,
                                     @JsonProperty("hidden") Integer hidden,
                                     @JsonProperty("require") BoolEnum require) {
         super(control, id, title, value, hidden, require);

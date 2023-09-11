@@ -120,7 +120,7 @@ public class ApprovalApplyRequest {
      *             <li>数字对应 {@link NumberValue}</li>
      *             <li>金额对应 {@link MoneyValue}</li>
      *             <li>日期对应 {@link DateValue}</li>
-     *             <li>单选/多选对应 {@link SelectorConfig}</li>
+     *             <li>单选/多选对应 {@link SelectorValue}</li>
      *             <li>成员/部门对应 {@link ContactValue}</li>
      *             <li>附件对应 {@link FileValue}，通过上传临时素材接口{@code MediaApi.uploadMedia}获得mediaid</li>
      *             <li>明细对应 {@link ListContentDataValue}，注意明细比较复杂，条目类型要对应模板配置</li>

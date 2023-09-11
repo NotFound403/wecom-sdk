@@ -44,7 +44,7 @@ public class TmpControlDeserializer extends JsonDeserializer<TmpControl<?>> {
         CONTROL_MAP.put(ApprovalCtrlType.MONEY, EmptyConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.TIPS, EmptyConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.DATE, DateConfig.class);
-        CONTROL_MAP.put(ApprovalCtrlType.SELECTOR, SelectorConfig.class);
+        CONTROL_MAP.put(ApprovalCtrlType.SELECTOR, SelectorValue.class);
         CONTROL_MAP.put(ApprovalCtrlType.CONTACT, ContactConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.TABLE, TableConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.ATTENDANCE, AttendanceConfig.class);
