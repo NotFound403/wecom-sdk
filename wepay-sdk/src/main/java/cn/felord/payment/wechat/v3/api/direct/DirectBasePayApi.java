@@ -145,9 +145,8 @@ public class DirectBasePayApi {
      * @throws PayException the pay exception
      */
     public boolean close(String outTradeNo) throws PayException {
-        try (ResponseBody ignored = internalBasePayApi.close(outTradeNo, new MchId(appMerchant.merchantId()))) {
-            return true;
-        }
+        return internalBasePayApi.close(outTradeNo, new MchId(appMerchant.merchantId()))
+                .isSuccessful();
     }
 
     /**

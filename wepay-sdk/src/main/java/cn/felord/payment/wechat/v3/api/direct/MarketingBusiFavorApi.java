@@ -17,6 +17,7 @@ package cn.felord.payment.wechat.v3.api.direct;
 
 import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.enumeration.CouponState;
+import cn.felord.payment.wechat.v3.domain.GenericPayResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.AssociateTime;
 import cn.felord.payment.wechat.v3.domain.busifavor.CouponCodeUploadParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorAssociateInfo;
@@ -34,6 +35,7 @@ import cn.felord.payment.wechat.v3.domain.busifavor.StockDetailResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.StockResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.UserCouponsDetailResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.UserFavorQueryParams;
+import cn.felord.retrofit.VoidResponse;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -42,6 +44,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+
+import java.time.OffsetDateTime;
 
 
 /**
@@ -232,7 +236,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @PATCH("v3/marketing/busifavor/stocks/{stock_id}")
-    ResponseBody updateStock(@Path("stock_id") String stockId, @Body FavorUpdateParams params) throws PayException;
+    VoidResponse updateStock(@Path("stock_id") String stockId, @Body FavorUpdateParams params) throws PayException;
 
     /**
      * 申请退券API
@@ -244,7 +248,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/return")
-    ResponseBody refund(@Body FavorRefundParams params) throws PayException;
+    GenericPayResponse<OffsetDateTime> refund(@Body FavorRefundParams params) throws PayException;
 
     /**
      * 使券失效API
@@ -258,7 +262,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/coupons/deactivate")
-    ResponseBody deactivate(@Body FavorDeactivateParams params) throws PayException;
+    GenericPayResponse<OffsetDateTime> deactivate(@Body FavorDeactivateParams params) throws PayException;
 
     /**
      * 营销补差付款API

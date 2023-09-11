@@ -26,6 +26,7 @@ import cn.felord.payment.wechat.v3.domain.direct.basepay.PayParams;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.PrepayResponse;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.RefundRequest;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.RefundResponse;
+import cn.felord.retrofit.VoidResponse;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -86,7 +87,7 @@ interface InternalBasePayApi {
      * @throws PayException the pay exception
      */
     @POST("v3/pay/transactions/out-trade-no/{out_trade_no}/close")
-    ResponseBody close(@Path("out_trade_no") String outTradeNo, @Body MchId mchId) throws PayException;
+    VoidResponse close(@Path("out_trade_no") String outTradeNo, @Body MchId mchId) throws PayException;
 
     /**
      * 申请退款API

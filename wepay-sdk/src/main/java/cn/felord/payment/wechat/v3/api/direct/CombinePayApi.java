@@ -22,10 +22,15 @@ import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.AppPayResponse;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.JsPayResponse;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.PrepayResponse;
-import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.*;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombineAppPayRequest;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombineH5PayRequest;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombineJsPayRequest;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombineNativePayRequest;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombinePayCloseParams;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombinePayCloseRequest;
+import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombinePayDetailResponse;
 import cn.felord.payment.wechat.v3.retrofit.WechatPayRetrofitFactory;
 import cn.felord.utils.AlternativeJdkIdGenerator;
-import okhttp3.ResponseBody;
 
 import java.time.Instant;
 
@@ -136,9 +141,8 @@ public class CombinePayApi {
     public boolean close(CombinePayCloseRequest request) throws PayException {
         String combineOutTradeNo = request.getCombineOutTradeNo();
         CombinePayCloseParams payParams = request.toPayParams(appMerchant.getAppid());
-        try (ResponseBody ignored = internalCombinePayApi.close(combineOutTradeNo, payParams)) {
-            return true;
-        }
+        return internalCombinePayApi.close(combineOutTradeNo, payParams)
+                .isSuccessful();
     }
 
 

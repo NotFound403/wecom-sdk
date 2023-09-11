@@ -20,7 +20,7 @@ import cn.felord.payment.wechat.v3.domain.direct.basepay.PrepayResponse;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombinePayCloseParams;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombinePayDetailResponse;
 import cn.felord.payment.wechat.v3.domain.direct.basepay.combine.CombinePayParams;
-import okhttp3.ResponseBody;
+import cn.felord.retrofit.VoidResponse;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -63,6 +63,6 @@ interface InternalCombinePayApi {
      * @throws PayException the pay exception
      */
     @POST("v3/combine-transactions/out-trade-no/{combine_out_trade_no}/close")
-    ResponseBody close(@Path("combine_out_trade_no") String combineOutTradeNo, @Body CombinePayCloseParams combinePayCloseParams) throws PayException;
+    VoidResponse close(@Path("combine_out_trade_no") String combineOutTradeNo, @Body CombinePayCloseParams combinePayCloseParams) throws PayException;
 
 }
