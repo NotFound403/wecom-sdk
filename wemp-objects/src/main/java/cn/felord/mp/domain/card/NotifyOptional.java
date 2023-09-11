@@ -52,7 +52,7 @@ public class NotifyOptional {
      * @param isNotifyBonus the is notify bonus
      * @return the notify optional
      */
-    public NotifyOptional notifyBonus(Boolean isNotifyBonus) {
+    public NotifyOptional notifyBonus(boolean isNotifyBonus) {
         this.isNotifyBonus = isNotifyBonus;
         return this;
     }
@@ -63,7 +63,7 @@ public class NotifyOptional {
      * @param isNotifyBalance the is notify balance
      * @return the notify optional
      */
-    public NotifyOptional notifyBalance(Boolean isNotifyBalance) {
+    public NotifyOptional notifyBalance(boolean isNotifyBalance) {
         this.isNotifyBalance = isNotifyBalance;
         return this;
     }
@@ -74,7 +74,7 @@ public class NotifyOptional {
      * @param isNotifyCustomField1 the is notify custom field 1
      * @return the notify optional
      */
-    public NotifyOptional notifyCustomField1(Boolean isNotifyCustomField1) {
+    public NotifyOptional notifyCustomField1(boolean isNotifyCustomField1) {
         this.isNotifyCustomField1 = isNotifyCustomField1;
         return this;
     }
@@ -85,7 +85,7 @@ public class NotifyOptional {
      * @param isNotifyCustomField2 the is notify custom field 2
      * @return the notify optional
      */
-    public NotifyOptional notifyCustomField2(Boolean isNotifyCustomField2) {
+    public NotifyOptional notifyCustomField2(boolean isNotifyCustomField2) {
         this.isNotifyCustomField2 = isNotifyCustomField2;
         return this;
     }
@@ -96,7 +96,7 @@ public class NotifyOptional {
      * @param isNotifyCustomField3 the is notify custom field 3
      * @return the notify optional
      */
-    public NotifyOptional notifyCustomField3(Boolean isNotifyCustomField3) {
+    public NotifyOptional notifyCustomField3(boolean isNotifyCustomField3) {
         this.isNotifyCustomField3 = isNotifyCustomField3;
         return this;
     }
