@@ -26,6 +26,7 @@ import lombok.ToString;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * The type Contact value.
@@ -65,6 +66,19 @@ public class ContactValue implements ContentDataValue {
     }
 
     /**
+     * 成员组件
+     *
+     * @param userIds the user ids
+     * @return the contact value
+     */
+    public static ContactValue users(List<String> userIds) {
+        List<MemberInfo> members = userIds.stream()
+                .map(userId -> new MemberInfo(userId, ""))
+                .collect(Collectors.toList());
+        return new ContactValue(members, Collections.emptySet());
+    }
+
+    /**
      * 部门组件
      *
      * @param departments the departments
@@ -74,6 +88,18 @@ public class ContactValue implements ContentDataValue {
         return new ContactValue(Collections.emptyList(), departments);
     }
 
+    /**
+     * 部门组件
+     *
+     * @param partyIds the party ids
+     * @return the contact value
+     */
+    public static ContactValue depts(List<Long> partyIds) {
+        Set<ApprovalDeptInfo> departments = partyIds.stream()
+                .map(partyId -> new ApprovalDeptInfo(partyId, ""))
+                .collect(Collectors.toSet());
+        return new ContactValue(Collections.emptyList(), departments);
+    }
 
     /**
      * The type Member info.

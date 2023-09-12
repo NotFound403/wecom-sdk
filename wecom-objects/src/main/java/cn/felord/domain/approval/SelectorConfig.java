@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  */
 @ToString
 @Getter
-public class SelectorConfig {
+public class SelectorConfig implements ControlConfig {
     private final Wrapper selector;
 
     /**

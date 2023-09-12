@@ -31,7 +31,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @JsonDeserialize(using = TmpControlDeserializer.class)
-public class TmpControl<C> {
+public class TmpControl<C extends ControlConfig> {
     private final CtrlProperty property;
     private final C config;
 

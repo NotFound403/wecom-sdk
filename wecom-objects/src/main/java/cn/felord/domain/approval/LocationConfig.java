@@ -22,7 +22,7 @@ import lombok.Data;
  * @since 2023/5/25 17:11
  */
 @Data
-public class LocationConfig {
+public class LocationConfig implements ControlConfig {
     private Wrapper location;
 
     @Data

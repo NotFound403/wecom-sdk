@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Data
 @JsonTypeName("TableConfig")
-public class TableConfig {
+public class TableConfig implements ControlConfig {
     private Wrapper table;
 
     @Data

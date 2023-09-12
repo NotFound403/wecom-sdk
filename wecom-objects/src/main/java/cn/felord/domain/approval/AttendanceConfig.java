@@ -23,7 +23,7 @@ import lombok.Data;
  * @since 2023/5/25 16:37
  */
 @Data
-public class AttendanceConfig {
+public class AttendanceConfig implements ControlConfig {
     private Wrapper attendance;
 
     @Data

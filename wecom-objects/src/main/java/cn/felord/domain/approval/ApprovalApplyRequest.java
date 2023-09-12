@@ -15,6 +15,7 @@
 
 package cn.felord.domain.approval;
 
+import cn.felord.WeComException;
 import cn.felord.enumeration.ApprovalCtrlType;
 import cn.felord.enumeration.ApprovalNotifyType;
 import cn.felord.enumeration.ApproverNodeMode;
@@ -146,26 +147,25 @@ public class ApprovalApplyRequest {
      * @param dataValues 审批业务项填充值，按模板顺序
      * @return 最终的审批单数据格式
      */
-    public static ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData(List<? extends TmpControl<?>> controls, List<? extends ContentDataValue> dataValues) {
+    public static ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData(List<TmpControl<? extends ControlConfig>> controls, List<? extends ContentDataValue> dataValues) {
         //必须保证 dataValues 和 controls 对应
         int ctrlSize = controls.size();
         int valueSize = dataValues.size();
 
         if (ctrlSize != valueSize) {
-            throw new IllegalArgumentException("ctrl size and table value size do not match");
+            throw new WeComException("controls size do not match dataValues size");
         }
 
         List<ApprovalContentData<? extends ContentDataValue>> contents = IntStream.range(0, ctrlSize)
                 .mapToObj(index ->
-                        toDataValue(controls.get(index), dataValues.get(index))
+                        toControlValue(controls.get(index), dataValues.get(index))
                 ).collect(Collectors.toList());
         // 业务数据
         return new ApplyData<>(contents);
     }
 
-    private static ApprovalContentData<ContentDataValue> toDataValue(TmpControl<?> tmpControl, ContentDataValue dataValue) {
-        Object config = tmpControl.getConfig();
-        ContentDataValue v;
+    private static ApprovalContentData<ContentDataValue> toControlValue(TmpControl<? extends ControlConfig> tmpControl, ContentDataValue dataValue) {
+        ControlConfig config = tmpControl.getConfig();
         // 处理明细数据
         if (config != null && config.getClass().isAssignableFrom(TableConfig.class)) {
             ListContentDataValue internalValue = (ListContentDataValue) dataValue;
@@ -181,7 +181,7 @@ public class ApprovalApplyRequest {
                     .getChildren();
             int ctrlSize = children.size();
             if (ctrlSize != tableValues.size()) {
-                throw new IllegalArgumentException("ctrl size and table value size do not match");
+                throw new WeComException("table controls size do not match table dataValues size");
             }
             List<ApplyContentData<?>> applyContentData = IntStream.range(0, ctrlSize)
                     .mapToObj(index ->
@@ -189,11 +189,9 @@ public class ApprovalApplyRequest {
                     .collect(Collectors.toList());
             TableValue.Wrapper wrapper = new TableValue.Wrapper();
             wrapper.setList(applyContentData);
-            v = new TableValue(Collections.singletonList(wrapper));
-        } else {
-            v = dataValue;
+            return tmpControl.getProperty().toData(new TableValue(Collections.singletonList(wrapper)));
         }
-        return tmpControl.getProperty().toData(v);
+        return tmpControl.getProperty().toData(dataValue);
     }
 
 

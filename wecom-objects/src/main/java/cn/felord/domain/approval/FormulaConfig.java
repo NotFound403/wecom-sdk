@@ -28,7 +28,7 @@ import java.util.List;
  * @since 2023 /5/27 8:44
  */
 @Data
-public class FormulaConfig {
+public class FormulaConfig implements ControlConfig {
     private Wrapper formula;
 
     /**

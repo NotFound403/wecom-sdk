@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Data
 @JsonTypeName("VacationConfig")
-public class VacationConfig {
+public class VacationConfig implements ControlConfig {
     private Wrapper vacationList;
 
     @Data

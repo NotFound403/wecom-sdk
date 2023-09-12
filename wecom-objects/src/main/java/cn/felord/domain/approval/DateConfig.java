@@ -23,7 +23,7 @@ import lombok.Data;
  * @since 2023/5/25 16:15
  */
 @Data
-public class DateConfig {
+public class DateConfig implements ControlConfig {
     private Wrapper date;
 
 
