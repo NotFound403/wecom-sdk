@@ -16,6 +16,7 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.AttendanceType;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
@@ -30,6 +31,17 @@ import lombok.ToString;
 @Getter
 public class AttendanceValue implements ContentDataValue {
     private final Wrapper attendance;
+
+
+    /**
+     * Instantiates a new Attendance value.
+     *
+     * @param attendance the attendance
+     */
+    @JsonCreator
+    AttendanceValue(Wrapper attendance) {
+        this.attendance = attendance;
+    }
 
     /**
      * Instantiates a new Attendance value.

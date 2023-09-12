@@ -45,6 +45,21 @@ public class DateRangeValue implements ContentDataValue {
     }
 
     /**
+     * Instantiates a new Date range value.
+     *
+     * @param type        the type
+     * @param newBegin    the new begin
+     * @param newEnd      the new end
+     * @param newDuration the new duration
+     */
+    public DateRangeValue(DateRangeType type,
+                          Instant newBegin,
+                          Instant newEnd,
+                          Duration newDuration) {
+        this.dateRange = new Wrapper(type, newBegin, newEnd, newDuration);
+    }
+
+    /**
      * The type Wrapper.
      */
     @Data
