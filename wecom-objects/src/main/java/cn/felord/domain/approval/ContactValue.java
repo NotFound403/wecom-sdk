@@ -16,11 +16,11 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.ContactCtrlMode;
+import cn.felord.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Collections;
@@ -35,13 +35,24 @@ import java.util.Set;
  */
 @ToString
 @Getter
-@NoArgsConstructor
 public class ContactValue implements ContentDataValue {
     @JsonIgnore
-    private ContactCtrlMode contactCtrlMode;
-    private List<MemberInfo> members;
-    private Set<ApprovalDeptInfo> departments;
+    private final ContactCtrlMode contactCtrlMode;
+    private final List<MemberInfo> members;
+    private final Set<ApprovalDeptInfo> departments;
 
+    /**
+     * Instantiates a new Contact value.
+     *
+     * @param members     the members
+     * @param departments the departments
+     */
+    @JsonCreator
+    ContactValue(@JsonProperty("members") List<MemberInfo> members, @JsonProperty("departments") Set<ApprovalDeptInfo> departments) {
+        this.contactCtrlMode = CollectionUtils.isEmpty(members) ? ContactCtrlMode.DEPARTMENT : ContactCtrlMode.USER;
+        this.members = members;
+        this.departments = departments;
+    }
 
     /**
      * 成员组件
@@ -50,11 +61,7 @@ public class ContactValue implements ContentDataValue {
      * @return the contact value
      */
     public static ContactValue user(List<MemberInfo> members) {
-        ContactValue contactValue = new ContactValue();
-        contactValue.contactCtrlMode = ContactCtrlMode.USER;
-        contactValue.members = members;
-        contactValue.departments = Collections.emptySet();
-        return contactValue;
+        return new ContactValue(members, Collections.emptySet());
     }
 
     /**
@@ -64,34 +71,9 @@ public class ContactValue implements ContentDataValue {
      * @return the contact value
      */
     public static ContactValue dept(Set<ApprovalDeptInfo> departments) {
-        ContactValue contactValue = new ContactValue();
-        contactValue.contactCtrlMode = ContactCtrlMode.DEPARTMENT;
-        contactValue.members = Collections.emptyList();
-        contactValue.departments = departments;
-        return contactValue;
+        return new ContactValue(Collections.emptyList(), departments);
     }
 
-    /**
-     * Instantiates a new Contact value.
-     *
-     * @param members the members
-     */
-    public void setMembers(List<MemberInfo> members) {
-        this.contactCtrlMode = ContactCtrlMode.USER;
-        this.members = members;
-        this.departments = Collections.emptySet();
-    }
-
-    /**
-     * Instantiates a new Contact value.
-     *
-     * @param departments the departments
-     */
-    public void setDepartments(Set<ApprovalDeptInfo> departments) {
-        this.contactCtrlMode = ContactCtrlMode.DEPARTMENT;
-        this.members = Collections.emptyList();
-        this.departments = departments;
-    }
 
     /**
      * The type Member info.

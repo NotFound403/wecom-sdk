@@ -18,23 +18,11 @@ package cn.felord.wecom;
 import cn.felord.AgentDetails;
 import cn.felord.DefaultAgent;
 import cn.felord.WeComTokenCacheable;
-import cn.felord.api.ApprovalApi;
 import cn.felord.api.ContactBookManager;
 import cn.felord.api.ExternalContactUserApi;
 import cn.felord.api.UserApi;
 import cn.felord.api.WorkWeChatApi;
 import cn.felord.domain.GenericResponse;
-import cn.felord.domain.approval.ApplyData;
-import cn.felord.domain.approval.ApprovalApplyRequest;
-import cn.felord.domain.approval.ApprovalContentData;
-import cn.felord.domain.approval.ApprovalTmpDetailResponse;
-import cn.felord.domain.approval.Approver;
-import cn.felord.domain.approval.ContentDataValue;
-import cn.felord.domain.approval.NumberValue;
-import cn.felord.domain.approval.Summary;
-import cn.felord.domain.approval.TextValue;
-import cn.felord.domain.approval.TmpControl;
-import cn.felord.domain.common.TemplateId;
 import cn.felord.domain.contactbook.department.DeptInfo;
 import cn.felord.domain.contactbook.user.SimpleUser;
 import cn.felord.domain.externalcontact.ContentText;
@@ -58,7 +46,6 @@ import cn.felord.domain.webhook.card.UrlJump;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.ChatType;
 import cn.felord.enumeration.NativeAgent;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +56,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -203,33 +189,7 @@ class SpringBootWecomSdkTests {
 
     @Test
     void approval() {
-        AgentDetails myAgent = DefaultAgent.nativeAgent("XXX", "XXX", NativeAgent.APPROVAL);
-        ApprovalApi approvalApi = workWeChatApi.approvalApi(myAgent);
 
-
-        ApprovalTmpDetailResponse templateDetail = approvalApi.getTemplateDetail(new TemplateId("C4UEh71DAPh775HPfXipikZ5eAGosskDibU8hkfxJ"));
-
-        List<? extends TmpControl<?>> controls = templateDetail.getTemplateContent()
-                .getControls();
-        List<ContentDataValue> dataValues = Arrays.asList(
-                new TextValue("STI12345"),
-                new TextValue("MODEL123"),
-                new NumberValue("123"),
-                new TextValue("张三"));
-
-        ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData = ApprovalApplyRequest.applyData(controls, dataValues);
-        List<Approver> approver = Arrays.asList(
-                new Approver("XXX"), new Approver("XXX")
-        );
-        List<Summary> summaryList = Lists.list();
-        ApprovalApplyRequest request = ApprovalApplyRequest.approverMode(
-                "XXX",
-                "XXX",
-                approver,
-                applyData,
-                summaryList
-        );
-        GenericResponse<String> apply = approvalApi.applyEvent(request);
     }
 
 

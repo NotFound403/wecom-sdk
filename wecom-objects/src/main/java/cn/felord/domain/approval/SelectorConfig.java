@@ -21,8 +21,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The type Selector config.
@@ -32,7 +32,7 @@ import java.util.List;
  */
 @ToString
 @Getter
-public class SelectorValue implements ContentDataValue {
+public class SelectorConfig {
     private final Wrapper selector;
 
     /**
@@ -41,31 +41,50 @@ public class SelectorValue implements ContentDataValue {
      * @param selector the selector
      */
     @JsonCreator
-    SelectorValue(@JsonProperty("selector") Wrapper selector) {
+    SelectorConfig(@JsonProperty("selector") Wrapper selector) {
         this.selector = selector;
     }
 
     /**
-     * Single selector config.
-     *
-     * @param option the option
-     * @return the selector config
-     */
-    public static SelectorValue single(SelectorKey option) {
-        Wrapper wrapper = new Wrapper(SelectType.SINGLE, Collections.singletonList(option));
-        return new SelectorValue(wrapper);
-    }
-
-    /**
-     * Multiple selector config.
+     * 单选
      *
      * @param options the options
      * @return the selector config
      */
-    public static SelectorValue multiple(List<SelectorKey> options) {
+    public static SelectorConfig single(List<CtrlOption> options) {
+        Wrapper wrapper = new Wrapper(SelectType.SINGLE, options);
+        return new SelectorConfig(wrapper);
+    }
+
+    /**
+     * 多选
+     *
+     * @param options the options
+     * @return the selector config
+     */
+    public static SelectorConfig multiple(List<CtrlOption> options) {
         Wrapper wrapper = new Wrapper(SelectType.MULTI, options);
+        return new SelectorConfig(wrapper);
+    }
+
+    /**
+     * 从选项中生成填充值
+     *
+     * @param keys the keys
+     * @return the selector value
+     */
+    public SelectorValue fromKey(List<String> keys) {
+        List<SelectorKey> selectorKeys = this.selector
+                .options
+                .stream()
+                .map(CtrlOption::getKey)
+                .filter(keys::contains)
+                .map(SelectorKey::new)
+                .collect(Collectors.toList());
+        SelectorValue.Wrapper wrapper = new SelectorValue.Wrapper(this.selector.type, selectorKeys);
         return new SelectorValue(wrapper);
     }
+
 
     /**
      * The type Wrapper.
@@ -74,7 +93,7 @@ public class SelectorValue implements ContentDataValue {
     @Getter
     public static class Wrapper {
         private final SelectType type;
-        private final List<SelectorKey> options;
+        private final List<CtrlOption> options;
 
         /**
          * Instantiates a new Wrapper.
@@ -83,7 +102,7 @@ public class SelectorValue implements ContentDataValue {
          * @param options the options
          */
         @JsonCreator
-        Wrapper(@JsonProperty("type") SelectType type, @JsonProperty("options") List<SelectorKey> options) {
+        Wrapper(@JsonProperty("type") SelectType type, @JsonProperty("options") List<CtrlOption> options) {
             this.type = type;
             this.options = options;
         }
