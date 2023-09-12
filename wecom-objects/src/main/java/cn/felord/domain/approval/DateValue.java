@@ -24,7 +24,7 @@ import lombok.ToString;
 import java.time.Instant;
 
 /**
- * The type Date value.
+ * 日期/日期+时间组件
  *
  * @author dax
  * @since 2023 /5/25 16:15

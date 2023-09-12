@@ -100,7 +100,7 @@ public class MoneyValue implements ContentDataValue {
     /**
      * From money value.
      *
-     * @param newMoney 传{@code null}将被转换为null，非空强制四舍五入两位小数
+     * @param newMoney 传{@code null}将被转换为0，非空强制四舍五入两位小数
      * @return the money value
      */
     public static MoneyValue from(BigDecimal newMoney) {

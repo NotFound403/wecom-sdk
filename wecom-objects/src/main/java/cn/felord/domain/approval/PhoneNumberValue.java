@@ -22,8 +22,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * 电话组件
+ *
  * @author dax
- * @since 2023/5/27
+ * @since 2023 /5/27
  */
 @ToString
 @Getter
@@ -31,6 +33,11 @@ public class PhoneNumberValue implements ContentDataValue {
 
     private final Wrapper phonenumber;
 
+    /**
+     * Instantiates a new Phone number value.
+     *
+     * @param phonenumber the phonenumber
+     */
     @JsonCreator
     public PhoneNumberValue(@JsonProperty("phonenumber") Wrapper phonenumber) {
         this.phonenumber = phonenumber;

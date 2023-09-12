@@ -20,9 +20,11 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * 明细组件
+ *
  * @author dax
  * @see TableConfig
- * @since 2023/7/16 17:14
+ * @since 2023 /7/16 17:14
  */
 @Data
 public class ListContentDataValue implements ContentDataValue {

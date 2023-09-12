@@ -24,8 +24,10 @@ import lombok.ToString;
 import java.time.Instant;
 
 /**
+ * 位置组件
+ *
  * @author dax
- * @since 2023/5/27
+ * @since 2023 /5/27
  */
 @ToString
 @Getter
@@ -33,6 +35,11 @@ public class LocationValue implements ContentDataValue {
 
     private final Wrapper location;
 
+    /**
+     * Instantiates a new Location value.
+     *
+     * @param location the location
+     */
     @JsonCreator
     public LocationValue(@JsonProperty("location") Wrapper location) {
         this.location = location;

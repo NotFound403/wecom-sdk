@@ -22,19 +22,29 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * 公式组件
+ *
  * @author dax
- * @since 2023/5/27 17:21
+ * @since 2023 /5/27 17:21
  */
 @ToString
 @Getter
 public class FormulaValue implements ContentDataValue {
     private final Wrapper formula;
 
+    /**
+     * Instantiates a new Formula value.
+     *
+     * @param formula the formula
+     */
     @JsonCreator
     public FormulaValue(@JsonProperty Wrapper formula) {
         this.formula = formula;
     }
 
+    /**
+     * The type Wrapper.
+     */
     @Data
     public static class Wrapper {
         private String value;

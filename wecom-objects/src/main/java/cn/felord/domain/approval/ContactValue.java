@@ -29,7 +29,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * The type Contact value.
+ * 成员/部门组件
  *
  * @author dax
  * @since 2023 /5/27 10:31

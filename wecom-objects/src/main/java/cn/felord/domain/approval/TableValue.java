@@ -24,7 +24,7 @@ import lombok.ToString;
 import java.util.List;
 
 /**
- * The type Table value.
+ * 明细组件
  *
  * @author dax
  * @since 2023 /5/27 10:59

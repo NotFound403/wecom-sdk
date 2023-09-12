@@ -24,16 +24,23 @@ import lombok.ToString;
 import java.time.Instant;
 
 /**
+ * 补卡组件
+ *
  * @author dax
- * @since 2023/5/27
+ * @since 2023 /5/27
  */
 @ToString
 @Getter
 public class PunchCorrectionValue implements ContentDataValue {
     private final Wrapper punchCorrection;
 
+    /**
+     * Instantiates a new Punch correction value.
+     *
+     * @param punchCorrection the punch correction
+     */
     @JsonCreator
-    public PunchCorrectionValue(@JsonProperty("punchCorrection") Wrapper punchCorrection) {
+    public PunchCorrectionValue(@JsonProperty("punch_correction") Wrapper punchCorrection) {
         this.punchCorrection = punchCorrection;
     }
 

@@ -21,14 +21,21 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * 数字组件
+ *
  * @author dax
- * @since 2023/5/26
+ * @since 2023 /5/26
  */
 @ToString
 @Getter
 public class NumberValue implements ContentDataValue {
     private final String newNumber;
 
+    /**
+     * Instantiates a new Number value.
+     *
+     * @param newNumber the new number
+     */
     @JsonCreator
     public NumberValue(@JsonProperty("new_number") String newNumber) {
         this.newNumber = newNumber;

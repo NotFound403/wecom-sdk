@@ -15,11 +15,38 @@
 
 package cn.felord.domain.approval;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
+
+import java.util.List;
+
 /**
- * RelatedApprovalValue
+ * 关联审批单组件
  *
  * @author dax
- * @since 2023/5/27
+ * @since 2023 /5/27
  */
+@ToString
+@Getter
 public class RelatedApprovalValue implements ContentDataValue {
+
+    private final Wrapper relatedApproval;
+
+    /**
+     * Instantiates a new Related approval value.
+     *
+     * @param spNo the sp no
+     */
+    public RelatedApprovalValue(List<String> spNo) {
+        this.relatedApproval = new Wrapper(spNo);
+    }
+
+    /**
+     * The type Wrapper.
+     */
+    @Data
+    public static class Wrapper {
+        private final List<String> spNo;
+    }
 }
