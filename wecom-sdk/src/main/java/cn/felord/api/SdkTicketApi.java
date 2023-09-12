@@ -61,7 +61,7 @@ public class SdkTicketApi {
         String corpTicket = weComAgentTicketCacheable.getCorpTicket(corpId, agentId);
 
         if (Objects.isNull(corpTicket)) {
-            JsTicketResponse jsTicketResponse = jsApi.agentJsApiTicket("agent_config");
+            JsTicketResponse jsTicketResponse = jsApi.corpJsApiTicket();
             corpTicket = jsTicketResponse.getTicket();
             weComAgentTicketCacheable.putCorpTicket(corpId, agentId, corpTicket);
         }
