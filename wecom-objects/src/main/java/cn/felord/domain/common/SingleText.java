@@ -13,14 +13,29 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.contactbook.user;
+package cn.felord.domain.common;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type Single text.
+ *
  * @author n1
  */
-@Data
-public class UserText {
-    private String value;
+@ToString
+@Getter
+public class SingleText {
+    private final String value;
+
+    /**
+     * Instantiates a new Single text.
+     *
+     * @param value the value
+     */
+    @JsonCreator
+    public SingleText(String value) {
+        this.value = value;
+    }
 }

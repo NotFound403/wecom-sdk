@@ -17,8 +17,9 @@ package cn.felord.domain.approval;
 
 import cn.felord.enumeration.AttendanceType;
 import cn.felord.enumeration.SelectType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import java.util.List;
@@ -37,11 +38,21 @@ public class VacationValue implements ContentDataValue {
     /**
      * Instantiates a new Vacation value.
      *
+     * @param vacation the vacation
+     */
+    @JsonCreator
+    VacationValue(Wrapper vacation) {
+        this.vacation = vacation;
+    }
+
+    /**
+     * Instantiates a new Vacation value.
+     *
      * @param options   the options
      * @param type      the type
      * @param dateRange the date range
      */
-    VacationValue(List<CtrlOption> options, AttendanceType type, DateRangeValue dateRange) {
+    public VacationValue(List<CtrlOption> options, AttendanceType type, DateRangeValue dateRange) {
         this.vacation = new Wrapper(options, type, dateRange);
     }
 
@@ -50,9 +61,21 @@ public class VacationValue implements ContentDataValue {
      */
     @ToString
     @Getter
-    static class Wrapper {
+    public static class Wrapper {
         private final Selector selector;
         private final Attendance attendance;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param selector   the selector
+         * @param attendance the attendance
+         */
+        @JsonCreator
+        Wrapper(Selector selector, Attendance attendance) {
+            this.selector = selector;
+            this.attendance = attendance;
+        }
 
         /**
          * Instantiates a new Wrapper.
@@ -62,8 +85,7 @@ public class VacationValue implements ContentDataValue {
          * @param dateRange the date range
          */
         Wrapper(List<CtrlOption> options, AttendanceType type, DateRangeValue dateRange) {
-            this.selector = new Selector(options);
-            this.attendance = new Attendance(type, dateRange);
+            this(new Selector(options), new Attendance(type, dateRange));
         }
     }
 
@@ -72,10 +94,19 @@ public class VacationValue implements ContentDataValue {
      */
     @ToString
     @Getter
-    @RequiredArgsConstructor
-    static class Selector {
+    public static class Selector {
         private final SelectType type = SelectType.SINGLE;
         private final List<CtrlOption> options;
+
+        /**
+         * Instantiates a new Selector.
+         *
+         * @param options the options
+         */
+        @JsonCreator
+        Selector(List<CtrlOption> options) {
+            this.options = options;
+        }
     }
 
     /**
@@ -83,9 +114,20 @@ public class VacationValue implements ContentDataValue {
      */
     @ToString
     @Getter
-    @RequiredArgsConstructor
-    static class Attendance {
+    public static class Attendance {
         private final AttendanceType type;
         private final DateRangeValue dateRange;
+
+        /**
+         * Instantiates a new Attendance.
+         *
+         * @param type      the type
+         * @param dateRange the date range
+         */
+        @JsonCreator
+        Attendance(@JsonProperty("type") AttendanceType type, @JsonProperty("date_range") DateRangeValue dateRange) {
+            this.type = type;
+            this.dateRange = dateRange;
+        }
     }
 }

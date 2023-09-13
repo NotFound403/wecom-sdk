@@ -17,7 +17,6 @@ package cn.felord.domain.approval;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -39,16 +38,39 @@ public class PhoneNumberValue implements ContentDataValue {
      * @param phonenumber the phonenumber
      */
     @JsonCreator
-    public PhoneNumberValue(@JsonProperty("phonenumber") Wrapper phonenumber) {
+    PhoneNumberValue(@JsonProperty("phonenumber") Wrapper phonenumber) {
         this.phonenumber = phonenumber;
+    }
+
+    /**
+     * Instantiates a new Phone number value.
+     *
+     * @param area   the area
+     * @param number the number
+     */
+    public PhoneNumberValue(String area, String number) {
+        this(new Wrapper(area, number));
     }
 
     /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     public static class Wrapper {
-        private String area;
-        private String number;
+        private final String area;
+        private final String number;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param area   the area
+         * @param number the number
+         */
+        @JsonCreator
+        Wrapper(String area, String number) {
+            this.area = area;
+            this.number = number;
+        }
     }
 }

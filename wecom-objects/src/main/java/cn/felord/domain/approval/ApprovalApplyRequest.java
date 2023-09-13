@@ -216,8 +216,7 @@ public class ApprovalApplyRequest {
                     .mapToObj(index ->
                             ApplyContentData.from(children.get(index).getProperty(), tableValues.get(index)))
                     .collect(Collectors.toList());
-            TableValue.Wrapper wrapper = new TableValue.Wrapper();
-            wrapper.setList(applyContentData);
+            TableValue.Wrapper wrapper = new TableValue.Wrapper(applyContentData);
             return tmpControl.getProperty().toData(new TableValue(Collections.singletonList(wrapper)));
         }
         return tmpControl.getProperty().toData(dataValue);

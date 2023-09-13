@@ -28,4 +28,11 @@ public class FileInfo {
     private String fileSize;
     private String fileType;
     private String fileUrl;
+
+    public FileInfo() {
+    }
+
+    public FileInfo(String fileId) {
+        this.fileId = fileId;
+    }
 }

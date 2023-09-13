@@ -15,7 +15,8 @@
 
 package cn.felord.domain.approval;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -36,17 +37,38 @@ public class RelatedApprovalValue implements ContentDataValue {
     /**
      * Instantiates a new Related approval value.
      *
+     * @param relatedApproval the related approval
+     */
+    @JsonCreator
+    RelatedApprovalValue(@JsonProperty("related_approval") Wrapper relatedApproval) {
+        this.relatedApproval = relatedApproval;
+    }
+
+    /**
+     * Instantiates a new Related approval value.
+     *
      * @param spNo the sp no
      */
     public RelatedApprovalValue(List<String> spNo) {
-        this.relatedApproval = new Wrapper(spNo);
+        this(new Wrapper(spNo));
     }
 
     /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     public static class Wrapper {
         private final List<String> spNo;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param spNo the sp no
+         */
+        @JsonCreator
+        Wrapper(List<String> spNo) {
+            this.spNo = spNo;
+        }
     }
 }

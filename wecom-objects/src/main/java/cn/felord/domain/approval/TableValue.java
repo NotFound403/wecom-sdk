@@ -17,7 +17,6 @@ package cn.felord.domain.approval;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -34,6 +33,11 @@ import java.util.List;
 public class TableValue implements ContentDataValue {
     private final List<Wrapper> children;
 
+    /**
+     * Instantiates a new Table value.
+     *
+     * @param children the children
+     */
     @JsonCreator
     TableValue(@JsonProperty("children") List<Wrapper> children) {
         this.children = children;
@@ -42,8 +46,19 @@ public class TableValue implements ContentDataValue {
     /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     public static class Wrapper {
-        private List<ApplyContentData<?>> list;
+        private final List<ApplyContentData<?>> list;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param list the list
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("list") List<ApplyContentData<?>> list) {
+            this.list = list;
+        }
     }
 }
