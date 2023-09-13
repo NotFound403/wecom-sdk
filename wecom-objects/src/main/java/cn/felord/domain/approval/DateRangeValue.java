@@ -19,6 +19,8 @@ import cn.felord.enumeration.DateRangeType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -54,20 +56,40 @@ public class DateRangeValue implements ContentDataValue {
      */
     public DateRangeValue(DateRangeType type,
                           Instant newBegin,
-                          Instant newEnd,
-                          Duration newDuration) {
+                          Instant newEnd) {
+
         this.dateRange = new Wrapper(type, newBegin, newEnd, newDuration);
     }
 
     /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     public static class Wrapper {
         private final DateRangeType type;
         private final Instant newBegin;
         private final Instant newEnd;
         private final Duration newDuration;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param type        the type
+         * @param newBegin    the new begin
+         * @param newEnd      the new end
+         * @param newDuration the new duration
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("type") DateRangeType type,
+                @JsonProperty("new_begin") Instant newBegin,
+                @JsonProperty("new_end") Instant newEnd,
+                @JsonProperty("new_duration") Duration newDuration) {
+            this.type = type;
+            this.newBegin = newBegin;
+            this.newEnd = newEnd;
+            this.newDuration = newDuration;
+        }
     }
 
 }

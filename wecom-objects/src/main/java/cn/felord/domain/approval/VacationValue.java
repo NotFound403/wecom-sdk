@@ -41,7 +41,7 @@ public class VacationValue implements ContentDataValue {
      * @param vacation the vacation
      */
     @JsonCreator
-    VacationValue(Wrapper vacation) {
+    VacationValue(@JsonProperty("vacation") Wrapper vacation) {
         this.vacation = vacation;
     }
 

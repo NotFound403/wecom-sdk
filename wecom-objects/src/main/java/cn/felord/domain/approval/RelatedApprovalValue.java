@@ -15,12 +15,15 @@
 
 package cn.felord.domain.approval;
 
+import cn.felord.enumeration.SpStatus;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 关联审批单组件
@@ -32,7 +35,7 @@ import java.util.List;
 @Getter
 public class RelatedApprovalValue implements ContentDataValue {
 
-    private final Wrapper relatedApproval;
+    private final List<Wrapper> relatedApproval;
 
     /**
      * Instantiates a new Related approval value.
@@ -40,7 +43,7 @@ public class RelatedApprovalValue implements ContentDataValue {
      * @param relatedApproval the related approval
      */
     @JsonCreator
-    RelatedApprovalValue(@JsonProperty("related_approval") Wrapper relatedApproval) {
+    RelatedApprovalValue(@JsonProperty("related_approval") List<Wrapper> relatedApproval) {
         this.relatedApproval = relatedApproval;
     }
 
@@ -49,8 +52,11 @@ public class RelatedApprovalValue implements ContentDataValue {
      *
      * @param spNo the sp no
      */
-    public RelatedApprovalValue(List<String> spNo) {
-        this(new Wrapper(spNo));
+    public static RelatedApprovalValue from(List<String> spNo) {
+        List<Wrapper> wrappers = spNo.stream()
+                .map(Wrapper::new)
+                .collect(Collectors.toList());
+        return new RelatedApprovalValue(wrappers);
     }
 
     /**
@@ -59,16 +65,41 @@ public class RelatedApprovalValue implements ContentDataValue {
     @ToString
     @Getter
     public static class Wrapper {
-        private final List<String> spNo;
+        private final String spNo;
+        private final Instant createTime;
+        private final String name;
+        private final SpStatus spStatus;
+        private final List<ApprovalTitle> templateNames;
 
         /**
          * Instantiates a new Wrapper.
          *
          * @param spNo the sp no
          */
+        Wrapper(String spNo) {
+            this(spNo, null, null, null, null);
+        }
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param spNo          the sp no
+         * @param createTime    the create time
+         * @param name          the name
+         * @param spStatus      the sp status
+         * @param templateNames the template names
+         */
         @JsonCreator
-        Wrapper(List<String> spNo) {
+        Wrapper(@JsonProperty("sp_no") String spNo,
+                @JsonProperty("create_time") Instant createTime,
+                @JsonProperty("name") String name,
+                @JsonProperty("sp_status") SpStatus spStatus,
+                @JsonProperty("template_names") List<ApprovalTitle> templateNames) {
             this.spNo = spNo;
+            this.createTime = createTime;
+            this.name = name;
+            this.spStatus = spStatus;
+            this.templateNames = templateNames;
         }
     }
 }

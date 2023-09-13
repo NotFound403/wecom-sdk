@@ -1,6 +1,7 @@
 package cn.felord.domain.approval;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -21,7 +22,7 @@ public class SelectorKey {
      * @param key the key
      */
     @JsonCreator
-    public SelectorKey(String key) {
+    public SelectorKey(@JsonProperty("key") String key) {
         this.key = key;
     }
 }

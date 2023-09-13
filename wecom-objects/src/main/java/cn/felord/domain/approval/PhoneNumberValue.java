@@ -53,6 +53,17 @@ public class PhoneNumberValue implements ContentDataValue {
     }
 
     /**
+     * 国内手机号
+     *
+     * @param number the number
+     * @return the phone number value
+     */
+    public static PhoneNumberValue zhCN(String number) {
+        return new PhoneNumberValue("+86", number);
+    }
+
+
+    /**
      * The type Wrapper.
      */
     @ToString
@@ -68,7 +79,7 @@ public class PhoneNumberValue implements ContentDataValue {
          * @param number the number
          */
         @JsonCreator
-        Wrapper(String area, String number) {
+        Wrapper(@JsonProperty("area") String area, @JsonProperty("number") String number) {
             this.area = area;
             this.number = number;
         }

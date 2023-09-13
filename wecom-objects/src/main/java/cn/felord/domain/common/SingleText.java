@@ -16,6 +16,7 @@
 package cn.felord.domain.common;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -35,7 +36,7 @@ public class SingleText {
      * @param value the value
      */
     @JsonCreator
-    public SingleText(String value) {
+    public SingleText(@JsonProperty("value") String value) {
         this.value = value;
     }
 }

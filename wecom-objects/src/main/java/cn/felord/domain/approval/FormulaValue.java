@@ -38,7 +38,7 @@ public class FormulaValue implements ContentDataValue {
      * @param formula the formula
      */
     @JsonCreator
-    FormulaValue(@JsonProperty SingleText formula) {
+    FormulaValue(@JsonProperty("formula") SingleText formula) {
         this.formula = formula;
     }
 

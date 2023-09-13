@@ -16,7 +16,14 @@
 package cn.felord.callbacks;
 
 import cn.felord.callback.XmlEntity;
-import cn.felord.domain.callback.*;
+import cn.felord.domain.callback.ApprovalInfo;
+import cn.felord.domain.callback.BatchJob;
+import cn.felord.domain.callback.CallbackArticle;
+import cn.felord.domain.callback.CallbackButton;
+import cn.felord.domain.callback.CallbackExtAttrItem;
+import cn.felord.domain.callback.CallbackResource;
+import cn.felord.domain.callback.CallbackSelectedItems;
+import cn.felord.domain.callback.CallbackVideo;
 import cn.felord.domain.common.MediaId;
 import cn.felord.domain.corpay.miniapppay.callback.RefundCallbackData;
 import cn.felord.domain.corpay.miniapppay.callback.TransactionCallbackData;
@@ -26,7 +33,6 @@ import cn.felord.enumeration.NotifyType;
 import cn.felord.enumeration.PayCallbackEventType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import io.reactivex.rxjava3.annotations.Nullable;
 import lombok.Data;
 
 import java.time.Instant;
@@ -57,10 +63,8 @@ public class CallbackEventBody implements XmlEntity {
     private final Instant createTime;
     @XStreamAlias("MsgType")
     private String msgType;
-    @Nullable
     @XStreamAlias("Event")
     private CallbackEvent event;
-    @Nullable
     @XStreamAlias("ChangeType")
     private final CallbackChangeType changeType;
     @XStreamAlias("AgentID")
