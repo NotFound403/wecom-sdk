@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Optional;
+
 /**
  * 数字组件
  *
@@ -37,7 +39,26 @@ public class NumberValue implements ContentDataValue {
      * @param newNumber the new number
      */
     @JsonCreator
-    public NumberValue(@JsonProperty("new_number") String newNumber) {
+    NumberValue(@JsonProperty("new_number") String newNumber) {
         this.newNumber = newNumber;
     }
+
+    public static NumberValue from(Integer newNumber) {
+        return new NumberValue(Optional.ofNullable(newNumber)
+                .map(String::valueOf)
+                .orElse(null));
+    }
+
+    /**
+     * From number value.
+     *
+     * @param newNumber the new number
+     * @return the number value
+     */
+    public static NumberValue from(Double newNumber) {
+        return new NumberValue(Optional.ofNullable(newNumber)
+                .map(String::valueOf)
+                .orElse(null));
+    }
+
 }

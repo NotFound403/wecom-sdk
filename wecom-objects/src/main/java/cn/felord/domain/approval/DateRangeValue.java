@@ -17,6 +17,7 @@ package cn.felord.domain.approval;
 
 import cn.felord.enumeration.DateRangeType;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
@@ -52,13 +53,11 @@ public class DateRangeValue implements ContentDataValue {
      * @param type        the type
      * @param newBegin    the new begin
      * @param newEnd      the new end
-     * @param newDuration the new duration
      */
     public DateRangeValue(DateRangeType type,
                           Instant newBegin,
                           Instant newEnd) {
-
-        this.dateRange = new Wrapper(type, newBegin, newEnd, newDuration);
+        this.dateRange = new Wrapper(type, newBegin, newEnd, Duration.between(newBegin, newEnd));
     }
 
     /**
@@ -70,6 +69,7 @@ public class DateRangeValue implements ContentDataValue {
         private final DateRangeType type;
         private final Instant newBegin;
         private final Instant newEnd;
+        @JsonFormat(shape = JsonFormat.Shape.NUMBER, pattern = "SECONDS")
         private final Duration newDuration;
 
         /**

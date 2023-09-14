@@ -45,9 +45,9 @@ public class FormulaValue implements ContentDataValue {
     /**
      * Instantiates a new Formula value.
      *
-     * @param value the value
+     * @return the formula value
      */
-    public FormulaValue(String value) {
-        this(new SingleText(value));
+    public static FormulaValue create() {
+        return new FormulaValue(new SingleText(null));
     }
 }

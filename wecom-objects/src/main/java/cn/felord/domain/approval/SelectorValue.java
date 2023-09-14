@@ -23,6 +23,7 @@ import lombok.ToString;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The type Selector config.
@@ -48,22 +49,24 @@ public class SelectorValue implements ContentDataValue {
     /**
      * Single selector config.
      *
-     * @param option the option
+     * @param optionKey the option key
      * @return the selector config
      */
-    public static SelectorValue single(SelectorKey option) {
-        Wrapper wrapper = new Wrapper(SelectType.SINGLE, Collections.singletonList(option));
+    public static SelectorValue single(String optionKey) {
+        Wrapper wrapper = new Wrapper(SelectType.SINGLE, Collections.singletonList(new SelectorKey(optionKey)));
         return new SelectorValue(wrapper);
     }
 
     /**
      * Multiple selector config.
      *
-     * @param options the options
+     * @param optionKeys the option keys
      * @return the selector config
      */
-    public static SelectorValue multiple(List<SelectorKey> options) {
-        Wrapper wrapper = new Wrapper(SelectType.MULTI, options);
+    public static SelectorValue multiple(List<String> optionKeys) {
+        Wrapper wrapper = new Wrapper(SelectType.MULTI, optionKeys.stream()
+                .map(SelectorKey::new)
+                .collect(Collectors.toList()));
         return new SelectorValue(wrapper);
     }
 

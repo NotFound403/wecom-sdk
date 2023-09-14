@@ -18,11 +18,35 @@ package cn.felord.wecom;
 import cn.felord.AgentDetails;
 import cn.felord.DefaultAgent;
 import cn.felord.WeComTokenCacheable;
+import cn.felord.api.ApprovalApi;
 import cn.felord.api.ContactBookManager;
 import cn.felord.api.ExternalContactUserApi;
 import cn.felord.api.UserApi;
 import cn.felord.api.WorkWeChatApi;
 import cn.felord.domain.GenericResponse;
+import cn.felord.domain.approval.ApprovalApplyRequest;
+import cn.felord.domain.approval.ApprovalDetail;
+import cn.felord.domain.approval.ApprovalSpNo;
+import cn.felord.domain.approval.ApprovalTitle;
+import cn.felord.domain.approval.ApprovalTmpDetailResponse;
+import cn.felord.domain.approval.Approver;
+import cn.felord.domain.approval.ContactValue;
+import cn.felord.domain.approval.ContentDataValue;
+import cn.felord.domain.approval.ControlConfig;
+import cn.felord.domain.approval.DateRangeValue;
+import cn.felord.domain.approval.DateValue;
+import cn.felord.domain.approval.FormulaValue;
+import cn.felord.domain.approval.ListContentDataValue;
+import cn.felord.domain.approval.LocationValue;
+import cn.felord.domain.approval.MoneyValue;
+import cn.felord.domain.approval.NumberValue;
+import cn.felord.domain.approval.PhoneNumberValue;
+import cn.felord.domain.approval.RelatedApprovalValue;
+import cn.felord.domain.approval.SelectorValue;
+import cn.felord.domain.approval.Summary;
+import cn.felord.domain.approval.TextValue;
+import cn.felord.domain.approval.TmpControl;
+import cn.felord.domain.common.TemplateId;
 import cn.felord.domain.contactbook.department.DeptInfo;
 import cn.felord.domain.contactbook.user.SimpleUser;
 import cn.felord.domain.externalcontact.ContentText;
@@ -45,17 +69,21 @@ import cn.felord.domain.webhook.card.UrlCardAction;
 import cn.felord.domain.webhook.card.UrlJump;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.ChatType;
+import cn.felord.enumeration.DateRangeType;
 import cn.felord.enumeration.NativeAgent;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -189,6 +217,87 @@ class SpringBootWecomSdkTests {
 
     @Test
     void approval() {
+        // 审批应用
+        AgentDetails nativeAgent = DefaultAgent.nativeAgent("", "", NativeAgent.APPROVAL);
+        ApprovalApi approvalApi = workWeChatApi.approvalApi(nativeAgent);
+        // 模板
+        String templateId = "C4UEh71DAPh775HPfXipikZ5eAGosskDibU8hkfxJ";
+        // 查询模板配置  可以用缓存优化性能 避免直接查询企业微信
+        ApprovalTmpDetailResponse templateDetail = approvalApi.getTemplateDetail(new TemplateId(templateId));
+        System.out.println("templateDetail = " + templateDetail);
+
+        // 根据模板配置渲染数据
+
+        List<TmpControl<? extends ControlConfig>> controls = templateDetail.getTemplateContent()
+                .getControls();
+        Instant now = Instant.now();
+        Instant minus = now.minus(1, ChronoUnit.DAYS);
+        // 按模板顺序排列 不填写用null占位  必须保证参数和模板一一对应
+        List<ContentDataValue> dataValues = Arrays.asList(
+                // 部门组件
+                ContactValue.depts(Collections.singletonList(1L)),
+                // 文本组件
+                TextValue.from("A3223423"),
+                // 文本组件
+                TextValue.from("MODEL123"),
+                // 数字组件
+                NumberValue.from(123),
+                // 员工组件
+                ContactValue.users(Collections.singletonList("3958")),
+                // 多选组件 option-1694425966006 为选项key  从模板配置中获取
+                SelectorValue.multiple(Collections.singletonList("option-1694425966006")),
+                // 多行文本组件
+                TextValue.from("哈哈哈哈哈hhhhj\n" +
+                        "把你你你你你干活健健康康HGH地地道道的反反复复反反复复橙V就睡觉许许多多的"),
+                // 货币组件
+                MoneyValue.from(12),
+                // 公式组件仅仅占位
+                FormulaValue.create(),
+                // 日期组件
+                DateValue.date(now),
+                // 日期+时间
+                DateValue.dateTime(now),
+                // 时长组件
+                new DateRangeValue(DateRangeType.HALF_DAY, minus, now),
+                // 单选
+                SelectorValue.single("option-1694586803563"),
+                // 多选
+                SelectorValue.multiple(Arrays.asList("option-1694586805670", "option-1694586805670")),
+                // 位置
+                new LocationValue("30.867621", "111.676726", "大润发", "xx省xx市xx区xxx路112号", Instant.now()),
+                // 审批
+                RelatedApprovalValue.from(Collections.singletonList("202309130010")),
+                // 明细
+                new ListContentDataValue(Collections.singletonList(TextValue.from("321423"))),
+                // 说明文字控件不显示在审批详情中，故value为空
+                TextValue.nullValue(),
+                // 国内手机号   +86 + 手机号
+                PhoneNumberValue.zhCN("182xxxxxxxxx")
+        );
+
+        // 审批人 两个节点
+        List<Approver> approver = Arrays.asList(
+                new Approver("123"), new Approver("123")
+        );
+        // 摘要
+        List<Summary> summaryList = Collections.singletonList(new Summary(Collections.singletonList(ApprovalTitle.zhCN("测试模板"))));
+        //        审批人模式：0-通过接口指定审批人、抄送人（此时approver、notifyer等参数可用）;
+//        1-使用此模板在管理后台设置的审批流程(需要保证审批流程中没有“申请人自选”节点)，支持条件审批。
+        // 这里使用 0
+        ApprovalApplyRequest request = ApprovalApplyRequest.approverMode(
+                "1233",
+                templateId,
+                approver,
+                controls,
+                dataValues,
+                summaryList
+        );
+
+        GenericResponse<String> apply = approvalApi.applyEvent(request);
+
+        // 按照审批号查询详情
+        GenericResponse<ApprovalDetail> approvalDetail = approvalApi.getApprovalDetail(new ApprovalSpNo(apply.getData()));
+        System.out.println("approvalDetail = " + approvalDetail);
 
     }
 

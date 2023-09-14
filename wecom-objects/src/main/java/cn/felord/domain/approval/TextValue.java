@@ -21,16 +21,42 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Text value.
+ *
  * @author dax
- * @since 2023/5/26
+ * @since 2023 /5/26
  */
 @ToString
 @Getter
 public class TextValue implements ContentDataValue {
     private final String text;
 
+    /**
+     * Instantiates a new Text value.
+     *
+     * @param text the text
+     */
     @JsonCreator
-    public TextValue(@JsonProperty("text") String text) {
+    TextValue(@JsonProperty("text") String text) {
         this.text = text;
+    }
+
+    /**
+     * From text value.
+     *
+     * @param text the text
+     * @return the text value
+     */
+    public static TextValue from(String text) {
+        return new TextValue(text);
+    }
+
+    /**
+     * null value.
+     *
+     * @return the text value
+     */
+    public static TextValue nullValue() {
+        return from(null);
     }
 }

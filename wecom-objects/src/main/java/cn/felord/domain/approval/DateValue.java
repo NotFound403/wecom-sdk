@@ -71,6 +71,7 @@ public class DateValue implements ContentDataValue {
     @Getter
     public static class Wrapper {
         private final DateCtrlType type;
+        @JsonProperty("s_timestamp")
         private final Instant sTimestamp;
 
         /**
