@@ -28,4 +28,5 @@ public class SyncMsgRequest {
     private String token;
     private Integer limit;
     private VoiceFormat voiceFormat;
+    private String openKfid;
 }

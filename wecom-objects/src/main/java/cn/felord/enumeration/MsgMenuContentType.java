@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum MsgMenuContentType.
+ * 菜单类型
  *
  * @author dax
  * @since 2023 /5/25 16:19
@@ -29,19 +29,24 @@ import java.util.Arrays;
 public enum MsgMenuContentType {
 
     /**
-     * Click msg menu content type.
+     * 回复菜单
      */
     CLICK("click"),
 
     /**
-     * View msg menu content type.
+     * 超链接菜单
      */
     VIEW("view"),
 
     /**
-     * Miniprogram msg menu content type.
+     * 小程序菜单
      */
-    MINIPROGRAM("miniprogram");
+    MINIPROGRAM("miniprogram"),
+
+    /**
+     * 文本
+     */
+    TEXT("text");
     private final String type;
 
     MsgMenuContentType(String type) {

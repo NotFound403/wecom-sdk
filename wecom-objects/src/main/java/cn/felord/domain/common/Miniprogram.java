@@ -15,14 +15,36 @@
 
 package cn.felord.domain.common;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type Miniprogram.
+ *
  * @author n1
  */
-@Data
+@ToString
+@Getter
 public class Miniprogram {
-    private String pagepath;
-    private String appid;
-    private String title;
+    private final String appid;
+    private final String pagepath;
+    private final String title;
+
+    /**
+     * Instantiates a new Miniprogram.
+     *
+     * @param appid    the appid
+     * @param pagepath the pagepath
+     * @param title    the title
+     */
+    @JsonCreator
+    public Miniprogram(@JsonProperty("appid") String appid,
+                       @JsonProperty("pagepath") String pagepath,
+                       @JsonProperty("title") String title) {
+        this.appid = appid;
+        this.pagepath = pagepath;
+        this.title = title;
+    }
 }

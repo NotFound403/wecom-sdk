@@ -18,12 +18,11 @@ package cn.felord.domain.callcenter;
 import cn.felord.enumeration.MsgMenuContentType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The type Click msg menu content.
+ * 回复菜单
  *
  * @author dax
  * @since 2023 /6/3
@@ -39,17 +38,40 @@ public class ClickMsgMenuContent extends MsgMenuContent {
      * @param click the click
      */
     @JsonCreator
-    public ClickMsgMenuContent(@JsonProperty("click") Click click) {
+    ClickMsgMenuContent(@JsonProperty("click") Click click) {
         super(MsgMenuContentType.CLICK);
         this.click = click;
     }
 
     /**
+     * Instantiates a new Click msg menu content.
+     *
+     * @param id      the id
+     * @param content the content
+     */
+    public ClickMsgMenuContent(String id, String content) {
+        this(new Click(id, content));
+    }
+
+    /**
      * The type Click.
      */
-    @Data
-    public static class Click{
-        private String id;
-        private String content;
+    @ToString
+    @Getter
+    public static class Click {
+        private final String id;
+        private final String content;
+
+        /**
+         * Instantiates a new Click.
+         *
+         * @param content the content
+         * @param id      the id
+         */
+        @JsonCreator
+        Click(@JsonProperty("id") String id, @JsonProperty("content") String content) {
+            this.id = id;
+            this.content = content;
+        }
     }
 }

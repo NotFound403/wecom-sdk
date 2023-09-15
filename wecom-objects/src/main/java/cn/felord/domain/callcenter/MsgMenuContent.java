@@ -32,6 +32,7 @@ import lombok.Getter;
         @JsonSubTypes.Type(value = ClickMsgMenuContent.class, name = "click"),
         @JsonSubTypes.Type(value = ViewMsgMenuContent.class, name = "view"),
         @JsonSubTypes.Type(value = MiniprogramMsgMenuContent.class, name = "miniprogram"),
+        @JsonSubTypes.Type(value = TextMsgMenuContent.class, name = "text")
 })
 @AllArgsConstructor
 @Getter

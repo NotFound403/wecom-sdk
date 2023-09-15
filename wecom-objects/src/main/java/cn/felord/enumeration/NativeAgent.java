@@ -60,7 +60,10 @@ public enum NativeAgent {
     PAY("3010046", "企业支付"),
     /**
      * 日程
+     * <p>
+     * @deprecated 日程的secret已经不对外暴漏
      */
+    @Deprecated
     SCHEDULE("3010084", "日程"),
     /**
      * 人事助手

@@ -19,6 +19,7 @@ import cn.felord.payment.PayException;
 import cn.felord.payment.wechat.enumeration.CouponState;
 import cn.felord.payment.wechat.v3.domain.GenericPayResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.AssociateTime;
+import cn.felord.payment.wechat.v3.domain.busifavor.CodeUploadResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.CouponCodeUploadParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorAssociateInfo;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorBudgetParams;
@@ -132,7 +133,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/stocks/{stock_id}/couponcodes")
-    ResponseBody uploadCouponCodes(@Body CouponCodeUploadParams params) throws PayException;
+    CodeUploadResponse uploadCouponCodes(@Body CouponCodeUploadParams params) throws PayException;
 
     /**
      * 设置商家券事件通知地址API

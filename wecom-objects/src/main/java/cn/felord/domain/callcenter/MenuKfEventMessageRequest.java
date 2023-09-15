@@ -28,12 +28,12 @@ import lombok.ToString;
 public class MenuKfEventMessageRequest extends KfEventMessageRequest {
     private final KfMsgMenu msgmenu;
 
-    public MenuKfEventMessageRequest(String touser, KfMsgMenu msgmenu) {
-        this(touser, null, msgmenu);
+    public MenuKfEventMessageRequest(String code, KfMsgMenu msgmenu) {
+        this(code, null, msgmenu);
     }
 
-    public MenuKfEventMessageRequest(String touser, String msgid, KfMsgMenu msgmenu) {
-        super(touser, msgid, KfMsgType.TEXT);
+    public MenuKfEventMessageRequest(String code, String msgid, KfMsgMenu msgmenu) {
+        super(code, msgid, KfMsgType.MSG_MENU);
         this.msgmenu = msgmenu;
     }
 }

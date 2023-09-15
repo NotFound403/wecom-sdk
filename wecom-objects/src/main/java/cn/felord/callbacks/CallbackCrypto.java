@@ -236,4 +236,29 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
         }
         return decrypted.getContent();
     }
+
+
+    /**
+     * 校验receiveid ，为了通用使用 decryptMsg 方法，此处作为备份
+     *
+     * @param callbackSettings the callback settings
+     * @param msgSignature     the msg signature
+     * @param timeStamp        the time stamp
+     * @param nonce            the nonce
+     * @param encrypt          the encrypt
+     * @return string
+     */
+    String decryptMsgAndVerify(CallbackSettings callbackSettings, String msgSignature, String timeStamp, String nonce, String encrypt) {
+        String token = callbackSettings.getToken();
+        String signature = Algorithms.sha1Signature(token, timeStamp, nonce, encrypt);
+        if (!Objects.equals(msgSignature, signature)) {
+            throw new WeComException("callback signature not matched");
+        }
+        CallbackDecrypted decrypted = this.decrypt(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
+        // receiveid不相同的情况
+        if (!Objects.equals(decrypted.getReceiveid(), callbackSettings.getReceiveid())) {
+            throw new WeComException("invalid corpid");
+        }
+        return decrypted.getContent();
+    }
 }

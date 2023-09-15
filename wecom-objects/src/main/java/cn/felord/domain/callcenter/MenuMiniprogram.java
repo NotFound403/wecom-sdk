@@ -15,26 +15,36 @@
 
 package cn.felord.domain.callcenter;
 
-import cn.felord.enumeration.KfMsgType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
- * @author dax
- * @since 2023/6/4
+ * The type Miniprogram.
+ *
+ * @author n1
  */
 @ToString
 @Getter
-public class TextKfEventMessageRequest extends KfEventMessageRequest {
-    private final KfMessageText text;
+public class MenuMiniprogram {
+    private final String appid;
+    private final String pagepath;
+    private final String content;
 
-
-    public TextKfEventMessageRequest(String code, KfMessageText text) {
-        this(code, null, text);
-    }
-
-    public TextKfEventMessageRequest(String code, String msgid, KfMessageText text) {
-        super(code, msgid, KfMsgType.TEXT);
-        this.text = text;
+    /**
+     * Instantiates a new Miniprogram.
+     *
+     * @param appid    the appid
+     * @param pagepath the pagepath
+     * @param content  the content
+     */
+    @JsonCreator
+    public MenuMiniprogram(@JsonProperty("appid") String appid,
+                           @JsonProperty("pagepath") String pagepath,
+                           @JsonProperty("content") String content) {
+        this.appid = appid;
+        this.pagepath = pagepath;
+        this.content = content;
     }
 }

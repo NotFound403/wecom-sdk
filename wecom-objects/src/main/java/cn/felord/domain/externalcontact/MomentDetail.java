@@ -40,9 +40,4 @@ public class MomentDetail {
     private MomentLink link;
     private MomentLocation location;
 
-    @Data
-    public static class MomentDetailVideo {
-        private String mediaId;
-        private String thumbMediaId;
-    }
 }
