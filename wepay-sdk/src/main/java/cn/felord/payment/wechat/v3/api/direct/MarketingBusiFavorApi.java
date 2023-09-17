@@ -29,15 +29,16 @@ import cn.felord.payment.wechat.v3.domain.busifavor.FavorCreateParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorDeactivateParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorRefundParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorSubsidyParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorSubsidyResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorUpdateParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorUseParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorUseResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.StockDetailResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.StockResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.UserCouponResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.UserCouponsDetailResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.UserFavorQueryParams;
 import cn.felord.retrofit.VoidResponse;
-import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
@@ -117,9 +118,9 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @GET("v3/marketing/busifavor/users/{openid}/coupons/{coupon_code}/appids/{appid}")
-    ResponseBody queryUserCoupon(@Path("openid") String openid,
-                                 @Path("coupon_code") String couponCode,
-                                 @Path("appid") String appid) throws PayException;
+    UserCouponResponse queryUserCoupon(@Path("openid") String openid,
+                                       @Path("coupon_code") String couponCode,
+                                       @Path("appid") String appid) throws PayException;
 
     /**
      * 上传预存code API
@@ -155,7 +156,7 @@ public interface MarketingBusiFavorApi {
      * @throws PayException the pay exception
      */
     @POST("v3/marketing/busifavor/callbacks")
-    ResponseBody setCallbacks(@Body FavorCallbackSetting setting) throws PayException;
+    FavorCallbackSetting setCallbacks(@Body FavorCallbackSetting setting) throws PayException;
 
     /**
      * 查询商家券事件通知地址API
@@ -278,7 +279,7 @@ public interface MarketingBusiFavorApi {
      * @since 1.0.13.RELEASE
      */
     @POST("v3/marketing/busifavor/subsidy/pay-receipts")
-    ResponseBody payMakeup(@Body FavorSubsidyParams params) throws PayException;
+    FavorSubsidyResponse payMakeup(@Body FavorSubsidyParams params) throws PayException;
 
     /**
      * 查询营销补差付款单详情API
@@ -291,6 +292,6 @@ public interface MarketingBusiFavorApi {
      * @since 1.0.13.RELEASE
      */
     @GET("v3/marketing/busifavor/subsidy/pay-receipts/{subsidy_receipt_id}")
-    ResponseBody queryMakeup(@Path("subsidy_receipt_id") String subsidyReceiptId) throws PayException;
+    FavorSubsidyResponse queryMakeup(@Path("subsidy_receipt_id") String subsidyReceiptId) throws PayException;
 
 }
