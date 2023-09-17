@@ -50,7 +50,6 @@ import cn.felord.domain.common.TemplateId;
 import cn.felord.domain.contactbook.department.DeptInfo;
 import cn.felord.domain.contactbook.user.SimpleUser;
 import cn.felord.domain.externalcontact.ContentText;
-import cn.felord.domain.externalcontact.MediaMiniprogram;
 import cn.felord.domain.externalcontact.MiniprogramMsgAttachment;
 import cn.felord.domain.externalcontact.MsgTemplateRequest;
 import cn.felord.domain.externalcontact.MsgTemplateResponse;
@@ -192,8 +191,7 @@ class SpringBootWecomSdkTests {
 
         // 小程序活动页面
         String page = "store/pages/hots/detail.html?sku=xd233243&state=QWPT2342";
-        MediaMiniprogram miniprogram = new MediaMiniprogram(title, appid, picMeidaId, page);
-        MiniprogramMsgAttachment o = new MiniprogramMsgAttachment(miniprogram);
+        MiniprogramMsgAttachment o = new MiniprogramMsgAttachment(title, appid, picMeidaId, page);
         request.setAttachments(Collections.singletonList(o));
         AgentDetails nativedAgent = DefaultAgent.nativeAgent("企业id", "外部联系人密钥", NativeAgent.EXTERNAL);
         MsgTemplateResponse msgTemplateResponse = workWeChatApi.externalContactManager(nativedAgent)

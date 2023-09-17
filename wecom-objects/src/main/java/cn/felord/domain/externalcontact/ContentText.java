@@ -21,14 +21,21 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Content text.
+ *
  * @author dax
- * @since 2021/7/23 15:11
+ * @since 2021 /7/23 15:11
  */
 @ToString
 @Getter
 public class ContentText {
     private final String content;
 
+    /**
+     * Instantiates a new Content text.
+     *
+     * @param content the content
+     */
     @JsonCreator
     public ContentText(@JsonProperty("content") String content) {
         this.content = content;

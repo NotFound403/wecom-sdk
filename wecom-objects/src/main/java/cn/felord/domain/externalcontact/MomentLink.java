@@ -36,24 +36,14 @@ public class MomentLink {
     /**
      * Instantiates a new Moment link.
      *
-     * @param url     the url
-     * @param mediaId the media id
-     */
-    public MomentLink(String url, String mediaId) {
-        this(null, url, mediaId);
-    }
-
-    /**
-     * Instantiates a new Moment link.
-     *
      * @param title   the title
      * @param url     the url
      * @param mediaId the media id
      */
     @JsonCreator
-    public MomentLink(@JsonProperty("title") String title,
-                      @JsonProperty("url") String url,
-                      @JsonProperty("media_id") String mediaId) {
+    MomentLink(@JsonProperty("title") String title,
+               @JsonProperty("url") String url,
+               @JsonProperty("media_id") String mediaId) {
         this.title = title;
         this.url = url;
         this.mediaId = mediaId;

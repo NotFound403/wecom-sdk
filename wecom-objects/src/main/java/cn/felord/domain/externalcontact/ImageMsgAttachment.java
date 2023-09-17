@@ -33,9 +33,28 @@ public class ImageMsgAttachment extends MsgAttachment {
     private final Image image;
 
     @JsonCreator
-    public ImageMsgAttachment(@JsonProperty("image") Image image) {
+    ImageMsgAttachment(@JsonProperty("image") Image image) {
         super(MsgAttachType.IMAGE);
         this.image = image;
     }
 
+    /**
+     * With media id image.
+     *
+     * @param mediaId the media id
+     * @return the image
+     */
+    public static ImageMsgAttachment withMediaId(String mediaId) {
+        return new ImageMsgAttachment(new Image(mediaId, null));
+    }
+
+    /**
+     * With pic url image.
+     *
+     * @param picUrl the pic url
+     * @return the image
+     */
+    public static ImageMsgAttachment withPicUrl(String picUrl) {
+        return new ImageMsgAttachment(new Image(null, picUrl));
+    }
 }

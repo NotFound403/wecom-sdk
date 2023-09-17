@@ -15,13 +15,17 @@
 
 package cn.felord.domain.message;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  * @author felord
  * @since 2021/11/22 17:34
  */
-@Data
+@ToString
+@Getter
+@RequiredArgsConstructor
 public abstract class MessageArticle {
     private final String title;
 }

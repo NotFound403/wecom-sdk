@@ -23,8 +23,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Link msg attachment.
+ *
  * @author dax
- * @since 2021/4/22 14:53
+ * @since 2021 /4/22 14:53
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString
@@ -32,9 +34,48 @@ import lombok.ToString;
 public class LinkMsgAttachment extends MsgAttachment {
     private final Link link;
 
+    /**
+     * Instantiates a new Link msg attachment.
+     *
+     * @param link the link
+     */
     @JsonCreator
-    public LinkMsgAttachment(@JsonProperty("link") Link link) {
+    LinkMsgAttachment(@JsonProperty("link") Link link) {
         super(MsgAttachType.LINK);
         this.link = link;
+    }
+
+
+    /**
+     * Instantiates a new Link msg attachment.
+     *
+     * @param title  the title
+     * @param url    the url
+     * @param picurl the picurl
+     * @param desc   the desc
+     */
+    public LinkMsgAttachment(String title, String url, String picurl, String desc) {
+        this(new Link(title, url, picurl, desc));
+    }
+
+    /**
+     * Instantiates a new Link msg attachment.
+     *
+     * @param title  the title
+     * @param url    the url
+     * @param picurl the picurl
+     */
+    public LinkMsgAttachment(String title, String url, String picurl) {
+        this(new Link(title, url, picurl, null));
+    }
+
+    /**
+     * Instantiates a new Link msg attachment.
+     *
+     * @param title the title
+     * @param url   the url
+     */
+    public LinkMsgAttachment(String title, String url) {
+        this(new Link(title, url, null, null));
     }
 }

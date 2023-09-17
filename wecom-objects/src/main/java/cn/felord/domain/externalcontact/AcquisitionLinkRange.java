@@ -15,16 +15,37 @@
 
 package cn.felord.domain.externalcontact;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
 
 /**
+ * The type Acquisition link range.
+ *
  * @author dax
- * @since 2023/5/30
+ * @since 2023 /5/30
  */
-@Data
+@ToString
+@Getter
 public class AcquisitionLinkRange {
-    private List<String> userList;
-    private List<Long> departmentList;
+    private final Set<String> userList;
+    private final List<Long> departmentList;
+
+    /**
+     * Instantiates a new Acquisition link range.
+     *
+     * @param userList       the user list
+     * @param departmentList the department list
+     */
+    @JsonCreator
+    AcquisitionLinkRange(@JsonProperty("user_list") Set<String> userList,
+                         @JsonProperty("department_list") List<Long> departmentList) {
+        this.userList = userList;
+        this.departmentList = departmentList;
+    }
+
 }

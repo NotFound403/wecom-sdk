@@ -20,17 +20,35 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
+ * The type Link moment attachment.
+ *
  * @author dax
- * @since 2021/7/23 15:15
+ * @since 2021 /7/23 15:15
  */
 @EqualsAndHashCode(callSuper = true)
 @Getter
 public class LinkMomentAttachment extends MomentAttachment {
     private final MomentLink link;
 
-    public LinkMomentAttachment(MomentLink link) {
-        super(MomentAttachmentType.LINK);
-        this.link = link;
+    /**
+     * Instantiates a new Link moment attachment.
+     *
+     * @param url     the url
+     * @param mediaId the media id
+     */
+    public LinkMomentAttachment(String url, String mediaId) {
+        this(null, url, mediaId);
     }
 
+    /**
+     * Instantiates a new Link moment attachment.
+     *
+     * @param title   the title
+     * @param url     the url
+     * @param mediaId the media id
+     */
+    public LinkMomentAttachment(String title, String url, String mediaId) {
+        super(MomentAttachmentType.LINK);
+        this.link = new MomentLink(title, url, mediaId);
+    }
 }

@@ -24,8 +24,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type File msg attachment.
+ *
  * @author dax
- * @since 2021/4/22 14:53
+ * @since 2021 /4/22 14:53
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString
@@ -33,9 +35,23 @@ import lombok.ToString;
 public class FileMsgAttachment extends MsgAttachment {
     private final MediaId file;
 
+    /**
+     * Instantiates a new File msg attachment.
+     *
+     * @param file the file
+     */
     @JsonCreator
-    public FileMsgAttachment(@JsonProperty("file") MediaId file) {
+    FileMsgAttachment(@JsonProperty("file") MediaId file) {
         super(MsgAttachType.FILE);
         this.file = file;
+    }
+
+    /**
+     * Instantiates a new File msg attachment.
+     *
+     * @param fileMediaId the file media id
+     */
+    public FileMsgAttachment(String fileMediaId) {
+        this(new MediaId(fileMediaId));
     }
 }

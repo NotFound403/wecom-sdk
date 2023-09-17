@@ -17,6 +17,7 @@ package cn.felord.domain.externalcontact;
 
 import cn.felord.utils.StringUtils;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Collections;
 import java.util.Set;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
  * @author dax
  * @since 2021 /7/22 15:10
  */
+@ToString
 @Getter
 public class MomentBody<T extends MomentAttachment> {
     private final VisibleRange visibleRange;
@@ -149,38 +151,38 @@ public class MomentBody<T extends MomentAttachment> {
     /**
      * 图文附件朋友圈，不带文案，全员发送
      *
-     * @param momentLink the moment link
+     * @param linkMomentAttachment the link moment attachment
      * @return the moment body
      */
-    public static MomentBody<MomentAttachment> linkMoment(MomentLink momentLink) {
-        return linkMoment(momentLink, null);
+    public static MomentBody<MomentAttachment> linkMoment(LinkMomentAttachment linkMomentAttachment) {
+        return linkMoment(linkMomentAttachment, null);
     }
 
     /**
      * 图文附件朋友圈，不带文案，指定范围
      *
-     * @param momentLink   the moment link
-     * @param visibleRange the visible range
+     * @param linkMomentAttachment the link moment attachment
+     * @param visibleRange         the visible range
      * @return the moment body
      */
-    public static MomentBody<MomentAttachment> linkMoment(MomentLink momentLink, VisibleRange visibleRange) {
-        return linkMoment(null, momentLink, visibleRange);
+    public static MomentBody<MomentAttachment> linkMoment(LinkMomentAttachment linkMomentAttachment, VisibleRange visibleRange) {
+        return linkMoment(null, linkMomentAttachment, visibleRange);
     }
 
     /**
      * 图文附件朋友圈
      *
-     * @param content      the content
-     * @param momentLink   the moment link
-     * @param visibleRange the visible range
+     * @param content              the content
+     * @param linkMomentAttachment the link moment attachment
+     * @param visibleRange         the visible range
      * @return the moment body
      */
-    public static MomentBody<MomentAttachment> linkMoment(String content, MomentLink momentLink, VisibleRange visibleRange) {
+    public static MomentBody<MomentAttachment> linkMoment(String content, LinkMomentAttachment linkMomentAttachment, VisibleRange visibleRange) {
         MomentBody<MomentAttachment> linkMomentAttachmentMomentBody = new MomentBody<>(visibleRange);
         if (StringUtils.hasText(content)) {
             linkMomentAttachmentMomentBody.setText(new ContentText(content));
         }
-        linkMomentAttachmentMomentBody.setAttachments(Collections.singleton(new LinkMomentAttachment(momentLink)));
+        linkMomentAttachmentMomentBody.setAttachments(Collections.singleton(linkMomentAttachment));
         return linkMomentAttachmentMomentBody;
     }
 
