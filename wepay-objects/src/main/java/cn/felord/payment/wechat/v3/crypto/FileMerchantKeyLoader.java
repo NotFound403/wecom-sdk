@@ -45,6 +45,9 @@ public class FileMerchantKeyLoader {
         }
     }
 
+    private FileMerchantKeyLoader() {
+    }
+
     public static JWK rsaJwk(String storePassword, String path, String merchantId) throws PayException {
 
         char[] pin = storePassword.toCharArray();

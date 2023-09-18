@@ -15,8 +15,6 @@
 package cn.felord.payment.wechat.v3.domain.direct.basepay;
 
 
-import lombok.RequiredArgsConstructor;
-
 import java.time.OffsetDateTime;
 
 /**
@@ -25,7 +23,7 @@ import java.time.OffsetDateTime;
  * @author felord.cn
  * @since 1.0.0.RELEASE
  */
-@RequiredArgsConstructor
+
 public class JsPayRequest {
 
     /**
@@ -82,6 +80,14 @@ public class JsPayRequest {
      * 结算信息
      */
     private SettleInfo settleInfo;
+
+    public JsPayRequest(String notifyUrl, String description, String outTradeNo, long total, String openid) {
+        this.notifyUrl = notifyUrl;
+        this.description = description;
+        this.outTradeNo = outTradeNo;
+        this.amount = new Amount(total);
+        this.payer = new Payer(openid);
+    }
 
     /**
      * Time expire js pay request.

@@ -37,7 +37,7 @@ public final class WechatPayApi {
     }
 
     /**
-     * Direct base pay api direct base pay api.
+     * 直接支付
      *
      * @param appMerchant the app merchant
      * @return the direct base pay api
@@ -46,6 +46,15 @@ public final class WechatPayApi {
         return new DirectBasePayApi(factory, appMerchant);
     }
 
+    /**
+     * 商家券
+     *
+     * @param appMerchant the app merchant
+     * @return the marketing busi favor api
+     */
+    public MarketingBusiFavorApi busiFavorApi(AppMerchant appMerchant) {
+        return factory.app(appMerchant).create(MarketingBusiFavorApi.class);
+    }
 
     /**
      * The type Builder.

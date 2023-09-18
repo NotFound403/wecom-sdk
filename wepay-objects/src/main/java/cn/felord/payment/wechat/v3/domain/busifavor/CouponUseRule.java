@@ -102,7 +102,7 @@ public class CouponUseRule {
      * @param discountCoupon the discount coupon
      * @return the coupon use rule
      */
-    public static CouponUseRule fixedNormalCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, DiscountCoupon discountCoupon) {
+    public static CouponUseRule discountCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, DiscountCoupon discountCoupon) {
         return new CouponUseRule(useMethod, availableTime, null, null, discountCoupon);
     }
 
@@ -115,7 +115,11 @@ public class CouponUseRule {
      * @param fixedNormalCoupon   the fixed normal coupon
      * @param discountCoupon      the discount coupon
      */
-    CouponUseRule(BusiFavorUseMethod useMethod, CouponAvailableTime couponAvailableTime, ExchangeCoupon exchangeCoupon, FixedNormalCoupon fixedNormalCoupon, DiscountCoupon discountCoupon) {
+    CouponUseRule(BusiFavorUseMethod useMethod,
+                  CouponAvailableTime couponAvailableTime,
+                  ExchangeCoupon exchangeCoupon,
+                  FixedNormalCoupon fixedNormalCoupon,
+                  DiscountCoupon discountCoupon) {
         this.useMethod = useMethod;
         this.couponAvailableTime = couponAvailableTime;
         this.exchangeCoupon = exchangeCoupon;

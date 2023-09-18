@@ -15,28 +15,50 @@
 
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
-import cn.felord.payment.wechat.enumeration.SubsidyFailReason;
-import cn.felord.payment.wechat.enumeration.SubsidyStatus;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.time.OffsetDateTime;
-
+/**
+ * 营销补差回退API请求参数
+ *
+ * @author felord.cn
+ * @since 1.0.13.RELEASE
+ */
 @Data
-public class FavorSubsidyResponse {
-    private String subsidyReceiptId;
+public class FavorSubsidyReturnParams {
+    /**
+     * 商家券批次号，必传
+     */
     private String stockId;
+    /**
+     * 商家券Code，必传
+     */
     private String couponCode;
+    /**
+     * 微信支付订单号，必传
+     */
     private String transactionId;
+    /**
+     * 微信支付退款单号
+     */
+    private String refundId;
+    /**
+     * 营销补差扣款商户号，必传
+     */
     private String payerMerchant;
+    /**
+     * 营销补差入账商户号，必传
+     */
     private String payeeMerchant;
+    /**
+     * 补差付款金额，必传
+     */
     private Integer amount;
+    /**
+     * 补差付款描述，必传
+     */
     private String description;
-    private SubsidyStatus status;
-    private SubsidyFailReason failReason;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private OffsetDateTime successTime;
-    private String outSubsidyNo;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private OffsetDateTime createTime;
+    /**
+     * 业务请求唯一单号，必传
+     */
+    private String outSubsidyReturnNo;
 }
