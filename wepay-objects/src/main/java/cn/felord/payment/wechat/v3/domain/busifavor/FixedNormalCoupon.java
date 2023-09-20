@@ -14,6 +14,8 @@
  */
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -37,4 +39,11 @@ public class FixedNormalCoupon {
      * 特殊规则：取值范围 1 ≤ transactionMinimum ≤ 10000000
      */
     private Long transactionMinimum;
+
+    @JsonCreator
+    public FixedNormalCoupon(@JsonProperty("discount_amount") Long discountAmount,
+                             @JsonProperty("transaction_minimum") Long transactionMinimum) {
+        this.discountAmount = discountAmount;
+        this.transactionMinimum = transactionMinimum;
+    }
 }

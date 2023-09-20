@@ -23,8 +23,8 @@ import lombok.Data;
 import java.time.OffsetDateTime;
 
 @Data
-public class FavorSubsidyResponse {
-    private String subsidyReceiptId;
+public class FavorReturnSubsidyResponse {
+    private String subsidyReturnReceiptId;
     private String stockId;
     private String couponCode;
     private String transactionId;
@@ -35,8 +35,9 @@ public class FavorSubsidyResponse {
     private SubsidyStatus status;
     private SubsidyFailReason failReason;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private OffsetDateTime successTime;
-    private String outSubsidyNo;
+    private OffsetDateTime returnDoneTime;
+    private String subsidyReceiptId;
+    private String outSubsidyReturnNo;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private OffsetDateTime createTime;
+    private OffsetDateTime returnCreateTime;
 }

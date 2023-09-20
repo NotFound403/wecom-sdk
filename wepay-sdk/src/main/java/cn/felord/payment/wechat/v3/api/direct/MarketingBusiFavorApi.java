@@ -28,8 +28,11 @@ import cn.felord.payment.wechat.v3.domain.busifavor.FavorCallbackSetting;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorCreateParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorDeactivateParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorRefundParams;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorReturnSubsidyResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorSubsidyListResponse;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorSubsidyParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorSubsidyResponse;
+import cn.felord.payment.wechat.v3.domain.busifavor.FavorSubsidyReturnParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorUpdateParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorUseParams;
 import cn.felord.payment.wechat.v3.domain.busifavor.FavorUseResponse;
@@ -70,7 +73,7 @@ public interface MarketingBusiFavorApi {
     StockResponse createStock(@Body FavorCreateParams params) throws PayException;
 
     /**
-     * 查询商家券详情API
+     * 查询商家券批次详情API
      * <p>
      * 商户可通过该接口查询已创建的商家券批次详情信息。
      *
@@ -107,7 +110,7 @@ public interface MarketingBusiFavorApi {
     UserCouponsDetailResponse queryUserStocks(@Path("openid") String openid, @QueryMap UserFavorQueryParams params) throws PayException;
 
     /**
-     * 查询用户单张券详情API
+     * 查询用户券详情API
      * <p>
      * 服务商可通过该接口查询微信用户卡包中某一张商家券的详情信息。
      *
@@ -159,7 +162,7 @@ public interface MarketingBusiFavorApi {
     FavorCallbackSetting setCallbacks(@Body FavorCallbackSetting setting) throws PayException;
 
     /**
-     * 查询商家券事件通知地址API
+     * 获取商家券事件通知地址API
      * <p>
      * 通过调用此接口可查询设置的通知URL。
      * <p>
@@ -267,6 +270,18 @@ public interface MarketingBusiFavorApi {
     GenericPayResponse<OffsetDateTime> deactivate(@Body FavorDeactivateParams params) throws PayException;
 
     /**
+     * 营销补差回退API
+     * <p>
+     * 商户通过该接口可回退补差款
+     *
+     * @param params the params
+     * @return wechat response entity
+     * @throws PayException the pay exception
+     */
+    @POST("v3/marketing/busifavor/subsidy/return-receipts")
+    FavorReturnSubsidyResponse returnReceipts(@Body FavorSubsidyReturnParams params) throws PayException;
+
+    /**
      * 营销补差付款API
      * <p>
      * 该API主要用于商户营销补贴场景，
@@ -279,7 +294,7 @@ public interface MarketingBusiFavorApi {
      * @since 1.0.13.RELEASE
      */
     @POST("v3/marketing/busifavor/subsidy/pay-receipts")
-    FavorSubsidyResponse payMakeup(@Body FavorSubsidyParams params) throws PayException;
+    FavorSubsidyListResponse payMakeup(@Body FavorSubsidyParams params) throws PayException;
 
     /**
      * 查询营销补差付款单详情API
