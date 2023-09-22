@@ -78,7 +78,7 @@ public class CouponUseRule {
      * @param exchangeCoupon the exchange coupon
      * @return the coupon use rule
      */
-    public static CouponUseRule exchangeCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, ExchangeCoupon exchangeCoupon) {
+    static CouponUseRule exchangeCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, ExchangeCoupon exchangeCoupon) {
         return new CouponUseRule(useMethod, availableTime, exchangeCoupon, null, null);
     }
 
@@ -90,7 +90,7 @@ public class CouponUseRule {
      * @param fixedNormalCoupon the fixed normal coupon
      * @return the coupon use rule
      */
-    public static CouponUseRule fixedNormalCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, FixedNormalCoupon fixedNormalCoupon) {
+    static CouponUseRule fixedNormalCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, FixedNormalCoupon fixedNormalCoupon) {
         return new CouponUseRule(useMethod, availableTime, null, fixedNormalCoupon, null);
     }
 
@@ -102,7 +102,7 @@ public class CouponUseRule {
      * @param discountCoupon the discount coupon
      * @return the coupon use rule
      */
-    public static CouponUseRule discountCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, DiscountCoupon discountCoupon) {
+    static CouponUseRule discountCoupon(BusiFavorUseMethod useMethod, CouponAvailableTime availableTime, DiscountCoupon discountCoupon) {
         return new CouponUseRule(useMethod, availableTime, null, null, discountCoupon);
     }
 
@@ -150,18 +150,18 @@ public class CouponUseRule {
      * @param miniProgramsAppid the mini programs appid
      * @return the coupon use rule
      */
-    public CouponUseRule miniProgramsAppid(String miniProgramsAppid) {
+    CouponUseRule miniProgramsAppid(String miniProgramsAppid) {
         this.miniProgramsAppid = miniProgramsAppid;
         return this;
     }
 
     /**
      * Mini programs path coupon use rule.
-     *
+     *          SERVER_IPv4 = "8.131.94.30"          DEPLOY_DIR = "www/admin/localhost_80/wwwroot"
      * @param miniProgramsPath the mini programs path
      * @return the coupon use rule
      */
-    public CouponUseRule miniProgramsPath(String miniProgramsPath) {
+    CouponUseRule miniProgramsPath(String miniProgramsPath) {
         this.miniProgramsPath = miniProgramsPath;
         return this;
     }
