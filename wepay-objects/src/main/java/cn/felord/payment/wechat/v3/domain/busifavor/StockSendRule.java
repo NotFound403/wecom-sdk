@@ -95,6 +95,9 @@ public class StockSendRule {
         this.shareable = shareable;
     }
 
+    public StockSendRule() {
+    }
+
     /**
      * Max coupons stock send rule.
      *

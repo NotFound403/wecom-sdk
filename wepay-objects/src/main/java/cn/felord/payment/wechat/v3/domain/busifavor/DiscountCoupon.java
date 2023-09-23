@@ -14,7 +14,10 @@
  */
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 商家券核销规则-折扣券使用规则
@@ -22,18 +25,31 @@ import lombok.Data;
  * @author felord.cn
  * @since 1.0.4.RELEASE
  */
-@Data
+@ToString
+@Getter
 public class DiscountCoupon {
 
     /**
      * 折扣百分比，例如：88为八八折
      */
-    private Integer discountPercent;
+    private final Integer discountPercent;
     /**
      * 消费门槛，单位：分。
      * <p>
      * 特殊规则：取值范围 1 ≤ transactionMinimum ≤ 10000000
      */
-    private Long transactionMinimum;
+    private final Long transactionMinimum;
 
+    /**
+     * Instantiates a new Discount coupon.
+     *
+     * @param discountPercent    the discount percent
+     * @param transactionMinimum the transaction minimum
+     */
+    @JsonCreator
+    public DiscountCoupon(@JsonProperty("discount_percent") Integer discountPercent,
+                          @JsonProperty("transaction_minimum") Long transactionMinimum) {
+        this.discountPercent = discountPercent;
+        this.transactionMinimum = transactionMinimum;
+    }
 }

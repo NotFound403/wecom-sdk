@@ -14,10 +14,10 @@
  */
 package cn.felord.payment.wechat.v3.domain.busifavor;
 
+import cn.felord.payment.wechat.enumeration.BusiFavorUseMethod;
 import cn.felord.payment.wechat.enumeration.CouponCodeMode;
 import cn.felord.payment.wechat.enumeration.StockType;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -27,7 +27,6 @@ import lombok.ToString;
  * @since 1.0.4.RELEASE
  */
 @ToString
-@RequiredArgsConstructor
 @Getter
 public class FavorCreateParams {
 
@@ -88,6 +87,136 @@ public class FavorCreateParams {
      */
     private Boolean subsidy;
 
+
+    /**
+     * 满减券
+     *
+     * @param stockName         the stock name
+     * @param belongMerchant    the belong merchant
+     * @param goodsName         the goods name
+     * @param useMethod         the use method
+     * @param availableTime     the available time
+     * @param fixedNormalCoupon the fixed normal coupon
+     * @param couponCodeMode    the coupon code mode
+     * @param stockSendRule     the stock send rule
+     * @param outRequestNo      the out request no
+     * @return the favor create params
+     */
+    public static FavorCreateParams normal(String stockName,
+                                           String belongMerchant,
+                                           String goodsName,
+                                           BusiFavorUseMethod useMethod,
+                                           CouponAvailableTime availableTime,
+                                           FixedNormalCoupon fixedNormalCoupon,
+                                           CouponCodeMode couponCodeMode,
+                                           StockSendRule stockSendRule,
+                                           String outRequestNo) {
+        return new FavorCreateParams(stockName,
+                belongMerchant,
+                goodsName,
+                StockType.NORMAL,
+                CouponUseRule.fixedNormalCoupon(useMethod, availableTime, fixedNormalCoupon),
+                couponCodeMode,
+                stockSendRule,
+                outRequestNo);
+    }
+
+    /**
+     * 折扣券
+     *
+     * @param stockName      the stock name
+     * @param belongMerchant the belong merchant
+     * @param goodsName      the goods name
+     * @param useMethod      the use method
+     * @param availableTime  the available time
+     * @param discountCoupon the discount coupon
+     * @param couponCodeMode the coupon code mode
+     * @param stockSendRule  the stock send rule
+     * @param outRequestNo   the out request no
+     * @return the favor create params
+     */
+    public static FavorCreateParams discount(String stockName,
+                                             String belongMerchant,
+                                             String goodsName,
+                                             BusiFavorUseMethod useMethod,
+                                             CouponAvailableTime availableTime,
+                                             DiscountCoupon discountCoupon,
+                                             CouponCodeMode couponCodeMode,
+                                             StockSendRule stockSendRule,
+                                             String outRequestNo) {
+        return new FavorCreateParams(stockName,
+                belongMerchant,
+                goodsName,
+                StockType.DISCOUNT,
+                CouponUseRule.discountCoupon(useMethod, availableTime, discountCoupon),
+                couponCodeMode,
+                stockSendRule,
+                outRequestNo);
+    }
+
+    /**
+     * 换购券
+     *
+     * @param stockName      the stock name
+     * @param belongMerchant the belong merchant
+     * @param goodsName      the goods name
+     * @param useMethod      the use method
+     * @param availableTime  the available time
+     * @param exchangeCoupon the exchange coupon
+     * @param couponCodeMode the coupon code mode
+     * @param stockSendRule  the stock send rule
+     * @param outRequestNo   the out request no
+     * @return the favor create params
+     */
+    public static FavorCreateParams exchange(String stockName,
+                                             String belongMerchant,
+                                             String goodsName,
+                                             BusiFavorUseMethod useMethod,
+                                             CouponAvailableTime availableTime,
+                                             ExchangeCoupon exchangeCoupon,
+                                             CouponCodeMode couponCodeMode,
+                                             StockSendRule stockSendRule,
+                                             String outRequestNo) {
+        return new FavorCreateParams(stockName,
+                belongMerchant,
+                goodsName,
+                StockType.EXCHANGE,
+                CouponUseRule.exchangeCoupon(useMethod, availableTime, exchangeCoupon),
+                couponCodeMode,
+                stockSendRule,
+                outRequestNo);
+    }
+
+    /**
+     * Instantiates a new Favor create params.
+     *
+     * @param stockName      the stock name
+     * @param belongMerchant the belong merchant
+     * @param goodsName      the goods name
+     * @param stockType      the stock type
+     * @param couponUseRule  the coupon use rule
+     * @param couponCodeMode the coupon code mode
+     * @param stockSendRule  the stock send rule
+     * @param outRequestNo   the out request no
+     */
+    FavorCreateParams(String stockName,
+                      String belongMerchant,
+                      String goodsName,
+                      StockType stockType,
+                      CouponUseRule couponUseRule,
+                      CouponCodeMode couponCodeMode,
+                      StockSendRule stockSendRule,
+                      String outRequestNo) {
+        this.stockName = stockName;
+        this.belongMerchant = belongMerchant;
+        this.goodsName = goodsName;
+        this.stockType = stockType;
+        this.couponUseRule = couponUseRule;
+        this.couponCodeMode = couponCodeMode;
+        this.stockSendRule = stockSendRule;
+        this.outRequestNo = outRequestNo;
+    }
+
     /**
      * Comment busi favor create params.
      *
@@ -140,6 +269,28 @@ public class FavorCreateParams {
      */
     public FavorCreateParams subsidy(Boolean subsidy) {
         this.subsidy = subsidy;
+        return this;
+    }
+
+    /**
+     * Mini programs appid favor create params.
+     *
+     * @param miniProgramsAppid the mini programs appid
+     * @return the favor create params
+     */
+    public FavorCreateParams miniProgramsAppid(String miniProgramsAppid) {
+        this.couponUseRule.miniProgramsAppid(miniProgramsAppid);
+        return this;
+    }
+
+    /**
+     * Mini programs path coupon use rule.
+     *
+     * @param miniProgramsPath the mini programs path
+     * @return the coupon use rule
+     */
+    public FavorCreateParams miniProgramsPath(String miniProgramsPath) {
+        this.couponUseRule.miniProgramsPath(miniProgramsPath);
         return this;
     }
 }
