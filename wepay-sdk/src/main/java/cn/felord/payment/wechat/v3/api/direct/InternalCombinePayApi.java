@@ -58,7 +58,8 @@ interface InternalCombinePayApi {
     /**
      * 合单关闭订单API
      *
-     * @param combineOutTradeNo the combine out trade no
+     * @param combineOutTradeNo     the combine out trade no
+     * @param combinePayCloseParams the combine pay close params
      * @return the response body
      * @throws PayException the pay exception
      */
