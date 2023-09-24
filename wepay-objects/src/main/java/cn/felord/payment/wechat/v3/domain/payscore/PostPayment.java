@@ -37,7 +37,7 @@ public class PostPayment {
      * <p>
      * 相同订单号下不能出现相同的付费项目名称，当参数长度超过20个字符时，报错处理。
      */
-    private String name;
+    private final String name;
     /**
      * 金额，条件选填。修改订单必填
      * <p>
@@ -77,15 +77,8 @@ public class PostPayment {
         this.count = count;
     }
 
-    /**
-     * Name post payment.
-     *
-     * @param name the name
-     * @return the post payment
-     */
-    public PostPayment name(String name) {
+    public PostPayment(String name) {
         this.name = name;
-        return this;
     }
 
     /**

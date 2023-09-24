@@ -59,7 +59,7 @@ public class QueryServiceOrderParams {
      * @param outOrderNo the out order no
      * @return the query service order params
      */
-    public static QueryServiceOrderParams withOutOrderNo(String serviceId, String outOrderNo) {
+    public static QueryServiceOrderParams byOutOrderNo(String serviceId, String outOrderNo) {
         return new QueryServiceOrderParams(serviceId, outOrderNo, null);
     }
 
@@ -70,7 +70,7 @@ public class QueryServiceOrderParams {
      * @param queryId   the query id
      * @return the query service order params
      */
-    public static QueryServiceOrderParams withOutQueryId(String serviceId, String queryId) {
+    public static QueryServiceOrderParams byOutQueryId(String serviceId, String queryId) {
         return new QueryServiceOrderParams(serviceId, null, queryId);
     }
 }
