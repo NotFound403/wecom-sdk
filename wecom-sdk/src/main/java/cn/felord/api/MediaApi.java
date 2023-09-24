@@ -16,23 +16,18 @@
 package cn.felord.api;
 
 import cn.felord.WeComException;
+import cn.felord.domain.MultipartResource;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.common.JobId;
 import cn.felord.domain.media.MediaJobResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.media.MediaUploadRequest;
-import cn.felord.domain.media.MultipartResource;
-import cn.felord.enumeration.FileMediaType;
 import cn.felord.enumeration.MediaAttachmentType;
 import cn.felord.enumeration.MediaTypeEnum;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import cn.felord.utils.MediaUtil;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.http.Body;
-
-import java.util.Objects;
 
 /**
  * 素材管理
@@ -68,7 +63,7 @@ public class MediaApi {
     public MediaResponse uploadAttachment(MediaTypeEnum mediaType,
                                           MediaAttachmentType attachmentType,
                                           MultipartResource resource) throws WeComException {
-        return internalMediaApi.uploadAttachment(mediaType.type(), attachmentType.getType(), this.toMultipartBody(resource));
+        return internalMediaApi.uploadAttachment(mediaType.type(), attachmentType.getType(), MediaUtil.toMultipartBody(resource));
     }
 
     /**
@@ -85,7 +80,7 @@ public class MediaApi {
      * @throws WeComException the weComException
      */
     public MediaResponse uploadMedia(MediaTypeEnum mediaType, MultipartResource resource) throws WeComException {
-        return internalMediaApi.uploadMedia(mediaType.type(), this.toMultipartBody(resource));
+        return internalMediaApi.uploadMedia(mediaType.type(), MediaUtil.toMultipartBody(resource));
     }
 
     /**
@@ -100,7 +95,7 @@ public class MediaApi {
      * @throws WeComException the weComException
      */
     public MediaResponse uploadImage(MultipartResource resource) throws WeComException {
-        return internalMediaApi.uploadImage(this.toMultipartBody(resource));
+        return internalMediaApi.uploadImage(MediaUtil.toMultipartBody(resource));
     }
 
     /**
@@ -157,17 +152,6 @@ public class MediaApi {
      * @throws WeComException the weComException
      */
     public GenericResponse<String> uploadPayImage(MultipartResource resource) throws WeComException {
-        return internalMediaApi.uploadPayImage(this.toMultipartBody(resource));
-    }
-
-    private MultipartBody toMultipartBody(MultipartResource resource) {
-        String fileName = resource.getFileName();
-        MediaType mediaType = Objects.nonNull(resource.getMediaType()) ?
-                resource.getMediaType() : FileMediaType.fromFileName(fileName).mediaType();
-        RequestBody requestBody = RequestBody.create(resource.getSource(), mediaType);
-        return new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("media", fileName, requestBody)
-                .build();
+        return internalMediaApi.uploadPayImage(MediaUtil.toMultipartBody(resource));
     }
 }

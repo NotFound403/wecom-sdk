@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * @author felord.cn
  * @since 2021/9/3 15:16
  */
-enum HorizontalContentType {
+public enum HorizontalContentType {
     /**
      * Text.
      */

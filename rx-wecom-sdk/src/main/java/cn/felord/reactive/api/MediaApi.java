@@ -15,24 +15,19 @@
 
 package cn.felord.reactive.api;
 
+import cn.felord.domain.MultipartResource;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.common.JobId;
 import cn.felord.domain.media.MediaJobResponse;
 import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.media.MediaUploadRequest;
-import cn.felord.domain.media.MultipartResource;
-import cn.felord.enumeration.FileMediaType;
 import cn.felord.enumeration.MediaAttachmentType;
 import cn.felord.enumeration.MediaTypeEnum;
+import cn.felord.utils.MediaUtil;
 import io.reactivex.rxjava3.core.Single;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.http.Body;
-
-import java.util.Objects;
 
 /**
  * 素材管理
@@ -67,7 +62,7 @@ public class MediaApi {
     public Single<MediaResponse> uploadAttachment(MediaTypeEnum mediaType,
                                                   MediaAttachmentType attachmentType,
                                                   MultipartResource resource) {
-        return internalMediaApi.uploadAttachment(mediaType.type(), attachmentType.getType(), this.toMultipartBody(resource));
+        return internalMediaApi.uploadAttachment(mediaType.type(), attachmentType.getType(), MediaUtil.toMultipartBody(resource));
     }
 
     /**
@@ -83,7 +78,7 @@ public class MediaApi {
      * @return the media response
      */
     public Single<MediaResponse> uploadMedia(MediaTypeEnum mediaType, MultipartResource resource) {
-        return internalMediaApi.uploadMedia(mediaType.type(), this.toMultipartBody(resource));
+        return internalMediaApi.uploadMedia(mediaType.type(), MediaUtil.toMultipartBody(resource));
     }
 
     /**
@@ -97,7 +92,7 @@ public class MediaApi {
      * @return the media response
      */
     public Single<MediaResponse> uploadImage(MultipartResource resource) {
-        return internalMediaApi.uploadImage(this.toMultipartBody(resource));
+        return internalMediaApi.uploadImage(MediaUtil.toMultipartBody(resource));
     }
 
     /**
@@ -147,17 +142,7 @@ public class MediaApi {
      * @return the generic response
      */
     public Single<GenericResponse<String>> uploadPayImage(MultipartResource resource) {
-        return internalMediaApi.uploadPayImage(this.toMultipartBody(resource));
+        return internalMediaApi.uploadPayImage(MediaUtil.toMultipartBody(resource));
     }
 
-    private MultipartBody toMultipartBody(MultipartResource resource) {
-        String fileName = resource.getFileName();
-        MediaType mediaType = Objects.nonNull(resource.getMediaType()) ?
-                resource.getMediaType() : FileMediaType.fromFileName(fileName).mediaType();
-        RequestBody requestBody = RequestBody.create(resource.getSource(), mediaType);
-        return new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("media", fileName, requestBody)
-                .build();
-    }
 }

@@ -15,13 +15,17 @@
 
 package cn.felord.reactive.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.approval.*;
 import cn.felord.domain.common.TemplateId;
+import cn.felord.domain.common.UserId;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+
+import java.util.List;
 
 /**
  * 企业微信审批
@@ -38,7 +42,7 @@ public interface ApprovalApi {
      * @return the detail
      */
     @POST("oa/gettemplatedetail")
-    Single<ApprovalTmpDetailResponse> getDetail(@Body TemplateId templateId);
+    Single<ApprovalTmpDetailResponse> getTemplateDetail(@Body TemplateId templateId);
 
     /**
      * 创建审批模板
@@ -75,7 +79,7 @@ public interface ApprovalApi {
      * @return the generic response
      */
     @POST("oa/applyevent")
-    Single<GenericResponse<String>> apply(@Body ApprovalApplyRequest request);
+    Single<GenericResponse<String>> applyEvent(@Body ApprovalApplyRequest request);
 
     /**
      * 批量获取审批单号
@@ -90,7 +94,7 @@ public interface ApprovalApi {
      * @return the sp no list response
      */
     @POST("oa/getapprovalinfo")
-    Single<SpNoListResponse> queryApprovalInfos(@Body SpNoListRequest request);
+    Single<SpNoListResponse> getApprovalInfo(@Body SpNoListRequest request);
 
     /**
      * 获取审批申请详情
@@ -100,14 +104,37 @@ public interface ApprovalApi {
      * @return sp no list response
      */
     @POST("oa/getapprovaldetail")
-    Single<GenericResponse<ApprovalDetail>> queryApprovalDetail(@Body ApprovalSpNo spNo);
+    Single<GenericResponse<ApprovalDetail>> getApprovalDetail(@Body ApprovalSpNo spNo);
 
     /**
      * 查询自建应用审批单当前状态
      *
      * @param thirdNo the third no thirdNo
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("corp/getopenapprovaldata")
-    Single<GenericResponse<OpenApprovalData>> queryOpenApprovalData(@Body ApprovalThirdNo thirdNo);
+    GenericResponse<OpenApprovalData> getOpenApprovalData(@Body ApprovalThirdNo thirdNo) throws WeComException;
+
+    /**
+     * 获取成员假期余额
+     * <p>
+     * 数据来源为人事助手-假期管理
+     *
+     * @param userId the user id
+     * @return the user vacation quota
+     * @throws WeComException the we com exception
+     */
+    @POST("oa/vacation/getuservacationquota")
+    Single<GenericResponse<List<VacationQuota>>> getUserVacationQuota(@Body UserId userId) throws WeComException;
+
+    /**
+     * 修改成员假期余额
+     *
+     * @param request the request
+     * @return the one user quota
+     * @throws WeComException the we com exception
+     */
+    @POST("oa/vacation/setoneuserquota")
+    Single<WeComResponse> setOneUserQuota(@Body UserQuotaSettingRequest request) throws WeComException;
 }

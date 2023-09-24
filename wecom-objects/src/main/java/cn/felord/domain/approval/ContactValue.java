@@ -16,32 +16,44 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.ContactCtrlMode;
+import cn.felord.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
- * The type Contact value.
+ * 成员/部门组件
  *
  * @author dax
  * @since 2023 /5/27 10:31
  */
 @ToString
 @Getter
-@NoArgsConstructor
 public class ContactValue implements ContentDataValue {
     @JsonIgnore
-    private ContactCtrlMode contactCtrlMode;
-    private List<MemberInfo> members;
-    private Set<ApprovalDeptInfo> departments;
+    private final ContactCtrlMode contactCtrlMode;
+    private final List<MemberInfo> members;
+    private final Set<ApprovalDeptInfo> departments;
 
+    /**
+     * Instantiates a new Contact value.
+     *
+     * @param members     the members
+     * @param departments the departments
+     */
+    @JsonCreator
+    ContactValue(@JsonProperty("members") List<MemberInfo> members, @JsonProperty("departments") Set<ApprovalDeptInfo> departments) {
+        this.contactCtrlMode = CollectionUtils.isEmpty(members) ? ContactCtrlMode.DEPARTMENT : ContactCtrlMode.USER;
+        this.members = members;
+        this.departments = departments;
+    }
 
     /**
      * 成员组件
@@ -50,11 +62,20 @@ public class ContactValue implements ContentDataValue {
      * @return the contact value
      */
     public static ContactValue user(List<MemberInfo> members) {
-        ContactValue contactValue = new ContactValue();
-        contactValue.contactCtrlMode = ContactCtrlMode.USER;
-        contactValue.members = members;
-        contactValue.departments = Collections.emptySet();
-        return contactValue;
+        return new ContactValue(members, Collections.emptySet());
+    }
+
+    /**
+     * 成员组件
+     *
+     * @param userIds the user ids
+     * @return the contact value
+     */
+    public static ContactValue users(List<String> userIds) {
+        List<MemberInfo> members = userIds.stream()
+                .map(userId -> new MemberInfo(userId, ""))
+                .collect(Collectors.toList());
+        return new ContactValue(members, Collections.emptySet());
     }
 
     /**
@@ -64,33 +85,20 @@ public class ContactValue implements ContentDataValue {
      * @return the contact value
      */
     public static ContactValue dept(Set<ApprovalDeptInfo> departments) {
-        ContactValue contactValue = new ContactValue();
-        contactValue.contactCtrlMode = ContactCtrlMode.DEPARTMENT;
-        contactValue.members = Collections.emptyList();
-        contactValue.departments = departments;
-        return contactValue;
+        return new ContactValue(Collections.emptyList(), departments);
     }
 
     /**
-     * Instantiates a new Contact value.
+     * 部门组件
      *
-     * @param members the members
+     * @param partyIds the party ids
+     * @return the contact value
      */
-    public void setMembers(List<MemberInfo> members) {
-        this.contactCtrlMode = ContactCtrlMode.USER;
-        this.members = members;
-        this.departments = Collections.emptySet();
-    }
-
-    /**
-     * Instantiates a new Contact value.
-     *
-     * @param departments the departments
-     */
-    public void setDepartments(Set<ApprovalDeptInfo> departments) {
-        this.contactCtrlMode = ContactCtrlMode.DEPARTMENT;
-        this.members = Collections.emptyList();
-        this.departments = departments;
+    public static ContactValue depts(List<Long> partyIds) {
+        Set<ApprovalDeptInfo> departments = partyIds.stream()
+                .map(partyId -> new ApprovalDeptInfo(partyId, ""))
+                .collect(Collectors.toSet());
+        return new ContactValue(Collections.emptyList(), departments);
     }
 
     /**

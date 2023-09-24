@@ -15,14 +15,52 @@
 
 package cn.felord.domain.externalcontact;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type Image.
+ *
  * @author dax
- * @since 2021/8/23 19:50
+ * @since 2021 /8/23 19:50
  */
-@Data
+@ToString
+@Getter
 public class Image {
-    private String mediaId;
-    private String picUrl;
+    private final String mediaId;
+    private final String picUrl;
+
+    /**
+     * Instantiates a new Image.
+     *
+     * @param mediaId the media id
+     * @param picUrl  the pic url
+     */
+    @JsonCreator
+    Image(@JsonProperty("media_id") String mediaId, @JsonProperty("pic_url") String picUrl) {
+        this.mediaId = mediaId;
+        this.picUrl = picUrl;
+    }
+
+    /**
+     * With media id image.
+     *
+     * @param mediaId the media id
+     * @return the image
+     */
+    public static Image withMediaId(String mediaId) {
+        return new Image(mediaId, null);
+    }
+
+    /**
+     * With pic url image.
+     *
+     * @param picUrl the pic url
+     * @return the image
+     */
+    public static Image withPicUrl(String picUrl) {
+        return new Image(null, picUrl);
+    }
 }

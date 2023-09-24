@@ -21,7 +21,7 @@
     <parent>
         <groupId>cn.felord</groupId>
         <artifactId>wecom</artifactId>
-        <version>1.1.6</version>
+        <version>1.2.0</version>
     </parent>
     <artifactId>wecom-objects</artifactId>
     <packaging>jar</packaging>
@@ -57,9 +57,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <optional>true</optional>
+            <groupId>cn.felord</groupId>
+            <artifactId>wecom-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>

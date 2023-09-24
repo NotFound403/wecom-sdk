@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * AttendanceType
+ * 假勤组件类型
  *
  * @author dax
  * @since 2023 /5/25 16:19
@@ -30,19 +30,19 @@ public enum AttendanceType {
 
 
     /**
-     * Leave attendance type.
+     * 请假
      */
     LEAVE(1),
     /**
-     * Business trip attendance type.
+     * 出差
      */
     BUSINESS_TRIP(3),
     /**
-     * Going out attendance type.
+     * 外出
      */
     GOING_OUT(4),
     /**
-     * Overtime work attendance type.
+     * 加班
      */
     OVERTIME_WORK(5);
     private final int type;

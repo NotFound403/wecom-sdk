@@ -23,7 +23,7 @@ import lombok.Data;
  * @since 2023/5/25 16:59
  */
 @Data
-public class FileConfig {
+public class FileConfig implements ControlConfig {
     private Wrapper file;
 
     @Data

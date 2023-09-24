@@ -15,6 +15,7 @@
 
 package cn.felord.domain.approval;
 
+import cn.felord.WeComException;
 import cn.felord.enumeration.ApprovalCtrlType;
 import cn.felord.enumeration.ApprovalNotifyType;
 import cn.felord.enumeration.ApproverNodeMode;
@@ -50,61 +51,88 @@ public class ApprovalApplyRequest {
     /**
      * 通过接口指定审批人，不抄送
      *
-     * @param creatorUserid the creator userid
-     * @param templateId    the template id
-     * @param approver      the approver
-     * @param applyData     the apply data
-     * @param summaryList   the summary list
+     * @param creatorUserid 发起人
+     * @param templateId    模板ID
+     * @param approver      审批人
+     * @param controls      审批模板控件，可通过获取审批模板详情接口获取
+     * @param dataValues    填充值，数量、位置应当和控件一一对应，没有补null
+     * @param summaryList   摘要不超过3行，每行不超过20个字
      * @return the approval apply request
      */
     public static ApprovalApplyRequest approverMode(String creatorUserid,
                                                     String templateId,
                                                     List<Approver> approver,
-                                                    ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData,
+                                                    List<TmpControl<? extends ControlConfig>> controls,
+                                                    List<? extends ContentDataValue> dataValues,
                                                     List<Summary> summaryList) {
 
-        return approverMode(creatorUserid, templateId, approver, Collections.emptyList(), null, applyData, summaryList);
+        return approverMode(creatorUserid,
+                templateId,
+                approver,
+                controls,
+                dataValues,
+                summaryList,
+                Collections.emptyList(),
+                null);
     }
+
 
     /**
      * 通过接口指定审批人、抄送人
+     * <p>
+     * 此时approver、notifyer等参数可用
      *
-     * @param creatorUserid the creator userid
-     * @param templateId    the template id
-     * @param approver      the approver
-     * @param notifyer      the notifyer
-     * @param notifyType    the notify type
-     * @param applyData     the apply data
-     * @param summaryList   the summary list
+     * @param creatorUserid 发起人
+     * @param templateId    模板ID
+     * @param approver      审批人
+     * @param controls      审批模板控件，可通过获取审批模板详情接口获取
+     * @param dataValues    填充值，数量、位置应当和控件一一对应，没有补null
+     * @param summaryList   摘要不超过3行，每行不超过20个字
+     * @param notifyer      抄送人
+     * @param notifyType    抄送类型
      * @return the approval apply request
      */
     public static ApprovalApplyRequest approverMode(String creatorUserid,
                                                     String templateId,
                                                     List<Approver> approver,
+                                                    List<TmpControl<? extends ControlConfig>> controls,
+                                                    List<? extends ContentDataValue> dataValues,
+                                                    List<Summary> summaryList,
                                                     List<String> notifyer,
-                                                    ApprovalNotifyType notifyType,
-                                                    ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData,
-                                                    List<Summary> summaryList) {
-        return new ApprovalApplyRequest(creatorUserid, templateId, applyData, summaryList, UseTemplateApprover.APPROVER_MODE)
+                                                    ApprovalNotifyType notifyType) {
+        return new ApprovalApplyRequest(creatorUserid,
+                templateId,
+                applyData(controls, dataValues),
+                summaryList,
+                UseTemplateApprover.APPROVER_MODE)
                 .approver(approver)
                 .notifyer(notifyer)
                 .notifyType(notifyType);
     }
 
+
     /**
      * 在企微控制台指定抄送人、审批人
+     * <p>
+     * 使用此模板在管理后台设置的审批流程(需要保证审批流程中没有“申请人自选”节点)，支持条件审批
      *
-     * @param creatorUserid the creator userid
-     * @param templateId    the template id
-     * @param applyData     the apply data
-     * @param summaryList   the summary list
+     * @param creatorUserid 发起人
+     * @param templateId    模板ID
+     * @param controls      审批模板控件，可通过获取审批模板详情接口获取
+     * @param dataValues    填充值，数量、位置应当和控件一一对应，没有补null
+     * @param summaryList   摘要不超过3行，每行不超过20个字
      * @return the approval apply request
      */
     public static ApprovalApplyRequest backendMode(String creatorUserid,
                                                    String templateId,
-                                                   ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData,
+                                                   List<TmpControl<? extends ControlConfig>> controls,
+                                                   List<? extends ContentDataValue> dataValues,
                                                    List<Summary> summaryList) {
-        return new ApprovalApplyRequest(creatorUserid, templateId, applyData, summaryList, UseTemplateApprover.BACKEND_MODE);
+        return new ApprovalApplyRequest(creatorUserid,
+                templateId,
+                applyData(controls, dataValues),
+                summaryList,
+                UseTemplateApprover.BACKEND_MODE);
     }
 
     /**
@@ -120,7 +148,7 @@ public class ApprovalApplyRequest {
      *             <li>数字对应 {@link NumberValue}</li>
      *             <li>金额对应 {@link MoneyValue}</li>
      *             <li>日期对应 {@link DateValue}</li>
-     *             <li>单选/多选对应 {@link SelectorConfig}</li>
+     *             <li>单选/多选对应 {@link SelectorValue}</li>
      *             <li>成员/部门对应 {@link ContactValue}</li>
      *             <li>附件对应 {@link FileValue}，通过上传临时素材接口{@code MediaApi.uploadMedia}获得mediaid</li>
      *             <li>明细对应 {@link ListContentDataValue}，注意明细比较复杂，条目类型要对应模板配置</li>
@@ -144,28 +172,29 @@ public class ApprovalApplyRequest {
      *
      * @param controls   模板控件集合，通过获取审批模板详情接口获取
      * @param dataValues 审批业务项填充值，按模板顺序
-     * @return 最终的审批单数据格式
+     * @return 最终的审批单数据格式 apply data
      */
-    public static ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData(List<? extends TmpControl<?>> controls, List<? extends ContentDataValue> dataValues) {
+    static ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData(List<TmpControl<? extends ControlConfig>> controls,
+                                                                                List<? extends ContentDataValue> dataValues) {
         //必须保证 dataValues 和 controls 对应
         int ctrlSize = controls.size();
         int valueSize = dataValues.size();
 
         if (ctrlSize != valueSize) {
-            throw new IllegalArgumentException("ctrl size and table value size do not match");
+            throw new WeComException("controls size do not match dataValues size");
         }
 
         List<ApprovalContentData<? extends ContentDataValue>> contents = IntStream.range(0, ctrlSize)
                 .mapToObj(index ->
-                        toDataValue(controls.get(index), dataValues.get(index))
+                        toControlValue(controls.get(index), dataValues.get(index))
                 ).collect(Collectors.toList());
         // 业务数据
         return new ApplyData<>(contents);
     }
 
-    private static ApprovalContentData<ContentDataValue> toDataValue(TmpControl<?> tmpControl, ContentDataValue dataValue) {
-        Object config = tmpControl.getConfig();
-        ContentDataValue v;
+    private static ApprovalContentData<ContentDataValue> toControlValue(TmpControl<? extends ControlConfig> tmpControl,
+                                                                        ContentDataValue dataValue) {
+        ControlConfig config = tmpControl.getConfig();
         // 处理明细数据
         if (config != null && config.getClass().isAssignableFrom(TableConfig.class)) {
             ListContentDataValue internalValue = (ListContentDataValue) dataValue;
@@ -181,19 +210,16 @@ public class ApprovalApplyRequest {
                     .getChildren();
             int ctrlSize = children.size();
             if (ctrlSize != tableValues.size()) {
-                throw new IllegalArgumentException("ctrl size and table value size do not match");
+                throw new WeComException("table controls size do not match table dataValues size");
             }
             List<ApplyContentData<?>> applyContentData = IntStream.range(0, ctrlSize)
                     .mapToObj(index ->
                             ApplyContentData.from(children.get(index).getProperty(), tableValues.get(index)))
                     .collect(Collectors.toList());
-            TableValue.Wrapper wrapper = new TableValue.Wrapper();
-            wrapper.setList(applyContentData);
-            v = new TableValue(Collections.singletonList(wrapper));
-        } else {
-            v = dataValue;
+            TableValue.Wrapper wrapper = new TableValue.Wrapper(applyContentData);
+            return tmpControl.getProperty().toData(new TableValue(Collections.singletonList(wrapper)));
         }
-        return tmpControl.getProperty().toData(v);
+        return tmpControl.getProperty().toData(dataValue);
     }
 
 
@@ -206,7 +232,11 @@ public class ApprovalApplyRequest {
      * @param summaryList         the summary list
      * @param useTemplateApprover the use template approver
      */
-    ApprovalApplyRequest(String creatorUserid, String templateId, ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData, List<Summary> summaryList, UseTemplateApprover useTemplateApprover) {
+    ApprovalApplyRequest(String creatorUserid,
+                         String templateId,
+                         ApplyData<ApprovalContentData<? extends ContentDataValue>> applyData,
+                         List<Summary> summaryList,
+                         UseTemplateApprover useTemplateApprover) {
         this.creatorUserid = creatorUserid;
         this.templateId = templateId;
         this.applyData = applyData;

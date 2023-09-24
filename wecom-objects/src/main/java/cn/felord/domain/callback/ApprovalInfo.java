@@ -29,7 +29,7 @@ import java.util.List;
  * @since 2023/5/27
  */
 @Data
-public class ApprovalInfo implements Xml {
+public class ApprovalInfo {
     @XStreamAlias("SpNo")
     private String spNo;
     @XStreamAlias("SpName")

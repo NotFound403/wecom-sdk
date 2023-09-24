@@ -15,23 +15,43 @@
 
 package cn.felord.domain.callcenter;
 
-import cn.felord.domain.common.Miniprogram;
 import cn.felord.enumeration.MsgMenuContentType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * 小程序菜单项
+ *
  * @author dax
- * @since 2023/6/3
+ * @since 2023 /6/3
  */
 @ToString
 @Getter
 public class MiniprogramMsgMenuContent extends MsgMenuContent {
-    private final Miniprogram miniprogram;
+    private final MenuMiniprogram miniprogram;
 
-    public MiniprogramMsgMenuContent(Miniprogram miniprogram) {
+    /**
+     * Instantiates a new Miniprogram msg menu content.
+     *
+     * @param miniprogram the miniprogram
+     */
+    @JsonCreator
+    MiniprogramMsgMenuContent(@JsonProperty("miniprogram") MenuMiniprogram miniprogram) {
         super(MsgMenuContentType.MINIPROGRAM);
         this.miniprogram = miniprogram;
+    }
+
+    /**
+     * Instantiates a new Miniprogram msg menu content.
+     *
+     * @param appid    the appid
+     * @param pagepath the pagepath
+     * @param content  the content
+     */
+    public MiniprogramMsgMenuContent(String appid, String pagepath, String content) {
+        this(new MenuMiniprogram(appid, pagepath, content));
     }
 
 }

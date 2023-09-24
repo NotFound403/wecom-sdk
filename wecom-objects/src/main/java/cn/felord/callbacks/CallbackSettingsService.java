@@ -16,6 +16,8 @@
 package cn.felord.callbacks;
 
 
+import cn.felord.callback.CallbackSettings;
+
 /**
  * The interface Callback authentication service.
  *

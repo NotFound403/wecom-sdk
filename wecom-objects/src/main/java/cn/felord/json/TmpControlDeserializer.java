@@ -35,7 +35,7 @@ import java.util.Map;
  * @since 2023 /5/26
  */
 public class TmpControlDeserializer extends JsonDeserializer<TmpControl<?>> {
-    private static final Map<ApprovalCtrlType, Class<?>> CONTROL_MAP = new HashMap<>();
+    private static final Map<ApprovalCtrlType, Class<? extends ControlConfig>> CONTROL_MAP = new HashMap<>();
 
     static {
         CONTROL_MAP.put(ApprovalCtrlType.TEXT, EmptyConfig.class);
@@ -64,8 +64,8 @@ public class TmpControlDeserializer extends JsonDeserializer<TmpControl<?>> {
         CtrlProperty ctrlProperty = readTreeAsValue(ctxt, property, CtrlProperty.class);
         ApprovalCtrlType control = ctrlProperty.getControl();
         JsonNode configNode = treeNode.get("config");
-        Class<?> configClazz = CONTROL_MAP.get(control);
-        Object config = configClazz != null ? readTreeAsValue(ctxt, configNode, configClazz) : new EmptyConfig();
+        Class<? extends ControlConfig> configClazz = CONTROL_MAP.get(control);
+        ControlConfig config = configClazz != null ? readTreeAsValue(ctxt, configNode, configClazz) : new EmptyConfig();
         return new TmpControl<>(ctrlProperty, config);
     }
 

@@ -15,6 +15,7 @@
 
 package cn.felord.domain.contactbook.user;
 
+import cn.felord.domain.common.SingleText;
 import lombok.Data;
 
 /**
@@ -25,5 +26,5 @@ public class AttrsItem {
     private Integer type;
     private String name;
     private Web web;
-    private UserText text;
+    private SingleText text;
 }

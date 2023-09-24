@@ -22,6 +22,6 @@ import lombok.Data;
  * @since 2023/5/25 17:17
  */
 @Data
-public class DateRangeConfig {
+public class DateRangeConfig implements ControlConfig {
     private DateRange dateRange;
 }

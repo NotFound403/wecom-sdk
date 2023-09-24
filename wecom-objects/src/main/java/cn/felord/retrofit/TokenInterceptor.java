@@ -17,7 +17,7 @@ package cn.felord.retrofit;
 
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
-import cn.felord.json.JacksonObjectMapperFactory;
+import cn.felord.retrofit.json.JacksonObjectMapperFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
@@ -60,7 +60,7 @@ public class TokenInterceptor implements Interceptor {
         if (body != null) {
             //application/octet-stream
             MediaType mediaType = body.contentType();
-            String json = body.string();
+            String json = body.source().getBuffer().clone().readUtf8();
             if (Objects.equals(JSON_UTF_8, mediaType) || Objects.equals(JSON, mediaType)) {
                 WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
                 if (Objects.equals(INVALID_ACCESS_TOKEN, weComResponse.getErrcode())) {
@@ -68,11 +68,6 @@ public class TokenInterceptor implements Interceptor {
                     return doRequest(chain);
                 }
             }
-            Headers headers = response.headers();
-            return response.newBuilder()
-                    .headers(headers)
-                    .body(ResponseBody.create(json, mediaType))
-                    .build();
         }
         return response;
     }

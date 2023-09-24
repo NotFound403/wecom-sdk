@@ -75,5 +75,5 @@ public interface KfAccountApi {
      * @return the generic response
      */
     @POST("kf/add_contact_way")
-    Single<GenericResponse<String>> kfAccountLink(@Body KfAccountLinkRequest request);
+    Single<GenericResponse<String>> addContactWay(@Body KfAccountLinkRequest request);
 }

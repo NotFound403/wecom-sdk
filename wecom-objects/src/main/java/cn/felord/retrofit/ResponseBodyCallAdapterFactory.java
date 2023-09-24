@@ -25,6 +25,7 @@ import retrofit2.Retrofit;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Token interceptor.
@@ -32,18 +33,31 @@ import java.lang.reflect.Type;
  * @author dax
  * @since 2023 /5/22 14:59
  */
-public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
+final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
 
     /**
      * The constant INSTANCE.
      */
-    public static final ResponseBodyCallAdapterFactory INSTANCE = new ResponseBodyCallAdapterFactory();
+    static final ResponseBodyCallAdapterFactory INSTANCE = new ResponseBodyCallAdapterFactory();
 
     private ResponseBodyCallAdapterFactory() {
     }
 
     @Override
     public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        Class<?> rawType = getRawType(returnType);
+        if (Void.TYPE.isAssignableFrom(rawType)) {
+            return null;
+        }
+        if (Response.class.isAssignableFrom(rawType)) {
+            return null;
+        }
+        if (Call.class.isAssignableFrom(rawType)) {
+            return null;
+        }
+        if (CompletableFuture.class.isAssignableFrom(rawType)) {
+            return null;
+        }
         return new ResponseBodyCallAdapter<>(returnType);
     }
 
@@ -77,7 +91,7 @@ public final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
             try {
                 response = call.execute();
             } catch (IOException e) {
-                throw new WeComException(e.getMessage());
+                throw new WeComException(e.getMessage(), e);
             }
 
             if (response.isSuccessful()) {

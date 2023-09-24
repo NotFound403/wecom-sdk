@@ -23,7 +23,7 @@ import lombok.Data;
  * @since 2023/5/25 15:15
  */
 @Data
-public class EmptyConfig {
+public class EmptyConfig implements ControlConfig {
     @JsonIgnore
     private String value;
 }

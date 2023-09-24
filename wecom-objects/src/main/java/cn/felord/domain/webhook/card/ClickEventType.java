@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * @author felord.cn
  * @since 2021/9/3 14:37
  */
-enum ClickEventType {
+public enum ClickEventType {
     /**
      * None.
      */

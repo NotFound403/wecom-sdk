@@ -15,9 +15,16 @@
 
 package cn.felord.domain.message;
 
-import cn.felord.domain.webhook.card.*;
+import cn.felord.domain.webhook.card.CardAction;
+import cn.felord.domain.webhook.card.CardSource;
+import cn.felord.domain.webhook.card.EmphasisContent;
+import cn.felord.domain.webhook.card.HorizontalContent;
+import cn.felord.domain.webhook.card.Jump;
+import cn.felord.domain.webhook.card.MainTitle;
+import cn.felord.domain.webhook.card.QuoteArea;
 import cn.felord.enumeration.TemplateCardType;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -27,6 +34,7 @@ import java.util.List;
  * @author felord
  * @since 2021 /11/23 11:35
  */
+@ToString
 @Getter
 public class TextMessageTemplateCard extends MessageTemplateCard {
     private final EmphasisContent emphasisContent;

@@ -15,7 +15,12 @@
 
 package cn.felord.domain.message;
 
-import cn.felord.domain.webhook.card.*;
+import cn.felord.domain.webhook.card.CardAction;
+import cn.felord.domain.webhook.card.CardSource;
+import cn.felord.domain.webhook.card.EmphasisContent;
+import cn.felord.domain.webhook.card.HorizontalContent;
+import cn.felord.domain.webhook.card.MainTitle;
+import cn.felord.domain.webhook.card.QuoteArea;
 import cn.felord.enumeration.TemplateCardType;
 import lombok.Getter;
 
@@ -32,10 +37,10 @@ public class ButtonMessageTemplateCard extends MessageTemplateCard {
     private final ButtonSelection buttonSelection;
     private final List<Button> buttonList;
 
-    protected ButtonMessageTemplateCard(String taskId, MainTitle mainTitle, CardSource source,
-                                        ActionMenu actionMenu, QuoteArea quoteArea, List<? extends HorizontalContent> horizontalContentList,
-                                        CardAction cardAction, String subTitleText, List<EmphasisContent> verticalContentList,
-                                        ButtonSelection buttonSelection, List<Button> buttonList) {
+    ButtonMessageTemplateCard(String taskId, MainTitle mainTitle, CardSource source,
+                              ActionMenu actionMenu, QuoteArea quoteArea, List<? extends HorizontalContent> horizontalContentList,
+                              CardAction cardAction, String subTitleText, List<EmphasisContent> verticalContentList,
+                              ButtonSelection buttonSelection, List<Button> buttonList) {
         super(TemplateCardType.BUTTON_INTERACTION, taskId, mainTitle, source, actionMenu, quoteArea, horizontalContentList, null, cardAction);
         this.subTitleText = subTitleText;
         this.verticalContentList = verticalContentList;

@@ -18,12 +18,11 @@ package cn.felord.domain.callcenter;
 import cn.felord.enumeration.MsgMenuContentType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The type View msg menu content.
+ * 客服菜单跳转链接
  *
  * @author dax
  * @since 2023 /6/3
@@ -39,17 +38,40 @@ public class ViewMsgMenuContent extends MsgMenuContent {
      * @param view the view
      */
     @JsonCreator
-    public ViewMsgMenuContent(@JsonProperty("view") View view) {
+    ViewMsgMenuContent(@JsonProperty("view") View view) {
         super(MsgMenuContentType.VIEW);
         this.view = view;
     }
 
     /**
+     * Instantiates a new View msg menu content.
+     *
+     * @param url     the url
+     * @param content the content
+     */
+    public ViewMsgMenuContent(String url, String content) {
+        this(new View(url, content));
+    }
+
+    /**
      * The type View.
      */
-    @Data
+    @ToString
+    @Getter
     public static class View {
-        private String url;
-        private String content;
+        private final String url;
+        private final String content;
+
+        /**
+         * Instantiates a new View.
+         *
+         * @param url     the url
+         * @param content the content
+         */
+        @JsonCreator
+        View(@JsonProperty("url") String url, @JsonProperty("content") String content) {
+            this.url = url;
+            this.content = content;
+        }
     }
 }

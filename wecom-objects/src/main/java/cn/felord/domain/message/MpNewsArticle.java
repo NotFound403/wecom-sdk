@@ -16,13 +16,15 @@
 package cn.felord.domain.message;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 
 /**
+ * The type Mp news article.
+ *
  * @author felord
- * @since 2021/11/22 17:25
+ * @since 2021 /11/22 17:25
  */
-@Setter
+@ToString
 @Getter
 public class MpNewsArticle extends MessageArticle {
 
@@ -32,8 +34,58 @@ public class MpNewsArticle extends MessageArticle {
     private String content;
     private String digest;
 
+    /**
+     * Instantiates a new Mp news article.
+     *
+     * @param title        the title
+     * @param thumbMediaId the thumb media id
+     */
     public MpNewsArticle(String title, String thumbMediaId) {
         super(title);
         this.thumbMediaId = thumbMediaId;
+    }
+
+    /**
+     * Author mp news article.
+     *
+     * @param author the author
+     * @return the mp news article
+     */
+    public MpNewsArticle author(String author) {
+        this.author = author;
+        return this;
+    }
+
+    /**
+     * Content source url mp news article.
+     *
+     * @param contentSourceUrl the content source url
+     * @return the mp news article
+     */
+    public MpNewsArticle contentSourceUrl(String contentSourceUrl) {
+        this.contentSourceUrl = contentSourceUrl;
+        return this;
+    }
+
+    /**
+     * Content mp news article.
+     *
+     * @param content the content
+     * @return the mp news article
+     */
+    public MpNewsArticle content(String content) {
+        this.content = content;
+        return this;
+    }
+
+    /**
+     * Digest mp news article.
+     *
+     * @param digest the digest
+     * @return the mp news article
+     */
+    public MpNewsArticle digest(String digest) {
+        this.digest = digest;
+        return this;
     }
 }

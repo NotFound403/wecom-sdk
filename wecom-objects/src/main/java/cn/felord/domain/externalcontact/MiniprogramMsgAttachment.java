@@ -23,8 +23,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Miniprogram msg attachment.
+ *
  * @author dax
- * @since 2021/4/22 14:53
+ * @since 2021 /4/22 14:53
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString
@@ -32,9 +34,26 @@ import lombok.ToString;
 public class MiniprogramMsgAttachment extends MsgAttachment {
     private final MediaMiniprogram miniprogram;
 
+    /**
+     * Instantiates a new Miniprogram msg attachment.
+     *
+     * @param miniprogram the miniprogram
+     */
     @JsonCreator
-    public MiniprogramMsgAttachment(@JsonProperty("miniprogram") MediaMiniprogram miniprogram) {
+    MiniprogramMsgAttachment(@JsonProperty("miniprogram") MediaMiniprogram miniprogram) {
         super(MsgAttachType.MINIPROGRAM);
         this.miniprogram = miniprogram;
+    }
+
+    /**
+     * Instantiates a new Miniprogram msg attachment.
+     *
+     * @param title      the title
+     * @param picMediaId the pic media id
+     * @param appid      the appid
+     * @param page       the page
+     */
+    public MiniprogramMsgAttachment(String title, String picMediaId, String appid, String page) {
+        this(new MediaMiniprogram(title, picMediaId, appid, page));
     }
 }

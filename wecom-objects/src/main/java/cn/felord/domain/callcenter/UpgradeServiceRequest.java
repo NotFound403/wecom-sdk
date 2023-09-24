@@ -79,7 +79,7 @@ public class UpgradeServiceRequest {
      * The type Member.
      */
     @Data
-    static class Member {
+    public static class Member {
         private final String userid;
         private String wording;
     }
@@ -88,7 +88,7 @@ public class UpgradeServiceRequest {
      * The type Group chat.
      */
     @Data
-    static class GroupChat {
+    public static class GroupChat {
         private final String chatId;
         private String wording;
     }

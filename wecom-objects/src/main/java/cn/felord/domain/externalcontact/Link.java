@@ -18,15 +18,15 @@ package cn.felord.domain.externalcontact;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
+ * The type Link.
+ *
  * @author dax
- * @since 2021/3/14 16:07
+ * @since 2021 /3/14 16:07
  */
 @ToString
-@Setter
 @Getter
 public class Link {
     private final String title;
@@ -34,15 +34,51 @@ public class Link {
     private String picurl;
     private String desc;
 
+    /**
+     * Instantiates a new Link.
+     *
+     * @param title the title
+     * @param url   the url
+     */
     public Link(String title, String url) {
         this(title, url, null, null);
     }
 
+    /**
+     * Instantiates a new Link.
+     *
+     * @param title  the title
+     * @param url    the url
+     * @param picurl the picurl
+     * @param desc   the desc
+     */
     @JsonCreator
-    public Link(@JsonProperty("title") String title, @JsonProperty("url") String url, @JsonProperty("picurl") String picurl, @JsonProperty("desc") String desc) {
+    Link(@JsonProperty("title") String title, @JsonProperty("url") String url, @JsonProperty("picurl") String picurl, @JsonProperty("desc") String desc) {
         this.title = title;
         this.url = url;
         this.picurl = picurl;
         this.desc = desc;
+    }
+
+    /**
+     * Picurl link.
+     *
+     * @param picurl the picurl
+     * @return the link
+     */
+    public Link picurl(String picurl) {
+        this.picurl = picurl;
+        return this;
+    }
+
+    /**
+     * Desc link.
+     *
+     * @param desc the desc
+     * @return the link
+     */
+    public Link desc(String desc) {
+        this.desc = desc;
+        return this;
     }
 }

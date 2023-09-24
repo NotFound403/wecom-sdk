@@ -15,11 +15,119 @@
 
 package cn.felord.domain.approval;
 
+import cn.felord.enumeration.AttendanceType;
+import cn.felord.enumeration.SelectType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
+
+import java.util.List;
+
 /**
- * VacationValue
+ * 假勤组件-请假组件
  *
  * @author dax
- * @since 2023/5/27
+ * @since 2023 /5/27
  */
+@ToString
+@Getter
 public class VacationValue implements ContentDataValue {
+    private final Wrapper vacation;
+
+    /**
+     * Instantiates a new Vacation value.
+     *
+     * @param vacation the vacation
+     */
+    @JsonCreator
+    VacationValue(@JsonProperty("vacation") Wrapper vacation) {
+        this.vacation = vacation;
+    }
+
+    /**
+     * Instantiates a new Vacation value.
+     *
+     * @param options   the options
+     * @param type      the type
+     * @param dateRange the date range
+     */
+    public VacationValue(List<CtrlOption> options, AttendanceType type, DateRangeValue dateRange) {
+        this.vacation = new Wrapper(options, type, dateRange);
+    }
+
+    /**
+     * The type Wrapper.
+     */
+    @ToString
+    @Getter
+    public static class Wrapper {
+        private final Selector selector;
+        private final Attendance attendance;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param selector   the selector
+         * @param attendance the attendance
+         */
+        @JsonCreator
+        Wrapper(Selector selector, Attendance attendance) {
+            this.selector = selector;
+            this.attendance = attendance;
+        }
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param options   the options
+         * @param type      the type
+         * @param dateRange the date range
+         */
+        Wrapper(List<CtrlOption> options, AttendanceType type, DateRangeValue dateRange) {
+            this(new Selector(options), new Attendance(type, dateRange));
+        }
+    }
+
+    /**
+     * The type Selector.
+     */
+    @ToString
+    @Getter
+    public static class Selector {
+        private final SelectType type = SelectType.SINGLE;
+        private final List<CtrlOption> options;
+
+        /**
+         * Instantiates a new Selector.
+         *
+         * @param options the options
+         */
+        @JsonCreator
+        Selector(List<CtrlOption> options) {
+            this.options = options;
+        }
+    }
+
+    /**
+     * The type Attendance.
+     */
+    @ToString
+    @Getter
+    public static class Attendance {
+        private final AttendanceType type;
+        private final DateRangeValue dateRange;
+
+        /**
+         * Instantiates a new Attendance.
+         *
+         * @param type      the type
+         * @param dateRange the date range
+         */
+        @JsonCreator
+        Attendance(@JsonProperty("type") AttendanceType type, @JsonProperty("date_range") DateRangeValue dateRange) {
+            this.type = type;
+            this.dateRange = dateRange;
+        }
+    }
 }

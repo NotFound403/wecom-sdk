@@ -41,7 +41,7 @@ public class MoneyValue implements ContentDataValue {
      * @param newMoney 最多保留两位小数，否则会报错
      */
     @JsonCreator
-    public MoneyValue(@JsonProperty("new_money") String newMoney) {
+    MoneyValue(@JsonProperty("new_money") String newMoney) {
         this.newMoney = newMoney;
     }
 
@@ -100,7 +100,7 @@ public class MoneyValue implements ContentDataValue {
     /**
      * From money value.
      *
-     * @param newMoney 传{@code null}将被转换为null，非空强制四舍五入两位小数
+     * @param newMoney 传{@code null}将被转换为0，非空强制四舍五入两位小数
      * @return the money value
      */
     public static MoneyValue from(BigDecimal newMoney) {

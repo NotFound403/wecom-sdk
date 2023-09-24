@@ -21,18 +21,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Use template approver.
+ * 审批人模式
  *
  * @author dax
  * @since 2021 /9/8 10:47
  */
 public enum UseTemplateApprover {
     /**
-     * Approver mode use template approver.
+     * 通过接口指定审批人、抄送人
      */
     APPROVER_MODE(0),
     /**
-     * Backend mode use template approver.
+     * 使用此模板在管理后台设置的审批流程(需要保证审批流程中没有“申请人自选”节点)，支持条件审批
      */
     BACKEND_MODE(1);
 

@@ -17,34 +17,61 @@ package cn.felord.domain.approval;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.time.Instant;
 
 /**
+ * 补卡组件
+ *
  * @author dax
- * @since 2023/5/27
+ * @since 2023 /5/27
  */
 @ToString
 @Getter
 public class PunchCorrectionValue implements ContentDataValue {
     private final Wrapper punchCorrection;
 
+    /**
+     * Instantiates a new Punch correction value.
+     *
+     * @param punchCorrection the punch correction
+     */
     @JsonCreator
-    public PunchCorrectionValue(@JsonProperty("punchCorrection") Wrapper punchCorrection) {
+    PunchCorrectionValue(@JsonProperty("punch_correction") Wrapper punchCorrection) {
         this.punchCorrection = punchCorrection;
+    }
+
+    /**
+     * Instantiates a new Punch correction value.
+     *
+     * @param state the state
+     * @param time  the time
+     */
+    public PunchCorrectionValue(String state, Instant time) {
+        this(new Wrapper(state, time));
     }
 
     /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     public static class Wrapper {
-        private String state;
-        private Instant time;
+        private final String state;
+        private final Instant time;
 
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param state the state
+         * @param time  the time
+         */
+        Wrapper(String state, Instant time) {
+            this.state = state;
+            this.time = time;
+        }
     }
 
 }

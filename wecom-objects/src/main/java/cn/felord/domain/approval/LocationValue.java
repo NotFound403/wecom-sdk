@@ -17,15 +17,16 @@ package cn.felord.domain.approval;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.time.Instant;
 
 /**
+ * 位置组件
+ *
  * @author dax
- * @since 2023/5/27
+ * @since 2023 /5/27
  */
 @ToString
 @Getter
@@ -33,20 +34,65 @@ public class LocationValue implements ContentDataValue {
 
     private final Wrapper location;
 
+    /**
+     * Instantiates a new Location value.
+     *
+     * @param location the location
+     */
     @JsonCreator
-    public LocationValue(@JsonProperty("location") Wrapper location) {
+    LocationValue(@JsonProperty("location") Wrapper location) {
         this.location = location;
+    }
+
+    /**
+     * Instantiates a new Location value.
+     *
+     * @param latitude  the latitude
+     * @param longitude the longitude
+     * @param title     the title
+     * @param address   the address
+     * @param time      the time
+     */
+    public LocationValue(String latitude,
+                         String longitude,
+                         String title,
+                         String address,
+                         Instant time) {
+        this(new Wrapper(latitude, longitude, title, address, time));
     }
 
     /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     public static class Wrapper {
-        private String latitude;
-        private String longitude;
-        private String title;
-        private String address;
-        private Instant time;
+        private final String latitude;
+        private final String longitude;
+        private final String title;
+        private final String address;
+        private final Instant time;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param latitude  the latitude
+         * @param longitude the longitude
+         * @param title     the title
+         * @param address   the address
+         * @param time      the time
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("latitude") String latitude,
+                @JsonProperty("longitude") String longitude,
+                @JsonProperty("title") String title,
+                @JsonProperty("address") String address,
+                @JsonProperty("time") Instant time) {
+            this.latitude = latitude;
+            this.longitude = longitude;
+            this.title = title;
+            this.address = address;
+            this.time = time;
+        }
     }
 }

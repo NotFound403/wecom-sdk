@@ -22,18 +22,38 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
+ * 附件组件
+ *
  * @author dax
- * @since 2023/5/26
+ * @since 2023 /5/26
  */
 @ToString
 @Getter
 public class FileValue implements ContentDataValue {
     private final List<FileInfo> files;
 
+    /**
+     * Instantiates a new File value.
+     *
+     * @param files the files
+     */
     @JsonCreator
-    public FileValue(@JsonProperty("files") List<FileInfo> files) {
+    FileValue(@JsonProperty("files") List<FileInfo> files) {
         this.files = files;
+    }
+
+    /**
+     * Instantiates a new File value.
+     *
+     * @param mediaIds the media ids
+     */
+    public FileValue(Set<String> mediaIds) {
+        this(mediaIds.stream()
+                .map(FileInfo::new)
+                .collect(Collectors.toList()));
     }
 }

@@ -20,7 +20,7 @@ import cn.felord.domain.wedrive.BufferSource;
 import cn.felord.domain.wedrive.FileDownloadResponse;
 import cn.felord.domain.wedrive.FileId;
 import cn.felord.domain.wedrive.SelectedTicket;
-import cn.felord.retrofit.RetrofitFactory;
+import cn.felord.retrofit.WorkWechatRetrofitFactory;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.http.Header;
@@ -44,7 +44,7 @@ public class FileManagerApi {
      */
     FileManagerApi(Retrofit retrofit) {
         this.internalFileManagerApi = retrofit.create(InternalFileManagerApi.class);
-        this.downloadApi = RetrofitFactory.RETROFIT_.create(DownloadApi.class);
+        this.downloadApi = WorkWechatRetrofitFactory.RETROFIT_.create(DownloadApi.class);
     }
 
     /**

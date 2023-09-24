@@ -18,8 +18,8 @@ package cn.felord.api;
 import cn.felord.WeComException;
 import cn.felord.domain.corpay.internal.*;
 import cn.felord.enumeration.PaySignType;
-import cn.felord.retrofit.RetrofitFactory;
-import cn.felord.retrofit.SSLManager;
+import cn.felord.retrofit.WorkWechatRetrofitFactory;
+import cn.felord.retrofit.ssl.SSLManager;
 import cn.felord.xml.XStreamXmlReader;
 import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -47,7 +47,7 @@ public class InternalCorPayApi {
     InternalCorPayApi(String paySecret, String payAgentSecret, SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         this.paySecret = paySecret;
         this.payAgentSecret = payAgentSecret;
-        this.mmPayMktTransfersApi = RetrofitFactory.create(sslManager, connectionPool, level)
+        this.mmPayMktTransfersApi = WorkWechatRetrofitFactory.create(sslManager, connectionPool, level)
                 .create(MmPayMktTransfersApi.class);
     }
 

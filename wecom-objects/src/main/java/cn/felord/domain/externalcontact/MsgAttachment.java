@@ -22,8 +22,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * The type Msg attachment.
+ *
  * @author dax
- * @since 2021/7/23 15:12
+ * @since 2021 /7/23 15:12
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.EXISTING_PROPERTY,

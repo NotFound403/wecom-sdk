@@ -15,9 +15,18 @@
 
 package cn.felord.domain.message;
 
-import cn.felord.domain.webhook.card.*;
+import cn.felord.domain.webhook.card.CardAction;
+import cn.felord.domain.webhook.card.CardImage;
+import cn.felord.domain.webhook.card.CardSource;
+import cn.felord.domain.webhook.card.EmphasisContent;
+import cn.felord.domain.webhook.card.HorizontalContent;
+import cn.felord.domain.webhook.card.ImageTextArea;
+import cn.felord.domain.webhook.card.Jump;
+import cn.felord.domain.webhook.card.MainTitle;
+import cn.felord.domain.webhook.card.QuoteArea;
 import cn.felord.enumeration.TemplateCardType;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -25,6 +34,7 @@ import java.util.List;
  * @author felord
  * @since 2021/11/23 12:19
  */
+@ToString
 @Getter
 public class NewsMessageTemplateReplaceCard extends MessageTemplateReplaceCard {
     private final ImageTextArea imageTextArea;

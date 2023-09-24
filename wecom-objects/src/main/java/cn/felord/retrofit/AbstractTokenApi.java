@@ -68,7 +68,6 @@ public abstract class AbstractTokenApi implements TokenApi {
 
     @Override
     public void clearToken() {
-        AgentDetails agentDetails = this.getAgentDetails();
         wecomCacheable.clearAccessToken(agentDetails.getCorpId(), agentDetails.getAgentId());
     }
 

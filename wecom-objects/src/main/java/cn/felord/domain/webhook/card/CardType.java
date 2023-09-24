@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * 卡片类型.
  */
-enum CardType {
+public enum CardType {
     /**
      * Text notice.
      */

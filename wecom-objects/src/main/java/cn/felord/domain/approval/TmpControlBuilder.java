@@ -30,7 +30,7 @@ import java.util.Random;
  * @author dax
  * @since 2023 /5/25 16:00
  */
-public final class TmpControlBuilder<C> {
+public final class TmpControlBuilder<C extends ControlConfig> {
     private static final Random RANDOM = new SecureRandom();
     private final ApprovalCtrlType control;
     private final String id;

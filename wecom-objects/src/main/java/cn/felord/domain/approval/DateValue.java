@@ -18,29 +18,73 @@ package cn.felord.domain.approval;
 import cn.felord.enumeration.DateCtrlType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.time.Instant;
 
 /**
+ * 日期/日期+时间组件
+ *
  * @author dax
- * @since 2023/5/25 16:15
+ * @since 2023 /5/25 16:15
  */
 @ToString
 @Getter
 public class DateValue implements ContentDataValue {
     private final Wrapper date;
 
+    /**
+     * Instantiates a new Date value.
+     *
+     * @param date the date
+     */
     @JsonCreator
-    public DateValue(@JsonProperty("date") Wrapper date) {
+    DateValue(@JsonProperty("date") Wrapper date) {
         this.date = date;
     }
 
-    @Data
+    /**
+     * 日期
+     *
+     * @param sTimestamp the date
+     * @return the date value
+     */
+    public static DateValue date(Instant sTimestamp) {
+        return new DateValue(new Wrapper(DateCtrlType.DAY, sTimestamp));
+    }
+
+    /**
+     * 日期时间
+     *
+     * @param sTimestamp dateTime
+     * @return the date value
+     */
+    public static DateValue dateTime(Instant sTimestamp) {
+        return new DateValue(new Wrapper(DateCtrlType.HOUR, sTimestamp));
+    }
+
+    /**
+     * The type Wrapper.
+     */
+    @ToString
+    @Getter
     public static class Wrapper {
-        private DateCtrlType type;
-        private Instant sTimestamp;
+        private final DateCtrlType type;
+        @JsonProperty("s_timestamp")
+        private final Instant sTimestamp;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param type       the type
+         * @param sTimestamp the s timestamp
+         */
+        @JsonCreator
+        public Wrapper(@JsonProperty("type") DateCtrlType type,
+                       @JsonProperty("s_timestamp") Instant sTimestamp) {
+            this.type = type;
+            this.sTimestamp = sTimestamp;
+        }
     }
 }

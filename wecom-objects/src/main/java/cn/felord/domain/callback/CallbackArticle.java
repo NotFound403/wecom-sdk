@@ -24,7 +24,7 @@ import lombok.Data;
  */
 @XStreamAlias("item")
 @Data
-public class CallbackArticle implements Xml {
+public class CallbackArticle {
     @XStreamAlias("Title")
     private String title;
     @XStreamAlias("Description")

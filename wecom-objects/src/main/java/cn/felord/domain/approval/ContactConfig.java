@@ -24,7 +24,7 @@ import lombok.Data;
  * @since 2023/5/25 16:31
  */
 @Data
-public class ContactConfig {
+public class ContactConfig implements ControlConfig {
     private Wrapper contact;
 
     @Data

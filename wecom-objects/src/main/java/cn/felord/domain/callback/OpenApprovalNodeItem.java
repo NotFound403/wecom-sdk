@@ -27,7 +27,7 @@ import java.time.Instant;
  */
 @XStreamAlias("Item")
 @Data
-public class OpenApprovalNodeItem implements Xml {
+public class OpenApprovalNodeItem {
     @XStreamAlias("ItemName")
     private String itemName;
     @XStreamAlias("ItemUserid")

@@ -19,11 +19,13 @@ import cn.felord.domain.webhook.card.CardSource;
 import cn.felord.domain.webhook.card.MainTitle;
 import cn.felord.enumeration.TemplateCardType;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author felord
  * @since 2021/11/23 12:19
  */
+@ToString
 @Getter
 public class VoteMessageTemplateReplaceCard extends AbstractReplaceCard {
     private final Checkbox checkbox;

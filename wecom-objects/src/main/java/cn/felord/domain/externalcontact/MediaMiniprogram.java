@@ -33,7 +33,10 @@ public class MediaMiniprogram {
     private final String page;
 
     @JsonCreator
-    public MediaMiniprogram(@JsonProperty("title") String title, @JsonProperty("pic_media_id") String picMediaId, @JsonProperty("appid") String appid, @JsonProperty("page") String page) {
+    public MediaMiniprogram(@JsonProperty("title") String title,
+                            @JsonProperty("pic_media_id") String picMediaId,
+                            @JsonProperty("appid") String appid,
+                            @JsonProperty("page") String page) {
         this.title = title;
         this.picMediaId = picMediaId;
         this.appid = appid;

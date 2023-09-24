@@ -55,7 +55,7 @@ public enum StatusChangeEvent implements CallbackNumberEnum {
     /**
      * 撤销
      */
-    REVOKE(6),
+    REVOKED(6),
     /**
      * 通过后撤销
      */

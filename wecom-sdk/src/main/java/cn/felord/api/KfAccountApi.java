@@ -80,5 +80,5 @@ public interface KfAccountApi {
      * @throws WeComException the weComException
      */
     @POST("kf/add_contact_way")
-    GenericResponse<String> kfAccountLink(@Body KfAccountLinkRequest request) throws WeComException;
+    GenericResponse<String> addContactWay(@Body KfAccountLinkRequest request) throws WeComException;
 }

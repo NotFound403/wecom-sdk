@@ -21,7 +21,7 @@
 
     <groupId>cn.felord</groupId>
     <artifactId>wecom</artifactId>
-    <version>1.1.6</version>
+    <version>1.2.0</version>
     <packaging>pom</packaging>
 
     <name>wecom</name>
@@ -45,9 +45,14 @@
         </developer>
     </developers>
     <modules>
+        <module>wecom-common</module>
         <module>wecom-objects</module>
         <module>wecom-sdk</module>
         <module>rx-wecom-sdk</module>
+        <module>wepay-objects</module>
+        <module>wepay-sdk</module>
+        <module>wemp-sdk</module>
+        <module>wemp-objects</module>
     </modules>
 
     <scm>
@@ -62,6 +67,10 @@
             <id>deploy</id>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
@@ -95,9 +104,10 @@
         <java.version>1.8</java.version>
         <retrofit.version>2.9.0</retrofit.version>
         <okhttp3.version>4.11.0</okhttp3.version>
-        <lombok.version>1.18.26</lombok.version>
         <jackson.version>2.15.2</jackson.version>
         <xstream.version>1.4.20</xstream.version>
+        <jose.version>9.31</jose.version>
+        <lombok.version>1.18.26</lombok.version>
     </properties>
 
     <distributionManagement>
@@ -124,7 +134,22 @@
             </dependency>
             <dependency>
                 <groupId>cn.felord</groupId>
+                <artifactId>wecom-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.felord</groupId>
                 <artifactId>wecom-objects</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.felord</groupId>
+                <artifactId>wepay-objects</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.felord</groupId>
+                <artifactId>wemp-objects</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -153,6 +178,11 @@
                 <version>${xstream.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${jose.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
@@ -162,6 +192,18 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.3.0</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>

@@ -29,12 +29,12 @@ public class TextKfEventMessageRequest extends KfEventMessageRequest {
     private final KfMessageText text;
 
 
-    public TextKfEventMessageRequest(String touser, KfMessageText text) {
-        this(touser, null, text);
+    public TextKfEventMessageRequest(String code, KfMessageText text) {
+        this(code, null, text);
     }
 
-    public TextKfEventMessageRequest(String touser, String msgid, KfMessageText text) {
-        super(touser, msgid, KfMsgType.TEXT);
+    public TextKfEventMessageRequest(String code, String msgid, KfMessageText text) {
+        super(code, msgid, KfMsgType.TEXT);
         this.text = text;
     }
 }

@@ -78,6 +78,7 @@ public class GenericResponse<T> extends WeComResponse {
             "sp_no",
             "field_info",
             "group_list",
+            "lists"
     })
     private T data;
 }

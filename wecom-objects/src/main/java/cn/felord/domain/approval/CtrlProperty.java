@@ -24,8 +24,10 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * The type Ctrl property.
+ *
  * @author dax
- * @since 2023/5/25 14:44
+ * @since 2023 /5/25 14:44
  */
 @Data
 public class CtrlProperty {
@@ -36,15 +38,29 @@ public class CtrlProperty {
     private BoolEnum require;
     private BoolEnum unPrint;
 
+    /**
+     * Instantiates a new Ctrl property.
+     *
+     * @param control the control
+     * @param id      the id
+     * @param title   the title
+     */
     @JsonCreator
-    public CtrlProperty(@JsonProperty("control") ApprovalCtrlType control,
-                        @JsonProperty("id") String id,
-                        @JsonProperty("title") List<ApprovalTitle> title) {
+    CtrlProperty(@JsonProperty("control") ApprovalCtrlType control,
+                 @JsonProperty("id") String id,
+                 @JsonProperty("title") List<ApprovalTitle> title) {
         this.control = control;
         this.id = id;
         this.title = title;
     }
 
+    /**
+     * To data approval content data.
+     *
+     * @param <V>   the type parameter
+     * @param value the value
+     * @return the approval content data
+     */
     public <V extends ContentDataValue> ApprovalContentData<V> toData(V value) {
         return new ApprovalContentData<>(this.getControl(), this.getId(), value);
     }

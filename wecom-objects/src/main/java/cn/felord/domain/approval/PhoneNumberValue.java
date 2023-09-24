@@ -17,13 +17,14 @@ package cn.felord.domain.approval;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * 电话组件
+ *
  * @author dax
- * @since 2023/5/27
+ * @since 2023 /5/27
  */
 @ToString
 @Getter
@@ -31,17 +32,56 @@ public class PhoneNumberValue implements ContentDataValue {
 
     private final Wrapper phonenumber;
 
+    /**
+     * Instantiates a new Phone number value.
+     *
+     * @param phonenumber the phonenumber
+     */
     @JsonCreator
-    public PhoneNumberValue(@JsonProperty("phonenumber") Wrapper phonenumber) {
+    PhoneNumberValue(@JsonProperty("phonenumber") Wrapper phonenumber) {
         this.phonenumber = phonenumber;
     }
 
     /**
+     * Instantiates a new Phone number value.
+     *
+     * @param area   the area
+     * @param number the number
+     */
+    public PhoneNumberValue(String area, String number) {
+        this(new Wrapper(area, number));
+    }
+
+    /**
+     * 国内手机号
+     *
+     * @param number the number
+     * @return the phone number value
+     */
+    public static PhoneNumberValue zhCN(String number) {
+        return new PhoneNumberValue("+86", number);
+    }
+
+
+    /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     public static class Wrapper {
-        private String area;
-        private String number;
+        private final String area;
+        private final String number;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param area   the area
+         * @param number the number
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("area") String area, @JsonProperty("number") String number) {
+            this.area = area;
+            this.number = number;
+        }
     }
 }

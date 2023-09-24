@@ -19,11 +19,13 @@ import cn.felord.domain.webhook.card.CardSource;
 import cn.felord.domain.webhook.card.MainTitle;
 import cn.felord.enumeration.TemplateCardType;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author dax
  * @since 2021/11/24
  */
+@ToString
 @Getter
 public abstract class AbstractReplaceCard {
     private final TemplateCardType cardType;

@@ -1,0 +1,76 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+package cn.felord.payment.wechat.v3.retrofit;
+
+import cn.felord.payment.PayException;
+import cn.felord.payment.wechat.v3.crypto.AppMerchant;
+import cn.felord.payment.wechat.v3.crypto.TenpayKey;
+import cn.felord.payment.wechat.v3.crypto.WechatPaySigner;
+import okhttp3.Headers;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.Buffer;
+import okio.BufferedSource;
+
+import java.util.Optional;
+
+/**
+ * The type Token interceptor.
+ *
+ * @author felord.cn
+ * @since 2.0.0
+ */
+class WechatAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
+    private final TenpayCertificateService tenpayCertificateService;
+
+
+    /**
+     * Instantiates a new Wechat authorization interceptor.
+     *
+     * @param appMerchant              the app merchant
+     * @param tenpayCertificateService the tenpay certificate api
+     */
+    WechatAuthorizationInterceptor(AppMerchant appMerchant, TenpayCertificateService tenpayCertificateService) {
+        super(appMerchant);
+        this.tenpayCertificateService = tenpayCertificateService;
+    }
+
+    @Override
+    protected void verifyResponse(Response response) throws PayException {
+        String s = response.request().url().encodedPath();
+        String body = Optional.ofNullable(response.body())
+                .map(ResponseBody::source)
+                .map(BufferedSource::getBuffer)
+                .map(Buffer::clone)
+                .map(Buffer::readUtf8)
+                .orElse("");
+        Headers responseHeaders = response.headers();
+        if (!response.isSuccessful()) {
+            String requestId = responseHeaders.get(HttpHeaders.REQUEST_ID.headerName());
+            String errorMessage = " Code: " + response.code() +
+                    "\n Request-ID: " + requestId +
+                    "\n Message: " + response.message() +
+                    "\n Body: " + body;
+            throw new PayException(errorMessage);
+        }
+        String serialNumber = responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
+        TenpayKey tenpayKey = tenpayCertificateService.getTenpayKey(serialNumber);
+        if (!WechatPaySigner.verify(responseHeaders, body, tenpayKey)) {
+            String requestId = responseHeaders.get(HttpHeaders.REQUEST_ID.headerName());
+            throw new PayException("Wechat pay signature verify failed, Request-ID: " + requestId);
+        }
+    }
+}

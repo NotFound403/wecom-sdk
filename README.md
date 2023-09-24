@@ -66,7 +66,7 @@
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>wecom-sdk</artifactId>
-  <version>1.1.6</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
@@ -77,7 +77,7 @@
 <dependency>
   <groupId>cn.felord</groupId>
   <artifactId>rx-wecom-sdk</artifactId>
-  <version>1.1.6</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
@@ -144,7 +144,8 @@
 - [x] 小程序接入对外收款
 - 企业互联
 - 会话内容存档
-- 电子发票
+- [x] 电子发票
+- [x] 花名册
 - 家校沟通
 - 家校应用
 - 政民沟通

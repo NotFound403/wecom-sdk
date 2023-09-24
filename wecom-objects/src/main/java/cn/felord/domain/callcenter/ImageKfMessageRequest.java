@@ -21,8 +21,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Image kf message request.
+ *
  * @author dax
- * @since 2023/6/4
+ * @since 2023 /6/4
  */
 @ToString
 @Getter
@@ -30,12 +32,27 @@ public class ImageKfMessageRequest extends KfMessageRequest {
     private final MediaId image;
 
 
-    public ImageKfMessageRequest(String touser, String openKfid, MediaId image) {
-        this(touser, openKfid, null, image);
+    /**
+     * Instantiates a new Image kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param mediaId  the media id
+     */
+    public ImageKfMessageRequest(String touser, String openKfid, String mediaId) {
+        this(touser, openKfid, mediaId, null);
     }
 
-    public ImageKfMessageRequest(String touser, String openKfid, String msgid, MediaId image) {
+    /**
+     * Instantiates a new Image kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param mediaId  the media id
+     * @param msgid    the msgid
+     */
+    public ImageKfMessageRequest(String touser, String openKfid, String mediaId, String msgid) {
         super(touser, openKfid, msgid, KfMsgType.IMAGE);
-        this.image = image;
+        this.image = new MediaId(mediaId);
     }
 }

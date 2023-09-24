@@ -32,7 +32,7 @@ import java.util.List;
  *     <li>数字对应 {@link NumberValue}</li>
  *     <li>金额对应 {@link MoneyValue}</li>
  *     <li>日期对应 {@link DateValue}</li>
- *     <li>单选/多选对应 {@link SelectorConfig}</li>
+ *     <li>单选/多选对应 {@link SelectorValue}</li>
  *     <li>成员/部门对应 {@link ContactValue}</li>
  *     <li>附件对应 {@link FileValue}</li>
  *     <li>明细对应 {@link TableValue}，注意明细比较复杂，条目类型要对应模板配置</li>
@@ -51,7 +51,6 @@ import java.util.List;
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "control", visible = true)
 @JsonSubTypes({
-//        @JsonSubTypes.Type(value = TextApplyContentData.class, names = {"Text", "Textarea", "Tips"}),
         @JsonSubTypes.Type(value = TextApplyContentData.class, name = "Text"),
         @JsonSubTypes.Type(value = TextApplyContentData.class, name = "Textarea"),
         @JsonSubTypes.Type(value = TextApplyContentData.class, name = "Tips"),
@@ -69,7 +68,7 @@ import java.util.List;
         @JsonSubTypes.Type(value = LocationApplyContentData.class, name = "Location"),
         @JsonSubTypes.Type(value = RelatedApprovalApplyContentData.class, name = "RelatedApproval"),
         @JsonSubTypes.Type(value = FormulaApplyContentData.class, name = "Formula"),
-        @JsonSubTypes.Type(value = PhoneNumberApplyContentData.class, name = "PhoneNumber"),
+        @JsonSubTypes.Type(value = PhoneNumberApplyContentData.class, name = "PhoneNumber")
 })
 @ToString
 @Getter
@@ -92,7 +91,7 @@ public abstract class ApplyContentData<V> {
      * @param hidden  the hidden
      * @param require the require
      */
-    public ApplyContentData(ApprovalCtrlType control, String id, List<ApprovalTitle> title, V value, Integer hidden, BoolEnum require) {
+    ApplyContentData(ApprovalCtrlType control, String id, List<ApprovalTitle> title, V value, Integer hidden, BoolEnum require) {
         this.control = control;
         this.id = id;
         this.value = value;

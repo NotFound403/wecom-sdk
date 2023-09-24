@@ -24,8 +24,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Video msg attachment.
+ *
  * @author dax
- * @since 2021/4/22 14:53
+ * @since 2021 /4/22 14:53
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString
@@ -33,9 +35,23 @@ import lombok.ToString;
 public class VideoMsgAttachment extends MsgAttachment {
     private final MediaId video;
 
+    /**
+     * Instantiates a new Video msg attachment.
+     *
+     * @param video the video
+     */
     @JsonCreator
-    public VideoMsgAttachment(@JsonProperty("video") MediaId video) {
+    VideoMsgAttachment(@JsonProperty("video") MediaId video) {
         super(MsgAttachType.VIDEO);
         this.video = video;
+    }
+
+    /**
+     * Instantiates a new Video msg attachment.
+     *
+     * @param videoMediaId the video media id
+     */
+    public VideoMsgAttachment(String videoMediaId) {
+        this(new MediaId(videoMediaId));
     }
 }

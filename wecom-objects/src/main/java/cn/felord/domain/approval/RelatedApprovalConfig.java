@@ -24,7 +24,7 @@ import java.util.List;
  * @since 2023/5/25 17:15
  */
 @Data
-public class RelatedApprovalConfig {
+public class RelatedApprovalConfig implements ControlConfig {
     private Wrapper relatedApproval;
 
     @Data

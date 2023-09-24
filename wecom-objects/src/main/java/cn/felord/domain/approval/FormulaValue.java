@@ -15,28 +15,39 @@
 
 package cn.felord.domain.approval;
 
+import cn.felord.domain.common.SingleText;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * 公式组件
+ *
  * @author dax
- * @since 2023/5/27 17:21
+ * @since 2023 /5/27 17:21
  */
 @ToString
 @Getter
 public class FormulaValue implements ContentDataValue {
-    private final Wrapper formula;
+    private final SingleText formula;
 
+    /**
+     * Instantiates a new Formula value.
+     *
+     * @param formula the formula
+     */
     @JsonCreator
-    public FormulaValue(@JsonProperty Wrapper formula) {
+    FormulaValue(@JsonProperty("formula") SingleText formula) {
         this.formula = formula;
     }
 
-    @Data
-    public static class Wrapper {
-        private String value;
+    /**
+     * Instantiates a new Formula value.
+     *
+     * @return the formula value
+     */
+    public static FormulaValue create() {
+        return new FormulaValue(new SingleText(null));
     }
 }

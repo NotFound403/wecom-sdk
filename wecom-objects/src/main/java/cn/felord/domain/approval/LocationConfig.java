@@ -18,13 +18,18 @@ package cn.felord.domain.approval;
 import lombok.Data;
 
 /**
+ * The type Location config.
+ *
  * @author dax
- * @since 2023/5/25 17:11
+ * @since 2023 /5/25 17:11
  */
 @Data
-public class LocationConfig {
+public class LocationConfig implements ControlConfig {
     private Wrapper location;
 
+    /**
+     * The type Wrapper.
+     */
     @Data
     public static class Wrapper {
         private Integer distance;
