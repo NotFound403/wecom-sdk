@@ -92,6 +92,7 @@ public class DateInfo {
      * Time range date info.
      *
      * @param beginTimestamp the begin timestamp
+     * @param endTimestamp   the end timestamp
      * @return the date info
      */
     public static DateInfo timeRange(Instant beginTimestamp, Instant endTimestamp) {

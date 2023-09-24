@@ -25,7 +25,7 @@ import lombok.ToString;
 /**
  * 会员卡信息
  * <p>
- * <img src="https://mmbiz.qpic.cn/mmbiz/PiajxSqBRaEIQxibpLbyuSKibIIQhichBVsM74ZxRjzrH99AAFuo8MwNSxJDZNeFuMYC4h7ZM3IN34RjJNE8Wx4oAA/0?wx_fmt=png"/>
+ * 参见 <a href="https://mmbiz.qpic.cn/mmbiz/PiajxSqBRaEIQxibpLbyuSKibIIQhichBVsM74ZxRjzrH99AAFuo8MwNSxJDZNeFuMYC4h7ZM3IN34RjJNE8Wx4oAA/0?wx_fmt=png">...</a>
  *
  * @author felord.cn
  * @since 1.0.0.RELEASE

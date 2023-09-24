@@ -18,10 +18,44 @@ package cn.felord.mp.api;
 import cn.felord.mp.WeMpException;
 import cn.felord.mp.domain.GenericMpResponse;
 import cn.felord.mp.domain.MpResponse;
-import cn.felord.mp.domain.card.*;
+import cn.felord.mp.domain.card.AbandonCardCodeRequest;
+import cn.felord.mp.domain.card.AbstractCard;
+import cn.felord.mp.domain.card.BatchCardRequest;
+import cn.felord.mp.domain.card.BatchCardResponse;
+import cn.felord.mp.domain.card.CardBiz;
+import cn.felord.mp.domain.card.CardBizRequest;
+import cn.felord.mp.domain.card.CardDataList;
+import cn.felord.mp.domain.card.CardId;
+import cn.felord.mp.domain.card.CardInfoRequest;
+import cn.felord.mp.domain.card.CardLandingRequest;
+import cn.felord.mp.domain.card.CardLandingResponse;
+import cn.felord.mp.domain.card.CardListResponse;
+import cn.felord.mp.domain.card.CardPaySettingRequest;
+import cn.felord.mp.domain.card.CardQrcodeRequest;
+import cn.felord.mp.domain.card.CardQrcodeResponse;
+import cn.felord.mp.domain.card.CardRequest;
+import cn.felord.mp.domain.card.CardUpdateUserRequest;
+import cn.felord.mp.domain.card.CardUpdateUserResponse;
+import cn.felord.mp.domain.card.CardUserInfoResponse;
+import cn.felord.mp.domain.card.DecryptCodeRequest;
+import cn.felord.mp.domain.card.FreeCardBiz;
+import cn.felord.mp.domain.card.MemberCard;
+import cn.felord.mp.domain.card.MemberCardActivateForm;
+import cn.felord.mp.domain.card.MemberCardActivateRequest;
+import cn.felord.mp.domain.card.MemberCardBiz;
+import cn.felord.mp.domain.card.MemberCardDetail;
+import cn.felord.mp.domain.card.MemberCardDetailRequest;
+import cn.felord.mp.domain.card.ModifyStockRequest;
+import cn.felord.mp.domain.card.OpenUserCard;
 import cn.felord.mp.domain.card.PayGiftRuleId;
 import cn.felord.mp.domain.card.PayGiftRulesRequest;
 import cn.felord.mp.domain.card.PayGiftRulesResponse;
+import cn.felord.mp.domain.card.TestWhiteListRequest;
+import cn.felord.mp.domain.card.UpdateCardRequest;
+import cn.felord.mp.domain.card.UpdateCodeRequest;
+import cn.felord.mp.domain.card.UserCardInfo;
+import cn.felord.mp.domain.card.UserCardRequest;
+import cn.felord.mp.domain.card.UserCardResponse;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -264,7 +298,7 @@ public interface CardApi {
      * <p>
      * 开发者在创建时填入wx_activate字段后，需要调用该接口设置用户激活时需要填写的选项，否则一键开卡设置不生效。
      * <p>
-     * <img src ="https://mmbiz.qpic.cn/mmbiz/PiajxSqBRaEIQxibpLbyuSK8ghZh6u55AiafY7UDDlAkOVnox1ABdGuKSeWhF78sF4nrtLjx2yLb85zmfIyseZ9eQ/0?wx_fmt=png" />
+     * 参见 <a href="https://mmbiz.qpic.cn/mmbiz/PiajxSqBRaEIQxibpLbyuSK8ghZh6u55AiafY7UDDlAkOVnox1ABdGuKSeWhF78sF4nrtLjx2yLb85zmfIyseZ9eQ/0?wx_fmt=png">...</a>
      *
      * @param request the request
      * @return the activate form
