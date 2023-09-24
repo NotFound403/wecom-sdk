@@ -40,6 +40,7 @@ public class UserFavorQueryParams extends HashMap<String, String> {
      * 商户券批次号
      *
      * @param stockId the stock id
+     * @return the user favor query params
      */
     public UserFavorQueryParams stockId(String stockId) {
         this.put("stock_id", stockId);
@@ -50,6 +51,7 @@ public class UserFavorQueryParams extends HashMap<String, String> {
      * 券状态
      *
      * @param couponState the coupon state
+     * @return the user favor query params
      */
     public UserFavorQueryParams couponState(CouponState couponState) {
         this.put("coupon_state", couponState.name());
@@ -60,6 +62,7 @@ public class UserFavorQueryParams extends HashMap<String, String> {
      * 创建批次的商户号
      *
      * @param creatorMerchant the creator merchant
+     * @return the user favor query params
      */
     public UserFavorQueryParams creatorMerchant(String creatorMerchant) {
         this.put("creator_merchant", creatorMerchant);
@@ -70,6 +73,7 @@ public class UserFavorQueryParams extends HashMap<String, String> {
      * 批次归属商户号
      *
      * @param belongMerchant the belong merchant
+     * @return the user favor query params
      */
     public UserFavorQueryParams belongMerchant(String belongMerchant) {
         this.put("belong_merchant", belongMerchant);
@@ -80,6 +84,7 @@ public class UserFavorQueryParams extends HashMap<String, String> {
      * 批次发放商户号
      *
      * @param senderMerchant the sender merchant
+     * @return the user favor query params
      */
     public UserFavorQueryParams senderMerchant(String senderMerchant) {
         this.put("sender_merchant", senderMerchant);
@@ -90,6 +95,7 @@ public class UserFavorQueryParams extends HashMap<String, String> {
      * 分页页码
      *
      * @param offset the offset
+     * @return the user favor query params
      */
     public UserFavorQueryParams offset(long offset) {
         this.put("offset", String.valueOf(offset));
@@ -100,6 +106,7 @@ public class UserFavorQueryParams extends HashMap<String, String> {
      * 分页大小
      *
      * @param limit the limit
+     * @return the user favor query params
      */
     public UserFavorQueryParams limit(long limit) {
         this.put("limit", String.valueOf(limit));

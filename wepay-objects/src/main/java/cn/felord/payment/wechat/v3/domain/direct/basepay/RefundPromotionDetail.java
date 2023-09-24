@@ -55,7 +55,7 @@ public class RefundPromotionDetail {
      */
     private Long amount;
     /**
-     * 优惠退款金额<=退款金额，退款金额-代金券或立减优惠退款金额为用户支付的现金，说明详见代金券或立减优惠，单位为分
+     * 优惠退款金额小于等于退款金额，退款金额-代金券或立减优惠退款金额为用户支付的现金，说明详见代金券或立减优惠，单位为分
      */
     private Long refundAmount;
     /**
