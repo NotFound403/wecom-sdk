@@ -192,6 +192,7 @@ public class MemberCardBaseInfo {
      * @param canShare             the can share
      * @param canGiveFriend        the can give friend
      * @param needPushOnView       the need push on view
+     * @param status               the status
      */
     @JsonCreator
     MemberCardBaseInfo(@JsonProperty("logo_url") String logoUrl, @JsonProperty("code_type") CardCodeType codeType,
