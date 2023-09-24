@@ -92,7 +92,7 @@ interface InternalBasePayApi {
     /**
      * 申请退款API
      *
-     * @param request @return the refund response
+     * @param request the request
      * @return the refund response
      * @throws PayException the pay exception
      */
