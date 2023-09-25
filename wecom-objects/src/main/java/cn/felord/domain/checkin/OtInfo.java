@@ -15,14 +15,14 @@
 
 package cn.felord.domain.checkin;
 
-import cn.felord.domain.WeComResponse;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class CheckinDataResponse extends WeComResponse {
-    private List<CheckinData> checkindata;
+public class OtInfo {
+    private Boolean allowOtNonworkingday;
+    private Otapplyinfo otapplyinfo;
+    private Boolean allowOtWorkingday;
+    private Integer type;
+    private Otcheckinfo otcheckinfo;
+    private Integer uptime;
 }

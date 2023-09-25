@@ -15,14 +15,13 @@
 
 package cn.felord.domain.checkin;
 
-import cn.felord.domain.WeComResponse;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class CheckinDataResponse extends WeComResponse {
-    private List<CheckinData> checkindata;
+public class Range {
+    private List<Object> tagid;
+    private List<String> partyId;
+    private List<String> userid;
 }

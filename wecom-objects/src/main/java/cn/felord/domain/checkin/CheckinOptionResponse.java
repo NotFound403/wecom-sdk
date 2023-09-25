@@ -23,6 +23,6 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CheckinDataResponse extends WeComResponse {
-    private List<CheckinData> checkindata;
+public class CheckinOptionResponse extends WeComResponse {
+    private List<CheckInGroup> group;
 }

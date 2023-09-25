@@ -15,14 +15,24 @@
 
 package cn.felord.domain.checkin;
 
-import cn.felord.domain.WeComResponse;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class CheckinDataResponse extends WeComResponse {
-    private List<CheckinData> checkindata;
+public class TimeSectionItem {
+    private Integer timeId;
+    private Integer latestOffWorkSec;
+    private Integer earliestWorkSec;
+    private Integer remindOffWorkSec;
+    private Integer latestWorkSec;
+    private Boolean allowRest;
+    private Integer restEndTime;
+    private Integer remindWorkSec;
+    private Integer offWorkSec;
+    private Integer restBeginTime;
+    private Boolean noNeedCheckon;
+    private Integer earliestOffWorkSec;
+    private Integer workSec;
+    private Boolean noNeedCheckoff;
+    private Boolean offWorkLeave;
+    private Boolean onWorkBack;
 }

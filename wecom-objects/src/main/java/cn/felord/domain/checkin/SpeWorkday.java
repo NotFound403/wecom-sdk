@@ -15,14 +15,27 @@
 
 package cn.felord.domain.checkin;
 
-import cn.felord.domain.WeComResponse;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
+import java.time.Instant;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
+/**
+ * @author dax
+ * @since 2023/9/25
+ */
 @Data
-public class CheckinDataResponse extends WeComResponse {
-    private List<CheckinData> checkindata;
+public class SpeWorkday {
+    /**
+     * 特殊日期-必须打卡日期时间戳
+     */
+    private Instant timestamp;
+    /**
+     * 特殊日期备注
+     */
+    private String notes;
+    /**
+     * 特殊日期-必须打卡日期-上下班打卡时间
+     */
+    private List<CheckinTime> checkintime;
 }

@@ -15,14 +15,21 @@
 
 package cn.felord.domain.checkin;
 
-import cn.felord.domain.WeComResponse;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class CheckinDataResponse extends WeComResponse {
-    private List<CheckinData> checkindata;
+public class SchedulelistItem {
+    private Integer limitOfftime;
+    private Integer flexOnDutyTime;
+    private List<Object> timeSection;
+    private Integer maxAllowArriveEarly;
+    private Integer limitAheadtime;
+    private Integer flexOffDutyTime;
+    private LateRule lateRule;
+    private Integer scheduleId;
+    private String scheduleName;
+    private Integer maxAllowArriveLate;
+    private Boolean allowFlex;
 }

@@ -15,14 +15,31 @@
 
 package cn.felord.domain.checkin;
 
-import cn.felord.domain.WeComResponse;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
-@EqualsAndHashCode(callSuper = true)
+/**
+ * The type Loc info.
+ */
 @Data
-public class CheckinDataResponse extends WeComResponse {
-    private List<CheckinData> checkindata;
+public class LocInfo {
+    /**
+     *
+     */
+    private String locTitle;
+    /**
+     *
+     */
+    private Integer lng;
+    /**
+     *
+     */
+    private Integer distance;
+    /**
+     *
+     */
+    private String locDetail;
+    /**
+     *
+     */
+    private Integer lat;
 }

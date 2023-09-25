@@ -15,14 +15,22 @@
 
 package cn.felord.domain.checkin;
 
-import cn.felord.domain.WeComResponse;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
-@EqualsAndHashCode(callSuper = true)
+/**
+ * 打卡地点-WiFi打卡信息
+ *
+ * @author dax
+ * @since 2023/9/25
+ */
 @Data
-public class CheckinDataResponse extends WeComResponse {
-    private List<CheckinData> checkindata;
+public class WifimacInfo {
+    /**
+     * WiFi打卡地点名称
+     */
+    private String wifiname;
+    /**
+     * WiFi打卡地点MAC地址/bssid
+     */
+    private String wifimac;
 }
