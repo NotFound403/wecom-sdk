@@ -23,7 +23,7 @@ import java.util.List;
 public class CheckinSchedule {
     private Integer limitOfftime;
     private Integer flexOnDutyTime;
-    private List<TimeSectionItem> timeSection;
+    private List<TimeSection> timeSection;
     private Integer maxAllowArriveEarly;
     private Integer limitAheadtime;
     private Integer flexOffDutyTime;

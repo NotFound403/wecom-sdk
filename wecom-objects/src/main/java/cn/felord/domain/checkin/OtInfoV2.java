@@ -17,10 +17,12 @@ package cn.felord.domain.checkin;
 
 import lombok.Data;
 
+import java.time.Instant;
+
 @Data
 public class OtInfoV2 {
     private Workdayconf workdayconf;
     private Restdayconf restdayconf;
     private Holidayconf holidayconf;
-    private Integer updatetime;
+    private Instant updatetime;
 }

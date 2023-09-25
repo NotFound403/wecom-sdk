@@ -15,12 +15,14 @@
 
 package cn.felord.domain.checkin;
 
+import cn.felord.domain.common.UserId;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
 public class Reporterinfo {
-    private List<Object> reporters;
-    private Integer updatetime;
+    private List<UserId> reporters;
+    private Instant updatetime;
 }

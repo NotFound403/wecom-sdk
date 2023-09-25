@@ -18,28 +18,28 @@ package cn.felord.domain.checkin;
 import lombok.Data;
 
 /**
- * The type Loc info.
+ * 打卡地点-位置打卡信息
  */
 @Data
 public class LocInfo {
     /**
-     *
+     * 位置打卡地点名称
      */
     private String locTitle;
     /**
-     *
+     * 位置打卡地点经度，是实际经度的1000000倍，与腾讯地图一致采用GCJ-02坐标系统标准
      */
     private Integer lng;
     /**
-     *
+     * 允许打卡范围（米）
      */
     private Integer distance;
     /**
-     *
+     * 位置打卡地点详情
      */
     private String locDetail;
     /**
-     *
+     * 位置打卡地点纬度，是实际纬度的1000000倍，与腾讯地图一致采用GCJ-02坐标系统标准
      */
     private Integer lat;
 }

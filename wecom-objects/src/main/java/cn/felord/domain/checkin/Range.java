@@ -21,7 +21,7 @@ import java.util.List;
 
 @Data
 public class Range {
-    private List<Object> tagid;
+    private List<String> tagid;
     private List<String> partyId;
     private List<String> userid;
 }

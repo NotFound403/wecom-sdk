@@ -18,7 +18,7 @@ package cn.felord.domain.checkin;
 import lombok.Data;
 
 @Data
-public class TimeSectionItem {
+public class TimeSection {
     private Integer timeId;
     private Integer latestOffWorkSec;
     private Integer earliestWorkSec;
