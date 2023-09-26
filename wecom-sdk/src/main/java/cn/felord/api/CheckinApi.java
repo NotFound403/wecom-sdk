@@ -18,9 +18,11 @@ package cn.felord.api;
 import cn.felord.WeComException;
 import cn.felord.domain.checkin.CheckinDataRequest;
 import cn.felord.domain.checkin.CheckinDataResponse;
-import cn.felord.domain.checkin.CheckinDayDataRequest;
-import cn.felord.domain.checkin.CheckinDayDataResponse;
+import cn.felord.domain.checkin.CheckinDayData;
+import cn.felord.domain.checkin.CheckinMonthData;
 import cn.felord.domain.checkin.CheckinOptionResponse;
+import cn.felord.domain.checkin.CheckinStatisticsRequest;
+import cn.felord.domain.checkin.CheckinStatisticsResponse;
 import cn.felord.domain.checkin.UserCheckinOptionRequest;
 import cn.felord.domain.checkin.UserCheckinOptionResponse;
 import retrofit2.http.Body;
@@ -85,5 +87,15 @@ public interface CheckinApi {
      * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckin_daydata")
-    CheckinDayDataResponse getCheckinDayData(@Body CheckinDayDataRequest request) throws WeComException;
+    CheckinStatisticsResponse<CheckinDayData> getCheckinDayData(@Body CheckinStatisticsRequest request) throws WeComException;
+
+    /**
+     * 获取打卡月报数据
+     *
+     * @param request the request
+     * @return the checkin month data
+     * @throws WeComException the we com exception
+     */
+    @POST("checkin/getcheckin_monthdata")
+    CheckinStatisticsResponse<CheckinMonthData> getCheckinMonthData(@Body CheckinStatisticsRequest request) throws WeComException;
 }

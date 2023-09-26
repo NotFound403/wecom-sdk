@@ -12,6 +12,6 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CheckinDayDataResponse extends WeComResponse {
-    private List<CheckinDayData> datas;
+public class CheckinStatisticsResponse<T extends AbstractCheckinData> extends WeComResponse {
+    private List<T> datas;
 }

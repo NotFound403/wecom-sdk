@@ -15,15 +15,15 @@ public class RuleInfo {
      */
     private String groupname;
     /**
-     * 当日所属班次id，仅按班次上下班才有值，显示在打卡日报-班次列
+     * （日报）当日所属班次id，仅按班次上下班才有值，显示在打卡日报-班次列
      */
     private Integer scheduleid;
     /**
-     * 当日所属班次名称，仅按班次上下班才有值，显示在打卡日报-班次列
+     * （日报）当日所属班次名称，仅按班次上下班才有值，显示在打卡日报-班次列
      */
     private String schedulename;
     /**
-     * 当日打卡时间，仅固定上下班规则有值，显示在打卡日报-班次列
+     * （日报）当日打卡时间，仅固定上下班规则有值，显示在打卡日报-班次列
      */
     private List<CheckinDayTime> checkintime;
 }

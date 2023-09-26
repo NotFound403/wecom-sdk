@@ -9,7 +9,7 @@ import java.util.Set;
  * The type Checkin data request.
  */
 @Data
-public class CheckinDayDataRequest {
+public class CheckinStatisticsRequest {
     private final Instant starttime;
     private final Instant endtime;
     private final Set<String> useridlist;
