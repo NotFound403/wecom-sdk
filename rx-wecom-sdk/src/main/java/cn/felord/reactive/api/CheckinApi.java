@@ -13,7 +13,7 @@
  *  limitations under the License.
  */
 
-package cn.felord.api;
+package cn.felord.reactive.api;
 
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
@@ -29,6 +29,7 @@ import cn.felord.domain.checkin.ScheduleListResponse;
 import cn.felord.domain.checkin.UserCheckinOptionRequest;
 import cn.felord.domain.checkin.UserCheckinOptionResponse;
 import cn.felord.domain.checkin.UserScheduleRequest;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -47,7 +48,7 @@ public interface CheckinApi {
      * @throws WeComException the we com exception
      */
     @POST("checkin/getcorpcheckinoption")
-    CheckinOptionResponse getCorpCheckinOption() throws WeComException;
+    Single<CheckinOptionResponse> getCorpCheckinOption() throws WeComException;
 
     /**
      * 获取员工打卡规则
@@ -61,7 +62,7 @@ public interface CheckinApi {
      * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckinoption")
-    UserCheckinOptionResponse getCheckinOption(@Body UserCheckinOptionRequest request) throws WeComException;
+    Single<UserCheckinOptionResponse> getCheckinOption(@Body UserCheckinOptionRequest request) throws WeComException;
 
     /**
      * 获取打卡记录数据
@@ -78,7 +79,7 @@ public interface CheckinApi {
      * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckindata")
-    CheckinDataResponse getCheckinData(@Body CheckinDataRequest request) throws WeComException;
+    Single<CheckinDataResponse> getCheckinData(@Body CheckinDataRequest request) throws WeComException;
 
     /**
      * 获取打卡日报数据
@@ -91,7 +92,7 @@ public interface CheckinApi {
      * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckin_daydata")
-    CheckinStatisticsResponse<CheckinDayData> getCheckinDayData(@Body CheckinQueryRequest request) throws WeComException;
+    Single<CheckinStatisticsResponse<CheckinDayData>> getCheckinDayData(@Body CheckinQueryRequest request) throws WeComException;
 
     /**
      * 获取打卡月报数据
@@ -101,7 +102,7 @@ public interface CheckinApi {
      * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckin_monthdata")
-    CheckinStatisticsResponse<CheckinMonthData> getCheckinMonthData(@Body CheckinQueryRequest request) throws WeComException;
+    Single<CheckinStatisticsResponse<CheckinMonthData>> getCheckinMonthData(@Body CheckinQueryRequest request) throws WeComException;
 
     /**
      * 获取打卡人员排班信息
@@ -116,7 +117,7 @@ public interface CheckinApi {
      * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckinschedulist")
-    ScheduleListResponse getCheckinScheduList(@Body CheckinQueryRequest request) throws WeComException;
+    Single<ScheduleListResponse> getCheckinScheduList(@Body CheckinQueryRequest request) throws WeComException;
 
     /**
      * 为打卡人员排班
@@ -129,7 +130,7 @@ public interface CheckinApi {
      * @throws WeComException the we com exception
      */
     @POST("checkin/setcheckinschedulist")
-    WeComResponse setCheckinScheduList(@Body UserScheduleRequest request) throws WeComException;
+    Single<WeComResponse> setCheckinScheduList(@Body UserScheduleRequest request) throws WeComException;
 
     /**
      * 为打卡人员补卡
@@ -141,5 +142,5 @@ public interface CheckinApi {
      * @throws WeComException the we com exception
      */
     @POST("checkin/setcheckinschedulist")
-    WeComResponse setCheckinScheduList(@Body PunchCorrectionRequest request) throws WeComException;
+    Single<WeComResponse> setCheckinScheduList(@Body PunchCorrectionRequest request) throws WeComException;
 }

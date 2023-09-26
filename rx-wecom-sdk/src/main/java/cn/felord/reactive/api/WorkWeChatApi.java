@@ -248,6 +248,19 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 打卡API
+     *
+     * @param agentDetails the agent details
+     * @return the checkin api
+     */
+    public CheckinApi checkinApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(CheckinApi.class);
+    }
+
+    /**
      * 审批API
      *
      * @param agentDetails the agent details
