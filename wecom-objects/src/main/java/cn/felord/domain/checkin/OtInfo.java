@@ -17,12 +17,33 @@ package cn.felord.domain.checkin;
 
 import lombok.Data;
 
+/**
+ * 加班信息
+ */
 @Data
 public class OtInfo {
+    /**
+     * 是否允许非工作日加班
+     */
     private Boolean allowOtNonworkingday;
+    /**
+     * 加班申请信息
+     */
     private Otapplyinfo otapplyinfo;
+    /**
+     * 是否允许工作日加班
+     */
     private Boolean allowOtWorkingday;
+    /**
+     * 加班类型
+     */
     private Integer type;
+    /**
+     * 加班信息
+     */
     private Otcheckinfo otcheckinfo;
+    /**
+     * 加班更新时间
+     */
     private Integer uptime;
 }

@@ -21,52 +21,50 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Checkin group type.
+ * 打卡假勤时长单位
  *
  * @author dax
- * @since 2023 /9/25
+ * @since 2023 /8/4 14:28
  */
-public enum CheckinGroupType {
+public enum CheckinSpTimeType {
     /**
-     * 固定时间上下班
+     * 按天
      */
-    REGULARLY(1),
+    DAY(0),
     /**
-     * 按班次上下班
+     * 按小时
      */
-    SHIFT(2),
-    /**
-     * 自由上下班
-     */
-    FREE(3);
+    HOUR(1);
 
-    private final int type;
+    private final int scale;
 
-    CheckinGroupType(int type) {
-        this.type = type;
+    CheckinSpTimeType(int scale) {
+        this.scale = scale;
     }
 
     /**
-     * Gets type.
+     * Deserialize DurationScale
      *
-     * @return the type
-     */
-    @JsonValue
-    public int getType() {
-        return type;
-    }
-
-    /**
-     * Deserialize CheckinGroupType
-     *
-     * @param type the type
-     * @return the checkin data type
+     * @param scale the scale
+     * @return the DurationScale
      */
     @JsonCreator
-    public static CheckinGroupType deserialize(int type) {
-        return Arrays.stream(CheckinGroupType.values())
-                .filter(checkinGroupType -> checkinGroupType.type == type)
+    public static CheckinSpTimeType deserialize(int scale) {
+        return Arrays.stream(CheckinSpTimeType.values())
+                .filter(durationTimeScale -> durationTimeScale.scale == scale)
                 .findFirst()
                 .orElse(null);
     }
+
+
+    /**
+     * Gets scale.
+     *
+     * @return the scale
+     */
+    @JsonValue
+    public int getScale() {
+        return scale;
+    }
+
 }

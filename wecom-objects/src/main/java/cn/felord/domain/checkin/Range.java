@@ -21,7 +21,16 @@ import java.util.List;
 
 @Data
 public class Range {
+    /**
+     * 打卡人员中，单个打卡人员节点的userid
+     */
     private List<String> tagid;
+    /**
+     * 打卡人员中，部门节点的id
+     */
     private List<String> partyId;
+    /**
+     * 打卡人员中，标签节点的标签id
+     */
     private List<String> userid;
 }

@@ -16,6 +16,7 @@
 package cn.felord.domain.checkin;
 
 import cn.felord.enumeration.CheckinGroupType;
+import cn.felord.enumeration.CheckinOutRange;
 import cn.felord.enumeration.CheckinType;
 import lombok.Data;
 
@@ -26,7 +27,7 @@ import java.util.List;
  * The type Check in group.
  */
 @Data
-public class CheckInGroup {
+public class CheckinGroup {
     /**
      * 打卡规则类型
      */
@@ -76,31 +77,27 @@ public class CheckInGroup {
      */
     private List<WifimacInfo> wifimacInfos;
     /**
-     * locInfos
+     * 打卡地点-位置打卡信息
      */
     private List<LocInfo> locInfos;
     /**
-     * createUserid
-     */
-    private String createUserid;
-    /**
-     * reporterinfo
+     * 汇报对象信息
      */
     private Reporterinfo reporterinfo;
     /**
-     * optionOutRange
+     * 范围外打卡处理方式，0-视为范围外异常，默认值；1-视为正常外勤；2:不允许范围外打卡
      */
-    private Integer optionOutRange;
+    private CheckinOutRange optionOutRange;
     /**
-     * openFaceLiveDetect
+     * 打开人脸实时检测
      */
     private Boolean openFaceLiveDetect;
     /**
-     * allowApplyBkCnt
+     * 允许申请Bk次数
      */
     private Integer allowApplyBkCnt;
     /**
-     * range
+     * 打卡人员信息
      */
     private Range range;
     /**
@@ -108,7 +105,7 @@ public class CheckInGroup {
      */
     private CheckinType type;
     /**
-     * otInfoV2
+     * 加班配置V2
      */
     private OtInfoV2 otInfoV2;
     /**
@@ -119,17 +116,20 @@ public class CheckInGroup {
      * bukaLimitNextMonth
      */
     private Integer bukaLimitNextMonth;
-
     /**
-     * bukaRemind
+     * 补卡提醒配置
      */
     private BukaRemind bukaRemind;
     /**
-     * createTime
+     * 创建时间
      */
     private Instant createTime;
     /**
-     * updateUserid
+     * 创建人
+     */
+    private String createUserid;
+    /**
+     * 更新人
      */
     private String updateUserid;
     /**
@@ -153,7 +153,7 @@ public class CheckInGroup {
      */
     private OtInfo otInfo;
     /**
-     * offworkIntervalTime
+     * 自由签到，上班打卡后xx秒可打下班卡
      */
     private Integer offworkIntervalTime;
 }

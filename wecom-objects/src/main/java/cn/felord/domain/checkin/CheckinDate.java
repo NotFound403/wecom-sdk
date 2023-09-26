@@ -47,7 +47,7 @@ public class CheckinDate {
      */
     private Integer maxAllowArriveEarly;
     /**
-     * 限制提前时间
+     * 限制提前时间（毫秒）
      */
     private Integer limitAheadtime;
     /**
