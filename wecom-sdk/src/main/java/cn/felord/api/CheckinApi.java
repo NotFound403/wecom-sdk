@@ -24,6 +24,9 @@ import cn.felord.domain.checkin.CheckinMonthData;
 import cn.felord.domain.checkin.CheckinOptionResponse;
 import cn.felord.domain.checkin.CheckinQueryRequest;
 import cn.felord.domain.checkin.CheckinStatisticsResponse;
+import cn.felord.domain.checkin.CheckinUserfaceRequest;
+import cn.felord.domain.checkin.DeviceCheckinDataResponse;
+import cn.felord.domain.checkin.DeviceCheckinQueryRequest;
 import cn.felord.domain.checkin.PunchCorrectionRequest;
 import cn.felord.domain.checkin.ScheduleListResponse;
 import cn.felord.domain.checkin.UserCheckinOptionRequest;
@@ -142,4 +145,37 @@ public interface CheckinApi {
      */
     @POST("checkin/setcheckinschedulist")
     WeComResponse setCheckinScheduList(@Body PunchCorrectionRequest request) throws WeComException;
+
+    /**
+     * 录入打卡人员人脸信息
+     * <p>
+     * 企业可通过打卡应用Secret调用本接口，为企业打卡人员录入人脸信息，人脸信息仅用于人脸打卡。
+     * <p>
+     * 注意：对于已有人脸的用户，使用此接口将使用传入的人脸覆盖原有人脸，请谨慎操作。
+     *
+     * @param request the request
+     * @return the we com response
+     * @throws WeComException the we com exception
+     */
+    @POST("checkin/addcheckinuserface")
+    WeComResponse addCheckinUserface(@Body CheckinUserfaceRequest request) throws WeComException;
+
+    /**
+     * 获取设备打卡数据
+     * <p>
+     * 可通过此接口，获取考勤设备上产生的所有原始打卡记录，包括未被打卡应用记录的不符合打卡规则的记录。
+     * 第三方应用可获取应用可见范围内员工在考勤设备上产生的所有原始打卡记录，包括未被打卡应用记录的不符合打卡规则的记录。
+     * <ol>
+     *     <li>获取记录时间跨度不超过一个月</li>
+     *     <li>用户列表不超过100个。若用户超过100个，请分批获取</li>
+     *     <li>获取的是通过考勤设备打卡的原始记录，不包含企业微信app手机打卡的记录</li>
+     *     <li>userid无效时，忽略该参数，不报错</li>
+     * </ol>
+     *
+     * @param request the request
+     * @return the device checkin data response
+     * @throws WeComException the we com exception
+     */
+    @POST("checkin/addcheckinuserface")
+    DeviceCheckinDataResponse addCheckinUserface(@Body DeviceCheckinQueryRequest request) throws WeComException;
 }
