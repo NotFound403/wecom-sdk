@@ -25,6 +25,8 @@ import cn.felord.domain.checkin.CheckinOptionResponse;
 import cn.felord.domain.checkin.CheckinQueryRequest;
 import cn.felord.domain.checkin.CheckinStatisticsResponse;
 import cn.felord.domain.checkin.CheckinUserfaceRequest;
+import cn.felord.domain.checkin.ClearCheckinRequest;
+import cn.felord.domain.checkin.DelCheckinRequest;
 import cn.felord.domain.checkin.DeviceCheckinDataResponse;
 import cn.felord.domain.checkin.DeviceCheckinQueryRequest;
 import cn.felord.domain.checkin.PunchCorrectionRequest;
@@ -65,6 +67,36 @@ public interface CheckinApi {
      */
     @POST("checkin/getcheckinoption")
     UserCheckinOptionResponse getCheckinOption(@Body UserCheckinOptionRequest request) throws WeComException;
+
+    /**
+     * 清空打卡规则数组元素
+     * <p>
+     * 企业可通过打卡应用或授权的代开发应用，修改该应用为企业创建的打卡规则。
+     * <ol>
+     *     <li>打卡规则仅可由该规则的创建应用修改。</li>
+     * </ol>
+     *
+     * @param request the request
+     * @return the we com response
+     * @throws WeComException the we com exception
+     */
+    @POST("checkin/clear_checkin_option_array_field")
+    WeComResponse clearCheckinOptionArrayField(@Body ClearCheckinRequest request) throws WeComException;
+
+    /**
+     * 删除打卡规则
+     * <p>
+     * 企业可通过打卡应用或授权的代开发应用，修改该应用为企业创建的打卡规则。
+     * <ol>
+     *     <li>打卡规则仅可由该规则的创建应用修改。</li>
+     * </ol>
+     *
+     * @param request the request
+     * @return the we com response
+     * @throws WeComException the we com exception
+     */
+    @POST("checkin/del_checkin_option")
+    WeComResponse delCheckinOption(@Body DelCheckinRequest request) throws WeComException;
 
     /**
      * 获取打卡记录数据
