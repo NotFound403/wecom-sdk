@@ -121,6 +121,12 @@ public class CheckinGroup {
      */
     private BukaRemind bukaRemind;
     /**
+     * 补卡指定异常类型，按比特位设置，大端模式，某位bit置位为1表示关闭某类型。
+     * 从低到高四个比特位分别表示缺卡类型、迟到类型、早退类型、其他异常类型。
+     * 为默认值0表示所有异常类型均允许补卡。
+     */
+    private Integer bukaRestriction;
+    /**
      * 创建时间
      */
     private Instant createTime;

@@ -21,8 +21,20 @@ import java.time.Instant;
 
 @Data
 public class OtInfoV2 {
+    /**
+     * 工作日加班配置
+     */
     private Workdayconf workdayconf;
+    /**
+     * 休息日加班配置
+     */
     private Restdayconf restdayconf;
+    /**
+     * 节假日加班配置
+     */
     private Holidayconf holidayconf;
+    /**
+     * 更新时间
+     */
     private Instant updatetime;
 }
