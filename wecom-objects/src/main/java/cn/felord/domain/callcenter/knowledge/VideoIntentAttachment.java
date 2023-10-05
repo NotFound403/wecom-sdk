@@ -13,43 +13,37 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.checkin;
+package cn.felord.domain.callcenter.knowledge;
 
+import cn.felord.domain.common.Name;
+import cn.felord.enumeration.AnswerAttachType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The type Clear checkin request.
+ * The type Video intent attachment.
+ *
+ * @author dax
+ * @since 2023 /10/5
  */
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @Getter
-public class DelCheckinRequest {
-    /**
-     * 打卡规则id
-     */
-    private final Integer groupid;
-    /**
-     * 是否立即生效，默认false
-     */
-    private final Boolean effectiveNow;
+public class VideoIntentAttachment extends IntentAttachment {
+    private final Name video;
+
 
     /**
-     * Instantiates a new Clear checkin request.
+     * Instantiates a new Video intent attachment.
      *
-     * @param groupid the groupid
+     * @param video the video
      */
-    public DelCheckinRequest(Integer groupid) {
-        this(groupid, false);
-    }
-
-    /**
-     * Instantiates a new Clear checkin request.
-     *
-     * @param groupid      the groupid
-     * @param effectiveNow the effective now
-     */
-    public DelCheckinRequest(Integer groupid, Boolean effectiveNow) {
-        this.groupid = groupid;
-        this.effectiveNow = effectiveNow;
+    @JsonCreator
+    VideoIntentAttachment(@JsonProperty("video") Name video) {
+        super(AnswerAttachType.VIDEO);
+        this.video = video;
     }
 }

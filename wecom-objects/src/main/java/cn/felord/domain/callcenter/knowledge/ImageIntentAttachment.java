@@ -13,43 +13,37 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.checkin;
+package cn.felord.domain.callcenter.knowledge;
 
+import cn.felord.domain.common.Name;
+import cn.felord.enumeration.AnswerAttachType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The type Clear checkin request.
+ * The type Image intent attachment.
+ *
+ * @author dax
+ * @since 2023 /10/5
  */
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @Getter
-public class DelCheckinRequest {
-    /**
-     * 打卡规则id
-     */
-    private final Integer groupid;
-    /**
-     * 是否立即生效，默认false
-     */
-    private final Boolean effectiveNow;
+public class ImageIntentAttachment extends IntentAttachment {
+    private final Name image;
 
     /**
-     * Instantiates a new Clear checkin request.
+     * Instantiates a new Image intent attachment.
      *
-     * @param groupid the groupid
+     * @param image the image
      */
-    public DelCheckinRequest(Integer groupid) {
-        this(groupid, false);
+    @JsonCreator
+    ImageIntentAttachment(@JsonProperty("image") Name image) {
+        super(AnswerAttachType.IMAGE);
+        this.image = image;
     }
 
-    /**
-     * Instantiates a new Clear checkin request.
-     *
-     * @param groupid      the groupid
-     * @param effectiveNow the effective now
-     */
-    public DelCheckinRequest(Integer groupid, Boolean effectiveNow) {
-        this.groupid = groupid;
-        this.effectiveNow = effectiveNow;
-    }
 }

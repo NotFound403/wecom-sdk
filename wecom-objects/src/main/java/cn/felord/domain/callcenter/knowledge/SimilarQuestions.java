@@ -13,38 +13,47 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.externalcontact;
+package cn.felord.domain.callcenter.knowledge;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * 要进行群发的客户标签列表
- * <p>
- * 同组标签之间按或关系进行筛选，
- * 不同组标签按且关系筛选，
- * 每组最多指定100个标签，支持规则组标签
+ * The type Similar questions.
  *
  * @author dax
- * @since 2023 /9/28
+ * @since 2023 /10/5
  */
 @ToString
 @Getter
-public class MsgTagFilter {
-    private final List<TagList> groupList;
+public class SimilarQuestions {
+    private final List<TextQuestion> items;
 
     /**
-     * Instantiates a new Msg tag filter.
+     * Instantiates a new Similar questions.
      *
-     * @param groupList the group list
+     * @param items the items
      */
-    MsgTagFilter(List<Set<String>> groupList) {
-        this.groupList = groupList.stream()
-                .map(TagList::new)
-                .collect(Collectors.toList());
+    @JsonCreator
+    SimilarQuestions(@JsonProperty("items") List<TextQuestion> items) {
+        this.items = items;
     }
+
+    /**
+     * From similar questions.
+     *
+     * @param contents the contents
+     * @return the similar questions
+     */
+    public static SimilarQuestions from(List<String> contents) {
+        return new SimilarQuestions(contents.stream()
+                .map(TextQuestion::from)
+                .collect(Collectors.toList()));
+    }
+
 }

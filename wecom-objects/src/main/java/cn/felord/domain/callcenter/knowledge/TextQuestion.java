@@ -13,43 +13,42 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.checkin;
+package cn.felord.domain.callcenter.knowledge;
 
+import cn.felord.domain.externalcontact.ContentText;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The type Clear checkin request.
+ * The type Text question.
+ *
+ * @author dax
+ * @since 2023 /10/5
  */
 @ToString
 @Getter
-public class DelCheckinRequest {
-    /**
-     * 打卡规则id
-     */
-    private final Integer groupid;
-    /**
-     * 是否立即生效，默认false
-     */
-    private final Boolean effectiveNow;
+public class TextQuestion {
+    private final ContentText text;
 
     /**
-     * Instantiates a new Clear checkin request.
+     * Instantiates a new Text question.
      *
-     * @param groupid the groupid
+     * @param text the text
      */
-    public DelCheckinRequest(Integer groupid) {
-        this(groupid, false);
+    @JsonCreator
+    TextQuestion(@JsonProperty("text") ContentText text) {
+        this.text = text;
     }
 
     /**
-     * Instantiates a new Clear checkin request.
+     * From text question.
      *
-     * @param groupid      the groupid
-     * @param effectiveNow the effective now
+     * @param content the content
+     * @return the text question
      */
-    public DelCheckinRequest(Integer groupid, Boolean effectiveNow) {
-        this.groupid = groupid;
-        this.effectiveNow = effectiveNow;
+    public static TextQuestion from(String content) {
+        return new TextQuestion(new ContentText(content));
     }
 }

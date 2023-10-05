@@ -15,35 +15,34 @@
 
 package cn.felord.domain.callcenter.knowledge;
 
-import cn.felord.enumeration.BoolEnum;
+import cn.felord.enumeration.AnswerAttachType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The type Knowledge group detail.
- *
  * @author dax
- * @since 2023 /10/5
+ * @since 2023/10/6
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.EXISTING_PROPERTY,
+        property = "msgtype", visible = true)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = ImageIntentAttachment.class, name = "image"),
+        @JsonSubTypes.Type(value = VideoIntentAttachment.class, name = "video"),
+        @JsonSubTypes.Type(value = LinkIntentAttachment.class, name = "link"),
+        @JsonSubTypes.Type(value = MiniprogramIntentAttachment.class, name = "miniprogram")
+})
 @ToString
 @Getter
-public class KnowledgeGroupDetail extends KnowledgeGroup {
-    private final BoolEnum isDefault;
+public abstract class IntentAttachment {
+    private final AnswerAttachType msgtype;
 
-    /**
-     * Instantiates a new Knowledge group.
-     *
-     * @param groupId   the group id
-     * @param name      the name
-     * @param isDefault the is default
-     */
     @JsonCreator
-    public KnowledgeGroupDetail(@JsonProperty("group_id") String groupId,
-                                @JsonProperty("name") String name,
-                                @JsonProperty("is_default") BoolEnum isDefault) {
-        super(groupId, name);
-        this.isDefault = isDefault;
+    IntentAttachment(@JsonProperty("msgtype") AnswerAttachType msgtype) {
+        this.msgtype = msgtype;
     }
 }

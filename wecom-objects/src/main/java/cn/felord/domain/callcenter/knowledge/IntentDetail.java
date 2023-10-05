@@ -20,27 +20,41 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
- * The type Knowledge group.
+ * The type Intent detail.
  *
  * @author dax
  * @since 2023 /10/5
  */
 @ToString
 @Getter
-public class KnowledgeGroup {
+public class IntentDetail {
     private final String groupId;
-    private final String name;
+    private final String intentId;
+    private final TextQuestion question;
+    private final List<IntentAnswer> answers;
+    private final SimilarQuestions similarQuestions;
 
     /**
-     * Instantiates a new Knowledge group.
+     * Instantiates a new Intent.
      *
-     * @param groupId the group id
-     * @param name    the name
+     * @param groupId          the group id
+     * @param question         the question
+     * @param answers          the answers
+     * @param similarQuestions the similar questions
      */
     @JsonCreator
-    public KnowledgeGroup(@JsonProperty("group_id") String groupId, @JsonProperty("name") String name) {
+    IntentDetail(@JsonProperty("group_id") String groupId,
+                 @JsonProperty("intent_id") String intentId,
+                 @JsonProperty("question") TextQuestion question,
+                 @JsonProperty("answers") List<IntentAnswer> answers,
+                 @JsonProperty("similar_questions") SimilarQuestions similarQuestions) {
         this.groupId = groupId;
-        this.name = name;
+        this.intentId = intentId;
+        this.question = question;
+        this.similarQuestions = similarQuestions;
+        this.answers = answers;
     }
 }

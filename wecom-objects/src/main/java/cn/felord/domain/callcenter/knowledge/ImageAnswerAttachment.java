@@ -15,35 +15,44 @@
 
 package cn.felord.domain.callcenter.knowledge;
 
-import cn.felord.enumeration.BoolEnum;
+import cn.felord.domain.common.MediaId;
+import cn.felord.enumeration.AnswerAttachType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The type Knowledge group detail.
+ * The type Image answer attachment.
  *
  * @author dax
  * @since 2023 /10/5
  */
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @Getter
-public class KnowledgeGroupDetail extends KnowledgeGroup {
-    private final BoolEnum isDefault;
+public class ImageAnswerAttachment extends AnswerAttachment {
+    private final MediaId image;
 
     /**
-     * Instantiates a new Knowledge group.
+     * Instantiates a new Image answer attachment.
      *
-     * @param groupId   the group id
-     * @param name      the name
-     * @param isDefault the is default
+     * @param image the image
      */
     @JsonCreator
-    public KnowledgeGroupDetail(@JsonProperty("group_id") String groupId,
-                                @JsonProperty("name") String name,
-                                @JsonProperty("is_default") BoolEnum isDefault) {
-        super(groupId, name);
-        this.isDefault = isDefault;
+    ImageAnswerAttachment(@JsonProperty("image") MediaId image) {
+        super(AnswerAttachType.IMAGE);
+        this.image = image;
+    }
+
+    /**
+     * From image answer attachment.
+     *
+     * @param imageMediaId the image media id
+     * @return the image answer attachment
+     */
+    public static ImageAnswerAttachment from(String imageMediaId) {
+        return new ImageAnswerAttachment(new MediaId(imageMediaId));
     }
 }

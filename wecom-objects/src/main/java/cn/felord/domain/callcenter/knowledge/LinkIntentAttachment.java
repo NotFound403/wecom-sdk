@@ -13,43 +13,37 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.checkin;
+package cn.felord.domain.callcenter.knowledge;
 
+import cn.felord.domain.callcenter.KfLink;
+import cn.felord.enumeration.AnswerAttachType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The type Clear checkin request.
+ * The type Link intent attachment.
+ *
+ * @author dax
+ * @since 2023 /10/5
  */
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @Getter
-public class DelCheckinRequest {
-    /**
-     * 打卡规则id
-     */
-    private final Integer groupid;
-    /**
-     * 是否立即生效，默认false
-     */
-    private final Boolean effectiveNow;
+public class LinkIntentAttachment extends IntentAttachment {
+    private final KfLink link;
 
     /**
-     * Instantiates a new Clear checkin request.
+     * Instantiates a new Link intent attachment.
      *
-     * @param groupid the groupid
+     * @param link the link
      */
-    public DelCheckinRequest(Integer groupid) {
-        this(groupid, false);
+    @JsonCreator
+    LinkIntentAttachment(@JsonProperty("link") KfLink link) {
+        super(AnswerAttachType.LINK);
+        this.link = link;
     }
 
-    /**
-     * Instantiates a new Clear checkin request.
-     *
-     * @param groupid      the groupid
-     * @param effectiveNow the effective now
-     */
-    public DelCheckinRequest(Integer groupid, Boolean effectiveNow) {
-        this.groupid = groupid;
-        this.effectiveNow = effectiveNow;
-    }
 }

@@ -15,35 +15,39 @@
 
 package cn.felord.domain.callcenter.knowledge;
 
-import cn.felord.enumeration.BoolEnum;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
- * The type Knowledge group detail.
+ * The type Intent.
  *
  * @author dax
  * @since 2023 /10/5
  */
 @ToString
 @Getter
-public class KnowledgeGroupDetail extends KnowledgeGroup {
-    private final BoolEnum isDefault;
+@RequiredArgsConstructor
+public class UpdateIntentRequest {
+    private final String intentId;
+    private TextQuestion question;
+    private List<Answer> answers;
+    private SimilarQuestions similarQuestions;
 
-    /**
-     * Instantiates a new Knowledge group.
-     *
-     * @param groupId   the group id
-     * @param name      the name
-     * @param isDefault the is default
-     */
-    @JsonCreator
-    public KnowledgeGroupDetail(@JsonProperty("group_id") String groupId,
-                                @JsonProperty("name") String name,
-                                @JsonProperty("is_default") BoolEnum isDefault) {
-        super(groupId, name);
-        this.isDefault = isDefault;
+    public UpdateIntentRequest question(String content) {
+        this.question = TextQuestion.from(content);
+        return this;
+    }
+
+    public UpdateIntentRequest answers(List<Answer> answers) {
+        this.answers = answers;
+        return this;
+    }
+
+    public UpdateIntentRequest similarQuestions(List<String> similarQuestionContents) {
+        this.similarQuestions = SimilarQuestions.from(similarQuestionContents);
+        return this;
     }
 }

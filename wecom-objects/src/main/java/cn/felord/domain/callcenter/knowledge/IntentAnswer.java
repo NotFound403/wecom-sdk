@@ -13,38 +13,38 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.externalcontact;
+package cn.felord.domain.callcenter.knowledge;
 
+import cn.felord.domain.externalcontact.ContentText;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
- * 要进行群发的客户标签列表
- * <p>
- * 同组标签之间按或关系进行筛选，
- * 不同组标签按且关系筛选，
- * 每组最多指定100个标签，支持规则组标签
+ * The type Intent answer.
  *
  * @author dax
- * @since 2023 /9/28
+ * @since 2023 /10/5
  */
 @ToString
 @Getter
-public class MsgTagFilter {
-    private final List<TagList> groupList;
+public class IntentAnswer {
+    private final ContentText text;
+    private final List<? extends IntentAttachment> attachments;
 
     /**
-     * Instantiates a new Msg tag filter.
+     * Instantiates a new Intent answer.
      *
-     * @param groupList the group list
+     * @param text        the text
+     * @param attachments the attachments
      */
-    MsgTagFilter(List<Set<String>> groupList) {
-        this.groupList = groupList.stream()
-                .map(TagList::new)
-                .collect(Collectors.toList());
+    @JsonCreator
+    IntentAnswer(@JsonProperty("text") ContentText text,
+                 @JsonProperty("attachments") List<? extends IntentAttachment> attachments) {
+        this.text = text;
+        this.attachments = attachments;
     }
 }

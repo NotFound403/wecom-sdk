@@ -15,35 +15,34 @@
 
 package cn.felord.domain.callcenter.knowledge;
 
-import cn.felord.enumeration.BoolEnum;
+import cn.felord.domain.callcenter.KfMiniprogram;
+import cn.felord.enumeration.AnswerAttachType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The type Knowledge group detail.
+ * The type Miniprogram intent attachment.
  *
  * @author dax
  * @since 2023 /10/5
  */
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @Getter
-public class KnowledgeGroupDetail extends KnowledgeGroup {
-    private final BoolEnum isDefault;
+public class MiniprogramIntentAttachment extends IntentAttachment {
+    private final KfMiniprogram miniprogram;
 
     /**
-     * Instantiates a new Knowledge group.
+     * Instantiates a new Miniprogram intent attachment.
      *
-     * @param groupId   the group id
-     * @param name      the name
-     * @param isDefault the is default
+     * @param miniprogram the miniprogram
      */
     @JsonCreator
-    public KnowledgeGroupDetail(@JsonProperty("group_id") String groupId,
-                                @JsonProperty("name") String name,
-                                @JsonProperty("is_default") BoolEnum isDefault) {
-        super(groupId, name);
-        this.isDefault = isDefault;
+    MiniprogramIntentAttachment(@JsonProperty("miniprogram") KfMiniprogram miniprogram) {
+        super(AnswerAttachType.MINIPROGRAM);
+        this.miniprogram = miniprogram;
     }
 }
