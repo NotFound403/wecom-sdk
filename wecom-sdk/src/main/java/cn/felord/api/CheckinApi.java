@@ -175,8 +175,8 @@ public interface CheckinApi {
      * @return the checkin schedu list
      * @throws WeComException the we com exception
      */
-    @POST("checkin/setcheckinschedulist")
-    WeComResponse setCheckinScheduList(@Body PunchCorrectionRequest request) throws WeComException;
+    @POST("checkin/punch_correction")
+    WeComResponse punchCorrection(@Body PunchCorrectionRequest request) throws WeComException;
 
     /**
      * 录入打卡人员人脸信息

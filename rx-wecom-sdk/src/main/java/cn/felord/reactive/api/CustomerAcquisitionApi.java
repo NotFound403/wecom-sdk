@@ -15,11 +15,19 @@
 
 package cn.felord.reactive.api;
 
-import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.PageRequest;
-import cn.felord.domain.externalcontact.*;
+import cn.felord.domain.externalcontact.AcquisitionLink;
+import cn.felord.domain.externalcontact.AcquisitionLinkCreateRequest;
+import cn.felord.domain.externalcontact.AcquisitionLinkUpdateRequest;
+import cn.felord.domain.externalcontact.AcquisitionQuotaResponse;
+import cn.felord.domain.externalcontact.LinkCustomersResponse;
+import cn.felord.domain.externalcontact.LinkDetailResponse;
+import cn.felord.domain.externalcontact.LinkId;
+import cn.felord.domain.externalcontact.LinkPageRequest;
+import cn.felord.domain.externalcontact.LinkStatisticResponse;
+import cn.felord.domain.externalcontact.LinksResponse;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -107,10 +115,9 @@ public interface CustomerAcquisitionApi {
      * @param startTime the start time
      * @param endTime   the end time
      * @return the link statistic response
-     * @throws WeComException the we com exception
      */
     @GET("externalcontact/customer_acquisition/statistic")
     Single<LinkStatisticResponse> queryCustomerAcquisitionQuotas(@Query("link_id") String linkId,
                                                                  @Query("start_time") Instant startTime,
-                                                                 @Query("end_time") Instant endTime) throws WeComException;
+                                                                 @Query("end_time") Instant endTime);
 }

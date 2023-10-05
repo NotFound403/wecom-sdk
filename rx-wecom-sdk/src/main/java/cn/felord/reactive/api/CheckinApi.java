@@ -15,7 +15,6 @@
 
 package cn.felord.reactive.api;
 
-import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.checkin.CheckinDataRequest;
 import cn.felord.domain.checkin.CheckinDataResponse;
@@ -24,6 +23,9 @@ import cn.felord.domain.checkin.CheckinMonthData;
 import cn.felord.domain.checkin.CheckinOptionResponse;
 import cn.felord.domain.checkin.CheckinQueryRequest;
 import cn.felord.domain.checkin.CheckinStatisticsResponse;
+import cn.felord.domain.checkin.CheckinUserfaceRequest;
+import cn.felord.domain.checkin.DeviceCheckinDataResponse;
+import cn.felord.domain.checkin.DeviceCheckinQueryRequest;
 import cn.felord.domain.checkin.PunchCorrectionRequest;
 import cn.felord.domain.checkin.ScheduleListResponse;
 import cn.felord.domain.checkin.UserCheckinOptionRequest;
@@ -45,10 +47,9 @@ public interface CheckinApi {
      * 获取企业所有打卡规则
      *
      * @return the corp checkin option
-     * @throws WeComException the we com exception
      */
     @POST("checkin/getcorpcheckinoption")
-    Single<CheckinOptionResponse> getCorpCheckinOption() throws WeComException;
+    Single<CheckinOptionResponse> getCorpCheckinOption();
 
     /**
      * 获取员工打卡规则
@@ -59,10 +60,9 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin option
-     * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckinoption")
-    Single<UserCheckinOptionResponse> getCheckinOption(@Body UserCheckinOptionRequest request) throws WeComException;
+    Single<UserCheckinOptionResponse> getCheckinOption(@Body UserCheckinOptionRequest request);
 
     /**
      * 获取打卡记录数据
@@ -76,10 +76,9 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin data
-     * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckindata")
-    Single<CheckinDataResponse> getCheckinData(@Body CheckinDataRequest request) throws WeComException;
+    Single<CheckinDataResponse> getCheckinData(@Body CheckinDataRequest request);
 
     /**
      * 获取打卡日报数据
@@ -89,20 +88,18 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin day data
-     * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckin_daydata")
-    Single<CheckinStatisticsResponse<CheckinDayData>> getCheckinDayData(@Body CheckinQueryRequest request) throws WeComException;
+    Single<CheckinStatisticsResponse<CheckinDayData>> getCheckinDayData(@Body CheckinQueryRequest request);
 
     /**
      * 获取打卡月报数据
      *
      * @param request the request
      * @return the checkin month data
-     * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckin_monthdata")
-    Single<CheckinStatisticsResponse<CheckinMonthData>> getCheckinMonthData(@Body CheckinQueryRequest request) throws WeComException;
+    Single<CheckinStatisticsResponse<CheckinMonthData>> getCheckinMonthData(@Body CheckinQueryRequest request);
 
     /**
      * 获取打卡人员排班信息
@@ -114,10 +111,9 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin schedulist
-     * @throws WeComException the we com exception
      */
     @POST("checkin/getcheckinschedulist")
-    Single<ScheduleListResponse> getCheckinScheduList(@Body CheckinQueryRequest request) throws WeComException;
+    Single<ScheduleListResponse> getCheckinScheduList(@Body CheckinQueryRequest request);
 
     /**
      * 为打卡人员排班
@@ -127,10 +123,9 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin schedu list
-     * @throws WeComException the we com exception
      */
     @POST("checkin/setcheckinschedulist")
-    Single<WeComResponse> setCheckinScheduList(@Body UserScheduleRequest request) throws WeComException;
+    Single<WeComResponse> setCheckinScheduList(@Body UserScheduleRequest request);
 
     /**
      * 为打卡人员补卡
@@ -139,8 +134,38 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin schedu list
-     * @throws WeComException the we com exception
      */
-    @POST("checkin/setcheckinschedulist")
-    Single<WeComResponse> setCheckinScheduList(@Body PunchCorrectionRequest request) throws WeComException;
+    @POST("checkin/punch_correction")
+    Single<WeComResponse> punchCorrection(@Body PunchCorrectionRequest request);
+
+    /**
+     * 录入打卡人员人脸信息
+     * <p>
+     * 企业可通过打卡应用Secret调用本接口，为企业打卡人员录入人脸信息，人脸信息仅用于人脸打卡。
+     * <p>
+     * 注意：对于已有人脸的用户，使用此接口将使用传入的人脸覆盖原有人脸，请谨慎操作。
+     *
+     * @param request the request
+     * @return the we com response
+     */
+    @POST("checkin/addcheckinuserface")
+    Single<WeComResponse> addCheckinUserface(@Body CheckinUserfaceRequest request);
+
+    /**
+     * 获取设备打卡数据
+     * <p>
+     * 可通过此接口，获取考勤设备上产生的所有原始打卡记录，包括未被打卡应用记录的不符合打卡规则的记录。
+     * 第三方应用可获取应用可见范围内员工在考勤设备上产生的所有原始打卡记录，包括未被打卡应用记录的不符合打卡规则的记录。
+     * <ol>
+     *     <li>获取记录时间跨度不超过一个月</li>
+     *     <li>用户列表不超过100个。若用户超过100个，请分批获取</li>
+     *     <li>获取的是通过考勤设备打卡的原始记录，不包含企业微信app手机打卡的记录</li>
+     *     <li>userid无效时，忽略该参数，不报错</li>
+     * </ol>
+     *
+     * @param request the request
+     * @return the device checkin data response
+     */
+    @POST("checkin/addcheckinuserface")
+    Single<DeviceCheckinDataResponse> addCheckinUserface(@Body DeviceCheckinQueryRequest request);
 }
