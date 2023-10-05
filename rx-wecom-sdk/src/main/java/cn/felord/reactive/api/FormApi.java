@@ -50,7 +50,7 @@ public interface FormApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("wedoc/create_form")
     Single<GenericResponse<String>> createForm(@Body CreateSettingFormRequest request);

@@ -49,7 +49,7 @@ public interface CheckinApi {
      * 获取企业所有打卡规则
      *
      * @return the corp checkin option
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/getcorpcheckinoption")
     CheckinOptionResponse getCorpCheckinOption() throws WeComException;
@@ -63,7 +63,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin option
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/getcheckinoption")
     UserCheckinOptionResponse getCheckinOption(@Body UserCheckinOptionRequest request) throws WeComException;
@@ -78,7 +78,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/clear_checkin_option_array_field")
     WeComResponse clearCheckinOptionArrayField(@Body ClearCheckinRequest request) throws WeComException;
@@ -93,7 +93,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/del_checkin_option")
     WeComResponse delCheckinOption(@Body DelCheckinRequest request) throws WeComException;
@@ -110,7 +110,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin data
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/getcheckindata")
     CheckinDataResponse getCheckinData(@Body CheckinDataRequest request) throws WeComException;
@@ -123,7 +123,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin day data
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/getcheckin_daydata")
     CheckinStatisticsResponse<CheckinDayData> getCheckinDayData(@Body CheckinQueryRequest request) throws WeComException;
@@ -133,7 +133,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin month data
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/getcheckin_monthdata")
     CheckinStatisticsResponse<CheckinMonthData> getCheckinMonthData(@Body CheckinQueryRequest request) throws WeComException;
@@ -148,7 +148,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin schedulist
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/getcheckinschedulist")
     ScheduleListResponse getCheckinScheduList(@Body CheckinQueryRequest request) throws WeComException;
@@ -161,7 +161,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin schedu list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/setcheckinschedulist")
     WeComResponse setCheckinScheduList(@Body UserScheduleRequest request) throws WeComException;
@@ -173,7 +173,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the checkin schedu list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/punch_correction")
     WeComResponse punchCorrection(@Body PunchCorrectionRequest request) throws WeComException;
@@ -187,7 +187,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/addcheckinuserface")
     WeComResponse addCheckinUserface(@Body CheckinUserfaceRequest request) throws WeComException;
@@ -206,7 +206,7 @@ public interface CheckinApi {
      *
      * @param request the request
      * @return the device checkin data response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("checkin/addcheckinuserface")
     DeviceCheckinDataResponse addCheckinUserface(@Body DeviceCheckinQueryRequest request) throws WeComException;

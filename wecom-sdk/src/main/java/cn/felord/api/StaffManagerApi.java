@@ -38,7 +38,7 @@ public interface StaffManagerApi {
      * 通过这个接口获取员工字段配置信息
      *
      * @return the fields
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("hr/get_fields")
     GenericResponse<List<FieldGroup>> getFields() throws WeComException;
@@ -51,7 +51,7 @@ public interface StaffManagerApi {
      *
      * @param request the request
      * @return the staff info
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("hr/get_staff_info")
     GenericResponse<List<FieldDetail>> getStaffInfo(@Body StaffInfoRequest request) throws WeComException;
@@ -65,7 +65,7 @@ public interface StaffManagerApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("hr/update_staff_info")
     StaffInfoUpdateResponse updateStaffInfo(@Body StaffInfoUpdateRequest request) throws WeComException;

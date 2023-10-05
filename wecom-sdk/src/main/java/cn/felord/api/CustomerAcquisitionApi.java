@@ -113,7 +113,7 @@ public interface CustomerAcquisitionApi {
      * @param startTime the start time
      * @param endTime   the end time
      * @return the link statistic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("externalcontact/customer_acquisition/statistic")
     LinkStatisticResponse queryCustomerAcquisitionQuotas(@Query("link_id") String linkId,
