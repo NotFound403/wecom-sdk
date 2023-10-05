@@ -126,13 +126,17 @@ public enum CallbackChangeType {
      */
     LINK_UNAVAILABLE("link_unavailable"),
     /**
-     * 获客微信客户发起会话事件
+     * 微信客户发起会话事件
      */
     CUSTOMER_START_CHAT("customer_start_chat"),
     /**
      * 删除获客链接事件
      */
     DELETE_LINK("delete_link"),
+    /**
+     * 通过获客链接申请好友事件
+     */
+    FRIEND_REQUEST("friend_request"),
     /**
      * 获客额度即将过期事件
      */

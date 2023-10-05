@@ -40,7 +40,7 @@ public class MsgTemplateRequest {
      */
     private final Set<String> externalUserid;
     /**
-     * 客户群id列表
+     * 客户群id列表，仅在chat_type为group时有效，最多可一次指定2000个客户群。指定群id之后，收到任务的群主无须再选择客户群
      *
      * @since 1.2.1
      */

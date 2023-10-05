@@ -19,27 +19,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 /**
- * The enum Chat type.
+ * 视频号消息类型
  *
  * @author dax
- * @since 2021/9/8 10:47
+ * @since 2023 /5/26
  */
-public enum ChatType {
+public enum ChannelsSubType {
     /**
-     * 客户群发
+     * 视频号动态
      */
-    SINGLE("single"),
+    HISTORY(1),
     /**
-     * 客户群群发
+     * 视频号直播
      */
-    GROUP("group");
+    LIVE(2),
+    /**
+     * 视频号名片
+     */
+    PROFILE(3);
 
-    private final String type;
+    private final int type;
 
-    ChatType(String type) {
+    ChannelsSubType(int type) {
         this.type = type;
     }
 
@@ -49,22 +52,21 @@ public enum ChatType {
      * @return the type
      */
     @JsonValue
-    public String getType() {
+    public int getType() {
         return type;
     }
 
     /**
-     * Deserialize chat type.
+     * Deserialize ChannelsSubType
      *
      * @param type the type
-     * @return the chat type
+     * @return the approval notify type
      */
     @JsonCreator
-    public static ChatType deserialize(String type) {
-        return Arrays.stream(ChatType.values())
-                .filter(contactType -> Objects.equals(type,contactType.type))
+    public static ChannelsSubType deserialize(int type) {
+        return Arrays.stream(ChannelsSubType.values())
+                .filter(subType -> subType.type == type)
                 .findFirst()
                 .orElse(null);
     }
-
 }
