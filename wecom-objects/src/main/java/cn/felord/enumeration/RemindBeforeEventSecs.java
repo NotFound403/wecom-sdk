@@ -30,25 +30,25 @@ public enum RemindBeforeEventSecs {
 
 
     /**
-     * Start remind before event secs.
+     * 事件开始时
      */
     START(0),
     /**
-     * Five min remind before event secs.
+     * 事件开始前5分钟
      */
-    FIVE_MIN(300),
+    MIN_5(300),
     /**
-     * Fifteen min remind before event secs.
+     * 事件开始前15分钟
      */
-    FIFTEEN_MIN(900),
+    MIN_15(900),
     /**
-     * One hour remind before event secs.
+     * 事件开始前1小时
      */
-    ONE_HOUR(3600),
+    MIN_60(3600),
     /**
-     * One day remind before event secs.
+     * 事件开始前1天
      */
-    ONE_DAY(86400);
+    MIN_1440(86400);
 
     private final int sec;
 
