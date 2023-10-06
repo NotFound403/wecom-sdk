@@ -18,21 +18,38 @@ package cn.felord.domain.webhook;
 import cn.felord.domain.common.MediaId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
- * The type Webhook text body.
+ * 文件消息
  *
  * @author n1
  * @since 2021 /6/16 15:02
  */
 @EqualsAndHashCode(callSuper = true)
+@ToString
 @Getter
 public class WebhookFileBody extends WebhookBody {
     private final MediaId file;
 
-    public WebhookFileBody(MediaId file) {
+    /**
+     * Instantiates a new Webhook file body.
+     *
+     * @param file the file
+     */
+    WebhookFileBody(MediaId file) {
         super("file");
         this.file = file;
+    }
+
+    /**
+     * From webhook file body.
+     *
+     * @param file the file
+     * @return the webhook file body
+     */
+    public static WebhookFileBody from(String file) {
+        return new WebhookFileBody(new MediaId(file));
     }
 
 }

@@ -18,21 +18,37 @@ package cn.felord.domain.webhook;
 import cn.felord.domain.externalcontact.ContentText;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
- * The type Webhook text body.
+ * markdown消息
  *
  * @author n1
  * @since 2021 /6/16 15:02
  */
 @EqualsAndHashCode(callSuper = true)
+@ToString
 @Getter
 public class WebhookMarkdownBody extends WebhookBody {
     private final ContentText markdown;
 
-    public WebhookMarkdownBody(ContentText markdown) {
+    /**
+     * Instantiates a new Webhook markdown body.
+     *
+     * @param markdown the markdown
+     */
+    WebhookMarkdownBody(ContentText markdown) {
         super("markdown");
         this.markdown = markdown;
     }
 
+    /**
+     * From webhook markdown body.
+     *
+     * @param content the content
+     * @return the webhook markdown body
+     */
+    public static WebhookMarkdownBody from(String content) {
+        return new WebhookMarkdownBody(new ContentText(content));
+    }
 }

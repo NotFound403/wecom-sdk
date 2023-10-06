@@ -16,7 +16,7 @@
 package cn.felord.domain.webhook.card;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import java.util.List;
  * @author felord.cn
  * @since 2021/9/3 15:47
  */
-@Setter
+@ToString
 @Getter
 public abstract class TemplateCard {
     private final CardType cardType;
@@ -40,5 +40,25 @@ public abstract class TemplateCard {
         this.cardType = cardType;
         this.mainTitle = mainTitle;
         this.cardAction = cardAction;
+    }
+
+    protected TemplateCard source(CardSource source) {
+        this.source = source;
+        return this;
+    }
+
+    protected TemplateCard quoteArea(QuoteArea quoteArea) {
+        this.quoteArea = quoteArea;
+        return this;
+    }
+
+    protected TemplateCard horizontalContentList(List<? extends HorizontalContent> horizontalContentList) {
+        this.horizontalContentList = horizontalContentList;
+        return this;
+    }
+
+    protected TemplateCard jumpList(List<? extends Jump> jumpList) {
+        this.jumpList = jumpList;
+        return this;
     }
 }

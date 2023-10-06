@@ -49,7 +49,6 @@ import cn.felord.domain.approval.TmpControl;
 import cn.felord.domain.common.TemplateId;
 import cn.felord.domain.contactbook.department.DeptInfo;
 import cn.felord.domain.contactbook.user.SimpleUser;
-import cn.felord.domain.externalcontact.ContentText;
 import cn.felord.domain.externalcontact.MiniprogramMsgAttachment;
 import cn.felord.domain.externalcontact.MsgTemplateRequest;
 import cn.felord.domain.externalcontact.MsgTemplateResponse;
@@ -104,19 +103,21 @@ class SpringBootWecomSdkTests {
      */
     @Test
     void webHooks() {
-        // 发 markdown
-        WebhookBody body = new WebhookMarkdownBody(new ContentText("这里为markdown消息"));
-        // 发纯文本
-//        body = new WebhookTextBody(new WebhookTextBody.WebhookText("这里为纯文本"));
+// 发 markdown
+        WebhookBody body = WebhookMarkdownBody.from("这里为markdown消息");
+// 发纯文本
+//        body = WebhookTextBody.from("这里为纯文本");
 // 发图文
-//        WebhookNewsBody.WebhookNews news = new WebhookNewsBody.WebhookNews();
-//        WebhookNewsBody.WebhookArticle article = new WebhookNewsBody.WebhookArticle();
-//        article.setPicurl("这里为封面图链接");
-//        article.setUrl("这里为图文链接");
-//        article.setTitle("这里为标题");
-//        article.setDescription("这里为摘要信息");
-//        news.setArticles(Collections.singletonList(article));
-//        body = new WebhookNewsBody(news);
+
+//        WebhookArticle article = new WebhookArticle("这里为标题", "这里为图文链接")
+//                .picurl("这里为封面图链接")
+//                .description("这里为摘要信息");
+//        body = WebhookNewsBody.from(Collections.singletonList(article));
+//  发图片
+
+//        String base64 = "";
+//        String md5 = "";
+//        body = WebhookImageBody.from(base64, md5);
 
         WorkWeChatApi.webhookApi().send("机器人key", body);
     }

@@ -18,21 +18,37 @@ package cn.felord.domain.webhook;
 import cn.felord.domain.common.MediaId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
- * The type WebhookVoiceBody.
+ * 语音消息
  *
  * @author n1
  * @since 2021 /6/16 15:02
  */
 @EqualsAndHashCode(callSuper = true)
+@ToString
 @Getter
 public class WebhookVoiceBody extends WebhookBody {
     private final MediaId voice;
 
-    public WebhookVoiceBody(MediaId voice) {
+    /**
+     * Instantiates a new Webhook voice body.
+     *
+     * @param voice the voice
+     */
+    WebhookVoiceBody(MediaId voice) {
         super("voice");
         this.voice = voice;
     }
 
+    /**
+     * From webhook voice body.
+     *
+     * @param voice the voice
+     * @return the webhook file body
+     */
+    public static WebhookVoiceBody from(String voice) {
+        return new WebhookVoiceBody(new MediaId(voice));
+    }
 }

@@ -16,19 +16,75 @@
 package cn.felord.domain.webhook.card;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
+
+import java.util.List;
 
 /**
+ * 文本通知模版卡片
+ *
  * @author felord.cn
- * @since 2021/9/3 15:56
+ * @since 2021 /9/3 15:56
  */
-@Setter
+@ToString
 @Getter
 public class TextTemplateCard extends TemplateCard {
     private EmphasisContent emphasisContent;
     private String subTitleText;
 
+    /**
+     * Instantiates a new Text template card.
+     *
+     * @param mainTitle  the main title
+     * @param cardAction the card action
+     */
     public TextTemplateCard(MainTitle mainTitle, CardAction cardAction) {
         super(CardType.TEXT_NOTICE, mainTitle, cardAction);
+    }
+
+    /**
+     * Emphasis content text template card.
+     *
+     * @param emphasisContent the emphasis content
+     * @return the text template card
+     */
+    public TextTemplateCard emphasisContent(EmphasisContent emphasisContent) {
+        this.emphasisContent = emphasisContent;
+        return this;
+    }
+
+    /**
+     * Sub title text text template card.
+     *
+     * @param subTitleText the sub title text
+     * @return the text template card
+     */
+    public TextTemplateCard subTitleText(String subTitleText) {
+        this.subTitleText = subTitleText;
+        return this;
+    }
+
+    @Override
+    public TemplateCard source(CardSource source) {
+        super.source(source);
+        return this;
+    }
+
+    @Override
+    public TemplateCard quoteArea(QuoteArea quoteArea) {
+        super.quoteArea(quoteArea);
+        return this;
+    }
+
+    @Override
+    public TemplateCard horizontalContentList(List<? extends HorizontalContent> horizontalContentList) {
+        super.horizontalContentList(horizontalContentList);
+        return this;
+    }
+
+    @Override
+    public TemplateCard jumpList(List<? extends Jump> jumpList) {
+        super.jumpList(jumpList);
+        return this;
     }
 }
