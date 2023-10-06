@@ -26,7 +26,7 @@ import lombok.Data;
 @Data
 public class ScheduleCalendarQuery {
     private final String calId;
-    private final Long offset;
+    private final Integer offset;
     private final Integer limit;
 
     /**
@@ -41,10 +41,10 @@ public class ScheduleCalendarQuery {
     /**
      * Instantiates a new Calendar query.
      *
-     * @param calId  the cal id
      * @param offset the offset
+     * @param calId  the cal id
      */
-    public ScheduleCalendarQuery(String calId, Long offset) {
+    public ScheduleCalendarQuery(int offset, String calId) {
         this(calId, offset, null);
     }
 
@@ -54,7 +54,7 @@ public class ScheduleCalendarQuery {
      * @param calId the cal id
      * @param limit the limit
      */
-    public ScheduleCalendarQuery(String calId, Integer limit) {
+    public ScheduleCalendarQuery(String calId, int limit) {
         this(calId, null, limit);
     }
 
@@ -65,7 +65,7 @@ public class ScheduleCalendarQuery {
      * @param offset the offset
      * @param limit  the limit
      */
-    public ScheduleCalendarQuery(String calId, Long offset, Integer limit) {
+    public ScheduleCalendarQuery(String calId, Integer offset, Integer limit) {
         this.calId = calId;
         this.offset = offset;
         this.limit = limit;

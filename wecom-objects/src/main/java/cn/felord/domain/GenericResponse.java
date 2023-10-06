@@ -79,6 +79,7 @@ public class GenericResponse<T> extends WeComResponse {
             "field_info",
             "group_list",
             "intent_id",
+            "record",
             "lists"
     })
     private T data;

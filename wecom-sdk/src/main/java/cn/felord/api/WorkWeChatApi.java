@@ -248,6 +248,19 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 公费电话API
+     *
+     * @param agentDetails the agent details
+     * @return the approval api
+     */
+    public DialApi dialApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(DialApi.class);
+    }
+
+    /**
      * 打卡API
      *
      * @param agentDetails the agent details
