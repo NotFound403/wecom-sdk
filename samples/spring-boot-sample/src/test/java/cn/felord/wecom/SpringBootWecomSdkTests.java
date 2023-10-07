@@ -113,11 +113,14 @@ class SpringBootWecomSdkTests {
 //                .picurl("这里为封面图链接")
 //                .description("这里为摘要信息");
 //        body = WebhookNewsBody.from(Collections.singletonList(article));
-//  发图片
-
+//  从base64发图片
 //        String base64 = "";
 //        String md5 = "";
 //        body = WebhookImageBody.from(base64, md5);
+//  从流发送图片
+//        String path = "C:\\Users\\Administrator\\Desktop\\0.png";
+//        InputStream inputStream = Files.newInputStream(Paths.get(path));
+//        body = WebhookImageBody.from(inputStream);
 
         WorkWeChatApi.webhookApi().send("机器人key", body);
     }

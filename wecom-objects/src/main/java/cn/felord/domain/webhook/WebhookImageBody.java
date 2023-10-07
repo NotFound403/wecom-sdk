@@ -17,13 +17,13 @@ package cn.felord.domain.webhook;
 
 import cn.felord.utils.Algorithms;
 import cn.felord.utils.Base64Utils;
+import cn.felord.utils.FileTools;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -62,32 +62,21 @@ public class WebhookImageBody extends WebhookBody {
     }
 
     /**
-     * From webhook image body.
+     * 从流中加载图片
      *
      * @param imageStream the image stream
      * @return the webhook image body
      * @throws IOException the io exception
      */
     public static WebhookImageBody from(InputStream imageStream) throws IOException {
-        String base64;
-        String md5;
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            int read;
-            byte[] buffer = new byte[1024];
-            while ((read = imageStream.read(buffer)) != -1) {
-                baos.write(buffer, 0, read);
-            }
-            byte[] data = baos.toByteArray();
-            base64 = Base64Utils.encodeToString(data);
-            md5 = Algorithms.md5Hex(data, false);
-        } finally {
-            imageStream.close();
-        }
+        byte[] data = FileTools.copyToByteArray(imageStream);
+        String base64 = Base64Utils.encodeToString(data);
+        String md5 = Algorithms.md5Hex(data, false);
         return WebhookImageBody.from(base64, md5);
     }
 
     /**
-     * From webhook image body.
+     * 从Base64中加载图片
      *
      * @param base64 the base64
      * @param md5    the md5
