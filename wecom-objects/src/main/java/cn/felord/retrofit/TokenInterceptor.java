@@ -54,9 +54,8 @@ public class TokenInterceptor implements Interceptor {
     @NotNull
     @Override
     public final Response intercept(@NotNull Chain chain) throws IOException {
-        ResponseBody body;
         Response response = doRequest(chain);
-        body = response.body();
+        ResponseBody body = response.body();
         if (body != null) {
             //application/octet-stream
             MediaType mediaType = body.contentType();
@@ -65,6 +64,7 @@ public class TokenInterceptor implements Interceptor {
                 WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
                 if (Objects.equals(INVALID_ACCESS_TOKEN, weComResponse.getErrcode())) {
                     tokenApi.clearToken();
+                    response.close();
                     return doRequest(chain);
                 }
             }
