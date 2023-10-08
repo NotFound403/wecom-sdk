@@ -41,6 +41,9 @@ import java.util.List;
  *     <li>公式对应 {@link FormulaValue}</li>
  *     <li>时长对应 {@link DateRangeValue}</li>
  *     <li>手机号码对应 {@link PhoneNumberValue}</li>
+ *     <li>假勤组件-请假组件对应 {@link VacationValue}</li>
+ *     <li>假勤组件-出差/外出/加班组件对应 {@link AttendanceValue}</li>
+ *     <li>补卡组件对应 {@link PunchCorrectionValue}</li>
  * </ol>
  *
  * @param <V> the type parameter
