@@ -15,7 +15,7 @@
 
 package cn.felord.domain.approval;
 
-import cn.felord.domain.CursorWeComResponse;
+import cn.felord.domain.WeComResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -27,6 +27,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SpNoListResponse extends CursorWeComResponse {
+public class SpNoListResponse extends WeComResponse {
     private List<String> spNoList;
+    private String newNextCursor;
 }

@@ -19,7 +19,13 @@ import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.retrofit.json.JacksonObjectMapperFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.*;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.Buffer;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -59,13 +65,15 @@ public class TokenInterceptor implements Interceptor {
         if (body != null) {
             //application/octet-stream
             MediaType mediaType = body.contentType();
-            String json = body.source().getBuffer().clone().readUtf8();
             if (Objects.equals(JSON_UTF_8, mediaType) || Objects.equals(JSON, mediaType)) {
-                WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
-                if (Objects.equals(INVALID_ACCESS_TOKEN, weComResponse.getErrcode())) {
-                    tokenApi.clearToken();
-                    response.close();
-                    return doRequest(chain);
+                try (Buffer buffer = body.source().getBuffer()) {
+                    String json = buffer.clone().readUtf8();
+                    WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
+                    if (Objects.equals(INVALID_ACCESS_TOKEN, weComResponse.getErrcode())) {
+                        tokenApi.clearToken();
+                        response.close();
+                        return doRequest(chain);
+                    }
                 }
             }
         }

@@ -72,7 +72,7 @@ public class VacationValue implements ContentDataValue {
          * @param attendance the attendance
          */
         @JsonCreator
-        Wrapper(Selector selector, Attendance attendance) {
+        Wrapper(@JsonProperty("selector") Selector selector, @JsonProperty("attendance") Attendance attendance) {
             this.selector = selector;
             this.attendance = attendance;
         }
@@ -104,7 +104,7 @@ public class VacationValue implements ContentDataValue {
          * @param options the options
          */
         @JsonCreator
-        Selector(List<CtrlOption> options) {
+        Selector(@JsonProperty("options") List<CtrlOption> options) {
             this.options = options;
         }
     }

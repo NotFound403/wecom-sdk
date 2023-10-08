@@ -19,7 +19,6 @@ import cn.felord.enumeration.DateRangeType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -32,19 +31,27 @@ import java.time.Instant;
  * @author dax
  * @since 2023 /5/27
  */
-@Data
+@ToString
+@Getter
 public class DateRangeValue implements ContentDataValue {
 
-    private final Wrapper dateRange;
+    private final DateRangeType type;
+    private final Instant newBegin;
+    private final Instant newEnd;
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER, pattern = "SECONDS")
+    private final Duration newDuration;
 
     /**
      * Instantiates a new Date range value.
      *
-     * @param dateRange the date range
+     * @param type     the type
+     * @param newBegin the new begin
+     * @param newEnd   the new end
      */
-    @JsonCreator
-    DateRangeValue(@JsonProperty("date_range") Wrapper dateRange) {
-        this.dateRange = dateRange;
+    public DateRangeValue(DateRangeType type,
+                          Instant newBegin,
+                          Instant newEnd) {
+        this(type, newBegin, newEnd, Duration.between(newBegin, newEnd));
     }
 
     /**
@@ -53,43 +60,16 @@ public class DateRangeValue implements ContentDataValue {
      * @param type        the type
      * @param newBegin    the new begin
      * @param newEnd      the new end
+     * @param newDuration the new duration
      */
-    public DateRangeValue(DateRangeType type,
-                          Instant newBegin,
-                          Instant newEnd) {
-        this.dateRange = new Wrapper(type, newBegin, newEnd, Duration.between(newBegin, newEnd));
+    @JsonCreator
+    DateRangeValue(@JsonProperty("type") DateRangeType type,
+                   @JsonProperty("new_begin") Instant newBegin,
+                   @JsonProperty("new_end") Instant newEnd,
+                   @JsonProperty("new_duration") Duration newDuration) {
+        this.type = type;
+        this.newBegin = newBegin;
+        this.newEnd = newEnd;
+        this.newDuration = newDuration;
     }
-
-    /**
-     * The type Wrapper.
-     */
-    @ToString
-    @Getter
-    public static class Wrapper {
-        private final DateRangeType type;
-        private final Instant newBegin;
-        private final Instant newEnd;
-        @JsonFormat(shape = JsonFormat.Shape.NUMBER, pattern = "SECONDS")
-        private final Duration newDuration;
-
-        /**
-         * Instantiates a new Wrapper.
-         *
-         * @param type        the type
-         * @param newBegin    the new begin
-         * @param newEnd      the new end
-         * @param newDuration the new duration
-         */
-        @JsonCreator
-        Wrapper(@JsonProperty("type") DateRangeType type,
-                @JsonProperty("new_begin") Instant newBegin,
-                @JsonProperty("new_end") Instant newEnd,
-                @JsonProperty("new_duration") Duration newDuration) {
-            this.type = type;
-            this.newBegin = newBegin;
-            this.newEnd = newEnd;
-            this.newDuration = newDuration;
-        }
-    }
-
 }
