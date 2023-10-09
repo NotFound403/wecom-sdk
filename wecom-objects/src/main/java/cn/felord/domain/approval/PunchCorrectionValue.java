@@ -68,7 +68,8 @@ public class PunchCorrectionValue implements ContentDataValue {
          * @param state the state
          * @param time  the time
          */
-        Wrapper(String state, Instant time) {
+        @JsonCreator
+        Wrapper(@JsonProperty("state") String state, @JsonProperty("time") Instant time) {
             this.state = state;
             this.time = time;
         }

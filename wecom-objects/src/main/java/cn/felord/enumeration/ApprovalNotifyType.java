@@ -28,15 +28,15 @@ import java.util.Arrays;
  */
 public enum ApprovalNotifyType {
     /**
-     * When submitting approval notify type.
+     * 提交时通知
      */
     WHEN_SUBMITTING(1),
     /**
-     * When passing approval notify type.
+     * 通过时通知
      */
     WHEN_PASSING(2),
     /**
-     * When both approval notify type.
+     * 提交和通过都通知
      */
     WHEN_BOTH(3);
 

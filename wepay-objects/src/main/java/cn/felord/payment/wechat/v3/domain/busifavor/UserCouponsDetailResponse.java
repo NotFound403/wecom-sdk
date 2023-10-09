@@ -27,6 +27,6 @@ import java.util.List;
 public class UserCouponsDetailResponse {
     private List<CouponDetail> data;
     private Long totalCount;
-    private Long limit;
-    private Long offset;
+    private Integer limit;
+    private Integer offset;
 }

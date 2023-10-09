@@ -25,7 +25,8 @@ import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
 
-import java.util.Optional;
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * The type Token interceptor.
@@ -50,13 +51,20 @@ class WechatAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
 
     @Override
     protected void verifyResponse(Response response) throws PayException {
-        String s = response.request().url().encodedPath();
-        String body = Optional.ofNullable(response.body())
-                .map(ResponseBody::source)
-                .map(BufferedSource::getBuffer)
-                .map(Buffer::clone)
-                .map(Buffer::readUtf8)
-                .orElse("");
+
+        ResponseBody responseBody = response.body();
+        String body = "";
+        if (Objects.nonNull(responseBody)) {
+            BufferedSource source = responseBody.source();
+            try {
+                source.request(Long.MAX_VALUE);
+            } catch (IOException e) {
+                throw new PayException("Fail Request", e);
+            }
+            try (Buffer buffer = source.getBuffer().clone()) {
+                body = buffer.readUtf8();
+            }
+        }
         Headers responseHeaders = response.headers();
         if (!response.isSuccessful()) {
             String requestId = responseHeaders.get(HttpHeaders.REQUEST_ID.headerName());
@@ -64,12 +72,14 @@ class WechatAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
                     "\n Request-ID: " + requestId +
                     "\n Message: " + response.message() +
                     "\n Body: " + body;
+            response.close();
             throw new PayException(errorMessage);
         }
         String serialNumber = responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
         TenpayKey tenpayKey = tenpayCertificateService.getTenpayKey(serialNumber);
         if (!WechatPaySigner.verify(responseHeaders, body, tenpayKey)) {
             String requestId = responseHeaders.get(HttpHeaders.REQUEST_ID.headerName());
+            response.close();
             throw new PayException("Wechat pay signature verify failed, Request-ID: " + requestId);
         }
     }

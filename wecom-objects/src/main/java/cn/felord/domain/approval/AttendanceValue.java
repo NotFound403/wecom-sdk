@@ -18,7 +18,6 @@ package cn.felord.domain.approval;
 import cn.felord.enumeration.AttendanceType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -57,9 +56,16 @@ public class AttendanceValue implements ContentDataValue {
     /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     static class Wrapper {
         private final AttendanceType type;
         private final DateRangeValue dateRange;
+
+        @JsonCreator
+        Wrapper(@JsonProperty("type") AttendanceType type, @JsonProperty("date_range") DateRangeValue dateRange) {
+            this.type = type;
+            this.dateRange = dateRange;
+        }
     }
 }

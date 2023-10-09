@@ -23,17 +23,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
+ * The type Date apply content data.
+ *
  * @author dax
- * @since 2023/5/27
+ * @since 2023 /5/27
  */
 public class DateApplyContentData extends ApplyContentData<DateValue> {
+    /**
+     * Instantiates a new Date apply content data.
+     *
+     * @param control the control
+     * @param id      the id
+     * @param title   the title
+     * @param value   the value
+     * @param hidden  the hidden
+     * @param require the require
+     */
     @JsonCreator
-    public DateApplyContentData(@JsonProperty("control") ApprovalCtrlType control,
-                                @JsonProperty("id") String id,
-                                @JsonProperty("title") List<ApprovalTitle> title,
-                                @JsonProperty("value") DateValue value,
-                                @JsonProperty("hidden") Integer hidden,
-                                @JsonProperty("require") BoolEnum require) {
+    DateApplyContentData(@JsonProperty("control") ApprovalCtrlType control,
+                         @JsonProperty("id") String id,
+                         @JsonProperty("title") List<ApprovalTitle> title,
+                         @JsonProperty("value") DateValue value,
+                         @JsonProperty("hidden") Integer hidden,
+                         @JsonProperty("require") BoolEnum require) {
         super(control, id, title, value, hidden, require);
     }
 }

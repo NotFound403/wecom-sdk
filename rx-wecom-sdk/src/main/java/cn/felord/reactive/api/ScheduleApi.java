@@ -17,12 +17,16 @@ package cn.felord.reactive.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.oa.*;
+import cn.felord.domain.oa.ScheduleAddRequest;
+import cn.felord.domain.oa.ScheduleAttendees;
+import cn.felord.domain.oa.ScheduleCalendarQuery;
+import cn.felord.domain.oa.ScheduleDelRequest;
+import cn.felord.domain.oa.ScheduleDetailRequest;
+import cn.felord.domain.oa.ScheduleDetailResponse;
+import cn.felord.domain.oa.ScheduleUpdateRequest;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
-
-import java.util.Set;
 
 /**
  * 日程接口
@@ -71,11 +75,11 @@ public interface ScheduleApi {
     /**
      * 获取日程详情
      *
-     * @param scheduleIds the schedule ids
+     * @param request the request
      * @return the schedule detail response
      */
     @POST("oa/schedule/get")
-    Single<ScheduleDetailResponse> get(@Body Set<String> scheduleIds);
+    Single<ScheduleDetailResponse> get(@Body ScheduleDetailRequest request);
 
     /**
      * 取消日程

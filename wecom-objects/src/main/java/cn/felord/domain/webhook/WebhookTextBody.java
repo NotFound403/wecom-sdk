@@ -15,19 +15,23 @@
 
 package cn.felord.domain.webhook;
 
-import lombok.Data;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 /**
- * The type Webhook text body.
+ * 文本消息
  *
  * @author n1
  * @since 2021 /6/16 15:02
  */
 @EqualsAndHashCode(callSuper = true)
+@ToString
 @Getter
 public class WebhookTextBody extends WebhookBody {
     private final WebhookText text;
@@ -37,15 +41,54 @@ public class WebhookTextBody extends WebhookBody {
      *
      * @param text the text
      */
-    public WebhookTextBody(WebhookText text) {
+    WebhookTextBody(WebhookText text) {
         super("text");
         this.text = text;
     }
 
     /**
+     * From webhook text body.
+     *
+     * @param content the content
+     * @return the webhook text body
+     */
+    public static WebhookTextBody from(String content) {
+        return from(content, null);
+    }
+
+    /**
+     * From webhook text body.
+     *
+     * @param content       the content
+     * @param mentionedList the mentioned list
+     * @return the webhook text body
+     */
+    public static WebhookTextBody from(String content, List<String> mentionedList) {
+        return from(content, mentionedList, null);
+    }
+
+    /**
+     * From webhook text body.
+     *
+     * @param content             the content
+     * @param mentionedList       the mentioned list
+     * @param mentionedMobileList the mentioned mobile list
+     * @return the webhook text body
+     */
+    public static WebhookTextBody from(String content, List<String> mentionedList, List<String> mentionedMobileList) {
+        WebhookText webhookText = new WebhookText(content);
+        webhookText.setMentionedList(mentionedList);
+        webhookText.setMentionedMobileList(mentionedMobileList);
+        return new WebhookTextBody(webhookText);
+    }
+
+    /**
      * The type Text.
      */
-    @Data
+    @ToString
+    @Getter
+    @Setter
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
     public static class WebhookText {
         private final String content;
         private List<String> mentionedList;

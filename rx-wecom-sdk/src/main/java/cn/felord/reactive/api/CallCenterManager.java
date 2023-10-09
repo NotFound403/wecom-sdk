@@ -78,4 +78,13 @@ public class CallCenterManager {
         return this.workWeChatApiClient.retrofit().create(KfStatisticApi.class);
     }
 
+    /**
+     * 微信客服-机器人-知识库
+     *
+     * @return the kf knowledge api
+     */
+    public KfKnowledgeApi kfKnowledgeApi() {
+        return this.workWeChatApiClient.retrofit().create(KfKnowledgeApi.class);
+    }
+
 }

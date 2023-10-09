@@ -224,12 +224,7 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
      * @return the string
      */
     public String decryptMsg(CallbackSettings callbackSettings, String msgSignature, String timeStamp, String nonce, String encrypt) {
-        String token = callbackSettings.getToken();
-        String signature = Algorithms.sha1Signature(token, timeStamp, nonce, encrypt);
-        if (!Objects.equals(msgSignature, signature)) {
-            throw new WeComException("callback signature not matched");
-        }
-        CallbackDecrypted decrypted = this.decrypt(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
+        CallbackDecrypted decrypted = this.doDecryptMsg(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
         // receiveid不相同的情况
         if (!Objects.equals(decrypted.getReceiveid(), callbackSettings.getReceiveid())) {
             throw new WeComException("invalid corpid");
@@ -239,7 +234,7 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
 
 
     /**
-     * 校验receiveid ，为了通用使用 decryptMsg 方法，此处作为备份
+     * 不校验receiveid
      *
      * @param callbackSettings the callback settings
      * @param msgSignature     the msg signature
@@ -248,17 +243,12 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
      * @param encrypt          the encrypt
      * @return string
      */
-    String decryptMsgAndVerify(CallbackSettings callbackSettings, String msgSignature, String timeStamp, String nonce, String encrypt) {
+    public CallbackDecrypted doDecryptMsg(CallbackSettings callbackSettings, String msgSignature, String timeStamp, String nonce, String encrypt) {
         String token = callbackSettings.getToken();
         String signature = Algorithms.sha1Signature(token, timeStamp, nonce, encrypt);
         if (!Objects.equals(msgSignature, signature)) {
             throw new WeComException("callback signature not matched");
         }
-        CallbackDecrypted decrypted = this.decrypt(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
-        // receiveid不相同的情况
-        if (!Objects.equals(decrypted.getReceiveid(), callbackSettings.getReceiveid())) {
-            throw new WeComException("invalid corpid");
-        }
-        return decrypted.getContent();
+        return this.decrypt(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
     }
 }

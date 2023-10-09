@@ -29,23 +29,23 @@ import java.util.Arrays;
 public enum KfServiceState {
 
     /**
-     * Untreated kf service state.
+     * 未处理
      */
     UNTREATED(0),
     /**
-     * Smart assistant kf service state.
+     * 由智能助手接待
      */
     SMART_ASSISTANT(1),
     /**
-     * Line up kf service state.
+     * 待接入池排队中
      */
     LINE_UP(2),
     /**
-     * Manual kf service state.
+     * 由人工接待
      */
     MANUAL(3),
     /**
-     * Finished or not started kf service state.
+     * 已结束/未开始
      */
     FINISHED_OR_NOT_STARTED(4);
 
