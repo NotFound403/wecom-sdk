@@ -28,8 +28,10 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * The type Year month number deserializer.
+ *
  * @author dax
- * @since 2023/9/26
+ * @since 2023 /9/26
  */
 public class YearMonthNumberDeserializer extends JSR310DateTimeDeserializerBase<YearMonth> {
     /**
@@ -41,12 +43,20 @@ public class YearMonthNumberDeserializer extends JSR310DateTimeDeserializerBase<
         this(DateTimeFormatter.ofPattern("u-MM"));
     }
 
+    /**
+     * Instantiates a new Year month number deserializer.
+     *
+     * @param formatter the formatter
+     */
     public YearMonthNumberDeserializer(DateTimeFormatter formatter) {
         super(YearMonth.class, formatter);
     }
 
     /**
      * Since 2.11
+     *
+     * @param base     the base
+     * @param leniency the leniency
      */
     protected YearMonthNumberDeserializer(YearMonthNumberDeserializer base, Boolean leniency) {
         super(base, leniency);
@@ -117,6 +127,15 @@ public class YearMonthNumberDeserializer extends JSR310DateTimeDeserializerBase<
                 JsonToken.VALUE_STRING, JsonToken.START_ARRAY);
     }
 
+    /**
+     * From string year month.
+     *
+     * @param p       the p
+     * @param ctxt    the ctxt
+     * @param string0 the string 0
+     * @return the year month
+     * @throws IOException the io exception
+     */
     protected YearMonth _fromString(JsonParser p, DeserializationContext ctxt,
                                     String string0) throws IOException {
         String string = string0.trim();

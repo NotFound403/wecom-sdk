@@ -41,6 +41,7 @@ public class IntentDetail {
      * Instantiates a new Intent.
      *
      * @param groupId          the group id
+     * @param intentId         the intent id
      * @param question         the question
      * @param answers          the answers
      * @param similarQuestions the similar questions

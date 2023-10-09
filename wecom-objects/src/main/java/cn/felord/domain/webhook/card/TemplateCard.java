@@ -21,8 +21,10 @@ import lombok.ToString;
 import java.util.List;
 
 /**
+ * The type Template card.
+ *
  * @author felord.cn
- * @since 2021/9/3 15:47
+ * @since 2021 /9/3 15:47
  */
 @ToString
 @Getter
@@ -36,27 +38,58 @@ public abstract class TemplateCard {
     private final CardAction cardAction;
 
 
+    /**
+     * Instantiates a new Template card.
+     *
+     * @param cardType   the card type
+     * @param mainTitle  the main title
+     * @param cardAction the card action
+     */
     protected TemplateCard(CardType cardType, MainTitle mainTitle, CardAction cardAction) {
         this.cardType = cardType;
         this.mainTitle = mainTitle;
         this.cardAction = cardAction;
     }
 
+    /**
+     * Source template card.
+     *
+     * @param source the source
+     * @return the template card
+     */
     protected TemplateCard source(CardSource source) {
         this.source = source;
         return this;
     }
 
+    /**
+     * Quote area template card.
+     *
+     * @param quoteArea the quote area
+     * @return the template card
+     */
     protected TemplateCard quoteArea(QuoteArea quoteArea) {
         this.quoteArea = quoteArea;
         return this;
     }
 
+    /**
+     * Horizontal content list template card.
+     *
+     * @param horizontalContentList the horizontal content list
+     * @return the template card
+     */
     protected TemplateCard horizontalContentList(List<? extends HorizontalContent> horizontalContentList) {
         this.horizontalContentList = horizontalContentList;
         return this;
     }
 
+    /**
+     * Jump list template card.
+     *
+     * @param jumpList the jump list
+     * @return the template card
+     */
     protected TemplateCard jumpList(List<? extends Jump> jumpList) {
         this.jumpList = jumpList;
         return this;
