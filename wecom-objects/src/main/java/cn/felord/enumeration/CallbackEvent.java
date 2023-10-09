@@ -123,7 +123,27 @@ public enum CallbackEvent {
     /**
      * 退款事件（自定义）
      */
-    PAY_REFUND("pay_refund");
+    PAY_REFUND("pay_refund"),
+    /**
+     * 删除日历事件
+     */
+    DELETE_CALENDAR("delete_calendar"),
+    /**
+     * 修改日历事件
+     */
+    MODIFY_CALENDAR("modify_calendar"),
+    /**
+     * 修改日程事件
+     */
+    MODIFY_SCHEDULE("modify_schedule"),
+    /**
+     * 删除日程事件
+     */
+    DELETE_SCHEDULE("delete_schedule"),
+    /**
+     * 日程回执事件
+     */
+    RESPOND_SCHEDULE("respond_schedule");
 
     private final String type;
 

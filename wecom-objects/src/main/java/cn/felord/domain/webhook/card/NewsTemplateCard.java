@@ -16,23 +16,78 @@
 package cn.felord.domain.webhook.card;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 /**
+ * 图文展示模版卡片
+ *
  * @author felord.cn
- * @since 2021/9/3 16:46
+ * @since 2021 /9/3 16:46
  */
-@Setter
+@ToString
 @Getter
 public class NewsTemplateCard extends TemplateCard {
     private final CardImage cardImage;
     private ImageTextArea imageTextArea;
     private List<EmphasisContent> verticalContentList;
 
+    /**
+     * Instantiates a new News template card.
+     *
+     * @param mainTitle  the main title
+     * @param cardImage  the card image
+     * @param cardAction the card action
+     */
     public NewsTemplateCard(MainTitle mainTitle, CardImage cardImage, CardAction cardAction) {
         super(CardType.NEWS_NOTICE, mainTitle, cardAction);
         this.cardImage = cardImage;
+    }
+
+    /**
+     * Image text area news template card.
+     *
+     * @param imageTextArea the image text area
+     * @return the news template card
+     */
+    public NewsTemplateCard imageTextArea(ImageTextArea imageTextArea) {
+        this.imageTextArea = imageTextArea;
+        return this;
+    }
+
+    /**
+     * Vertical content list news template card.
+     *
+     * @param verticalContentList the vertical content list
+     * @return the news template card
+     */
+    public NewsTemplateCard verticalContentList(List<EmphasisContent> verticalContentList) {
+        this.verticalContentList = verticalContentList;
+        return this;
+    }
+
+    @Override
+    public TemplateCard source(CardSource source) {
+        super.source(source);
+        return this;
+    }
+
+    @Override
+    public TemplateCard quoteArea(QuoteArea quoteArea) {
+        super.quoteArea(quoteArea);
+        return this;
+    }
+
+    @Override
+    public TemplateCard horizontalContentList(List<? extends HorizontalContent> horizontalContentList) {
+        super.horizontalContentList(horizontalContentList);
+        return this;
+    }
+
+    @Override
+    public TemplateCard jumpList(List<? extends Jump> jumpList) {
+        super.jumpList(jumpList);
+        return this;
     }
 }

@@ -15,46 +15,55 @@
 
 package cn.felord.domain.webhook;
 
-import lombok.Data;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
 /**
- * The type Webhook text body.
+ * 图文消息
  *
  * @author n1
  * @since 2021 /6/16 15:02
  */
 @EqualsAndHashCode(callSuper = true)
+@ToString
 @Getter
-@Setter
 public class WebhookNewsBody extends WebhookBody {
-    private WebhookNews news;
+    private final WebhookNews news;
 
-    public WebhookNewsBody(WebhookNews news) {
+    /**
+     * Instantiates a new Webhook news body.
+     *
+     * @param news the news
+     */
+    WebhookNewsBody(WebhookNews news) {
         super("news");
         this.news = news;
     }
 
     /**
-     * The type Text.
+     * From webhook news body.
+     *
+     * @param articles the articles
+     * @return the webhook news body
      */
-    @Data
-    public static class WebhookNews {
-        private List<WebhookArticle> articles;
+    public static WebhookNewsBody from(List<WebhookArticle> articles) {
+        return new WebhookNewsBody(new WebhookNews(articles));
     }
 
+
     /**
-     * The type Article.
+     * The type Webhook news.
      */
-    @Data
-    public static class WebhookArticle {
-        private String title;
-        private String description;
-        private String url;
-        private String picurl;
+    @ToString
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public static class WebhookNews {
+        private final List<WebhookArticle> articles;
     }
+
 }

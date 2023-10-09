@@ -18,11 +18,15 @@ package cn.felord.api;
 import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.oa.*;
+import cn.felord.domain.oa.ScheduleAddRequest;
+import cn.felord.domain.oa.ScheduleAttendees;
+import cn.felord.domain.oa.ScheduleCalendarQuery;
+import cn.felord.domain.oa.ScheduleDelRequest;
+import cn.felord.domain.oa.ScheduleDetailRequest;
+import cn.felord.domain.oa.ScheduleDetailResponse;
+import cn.felord.domain.oa.ScheduleUpdateRequest;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
-
-import java.util.Set;
 
 /**
  * 日程接口
@@ -75,12 +79,12 @@ public interface ScheduleApi {
     /**
      * 获取日程详情
      *
-     * @param scheduleIds the schedule ids
+     * @param request the request
      * @return the schedule detail response
      * @throws WeComException the weComException
      */
     @POST("oa/schedule/get")
-    ScheduleDetailResponse get(@Body Set<String> scheduleIds) throws WeComException;
+    ScheduleDetailResponse get(@Body ScheduleDetailRequest request) throws WeComException;
 
     /**
      * 取消日程

@@ -48,7 +48,19 @@ public enum NodeStatus implements CallbackNumberEnum {
     /**
      * 已转审
      */
-    TRANSFERRED(4);
+    TRANSFERRED(4),
+    /**
+     * 已退回（仅在查询详情返回）
+     */
+    RETURNED(11),
+    /**
+     * 已加签（仅在查询详情返回）
+     */
+    SIGNED(12),
+    /**
+     * 已同意并加签（仅在查询详情返回）
+     */
+    SIGNED_ACCEPTED(13);
 
     private final int type;
 

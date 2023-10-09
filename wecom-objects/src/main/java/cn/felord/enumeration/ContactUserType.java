@@ -21,18 +21,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Contact user type.
+ * 用户类型
  *
  * @author dax
  * @since 2021 /9/8 10:47
  */
 public enum ContactUserType {
     /**
-     * Wechat contact user type.
+     * 微信用户
      */
     WECHAT(1),
     /**
-     * Work wechat contact user type.
+     * 企业微信用户
      */
     WORK_WECHAT(2);
 

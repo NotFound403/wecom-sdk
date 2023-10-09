@@ -16,7 +16,7 @@
 package cn.felord.domain.approval;
 
 import cn.felord.domain.common.UserId;
-import cn.felord.enumeration.SpStatus;
+import cn.felord.enumeration.NodeStatus;
 import lombok.Data;
 
 import java.time.Instant;
@@ -30,7 +30,7 @@ import java.util.List;
 public class SpRecordDetail {
     private UserId approver;
     private String speech;
-    private SpStatus spStatus;
+    private NodeStatus spStatus;
     private Instant sptime;
     private List<String> mediaId;
 }

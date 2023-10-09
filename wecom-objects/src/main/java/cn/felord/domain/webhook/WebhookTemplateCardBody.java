@@ -15,17 +15,21 @@
 
 package cn.felord.domain.webhook;
 
+import cn.felord.domain.webhook.card.NewsTemplateCard;
 import cn.felord.domain.webhook.card.TemplateCard;
+import cn.felord.domain.webhook.card.TextTemplateCard;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
- * The type Webhook text body.
+ * 模板卡片消息
  *
  * @author n1
  * @since 2021 /6/16 15:02
  */
 @EqualsAndHashCode(callSuper = true)
+@ToString
 @Getter
 public class WebhookTemplateCardBody extends WebhookBody {
     private final TemplateCard templateCard;
@@ -33,11 +37,31 @@ public class WebhookTemplateCardBody extends WebhookBody {
     /**
      * Instantiates a new Webhook template card body.
      *
-     * @param <T>          the type parameter
      * @param templateCard the template card
+     * @param <T>          TemplateCard
      */
     public <T extends TemplateCard> WebhookTemplateCardBody(T templateCard) {
         super("template_card");
         this.templateCard = templateCard;
+    }
+
+    /**
+     * 图文展示模版卡片
+     *
+     * @param newsTemplateCard the news template card
+     * @return the webhook template card body
+     */
+    public static WebhookTemplateCardBody from(NewsTemplateCard newsTemplateCard) {
+        return new WebhookTemplateCardBody(newsTemplateCard);
+    }
+
+    /**
+     * 文本通知模版卡片
+     *
+     * @param textTemplateCard the text template card
+     * @return the webhook template card body
+     */
+    public static WebhookTemplateCardBody from(TextTemplateCard textTemplateCard) {
+        return new WebhookTemplateCardBody(textTemplateCard);
     }
 }

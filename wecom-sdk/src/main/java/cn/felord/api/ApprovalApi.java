@@ -39,7 +39,7 @@ public interface ApprovalApi {
      *
      * @param templateId the template id
      * @return the detail
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/gettemplatedetail")
     ApprovalTmpDetailResponse getTemplateDetail(@Body TemplateId templateId) throws WeComException;
@@ -128,7 +128,7 @@ public interface ApprovalApi {
      *
      * @param userId the user id
      * @return the user vacation quota
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/vacation/getuservacationquota")
     GenericResponse<List<VacationQuota>> getUserVacationQuota(@Body UserId userId) throws WeComException;
@@ -138,7 +138,7 @@ public interface ApprovalApi {
      *
      * @param request the request
      * @return the one user quota
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/vacation/setoneuserquota")
     WeComResponse setOneUserQuota(@Body UserQuotaSettingRequest request) throws WeComException;

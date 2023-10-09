@@ -26,7 +26,7 @@ import java.util.Arrays;
  * @author dax
  * @since 2023 /8/6
  */
-public enum RemindTimeDiffs {
+public enum RemindTimeDiff {
 
     /**
      * 事件开始时
@@ -63,7 +63,7 @@ public enum RemindTimeDiffs {
 
     private final int duration;
 
-    RemindTimeDiffs(int duration) {
+    RemindTimeDiff(int duration) {
         this.duration = duration;
     }
 
@@ -74,8 +74,8 @@ public enum RemindTimeDiffs {
      * @return RemindTimeDiffs remind time diffs
      */
     @JsonCreator
-    public static RemindTimeDiffs deserialize(int duration) {
-        return Arrays.stream(RemindTimeDiffs.values())
+    public static RemindTimeDiff deserialize(int duration) {
+        return Arrays.stream(RemindTimeDiff.values())
                 .filter(responseduration -> responseduration.duration == duration)
                 .findFirst()
                 .orElse(null);

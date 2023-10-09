@@ -16,17 +16,46 @@
 package cn.felord.domain.callcenter;
 
 import cn.felord.enumeration.KfServiceState;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type Kf session update request.
+ *
  * @author dax
- * @since 2021/9/30 14:09
+ * @since 2021 /9/30 14:09
  */
-@Data
+@ToString
+@Getter
 public class KfSessionUpdateRequest {
     private final String openKfid;
     private final String externalUserid;
     private final KfServiceState serviceState;
-    private String servicerUserid;
+    private final String servicerUserid;
 
+    /**
+     * Instantiates a new Kf session update request.
+     *
+     * @param openKfid       the open kfid
+     * @param externalUserid the external userid
+     * @param serviceState   the service state
+     */
+    public KfSessionUpdateRequest(String openKfid, String externalUserid, KfServiceState serviceState) {
+        this(openKfid, externalUserid, serviceState, null);
+    }
+
+    /**
+     * Instantiates a new Kf session update request.
+     *
+     * @param openKfid       the open kfid
+     * @param externalUserid the external userid
+     * @param serviceState   the service state
+     * @param servicerUserid the servicer userid
+     */
+    public KfSessionUpdateRequest(String openKfid, String externalUserid, KfServiceState serviceState, String servicerUserid) {
+        this.openKfid = openKfid;
+        this.externalUserid = externalUserid;
+        this.serviceState = serviceState;
+        this.servicerUserid = servicerUserid;
+    }
 }

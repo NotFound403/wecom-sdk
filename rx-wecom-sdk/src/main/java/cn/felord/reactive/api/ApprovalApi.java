@@ -15,10 +15,20 @@
 
 package cn.felord.reactive.api;
 
-import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
-import cn.felord.domain.approval.*;
+import cn.felord.domain.approval.ApprovalApplyRequest;
+import cn.felord.domain.approval.ApprovalDetail;
+import cn.felord.domain.approval.ApprovalSpNo;
+import cn.felord.domain.approval.ApprovalTempAddRequest;
+import cn.felord.domain.approval.ApprovalTempUpdateRequest;
+import cn.felord.domain.approval.ApprovalThirdNo;
+import cn.felord.domain.approval.ApprovalTmpDetailResponse;
+import cn.felord.domain.approval.OpenApprovalData;
+import cn.felord.domain.approval.SpNoListRequest;
+import cn.felord.domain.approval.SpNoListResponse;
+import cn.felord.domain.approval.UserQuotaSettingRequest;
+import cn.felord.domain.approval.VacationQuota;
 import cn.felord.domain.common.TemplateId;
 import cn.felord.domain.common.UserId;
 import io.reactivex.rxjava3.core.Single;
@@ -111,10 +121,9 @@ public interface ApprovalApi {
      *
      * @param thirdNo the third no thirdNo
      * @return the generic response
-     * @throws WeComException the weComException
      */
     @POST("corp/getopenapprovaldata")
-    GenericResponse<OpenApprovalData> getOpenApprovalData(@Body ApprovalThirdNo thirdNo) throws WeComException;
+    GenericResponse<OpenApprovalData> getOpenApprovalData(@Body ApprovalThirdNo thirdNo);
 
     /**
      * 获取成员假期余额
@@ -123,18 +132,16 @@ public interface ApprovalApi {
      *
      * @param userId the user id
      * @return the user vacation quota
-     * @throws WeComException the we com exception
      */
     @POST("oa/vacation/getuservacationquota")
-    Single<GenericResponse<List<VacationQuota>>> getUserVacationQuota(@Body UserId userId) throws WeComException;
+    Single<GenericResponse<List<VacationQuota>>> getUserVacationQuota(@Body UserId userId);
 
     /**
      * 修改成员假期余额
      *
      * @param request the request
      * @return the one user quota
-     * @throws WeComException the we com exception
      */
     @POST("oa/vacation/setoneuserquota")
-    Single<WeComResponse> setOneUserQuota(@Body UserQuotaSettingRequest request) throws WeComException;
+    Single<WeComResponse> setOneUserQuota(@Body UserQuotaSettingRequest request);
 }

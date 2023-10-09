@@ -49,7 +49,6 @@ import cn.felord.domain.approval.TmpControl;
 import cn.felord.domain.common.TemplateId;
 import cn.felord.domain.contactbook.department.DeptInfo;
 import cn.felord.domain.contactbook.user.SimpleUser;
-import cn.felord.domain.externalcontact.ContentText;
 import cn.felord.domain.externalcontact.MiniprogramMsgAttachment;
 import cn.felord.domain.externalcontact.MsgTemplateRequest;
 import cn.felord.domain.externalcontact.MsgTemplateResponse;
@@ -67,7 +66,6 @@ import cn.felord.domain.webhook.card.TextHorizontalContent;
 import cn.felord.domain.webhook.card.UrlCardAction;
 import cn.felord.domain.webhook.card.UrlJump;
 import cn.felord.enumeration.BoolEnum;
-import cn.felord.enumeration.ChatType;
 import cn.felord.enumeration.DateRangeType;
 import cn.felord.enumeration.NativeAgent;
 import org.junit.jupiter.api.Assertions;
@@ -105,19 +103,24 @@ class SpringBootWecomSdkTests {
      */
     @Test
     void webHooks() {
-        // 发 markdown
-        WebhookBody body = new WebhookMarkdownBody(new ContentText("这里为markdown消息"));
-        // 发纯文本
-//        body = new WebhookTextBody(new WebhookTextBody.WebhookText("这里为纯文本"));
+// 发 markdown
+        WebhookBody body = WebhookMarkdownBody.from("这里为markdown消息");
+// 发纯文本
+//        body = WebhookTextBody.from("这里为纯文本");
 // 发图文
-//        WebhookNewsBody.WebhookNews news = new WebhookNewsBody.WebhookNews();
-//        WebhookNewsBody.WebhookArticle article = new WebhookNewsBody.WebhookArticle();
-//        article.setPicurl("这里为封面图链接");
-//        article.setUrl("这里为图文链接");
-//        article.setTitle("这里为标题");
-//        article.setDescription("这里为摘要信息");
-//        news.setArticles(Collections.singletonList(article));
-//        body = new WebhookNewsBody(news);
+
+//        WebhookArticle article = new WebhookArticle("这里为标题", "这里为图文链接")
+//                .picurl("这里为封面图链接")
+//                .description("这里为摘要信息");
+//        body = WebhookNewsBody.from(Collections.singletonList(article));
+//  从base64发图片
+//        String base64 = "";
+//        String md5 = "";
+//        body = WebhookImageBody.from(base64, md5);
+//  从流发送图片
+//        String path = "C:\\Users\\Administrator\\Desktop\\0.png";
+//        InputStream inputStream = Files.newInputStream(Paths.get(path));
+//        body = WebhookImageBody.from(inputStream);
 
         WorkWeChatApi.webhookApi().send("机器人key", body);
     }
@@ -170,18 +173,14 @@ class SpringBootWecomSdkTests {
      */
     @Test
     void sendToUsers() {
-        MsgTemplateRequest request = new MsgTemplateRequest(ChatType.SINGLE);
-        // 这里会推送给该员工，员工执行后会下发给他添加的所有外部联系人  需要遵循企微的推送规则
-        request.setSender("员工企微id");
+
         // 引导文案 要尽量吸引眼球
         String context = "🎉🎉🎉10元生鲜拼团最后一天\n" +
                 "👉现在下单，福利多多，有几率获得以下礼品一份\n" +
                 "🎁新鲜小台芒一斤\n" +
                 "🎁西红柿一斤\n" +
                 "快来点击小程序拼团吧😀";
-        ContentText text = new ContentText(context);
-        // 引导文案 要尽量吸引眼球
-        request.setText(text);
+
         // 标题长度 64
         String title = "企微客户生鲜福利最后一天啦";
         // 小程序appid
@@ -192,7 +191,9 @@ class SpringBootWecomSdkTests {
         // 小程序活动页面
         String page = "store/pages/hots/detail.html?sku=xd233243&state=QWPT2342";
         MiniprogramMsgAttachment o = new MiniprogramMsgAttachment(title, appid, picMeidaId, page);
-        request.setAttachments(Collections.singletonList(o));
+
+        MsgTemplateRequest request = MsgTemplateRequest.single("员工企微id", context, Collections.singletonList(o));
+
         AgentDetails nativedAgent = DefaultAgent.nativeAgent("企业id", "外部联系人密钥", NativeAgent.EXTERNAL);
         MsgTemplateResponse msgTemplateResponse = workWeChatApi.externalContactManager(nativedAgent)
                 .messageApi()

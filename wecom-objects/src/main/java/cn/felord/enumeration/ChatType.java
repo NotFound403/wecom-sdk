@@ -29,11 +29,11 @@ import java.util.Objects;
  */
 public enum ChatType {
     /**
-     * Single chat type.
+     * 客户群发
      */
     SINGLE("single"),
     /**
-     * Group chat type.
+     * 客户群群发
      */
     GROUP("group");
 

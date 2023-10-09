@@ -20,8 +20,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.ser.YearMonthSerializer;
 
 import java.time.Instant;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author dax
@@ -29,12 +32,16 @@ import java.time.Instant;
  */
 public final class JacksonObjectMapperFactory {
 
+    private static final DateTimeFormatter yearMonth = DateTimeFormatter.ofPattern("uMM");
+
     private JacksonObjectMapperFactory() {
     }
 
     public static ObjectMapper create() {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         javaTimeModule.addSerializer(Instant.class, UnixInstantSerializer.INSTANCE);
+        javaTimeModule.addSerializer(YearMonth.class, new YearMonthSerializer(yearMonth));
+        javaTimeModule.addDeserializer(YearMonth.class, new YearMonthNumberDeserializer(yearMonth));
         return new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 // empty string error
@@ -42,4 +49,6 @@ public final class JacksonObjectMapperFactory {
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
                 .registerModule(javaTimeModule);
     }
+
+
 }

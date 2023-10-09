@@ -112,13 +112,24 @@ public final class Algorithms {
      * @return the string
      */
     public static String md5Hex(String src, boolean upperCase) {
+        return md5Hex(src.getBytes(StandardCharsets.UTF_8), upperCase);
+    }
+
+    /**
+     * Md 5 hex string.
+     *
+     * @param src       the src
+     * @param upperCase the upper case
+     * @return the string
+     */
+    public static String md5Hex(byte[] src, boolean upperCase) {
         final MessageDigest MD5;
         try {
             MD5 = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalArgumentException("algorithm md5 init error", e);
         }
-        MD5.update(src.getBytes(StandardCharsets.UTF_8));
+        MD5.update(src);
         byte[] bytes = MD5.digest();
         String encodeHexString = Hex.encodeHexString(bytes);
         return upperCase ? encodeHexString.toUpperCase() : encodeHexString;

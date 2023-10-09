@@ -23,17 +23,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
+ * The type Money apply content data.
+ *
  * @author dax
- * @since 2023/5/27
+ * @since 2023 /5/27
  */
 public class MoneyApplyContentData extends ApplyContentData<MoneyValue> {
+    /**
+     * Instantiates a new Money apply content data.
+     *
+     * @param control the control
+     * @param id      the id
+     * @param title   the title
+     * @param value   the value
+     * @param hidden  the hidden
+     * @param require the require
+     */
     @JsonCreator
-    public MoneyApplyContentData(@JsonProperty("control") ApprovalCtrlType control,
-                                 @JsonProperty("id") String id,
-                                 @JsonProperty("title") List<ApprovalTitle> title,
-                                 @JsonProperty("value") MoneyValue value,
-                                 @JsonProperty("hidden") Integer hidden,
-                                 @JsonProperty("require") BoolEnum require) {
+    MoneyApplyContentData(@JsonProperty("control") ApprovalCtrlType control,
+                          @JsonProperty("id") String id,
+                          @JsonProperty("title") List<ApprovalTitle> title,
+                          @JsonProperty("value") MoneyValue value,
+                          @JsonProperty("hidden") Integer hidden,
+                          @JsonProperty("require") BoolEnum require) {
         super(control, id, title, value, hidden, require);
     }
 }

@@ -15,15 +15,49 @@
 
 package cn.felord.domain.oa;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
+import java.util.Collections;
 import java.util.Set;
 
 /**
+ * The type Calendar detail request.
+ *
  * @author dax
- * @since 2023/5/24 11:10
+ * @since 2023 /5/24 11:10
  */
-@Data
+@ToString
+@Getter
 public class CalendarDetailRequest {
     private final Set<String> calIdList;
+
+    /**
+     * Instantiates a new Calendar detail request.
+     *
+     * @param calIdList the cal id list
+     */
+    CalendarDetailRequest(Set<String> calIdList) {
+        this.calIdList = calIdList;
+    }
+
+    /**
+     * From calendar detail request.
+     *
+     * @param calId the cal id
+     * @return the calendar detail request
+     */
+    public static CalendarDetailRequest from(String calId) {
+        return from(Collections.singleton(calId));
+    }
+
+    /**
+     * From calendar detail request.
+     *
+     * @param calIdList the cal id list
+     * @return the calendar detail request
+     */
+    public static CalendarDetailRequest from(Set<String> calIdList) {
+        return new CalendarDetailRequest(calIdList);
+    }
 }

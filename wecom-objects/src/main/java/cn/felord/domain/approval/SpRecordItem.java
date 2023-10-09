@@ -16,7 +16,7 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.ApproverNodeMode;
-import cn.felord.enumeration.SpStatus;
+import cn.felord.enumeration.NodeStatus;
 import lombok.Data;
 
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Data
 public class SpRecordItem {
-    private SpStatus spStatus;
+    private NodeStatus spStatus;
     private ApproverNodeMode approverattr;
     private List<SpRecordDetail> details;
 }

@@ -62,8 +62,17 @@ public enum BoolEnum {
     @JsonCreator
     public static BoolEnum deserialize(int type) {
         return Arrays.stream(BoolEnum.values())
-                .filter(boolEnum -> boolEnum.type==type)
+                .filter(boolEnum -> boolEnum.type == type)
                 .findFirst()
                 .orElse(null);
+    }
+
+    /**
+     * To boolean boolean.
+     *
+     * @return the boolean
+     */
+    public Boolean toBoolean() {
+        return FALSE.equals(this);
     }
 }

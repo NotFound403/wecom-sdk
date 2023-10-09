@@ -15,21 +15,25 @@
 
 package cn.felord.domain.externalcontact;
 
+import cn.felord.enumeration.BoolEnum;
+import cn.felord.enumeration.GroupOrderType;
 import lombok.Data;
 
 import java.time.Instant;
 
 /**
+ * The type Group chat owner data request.
+ *
  * @author dax
- * @since 2021/9/23 14:28
+ * @since 2021 /9/23 14:28
  */
 @Data
 public class GroupChatOwnerDataRequest {
     private final Instant dayBeginTime;
     private Instant dayEndTime;
     private final OwnerFilter ownerFilter;
-    private Long orderBy;
-    private Long orderAsc;
-    private Long offset;
-    private Long limit;
+    private GroupOrderType orderBy;
+    private BoolEnum orderAsc;
+    private Integer offset;
+    private Integer limit;
 }

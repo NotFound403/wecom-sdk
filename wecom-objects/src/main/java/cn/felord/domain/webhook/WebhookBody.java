@@ -16,16 +16,25 @@
 package cn.felord.domain.webhook;
 
 import lombok.Getter;
+import lombok.ToString;
 
 
 /**
+ * The type Webhook body.
+ *
  * @author n1
- * @since 2021/6/16 14:57
+ * @since 2021 /6/16 14:57
  */
+@ToString
 @Getter
 public abstract class WebhookBody {
     private final String msgtype;
 
+    /**
+     * Instantiates a new Webhook body.
+     *
+     * @param msgtype the msgtype
+     */
     protected WebhookBody(String msgtype) {
         this.msgtype = msgtype;
     }
