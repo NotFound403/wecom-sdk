@@ -13,37 +13,42 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.dial;
+package cn.felord.domain.security;
 
-import cn.felord.enumeration.CallType;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.List;
 
 /**
- * The type Dial record.
+ * The type File opt record detail.
+ *
+ * @author dax
+ * @since 2023 /10/9
  */
 @Data
-public class DialRecord {
+public class FileOptRecordDetail {
     /**
-     * 主叫用户
+     * 操作时间
      */
-    private Caller caller;
+    private Instant time;
     /**
-     * 总通话时长，单位为分钟
+     * 操作信息
      */
-    private Integer totalDuration;
+    private Operation operation;
     /**
-     * 被叫用户
+     * 文件操作说明
      */
-    private List<Callee> callee;
+    private String fileInfo;
     /**
-     * 拨出时间
+     * 企业用户账号id，当操作者为企业内部用户时返回该字段
      */
-    private Instant callTime;
+    private String userid;
     /**
-     * 通话类型
+     * 企业外部人员账号信息，当操作者为企业外部用户时返回该结构
      */
-    private CallType callType;
+    private ExternalUser externalUser;
+    /**
+     * 当记录操作类型为『通过下载申请』或者『拒绝下载申请』时，该字段表示申请人的名字
+     */
+    private String applicantName;
 }

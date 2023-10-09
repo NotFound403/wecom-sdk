@@ -13,16 +13,27 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.dial;
+package cn.felord.domain.security;
 
+import cn.felord.enumeration.ContactUserType;
 import lombok.Data;
 
-import java.time.Instant;
-
+/**
+ * @author dax
+ * @since 2023/10/9
+ */
 @Data
-public class DialRecordsRequest {
-    private Instant startTime;
-    private Instant endTime;
-    private Long offset;
-    private Integer limit;
+public class ExternalUser {
+    /**
+     * 用户类型
+     */
+    private ContactUserType type;
+    /**
+     * 用户名
+     */
+    private String name;
+    /**
+     * 企业名，当用户为企业微信用户时，返回该字段
+     */
+    private String corpName;
 }

@@ -21,48 +21,62 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Call type.
+ * 操作来源
  *
  * @author dax
- * @since 2023 /10/6
+ * @since 2023 /10/9
  */
-public enum CallType {
-    /**
-     * 单人通话
-     */
-    SINGLE(1),
-    /**
-     * 多人通话
-     */
-    MULTI(2);
+public enum OptSource {
 
-    private final int type;
+    /**
+     * 聊天
+     */
+    CHAT(401),
 
-    CallType(int type) {
-        this.type = type;
+    /**
+     * 邮件
+     */
+    EMAIL(1),
+    /**
+     * 文档
+     */
+    DOC(1),
+    /**
+     * 微盘
+     */
+    WE_DRIVE(1),
+    /**
+     * 日程
+     */
+    SCHEDULE(2);
+
+    private final int source;
+
+    OptSource(int source) {
+        this.source = source;
     }
 
     /**
-     * Gets type.
+     * Deserialize opt source.
      *
-     * @return the type
-     */
-    @JsonValue
-    public int getType() {
-        return type;
-    }
-
-    /**
-     * Deserialize call type.
-     *
-     * @param type the type
-     * @return the approval notify type
+     * @param source the source
+     * @return the opt source
      */
     @JsonCreator
-    public static CallType deserialize(int type) {
-        return Arrays.stream(CallType.values())
-                .filter(callType -> callType.type == type)
+    public static OptSource deserialize(int source) {
+        return Arrays.stream(OptSource.values())
+                .filter(optSource -> optSource.source == source)
                 .findFirst()
                 .orElse(null);
+    }
+
+    /**
+     * Gets source.
+     *
+     * @return the source
+     */
+    @JsonValue
+    public int getSource() {
+        return source;
     }
 }

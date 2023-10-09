@@ -13,16 +13,20 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.dial;
+package cn.felord.domain.security;
 
+import cn.felord.enumeration.OptSource;
+import cn.felord.enumeration.OptType;
 import lombok.Data;
 
-import java.time.Instant;
-
+/**
+ * The type Operation.
+ *
+ * @author dax
+ * @since 2023 /5/27 14:48
+ */
 @Data
-public class DialRecordsRequest {
-    private Instant startTime;
-    private Instant endTime;
-    private Long offset;
-    private Integer limit;
+public class Operation {
+    private OptSource source;
+    private OptType type;
 }
