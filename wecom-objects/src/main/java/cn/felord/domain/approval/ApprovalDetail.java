@@ -24,8 +24,10 @@ import java.time.Instant;
 import java.util.List;
 
 /**
+ * The type Approval detail.
+ *
  * @author dax
- * @since 2023/5/27 14:48
+ * @since 2023 /5/27 14:48
  */
 @Data
 public class ApprovalDetail {
