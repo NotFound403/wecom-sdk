@@ -37,12 +37,11 @@ public final class OkHttpUtil {
      * @return the string
      */
     public static String requestBodyToString(RequestBody body) {
-        Buffer buffer = new Buffer();
-        try {
+        try (Buffer buffer = new Buffer()) {
             body.writeTo(buffer);
+            return buffer.readUtf8();
         } catch (IOException e) {
             throw new IllegalArgumentException("Request Auth Error", e);
         }
-        return buffer.readUtf8();
     }
 }

@@ -26,6 +26,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
+import okio.BufferedSource;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -66,8 +67,10 @@ public class TokenInterceptor implements Interceptor {
             //application/octet-stream
             MediaType mediaType = body.contentType();
             if (Objects.equals(JSON_UTF_8, mediaType) || Objects.equals(JSON, mediaType)) {
-                try (Buffer buffer = body.source().getBuffer()) {
-                    String json = buffer.clone().readUtf8();
+                BufferedSource source = body.source();
+                source.request(Long.MAX_VALUE);
+                try (Buffer buffer = source.getBuffer().clone()) {
+                    String json = buffer.readUtf8();
                     WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
                     if (Objects.equals(INVALID_ACCESS_TOKEN, weComResponse.getErrcode())) {
                         tokenApi.clearToken();

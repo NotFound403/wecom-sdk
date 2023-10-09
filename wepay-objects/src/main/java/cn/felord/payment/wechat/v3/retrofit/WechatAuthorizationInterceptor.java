@@ -25,7 +25,8 @@ import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
 
-import java.util.Optional;
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * The type Token interceptor.
@@ -50,12 +51,20 @@ class WechatAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
 
     @Override
     protected void verifyResponse(Response response) throws PayException {
-        String body = Optional.ofNullable(response.body())
-                .map(ResponseBody::source)
-                .map(BufferedSource::getBuffer)
-                .map(Buffer::clone)
-                .map(Buffer::readUtf8)
-                .orElse("");
+
+        ResponseBody responseBody = response.body();
+        String body = "";
+        if (Objects.nonNull(responseBody)) {
+            BufferedSource source = responseBody.source();
+            try {
+                source.request(Long.MAX_VALUE);
+            } catch (IOException e) {
+                throw new PayException("Fail Request", e);
+            }
+            try (Buffer buffer = source.getBuffer().clone()) {
+                body = buffer.readUtf8();
+            }
+        }
         Headers responseHeaders = response.headers();
         if (!response.isSuccessful()) {
             String requestId = responseHeaders.get(HttpHeaders.REQUEST_ID.headerName());
