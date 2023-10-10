@@ -16,17 +16,10 @@
 package cn.felord.retrofit;
 
 import cn.felord.WeComException;
-import cn.felord.domain.WeComResponse;
-import cn.felord.retrofit.json.JacksonObjectMapperFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
-import okio.Buffer;
-import okio.BufferedSource;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -39,10 +32,8 @@ import java.util.Objects;
  * @since 2023 /5/22 14:59
  */
 public class TokenInterceptor implements Interceptor {
-    public static final Integer INVALID_ACCESS_TOKEN = 42001;
-    public static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
-    private static final MediaType JSON_UTF_8 = MediaType.parse("application/json; charset=UTF-8");
-    private static final MediaType JSON = MediaType.parse("application/json");
+    private static final String INVALID_ACCESS_TOKEN = "42001";
+    private static final String ERROR_CODE_HEADER = "error-code";
     private final TokenApi tokenApi;
     private final String tokenParam;
 
@@ -62,23 +53,11 @@ public class TokenInterceptor implements Interceptor {
     @Override
     public final Response intercept(@NotNull Chain chain) throws IOException {
         Response response = doRequest(chain);
-        ResponseBody body = response.body();
-        if (body != null) {
-            //application/octet-stream
-            MediaType mediaType = body.contentType();
-            if (Objects.equals(JSON_UTF_8, mediaType) || Objects.equals(JSON, mediaType)) {
-                BufferedSource source = body.source();
-                source.request(Long.MAX_VALUE);
-                try (Buffer buffer = source.getBuffer().clone()) {
-                    String json = buffer.readUtf8();
-                    WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
-                    if (Objects.equals(INVALID_ACCESS_TOKEN, weComResponse.getErrcode())) {
-                        tokenApi.clearToken();
-                        response.close();
-                        return doRequest(chain);
-                    }
-                }
-            }
+        String errorCode = response.header(ERROR_CODE_HEADER);
+        if (Objects.equals(INVALID_ACCESS_TOKEN, errorCode)) {
+            tokenApi.clearToken();
+            response.close();
+            return doRequest(chain);
         }
         return response;
     }
