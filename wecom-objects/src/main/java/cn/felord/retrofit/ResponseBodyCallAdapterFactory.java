@@ -16,6 +16,8 @@ package cn.felord.retrofit;
 
 
 import cn.felord.WeComException;
+import cn.felord.domain.WeComResponse;
+import cn.felord.utils.StringUtils;
 import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
@@ -100,8 +102,19 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
             if (response.isSuccessful()) {
                 Headers headers = response.headers();
                 String errorCode = headers.get(ERROR_CODE_HEADER);
-                if (!Objects.equals(SUCCESS_CODE, errorCode) && Objects.nonNull(errorCode)) {
-                    throw new WeComException(Integer.parseInt(errorCode), headers.get(ERROR_MSG_HEADER));
+                // 通常不需要解析
+                if (StringUtils.hasText(errorCode)) {
+                    if (!Objects.equals(SUCCESS_CODE, errorCode)) {
+                        throw new WeComException(Integer.parseInt(errorCode), headers.get(ERROR_MSG_HEADER));
+                    }
+                } else {
+                    R body = response.body();
+                    if (body != null && WeComResponse.class.isAssignableFrom(body.getClass())) {
+                        WeComResponse weComResponse = (WeComResponse) body;
+                        if (weComResponse.isError()) {
+                            throw new WeComException(weComResponse.getErrcode(), weComResponse.getErrmsg());
+                        }
+                    }
                 }
                 return response.body();
             }
