@@ -37,7 +37,6 @@ public class TokenInterceptor implements Interceptor {
     private final TokenApi tokenApi;
     private final String tokenParam;
 
-
     /**
      * Instantiates a new Token interceptor.
      *
@@ -46,7 +45,6 @@ public class TokenInterceptor implements Interceptor {
     public TokenInterceptor(TokenApi tokenApi) {
         this.tokenApi = tokenApi;
         this.tokenParam = this.determineTokenParam(tokenApi.getClass());
-
     }
 
     @NotNull
@@ -62,7 +60,6 @@ public class TokenInterceptor implements Interceptor {
         return response;
     }
 
-
     private Response doRequest(Chain chain) throws IOException {
         Request request = chain.request();
         HttpUrl oldHttpUrl = request.url();
@@ -74,7 +71,6 @@ public class TokenInterceptor implements Interceptor {
                 .build();
         return chain.proceed(requestWithAccessToken);
     }
-
 
     private String determineTokenParam(Class<? extends TokenApi> tokenApiClazz) {
 
