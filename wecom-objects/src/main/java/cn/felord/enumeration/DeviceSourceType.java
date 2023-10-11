@@ -21,29 +21,51 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * 审批抄送方式
+ * 设备来源
  *
  * @author dax
- * @since 2023 /5/26
+ * @since 2023 /5/25 16:19
  */
-public enum ApprovalNotifyType {
+public enum DeviceSourceType {
+
     /**
-     * 提交时通知
+     * 未知
      */
-    WHEN_SUBMITTING(1),
+    UNKNOWN(0),
+
     /**
-     * 通过时通知
+     * 成员确认
      */
-    WHEN_PASSING(2),
+    MEMBER_ACK(1),
+
     /**
-     * 提交和通过都通知
+     * 管理员导入
      */
-    WHEN_BOTH(3);
+    IMPORT_VIA_ADMIN(2),
+
+    /**
+     * 成员自主申报
+     */
+    SELF_APPLY(3);
 
     private final int type;
 
-    ApprovalNotifyType(int type) {
+    DeviceSourceType(int type) {
         this.type = type;
+    }
+
+    /**
+     * Deserialize device source type.
+     *
+     * @param type the type
+     * @return the device source type
+     */
+    @JsonCreator
+    public static DeviceSourceType deserialize(int type) {
+        return Arrays.stream(DeviceSourceType.values())
+                .filter(deviceSourceType -> deviceSourceType.type == type)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -54,19 +76,5 @@ public enum ApprovalNotifyType {
     @JsonValue
     public int getType() {
         return type;
-    }
-
-    /**
-     * Deserialize approval notify type.
-     *
-     * @param type the type
-     * @return the approval notify type
-     */
-    @JsonCreator
-    public static ApprovalNotifyType deserialize(int type) {
-        return Arrays.stream(ApprovalNotifyType.values())
-                .filter(contactType -> contactType.type == type)
-                .findFirst()
-                .orElse(null);
     }
 }

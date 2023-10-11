@@ -45,7 +45,7 @@ public class TrustDevice {
     /**
      * 主板UUID，当system为Windows可选填此参数
      */
-    private Set<String> motherboardUuid;
+    private String motherboardUuid;
     /**
      * 硬盘序列号，当system为Windows时可选填此参数，每个设备最多100个
      */
@@ -84,7 +84,7 @@ public class TrustDevice {
      * @param domain          the domain
      * @param pcName          the pc name
      */
-    TrustDevice(DeviceType type, String macAddr, String seqNo, Set<String> motherboardUuid, Set<String> harddiskUuid, String domain, String pcName) {
+    TrustDevice(DeviceType type, String macAddr, String seqNo, String motherboardUuid, Set<String> harddiskUuid, String domain, String pcName) {
         this.type = type;
         this.macAddr = macAddr;
         this.seqNo = seqNo;
@@ -142,7 +142,7 @@ public class TrustDevice {
      * @param motherboardUuid the motherboard uuid
      * @return the trust device
      */
-    public TrustDevice motherboardUuid(Set<String> motherboardUuid) {
+    public TrustDevice motherboardUuid(String motherboardUuid) {
         this.motherboardUuid = motherboardUuid;
         return this;
     }

@@ -15,7 +15,7 @@
 
 package cn.felord.domain.security;
 
-import cn.felord.enumeration.DeviceStatus;
+import cn.felord.enumeration.DeviceImportStatus;
 import lombok.Data;
 
 /**
@@ -37,5 +37,5 @@ public class DeviceResult {
     /**
      * 导入结果
      */
-    private DeviceStatus status;
+    private DeviceImportStatus status;
 }

@@ -99,6 +99,20 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 安全管理
+     *
+     * @param agentDetails the agent details
+     * @return the security api
+     * @since 1.2.2
+     */
+    public SecurityApi securityApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(SecurityApi.class);
+    }
+
+    /**
      * 客户联系
      *
      * @param agentDetails the agent details
