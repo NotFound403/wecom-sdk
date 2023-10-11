@@ -19,11 +19,20 @@ import cn.felord.AgentDetails;
 import cn.felord.DefaultAgent;
 import cn.felord.WeComTokenCacheable;
 import cn.felord.api.ApprovalApi;
+import cn.felord.api.CallCenterManager;
 import cn.felord.api.ContactBookManager;
 import cn.felord.api.ExternalContactUserApi;
+import cn.felord.api.FileManagerApi;
+import cn.felord.api.FormApi;
+import cn.felord.api.KfAccountApi;
+import cn.felord.api.KfSessionApi;
+import cn.felord.api.MediaApi;
+import cn.felord.api.ScheduleApi;
 import cn.felord.api.UserApi;
 import cn.felord.api.WorkWeChatApi;
 import cn.felord.domain.GenericResponse;
+import cn.felord.domain.MultipartResource;
+import cn.felord.domain.WeComResponse;
 import cn.felord.domain.approval.ApprovalApplyRequest;
 import cn.felord.domain.approval.ApprovalDetail;
 import cn.felord.domain.approval.ApprovalSpNo;
@@ -46,33 +55,66 @@ import cn.felord.domain.approval.SelectorValue;
 import cn.felord.domain.approval.Summary;
 import cn.felord.domain.approval.TextValue;
 import cn.felord.domain.approval.TmpControl;
+import cn.felord.domain.callcenter.ClickMsgMenuContent;
+import cn.felord.domain.callcenter.EnterSessionKfEvent;
+import cn.felord.domain.callcenter.EventKfMessage;
+import cn.felord.domain.callcenter.ImageKfMessageRequest;
+import cn.felord.domain.callcenter.KfAccountAddRequest;
+import cn.felord.domain.callcenter.KfMessage;
+import cn.felord.domain.callcenter.KfMsgMenu;
+import cn.felord.domain.callcenter.MenuKfEventMessageRequest;
+import cn.felord.domain.callcenter.SyncMsgRequest;
+import cn.felord.domain.callcenter.SyncMsgResponse;
+import cn.felord.domain.callcenter.TextMsgMenuContent;
+import cn.felord.domain.callcenter.ViewMsgMenuContent;
 import cn.felord.domain.common.TemplateId;
 import cn.felord.domain.contactbook.department.DeptInfo;
 import cn.felord.domain.contactbook.user.SimpleUser;
 import cn.felord.domain.externalcontact.MiniprogramMsgAttachment;
 import cn.felord.domain.externalcontact.MsgTemplateRequest;
 import cn.felord.domain.externalcontact.MsgTemplateResponse;
+import cn.felord.domain.media.MediaResponse;
 import cn.felord.domain.message.MessageBodyBuilders;
 import cn.felord.domain.message.MessageResponse;
 import cn.felord.domain.message.TemplateCardBuilders;
 import cn.felord.domain.message.TemplateCardMessageBody;
 import cn.felord.domain.message.TextMessageTemplateCard;
+import cn.felord.domain.oa.Reminders;
+import cn.felord.domain.oa.ScheduleAddRequest;
+import cn.felord.domain.oa.ScheduleRequestBody;
+import cn.felord.domain.webhook.WebhookArticle;
 import cn.felord.domain.webhook.WebhookBody;
+import cn.felord.domain.webhook.WebhookImageBody;
 import cn.felord.domain.webhook.WebhookMarkdownBody;
+import cn.felord.domain.webhook.WebhookNewsBody;
+import cn.felord.domain.webhook.WebhookTextBody;
 import cn.felord.domain.webhook.card.AtStaffHorizontalContent;
 import cn.felord.domain.webhook.card.CardSource;
 import cn.felord.domain.webhook.card.MainTitle;
 import cn.felord.domain.webhook.card.TextHorizontalContent;
 import cn.felord.domain.webhook.card.UrlCardAction;
 import cn.felord.domain.webhook.card.UrlJump;
+import cn.felord.domain.wedoc.form.AnswerReplyItem;
+import cn.felord.domain.wedoc.form.FormAnswerRequest;
+import cn.felord.domain.wedrive.BufferSource;
+import cn.felord.enumeration.AnswerReplyItemType;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.DateRangeType;
+import cn.felord.enumeration.MediaTypeEnum;
 import cn.felord.enumeration.NativeAgent;
+import cn.felord.enumeration.RemindBeforeEventSecs;
+import okhttp3.MediaType;
+import okio.BufferedSource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.FileCopyUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -100,29 +142,30 @@ class SpringBootWecomSdkTests {
 
     /**
      * 企微机器人
+     *
+     * @throws IOException the io exception
      */
     @Test
-    void webHooks() {
+    void webHooks() throws IOException {
 // 发 markdown
-        WebhookBody body = WebhookMarkdownBody.from("这里为markdown消息");
+        WebhookBody markdownBody = WebhookMarkdownBody.from("这里为markdown消息");
 // 发纯文本
-//        body = WebhookTextBody.from("这里为纯文本");
+        WebhookBody textBody = WebhookTextBody.from("这里为纯文本");
 // 发图文
-
-//        WebhookArticle article = new WebhookArticle("这里为标题", "这里为图文链接")
-//                .picurl("这里为封面图链接")
-//                .description("这里为摘要信息");
-//        body = WebhookNewsBody.from(Collections.singletonList(article));
+        WebhookArticle article = new WebhookArticle("这里为标题", "这里为图文链接")
+                .picurl("这里为封面图链接")
+                .description("这里为摘要信息");
+        WebhookBody newsBody = WebhookNewsBody.from(Collections.singletonList(article));
 //  从base64发图片
-//        String base64 = "";
-//        String md5 = "";
-//        body = WebhookImageBody.from(base64, md5);
+        String base64 = "图片base64";
+        String md5 = "图片base64的md5";
+        WebhookBody imageBody1 = WebhookImageBody.from(base64, md5);
 //  从流发送图片
-//        String path = "C:\\Users\\Administrator\\Desktop\\0.png";
-//        InputStream inputStream = Files.newInputStream(Paths.get(path));
-//        body = WebhookImageBody.from(inputStream);
-
-        WorkWeChatApi.webhookApi().send("机器人key", body);
+        String path = "C:\\Users\\Administrator\\Desktop\\0.png";
+        InputStream inputStream = Files.newInputStream(Paths.get(path));
+        WebhookBody imageBody2 = WebhookImageBody.from(inputStream);
+        WeComResponse weComResponse = WorkWeChatApi.webhookApi().send("机器人key", markdownBody);
+        Assertions.assertTrue(weComResponse.isSuccessful());
     }
 
     /**
@@ -169,7 +212,9 @@ class SpringBootWecomSdkTests {
 
 
     /**
-     * 给客户推送小程序促销消息
+     * 客户群发和客户群群发
+     * <p>
+     * 给微信客户推送小程序促销消息
      */
     @Test
     void sendToUsers() {
@@ -198,33 +243,104 @@ class SpringBootWecomSdkTests {
         MsgTemplateResponse msgTemplateResponse = workWeChatApi.externalContactManager(nativedAgent)
                 .messageApi()
                 .addMsgTemplate(request);
-        System.out.println("msgTemplateResponse = " + msgTemplateResponse);
+        Assertions.assertTrue(msgTemplateResponse.isSuccessful());
     }
-
 
     /**
-     * 缓存测试
+     * 企业微信创建日程
      */
     @Test
-    void tokenCache() {
-        String token = "xxxxxxxxxxxxxxxxx";
-        weComTokenCacheable.putAccessToken("a", "b", token);
-        String accessToken = weComTokenCacheable.getAccessToken("a", "b");
-        Assertions.assertEquals(token, accessToken);
+    void schedule() {
+
+        AgentDetails agentDetails = new DefaultAgent("企业ID", "应用密钥，该应用需要关联到日程功能", "应用id");
+
+        Instant now = Instant.now();
+        Instant startTime = now.plus(10, ChronoUnit.MINUTES);
+        Instant endTime = now.plus(40, ChronoUnit.MINUTES);
+        ScheduleRequestBody schedule = new ScheduleRequestBody(startTime, endTime)
+                .summary("wecom-sdk 项目需求评审")
+                .description("对下半年新需求的评审研讨")
+                .location("xxx市xxx区xxx路28号A座703")
+                .attendees(Arrays.asList("参与人1 USERID", "参与人2 USERID", "参与人3 USERID"))
+                .reminders(new Reminders()
+                        .remind(RemindBeforeEventSecs.MIN_5)
+                        .timezone(8));
+        ScheduleAddRequest request = new ScheduleAddRequest(schedule);
+
+        ScheduleApi scheduleApi = workWeChatApi.scheduleApi(agentDetails);
+
+        GenericResponse<String> genericResponse = scheduleApi.add(request);
+        Assertions.assertTrue(genericResponse.isSuccessful());
     }
 
+    /**
+     * 企微客服
+     */
+    @Test
+    public void kf() {
+        AgentDetails testKf = DefaultAgent.nativeAgent("企业ID", "客服应用密钥", NativeAgent.SERVICER);
 
+        CallCenterManager callCenterManager = workWeChatApi.callCenterManager(testKf);
+//        客服账号
+        KfAccountApi kfAccountApi = callCenterManager
+                .kfAccountApi();
+        KfAccountAddRequest accountAddRequest = new KfAccountAddRequest("测试客服", "客服应用调用上传图片API上传头像");
+//        API创建客服账号
+//        GenericResponse<String> response = kfAccountApi.addKfAccount(accountAddRequest);
+//        String openKfid = response.getData();
+//        创建客服场景链接   带场景值
+//        KfAccountLinkRequest accountLinkRequest = new KfAccountLinkRequest(openKfid, "ABC");
+//        GenericResponse<String> genericResponse = kfAccountApi.addContactWay(accountLinkRequest
+//        客服链接  可以拼接自定义参数 具体看文档
+//        String kfUrl = genericResponse.getData();
+
+//        客服会话
+        KfSessionApi kfSessionApi = callCenterManager.kfSessionApi();
+//        同步消息 用上面的客服链接 测试    注意配置接待人员
+        SyncMsgRequest request = new SyncMsgRequest();
+//        token 获取参见企微文档
+        request.setToken("ENC2cGwv5Ey4XSeotohu7Ad5W3MmscXKEfQfi5qgkuMVMyP");
+        request.setOpenKfid("传入openKfid");
+        SyncMsgResponse syncMsgResponse = kfSessionApi.syncMsg(request);
+        List<KfMessage> msgList = syncMsgResponse.getMsgList();
+//        取最新的一条  这里的机制我没有深入
+        EventKfMessage kfMessage = (EventKfMessage) msgList.get(msgList.size() - 1);
+        EnterSessionKfEvent event = (EnterSessionKfEvent) kfMessage.getEvent();
+//        获取欢迎码  有效期很短
+        String welcomeCode = event.getWelcomeCode();
+
+//        发送事件消息 发送欢迎语 带菜单 带链接 纯文本  具体机制都需要结合文档对接
+        KfMsgMenu msgmenu = new KfMsgMenu()
+                .headContent("您对本次服务是否满意呢? ")
+                .list(Arrays.asList(new ClickMsgMenuContent("1", "满意"),
+                        new ClickMsgMenuContent("2", "不满意"),
+                        new ViewMsgMenuContent("https://baidu.com", "点击自助查询"),
+                        new TextMsgMenuContent("纯文本")
+                ))
+                .tailContent("结束语");
+
+
+        MenuKfEventMessageRequest eventMessageRequest = new MenuKfEventMessageRequest(welcomeCode, msgmenu);
+//        发送事件消息
+        GenericResponse<String> stringGenericResponse = kfSessionApi.sendEventMsg(eventMessageRequest);
+
+//        发送图片消息给接待用户  需要在智能助手接待状态  对接GPT之类的大模型非常有用
+        ImageKfMessageRequest kfMessageRequest = new ImageKfMessageRequest("客户id", "客服id", "图片素材 mediaid");
+    }
+
+    /**
+     * 企业微信发起审批
+     */
     @Test
     void approval() {
         // 审批应用
-        AgentDetails nativeAgent = DefaultAgent.nativeAgent("", "", NativeAgent.APPROVAL);
+        AgentDetails nativeAgent = DefaultAgent.nativeAgent("企业ID", "审批应用密钥", NativeAgent.APPROVAL);
         ApprovalApi approvalApi = workWeChatApi.approvalApi(nativeAgent);
         // 模板
         String templateId = "C4UEh71DAPh775HPfXipikZ5eAGosskDibU8hkfxJ";
         // 查询模板配置  可以用缓存优化性能 避免直接查询企业微信
         ApprovalTmpDetailResponse templateDetail = approvalApi.getTemplateDetail(new TemplateId(templateId));
-        System.out.println("templateDetail = " + templateDetail);
-
+        Assertions.assertTrue(templateDetail.isSuccessful());
         // 根据模板配置渲染数据
 
         List<TmpControl<? extends ControlConfig>> controls = templateDetail.getTemplateContent()
@@ -296,11 +412,78 @@ class SpringBootWecomSdkTests {
 
         // 按照审批号查询详情
         GenericResponse<ApprovalDetail> approvalDetail = approvalApi.getApprovalDetail(new ApprovalSpNo(apply.getData()));
-        System.out.println("approvalDetail = " + approvalDetail);
+        Assertions.assertTrue(approvalDetail.isSuccessful());
 
     }
 
+    /**
+     * 收集表难点演示
+     * <p>
+     * 下载收集表中的文件素材
+     *
+     * @throws IOException the io exception
+     */
+    @Test
+    public void formFiledownload() throws IOException {
+//           关联文档功能的自建引用
+        AgentDetails agentDetailsWithDocAuth = new DefaultAgent("企业ID", "应用密钥，该应用需要关联到文档功能", "应用id");
+        FormApi formApi = workWeChatApi.wedocApi(agentDetailsWithDocAuth).formApi();
+//             关联微盘功能的自建应用
+        AgentDetails agentDetailsWithWeDriveAuth = new DefaultAgent("企业ID", "应用密钥，该应用需要关联到微盘功能", "应用id");
+        FileManagerApi fileManagerApi = workWeChatApi.weDriveApi(agentDetailsWithWeDriveAuth).fileManagerApi();
+//       收集表的周期id，用于获取答案列表和具体的回答
+        String repeatedId = "";
+//         答案id
+        long answerId = 1L;
+        FormAnswerRequest answerRequest = new FormAnswerRequest(repeatedId, Collections.singleton(answerId));
 
+        BufferSource bufferSource = formApi.getFormAnswer(answerRequest)
+                .getAnswer()
+                .getAnswerList()
+//                可能有多个 这里只取一个
+                .get(0)
+                .getReply()
+                .getItems()
+                .stream()
+                .filter(answerReplyItem ->
+                        Objects.equals(answerReplyItem.getItemType(), AnswerReplyItemType.FILE))
+                .map(AnswerReplyItem::getFileExtendReply)
+                .flatMap(Collection::stream)
+//                可能有多个 这里只取一个
+                .findFirst()
+                .map(answerFileExtendReply ->
+//                        answerFileExtendReply.getName()  文件名称 带扩展名
+                        fileManagerApi.downloadByFileId(answerFileExtendReply.getFileid()))
+                .orElseThrow(() -> new RuntimeException("调用表单查询异常"));
+//        文件答案都会带文件名
+//        String filename = answerFileExtendReply.getName();
+        BufferedSource source = bufferSource.getSource();
+        MediaType contentType = bufferSource.getContentType();
+        long contentLength = bufferSource.getContentLength();
+        byte[] bytes = FileCopyUtils.copyToByteArray(source.inputStream());
+    }
+
+    /**
+     * 上传临时素材
+     * <p>
+     * 其它上传类似
+     *
+     * @throws IOException the io exception
+     */
+    @Test
+    void uploadMedia() throws IOException {
+
+        AgentDetails agentDetails = new DefaultAgent("企业ID", "应用密钥", "应用id");
+        MediaApi mediaApi = workWeChatApi.mediaApi(agentDetails);
+        InputStream inputStream = Files.newInputStream(Paths.get("C:\\Users\\Administrator\\Pictures\\wecom.png"));
+        MultipartResource resource = new MultipartResource("wecom.png", inputStream);
+        MediaResponse mediaResponse = mediaApi.uploadMedia(MediaTypeEnum.IMAGE, resource);
+        Assertions.assertTrue(mediaResponse.isSuccessful());
+    }
+
+    /**
+     * 外部联系人API相关演示
+     */
     @Test
     void exUsers() {
 //        84061
@@ -357,6 +540,6 @@ class SpringBootWecomSdkTests {
                 // 去重 得到去重外部联系人的ID集合
                 .collect(Collectors.toSet());
 
-        System.out.println("total = " + total);
+        Assertions.assertFalse(total.isEmpty());
     }
 }
