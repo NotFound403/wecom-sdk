@@ -214,7 +214,7 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
     }
 
     /**
-     * Decrypt msg string.
+     * 校验 receiveid
      *
      * @param callbackSettings the callback settings
      * @param msgSignature     the msg signature
@@ -234,7 +234,7 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
 
 
     /**
-     * 不校验receiveid
+     * 不校验 receiveid
      *
      * @param callbackSettings the callback settings
      * @param msgSignature     the msg signature
