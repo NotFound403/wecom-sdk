@@ -118,10 +118,11 @@ public abstract class AbstractCallbackCrypto<EVENT> {
             // 去除 补位 字符
             byte[] bytes = PKCS7Encoder.decode(original);
             // 分离16位随机字符串,网络字节序和receiveid
-            byte[] networkOrder = Arrays.copyOfRange(bytes, 16, 20);
+            int to = 20;
+            byte[] networkOrder = Arrays.copyOfRange(bytes, 16, to);
             int jsonLength = recoverNetworkBytesOrder(networkOrder);
-            String jsonContent = new String(Arrays.copyOfRange(bytes, 20, 20 + jsonLength), StandardCharsets.UTF_8);
-            String fromReceiveid = new String(Arrays.copyOfRange(bytes, 20 + jsonLength, bytes.length), StandardCharsets.UTF_8);
+            String jsonContent = new String(Arrays.copyOfRange(bytes, to, to + jsonLength), StandardCharsets.UTF_8);
+            String fromReceiveid = new String(Arrays.copyOfRange(bytes, to + jsonLength, bytes.length), StandardCharsets.UTF_8);
             String content = jsonContent.startsWith(BOM) ? jsonContent.substring(1) : jsonContent;
             return new CallbackDecrypted(content, fromReceiveid);
         } catch (Exception e) {

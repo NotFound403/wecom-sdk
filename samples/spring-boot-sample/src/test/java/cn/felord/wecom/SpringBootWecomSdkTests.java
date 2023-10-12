@@ -30,6 +30,11 @@ import cn.felord.api.MediaApi;
 import cn.felord.api.ScheduleApi;
 import cn.felord.api.UserApi;
 import cn.felord.api.WorkWeChatApi;
+import cn.felord.callback.CallbackSettings;
+import cn.felord.callbacks.CallbackCrypto;
+import cn.felord.callbacks.CallbackCryptoBuilder;
+import cn.felord.callbacks.CallbackEventBody;
+import cn.felord.callbacks.CallbackXmlBody;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.MultipartResource;
 import cn.felord.domain.WeComResponse;
@@ -103,6 +108,7 @@ import cn.felord.enumeration.DateRangeType;
 import cn.felord.enumeration.MediaTypeEnum;
 import cn.felord.enumeration.NativeAgent;
 import cn.felord.enumeration.RemindBeforeEventSecs;
+import cn.felord.xml.XStreamXmlReader;
 import okhttp3.MediaType;
 import okio.BufferedSource;
 import org.junit.jupiter.api.Assertions;
@@ -542,4 +548,48 @@ class SpringBootWecomSdkTests {
 
         Assertions.assertFalse(total.isEmpty());
     }
+
+
+    /**
+     * 通常情况下不需要知道如何解密回调，除非你遇到了一些异常情况
+     * <p>
+     * 实际运用请参考{@link cn.felord.wecom.api.CallbackController}
+     */
+    @Test
+    void callback() {
+        // 自己去日志里抓回调xml
+        String xml = "<xml>\n" +
+                "    <ToUserName><![CDATA[这里一般是企业ID，也不一定⚠️⚠️⚠️⚠️]]></ToUserName>\n" +
+                "    <Encrypt>\n" +
+                "        <![CDATA[这里是响应体的加密信息，需要解密👀]]></Encrypt>\n" +
+                "    <AgentID><![CDATA[这里一般是应用ID 但是有的会返回0或者空⚠️⚠️⚠️⚠️]]></AgentID>\n" +
+                "</xml>";
+        XStreamXmlReader xStreamXmlReader = XStreamXmlReader.INSTANCE;
+        CallbackXmlBody xmlBody = xStreamXmlReader.read(xml, CallbackXmlBody.class);
+        System.out.println("xmlBody = " + xmlBody);
+        String corpId = "企业ID，建议携带在回调url路径中";
+        String agentId = "应用ID，建议携带在回调url路径中";
+        // 签名 时间戳  nonce 是一套 自己去日志里抓
+        String msgSignature = "0011440776ad38f2e032f517d715bd2d041e8cc5";
+        // 自己去日志里抓
+        String timeStamp = "1692174444";
+        // 自己去日志里抓
+        String nonce = "1691813434";
+        // 构建回调处理对象
+        CallbackCrypto callbackCrypto = new CallbackCryptoBuilder(System.out::println)
+                .build((agentid, corpid) ->
+                        new CallbackSettings("企业微信管理后台回调中的token",
+                                "企业微信管理后台回调中的encodingAesKey",
+                                "企业ID，自建应用会校验"));
+        // 解密xml密文
+        String xmlbody = callbackCrypto.decryptMsg(agentId,
+                corpId,
+                msgSignature,
+                timeStamp, nonce, xmlBody.getEncrypt());
+        System.out.println("xmlbody = " + xmlbody);
+        // 转换为事件对象消费
+        CallbackEventBody eventBody = xStreamXmlReader.read(xmlbody, CallbackEventBody.class);
+        System.out.println("eventBody = " + eventBody);
+    }
+
 }
