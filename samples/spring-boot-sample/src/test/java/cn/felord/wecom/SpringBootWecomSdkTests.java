@@ -134,7 +134,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * The type Spring boot wecom sdk tests.
+ * 企业微信API调用示例
  */
 @SpringBootTest
 class SpringBootWecomSdkTests {
@@ -551,7 +551,7 @@ class SpringBootWecomSdkTests {
 
 
     /**
-     * 通常情况下不需要知道如何解密回调，除非你遇到了一些异常情况
+     * 通常情况下不需要知道如何解密回调，除非你需要
      * <p>
      * 实际运用请参考{@link cn.felord.wecom.api.CallbackController}
      */
