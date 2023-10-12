@@ -22,15 +22,14 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- * The type File opt record response.
+ * The type Device confirm response.
  *
  * @author dax
- * @since 2023 /10/10
+ * @since 2023 /10/11
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class FileOptRecordResponse extends WeComResponse {
-    private Boolean hasMore;
-    private String nextCursor;
-    private List<FileOptRecordDetail> recordList;
+public class DeviceConfirmResponse extends WeComResponse {
+  private List<String> successList;
+  private List<String> failList;
 }

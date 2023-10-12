@@ -15,22 +15,17 @@
 
 package cn.felord.domain.security;
 
-import cn.felord.domain.WeComResponse;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.util.List;
+import java.util.Set;
 
 /**
- * The type File opt record response.
+ * The type Device codes.
  *
  * @author dax
- * @since 2023 /10/10
+ * @since 2023 /10/11
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class FileOptRecordResponse extends WeComResponse {
-    private Boolean hasMore;
-    private String nextCursor;
-    private List<FileOptRecordDetail> recordList;
+public class DeviceCodes {
+    private final Set<String> deviceCodeList;
 }

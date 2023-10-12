@@ -25,7 +25,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import java.util.Arrays;
 
 /**
- * The enum Approver node mode.
+ * 节点审批方式
  *
  * @author dax
  * @since 2021 /9/8 10:47
@@ -33,11 +33,11 @@ import java.util.Arrays;
 @XStreamConverter(NumberEnumConverter.class)
 public enum ApproverNodeMode implements CallbackNumberEnum {
     /**
-     * Or approver node mode.
+     * 或签
      */
     OR(1),
     /**
-     * All approver node mode.
+     * 会签
      */
     ALL(2);
 

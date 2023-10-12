@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * 设备导入结果
+ * 设备状态
  *
  * @author felord
  * @since 2021 /11/23 17:01
@@ -29,26 +29,44 @@ import java.util.Arrays;
 public enum DeviceStatus {
 
     /**
-     * 成功
+     * 已导入未登录
      */
-    SUCCESS(1),
+    IMPORTED_NOT_LOGIN(1),
     /**
-     * 重复导入
+     * 待邀请
      */
-    DUPLICATE(2),
+    TO_BE_INVITED(2),
     /**
-     * 不支持的设备
+     * 待管理员确认为企业设备
      */
-    UNSUPPORTED(3),
+    CORP_TO_BE_CONFIRMED(3),
     /**
-     * 数据格式错误
+     * 待管理员确认为个人设备
      */
-    INCORRECT(4);
+    PERSONAL_TO_BE_CONFIRMED(4),
+    /**
+     * 已确认为可信企业设备
+     */
+    CORP_CONFIRMED(5),
+    /**
+     * 已确认为可信个人设备
+     */
+    PERSONAL_CONFIRMED(6);
 
     private final int type;
 
     DeviceStatus(int type) {
         this.type = type;
+    }
+
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
+    @JsonValue
+    public int getType() {
+        return type;
     }
 
     /**
@@ -63,15 +81,5 @@ public enum DeviceStatus {
                 .filter(deviceStatus -> deviceStatus.type == type)
                 .findFirst()
                 .orElse(null);
-    }
-
-    /**
-     * Gets type.
-     *
-     * @return the type
-     */
-    @JsonValue
-    public int getType() {
-        return type;
     }
 }
