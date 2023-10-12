@@ -17,6 +17,7 @@ package cn.felord.api;
 
 import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
+import cn.felord.domain.corpgroup.ChainContactRequest;
 import cn.felord.domain.corpgroup.ChainCorp;
 import cn.felord.domain.corpgroup.ChainCorpDetailRequest;
 import cn.felord.domain.corpgroup.ChainCorpDetailResponse;
@@ -182,4 +183,19 @@ public interface UpStreamApi {
      */
     @POST("corpgroup/corp/get_chain_corpinfo")
     ChainCorpDetailResponse getChainCorpinfo(@Body ChainCorpDetailRequest request) throws WeComException;
+
+    /**
+     * 提交批量导入上下游联系人任务
+     * <ul>
+     *     <li>仅已验证的企业可调用</li>
+     *     <li>仅上下游系统应用可调用</li>
+     * </ul>
+     * 同时只能存在一个导入任务。导入任务包括通过API提交的任务和从管理后台提交的导入任务。
+     *
+     * @param request the request
+     * @return the chain corpinfo
+     * @throws WeComException the weComException
+     */
+    @POST("corpgroup/import_chain_contact")
+    GenericResponse<String> getChainCorpinfo(@Body ChainContactRequest request) throws WeComException;
 }
