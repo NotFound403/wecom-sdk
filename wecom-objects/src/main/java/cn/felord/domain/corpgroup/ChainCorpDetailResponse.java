@@ -15,26 +15,24 @@
 
 package cn.felord.domain.corpgroup;
 
+import cn.felord.domain.WeComResponse;
+import cn.felord.enumeration.QualificationStatus;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- * The type Corp info.
+ * The type Chain corp detail response.
  *
  * @author dax
  * @since 2023 /10/12
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class CorpInfo {
-    /**
-     * 下级/下游企业corpid
-     */
-    private String corpid;
-    /**
-     * 下级/下游企业名称
-     */
+public class ChainCorpDetailResponse extends WeComResponse {
+
+    private String customId;
+    private Integer groupid;
+    private Boolean isJoined;
     private String corpName;
-    /**
-     * 下级/下游企业应用id
-     */
-    private String agentid;
+    private QualificationStatus qualificationStatus;
 }

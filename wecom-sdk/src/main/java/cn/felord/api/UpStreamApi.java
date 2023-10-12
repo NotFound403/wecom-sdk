@@ -1,13 +1,38 @@
+/*
+ *  Copyright (c) 2023. felord.cn
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *  Website:
+ *       https://felord.cn
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package cn.felord.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
+import cn.felord.domain.corpgroup.ChainCorp;
+import cn.felord.domain.corpgroup.ChainCorpDetailRequest;
+import cn.felord.domain.corpgroup.ChainCorpDetailResponse;
+import cn.felord.domain.corpgroup.ChainGroup;
+import cn.felord.domain.corpgroup.ChainGroupInfoRequest;
+import cn.felord.domain.corpgroup.ChainGroupRequest;
 import cn.felord.domain.corpgroup.CorpExUser;
 import cn.felord.domain.corpgroup.CorpExUserRequest;
 import cn.felord.domain.corpgroup.ExPendingIdRequest;
+import cn.felord.domain.corpgroup.GroupCorpsResponse;
 import cn.felord.domain.corpgroup.PendingExUser;
 import cn.felord.domain.corpgroup.ShareInfoRequest;
 import cn.felord.domain.corpgroup.ShareInfoResponse;
 import cn.felord.domain.corpgroup.UnionPendingIdRequest;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 import java.util.List;
@@ -28,8 +53,10 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the share info response
+     * @throws WeComException the weComException
      */
-    ShareInfoResponse listAppShareInfo(ShareInfoRequest request);
+    @POST("corpgroup/corp/list_app_share_info")
+    ShareInfoResponse listAppShareInfo(@Body ShareInfoRequest request) throws WeComException;
 
     /**
      * 上下游关联客户信息-已添加客户
@@ -48,9 +75,10 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("corpgroup/unionid_to_external_userid")
-    GenericResponse<List<CorpExUser>> unionidToExternalUserid(CorpExUserRequest request);
+    GenericResponse<List<CorpExUser>> unionidToExternalUserid(@Body CorpExUserRequest request) throws WeComException;
 
     /**
      * unionid查询pending_id
@@ -72,9 +100,10 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
      */
     @POST("corpgroup/unionid_to_pending_id")
-    GenericResponse<String> unionidToPendingId(UnionPendingIdRequest request);
+    GenericResponse<String> unionidToPendingId(@Body UnionPendingIdRequest request) throws WeComException;
 
     /**
      * external_userid查询pending_id (上游专用)
@@ -89,8 +118,68 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the generic response
+     * @throws WeComException the weComException
      * @see DownStreamApi#externalUseridToPendingId(ExPendingIdRequest) 下游专用
      */
     @POST("corpgroup/batch/external_userid_to_pending_id")
-    GenericResponse<List<PendingExUser>> externalUseridToPendingId(ExPendingIdRequest request);
+    GenericResponse<List<PendingExUser>> externalUseridToPendingId(@Body ExPendingIdRequest request) throws WeComException;
+
+    /**
+     * 获取上下游列表
+     * <ul>
+     *     <li>自建应用/代开发应用可调用，仅返回应用可见范围内的上下游列表</li>
+     *     <li>上下游系统应用可调用，返回全部的上下游列表</li>
+     * </ul>
+     *
+     * @return the chain list
+     * @throws WeComException the weComException
+     */
+    @GET("corpgroup/corp/get_chain_list")
+    GenericResponse<List<ChainCorp>> getChainList() throws WeComException;
+
+    /**
+     * 获取上下游通讯录分组
+     * <p>
+     * 自建应用/代开发应用和上下游系统应用可通过该接口获取企业上下游通讯录分组详情
+     * <ul>
+     *     <li>自建应用/代开发应用可调用，仅可指定或返回应用可见范围内的分组列表</li>
+     *     <li>上下游系统应用可调用，可指定或返回全部的分组列表</li>
+     * </ul>
+     *
+     * @param request the request
+     * @return the chain group
+     * @throws WeComException the weComException
+     */
+    @POST("corpgroup/corp/get_chain_group")
+    GenericResponse<List<ChainGroup>> getChainGroup(@Body ChainGroupRequest request) throws WeComException;
+
+    /**
+     * 获取企业上下游通讯录分组下的企业详情列表
+     * <p>
+     * 自建应用/代开发应用和上下游系统应用可通过该接口获取企业上下游通讯录的某个分组下的企业列表
+     * <p>
+     * 如需获取该分组及其子分组的所有企业详情，需先获取该分组下的所有子分组，然后再获取子分组下的企业，逐层递归获取。
+     *
+     * @param request the request
+     * @return the chain corpinfo list
+     * @throws WeComException the weComException
+     */
+    @POST("corpgroup/corp/get_chain_corpinfo_list")
+    GroupCorpsResponse getChainCorpinfoList(@Body ChainGroupInfoRequest request) throws WeComException;
+
+    /**
+     * 获取企业上下游通讯录下的企业信息
+     * <p>
+     * 自建应用/代开发应用和上下游系统应用可通过该接口获取企业上下游通讯录的某个企业的自定义id和所属分组的分组id
+     * <ul>
+     *     <li>自建应用/代开发应用可调用，仅可指定应用可见范围内的企业</li>
+     *     <li>上下游系统应用可调用，可指定上下游内的所有企业</li>
+     * </ul>
+     *
+     * @param request the request
+     * @return the chain corpinfo
+     * @throws WeComException the weComException
+     */
+    @POST("corpgroup/corp/get_chain_corpinfo")
+    ChainCorpDetailResponse getChainCorpinfo(@Body ChainCorpDetailRequest request) throws WeComException;
 }

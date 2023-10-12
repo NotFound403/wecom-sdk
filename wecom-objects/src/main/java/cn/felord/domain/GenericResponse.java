@@ -84,6 +84,8 @@ public class GenericResponse<T> extends WeComResponse {
             "device_list",
             "external_userid_info",
             "pending_id",
+            "chains",
+            "groups",
             "lists"
     })
     private T data;

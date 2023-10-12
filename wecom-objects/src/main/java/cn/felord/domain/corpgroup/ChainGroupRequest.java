@@ -15,26 +15,39 @@
 
 package cn.felord.domain.corpgroup;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
- * The type Corp info.
+ * The type Chain group request.
  *
  * @author dax
  * @since 2023 /10/12
  */
-@Data
-public class CorpInfo {
+@ToString
+@Getter
+public class ChainGroupRequest {
+    private final String chainId;
+    private Integer groupid;
+
+
     /**
-     * 下级/下游企业corpid
+     * Instantiates a new Chain group request.
+     *
+     * @param chainId the chain id
      */
-    private String corpid;
+    public ChainGroupRequest(String chainId) {
+        this.chainId = chainId;
+    }
+
     /**
-     * 下级/下游企业名称
+     * Instantiates a new Chain group request.
+     *
+     * @param chainId the chain id
+     * @param groupid the groupid
      */
-    private String corpName;
-    /**
-     * 下级/下游企业应用id
-     */
-    private String agentid;
+    public ChainGroupRequest(String chainId, int groupid) {
+        this.chainId = chainId;
+        this.groupid = groupid;
+    }
 }

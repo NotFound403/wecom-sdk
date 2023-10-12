@@ -15,26 +15,22 @@
 
 package cn.felord.domain.corpgroup;
 
+import cn.felord.enumeration.BoolEnum;
 import lombok.Data;
 
 /**
- * The type Corp info.
+ * The type Group corp.
  *
  * @author dax
  * @since 2023 /10/12
  */
 @Data
-public class CorpInfo {
-    /**
-     * 下级/下游企业corpid
-     */
+public class GroupCorp {
     private String corpid;
-    /**
-     * 下级/下游企业名称
-     */
+    private Integer groupid;
+    private String customId;
+    private BoolEnum isJoined;
+    private String pendingCorpid;
     private String corpName;
-    /**
-     * 下级/下游企业应用id
-     */
-    private String agentid;
+    private String inviteUserid;
 }
