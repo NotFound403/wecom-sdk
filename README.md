@@ -39,6 +39,41 @@
 开源实现。经过近三年的迭代，目前已经实现了通讯录管理、客户管理、微信客服、素材管理、消息推送、企微机器人、身份验证、应用管理、OA
 办公、企业支付等企业微信开放接口，开发人员不需要很高的学习成本就能快速优雅地接入企业微信。
 
+企微机器人样例
+
+```java
+
+/**
+ * 企微机器人
+ *
+ * @throws IOException the io exception
+ */
+@Test
+    void webHooks()throws IOException{
+            // 发 markdown
+            WebhookBody markdownBody=WebhookMarkdownBody.from("这里为markdown消息");
+            // 发纯文本
+            WebhookBody textBody=WebhookTextBody.from("这里为纯文本");
+            // 发图文
+            WebhookArticle article=new WebhookArticle("这里为标题","这里为图文链接")
+            .picurl("这里为封面图链接")
+            .description("这里为摘要信息");
+            WebhookBody newsBody=WebhookNewsBody.from(Collections.singletonList(article));
+            //  从base64发图片
+            String base64="图片base64";
+            String md5="图片base64的md5";
+            WebhookBody imageBody1=WebhookImageBody.from(base64,md5);
+            //  从流发送图片
+            String path="C:\\Users\\Administrator\\Desktop\\0.png";
+            InputStream inputStream=Files.newInputStream(Paths.get(path));
+            WebhookBody imageBody2=WebhookImageBody.from(inputStream);
+            WeComResponse weComResponse=WorkWeChatApi.webhookApi().send("机器人key",markdownBody);
+            Assertions.assertTrue(weComResponse.isSuccessful());
+            }
+
+```
+
+
 ## 🔥特性
 
 - 支持多个企业微信同时配置作业
