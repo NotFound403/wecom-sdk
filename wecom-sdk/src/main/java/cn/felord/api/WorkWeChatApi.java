@@ -157,6 +157,15 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 上下游
+     *
+     * @return the corp group api
+     */
+    public CorpGroupApi corpGroupApi() {
+        return new CorpGroupApi(weComTokenCacheable, connectionPool, level);
+    }
+
+    /**
      * 企微应用API
      *
      * @param agentDetails the agent details

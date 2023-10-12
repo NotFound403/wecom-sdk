@@ -17,6 +17,7 @@ package cn.felord.retrofit;
 
 
 import cn.felord.AgentDetails;
+import cn.felord.WeComTokenCacheable;
 
 /**
  * The interface Token api.
@@ -25,13 +26,8 @@ import cn.felord.AgentDetails;
  * @since 2021 /10/7 17:33
  */
 public interface TokenApi {
-    /**
-     * 获取Token
-     *
-     * @return the token response
-     */
-    String getToken();
 
+    WeComTokenCacheable getWecomCacheable();
     /**
      * Gets agent details.
      *
@@ -39,6 +35,12 @@ public interface TokenApi {
      */
     AgentDetails getAgentDetails();
 
+    /**
+     * 获取Token
+     *
+     * @return the token response
+     */
+    String getToken();
     /**
      * 清除缓存
      */

@@ -13,43 +13,27 @@
  *  limitations under the License.
  */
 
-package cn.felord;
+package cn.felord.retrofit;
 
-import cn.felord.enumeration.CorpGroupType;
+import cn.felord.DownStreamDetails;
+import cn.felord.domain.authentication.AccessTokenResponse;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
- * The interface Agent details.
+ * 获取下游应用 access_token
  *
- * @author n1
- * @since 2021 /6/17 10:15
+ * @author felord.cn
  */
-public interface AgentDetails {
+interface DownStreamAccessTokenApi {
     /**
-     * 企业ID
+     * Gets token response.
      *
-     * @return the corpId
+     * @param downStreamDetails the down stream details
+     * @param accessToken       the access token
+     * @return the token response
      */
-    String getCorpId();
-
-    /**
-     * 应用秘钥或者管理秘钥
-     *
-     * @return the corp secret
-     */
-    String getSecret();
-
-    /**
-     * 应用ID，内置应用需要虚拟化一个ID
-     *
-     * @return the agent id
-     */
-    String getAgentId();
-
-    /**
-     * 互联类型（上下游专用）
-     *
-     * @return business type
-     */
-    CorpGroupType getBusinessType();
-
+    @POST("corpgroup/corp/gettoken")
+    AccessTokenResponse getTokenResponse(@Body DownStreamDetails downStreamDetails, @Query("access_token") String accessToken);
 }

@@ -62,6 +62,11 @@ public abstract class AbstractTokenApi implements TokenApi {
     }
 
     @Override
+    public WeComTokenCacheable getWecomCacheable() {
+        return wecomCacheable;
+    }
+
+    @Override
     public AgentDetails getAgentDetails() {
         return agentDetails;
     }

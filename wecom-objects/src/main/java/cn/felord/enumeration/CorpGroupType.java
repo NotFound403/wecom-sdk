@@ -21,25 +21,25 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * 业务类型
+ * 互联类型
  *
  * @author felord.cn
  * @since 1.1.3
  */
-public enum BusinessType {
+public enum CorpGroupType {
 
     /**
-     * 会议
+     * 企业互联/局校互联
      */
-    MEETING(1),
+    CORP_OR_SCHOOL(0),
     /**
-     * 收集表
+     * 上下游企业
      */
-    COLLECT_FORM(2);
+    CORP_GROUP(1);
 
     private final int type;
 
-    BusinessType(int type) {
+    CorpGroupType(int type) {
         this.type = type;
     }
 
@@ -54,15 +54,15 @@ public enum BusinessType {
     }
 
     /**
-     * Deserialize business type.
+     * Deserialize CorpGroupType
      *
      * @param type the type
      * @return the business type
      */
     @JsonCreator
-    public static BusinessType deserialize(int type) {
-        return Arrays.stream(BusinessType.values())
-                .filter(businessType -> businessType.type == type)
+    public static CorpGroupType deserialize(int type) {
+        return Arrays.stream(CorpGroupType.values())
+                .filter(corpGroupType -> corpGroupType.type == type)
                 .findFirst()
                 .orElse(null);
     }

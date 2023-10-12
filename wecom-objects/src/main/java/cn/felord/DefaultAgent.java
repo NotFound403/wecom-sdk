@@ -15,6 +15,7 @@
 
 package cn.felord;
 
+import cn.felord.enumeration.CorpGroupType;
 import cn.felord.enumeration.NativeAgent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,5 +48,10 @@ public class DefaultAgent implements AgentDetails {
      */
     public static AgentDetails nativeAgent(String corpId,String secret,NativeAgent agent){
         return new DefaultAgent(corpId,secret, agent.getAgentId());
+    }
+
+    @Override
+    public CorpGroupType getBusinessType() {
+        return null;
     }
 }

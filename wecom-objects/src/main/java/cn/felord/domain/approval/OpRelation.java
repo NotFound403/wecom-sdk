@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * 关联控件
  *
@@ -15,24 +17,24 @@ import lombok.ToString;
 @Getter
 public class OpRelation {
     /**
-     * 关联控件的控件ID
+     * 选项的控件ID
      */
-    private final String relatedControlId;
+    private final String key;
     /**
-     * 固定为1
+     * 关联的控件列表
      */
-    private final Integer action;
+    private final List<Relation> relationList;
 
     /**
      * Instantiates a new Op relation.
      *
-     * @param relatedControlId the related control id
-     * @param action           the action
+     * @param key          the key
+     * @param relationList the relation list
      */
     @JsonCreator
-    public OpRelation(@JsonProperty("related_control_id") String relatedControlId,
-                      @JsonProperty("action") Integer action) {
-        this.relatedControlId = relatedControlId;
-        this.action = action;
+    public OpRelation(@JsonProperty("key") String key,
+                      @JsonProperty("relation_list") List<Relation> relationList) {
+        this.key = key;
+        this.relationList = relationList;
     }
 }

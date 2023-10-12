@@ -71,6 +71,7 @@ public class GenericResponse<T> extends WeComResponse {
             "pay_sign",
             "link",
             "results",
+            "result",
             "share_url",
             "doc_base_info",
             "error_description",
@@ -81,6 +82,8 @@ public class GenericResponse<T> extends WeComResponse {
             "intent_id",
             "record",
             "device_list",
+            "external_userid_info",
+            "pending_id",
             "lists"
     })
     private T data;
