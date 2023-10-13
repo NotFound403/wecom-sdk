@@ -17,6 +17,7 @@ package cn.felord.api;
 
 import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
+import cn.felord.domain.WeComResponse;
 import cn.felord.domain.corpgroup.ChainContactRequest;
 import cn.felord.domain.corpgroup.ChainCorp;
 import cn.felord.domain.corpgroup.ChainCorpDetailRequest;
@@ -26,8 +27,11 @@ import cn.felord.domain.corpgroup.ChainGroupInfoRequest;
 import cn.felord.domain.corpgroup.ChainGroupRequest;
 import cn.felord.domain.corpgroup.CorpExUser;
 import cn.felord.domain.corpgroup.CorpExUserRequest;
+import cn.felord.domain.corpgroup.CorpId;
+import cn.felord.domain.corpgroup.CorpInUser;
 import cn.felord.domain.corpgroup.ExPendingIdRequest;
 import cn.felord.domain.corpgroup.GroupCorpsResponse;
+import cn.felord.domain.corpgroup.JobResultResponse;
 import cn.felord.domain.corpgroup.PendingExUser;
 import cn.felord.domain.corpgroup.ShareInfoRequest;
 import cn.felord.domain.corpgroup.ShareInfoResponse;
@@ -35,6 +39,7 @@ import cn.felord.domain.corpgroup.UnionPendingIdRequest;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 import java.util.List;
 
@@ -198,4 +203,62 @@ public interface UpStreamApi {
      */
     @POST("corpgroup/import_chain_contact")
     GenericResponse<String> getChainCorpinfo(@Body ChainContactRequest request) throws WeComException;
+
+    /**
+     * 获取异步任务结果
+     * <p>
+     * 只能查询已经提交过的历史任务。
+     * <p>
+     * 并发限制：5
+     *
+     * @param jobId the job id
+     * @return the result
+     * @throws WeComException the we com exception
+     */
+    @GET("corpgroup/getresult")
+    JobResultResponse getResult(@Query("jobid") String jobId) throws WeComException;
+
+    /**
+     * 移除企业
+     * <p>
+     * 上级/上游企业通过该接口移除下游企业
+     * <ul>
+     *     <li>仅已验证的企业可调用</li>
+     *     <li>仅上下游系统应用可调用</li>
+     * </ul>
+     *
+     * @param request the request
+     * @return the we com response
+     * @throws WeComException the we com exception
+     */
+    @POST("corpgroup/corp/remove_corp")
+    WeComResponse removeCorp(@Body ChainCorpDetailRequest request) throws WeComException;
+
+    /**
+     * 查询成员自定义id
+     * <p>
+     * 上级企业自建应用/代开发应用通过本接口查询成员自定义 id
+     * <p>
+     * 自建应用、代开发应用和「上下游」原生应用可调用，仅可指定应用可见范围内的企业
+     *
+     * @param user the user
+     * @return the generic response
+     * @throws WeComException the we com exception
+     */
+    @POST("corpgroup/corp/get_chain_user_custom_id")
+    GenericResponse<String> getChainUserCustomId(@Body CorpInUser user) throws WeComException;
+
+    /**
+     * 获取下级企业加入的上下游
+     * <p>
+     * 上级企业自建应用/代开发应用通过本接口查询下级企业所在上下游
+     * <p>
+     * 自建应用、代开发应用和「上下游」原生应用可调用，仅可指定应用可见范围内的企业
+     *
+     * @param corpId the corp id
+     * @return the chain user custom id
+     * @throws WeComException the we com exception
+     */
+    @POST("corpgroup/corp/get_chain_user_custom_id")
+    GenericResponse<List<ChainCorp>> getChainUserCustomId(@Body CorpId corpId) throws WeComException;
 }

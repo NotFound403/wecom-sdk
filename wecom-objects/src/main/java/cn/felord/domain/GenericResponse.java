@@ -86,6 +86,7 @@ public class GenericResponse<T> extends WeComResponse {
             "pending_id",
             "chains",
             "groups",
+            "user_custom_id",
             "lists"
     })
     private T data;
