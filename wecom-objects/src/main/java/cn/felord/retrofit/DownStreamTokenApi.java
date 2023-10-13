@@ -31,7 +31,7 @@ public class DownStreamTokenApi extends AbstractTokenApi {
         DownStreamDetails downStreamDetails = (DownStreamDetails) agentDetails;
         AccessTokenApi tokenApi = new AccessTokenApi(this.getWecomCacheable(), downStreamDetails.getUpStreamDetails());
         String token = tokenApi.getToken();
-        AccessTokenResponse tokenResponse = DOWNSTREAM_TOKEN_API.getTokenResponse(downStreamDetails.toRequest(), token);
+        AccessTokenResponse tokenResponse = DOWNSTREAM_TOKEN_API.getTokenResponse(WecomUserAgent.WECOM_AGENT, downStreamDetails.toRequest(), token);
         if (tokenResponse == null || tokenResponse.isError()) {
             String errorMsg = tokenResponse == null ? "downstream token response is null" : tokenResponse.getErrmsg();
             throw new WeComException("failed to obtain downstream access token,reason: " + errorMsg);

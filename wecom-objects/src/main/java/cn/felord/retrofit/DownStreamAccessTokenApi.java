@@ -18,6 +18,7 @@ package cn.felord.retrofit;
 import cn.felord.DownStreamDetails;
 import cn.felord.domain.authentication.AccessTokenResponse;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -35,5 +36,5 @@ interface DownStreamAccessTokenApi {
      * @return the token response
      */
     @POST("corpgroup/corp/gettoken")
-    AccessTokenResponse getTokenResponse(@Body DownStreamDetails downStreamDetails, @Query("access_token") String accessToken);
+    AccessTokenResponse getTokenResponse(@Header("User-Agent") String userAgent, @Body DownStreamDetails downStreamDetails, @Query("access_token") String accessToken);
 }
