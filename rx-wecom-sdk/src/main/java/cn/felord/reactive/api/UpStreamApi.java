@@ -13,9 +13,8 @@
  *  limitations under the License.
  */
 
-package cn.felord.api;
+package cn.felord.reactive.api;
 
-import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.corpgroup.ChainContactRequest;
@@ -36,6 +35,7 @@ import cn.felord.domain.corpgroup.PendingExUser;
 import cn.felord.domain.corpgroup.ShareInfoRequest;
 import cn.felord.domain.corpgroup.ShareInfoResponse;
 import cn.felord.domain.corpgroup.UnionPendingIdRequest;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -59,10 +59,9 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the share info response
-     * @throws WeComException the weComException
      */
     @POST("corpgroup/corp/list_app_share_info")
-    ShareInfoResponse listAppShareInfo(@Body ShareInfoRequest request) throws WeComException;
+    Single<ShareInfoResponse> listAppShareInfo(@Body ShareInfoRequest request);
 
     /**
      * 上下游关联客户信息-已添加客户
@@ -81,10 +80,9 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the weComException
      */
     @POST("corpgroup/unionid_to_external_userid")
-    GenericResponse<List<CorpExUser>> unionidToExternalUserid(@Body CorpExUserRequest request) throws WeComException;
+    Single<GenericResponse<List<CorpExUser>>> unionidToExternalUserid(@Body CorpExUserRequest request);
 
     /**
      * unionid查询pending_id
@@ -106,10 +104,9 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the weComException
      */
     @POST("corpgroup/unionid_to_pending_id")
-    GenericResponse<String> unionidToPendingId(@Body UnionPendingIdRequest request) throws WeComException;
+    Single<GenericResponse<String>> unionidToPendingId(@Body UnionPendingIdRequest request);
 
     /**
      * external_userid查询pending_id (上游专用)
@@ -124,11 +121,10 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the weComException
      * @see DownStreamApi#externalUseridToPendingId(ExPendingIdRequest) 下游专用
      */
     @POST("corpgroup/batch/external_userid_to_pending_id")
-    GenericResponse<List<PendingExUser>> externalUseridToPendingId(@Body ExPendingIdRequest request) throws WeComException;
+    Single<GenericResponse<List<PendingExUser>>> externalUseridToPendingId(@Body ExPendingIdRequest request);
 
     /**
      * 获取上下游列表
@@ -138,10 +134,9 @@ public interface UpStreamApi {
      * </ul>
      *
      * @return the chain list
-     * @throws WeComException the weComException
      */
     @GET("corpgroup/corp/get_chain_list")
-    GenericResponse<List<ChainCorp>> getChainList() throws WeComException;
+    Single<GenericResponse<List<ChainCorp>>> getChainList();
 
     /**
      * 获取上下游通讯录分组
@@ -154,10 +149,9 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the chain group
-     * @throws WeComException the weComException
      */
     @POST("corpgroup/corp/get_chain_group")
-    GenericResponse<List<ChainGroup>> getChainGroup(@Body ChainGroupRequest request) throws WeComException;
+    Single<GenericResponse<List<ChainGroup>>> getChainGroup(@Body ChainGroupRequest request);
 
     /**
      * 获取企业上下游通讯录分组下的企业详情列表
@@ -168,10 +162,9 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the chain corpinfo list
-     * @throws WeComException the weComException
      */
     @POST("corpgroup/corp/get_chain_corpinfo_list")
-    GroupCorpsResponse getChainCorpinfoList(@Body ChainGroupInfoRequest request) throws WeComException;
+    Single<GroupCorpsResponse> getChainCorpinfoList(@Body ChainGroupInfoRequest request);
 
     /**
      * 获取企业上下游通讯录下的企业信息
@@ -184,10 +177,9 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the chain corpinfo
-     * @throws WeComException the weComException
      */
     @POST("corpgroup/corp/get_chain_corpinfo")
-    ChainCorpDetailResponse getChainCorpinfo(@Body ChainCorpDetailRequest request) throws WeComException;
+    Single<ChainCorpDetailResponse> getChainCorpinfo(@Body ChainCorpDetailRequest request);
 
     /**
      * 提交批量导入上下游联系人任务
@@ -199,10 +191,9 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the chain corpinfo
-     * @throws WeComException the weComException
      */
     @POST("corpgroup/import_chain_contact")
-    GenericResponse<String> getChainCorpinfo(@Body ChainContactRequest request) throws WeComException;
+    Single<GenericResponse<String>> getChainCorpinfo(@Body ChainContactRequest request);
 
     /**
      * 获取异步任务结果
@@ -213,10 +204,9 @@ public interface UpStreamApi {
      *
      * @param jobId the job id
      * @return the result
-     * @throws WeComException the weComException
      */
     @GET("corpgroup/getresult")
-    JobResultResponse getResult(@Query("jobid") String jobId) throws WeComException;
+    Single<JobResultResponse> getResult(@Query("jobid") String jobId);
 
     /**
      * 移除企业
@@ -229,10 +219,9 @@ public interface UpStreamApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the weComException
      */
     @POST("corpgroup/corp/remove_corp")
-    WeComResponse removeCorp(@Body ChainCorpDetailRequest request) throws WeComException;
+    Single<WeComResponse> removeCorp(@Body ChainCorpDetailRequest request);
 
     /**
      * 查询成员自定义id
@@ -243,10 +232,9 @@ public interface UpStreamApi {
      *
      * @param user the user
      * @return the generic response
-     * @throws WeComException the weComException
      */
     @POST("corpgroup/corp/get_chain_user_custom_id")
-    GenericResponse<String> getChainUserCustomId(@Body CorpInUser user) throws WeComException;
+    Single<GenericResponse<String>> getChainUserCustomId(@Body CorpInUser user);
 
     /**
      * 获取下级企业加入的上下游
@@ -257,8 +245,7 @@ public interface UpStreamApi {
      *
      * @param corpId the corp id
      * @return the chain user custom id
-     * @throws WeComException the weComException
      */
     @POST("corpgroup/corp/get_chain_user_custom_id")
-    GenericResponse<List<ChainCorp>> getChainUserCustomId(@Body CorpId corpId) throws WeComException;
+    Single<GenericResponse<List<ChainCorp>>> getChainUserCustomId(@Body CorpId corpId);
 }

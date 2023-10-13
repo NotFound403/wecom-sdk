@@ -144,7 +144,7 @@ void webHooks()throws IOException{
 - [x] 通讯录管理
 - [x] 身份验证
 - [ ] 企业互联
-- [ ] 上下游
+- [x] 上下游
 - [x] 安全管理
 - [x] 消息推送
 - [x] 应用管理

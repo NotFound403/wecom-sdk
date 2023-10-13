@@ -1,12 +1,12 @@
-package cn.felord.api;
+package cn.felord.reactive.api;
 
-import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.MiniprogramSession;
 import cn.felord.domain.corpgroup.ExPendingIdRequest;
 import cn.felord.domain.corpgroup.MiniprogramSessionResponse;
 import cn.felord.domain.corpgroup.PendingExUser;
 import cn.felord.domain.corpgroup.UnionPendingIdRequest;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -29,10 +29,9 @@ public interface DownStreamApi {
      *
      * @param session the session
      * @return the miniprogram session response
-     * @throws WeComException the weComException
      */
     @POST("miniprogram/transfer_session")
-    MiniprogramSessionResponse transferSession(@Body MiniprogramSession session) throws WeComException;
+    Single<MiniprogramSessionResponse> transferSession(@Body MiniprogramSession session);
 
     /**
      * external_userid查询pending_id (下游专用)
@@ -47,9 +46,8 @@ public interface DownStreamApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the weComException
      * @see UpStreamApi#externalUseridToPendingId(ExPendingIdRequest) 上游专用
      */
     @POST("corpgroup/batch/external_userid_to_pending_id")
-    GenericResponse<List<PendingExUser>> externalUseridToPendingId(ExPendingIdRequest request) throws WeComException;
+    Single<GenericResponse<List<PendingExUser>>> externalUseridToPendingId(ExPendingIdRequest request);
 }
