@@ -157,7 +157,7 @@ public final class WorkWeChatApi {
     }
 
     /**
-     * 上下游
+     * 企业互联与上下游
      *
      * @return the corp group api
      */

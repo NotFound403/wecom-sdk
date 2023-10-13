@@ -24,7 +24,7 @@ import okhttp3.ConnectionPool;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
- * 上下游
+ * 企业互联与上下游
  *
  * @author dax
  * @since 2023 /10/12

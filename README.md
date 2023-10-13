@@ -143,7 +143,7 @@ void webHooks()throws IOException{
 - [x] 账号ID
 - [x] 通讯录管理
 - [x] 身份验证
-- [ ] 企业互联
+- [x] 企业互联
 - [x] 上下游
 - [x] 安全管理
 - [x] 消息推送
