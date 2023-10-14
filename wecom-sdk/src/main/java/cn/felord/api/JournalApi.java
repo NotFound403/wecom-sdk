@@ -7,8 +7,8 @@ import cn.felord.domain.journal.JournalRecordDetail;
 import cn.felord.domain.journal.JournalRecordRequest;
 import cn.felord.domain.journal.JournalRecordResponse;
 import cn.felord.domain.journal.JournalStatRequest;
+import cn.felord.domain.journal.JournalStatResponse;
 import cn.felord.domain.journal.JournalUuid;
-import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -56,7 +56,7 @@ public interface JournalApi {
      * @throws WeComException the we com exception
      */
     @POST("oa/journal/get_stat_list")
-    ResponseBody getStatList(@Body JournalStatRequest request) throws WeComException;
+    JournalStatResponse getStatList(@Body JournalStatRequest request) throws WeComException;
 
     /**
      * 导出汇报文档
@@ -64,7 +64,7 @@ public interface JournalApi {
      * @param request the request
      * @return the generic response
      * @throws WeComException the we com exception
-     * @deprecated 企业微信4.0.20版本后，不会有新增的文档控件数据。开发者可通过文档url进一步查看或导出文档
+     * @deprecated 企业微信4.0.20版本后 ，不会有新增的文档控件数据。开发者可通过文档url进一步查看或导出文档
      */
     @Deprecated
     @POST("oa/journal/export_doc")
