@@ -13,33 +13,22 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.wedrive;
+package cn.felord.domain.journal;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import cn.felord.domain.common.UserId;
+import lombok.Data;
+
+import java.time.Instant;
 
 /**
- * The type File id.
- *
  * @author dax
- * @since 2023 /5/24 13:41
+ * @since 2023/5/27 17:29
  */
-@EqualsAndHashCode
-@ToString
-@Getter
-public class FileId {
-    private final String fileid;
-
-    /**
-     * Instantiates a new File id.
-     *
-     * @param fileid the fileid
-     */
-    @JsonCreator
-    public FileId(@JsonProperty("fileid") String fileid) {
-        this.fileid = fileid;
-    }
+@Data
+public class JournalComment {
+    private Long commentid;
+    private Long tocommentid;
+    private UserId commentUserInfo;
+    private String content;
+    private Instant commentTime;
 }

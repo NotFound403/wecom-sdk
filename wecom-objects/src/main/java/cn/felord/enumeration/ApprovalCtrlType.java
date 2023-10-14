@@ -94,7 +94,19 @@ public enum ApprovalCtrlType {
     /**
      * 时长
      */
-    DATE_RANGE("DateRange");
+    DATE_RANGE("DateRange"),
+    /**
+     * 文档，汇报API用
+     *
+     * @since 1.2.2
+     */
+    DOC("Doc"),
+    /**
+     * 微盘附件，汇报API用
+     *
+     * @since 1.2.2
+     */
+    WE_DRIVE_FILE("WedriveFile");
 
     private final String type;
 

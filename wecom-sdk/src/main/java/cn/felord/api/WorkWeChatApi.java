@@ -310,6 +310,19 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 汇报API
+     *
+     * @param agentDetails the agent details
+     * @return the journal api
+     */
+    public JournalApi journalApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(JournalApi.class);
+    }
+
+    /**
      * 人事助手API
      *
      * @param agentDetails the agent details

@@ -89,11 +89,11 @@ void webHooks()throws IOException{
 
 ## ✍️技术栈
 
-- OkHttp4
-- Retrofit2
-- Rxjava3
-- Jackson2
-- XStream
+- Retrofit2，支持最高版本号`2.9.0`
+- OkHttp4，支持最高版本号`4.11.0`
+- Rxjava3，支持最高版本号`3.0.0`
+- Jackson2，支持最高版本号`2.15.2`
+- XStream，支持最高版本号`1.4.20`
 
 ## 🕸️Maven中央仓库坐标
 
@@ -175,7 +175,7 @@ void webHooks()throws IOException{
 - [x] 公费电话
 - [x] 打卡
 - [x] 审批
-- [ ] 汇报
+- [x] 汇报
 - [x] 人事助手
 - [ ] 会议室
 - [x] 紧急通知应用

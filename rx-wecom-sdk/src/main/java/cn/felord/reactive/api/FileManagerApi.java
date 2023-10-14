@@ -15,6 +15,7 @@
 
 package cn.felord.reactive.api;
 
+import cn.felord.domain.journal.JournalDownloadRequest;
 import cn.felord.domain.wedrive.BufferSource;
 import cn.felord.domain.wedrive.FileDownloadResponse;
 import cn.felord.domain.wedrive.FileId;
@@ -66,6 +67,17 @@ public class FileManagerApi {
      */
     public Single<BufferSource> downloadBySelectedTicket(String selectedTicket) {
         return internalFileManagerApi.getFileUrlBySelectedTicket(new SelectedTicket(selectedTicket))
+                .flatMap(this::download);
+    }
+
+    /**
+     * 下载微盘文件（汇报应用）
+     *
+     * @param request the request
+     * @return the single
+     */
+    public Single<BufferSource> downloadBySelectedTicket(JournalDownloadRequest request) {
+        return internalFileManagerApi.downloadWedriveFile(request)
                 .flatMap(this::download);
     }
 
