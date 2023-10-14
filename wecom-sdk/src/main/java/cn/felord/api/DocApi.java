@@ -79,7 +79,12 @@ public interface DocApi {
     WeComResponse delDoc(@Body FormId formId) throws WeComException;
 
     /**
-     * Gets doc base info.
+     * 获取文档基础信息
+     * <ul>
+     *     <li>自建应用需配置到“可调用应用”列表中的应用secret所获取的accesstoken来调用</li>
+     *     <li>第三方应用需具有“文档”权限</li>
+     *     <li>代开发自建应用需具有“文档”权限</li>
+     * </ul>
      *
      * @param docId the doc id
      * @return the doc base info
