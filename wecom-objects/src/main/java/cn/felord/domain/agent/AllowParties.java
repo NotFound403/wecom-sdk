@@ -20,7 +20,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author felord.cn
+ * @author dax
+ * @since 2023/5/27 10:23
  */
 @Data
 public class AllowParties {

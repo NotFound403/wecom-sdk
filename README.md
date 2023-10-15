@@ -39,24 +39,61 @@
 开源实现。经过近三年的迭代，目前已经实现了通讯录管理、客户管理、微信客服、素材管理、消息推送、企微机器人、身份验证、应用管理、OA
 办公、企业支付等企业微信开放接口，开发人员不需要很高的学习成本就能快速优雅地接入企业微信。
 
+## 🎨企微机器人样例
+
+```java
+/**
+ * 企微机器人
+ *
+ * @throws IOException the io exception
+ */
+@Test
+void webHooks()throws IOException{
+        // 发 markdown
+        WebhookBody markdownBody=WebhookMarkdownBody.from("这里为markdown消息");
+        // 发纯文本
+        WebhookBody textBody=WebhookTextBody.from("这里为纯文本");
+        // 发图文
+        WebhookArticle article=new WebhookArticle("这里为标题","这里为图文链接")
+                                   .picurl("这里为封面图链接")
+                                   .description("这里为摘要信息");
+        WebhookBody newsBody=WebhookNewsBody.from(Collections.singletonList(article));
+        // 从base64发图片
+        String base64="图片base64";
+        String md5="图片base64的md5";
+        WebhookBody imageBody1=WebhookImageBody.from(base64,md5);
+        // 从流发送图片
+        String path="C:\\Users\\Administrator\\Desktop\\0.png";
+        InputStream inputStream=Files.newInputStream(Paths.get(path));
+        WebhookBody imageBody2=WebhookImageBody.from(inputStream);
+        WeComResponse weComResponse=WorkWeChatApi.webhookApi().send("机器人key",markdownBody);
+        Assertions.assertTrue(weComResponse.isSuccessful());
+        
+}
+```
+
+>
+更多示例参见 [SpringBootWecomSdkTests.java](https://gitee.com/felord/wecom-sdk/blob/release/samples/spring-boot-sample/src/test/java/cn/felord/wecom/SpringBootWecomSdkTests.java)
+
 ## 🔥特性
 
 - 支持多个企业微信同时配置作业
 - 集成方便，适用于各种 Java 生态
 - 目前实现企业微信接口**200**多个，能满足大部分场景的需求
-- 全参数封装，入参、出参高度语义化封装，再也不担心组织参数、解析参数的问题
+- 全参数封装，参数高度语义化封装，再也不担心组织参数、解析参数的问题
 - 实现统一回调，所有回调事件可集中异步处理，开发者只需要关心业务逻辑的处理
+- 统一异常处理，企业微信API调用异常统一被WeComException管理
 - 由 SDK 接管 Token 生命周期，开发者无需关心 Token 的管理。
 
 > 💡目前自建应用可轻松适配，服务商、代开发暂不开源。
 
 ## ✍️技术栈
 
-- OkHttp4
-- Retrofit2
-- Rxjava3
-- Jackson2
-- XStream
+- Retrofit2，支持最高版本号`2.9.0`
+- OkHttp4，支持最高版本号`4.11.0`
+- Rxjava3，支持最高版本号`3.0.0`
+- Jackson2，支持最高版本号`2.15.2`
+- XStream，支持最高版本号`1.4.20`
 
 ## 🕸️Maven中央仓库坐标
 
@@ -65,9 +102,9 @@
 ```xml
 
 <dependency>
-  <groupId>cn.felord</groupId>
-  <artifactId>wecom-sdk</artifactId>
-  <version>1.2.1</version>
+    <groupId>cn.felord</groupId>
+    <artifactId>wecom-sdk</artifactId>
+    <version>1.2.2</version>
 </dependency>
 ```
 
@@ -76,16 +113,16 @@
 ```xml
 
 <dependency>
-  <groupId>cn.felord</groupId>
-  <artifactId>rx-wecom-sdk</artifactId>
-  <version>1.2.1</version>
+    <groupId>cn.felord</groupId>
+    <artifactId>rx-wecom-sdk</artifactId>
+    <version>1.2.2</version>
 </dependency>
 ```
 
 ## 📚入门
 
-**Spring Boot**
-例子参见 [samples/spring-boot-sample](https://gitee.com/felord/wecom-sdk/tree/release/samples/spring-boot-sample)。
+**Spring Boot 示例**
+参见 [samples/spring-boot-sample](https://gitee.com/felord/wecom-sdk/tree/release/samples/spring-boot-sample)。
 > 相关概念请参考[QUICKSTART](QUICKSTART.md)
 
 ## 📱微信扫码加入交流群
@@ -96,14 +133,19 @@
 
 ## 🏗️API实现进度
 
+进度说明：
+
+- [x] 已全部实现
+- [ ] 未实现或者部分实现
+
 ### 基础
 
 - [x] 账号ID
 - [x] 通讯录管理
 - [x] 身份验证
-- [ ] 企业互联
-- [ ] 上下游
-- [ ] 安全管理
+- [x] 企业互联
+- [x] 上下游
+- [x] 安全管理
 - [x] 消息推送
 - [x] 应用管理
 - [x] 素材管理
@@ -133,7 +175,7 @@
 - [x] 公费电话
 - [x] 打卡
 - [x] 审批
-- [ ] 汇报
+- [x] 汇报
 - [x] 人事助手
 - [ ] 会议室
 - [x] 紧急通知应用

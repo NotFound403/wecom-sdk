@@ -46,24 +46,73 @@ public class SelectorConfig implements ControlConfig {
     }
 
     /**
-     * 单选
+     * 单选配置选项
      *
      * @param options the options
      * @return the selector config
      */
     public static SelectorConfig single(List<CtrlOption> options) {
-        Wrapper wrapper = new Wrapper(SelectType.SINGLE, options);
+
+        return single(options, null);
+    }
+
+    /**
+     * 单选配置选项，并关联选项
+     *
+     * @param options     the options
+     * @param opRelations the op relations
+     * @return the selector config
+     */
+    public static SelectorConfig single(List<CtrlOption> options, List<OpRelation> opRelations) {
+        Wrapper wrapper = new Wrapper(SelectType.SINGLE, options, opRelations, null);
         return new SelectorConfig(wrapper);
     }
 
     /**
-     * 多选
+     * 单选关联外部选项，此时手动配置和关联控件失效
+     * <p>
+     * 配置后，点击控件将跳转至该页面{@code externalUrl}进行选择，<a href="https://developer.work.weixin.qq.com/document/42297">相关文档</a>
+     *
+     * @param externalUrl the external url
+     * @return the selector config
+     */
+    public static SelectorConfig single(String externalUrl) {
+        Wrapper wrapper = new Wrapper(SelectType.SINGLE, null, null, new ExternalOption(true, externalUrl));
+        return new SelectorConfig(wrapper);
+    }
+
+    /**
+     * 多选配置选项
      *
      * @param options the options
      * @return the selector config
      */
     public static SelectorConfig multiple(List<CtrlOption> options) {
-        Wrapper wrapper = new Wrapper(SelectType.MULTI, options);
+        return multiple(options, null);
+    }
+
+    /**
+     * 多选配置选项，并关联选项
+     *
+     * @param options     the options
+     * @param opRelations the op relations
+     * @return the selector config
+     */
+    public static SelectorConfig multiple(List<CtrlOption> options, List<OpRelation> opRelations) {
+        Wrapper wrapper = new Wrapper(SelectType.MULTI, options, opRelations, null);
+        return new SelectorConfig(wrapper);
+    }
+
+    /**
+     * 多选关联外部选项，此时手动配置和关联控件失效
+     * <p>
+     * 配置后，点击控件将跳转至该页面{@code externalUrl}进行选择，<a href="https://developer.work.weixin.qq.com/document/42297">相关文档</a>
+     *
+     * @param externalUrl the external url
+     * @return the selector config
+     */
+    public static SelectorConfig multiple(String externalUrl) {
+        Wrapper wrapper = new Wrapper(SelectType.MULTI, null, null, new ExternalOption(true, externalUrl));
         return new SelectorConfig(wrapper);
     }
 
@@ -92,19 +141,40 @@ public class SelectorConfig implements ControlConfig {
     @ToString
     @Getter
     public static class Wrapper {
+        /**
+         * 选择类型
+         */
         private final SelectType type;
+        /**
+         * 选项
+         */
         private final List<CtrlOption> options;
+        /**
+         * 关联控件
+         */
+        private final List<OpRelation> opRelations;
+        /**
+         * 关联外部选项
+         */
+        private final ExternalOption externalOption;
 
         /**
          * Instantiates a new Wrapper.
          *
-         * @param type    the type
-         * @param options the options
+         * @param type           the type
+         * @param options        the options
+         * @param opRelations    the op relations
+         * @param externalOption the external option
          */
         @JsonCreator
-        Wrapper(@JsonProperty("type") SelectType type, @JsonProperty("options") List<CtrlOption> options) {
+        Wrapper(@JsonProperty("type") SelectType type,
+                @JsonProperty("options") List<CtrlOption> options,
+                @JsonProperty("op_relations") List<OpRelation> opRelations,
+                @JsonProperty("external_option") ExternalOption externalOption) {
             this.type = type;
             this.options = options;
+            this.opRelations = opRelations;
+            this.externalOption = externalOption;
         }
     }
 }

@@ -36,7 +36,7 @@ public class MsgTemplateRequest {
      */
     private final ChatType chatType;
     /**
-     * 客户的externaluserid列表，仅在chat_type为single时有效，最多可一次指定1万个客户
+     * 客户的externaluserid列表，仅在chat_type为single时有效，最多可一次指定1万个客户，如果指定了external_userid,则tag_filter不生效
      */
     private final Set<String> externalUserid;
     /**
@@ -46,7 +46,7 @@ public class MsgTemplateRequest {
      */
     private final Set<String> chatIdList;
     /**
-     * 要进行群发的客户标签列表
+     * 要进行群发的客户标签列表，如果指定了external_userid,则tag_filter不生效
      *
      * @since 1.2.1
      */
@@ -69,7 +69,7 @@ public class MsgTemplateRequest {
     private final List<? extends MsgAttachment> attachments;
 
     /**
-     * Single msg template request.
+     * 单发纯文本
      *
      * @param sender the sender
      * @param text   the text
@@ -80,7 +80,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 单发纯文本，允许成员重新选择范围
      *
      * @param sender      the sender
      * @param allowSelect the allow select
@@ -94,7 +94,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 单发附件
      *
      * @param sender      the sender
      * @param attachments the attachments
@@ -106,7 +106,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 单发附件，允许成员重新选择范围
      *
      * @param sender      the sender
      * @param allowSelect the allow select
@@ -127,7 +127,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 单发文本和附件
      *
      * @param sender      the sender
      * @param text        the text
@@ -141,7 +141,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 单发文本和附件，允许成员重新选择范围
      *
      * @param sender      the sender
      * @param allowSelect the allow select
@@ -157,7 +157,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按客户单发文本
      *
      * @param externalUserid the external userid
      * @param text           the text
@@ -170,7 +170,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按客户单发文本，允许成员重新选择范围
      *
      * @param externalUserid the external userid
      * @param allowSelect    the allow select
@@ -185,7 +185,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按客户单发附件
      *
      * @param externalUserid the external userid
      * @param attachments    the attachments
@@ -198,7 +198,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按客户单发附件，允许成员重新选择范围
      *
      * @param externalUserid the external userid
      * @param allowSelect    the allow select
@@ -213,7 +213,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按客户单发文本和附件
      *
      * @param externalUserid the external userid
      * @param text           the text
@@ -228,7 +228,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按客户单发文本和附件，允许成员重新选择范围
      *
      * @param externalUserid the external userid
      * @param allowSelect    the allow select
@@ -245,7 +245,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 同时指定成员和客户单发文本
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -259,7 +259,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 同时指定成员和客户单发文本，允许成员重新选择范围
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -275,7 +275,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 同时指定成员和客户单发附件
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -289,7 +289,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 同时指定成员和客户单发附件，允许成员重新选择范围
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -312,7 +312,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 同时指定成员和客户单发文本和附件
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -328,7 +328,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 同时指定成员和客户单发文本和附件，允许成员重新选择范围
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -346,7 +346,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按标签组发送文本给客户
      *
      * @param groupList the group list
      * @param text      the text
@@ -357,7 +357,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按标签组发送文本给客户，允许成员重新选择范围
      *
      * @param allowSelect the allow select
      * @param groupList   the group list
@@ -371,7 +371,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按标签组发送附件给客户
      *
      * @param groupList   the group list
      * @param attachments the attachments
@@ -383,7 +383,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按标签组发送附件给客户，允许成员重新选择范围
      *
      * @param allowSelect the allow select
      * @param groupList   the group list
@@ -397,7 +397,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按标签组发送文本和附件给客户
      *
      * @param groupList   the group list
      * @param text        the text
@@ -411,7 +411,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按标签组发送文本和附件给客户，允许成员重新选择范围
      *
      * @param allowSelect the allow select
      * @param groupList   the group list
@@ -427,7 +427,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按成员和标签组发送文本给客户
      *
      * @param sender    the sender
      * @param groupList the group list
@@ -441,7 +441,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按成员和标签组发送文本给客户，允许成员重新选择范围
      *
      * @param sender      the sender
      * @param allowSelect the allow select
@@ -457,7 +457,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按成员和标签组发送附件给客户
      *
      * @param sender      the sender
      * @param groupList   the group list
@@ -471,7 +471,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按成员和标签组发送附件给客户，允许成员重新选择范围
      *
      * @param sender      the sender
      * @param allowSelect the allow select
@@ -487,7 +487,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按成员和标签组发送文本和附件给客户
      *
      * @param sender      the sender
      * @param groupList   the group list
@@ -503,7 +503,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 按成员和标签组发送文本和附件给客户，允许成员重新选择范围
      *
      * @param sender      the sender
      * @param allowSelect the allow select
@@ -521,7 +521,116 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 客户群群发文本指定发送人和群列表
+     *
+     * @param sender     the sender
+     * @param chatIdList the chat id list
+     * @param text       the text
+     * @return the msg template request
+     */
+    public static MsgTemplateRequest group(String sender,
+                                           Set<String> chatIdList,
+                                           String text) {
+        return group(
+                sender,
+                chatIdList,
+                new ContentText(text),
+                null);
+    }
+
+    /**
+     * 客户群群发附件指定发送人和群列表
+     *
+     * @param sender      the sender
+     * @param chatIdList  the chat id list
+     * @param attachments the attachments
+     * @return the msg template request
+     */
+    public static MsgTemplateRequest group(String sender,
+                                           Set<String> chatIdList,
+                                           List<? extends MsgAttachment> attachments) {
+        return new MsgTemplateRequest(ChatType.GROUP,
+                null,
+                chatIdList,
+                null,
+                sender,
+                false,
+                null,
+                attachments);
+    }
+
+    /**
+     * 客户群群发文本和附件指定发送人和群列表
+     *
+     * @param sender      the sender
+     * @param chatIdList  the chat id list
+     * @param text        the text
+     * @param attachments the attachments
+     * @return the msg template request
+     */
+    public static MsgTemplateRequest group(String sender,
+                                           Set<String> chatIdList,
+                                           String text,
+                                           List<? extends MsgAttachment> attachments) {
+        return group(
+                sender,
+                chatIdList,
+                new ContentText(text),
+                attachments);
+    }
+
+    /**
+     * 客户群群发文本指定发送人
+     *
+     * @param sender the sender
+     * @param text   the text
+     * @return the msg template request
+     */
+    public static MsgTemplateRequest group(String sender, String text) {
+        return group(
+                sender,
+                text,
+                null);
+    }
+
+    /**
+     * 客户群群发附件指定发送人
+     *
+     * @param sender      the sender
+     * @param attachments the attachments
+     * @return the msg template request
+     */
+    public static MsgTemplateRequest group(String sender, List<? extends MsgAttachment> attachments) {
+        return new MsgTemplateRequest(ChatType.GROUP,
+                null,
+                null,
+                null,
+                sender,
+                null,
+                null,
+                attachments);
+    }
+
+    /**
+     * 客户群群发文本和附件指定发送人
+     *
+     * @param sender      the sender
+     * @param text        the text
+     * @param attachments the attachments
+     * @return the msg template request
+     */
+    public static MsgTemplateRequest group(String sender,
+                                           String text,
+                                           List<? extends MsgAttachment> attachments) {
+        return group(
+                sender,
+                null,
+                new ContentText(text),
+                attachments);
+    }
+
+    /**
+     * 客户群发
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -539,7 +648,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 客户群发
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -557,7 +666,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 客户群发
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -577,7 +686,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 客户群发
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -596,7 +705,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Single msg template request.
+     * 客户群发
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -622,228 +731,7 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Group msg template request.
-     *
-     * @param sender      the sender
-     * @param chatIdList  the chat id list
-     * @param allowSelect the allow select
-     * @param text        the text
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           Set<String> chatIdList,
-                                           Boolean allowSelect,
-                                           String text) {
-        return group(
-                sender,
-                chatIdList,
-                allowSelect,
-                new ContentText(text),
-                null);
-    }
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender     the sender
-     * @param chatIdList the chat id list
-     * @param text       the text
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           Set<String> chatIdList,
-                                           String text) {
-        return group(
-                sender,
-                chatIdList,
-                false,
-                new ContentText(text),
-                null);
-    }
-
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender      the sender
-     * @param allowSelect the allow select
-     * @param text        the text
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           Boolean allowSelect,
-                                           String text) {
-        return group(sender, null, allowSelect, text);
-    }
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender the sender
-     * @param text   the text
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           String text) {
-        return group(sender, false, text);
-    }
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender      the sender
-     * @param chatIdList  the chat id list
-     * @param allowSelect the allow select
-     * @param attachments the attachments
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           Set<String> chatIdList,
-                                           Boolean allowSelect,
-                                           List<? extends MsgAttachment> attachments) {
-        return new MsgTemplateRequest(ChatType.GROUP,
-                null,
-                chatIdList,
-                null,
-                sender,
-                allowSelect,
-                null,
-                attachments);
-    }
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender      the sender
-     * @param chatIdList  the chat id list
-     * @param attachments the attachments
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           Set<String> chatIdList,
-                                           List<? extends MsgAttachment> attachments) {
-        return new MsgTemplateRequest(ChatType.GROUP,
-                null,
-                chatIdList,
-                null,
-                sender,
-                false,
-                null,
-                attachments);
-    }
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender      the sender
-     * @param allowSelect the allow select
-     * @param attachments the attachments
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           Boolean allowSelect,
-                                           List<? extends MsgAttachment> attachments) {
-        return group(sender, null, allowSelect, attachments);
-    }
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender      the sender
-     * @param attachments the attachments
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           List<? extends MsgAttachment> attachments) {
-        return group(sender, null, false, attachments);
-    }
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender      the sender
-     * @param chatIdList  the chat id list
-     * @param allowSelect the allow select
-     * @param text        the text
-     * @param attachments the attachments
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           Set<String> chatIdList,
-                                           Boolean allowSelect,
-                                           String text,
-                                           List<? extends MsgAttachment> attachments) {
-        return group(
-                sender,
-                chatIdList,
-                allowSelect,
-                new ContentText(text),
-                attachments);
-    }
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender      the sender
-     * @param chatIdList  the chat id list
-     * @param text        the text
-     * @param attachments the attachments
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           Set<String> chatIdList,
-                                           String text,
-                                           List<? extends MsgAttachment> attachments) {
-        return group(
-                sender,
-                chatIdList,
-                false,
-                new ContentText(text),
-                attachments);
-    }
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender      the sender
-     * @param allowSelect the allow select
-     * @param text        the text
-     * @param attachments the attachments
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           Boolean allowSelect,
-                                           String text,
-                                           List<? extends MsgAttachment> attachments) {
-        return group(
-                sender,
-                null,
-                allowSelect,
-                new ContentText(text),
-                attachments);
-    }
-
-    /**
-     * Group msg template request.
-     *
-     * @param sender      the sender
-     * @param text        the text
-     * @param attachments the attachments
-     * @return the msg template request
-     */
-    public static MsgTemplateRequest group(String sender,
-                                           String text,
-                                           List<? extends MsgAttachment> attachments) {
-        return group(
-                sender,
-                null,
-                false,
-                new ContentText(text),
-                attachments);
-    }
-
-    /**
-     * Single msg template request.
+     * 客户群发
      *
      * @param sender         the sender
      * @param externalUserid the external userid
@@ -871,18 +759,16 @@ public class MsgTemplateRequest {
     }
 
     /**
-     * Group msg template request.
+     * 客户群群发
      *
      * @param sender      the sender
      * @param chatIdList  the chat id list
-     * @param allowSelect the allow select
      * @param text        the text
      * @param attachments the attachments
      * @return the msg template request
      */
     static MsgTemplateRequest group(String sender,
                                     Set<String> chatIdList,
-                                    Boolean allowSelect,
                                     ContentText text,
                                     List<? extends MsgAttachment> attachments) {
         return new MsgTemplateRequest(ChatType.GROUP,
@@ -890,7 +776,7 @@ public class MsgTemplateRequest {
                 chatIdList,
                 null,
                 sender,
-                allowSelect,
+                null,
                 text,
                 attachments);
     }
@@ -907,7 +793,7 @@ public class MsgTemplateRequest {
      * @param text           the text
      * @param attachments    the attachments
      */
-    MsgTemplateRequest(ChatType chatType,
+    public MsgTemplateRequest(ChatType chatType,
                        Set<String> externalUserid,
                        Set<String> chatIdList,
                        MsgTagFilter tagFilter,

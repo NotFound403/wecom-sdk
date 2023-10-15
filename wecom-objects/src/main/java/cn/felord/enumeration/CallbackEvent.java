@@ -143,7 +143,13 @@ public enum CallbackEvent {
     /**
      * 日程回执事件
      */
-    RESPOND_SCHEDULE("respond_schedule");
+    RESPOND_SCHEDULE("respond_schedule"),
+    /**
+     * 上下游变更
+     */
+    CHANGE_CHAIN("change_chain"),
+
+    ;
 
     private final String type;
 

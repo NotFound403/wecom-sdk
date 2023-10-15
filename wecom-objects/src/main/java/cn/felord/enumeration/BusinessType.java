@@ -62,7 +62,7 @@ public enum BusinessType {
     @JsonCreator
     public static BusinessType deserialize(int type) {
         return Arrays.stream(BusinessType.values())
-                .filter(boolEnum -> boolEnum.type == type)
+                .filter(businessType -> businessType.type == type)
                 .findFirst()
                 .orElse(null);
     }

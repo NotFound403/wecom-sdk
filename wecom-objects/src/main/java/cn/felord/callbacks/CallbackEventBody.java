@@ -24,6 +24,8 @@ import cn.felord.domain.callback.CallbackExtAttrItem;
 import cn.felord.domain.callback.CallbackResource;
 import cn.felord.domain.callback.CallbackSelectedItems;
 import cn.felord.domain.callback.CallbackVideo;
+import cn.felord.domain.callback.CorpIds;
+import cn.felord.domain.callback.GroupIds;
 import cn.felord.domain.common.MediaId;
 import cn.felord.domain.corpay.miniapppay.callback.RefundCallbackData;
 import cn.felord.domain.corpay.miniapppay.callback.TransactionCallbackData;
@@ -71,6 +73,9 @@ public class CallbackEventBody implements XmlEntity {
     private String agentId;
     @XStreamAlias("ApprovalInfo")
     private ApprovalInfo approvalInfo;
+
+    @XStreamAlias("ChainId")
+    private String chainId;
 
     @XStreamAlias("Content")
     private String content;
@@ -175,6 +180,11 @@ public class CallbackEventBody implements XmlEntity {
     private String source;
     @XStreamAlias("FailReason")
     private String failReason;
+
+    @XStreamAlias("GroupIds")
+    private GroupIds groupIds;
+    @XStreamAlias("CorpIds")
+    private CorpIds corpIds;
 
     @XStreamAlias("ChatId")
     private String chatId;

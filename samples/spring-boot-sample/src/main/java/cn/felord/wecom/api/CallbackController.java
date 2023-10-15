@@ -39,12 +39,12 @@ public class CallbackController {
     /**
      * 验证回调URL
      *
-     * @param msgSignature the msg signature
-     * @param timestamp    the timestamp
-     * @param nonce        the nonce
-     * @param echostr      the echostr
-     * @param corpId       the corp id
-     * @param agentId      the agent id
+     * @param msgSignature 签名  能保证唯一
+     * @param timestamp    时间戳
+     * @param nonce        nonce串 防止重放攻击
+     * @param echostr      随机串
+     * @param corpId       企业ID
+     * @param agentId      应用ID
      * @return the long
      */
     @GetMapping("/{corpId}/{agentId}")
@@ -60,12 +60,12 @@ public class CallbackController {
     /**
      * 消费回调数据
      *
-     * @param msgSignature the msg signature
-     * @param timestamp    the timestamp
-     * @param nonce        the nonce
-     * @param xmlBody      the xml body
-     * @param corpId       the corp id
-     * @param agentId      the agent id
+     * @param msgSignature 签名  能保证唯一
+     * @param timestamp    时间戳
+     * @param nonce        nonce串 防止重放攻击
+     * @param xmlBody      XML格式的响应体需要解密处理
+     * @param corpId       企业ID
+     * @param agentId      应用ID
      * @return the string
      */
     @PostMapping("/{corpId}/{agentId}")

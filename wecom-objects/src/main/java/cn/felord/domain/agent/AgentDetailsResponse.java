@@ -22,22 +22,63 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
+ * The type Agent details response.
+ *
  * @author felord.cn
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class AgentDetailsResponse extends WeComResponse {
+    /**
+     * 企业应用id
+     */
     private String agentid;
+    /**
+     * 企业应用名称
+     */
     private String name;
+    /**
+     * 企业应用方形头像
+     */
     private String squareLogoUrl;
+    /**
+     * 企业应用详情
+     */
     private String description;
+    /**
+     * 企业应用可见范围（人员），其中包括userid
+     */
     private AllowUsers allowUserinfos;
+    /**
+     * 企业应用可见范围（部门）
+     */
     private AllowParties allowPartys;
+    /**
+     * 企业应用可见范围（标签）
+     */
     private AllowTags allowTags;
+    /**
+     * 企业应用是否被停用
+     */
     private BoolEnum close;
+    /**
+     * 企业应用可信域名
+     */
     private String redirectDomain;
+    /**
+     * 企业应用是否打开地理位置上报
+     */
     private BoolEnum reportLocationFlag;
+    /**
+     * 是否上报用户进入应用事件
+     */
     private BoolEnum isreportenter;
+    /**
+     * 应用主页url
+     */
     private String homeUrl;
+    /**
+     * 代开发自建应用返回该字段，表示代开发发布状态
+     */
     private AgentCustomizedPubStatus customizedPublishStatus;
 }

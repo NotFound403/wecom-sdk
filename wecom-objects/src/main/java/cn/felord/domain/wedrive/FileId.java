@@ -15,13 +15,31 @@
 
 package cn.felord.domain.wedrive;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type File id.
+ *
  * @author dax
- * @since 2023/5/24 13:41
+ * @since 2023 /5/24 13:41
  */
-@Data
+@EqualsAndHashCode
+@ToString
+@Getter
 public class FileId {
     private final String fileid;
+
+    /**
+     * Instantiates a new File id.
+     *
+     * @param fileid the fileid
+     */
+    @JsonCreator
+    public FileId(@JsonProperty("fileid") String fileid) {
+        this.fileid = fileid;
+    }
 }

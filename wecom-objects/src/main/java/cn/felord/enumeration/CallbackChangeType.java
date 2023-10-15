@@ -60,6 +60,42 @@ public enum CallbackChangeType {
      */
     BATCH_JOB_RESULT("batch_job_result"),
     /**
+     * 创建上下游空间事件
+     */
+    CREATE_CHAIN("create_chain"),
+    /**
+     * 更新上下游空间事件
+     */
+    UPDATE_CHAIN("update_chain"),
+    /**
+     * 删除上下游空间事件
+     */
+    DELETE_CHAIN("delete_chain"),
+    /**
+     * 新增上下游分组事件
+     */
+    CREATE_GROUP("create_group"),
+    /**
+     * 更新上下游分组事件
+     */
+    UPDATE_GROUP("update_group"),
+    /**
+     * 删除上下游分组事件
+     */
+    DELETE_GROUP("delete_group"),
+    /**
+     * 企业加入上下游事件
+     */
+    CORP_JOIN("corp_join"),
+    /**
+     * 更新企业事件
+     */
+    UPDATE_CORP("update_corp"),
+    /**
+     * 移除企业事件
+     */
+    REMOVE_CORP("remove_corp"),
+    /**
      * 添加企业客户事件
      */
     ADD_EXTERNAL_CONTACT("add_external_contact"),
