@@ -40,7 +40,7 @@ public class AccessTokenApi extends AbstractTokenApi {
 
     @Override
     protected String doGetToken(AgentDetails agentDetails) {
-        AccessTokenResponse tokenResponse = TOKEN_API.getTokenResponse(WecomUserAgent.WECOM_AGENT, agentDetails.getCorpId(), agentDetails.getSecret());
+        AccessTokenResponse tokenResponse = TOKEN_API.getTokenResponse(WecomUserAgent.WECOM_USER_AGENT, agentDetails.getCorpId(), agentDetails.getSecret());
         if (tokenResponse == null || tokenResponse.isError()) {
             String errorMsg = tokenResponse == null ? "token response is null" : tokenResponse.getErrmsg();
             throw new WeComException("failed to obtain access token,reason: " + errorMsg);

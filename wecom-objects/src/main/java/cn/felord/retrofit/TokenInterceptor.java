@@ -99,7 +99,7 @@ public class TokenInterceptor implements Interceptor {
         HttpUrl oldHttpUrl = request.url();
         String tokenResponse = tokenApi.getToken();
         Request requestWithAccessToken = request.newBuilder()
-                .header("User-Agent", WecomUserAgent.WECOM_AGENT)
+                .header("User-Agent", WecomUserAgent.WECOM_USER_AGENT)
                 .url(oldHttpUrl.newBuilder()
                         .addQueryParameter(tokenParam, tokenResponse)
                         .build())
