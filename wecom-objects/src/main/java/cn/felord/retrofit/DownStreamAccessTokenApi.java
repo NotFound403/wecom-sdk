@@ -31,6 +31,7 @@ interface DownStreamAccessTokenApi {
     /**
      * Gets token response.
      *
+     * @param userAgent         the user agent
      * @param downStreamDetails the down stream details
      * @param accessToken       the access token
      * @return the token response
