@@ -27,6 +27,7 @@
     <artifactId>wepay-sdk</artifactId>
     <packaging>jar</packaging>
 
+    <name>wepay-sdk</name>
     <description>WeChat Pay Java SDK</description>
     <url>https://github.com/NotFound403/wecom-sdk</url>
 
@@ -51,6 +52,8 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>

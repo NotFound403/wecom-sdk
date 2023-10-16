@@ -27,10 +27,33 @@
     <artifactId>wecom-common</artifactId>
     <packaging>jar</packaging>
 
+    <name>wecom-common</name>
+    <description>Work WeChat Java SDK</description>
+    <url>https://github.com/NotFound403/wecom-sdk</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>felord</name>
+            <email>felord@qq.com</email>
+            <organization>felord.cn</organization>
+        </developer>
+    </developers>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>

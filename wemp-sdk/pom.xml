@@ -27,6 +27,7 @@
     <artifactId>wemp-sdk</artifactId>
     <packaging>jar</packaging>
 
+    <name>wemp-sdk</name>
     <description>WeChat Mp Java SDK</description>
     <url>https://github.com/NotFound403/wecom-sdk</url>
 
