@@ -22,5 +22,10 @@ jobs:
           server-username: ${{ secrets.OSSRH_USER }}
           server-password: ${{ secrets.OSSRH_PASSWORD }}
           gpg-passphrase: ${{ secrets.GPG_PASSWORD }}
-      - name: Publish to Apache Maven Central
+      - id: install-secret-key
+        name: Install gpg secret key
+        run: |
+            cat <(echo -e "${{ secrets.GPG_SECRET }}") | gpg --batch --import
+            gpg --list-secret-keys --keyid-format LONG   
+      - name: Publish to Maven Central
         run: mvn --batch-mode -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }} clean deploy
