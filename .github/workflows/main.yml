@@ -24,7 +24,7 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_SECRET }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: Publish to Maven Central
-        run: mvn -Xmx512m --batch-mode --activate-profiles sonatype-nexus-staging clean deploy
+        run: mvn --batch-mode --activate-profiles sonatype-nexus-staging clean deploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USER }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.OSSRH_PASSWORD }}
