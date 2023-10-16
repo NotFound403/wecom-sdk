@@ -28,4 +28,7 @@ jobs:
             cat <(echo -e "${{ secrets.GPG_SECRET }}") | gpg --batch --import
             gpg --list-secret-keys --keyid-format LONG   
       - name: Publish to Maven Central
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USER }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         run: mvn --batch-mode -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }} clean deploy
