@@ -280,8 +280,8 @@
                     <version>3.11.0</version>
                     <configuration>
                         <showWarnings>true</showWarnings>
-                        <meminitial>128m</meminitial>
-                        <maxmem>512m</maxmem>
+                        <meminitial>512m</meminitial>
+                        <maxmem>1024m</maxmem>
                     </configuration>
                 </plugin>
                 <plugin>
