@@ -18,7 +18,7 @@ jobs:
         with:
           java-version: 8
           distribution: 'temurin'
-          server-id: sonatype-nexus-staging
+          server-id: ossrh
           server-username: ${{ secrets.OSSRH_USER }}
           server-password: ${{ secrets.OSSRH_PASSWORD }}
           gpg-passphrase: ${{ secrets.GPG_PASSWORD }}
@@ -26,9 +26,6 @@ jobs:
         name: Install gpg secret key
         run: |
             cat <(echo -e "${{ secrets.GPG_SECRET }}") | gpg --batch --import
-            gpg --list-secret-keys --keyid-format LONG   
+            gpg --list-secret-keys --keyid-format LONG
       - name: Publish to Maven Central
-        env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USER }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         run: mvn --batch-mode -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }} clean deploy
