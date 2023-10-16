@@ -27,7 +27,7 @@ public final class WecomUserAgent {
     /**
      * 版本号
      */
-    public static final String VERSION = Optional.ofNullable(WecomUserAgent.class.getPackage().getImplementationVersion()).orElse("1.x");
+    public static final String VERSION = "1.2.2";
     /**
      * UserAgent
      */
