@@ -17,13 +17,38 @@ package cn.felord.domain.agent;
 
 import lombok.Data;
 
+/**
+ * @author dax
+ * @since 2023/5/27 10:23
+ */
 @Data
 public class AgentSettingRequest {
+    /**
+     * 企业应用详情
+     */
     private String description;
+    /**
+     * 应用主页url
+     */
     private String homeUrl;
+    /**
+     * 是否上报用户进入应用事件
+     */
     private Integer isreportenter;
+    /**
+     * 企业应用头像的mediaid
+     */
     private String logoMediaid;
+    /**
+     * 企业应用名称
+     */
     private String name;
+    /**
+     * 企业应用可信域名
+     */
     private String redirectDomain;
+    /**
+     * 企业应用是否打开地理位置上报
+     */
     private Integer reportLocationFlag;
 }

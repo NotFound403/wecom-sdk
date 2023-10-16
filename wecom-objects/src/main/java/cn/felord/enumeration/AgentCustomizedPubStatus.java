@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The AgentCustomizedPubStatus
+ * 代开发发布状态
  *
  * @author dax
  * @since 2023 /7/3 10:55

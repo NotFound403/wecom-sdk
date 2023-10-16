@@ -15,6 +15,8 @@
 
 package cn.felord;
 
+import cn.felord.enumeration.CorpGroupType;
+
 /**
  * The interface Agent details.
  *
@@ -42,5 +44,12 @@ public interface AgentDetails {
      * @return the agent id
      */
     String getAgentId();
+
+    /**
+     * 互联类型（上下游专用）
+     *
+     * @return business type
+     */
+    CorpGroupType getBusinessType();
 
 }

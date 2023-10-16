@@ -17,6 +17,7 @@ package cn.felord.retrofit;
 
 import cn.felord.domain.authentication.AccessTokenResponse;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**
@@ -30,10 +31,11 @@ interface RetrofitAccessTokenApi {
     /**
      * Gets token response.
      *
+     * @param userAgent  the user agent
      * @param corpId     the corp id
      * @param corpSecret the corp secret
      * @return the token response
      */
     @GET("gettoken")
-    AccessTokenResponse getTokenResponse(@Query("corpid") String corpId, @Query("corpsecret") String corpSecret);
+    AccessTokenResponse getTokenResponse(@Header("User-Agent") String userAgent, @Query("corpid") String corpId, @Query("corpsecret") String corpSecret);
 }

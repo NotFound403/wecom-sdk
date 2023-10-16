@@ -21,74 +21,82 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Add ways.
+ * 添加客户的来源
  *
  * @author dax
  * @since 2021/9/9 9:22
  */
 public enum AddWays {
     /**
-     * Unknown add ways.
+     * 未知来源
      */
     UNKNOWN(0),
     /**
-     * Qr code scanned add ways.
+     *扫描二维码
      */
     QR_CODE_SCANNED(1),
     /**
-     * Mobile searched add ways.
+     * 搜索手机号.
      */
     MOBILE_SEARCHED(2),
     /**
-     * Business card shared add ways.
+     * 名片分享
      */
     BUSINESS_CARD_SHARED(3),
     /**
-     * Group chat add ways.
+     * 群聊
      */
     GROUP_CHAT(4),
     /**
-     * Dial book add ways.
+     * 手机通讯录
      */
     DIAL_BOOK(5),
     /**
-     * Wechat list add ways.
+     * 微信联系人
      */
     WECHAT_LIST(6),
     /**
-     * Via cs when app installing add ways.
+     * 安装第三方应用时自动添加的客服人员.
      */
     VIA_CS_WHEN_APP_INSTALLING(8),
     /**
-     * Email search add ways.
+     * 搜索邮箱
      */
     EMAIL_SEARCH(9),
     /**
-     * Wechat channel add ways.
+     * 视频号添加
      */
     WECHAT_CHANNEL(10),
     /**
-     * Calendar add ways.
+     * 通过日程参与人添加
      */
     CALENDAR(11),
     /**
-     * Meeting add ways.
+     * 通过会议参与人添加
      */
     MEETING(12),
     /**
-     * Work wechat friend add ways.
+     * 添加微信好友对应的企业微信
      */
     WORK_WECHAT_FRIEND(13),
     /**
-     * Smart customer service add ways.
+     * 通过智慧硬件专属客服添加
      */
     SMART_CUSTOMER_SERVICE(14),
     /**
-     * Internal shared add ways.
+     * 通过上门服务客服添加
+     */
+    SITE_CUSTOMER_SERVICE(15),
+    /**
+     * 通过获客链接添加
+     */
+    CUSTOMER_ACQUISITION_LINK(16),
+    /**
+     * 内部成员共享
      */
     INTERNAL_SHARED(201),
     /**
-     * Allocation add ways.
+     * 管理员/负责人分配
      */
     ALLOCATION(202);
 

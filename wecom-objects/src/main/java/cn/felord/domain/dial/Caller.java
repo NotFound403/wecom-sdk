@@ -17,6 +17,12 @@ package cn.felord.domain.dial;
 
 import lombok.Data;
 
+/**
+ * The type Caller.
+ *
+ * @author dax
+ * @since 2023 /5/27
+ */
 @Data
 public class Caller {
     /**

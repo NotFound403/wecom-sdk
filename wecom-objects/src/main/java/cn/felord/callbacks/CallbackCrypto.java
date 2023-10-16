@@ -159,7 +159,8 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
         eventBody.setOriginalXml(xml);
         // end 用来记录追踪
         // begin 处理支付
-        if (Objects.nonNull(eventBody.getResource())) {
+        PayCallbackEventType eventType = eventBody.getEventType();
+        if (Objects.nonNull(eventType)) {
             this.payCallback(eventBody, callbackSettings);
         }
         // end 处理支付
@@ -214,7 +215,7 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
     }
 
     /**
-     * Decrypt msg string.
+     * 校验 receiveid
      *
      * @param callbackSettings the callback settings
      * @param msgSignature     the msg signature
@@ -234,7 +235,7 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
 
 
     /**
-     * 不校验receiveid
+     * 不校验 receiveid
      *
      * @param callbackSettings the callback settings
      * @param msgSignature     the msg signature

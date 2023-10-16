@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Approval notify type.
+ * 审批抄送方式
  *
  * @author dax
  * @since 2023 /5/26

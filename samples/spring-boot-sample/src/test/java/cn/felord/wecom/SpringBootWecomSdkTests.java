@@ -154,7 +154,11 @@ class SpringBootWecomSdkTests {
     @Test
     void webHooks() throws IOException {
 // 发 markdown
-        WebhookBody markdownBody = WebhookMarkdownBody.from("这里为markdown消息");
+        String content = "## wecom-sdk \n" +
+                "<font color=\"comment\">开源java企微SDK</font> \n" +
+                "> `wecom-sdk`真的很好用\n" +
+                "项目地址：[wecom-sdk](https://gitee.com/felord/wecom-sdk)";
+        WebhookBody markdownBody = WebhookMarkdownBody.from(content);
 // 发纯文本
         WebhookBody textBody = WebhookTextBody.from("这里为纯文本");
 // 发图文
@@ -551,7 +555,7 @@ class SpringBootWecomSdkTests {
 
 
     /**
-     * 通常情况下不需要知道如何解密回调，除非你遇到了一些异常情况
+     * 通常情况下不需要知道如何解密回调，除非你需要
      * <p>
      * 实际运用请参考{@link cn.felord.wecom.api.CallbackController}
      */

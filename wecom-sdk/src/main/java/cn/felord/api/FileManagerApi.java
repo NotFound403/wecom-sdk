@@ -16,6 +16,7 @@
 package cn.felord.api;
 
 import cn.felord.WeComException;
+import cn.felord.domain.journal.JournalDownloadRequest;
 import cn.felord.domain.wedrive.BufferSource;
 import cn.felord.domain.wedrive.FileDownloadResponse;
 import cn.felord.domain.wedrive.FileId;
@@ -71,6 +72,24 @@ public class FileManagerApi {
         return this.download(downloadResponse);
     }
 
+    /**
+     * 下载微盘文件（汇报应用）
+     *
+     * @param request the request
+     * @return the buffer source
+     * @throws WeComException the we com exception
+     */
+    public BufferSource downloadWedriveFile(JournalDownloadRequest request) throws WeComException {
+        FileDownloadResponse downloadResponse = internalFileManagerApi.downloadWedriveFile(request);
+        return this.download(downloadResponse);
+    }
+
+    /**
+     * Download buffer source.
+     *
+     * @param downloadResponse the download response
+     * @return the buffer source
+     */
     private BufferSource download(FileDownloadResponse downloadResponse) {
         String downloadUrl = downloadResponse.getDownloadUrl();
         String cookie = downloadResponse.getCookieName()

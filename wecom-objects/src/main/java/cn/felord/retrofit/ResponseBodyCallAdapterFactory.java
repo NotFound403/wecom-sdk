@@ -17,6 +17,8 @@ package cn.felord.retrofit;
 
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
+import cn.felord.utils.StringUtils;
+import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Response;
@@ -25,6 +27,7 @@ import retrofit2.Retrofit;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -34,7 +37,6 @@ import java.util.concurrent.CompletableFuture;
  * @since 2023 /5/22 14:59
  */
 final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
-
     /**
      * The constant INSTANCE.
      */
@@ -67,6 +69,9 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
      * @param <R> the type parameter
      */
     static final class ResponseBodyCallAdapter<R> implements CallAdapter<R, R> {
+        private static final String ERROR_CODE_HEADER = "error-code";
+        private static final String ERROR_MSG_HEADER = "error-msg";
+        private static final String SUCCESS_CODE = "0";
 
         private final Type returnType;
 
@@ -95,16 +100,25 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
             }
 
             if (response.isSuccessful()) {
-                R body = response.body();
-                if (body != null && WeComResponse.class.isAssignableFrom(body.getClass())) {
-                    WeComResponse weComResponse = (WeComResponse) body;
-                    if (weComResponse.isError()) {
-                        throw new WeComException(weComResponse.getErrcode(), weComResponse.getErrmsg());
+                Headers headers = response.headers();
+                String errorCode = headers.get(ERROR_CODE_HEADER);
+                // 通常不需要解析
+                if (StringUtils.hasText(errorCode)) {
+                    if (!Objects.equals(SUCCESS_CODE, errorCode)) {
+                        throw new WeComException(Integer.parseInt(errorCode), headers.get(ERROR_MSG_HEADER));
+                    }
+                } else {
+                    R body = response.body();
+                    if (body != null && WeComResponse.class.isAssignableFrom(body.getClass())) {
+                        WeComResponse weComResponse = (WeComResponse) body;
+                        if (weComResponse.isError()) {
+                            throw new WeComException(weComResponse.getErrcode(), weComResponse.getErrmsg());
+                        }
                     }
                 }
-                return body;
+                return response.body();
             }
-            throw new WeComException(" response is not successful, " + response.message());
+            throw new WeComException("response is not successful, " + response.message());
         }
     }
 }
