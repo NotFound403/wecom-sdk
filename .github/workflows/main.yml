@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      - name: Setup Java8
+      - name: Set up Maven Central
         uses: actions/setup-java@v3
         with:
           java-version: 8
@@ -24,4 +24,8 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_SECRET }}
           gpg-passphrase: ${{ secrets.GPG_PASSWORD }}
       - name: Publish to Maven Central
-        run: mvn --batch-mode --activate-profiles sonatype-nexus-staging -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }} clean deploy:deploy
+        run: mvn --batch-mode --activate-profiles sonatype-nexus-staging clean deploy:deploy
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USER }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.OSSRH_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSWORD }}
