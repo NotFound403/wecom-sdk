@@ -18,7 +18,7 @@ jobs:
         with:
           java-version: 8
           distribution: 'temurin'
-          server-id: ossrh
+          server-id: sonatype-nexus-staging
           server-username: ${{ secrets.OSSRH_USER }}
           server-password: ${{ secrets.OSSRH_PASSWORD }}
       - id: install-secret-key
