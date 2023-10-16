@@ -18,13 +18,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 8
-          server-id: sonatype-nexus-staging
+          server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_CENTRAL_TOKEN
           gpg-private-key: ${{ secrets.GPG_SECRET }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: Publish to Maven Central
-        run: mvn --activate-profiles sonatype-nexus-staging clean deploy
+        run: mvn --activate-profiles ossrh clean deploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USER }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.OSSRH_PASSWORD }}
