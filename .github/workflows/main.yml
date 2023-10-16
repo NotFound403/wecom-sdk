@@ -24,4 +24,4 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_SECRET }}
           gpg-passphrase: ${{ secrets.GPG_PASSWORD }}
       - name: Publish to Maven Central
-        run: mvn --batch-mode --activate-profiles deploy -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }} clean deploy:deploy
+        run: mvn --batch-mode --activate-profiles sonatype-nexus-staging -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }} clean deploy:deploy
