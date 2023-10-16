@@ -18,11 +18,10 @@ jobs:
         with:
           java-version: 8
           distribution: 'temurin'
-          server-id: ossrh
+          server-id: sonatype-nexus-staging
           server-username: ${{ secrets.OSSRH_USER }}
           server-password: ${{ secrets.OSSRH_PASSWORD }}
           gpg-private-key: ${{ secrets.GPG_SECRET }}
           gpg-passphrase: ${{ secrets.GPG_PASSWORD }}
-          cache: maven
       - name: Publish to Maven Central
-        run: mvn --batch-mode -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }} clean deploy
+        run: mvn --batch-mode --activate-profiles deploy -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }} clean deploy:deploy
