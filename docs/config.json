@@ -1,0 +1,30 @@
+{
+  "productWebUrl": "https://gitee.com/felord/wecom-sdk",
+  "productVersion": "1.2.2",
+  "productId": "w",
+  "stage": "release",
+  "downloadTitle": "Get wecom",
+  "keymaps": {},
+  "logoUrl": "images/logo.svg",
+  "searchMaxHits": 75,
+  "productName": "wecom",
+  "footer": {
+    "copyright": "2000-2023 felord.cn",
+    "socials": {
+      "blog": {
+        "title": "wecom Blog",
+        "url": "https://felord.cn"
+      }
+    },
+    "links": [
+      {
+        "title": "Issues 报告",
+        "url": "https://gitee.com/felord/docs/issues"
+      },
+      {
+        "title": "企微文档",
+        "url": "https://developer.work.weixin.qq.com/document/path/90556"
+      }
+    ]
+  }
+}

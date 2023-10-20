@@ -1,0 +1,282 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-colors-preset="contrast" data-primary-color="#307FFF">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <meta name="built-on" content="2023-10-20T13:29:31.9346312">
+    <meta name="build-number" content="${buildNumber}">
+    <title>概念参考 | wecom</title>
+    <script id="virtual-toc-data" type="application/json">[
+        {
+            "id": "api",
+            "level": 0,
+            "title": "API入口类",
+            "anchor": "#api"
+        },
+        {
+            "id": "agentdetails",
+            "level": 0,
+            "title": "AgentDetails",
+            "anchor": "#agentdetails"
+        },
+        {
+            "id": "wecomtokencacheable",
+            "level": 0,
+            "title": "WeComTokenCacheable",
+            "anchor": "#wecomtokencacheable"
+        },
+        {
+            "id": "18bd805e_22474",
+            "level": 0,
+            "title": "回调",
+            "anchor": "#18bd805e_22474"
+        }
+    ]</script>
+    <script id="topic-shortcuts" type="application/json"></script>
+    <link href="https://resources.jetbrains.com/writerside/apidoc/6.1.5-b176/app.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png">
+    <link rel="manifest" href="https://jetbrains.com/site.webmanifest">
+    <link rel="mask-icon" href="https://jetbrains.com/safari-pinned-tab.svg" color="#000000">
+    <meta name="msapplication-TileColor" content="#000000"/>
+    <meta name="msapplication-TileImage"
+          content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"/>
+    <meta name="msapplication-square70x70logo"
+          content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"/>
+    <meta name="msapplication-square150x150logo"
+          content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"/>
+    <meta name="msapplication-wide310x150logo"
+          content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"/>
+    <meta name="msapplication-square310x310logo"
+          content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"/>
+    <meta name="image" content=""><!-- Open Graph -->
+    <meta property="og:title" content="概念参考 | wecom"/>
+    <meta property="og:description" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:site_name" content="wecom Help"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:url" content="/1.2.2/reference.html"/><!-- End Open Graph --><!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:title" content="概念参考 | wecom">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage -->
+    <script type="application/ld+json"> {
+        "@context": "http://schema.org",
+        "@type": "WebPage",
+        "@id": "/1.2.2/reference.html#webpage",
+        "url": "/1.2.2/reference.html",
+        "name": "概念参考 | wecom",
+        "description": "",
+        "image": "",
+        "inLanguage": "en-US"
+    }</script><!-- End Schema.org --><!-- Schema.org WebSite -->
+    <script type="application/ld+json"> {
+        "@type": "WebSite",
+        "@id": "/#website",
+        "url": "/",
+        "name": "wecom Help"
+    }</script><!-- End Schema.org --> <!-- Mermaid light/dark themes -->
+    <link rel="stylesheet" type="text/css" href="mermaid.css">
+</head>
+<body data-id="Reference" data-main-title="概念参考" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}"
+      data-template="article" data-breadcrumbs="">
+<div class="wrapper">
+    <main class="panel _main">
+        <header class="panel__header">
+            <div class="container"><h3>wecom 1.2.2 Help</h3>
+                <div class="panel-trigger"></div>
+            </div>
+        </header>
+        <section class="panel__content">
+            <div class="container">
+                <article class="article" data-shortcut-switcher="inactive"><h1 data-toc="Reference" id="Reference.md">
+                    概念参考</h1>
+                    <p id="18bd805e_22433">在正式使用之前依然建议开发者掌握<a href="https://gitee.com/felord/wecom-sdk"
+                                                                              id="18bd805e_22434" data-external="true"
+                                                                              rel="noopener noreferrer">wecom-sdk</a>的一些设计概念，这非常有助于你定制自己的业务。
+                    </p>
+                    <section class="chapter"><h2 id="api" data-toc="api">API入口类</h2>
+                        <p id="18bd805e_22435"><code class="code" id="18bd805e_22436">WorkWeChatApi</code>是企业微信API的唯一入口，推荐注入<span
+                                class="control" id="18bd805e_22437">Spring IoC</span> （如果你集成了Spring生态）：</p>
+                        <div class="code-block" data-lang="java">
+                            @Bean
+                            WorkWeChatApi workWeChatApi(WeComTokenCacheable weComTokenCacheable) {
+                            return new WorkWeChatApi(weComTokenCacheable);
+                            }
+                        </div>
+                        <p id="18bd805e_22439">
+                            然后就可以通过它的一系列方法来实现企业微信提供的功能了。例如通过手机号查询成员的企业微信userid:</p>
+                        <div class="code-block" data-lang="java">
+                            AgentDetails agent=DefaultAgent.nativeAgent(&quot;企业ID&quot;,&quot;通讯录secret&quot;,NativeAgent.CONTACT);
+
+                            GenericResponse&lt;String&gt; userIdByMobile=wecom.contactBookManager(agent)
+                            .userApi()
+                            .getUserIdByMobile(&quot;这里为手机号&quot;);
+                            String userId=userIdByMobile.getData();
+
+                        </div>
+                        <aside class="prompt" data-type="tip" data-title="" id="18bd805e_22441"><p id="18bd805e_22442">
+                            WorkWeChatApi的初始化和使用依赖于后面两个关键的概念 <a href="#agentdetails"
+                                                                                   id="18bd805e_22443"
+                                                                                   data-tooltip="cn.felord.AgentDetails 是对应用的抽象描述，包含了企业ID corpId ，应用ID agentId 以及密钥 secret ，绝大多数接口的调用会用到它，默认实现是DefaultAgent。">AgentDetails</a>
+                            和 <a href="#wecomtokencacheable" id="18bd805e_22444"
+                                  data-tooltip="WeComTokenCacheable定义了企业微信所需要的 accessToken、 corpticket 和 agentticket 的中继缓存。这里我使用了Spring Cache 实现，你可以根据自己的实际情况选择具体的缓存实现，但是要自行保证中继服务器数据一致性，通常情况下它们的有效期都是 7200秒。">缓存中继</a>。
+                        </p></aside>
+                    </section>
+                    <section class="chapter"><h2 id="agentdetails" data-toc="agentdetails">AgentDetails</h2>
+                        <p id="18bd805e_22445"><code class="code" id="18bd805e_22446">cn.felord.AgentDetails</code>
+                            是对应用的抽象描述，包含了企业ID <a
+                                    href="https://developer.work.weixin.qq.com/document/path/90665#corpid"
+                                    id="18bd805e_22447" data-external="true" rel="noopener noreferrer">corpId</a> ，应用ID
+                            <a href="https://developer.work.weixin.qq.com/document/path/90665#agentid"
+                               id="18bd805e_22448" data-external="true" rel="noopener noreferrer">agentId</a> 以及密钥
+                            <a href="https://developer.work.weixin.qq.com/document/path/90665#secret"
+                               id="18bd805e_22449" data-external="true" rel="noopener noreferrer">secret</a>
+                            ，绝大多数接口的调用会用到它，默认实现是<code class="code"
+                                                                        id="18bd805e_22450">DefaultAgent</code>。</p>
+                        <section class="chapter"><h3 id="18bd805e_22451" data-toc="18bd805e_22451">分类</h3>
+                            <ul class="list _ul" id="18bd805e_22452">
+                                <li class="list__item" id="18bd805e_22453"><p>自建应用。开发者在<a
+                                        href="https://work.weixin.qq.com/wework_admin/loginpage_wx" id="18bd805e_22454"
+                                        data-external="true" rel="noopener noreferrer">企微控制台</a>自行创建的应用</p>
+                                </li>
+                                <li class="list__item" id="18bd805e_22455"><p>
+                                    企业微信内置的系统应用。例如，通讯录应用、审批应用、外部联系人应用</p></li>
+                            </ul>
+                            <aside class="prompt" data-type="note" data-title="" id="18bd805e_22456"><p>
+                                系统应用的agentid是和企业无关是固定的，而自建应用的agentid是开发者创建时生成的。</p>
+                            </aside>
+                        </section>
+                        <section class="chapter"><h3 id="18bd805e_22457" data-toc="18bd805e_22457">初始化</h3>
+                            <p id="18bd805e_22458">如果是自建应用你可以这样初始化：</p>
+                            <div class="code-block" data-lang="java">
+                                AgentDetails agent=new DefaultAgent(&quot;企业ID&quot;,&quot;应用密钥&quot;,&quot;应用ID&quot;);
+                            </div>
+                            <p id="18bd805e_22460">如果是内置系统应用，比如外部联系人应用：</p>
+                            <div class="code-block" data-lang="java">
+                                AgentDetails external=DefaultAgent.nativeAgent(&quot;企业ID&quot;,&quot;应用密钥&quot;,NativeAgent.EXTERNAL);
+                            </div>
+                            <p id="18bd805e_22462">通常这些应用参数会存入数据库，然后我们需要通过<span class="control"
+                                                                                                      id="18bd805e_22463">企业ID</span>和<span
+                                    class="control" id="18bd805e_22464">应用ID</span>实现应用配置检索服务（可以增加缓存来降低数据库的检索压力）：
+                            </p>
+                            <div class="code-block" data-lang="kotlin">
+                                (corpId,agentId)-&gt;AgentDetails
+                            </div>
+                        </section>
+                    </section>
+                    <section class="chapter"><h2 id="wecomtokencacheable" data-toc="wecomtokencacheable">
+                        WeComTokenCacheable</h2>
+                        <p id="18bd805e_22466"><code class="code" id="18bd805e_22467">WeComTokenCacheable</code>定义了企业微信所需要的
+                            <a href="https://developer.work.weixin.qq.com/document/path/91039" id="18bd805e_22468"
+                               data-external="true" rel="noopener noreferrer">accessToken</a>、 <a
+                                    href="https://developer.work.weixin.qq.com/document/path/90506" id="18bd805e_22469"
+                                    data-external="true" rel="noopener noreferrer">corpticket</a> 和 <a
+                                    href="https://developer.work.weixin.qq.com/document/path/90506" id="18bd805e_22470"
+                                    data-external="true" rel="noopener noreferrer">agentticket</a> 的中继缓存。这里我使用了<span
+                                    class="control" id="18bd805e_22471">Spring Cache</span>
+                            实现，你可以根据自己的实际情况选择具体的缓存实现，但是要自行保证中继服务器数据一致性，通常情况下它们的有效期都是<kbd
+                                    class="keystroke" id="18bd805e_22472" data-bypass="true"><span
+                                    class="keystroke__value">
+7200</span></kbd>秒。</p>
+                        <div class="code-collapse" data-lang="java" data-is-expanded="false"
+                             data-synopsis="Spring Cache缓存实现">
+                            public static class RedisWeComCacheable implements WeComTokenCacheable {
+                            private static final String QYWX_TOKEN_CACHE = &quot;token::qywx&quot;;
+                            private static final String QYWX_CORP_TICKET_CACHE = &quot;ticket::qywx::corp&quot;;
+                            private static final String QYWX_AGENT_TICKET_CACHE = &quot;ticket::qywx::agent&quot;;
+
+                            @CachePut(value = {QYWX_TOKEN_CACHE}, key = &quot;#corpId.concat('::').concat(#agentId)&quot;)
+                            @Override
+                            public String putAccessToken(@NotNull String corpId, @NotNull String agentId, @NotNull
+                            String accessToken) {
+                            return accessToken;
+                            }
+
+                            @Cacheable(value = {QYWX_TOKEN_CACHE}, key = &quot;#corpId.concat('::').concat(#agentId)&quot;)
+                            @Override
+                            public String getAccessToken(@NotNull String corpId, @NotNull String agentId) {
+                            return null;
+                            }
+
+                            @CachePut(value = {QYWX_CORP_TICKET_CACHE}, key = &quot;#corpId.concat('::').concat(#agentId)&quot;)
+                            @Override
+                            public String putCorpTicket(@NotNull String corpId, @NotNull String agentId, @NotNull String
+                            corpTicket) {
+                            return corpTicket;
+                            }
+
+                            @Cacheable(value = {QYWX_TOKEN_CACHE}, key = &quot;#corpId.concat('::').concat(#agentId)&quot;)
+                            @Override
+                            public String getCorpTicket(@NotNull String corpId, @NotNull String agentId) {
+                            return null;
+                            }
+
+                            @CachePut(value = {QYWX_AGENT_TICKET_CACHE}, key = &quot;#corpId.concat('::').concat(#agentId)&quot;)
+                            @Override
+                            public String putAgentTicket(@NotNull String corpId, @NotNull String agentId, @NotNull
+                            String agentTicket) {
+                            return agentTicket;
+                            }
+
+                            @Cacheable(value = {QYWX_TOKEN_CACHE}, key = &quot;#corpId.concat('::').concat(#agentId)&quot;)
+                            @Override
+                            public String getAgentTicket(@NotNull String corpId, @NotNull String agentId) {
+                            return null;
+                            }
+                            }
+                        </div>
+                    </section>
+                    <section class="chapter"><h2 id="18bd805e_22474" data-toc="18bd805e_22474">回调</h2>
+                        <p id="18bd805e_22475">企业微信回调是自建系统及时响应企业微信操作事件的重要手段。为了安全起见，企业微信对回调对接进行了一系列定义，这也是企业微信开发的难点之一。
+                            <code class="code" id="18bd805e_22476">wecom-sdk</code>对企业微信回调进行了统一封装，屏蔽了验签、解密、异步处理等技术难点，让开发者能够快速地对接企业微信回调。
+                        </p>
+                        <aside class="prompt" data-type="tip" data-title="" id="18bd805e_22477"><p id="18bd805e_22478">
+                            尽管<a href="https://gitee.com/felord/wecom-sdk" id="18bd805e_22479" data-external="true"
+                                   rel="noopener noreferrer">wecom-sdk</a>简化了企业微信回调开发，但是仍然建议开发者认真阅读关于企业微信回调的<a
+                                href="https://developer.work.weixin.qq.com/document/path/90930" id="18bd805e_22480"
+                                data-external="true" rel="noopener noreferrer">相关技术文档</a>。</p></aside>
+                        <section class="chapter"><h3 id="callbackcrypto" data-toc="callbackcrypto">CallbackCrypto</h3>
+                            <p id="18bd805e_22481">企业微信回调的处理由<code class="code" id="18bd805e_22482">CallbackCrypto</code>来负责，它提供了一系列的方法用于加密解密、加签验签。我们会在后面的应用环节来具体讲述如何使用它。
+                            </p></section>
+                        <section class="chapter"><h3 id="callbackcryptobuilder" data-toc="callbackcryptobuilder">
+                            CallbackCryptoBuilder</h3>
+                            <p id="18bd805e_22483">顾名思义， <code class="code" id="18bd805e_22484">CallbackCryptoBuilder</code>用来构建<code
+                                    class="code" id="18bd805e_22485">CallbackCrypto</code>。 它有几个关键点：</p>
+                            <ul class="list _ul" id="18bd805e_22486">
+                                <li class="list__item" id="18bd805e_22487"><p><code class="code" id="18bd805e_22488">XmlReader</code>
+                                    XML解析的抽象，框架默认提供了<span class="control" id="18bd805e_22489">XStream</span>实现，不喜欢的可以重新实现注入。
+                                </p></li>
+                                <li class="list__item" id="18bd805e_22490"><p><code class="code" id="18bd805e_22491">Consumer&lt;CallbackEventBody&gt;</code>
+                                    消费事件函数，用来处理回调数据。</p></li>
+                                <li class="list__item" id="18bd805e_22492"><p><code class="code" id="18bd805e_22493">CallbackSettingsService</code>
+                                    企业微信回调配置检索，用来检索回调的<a
+                                            href="https://developer.work.weixin.qq.com/document/path/90930"
+                                            id="18bd805e_22494" data-external="true"
+                                            rel="noopener noreferrer">配置参数</a>。</p></li>
+                                <li class="list__item" id="18bd805e_22495"><p><code class="code" id="18bd805e_22496">ExecutorService</code>
+                                    回调处理线程池，回调数据的处理是异步的，这里默认提供了一个名称前缀为<code class="code"
+                                                                                                            id="18bd805e_22497">WECOM-CALLBACK-THREAD-POOL</code>
+                                    的线程池，你也可以自定义一个符合你实际配置的线程池。</p></li>
+                            </ul>
+                        </section>
+                    </section>
+                    <div class="last-modified"> Last modified: 20 十月 2023</div>
+                    <div data-feedback-placeholder="true"></div>
+                    <div class="navigation-links _bottom"><a class="navigation-links__prev"
+                                                             href="starter.html">快速集成</a> <a
+                            class="navigation-links__next" href="how-to.html">示例</a></div>
+                </article>
+                <div id="disqus_thread"></div>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="https://resources.jetbrains.com/writerside/apidoc/6.1.5-b176/app.js"></script>
+</body>
+</html>

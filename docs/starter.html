@@ -1,0 +1,152 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-colors-preset="contrast" data-primary-color="#307FFF">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <meta name="built-on" content="2023-10-20T13:29:31.9356312">
+    <meta name="build-number" content="${buildNumber}">
+    <title>快速集成 | wecom</title>
+    <script id="virtual-toc-data" type="application/json">[
+        {
+            "id": "16361ae8_1821",
+            "level": 0,
+            "title": "✍️技术栈",
+            "anchor": "#16361ae8_1821"
+        },
+        {
+            "id": "maven",
+            "level": 0,
+            "title": "🕸️Maven中央仓库坐标",
+            "anchor": "#maven"
+        }
+    ]</script>
+    <script id="topic-shortcuts" type="application/json"></script>
+    <link href="https://resources.jetbrains.com/writerside/apidoc/6.1.5-b176/app.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png">
+    <link rel="manifest" href="https://jetbrains.com/site.webmanifest">
+    <link rel="mask-icon" href="https://jetbrains.com/safari-pinned-tab.svg" color="#000000">
+    <meta name="msapplication-TileColor" content="#000000"/>
+    <meta name="msapplication-TileImage"
+          content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"/>
+    <meta name="msapplication-square70x70logo"
+          content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"/>
+    <meta name="msapplication-square150x150logo"
+          content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"/>
+    <meta name="msapplication-wide310x150logo"
+          content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"/>
+    <meta name="msapplication-square310x310logo"
+          content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"/>
+    <meta name="image" content=""><!-- Open Graph -->
+    <meta property="og:title" content="快速集成 | wecom"/>
+    <meta property="og:description" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:site_name" content="wecom Help"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:url" content="/1.2.2/starter.html"/><!-- End Open Graph --><!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:title" content="快速集成 | wecom">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage -->
+    <script type="application/ld+json"> {
+        "@context": "http://schema.org",
+        "@type": "WebPage",
+        "@id": "/1.2.2/starter.html#webpage",
+        "url": "/1.2.2/starter.html",
+        "name": "快速集成 | wecom",
+        "description": "",
+        "image": "",
+        "inLanguage": "en-US"
+    }</script><!-- End Schema.org --><!-- Schema.org WebSite -->
+    <script type="application/ld+json"> {
+        "@type": "WebSite",
+        "@id": "/#website",
+        "url": "/",
+        "name": "wecom Help"
+    }</script><!-- End Schema.org --> <!-- Mermaid light/dark themes -->
+    <link rel="stylesheet" type="text/css" href="mermaid.css">
+</head>
+<body data-id="Starter" data-main-title="快速集成" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}"
+      data-template="article" data-breadcrumbs="">
+<div class="wrapper">
+    <main class="panel _main">
+        <header class="panel__header">
+            <div class="container"><h3>wecom 1.2.2 Help</h3>
+                <div class="panel-trigger"></div>
+            </div>
+        </header>
+        <section class="panel__content">
+            <div class="container">
+                <article class="article" data-shortcut-switcher="inactive"><h1 data-toc="Starter" id="Starter.md">
+                    快速集成</h1>
+                    <p id="16361ae8_1816">目前Wecom集成起来非常简单，并且已经同Spring生态解耦，适用于各种Java生态。</p>
+                    <aside class="prompt" data-type="note" data-title="" id="16361ae8_1817"><p id="16361ae8_1818"><span
+                            class="control" id="16361ae8_1819">注意</span></p>
+                        <p id="16361ae8_1820">经过测试目前wecom-sdk在*Spring Boot
+                            2.5+*以上运行良好，低版本需要自行修改源码兼容。</p></aside>
+                    <section class="chapter"><h2 id="16361ae8_1821" data-toc="16361ae8_1821">✍️技术栈</h2>
+                        <ul class="list _ul" id="16361ae8_1822">
+                            <li class="list__item" id="16361ae8_1823"><p>Retrofit2，支持最高版本号<code class="code"
+                                                                                                       id="16361ae8_1824">2.9.0</code>
+                            </p></li>
+                            <li class="list__item" id="16361ae8_1825"><p>OkHttp4，支持最高版本号<code class="code"
+                                                                                                     id="16361ae8_1826">4.11.0</code>
+                            </p></li>
+                            <li class="list__item" id="16361ae8_1827"><p>Rxjava3，支持最高版本号<code class="code"
+                                                                                                     id="16361ae8_1828">3.0.0</code>
+                            </p></li>
+                            <li class="list__item" id="16361ae8_1829"><p>Jackson2，支持最高版本号<code class="code"
+                                                                                                      id="16361ae8_1830">2.15.2</code>
+                            </p></li>
+                            <li class="list__item" id="16361ae8_1831"><p>XStream，支持最高版本号<code class="code"
+                                                                                                     id="16361ae8_1832">1.4.20</code>
+                            </p></li>
+                        </ul>
+                    </section>
+                    <section class="chapter"><h2 id="maven" data-toc="maven">🕸️Maven中央仓库坐标</h2>
+                        <div class="tabs" id="16361ae8_1833">
+                            <div class="tabs__content" data-gtm="tab" id="16361ae8_1834" data-title="普通版本">
+                                <div class="code-block" data-lang="markup" data-title="XML">
+
+                                    &lt;dependency&gt;
+                                    &lt;groupId&gt;cn.felord&lt;/groupId&gt;
+                                    &lt;artifactId&gt;wecom-sdk&lt;/artifactId&gt;
+                                    &lt;version&gt;1.2.2&lt;/version&gt;
+                                    &lt;/dependency&gt;
+
+                                </div>
+                            </div>
+                            <div class="tabs__content" data-gtm="tab" id="16361ae8_1836" data-title="rxjava版本">
+                                <div class="code-block" data-lang="markup" data-title="XML">
+
+                                    &lt;dependency&gt;
+                                    &lt;groupId&gt;cn.felord&lt;/groupId&gt;
+                                    &lt;artifactId&gt;rx-wecom-sdk&lt;/artifactId&gt;
+                                    &lt;version&gt;1.2.2&lt;/version&gt;
+                                    &lt;/dependency&gt;
+                                </div>
+                            </div>
+                        </div>
+                        <aside class="prompt" data-type="note" data-title="" id="16361ae8_1838"><p>
+                            通常情况下使用普通版本即可，rxjava版本仅用于开发响应式应用，开发者可根据实际情况进行选择。</p>
+                        </aside>
+                    </section>
+                    <div class="last-modified"> Last modified: 20 十月 2023</div>
+                    <div data-feedback-placeholder="true"></div>
+                    <div class="navigation-links _bottom"><a class="navigation-links__prev"
+                                                             href="overview.html">概述</a> <a
+                            class="navigation-links__next" href="reference.html">概念参考</a></div>
+                </article>
+                <div id="disqus_thread"></div>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="https://resources.jetbrains.com/writerside/apidoc/6.1.5-b176/app.js"></script>
+</body>
+</html>

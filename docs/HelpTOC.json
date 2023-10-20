@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "pages": {
+      "Overview": {
+        "id": "Overview",
+        "title": "概述",
+        "url": "overview.html",
+        "level": 0,
+        "tabIndex": 0
+      },
+      "Starter": {
+        "id": "Starter",
+        "title": "快速集成",
+        "url": "starter.html",
+        "level": 0,
+        "tabIndex": 1
+      },
+      "Reference": {
+        "id": "Reference",
+        "title": "概念参考",
+        "url": "reference.html",
+        "level": 0,
+        "tabIndex": 2
+      },
+      "How-to": {
+        "id": "How-to",
+        "title": "示例",
+        "url": "how-to.html",
+        "level": 0,
+        "tabIndex": 3
+      }
+    }
+  },
+  "topLevelIds": [
+    "Overview",
+    "Starter",
+    "Reference",
+    "How-to"
+  ]
+}
