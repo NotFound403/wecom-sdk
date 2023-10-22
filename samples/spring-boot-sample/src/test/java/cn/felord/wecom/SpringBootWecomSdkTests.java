@@ -92,11 +92,14 @@ import cn.felord.domain.webhook.WebhookBody;
 import cn.felord.domain.webhook.WebhookImageBody;
 import cn.felord.domain.webhook.WebhookMarkdownBody;
 import cn.felord.domain.webhook.WebhookNewsBody;
+import cn.felord.domain.webhook.WebhookTemplateCardBody;
 import cn.felord.domain.webhook.WebhookTextBody;
 import cn.felord.domain.webhook.card.AtStaffHorizontalContent;
 import cn.felord.domain.webhook.card.CardSource;
+import cn.felord.domain.webhook.card.EmphasisContent;
 import cn.felord.domain.webhook.card.MainTitle;
 import cn.felord.domain.webhook.card.TextHorizontalContent;
+import cn.felord.domain.webhook.card.TextTemplateCard;
 import cn.felord.domain.webhook.card.UrlCardAction;
 import cn.felord.domain.webhook.card.UrlJump;
 import cn.felord.domain.wedoc.form.AnswerReplyItem;
@@ -174,6 +177,23 @@ class SpringBootWecomSdkTests {
         String path = "C:\\Users\\Administrator\\Desktop\\0.png";
         InputStream inputStream = Files.newInputStream(Paths.get(path));
         WebhookBody imageBody2 = WebhookImageBody.from(inputStream);
+
+        //  99e24d3f-53ce-43f0-bafc-c5f04d8f3920
+        MainTitle mainTitle = new MainTitle("欢迎使用wecom-sdk", "最优雅的企业微信Java SDK");
+        UrlCardAction cardAction = new UrlCardAction("https://gitee.com/felord/wecom-sdk");
+        EmphasisContent emphasisContent = new EmphasisContent();
+        emphasisContent.setTitle("197");
+        emphasisContent.setDesc("Gitee Star");
+        CardSource source = new CardSource();
+        source.setIconUrl("https://wework.qpic.cn/wwpic/252813_jOfDHtcISzuodLa_1629280209/0");
+        source.setDesc("WECOM");
+        source.setDescColor(CardSource.DescColor.GREY);
+        TextTemplateCard textTemplateCard = new TextTemplateCard(mainTitle, cardAction)
+                .emphasisContent(emphasisContent)
+                .source(source)
+                .jumpList(Collections.singletonList(new UrlJump("wecom文档", "https://felord.cn/wecom")));
+        WebhookTemplateCardBody textCardBody = WebhookTemplateCardBody.from(textTemplateCard);
+
         WeComResponse weComResponse = WorkWeChatApi.webhookApi().send("机器人key", markdownBody);
         Assertions.assertTrue(weComResponse.isSuccessful());
     }

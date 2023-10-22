@@ -121,64 +121,13 @@ void webHooks()throws IOException{
 
 ## 📚入门
 
-**Spring Boot 示例**
-参见 [samples/spring-boot-sample](https://gitee.com/felord/wecom-sdk/tree/release/samples/spring-boot-sample)。
-> 相关概念请参考[QUICKSTART](QUICKSTART.md)
+中文文档：[https://felord.cn/wecom/overview.html](https://felord.cn/wecom/overview.html)
 
 ## 📱微信扫码加入交流群
 
 <div align="center" style="margin-bottom: 10px">
     <img src="contact_me_qr.png" height="30%" width="30%" alt="微信扫码入群"/>
 </div>
-
-## 🏗️API实现进度
-
-进度说明：
-
-- [x] 已全部实现
-- [ ] 未实现或者部分实现
-
-### 基础
-
-- [x] 账号ID
-- [x] 通讯录管理
-- [x] 身份验证
-- [x] 企业互联
-- [x] 上下游
-- [x] 安全管理
-- [x] 消息推送
-- [x] 应用管理
-- [x] 素材管理
-- [x] 电子发票
-
-### 连接微信
-
-- [x] 客户联系
-- [x] 微信客服
-- [x] 企业支付
-- [x] 小程序接入对外收款
-- [ ] 会话内容存档
-- [ ] 家校沟通
-- [ ] 家校应用
-- [ ] 政民沟通
-
-### 办公
-
-- [ ] 邮件
-- [ ] 文档
-  - [ ] 编辑文档
-  - [ ] 获取文档数据
-- [x] 日程
-- [ ] 会议
-- [ ] 微盘
-- [ ] 直播
-- [x] 公费电话
-- [x] 打卡
-- [x] 审批
-- [x] 汇报
-- [x] 人事助手
-- [ ] 会议室
-- [x] 紧急通知应用
 
 ## 🎉特别鸣谢
 
