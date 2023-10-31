@@ -17,11 +17,13 @@ package cn.felord.domain.message;
 
 import cn.felord.enumeration.BoolEnum;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author felord
  * @since 2021/11/22 17:22
  */
+@ToString
 @Getter
 public class NewsMessageBody extends AbstractMessageBody {
     private final MessageNews<NewsArticle> news;

@@ -18,11 +18,13 @@ package cn.felord.domain.message;
 import cn.felord.domain.externalcontact.ContentText;
 import cn.felord.enumeration.BoolEnum;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author felord
  * @since 2021/11/22 16:07
  */
+@ToString
 @Getter
 public class MarkdownMessageBody extends AbstractMessageBody {
     private final ContentText markdown;

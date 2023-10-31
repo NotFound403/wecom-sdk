@@ -19,11 +19,13 @@ import cn.felord.domain.externalcontact.ContentText;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.MessageSafe;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author felord
  * @since 2021/11/22 16:07
  */
+@ToString
 @Getter
 public class TextMessageBody extends AbstractMessageBody {
 

@@ -18,11 +18,13 @@ package cn.felord.domain.message;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.MessageSafe;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author felord
  * @since 2021/11/22 17:22
  */
+@ToString
 @Getter
 public class MpNewsMessageBody extends AbstractMessageBody {
     private final MessageNews<MpNewsArticle> mpnews;
