@@ -27,6 +27,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
+import java.util.List;
+
 /**
  * 通讯录管理-标签管理
  * <p>
@@ -104,5 +106,5 @@ public interface TagApi {
      * @throws WeComException the weComException
      */
     @GET("tag/list")
-    GenericResponse<Tag> getTags() throws WeComException;
+    GenericResponse<List<Tag>> getTags() throws WeComException;
 }

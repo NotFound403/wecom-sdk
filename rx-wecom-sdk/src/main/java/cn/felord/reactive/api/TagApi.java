@@ -27,6 +27,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
+import java.util.List;
+
 /**
  * 通讯录管理-标签管理
  * <p>
@@ -97,5 +99,5 @@ public interface TagApi {
      * @return UserInfoResponse tags
      */
     @GET("tag/list")
-    Single<GenericResponse<Tag>> getTags();
+    Single<GenericResponse<List<Tag>>> getTags();
 }
