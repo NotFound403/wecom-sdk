@@ -90,7 +90,7 @@ void webHooks()throws IOException{
 ## ✍️技术栈
 
 - Retrofit2，支持最高版本号`2.9.0`
-- OkHttp4，支持最高版本号`4.11.0`
+- OkHttp4，支持最高版本号`4.12.0`
 - Rxjava3，支持最高版本号`3.0.0`
 - Jackson2，支持最高版本号`2.15.2`
 - XStream，支持最高版本号`1.4.20`
