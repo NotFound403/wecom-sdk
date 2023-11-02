@@ -29,3 +29,4 @@ jobs:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USER }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.OSSRH_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSWORD }}
+          MAVEN_OPTS: '-Xmx1024m -Xss128m'
