@@ -148,8 +148,10 @@ public enum CallbackEvent {
      * 上下游变更
      */
     CHANGE_CHAIN("change_chain"),
-
-    ;
+    /**
+     * 修改设置工作台自定义开关事件推送
+     */
+    SWITCH_WORKBENCH_MODE("switch_workbench_mode");
 
     private final String type;
 

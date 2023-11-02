@@ -17,6 +17,7 @@ package cn.felord.domain.message;
 
 import cn.felord.enumeration.BoolEnum;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * The type Miniprogram message body.
@@ -24,6 +25,7 @@ import lombok.Getter;
  * @author felord
  * @since 2021 /11/22 16:07
  */
+@ToString
 @Getter
 public class MiniprogramMessageBody extends AbstractMessageBody {
 

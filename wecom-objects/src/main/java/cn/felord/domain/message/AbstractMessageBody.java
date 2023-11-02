@@ -18,6 +18,7 @@ package cn.felord.domain.message;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.MessageSafe;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * The type Message body.
@@ -25,6 +26,7 @@ import lombok.Getter;
  * @author felord
  * @since 2021 /11/22 16:01
  */
+@ToString
 @Getter
 public abstract class AbstractMessageBody {
     private final String msgtype;

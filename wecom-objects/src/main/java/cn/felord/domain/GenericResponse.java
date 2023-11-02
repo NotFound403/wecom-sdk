@@ -30,6 +30,7 @@ import lombok.EqualsAndHashCode;
 public class GenericResponse<T> extends WeComResponse {
     @JsonAlias({"openid",
             "id",
+            "button",
             "userid",
             "join_qrcode",
             "userlist",

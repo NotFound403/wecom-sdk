@@ -65,25 +65,25 @@ public class TextTemplateCard extends TemplateCard {
     }
 
     @Override
-    public TemplateCard source(CardSource source) {
+    public TextTemplateCard source(CardSource source) {
         super.source(source);
         return this;
     }
 
     @Override
-    public TemplateCard quoteArea(QuoteArea quoteArea) {
+    public TextTemplateCard quoteArea(QuoteArea quoteArea) {
         super.quoteArea(quoteArea);
         return this;
     }
 
     @Override
-    public TemplateCard horizontalContentList(List<? extends HorizontalContent> horizontalContentList) {
+    public TextTemplateCard horizontalContentList(List<? extends HorizontalContent> horizontalContentList) {
         super.horizontalContentList(horizontalContentList);
         return this;
     }
 
     @Override
-    public TemplateCard jumpList(List<? extends Jump> jumpList) {
+    public TextTemplateCard jumpList(List<? extends Jump> jumpList) {
         super.jumpList(jumpList);
         return this;
     }

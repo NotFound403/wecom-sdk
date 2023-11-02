@@ -18,11 +18,13 @@ package cn.felord.domain.message;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.MessageSafe;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author felord
  * @since 2021/11/22 16:07
  */
+@ToString
 @Getter
 public class VideoMessageBody extends AbstractMessageBody {
     private final MessageVideo video;

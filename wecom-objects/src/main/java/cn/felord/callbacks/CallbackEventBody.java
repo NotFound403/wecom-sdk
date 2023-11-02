@@ -261,4 +261,7 @@ public class CallbackEventBody implements XmlEntity {
     private String summary;
     private TransactionCallbackData transactionCallbackData;
     private RefundCallbackData refundCallbackData;
+
+    @XStreamAlias("Mode")
+    private Integer mode;
 }

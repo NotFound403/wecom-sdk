@@ -19,11 +19,13 @@ import cn.felord.domain.common.MediaId;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.MessageSafe;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author felord
  * @since 2021/11/22 16:07
  */
+@ToString
 @Getter
 public class ImageMessageBody extends AbstractMessageBody {
     private final MediaId image;

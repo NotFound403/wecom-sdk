@@ -17,6 +17,7 @@ package cn.felord.domain.message;
 
 import cn.felord.enumeration.BoolEnum;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 模板卡片
@@ -26,6 +27,7 @@ import lombok.Getter;
  * @see TemplateCardBuilders
  * @since 2021 /11/22 16:07
  */
+@ToString
 @Getter
 public class TemplateCardMessageBody<M extends AbstractCard> extends AbstractMessageBody {
     private final M templateCard;

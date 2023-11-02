@@ -68,25 +68,25 @@ public class NewsTemplateCard extends TemplateCard {
     }
 
     @Override
-    public TemplateCard source(CardSource source) {
+    public NewsTemplateCard source(CardSource source) {
         super.source(source);
         return this;
     }
 
     @Override
-    public TemplateCard quoteArea(QuoteArea quoteArea) {
+    public NewsTemplateCard quoteArea(QuoteArea quoteArea) {
         super.quoteArea(quoteArea);
         return this;
     }
 
     @Override
-    public TemplateCard horizontalContentList(List<? extends HorizontalContent> horizontalContentList) {
+    public NewsTemplateCard horizontalContentList(List<? extends HorizontalContent> horizontalContentList) {
         super.horizontalContentList(horizontalContentList);
         return this;
     }
 
     @Override
-    public TemplateCard jumpList(List<? extends Jump> jumpList) {
+    public NewsTemplateCard jumpList(List<? extends Jump> jumpList) {
         super.jumpList(jumpList);
         return this;
     }
