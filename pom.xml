@@ -21,7 +21,7 @@
 
     <groupId>cn.felord</groupId>
     <artifactId>wecom</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <packaging>pom</packaging>
 
     <name>wecom</name>
@@ -107,7 +107,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <retrofit.version>2.9.0</retrofit.version>
-        <okhttp3.version>4.11.0</okhttp3.version>
+        <okhttp3.version>4.12.0</okhttp3.version>
         <jackson.version>2.15.2</jackson.version>
         <xstream.version>1.4.20</xstream.version>
         <jose.version>9.36</jose.version>

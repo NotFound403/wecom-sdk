@@ -104,7 +104,7 @@ void webHooks()throws IOException{
 <dependency>
     <groupId>cn.felord</groupId>
     <artifactId>wecom-sdk</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
 </dependency>
 ```
 
@@ -115,11 +115,11 @@ void webHooks()throws IOException{
 <dependency>
     <groupId>cn.felord</groupId>
     <artifactId>rx-wecom-sdk</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
 </dependency>
 ```
 
-## 📚入门
+## 📚文档
 
 中文文档：[https://felord.cn/wecom/overview.html](https://felord.cn/wecom/overview.html)
 
