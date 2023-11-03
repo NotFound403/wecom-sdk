@@ -17,7 +17,11 @@ package cn.felord.api;
 
 import cn.felord.WeComException;
 import cn.felord.domain.authentication.JsTicketResponse;
+import cn.felord.domain.jssdk.LaunchCodeRequest;
+import cn.felord.domain.jssdk.LaunchCodeResponse;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -46,4 +50,14 @@ interface JsApi {
      */
     @GET("ticket/get")
     JsTicketResponse agentJsApiTicket(@Query("type") String agentConfig) throws WeComException;
+
+    /**
+     * 获取launch_code
+     *
+     * @param request the request
+     * @return the js ticket response
+     * @throws WeComException the we com exception
+     */
+    @POST("get_launch_code")
+    LaunchCodeResponse getLaunchCode(@Body LaunchCodeRequest request) throws WeComException;
 }

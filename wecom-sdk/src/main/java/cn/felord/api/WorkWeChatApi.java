@@ -177,14 +177,14 @@ public final class WorkWeChatApi {
     }
 
     /**
-     * SDK ticket相关接口
+     * JS SDK 相关接口
      *
      * @param agentDetails the agent details
      * @return the sdk ticket api
      */
-    public SdkTicketApi sdkTicketApi(AgentDetails agentDetails) {
+    public JsSdkApi JsSdkApi(AgentDetails agentDetails) {
         AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
-        return new SdkTicketApi(WorkWeChatApiClient.init(tokenApi, connectionPool, level), weComTokenCacheable);
+        return new JsSdkApi(WorkWeChatApiClient.init(tokenApi, connectionPool, level), weComTokenCacheable);
     }
 
     /**

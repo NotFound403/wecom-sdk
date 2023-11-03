@@ -16,8 +16,12 @@
 package cn.felord.reactive.api;
 
 import cn.felord.domain.authentication.JsTicketResponse;
+import cn.felord.domain.jssdk.LaunchCodeRequest;
+import cn.felord.domain.jssdk.LaunchCodeResponse;
 import io.reactivex.rxjava3.core.Single;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -44,4 +48,13 @@ interface JsApi {
      */
     @GET("ticket/get")
     Single<JsTicketResponse> agentJsApiTicket(@Query("type") String agentConfig);
+
+    /**
+     * 获取launch_code
+     *
+     * @param request the request
+     * @return the js ticket response
+     */
+    @POST("get_launch_code")
+    Single<LaunchCodeResponse> getLaunchCode(@Body LaunchCodeRequest request);
 }
