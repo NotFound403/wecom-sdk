@@ -21,15 +21,36 @@ import java.time.Instant;
 import java.util.List;
 
 /**
+ * 标签组
+ *
  * @author dax
  * @since 2021/7/12 16:50
  */
 @Data
 public class CorpTagGroup {
+
+    /**
+     * 标签组id
+     */
     private String groupId;
+    /**
+     * 标签组名称
+     */
     private String groupName;
+    /**
+     * 标签组创建时间
+     */
     private Instant createTime;
+    /**
+     * 标签组排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
+     */
     private Long order;
+    /**
+     * 标签组是否已经被删除，只在指定tag_id进行查询时返回
+     */
     private Boolean deleted;
+    /**
+     * 标签组内的标签列表
+     */
     private List<CorpTag> tag;
 }

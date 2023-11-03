@@ -16,18 +16,37 @@
 package cn.felord.domain.externalcontact;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import java.time.Instant;
 
 /**
+ * 企业标签
+ *
  * @author dax
  * @since 2021/7/12 16:52
  */
 @Data
 public class CorpTag {
+    /**
+     * 标签id
+     */
     private String id;
+    /**
+     * 标签名称
+     */
     private String name;
+    /**
+     * 标签创建时间
+     */
     private Instant createTime;
+    /**
+     * 签排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
+     */
     private Long order;
+    /**
+     * 标签是否已经被删除，只在指定tag_id/group_id进行查询时返回
+     */
+    @NonNull
     private Boolean deleted;
 }
