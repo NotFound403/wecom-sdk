@@ -32,7 +32,7 @@ public enum ApprovalCtrlType {
      */
     TEXT("Text"),
     /**
-     * 多行文本
+     * 多行文本（富文本）
      */
     TEXTAREA("Textarea"),
     /**
@@ -76,7 +76,7 @@ public enum ApprovalCtrlType {
      */
     VACATION("Vacation"),
     /**
-     * 位置
+     * 位置控件
      */
     LOCATION("Location"),
     /**
@@ -84,25 +84,25 @@ public enum ApprovalCtrlType {
      */
     RELATED_APPROVAL("RelatedApproval"),
     /**
-     * 公式
+     * 公式控件
      */
     FORMULA("Formula"),
     /**
-     * 手机号
+     * 手机号控件
      */
     PHONE_NUMBER("PhoneNumber"),
     /**
-     * 时长
+     * 时长控件
      */
     DATE_RANGE("DateRange"),
     /**
-     * 文档，汇报API用
+     * 文档控件，汇报API用
      *
      * @since 1.2.2
      */
     DOC("Doc"),
     /**
-     * 微盘附件，汇报API用
+     * 微盘附件控件，汇报API用
      *
      * @since 1.2.2
      */

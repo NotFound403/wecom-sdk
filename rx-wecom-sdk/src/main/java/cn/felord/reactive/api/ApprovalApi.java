@@ -84,6 +84,8 @@ public interface ApprovalApi {
 
     /**
      * 提交审批申请
+     * <p>
+     * 暂不支持通过接口提交[打卡补卡][调班]模板审批单
      *
      * @param request the request
      * @return the generic response

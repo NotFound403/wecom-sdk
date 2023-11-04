@@ -16,17 +16,33 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.ApprovalCtrlType;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * ApprovalContentData
  *
+ * @param <V> the type parameter
  * @author dax
- * @since 2023/5/26
+ * @since 2023 /5/26
  */
-@Data
+@ToString
+@Getter
 public class ApprovalContentData<V extends ContentDataValue> {
     private final ApprovalCtrlType control;
     private final String id;
     private final V value;
+
+    /**
+     * Instantiates a new Approval content data.
+     *
+     * @param control the control
+     * @param id      the id
+     * @param value   the value
+     */
+    ApprovalContentData(ApprovalCtrlType control, String id, V value) {
+        this.control = control;
+        this.id = id;
+        this.value = value;
+    }
 }

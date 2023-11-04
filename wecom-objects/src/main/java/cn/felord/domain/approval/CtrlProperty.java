@@ -61,7 +61,7 @@ public class CtrlProperty {
      * @param value the value
      * @return the approval content data
      */
-    public <V extends ContentDataValue> ApprovalContentData<V> toData(V value) {
-        return new ApprovalContentData<>(this.getControl(), this.getId(), value);
+    <V extends ContentDataValue> ApprovalContentData<V> toData(V value) {
+        return new ApprovalContentData<>(this.control, this.id, value);
     }
 }

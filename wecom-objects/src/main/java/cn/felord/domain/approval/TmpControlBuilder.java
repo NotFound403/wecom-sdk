@@ -52,7 +52,7 @@ public final class TmpControlBuilder<C extends ControlConfig> {
     }
 
     /**
-     * Placeholder tmp control builder.
+     * 提示语
      *
      * @param placeholder the placeholder
      * @return the tmp control builder
@@ -63,7 +63,7 @@ public final class TmpControlBuilder<C extends ControlConfig> {
     }
 
     /**
-     * Require tmp control builder.
+     * 是否必填
      *
      * @param require the require
      * @return the tmp control builder
@@ -74,7 +74,7 @@ public final class TmpControlBuilder<C extends ControlConfig> {
     }
 
     /**
-     * Un print tmp control builder.
+     * 是否不打印
      *
      * @param unPrint the un print
      * @return the tmp control builder
@@ -85,177 +85,193 @@ public final class TmpControlBuilder<C extends ControlConfig> {
     }
 
     /**
-     * Text tmp control builder.
+     * 文本控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see TextValue
      */
     public static TmpControlBuilder<EmptyConfig> text(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TEXT, title);
     }
 
     /**
-     * Textarea tmp control builder.
+     * 富文本控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see TextValue
      */
     public static TmpControlBuilder<EmptyConfig> textarea(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TEXTAREA, title);
     }
 
     /**
-     * Number tmp control builder.
+     * 数字控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see NumberValue
      */
     public static TmpControlBuilder<EmptyConfig> number(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.NUMBER, title);
     }
 
     /**
-     * Money tmp control builder.
+     * 货币控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see MoneyValue
      */
     public static TmpControlBuilder<EmptyConfig> money(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.MONEY, title);
     }
 
     /**
-     * Date tmp control builder.
+     * 日期事件控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see DateValue
      */
     public static TmpControlBuilder<DateConfig> date(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.DATE, title);
     }
 
     /**
-     * Selector tmp control builder.
+     * 单选、多选控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see SelectorValue
      */
     public static TmpControlBuilder<SelectorConfig> selector(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.SELECTOR, title);
     }
 
     /**
-     * Contact tmp control builder.
+     * 成员、部门控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see ContactValue
      */
     public static TmpControlBuilder<ContactConfig> contact(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.CONTACT, title);
     }
 
     /**
-     * Tips tmp control builder.
+     * Tips控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see TextValue
      */
     public static TmpControlBuilder<EmptyConfig> tips(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TIPS, title);
     }
 
     /**
-     * File tmp control builder.
+     * 文件控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see FileValue
      */
     public static TmpControlBuilder<FileConfig> file(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.FILE, title);
     }
 
     /**
-     * Table tmp control builder.
+     * 明细控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see TableValue
      */
     public static TmpControlBuilder<TableConfig> table(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TABLE, title);
     }
 
     /**
-     * Attendance tmp control builder.
+     * 假勤控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see AttendanceValue
      */
     public static TmpControlBuilder<AttendanceConfig> attendance(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.ATTENDANCE, title);
     }
 
     /**
-     * Vacation tmp control builder.
+     * 请假控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see VacationValue
      */
     public static TmpControlBuilder<VacationConfig> vacation(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.VACATION, title);
     }
 
     /**
-     * Location tmp control builder.
+     * 位置控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see LocationValue
      */
     public static TmpControlBuilder<LocationConfig> location(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.LOCATION, title);
     }
 
     /**
-     * Related approval tmp control builder.
+     * 关联审批单控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see RelatedApprovalValue
      */
     public static TmpControlBuilder<RelatedApprovalConfig> relatedApproval(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.RELATED_APPROVAL, title);
     }
 
     /**
-     * Formula tmp control builder.
+     * 公式控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see FormulaValue
      */
     public static TmpControlBuilder<FormulaConfig> formula(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.FORMULA, title);
     }
 
     /**
-     * Phone number tmp control builder.
+     * 手机号控件
      *
      * @param title the title
      * @return tmp control builder
      */
     public static TmpControlBuilder<EmptyConfig> phoneNumber(String title) {
-        return new TmpControlBuilder<>(ApprovalCtrlType.TEXT, title);
+        return new TmpControlBuilder<>(ApprovalCtrlType.PHONE_NUMBER, title);
     }
 
     /**
-     * Date range tmp control builder.
+     * 时长控件
      *
      * @param title the title
      * @return the tmp control builder
+     * @see DateRangeValue
      */
     public static TmpControlBuilder<DateRangeConfig> dateRange(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.DATE_RANGE, title);
     }
 
     /**
-     * Init empty config ctrl tmp control.
+     * 构建审批表单组件
      *
      * @param config the config
      * @return the tmp control
