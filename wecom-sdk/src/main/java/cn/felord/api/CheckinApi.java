@@ -21,6 +21,7 @@ import cn.felord.domain.checkin.CheckinDataRequest;
 import cn.felord.domain.checkin.CheckinDataResponse;
 import cn.felord.domain.checkin.CheckinDayData;
 import cn.felord.domain.checkin.CheckinMonthData;
+import cn.felord.domain.checkin.CheckinOptionRequest;
 import cn.felord.domain.checkin.CheckinOptionResponse;
 import cn.felord.domain.checkin.CheckinQueryRequest;
 import cn.felord.domain.checkin.CheckinStatisticsResponse;
@@ -67,6 +68,30 @@ public interface CheckinApi {
      */
     @POST("checkin/getcheckinoption")
     UserCheckinOptionResponse getCheckinOption(@Body UserCheckinOptionRequest request) throws WeComException;
+
+    /**
+     * 创建打卡规则
+     * <p>
+     * 企业可通过打卡应用或授权的代开发应用，为企业添加打卡规则。
+     *
+     * @param request the request
+     * @return the user checkin option response
+     * @throws WeComException the weComException
+     */
+    @POST("checkin/add_checkin_option")
+    WeComResponse addCheckinOption(@Body CheckinOptionRequest request) throws WeComException;
+
+    /**
+     * 修改打卡规则
+     * <p>
+     * 企业可通过打卡应用或授权的代开发应用，修改该应用为企业创建的打卡规则。
+     *
+     * @param request the request
+     * @return the we com response
+     * @throws WeComException the weComException
+     */
+    @POST("checkin/update_checkin_option")
+    WeComResponse updateCheckinOption(@Body CheckinOptionRequest request) throws WeComException;
 
     /**
      * 清空打卡规则数组元素
