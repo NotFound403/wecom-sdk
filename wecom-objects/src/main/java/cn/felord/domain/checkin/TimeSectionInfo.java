@@ -19,11 +19,30 @@ import lombok.Data;
 
 import java.time.Duration;
 
+/**
+ * @author dax
+ * @since 2023/9/26
+ */
 @Data
-public class TimeSectionItem {
+public class TimeSectionInfo {
+    /**
+     * 时段id，为班次中某一堆上下班时间组合的id
+     */
     private Integer id;
+    /**
+     * 上班提醒时间。距当天00:00的秒数
+     */
     private Duration remindWorkSec;
+    /**
+     * 下班时间。距当天00:00的秒数
+     */
     private Duration offWorkSec;
+    /**
+     * 上班时间。距当天00:00的秒数
+     */
     private Duration workSec;
+    /**
+     * 下班提醒时间。距当天00:00的秒数
+     */
     private Duration remindOffWorkSec;
 }

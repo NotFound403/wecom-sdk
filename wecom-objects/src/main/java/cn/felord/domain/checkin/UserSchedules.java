@@ -19,6 +19,10 @@ import lombok.Data;
 
 import java.time.YearMonth;
 
+/**
+ * @author dax
+ * @since 2023/9/26
+ */
 @Data
 public class UserSchedules {
     /**

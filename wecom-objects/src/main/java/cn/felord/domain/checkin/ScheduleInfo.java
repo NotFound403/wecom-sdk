@@ -19,12 +19,16 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author dax
+ * @since 2023/9/26
+ */
 @Data
 public class ScheduleInfo {
     /**
      * 班次上下班时段信息
      */
-    private List<TimeSectionItem> timeSection;
+    private List<TimeSectionInfo> timeSection;
     /**
      * 当日安排班次id，班次id也可在打卡规则中查询获得
      */
