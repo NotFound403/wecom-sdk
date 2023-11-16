@@ -32,7 +32,7 @@ public final class WecomUserAgent {
      * UserAgent
      */
     public static final String WECOM_USER_AGENT = "Wecom/" + VERSION + Optional.ofNullable(System.getProperty("java.version"))
-            .map(javaVersion -> "/Java/" + javaVersion)
+            .map(javaVersion -> " Java/" + javaVersion)
             .orElse("");
 
     private WecomUserAgent() {
