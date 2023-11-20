@@ -19,26 +19,27 @@ import lombok.Data;
 
 import java.time.Duration;
 
+/**
+ * @author dax
+ * @since 2023/9/26
+ */
 @Data
-public class SummaryInfo {
+public class MonthSummaryInfo {
     /**
-     * 当日打卡次数
+     * 异常天数
      */
-    private Integer checkinCount;
+    private Integer exceptDays;
     /**
-     * 当日实际工作时长，单位：秒
+     * 实际工作时长，为统计周期每日实际工作时长之和，单位：秒
      */
     private Duration regularWorkSec;
     /**
-     * 当日标准工作时长，单位：秒
+     * 标准工作时长，为统计周期每日标准工作时长之和，单位：秒
      */
     private Duration standardWorkSec;
     /**
-     * 当日最早打卡时间，距离0点
+     * 应打卡天数
      */
-    private Duration earliestTime;
-    /**
-     * 当日最晚打卡时间，距离0点
-     */
-    private Duration lastestTime;
+    private Integer workDays;
+
 }

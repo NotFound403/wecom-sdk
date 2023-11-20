@@ -13,28 +13,36 @@
  *  limitations under the License.
  */
 
-package cn.felord.retrofit;
+package cn.felord.domain.checkin;
 
-import java.util.Optional;
+import lombok.Data;
+
+import java.time.Duration;
 
 /**
- * The type Wecom user agent.
- *
  * @author dax
- * @since 2023 /10/13
+ * @since 2023/9/26
  */
-public final class WecomUserAgent {
+@Data
+public class DaySummaryInfo {
     /**
-     * 版本号
+     * 当日打卡次数
      */
-    public static final String VERSION = "1.2.4";
+    private Integer checkinCount;
     /**
-     * UserAgent
+     * 当日实际工作时长，单位：秒
      */
-    public static final String WECOM_USER_AGENT = "Wecom/" + VERSION + Optional.ofNullable(System.getProperty("java.version"))
-            .map(javaVersion -> " Java/" + javaVersion)
-            .orElse("");
-
-    private WecomUserAgent() {
-    }
+    private Duration regularWorkSec;
+    /**
+     * 当日标准工作时长，单位：秒
+     */
+    private Duration standardWorkSec;
+    /**
+     * 当日最早打卡时间，距离0点
+     */
+    private Duration earliestTime;
+    /**
+     * 当日最晚打卡时间，距离0点
+     */
+    private Duration lastestTime;
 }

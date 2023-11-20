@@ -29,4 +29,8 @@ public class CheckinMonthData extends AbstractCheckinData {
      * 加班情况
      */
     private OverworkInfo overworkInfo;
+    /**
+     * 汇总信息
+     */
+    private MonthSummaryInfo summaryInfo;
 }

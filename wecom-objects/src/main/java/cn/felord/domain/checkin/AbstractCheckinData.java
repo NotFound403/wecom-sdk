@@ -41,8 +41,4 @@ public abstract class AbstractCheckinData {
      * 加班信息
      */
     private SpOtInfo otInfo;
-    /**
-     * 汇总信息
-     */
-    private SummaryInfo summaryInfo;
 }

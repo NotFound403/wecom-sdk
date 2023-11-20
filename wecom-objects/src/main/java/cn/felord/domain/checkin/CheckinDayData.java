@@ -28,4 +28,8 @@ public class CheckinDayData extends AbstractCheckinData {
      * 假勤相关信息
      */
     private List<HolidayInfo> holidayInfos;
+    /**
+     * 汇总信息
+     */
+    private DaySummaryInfo daySummaryInfo;
 }
