@@ -17,13 +17,12 @@ package cn.felord.domain.checkin;
 
 import lombok.Data;
 
-import java.time.Duration;
-
+/**
+ * @author dax
+ * @since 2023/11/16
+ */
 @Data
-public class TimeSectionItem {
-    private Integer id;
-    private Duration remindWorkSec;
-    private Duration offWorkSec;
-    private Duration workSec;
-    private Duration remindOffWorkSec;
+public class CheckinOptionRequest {
+    private Boolean effectiveNow;
+    private CheckinGroup group;
 }

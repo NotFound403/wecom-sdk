@@ -15,11 +15,13 @@
 
 package cn.felord.domain.checkin;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 public class CheckinUserSchedule {
+    @JsonProperty("scheduleList")
     private List<UserSchedule> scheduleList;
 }

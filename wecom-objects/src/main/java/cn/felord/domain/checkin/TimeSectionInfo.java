@@ -17,32 +17,32 @@ package cn.felord.domain.checkin;
 
 import lombok.Data;
 
-import java.time.YearMonth;
+import java.time.Duration;
 
 /**
  * @author dax
  * @since 2023/9/26
  */
 @Data
-public class UserSchedules {
+public class TimeSectionInfo {
     /**
-     * 打卡人员userid
+     * 时段id，为班次中某一堆上下班时间组合的id
      */
-    private String userid;
+    private Integer id;
     /**
-     * 排班表月份，格式为年月，如202011
+     * 上班提醒时间。距当天00:00的秒数
      */
-    private YearMonth yearmonth;
+    private Duration remindWorkSec;
     /**
-     * 打卡规则id
+     * 下班时间。距当天00:00的秒数
      */
-    private Integer groupid;
+    private Duration offWorkSec;
     /**
-     * 打卡规则名
+     * 上班时间。距当天00:00的秒数
      */
-    private String groupname;
+    private Duration workSec;
     /**
-     * 个人排班信息
+     * 下班提醒时间。距当天00:00的秒数
      */
-    private CheckinUserSchedule schedule;
+    private Duration remindOffWorkSec;
 }
