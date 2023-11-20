@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Data
 public class TagUserRequest {
-    private Integer tagId;
+    private Integer tagid;
     private List<String> userlist;
     private List<Long> partylist;
 }
