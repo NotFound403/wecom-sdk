@@ -49,8 +49,9 @@ public class PunchCorrectionValue implements ContentDataValue {
      * @param state the state
      * @param time  the time
      */
-    public PunchCorrectionValue(String state, Instant time) {
-        this(new Wrapper(state, time));
+    public PunchCorrectionValue(String state,
+                                Instant time) {
+        this(new Wrapper(state, time, null, null));
     }
 
     /**
@@ -59,19 +60,41 @@ public class PunchCorrectionValue implements ContentDataValue {
     @ToString
     @Getter
     public static class Wrapper {
+        /**
+         * 异常状态说明
+         */
         private final String state;
+        /**
+         * 补卡时间，Unix时间戳
+         */
         private final Instant time;
+        /**
+         * 版本标识，为1的时候为新版补卡，daymonthyear有值
+         */
+        private final Integer version;
+        /**
+         * 补卡日期0点Unix时间戳
+         */
+        private final Instant daymonthyear;
+
 
         /**
          * Instantiates a new Wrapper.
          *
-         * @param state the state
-         * @param time  the time
+         * @param state        the state
+         * @param time         the time
+         * @param version      the version
+         * @param daymonthyear the daymonthyear
          */
         @JsonCreator
-        Wrapper(@JsonProperty("state") String state, @JsonProperty("time") Instant time) {
+        Wrapper(@JsonProperty("state") String state,
+                @JsonProperty("time") Instant time,
+                @JsonProperty("version") Integer version,
+                @JsonProperty("daymonthyear") Instant daymonthyear) {
             this.state = state;
             this.time = time;
+            this.version = version;
+            this.daymonthyear = daymonthyear;
         }
     }
 
