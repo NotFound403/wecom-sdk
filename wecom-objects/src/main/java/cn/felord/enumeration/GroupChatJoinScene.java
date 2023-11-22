@@ -28,15 +28,15 @@ import java.util.Arrays;
  */
 public enum GroupChatJoinScene {
     /**
-     * Direct by member group chat join scene.
+     * 由群成员邀请入群（直接邀请入群）
      */
     DIRECT_BY_MEMBER(1),
     /**
-     * Link by member group chat join scene.
+     * 由群成员邀请入群（通过邀请链接入群）
      */
     LINK_BY_MEMBER(2),
     /**
-     * Qr code group chat join scene.
+     * 通过扫描群二维码入群
      */
     QR_CODE(3);
 

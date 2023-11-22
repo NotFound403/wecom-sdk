@@ -16,8 +16,6 @@
 package cn.felord.domain.externalcontact;
 
 import cn.felord.domain.common.UserId;
-import cn.felord.enumeration.GroupChatJoinScene;
-import cn.felord.enumeration.GroupChatMemberType;
 import lombok.Data;
 
 import java.time.Instant;
@@ -29,24 +27,36 @@ import java.util.List;
  */
 @Data
 public class GroupChatDetail {
+    /**
+     * 客户群ID
+     */
     private String chatId;
+    /**
+     * 群名
+     */
     private String name;
+    /**
+     * 群主ID
+     */
     private String owner;
+    /**
+     * 群的创建时间
+     */
     private Instant createTime;
+    /**
+     * 群公告
+     */
     private String notice;
+    /**
+     * 群成员列表
+     */
     private List<GroupChatMember> memberList;
+    /**
+     * 群管理员列表
+     */
     private List<UserId>  adminList;
-
-
-    @Data
-    public static class GroupChatMember {
-        private String userid;
-        private GroupChatMemberType type;
-        private String unionid;
-        private Instant joinTime;
-        private GroupChatJoinScene joinScene;
-        private UserId invitor;
-        private String groupNickname;
-        private String name;
-    }
+    /**
+     * 当前群成员版本号。可以配合客户群变更事件减少主动调用本接口的次数
+     */
+    private String member_version;
 }

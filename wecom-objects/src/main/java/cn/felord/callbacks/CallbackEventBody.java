@@ -26,13 +26,17 @@ import cn.felord.domain.callback.CallbackSelectedItems;
 import cn.felord.domain.callback.CallbackVideo;
 import cn.felord.domain.callback.CorpIds;
 import cn.felord.domain.callback.GroupIds;
+import cn.felord.domain.callback.Items;
 import cn.felord.domain.common.MediaId;
 import cn.felord.domain.corpay.miniapppay.callback.RefundCallbackData;
 import cn.felord.domain.corpay.miniapppay.callback.TransactionCallbackData;
 import cn.felord.enumeration.CallbackChangeType;
 import cn.felord.enumeration.CallbackEvent;
+import cn.felord.enumeration.ChatGroupJoinScene;
+import cn.felord.enumeration.ChatGroupQuitScene;
 import cn.felord.enumeration.NotifyType;
 import cn.felord.enumeration.PayCallbackEventType;
+import cn.felord.enumeration.UpdateDetailType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Data;
@@ -189,13 +193,25 @@ public class CallbackEventBody implements XmlEntity {
     @XStreamAlias("ChatId")
     private String chatId;
     @XStreamAlias("UpdateDetail")
-    private String updateDetail;
+    private UpdateDetailType updateDetail;
+    /**
+     * TODO 等稳定后用枚举代替
+     *
+     * @see ChatGroupJoinScene
+     */
     @XStreamAlias("JoinScene")
     private Integer joinScene;
     @XStreamAlias("QuitScene")
-    private Integer quitScene;
+    private ChatGroupQuitScene quitScene;
     @XStreamAlias("MemChangeCnt")
     private Integer memChangeCnt;
+    @XStreamAlias("MemChangeList")
+    private Items memChangeList;
+    @XStreamAlias("LastMemVer")
+    private String lastMemVer;
+    @XStreamAlias("CurMemVer")
+    private String curMemVer;
+
     //  tagId -> idOrTagId;
     @XStreamAlias("TagType")
     private String tagType;

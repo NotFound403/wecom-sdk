@@ -15,31 +15,50 @@
 
 package cn.felord.enumeration;
 
+import cn.felord.xml.convert.CallbackNumberEnum;
+import cn.felord.xml.convert.NumberEnumConverter;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 import java.util.Arrays;
 
 /**
- * The GroupChatMemberType
+ * The ChatGroupJoinScene
  *
- * @author dax
- * @since 2021 /9/8 10:47
+ * @author felord
+ * @since 2021 /11/23 17:01
  */
-public enum GroupChatMemberType {
+@XStreamConverter(NumberEnumConverter.class)
+public enum ChatGroupJoinScene implements CallbackNumberEnum {
+
     /**
-     * 企业成员
+     * 由成员邀请入群（包括直接邀请入群和通过邀请链接入群）
      */
-    CORP(1),
+    BY_MEMBER(0),
     /**
-     * 外部联系人
+     * 通过扫描群二维码入群
      */
-    PERSONAL(2);
+    QR_CODE(3);
 
     private final int type;
 
-    GroupChatMemberType(int type) {
+    ChatGroupJoinScene(int type) {
         this.type = type;
+    }
+
+    /**
+     * Deserialize ChatGroupJoinScene.
+     *
+     * @param type the type
+     * @return the button type
+     */
+    @JsonCreator
+    public static ChatGroupJoinScene deserialize(int type) {
+        return Arrays.stream(ChatGroupJoinScene.values())
+                .filter(answerStatus -> answerStatus.type == type)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -51,19 +70,4 @@ public enum GroupChatMemberType {
     public int getType() {
         return type;
     }
-
-    /**
-     * Deserialize GroupChatMemberType
-     *
-     * @param type the type
-     * @return the group chat member type
-     */
-    @JsonCreator
-    public static GroupChatMemberType deserialize(int type) {
-        return Arrays.stream(GroupChatMemberType.values())
-                .filter(contactType -> contactType.type == type)
-                .findFirst()
-                .orElse(null);
-    }
-
 }
