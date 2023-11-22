@@ -15,6 +15,10 @@
 
 package cn.felord.reactive.api;
 
+import cn.felord.domain.WeComResponse;
+import cn.felord.domain.common.Code;
+import cn.felord.domain.contactbook.user.TfaInfoResponse;
+import cn.felord.domain.contactbook.user.TfaUser;
 import cn.felord.domain.contactbook.user.UserDetailResponse;
 import cn.felord.domain.contactbook.user.UserSensitiveInfoResponse;
 import cn.felord.domain.contactbook.user.UserTicket;
@@ -53,4 +57,44 @@ public interface AuthApi {
      */
     @POST("auth/getuserdetail")
     Single<UserSensitiveInfoResponse> getUserDetail(@Body UserTicket userTicket);
+
+    /**
+     * 获取用户二次验证信息
+     * <p>
+     * 仅『通讯录同步』或者自建应用可调用，如用自建应用调用，用户需要在二次验证范围和应用可见范围内
+     *
+     * @param code the code
+     * @return the tfa info
+     */
+    @POST("auth/get_tfa_info")
+    Single<TfaInfoResponse> getTfaInfo(@Body Code code);
+
+    /**
+     * 此接口可以满足安全性要求高的企业进行成员验证。
+     * 开启二次验证后，当且仅当成员登录时，需跳转至企业自定义的页面进行验证。验证频率可在设置页面选择。
+     * <p>
+     * 开启二次验证方法如图：
+     * <img src="https://wework.qpic.cn/wwpic/653186_thzpIRm-Txa3p6a_1584677372/0"/>
+     * 企业在开启二次验证时，必须在管理端填写企业二次验证页面的url。
+     * 当成员登录企业微信或关注微信插件（原企业号）进入企业时，会自动跳转到企业的验证页面。
+     * 在跳转到企业的验证页面时，会带上如下参数：code=CODE。
+     * 企业收到code后，使用“通讯录同步助手”调用接口"根据code获取成员信息"获取成员的userid。
+     * 如果成员是首次加入企业，企业获取到userid，并验证了成员信息后，调用如下接口即可让成员成功加入企业。
+     *
+     * @param userid the userid
+     * @return the we com response
+     */
+    @GET("user/tfa_succ")
+    Single<WeComResponse> authsucc(@Query("userid") String userid);
+
+    /**
+     * 使用二次验证
+     * <p>
+     * 仅『通讯录同步』或者自建应用可调用，如用自建应用调用，用户需要在二次验证范围和应用可见范围内。
+     *
+     * @param tfaUser the tfa user
+     * @return the tfa info
+     */
+    @POST("user/tfa_succ")
+    Single<WeComResponse> authsucc(@Body TfaUser tfaUser);
 }
