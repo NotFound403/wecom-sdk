@@ -31,5 +31,5 @@ public class CheckinDayData extends AbstractCheckinData {
     /**
      * 汇总信息
      */
-    private DaySummaryInfo daySummaryInfo;
+    private DaySummaryInfo summaryInfo;
 }

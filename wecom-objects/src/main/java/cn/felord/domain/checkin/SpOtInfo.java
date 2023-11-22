@@ -36,7 +36,32 @@ public class SpOtInfo {
      */
     private Duration otDuration;
     /**
-     * 加班不足的时长
+     * ot_status为2下，加班不足的时长
      */
     private List<Duration> exceptionDuration;
+    /**
+     * 工作日加班记为调休，单位秒
+     */
+    private Duration workdayOverAsVacation;
+    /**
+     * 工作日加班记为加班费，单位秒
+     */
+    private Duration workdayOverAsMoney;
+    /**
+     * 休息日加班记为调休，单位秒
+     */
+    private Duration restdayOverAsVacation;
+    /**
+     * 休息日加班记为加班费，单位秒
+     */
+    private Duration restdayOverAsMoney;
+    /**
+     * 节假日加班记为调休，单位秒
+     */
+    private Duration holidayOverAsVacation;
+    /**
+     * 节假日加班记为加班费，单位秒
+     */
+    private Duration holidayOverAsMoney;
+
 }
