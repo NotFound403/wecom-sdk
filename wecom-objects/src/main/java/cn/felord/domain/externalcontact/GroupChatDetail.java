@@ -58,5 +58,5 @@ public class GroupChatDetail {
     /**
      * 当前群成员版本号。可以配合客户群变更事件减少主动调用本接口的次数
      */
-    private String member_version;
+    private String memberVersion;
 }

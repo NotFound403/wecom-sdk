@@ -15,6 +15,7 @@
 
 package cn.felord.domain.security;
 
+import cn.felord.enumeration.SecurityDeviceType;
 import lombok.Data;
 
 import java.time.Instant;
@@ -51,4 +52,12 @@ public class FileOptRecordDetail {
      * 当记录操作类型为『通过下载申请』或者『拒绝下载申请』时，该字段表示申请人的名字
      */
     private String applicantName;
+    /**
+     * 设备类型。仅当操作类型为『下载』时会返回
+     */
+    private SecurityDeviceType deviceType;
+    /**
+     * 设备编码。仅当操作类型为『下载』时会返回
+     */
+    private String deviceCode;
 }
