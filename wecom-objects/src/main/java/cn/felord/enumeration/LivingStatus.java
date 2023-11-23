@@ -21,49 +21,61 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Contact type.
+ * 直播的状态
  *
  * @author dax
  * @since 2021 /9/8 10:47
  */
-public enum ContactType {
-    /**
-     * 单人
-     */
-    SINGLE(1),
-    /**
-     * 多人
-     */
-    MULTI(2);
+public enum LivingStatus {
 
-    private final int type;
+    /**
+     * 预约中
+     */
+    BOOKING(0),
+    /**
+     * 直播中
+     */
+    LIVING(1),
+    /**
+     * 已结束
+     */
+    ENDED(2),
+    /**
+     * 已过期
+     */
+    EXPIRED(3),
+    /**
+     * 已取消
+     */
+    CANCELED(4);
 
-    ContactType(int type) {
-        this.type = type;
+    private final int status;
+
+    LivingStatus(int status) {
+        this.status = status;
     }
 
     /**
-     * Gets type.
+     * Gets status.
      *
-     * @return the type
+     * @return the status
      */
     @JsonValue
-    public int getType() {
-        return type;
+    public int getStatus() {
+        return status;
     }
 
     /**
-     * Deserialize contact type.
+     * Deserialize AttendeeResponseStatus
      *
-     * @param type the type
-     * @return the contact type
+     * @param status the status
+     * @return the moment task status
      */
     @JsonCreator
-    public static ContactType deserialize(int type) {
-        return Arrays.stream(ContactType.values())
-                .filter(contactType -> contactType.type == type)
+    public static LivingStatus deserialize(int status) {
+        return Arrays.stream(LivingStatus.values())
+                .filter(responseStatus -> responseStatus.status == status)
                 .findFirst()
                 .orElse(null);
     }
-
 }

@@ -77,7 +77,7 @@ public final class WorkWeChatApi {
     /**
      * 获取企业微信API域名IP段
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the domain api
      */
     public DomainApi domainApi(AgentDetails agentDetails) {
@@ -90,7 +90,7 @@ public final class WorkWeChatApi {
     /**
      * 通讯录管理
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the Address book Manager
      */
     public ContactBookManager contactBookManager(AgentDetails agentDetails) {
@@ -101,7 +101,7 @@ public final class WorkWeChatApi {
     /**
      * 安全管理
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the security api
      * @since 1.2.2
      */
@@ -115,7 +115,7 @@ public final class WorkWeChatApi {
     /**
      * 客户联系
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the external contact manager
      */
     public ExternalContactManager externalContactManager(AgentDetails agentDetails) {
@@ -126,7 +126,7 @@ public final class WorkWeChatApi {
     /**
      * 微信客服
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the call center manager
      */
     public CallCenterManager callCenterManager(AgentDetails agentDetails) {
@@ -146,7 +146,7 @@ public final class WorkWeChatApi {
     /**
      * 身份验证
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the auth api
      */
     public AuthApi authApi(AgentDetails agentDetails) {
@@ -168,7 +168,7 @@ public final class WorkWeChatApi {
     /**
      * 企微应用API
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the agent api
      */
     public AgentApi agentApi(AgentDetails agentDetails) {
@@ -179,7 +179,7 @@ public final class WorkWeChatApi {
     /**
      * JS SDK 相关接口
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the sdk ticket api
      */
     public JsSdkApi JsSdkApi(AgentDetails agentDetails) {
@@ -199,7 +199,7 @@ public final class WorkWeChatApi {
     /**
      * 素材接口
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the media api
      */
     public MediaApi mediaApi(AgentDetails agentDetails) {
@@ -211,7 +211,7 @@ public final class WorkWeChatApi {
     /**
      * 电子发票
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the invoice api
      */
     public InvoiceApi invoiceApi(AgentDetails agentDetails) {
@@ -224,7 +224,7 @@ public final class WorkWeChatApi {
     /**
      * 日历相关接口
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the calendar api
      */
     public CalendarApi calendarApi(AgentDetails agentDetails) {
@@ -237,7 +237,7 @@ public final class WorkWeChatApi {
     /**
      * 日程相关接口
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the schedule api
      */
     public ScheduleApi scheduleApi(AgentDetails agentDetails) {
@@ -251,7 +251,7 @@ public final class WorkWeChatApi {
     /**
      * 文档API
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the wedoc api
      */
     public WedocApi wedocApi(AgentDetails agentDetails) {
@@ -262,7 +262,7 @@ public final class WorkWeChatApi {
     /**
      * 微盘API
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the we drive api
      */
     public WeDriveApi weDriveApi(AgentDetails agentDetails) {
@@ -271,9 +271,23 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 直播API
+     *
+     * @param agentDetails the agentDetails
+     * @return living api
+     * @since 1.2.4
+     */
+    public LivingApi livingApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(LivingApi.class);
+    }
+
+    /**
      * 公费电话API
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the approval api
      */
     public DialApi dialApi(AgentDetails agentDetails) {
@@ -286,7 +300,7 @@ public final class WorkWeChatApi {
     /**
      * 打卡API
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the checkin api
      */
     public CheckinApi checkinApi(AgentDetails agentDetails) {
@@ -299,7 +313,7 @@ public final class WorkWeChatApi {
     /**
      * 审批API
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the approval api
      */
     public ApprovalApi approvalApi(AgentDetails agentDetails) {
@@ -312,7 +326,7 @@ public final class WorkWeChatApi {
     /**
      * 汇报API
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the journal api
      */
     public JournalApi journalApi(AgentDetails agentDetails) {
@@ -325,7 +339,7 @@ public final class WorkWeChatApi {
     /**
      * 人事助手API
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the staff manager api
      */
     public StaffManagerApi staffManagerApi(AgentDetails agentDetails) {
@@ -338,7 +352,7 @@ public final class WorkWeChatApi {
     /**
      * 紧急通知API（限医疗行业）
      *
-     * @param agentDetails the agent details
+     * @param agentDetails the agentDetails
      * @return the urgent call api
      */
     public UrgentCallApi urgentCallApi(AgentDetails agentDetails) {

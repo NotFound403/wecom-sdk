@@ -90,6 +90,9 @@ public class GenericResponse<T> extends WeComResponse {
             "user_custom_id",
             "rule_ids",
             "rule_info",
+            "livingid",
+            "living_code",
+            "living_info",
             "lists"
     })
     private T data;

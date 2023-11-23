@@ -271,6 +271,20 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 直播API
+     *
+     * @param agentDetails the agentDetails
+     * @return living api
+     * @since 1.2.4
+     */
+    public LivingApi livingApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(LivingApi.class);
+    }
+
+    /**
      * 公费电话API
      *
      * @param agentDetails the agent details

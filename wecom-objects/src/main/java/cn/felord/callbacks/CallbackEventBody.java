@@ -280,4 +280,7 @@ public class CallbackEventBody implements XmlEntity {
 
     @XStreamAlias("Mode")
     private Integer mode;
+
+    @XStreamAlias("LivingId")
+    private String livingId;
 }

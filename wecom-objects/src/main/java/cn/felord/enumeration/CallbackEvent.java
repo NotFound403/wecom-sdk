@@ -151,7 +151,11 @@ public enum CallbackEvent {
     /**
      * 修改设置工作台自定义开关事件推送
      */
-    SWITCH_WORKBENCH_MODE("switch_workbench_mode");
+    SWITCH_WORKBENCH_MODE("switch_workbench_mode"),
+    /**
+     * 直播回调事件
+     */
+    LIVING_STATUS_CHANGE("living_status_change");
 
     private final String type;
 

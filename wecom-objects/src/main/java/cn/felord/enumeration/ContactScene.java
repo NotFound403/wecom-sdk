@@ -28,11 +28,11 @@ import java.util.Arrays;
  */
 public enum ContactScene {
     /**
-     * Mini program contact scene.
+     * 在小程序中联系
      */
     MINI_PROGRAM(1),
     /**
-     * Qr code contact scene.
+     * 通过二维码联系
      */
     QR_CODE(2);
 

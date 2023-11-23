@@ -23,9 +23,21 @@ import lombok.Data;
  */
 @Data
 public class Conclusions {
+    /**
+     * 文本内容,最长为4000字节
+     */
     private ContentText text;
+    /**
+     * 图片
+     */
     private ImageUrl image;
+    /**
+     * 图文
+     */
     private Link link;
+    /**
+     * 小程序
+     */
     private MediaMiniprogram miniprogram;
 
 }

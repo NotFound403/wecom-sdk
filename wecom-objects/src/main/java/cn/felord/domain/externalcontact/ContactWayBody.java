@@ -31,19 +31,62 @@ import java.util.Set;
  * @since 2021/7/8 11:21
  */
 public class ContactWayBody {
+    /**
+     * 联系方式类型
+     */
     private final ContactType type;
+    /**
+     * 场景
+     */
     private final ContactScene scene;
+    /**
+     * 在小程序中联系时使用的控件样式，详见附表
+     */
     private MiniProgramStyle style;
+    /**
+     * 联系方式的备注信息，用于助记，不超过30个字符
+     */
     private String remark;
+    /**
+     * 外部客户添加时是否无需验证，默认为true
+     */
     private boolean skipVerify = true;
+    /**
+     * 企业自定义的state参数，用于区分不同的添加渠道，
+     * 在调用“获取外部联系人详情”时会返回该参数值，不超过30个字符
+     */
     private String state;
+    /**
+     * 可进行临时会话的客户unionid，该参数仅在is_temp为true时有效，如不指定则不进行限制
+     */
     private String unionid;
+    /**
+     * 使用该联系方式的用户userID列表，在type为1时为必填，且只能有一个
+     */
     private Set<String> user;
+    /**
+     * 使用该联系方式的部门id列表，只在type为2时有效
+     */
     private Set<Integer> party;
+    /**
+     * 是否临时会话模式，true表示使用临时会话模式，默认为false
+     */
     private boolean isTemp = false;
+    /**
+     * 临时会话二维码有效期，以秒为单位。该参数仅在is_temp为true时有效，默认7天，最多为14天
+     */
     private Duration expiresIn;
+    /**
+     * 临时会话有效期，以秒为单位。该参数仅在is_temp为true时有效，默认为添加好友后24小时，最多为14天
+     */
     private Duration chatExpiresIn;
+    /**
+     * 是否开启同一外部企业客户只能添加同一个员工，默认为否，开启后，同一个企业的客户会优先添加到同一个跟进人
+     */
     private boolean isExclusive = false;
+    /**
+     * 结束语，会话结束时自动发送给客户，可参考“结束语定义”，仅在is_temp为true时有效
+     */
     private Conclusions conclusions;
 
     /**

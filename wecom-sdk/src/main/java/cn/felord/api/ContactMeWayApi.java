@@ -26,7 +26,7 @@ import retrofit2.http.POST;
 import java.util.List;
 
 /**
- * The type ContactMeWayApi.
+ * 客户联系「联系我」管理
  *
  * @author dax
  * @since 2021 /9/8 9:28

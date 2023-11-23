@@ -21,24 +21,37 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Contact type.
+ * 直播的类型
  *
- * @author dax
- * @since 2021 /9/8 10:47
+ * @author felord.cn
+ * @since 1.1.3
  */
-public enum ContactType {
+public enum LivingType {
+
     /**
-     * 单人
+     * 通用直播
      */
-    SINGLE(1),
+    GENERAL(0),
     /**
-     * 多人
+     * 小班课
      */
-    MULTI(2);
+    SMALL(1),
+    /**
+     * 大班课
+     */
+    LARGE(2),
+    /**
+     * 企业培训
+     */
+    CORP_TRAINING(3),
+    /**
+     * 活动直播
+     */
+    LIVE_STREAMING(4);
 
     private final int type;
 
-    ContactType(int type) {
+    LivingType(int type) {
         this.type = type;
     }
 
@@ -53,17 +66,16 @@ public enum ContactType {
     }
 
     /**
-     * Deserialize contact type.
+     * Deserialize business type.
      *
      * @param type the type
-     * @return the contact type
+     * @return the business type
      */
     @JsonCreator
-    public static ContactType deserialize(int type) {
-        return Arrays.stream(ContactType.values())
-                .filter(contactType -> contactType.type == type)
+    public static LivingType deserialize(int type) {
+        return Arrays.stream(LivingType.values())
+                .filter(businessType -> businessType.type == type)
                 .findFirst()
                 .orElse(null);
     }
-
 }
