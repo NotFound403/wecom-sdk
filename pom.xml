@@ -111,7 +111,7 @@
         <jackson.version>2.15.2</jackson.version>
         <xstream.version>1.4.20</xstream.version>
         <jose.version>9.36</jose.version>
-        <lombok.version>1.18.26</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
     </properties>
 
     <distributionManagement>
