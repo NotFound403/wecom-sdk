@@ -49,10 +49,6 @@
         <module>wecom-objects</module>
         <module>wecom-sdk</module>
         <module>rx-wecom-sdk</module>
-        <module>wepay-objects</module>
-        <module>wepay-sdk</module>
-        <module>wemp-sdk</module>
-        <module>wemp-objects</module>
     </modules>
 
     <scm>
