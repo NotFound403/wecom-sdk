@@ -182,7 +182,7 @@ public final class WorkWeChatApi {
      * @param agentDetails the agentDetails
      * @return the sdk ticket api
      */
-    public JsSdkApi JsSdkApi(AgentDetails agentDetails) {
+    public JsSdkApi jsSdkApi(AgentDetails agentDetails) {
         AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
         return new JsSdkApi(WorkWeChatApiClient.init(tokenApi, connectionPool, level), weComTokenCacheable);
     }

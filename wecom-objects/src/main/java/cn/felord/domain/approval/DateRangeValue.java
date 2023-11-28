@@ -48,10 +48,33 @@ public class DateRangeValue implements ContentDataValue {
      * @param newBegin the new begin
      * @param newEnd   the new end
      */
+    @Deprecated
     public DateRangeValue(DateRangeType type,
                           Instant newBegin,
                           Instant newEnd) {
         this(type, newBegin, newEnd, Duration.between(newBegin, newEnd));
+    }
+
+    /**
+     * Half day date range value.
+     *
+     * @param newBegin the new begin
+     * @param newEnd   the new end
+     * @return the date range value
+     */
+    public static DateRangeValue halfDay(Instant newBegin, Instant newEnd) {
+        return new DateRangeValue(DateRangeType.HALF_DAY, newBegin, newEnd);
+    }
+
+    /**
+     * Hour date range value.
+     *
+     * @param newBegin the new begin
+     * @param newEnd   the new end
+     * @return the date range value
+     */
+    public static DateRangeValue hour(Instant newBegin, Instant newEnd) {
+        return new DateRangeValue(DateRangeType.HOUR, newBegin, newEnd);
     }
 
     /**
