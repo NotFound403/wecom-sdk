@@ -23,8 +23,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * The type Approver.
+ *
  * @author dax
- * @since 2023/5/25
+ * @since 2023 /5/25
  */
 @ToString
 @Getter
@@ -32,11 +34,41 @@ public class Approver {
     private final ApproverNodeMode attr;
     private final List<String> userid;
 
+    /**
+     * 单签
+     *
+     * @param userid the userid
+     */
     public Approver(String userid) {
-        this.userid = Collections.singletonList(userid);
-        this.attr = ApproverNodeMode.ALL;
+        this(ApproverNodeMode.ALL, Collections.singletonList(userid));
     }
 
+    /**
+     * 或签
+     *
+     * @param userid the userid
+     * @return the approver
+     */
+    public static Approver or(List<String> userid) {
+        return new Approver(ApproverNodeMode.OR, userid);
+    }
+
+    /**
+     * 会签
+     *
+     * @param userid the userid
+     * @return the approver
+     */
+    public static Approver all(List<String> userid) {
+        return new Approver(ApproverNodeMode.ALL, userid);
+    }
+
+    /**
+     * Instantiates a new Approver.
+     *
+     * @param attr   the attr
+     * @param userid the userid
+     */
     public Approver(ApproverNodeMode attr, List<String> userid) {
         this.attr = attr;
         this.userid = userid;
