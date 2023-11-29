@@ -25,7 +25,6 @@ import java.time.Instant;
  * @author dax
  * @since 2023/7/23
  */
-@XStreamAlias("Item")
 @Data
 public class OpenApprovalNodeItem {
     @XStreamAlias("ItemName")

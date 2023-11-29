@@ -20,7 +20,7 @@ import cn.felord.domain.callback.ApprovalInfo;
 import cn.felord.domain.callback.BatchJob;
 import cn.felord.domain.callback.CallbackArticle;
 import cn.felord.domain.callback.CallbackButton;
-import cn.felord.domain.callback.CallbackExtAttrItem;
+import cn.felord.domain.callback.CallbackExtAttr;
 import cn.felord.domain.callback.CallbackResource;
 import cn.felord.domain.callback.CallbackSelectedItems;
 import cn.felord.domain.callback.CallbackVideo;
@@ -150,10 +150,12 @@ public class CallbackEventBody implements XmlEntity {
     private String avatar;
     @XStreamAlias("Alias")
     private String alias;
+    @XStreamAlias("Telephone")
+    private String telephone;
     @XStreamAlias("Address")
     private String address;
-    @XStreamAlias(value = "ExtAttr", impl = List.class)
-    private List<CallbackExtAttrItem> extAttr;
+    @XStreamAlias(value = "ExtAttr")
+    private CallbackExtAttr extAttr;
     /**
      * 和企业客户标签事件 tagId 冲突 统一用 idOrTagId
      */

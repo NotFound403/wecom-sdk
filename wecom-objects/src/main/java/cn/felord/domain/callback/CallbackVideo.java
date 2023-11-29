@@ -15,6 +15,7 @@
 
 package cn.felord.domain.callback;
 
+import cn.felord.callback.XmlEntity;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
@@ -23,7 +24,7 @@ import lombok.Data;
  * @since 2023/5/28
  */
 @Data
-public class CallbackVideo {
+public class CallbackVideo implements XmlEntity {
     @XStreamAlias("MediaId")
     private String mediaId;
     @XStreamAlias("Title")
