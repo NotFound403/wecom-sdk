@@ -13,19 +13,20 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.callback;
+package cn.felord.domain.meetingroom;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
+import java.util.List;
+
 /**
+ * The type BookingInfo.
+ *
  * @author dax
- * @since 2023/11/28
+ * @since 2021 /7/12 19:23
  */
 @Data
-public class Web {
-    @XStreamAlias("Title")
-    private String title;
-    @XStreamAlias("Url")
-    private String url;
+public class BookingDetail {
+    private Integer meetingroomId;
+    private List<BookingSchedule> schedule;
 }

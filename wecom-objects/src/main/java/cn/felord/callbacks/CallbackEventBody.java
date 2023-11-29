@@ -285,4 +285,9 @@ public class CallbackEventBody implements XmlEntity {
 
     @XStreamAlias("LivingId")
     private String livingId;
+
+    @XStreamAlias("BookingId")
+    private String bookingId;
+    @XStreamAlias("MeetingRoomId")
+    private String meetingRoomId;
 }

@@ -13,19 +13,27 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.callback;
+package cn.felord.domain.meetingroom;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type ScheduleBookingRequest
+ *
  * @author dax
- * @since 2023/11/28
+ * @since 2023 /11/29
  */
-@Data
-public class Web {
-    @XStreamAlias("Title")
-    private String title;
-    @XStreamAlias("Url")
-    private String url;
+@ToString
+@Getter
+public class ScheduleBookingRequest {
+    private final Integer meetingroomId;
+    private final String scheduleId;
+    private final String booker;
+
+    public ScheduleBookingRequest(int meetingroomId, String scheduleId, String booker) {
+        this.meetingroomId = meetingroomId;
+        this.scheduleId = scheduleId;
+        this.booker = booker;
+    }
 }

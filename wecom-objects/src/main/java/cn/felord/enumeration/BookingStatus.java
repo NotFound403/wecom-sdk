@@ -21,31 +21,48 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The AnswerStatus
+ * The BookingStatus
  *
  * @author felord
  * @since 2021 /11/23 17:01
  */
-public enum AnswerStatus {
+public enum BookingStatus {
+    /**
+     * 已预定
+     */
+    SCHEDULED(0),
+    /**
+     * 已取消
+     */
+    CANCELED(1),
 
     /**
-     * Normal form item status.
+     * 申请中
      */
-    NORMAL(1),
-
+    APPLYING(2),
     /**
-     * Deleted form item status.
+     * 审批中
      */
-    DELETED(2),
-    /**
-     * Invalid answer status.
-     */
-    INVALID(3);
+    UNDER_APPROVAL(3);
 
     private final int type;
 
-    AnswerStatus(int type) {
+    BookingStatus(int type) {
         this.type = type;
+    }
+
+    /**
+     * Deserialize BookingStatus.
+     *
+     * @param type the type
+     * @return the button type
+     */
+    @JsonCreator
+    public static BookingStatus deserialize(int type) {
+        return Arrays.stream(BookingStatus.values())
+                .filter(answerStatus -> answerStatus.type == type)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -56,19 +73,5 @@ public enum AnswerStatus {
     @JsonValue
     public int getType() {
         return type;
-    }
-
-    /**
-     * Deserialize AnswerStatus.
-     *
-     * @param type the type
-     * @return the button type
-     */
-    @JsonCreator
-    public static AnswerStatus deserialize(int type) {
-        return Arrays.stream(AnswerStatus.values())
-                .filter(answerStatus -> answerStatus.type == type)
-                .findFirst()
-                .orElse(null);
     }
 }

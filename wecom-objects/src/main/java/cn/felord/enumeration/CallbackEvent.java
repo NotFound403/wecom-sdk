@@ -155,7 +155,15 @@ public enum CallbackEvent {
     /**
      * 直播回调事件
      */
-    LIVING_STATUS_CHANGE("living_status_change");
+    LIVING_STATUS_CHANGE("living_status_change"),
+    /**
+     * 会议室预定事件
+     */
+    BOOK_MEETING_ROOM("book_meeting_room"),
+    /**
+     * 会议室取消事件
+     */
+    CANCEL_MEETING_ROOM("cancel_meeting_room");
 
     private final String type;
 

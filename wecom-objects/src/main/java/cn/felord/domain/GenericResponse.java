@@ -93,6 +93,7 @@ public class GenericResponse<T> extends WeComResponse {
             "livingid",
             "living_code",
             "living_info",
+            "meetingroom_id",
             "lists"
     })
     private T data;

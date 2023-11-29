@@ -13,34 +13,24 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.callback;
+package cn.felord.domain.meetingroom;
 
-import cn.felord.callback.XmlEntity;
-import cn.felord.enumeration.NodeStatus;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import cn.felord.domain.WeComResponse;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.Instant;
+import java.util.List;
 
 /**
+ * The type BookingResultResponse
+ *
  * @author dax
- * @since 2023/7/23
+ * @since 2023 /11/29
  */
-@XStreamAlias("Item")
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class OpenApprovalNodeItem implements XmlEntity {
-    @XStreamAlias("ItemName")
-    private String itemName;
-    @XStreamAlias("ItemUserid")
-    private String itemUserid;
-    @XStreamAlias("ItemParty")
-    private String itemParty;
-    @XStreamAlias("ItemImage")
-    private String itemImage;
-    @XStreamAlias("ItemStatus")
-    private NodeStatus itemStatus;
-    @XStreamAlias("ItemSpeech")
-    private String itemSpeech;
-    @XStreamAlias("ItemOpTime")
-    private Instant itemOpTime;
+public class BookingResultResponse extends WeComResponse {
+    private String bookingId;
+    private List<Instant> conflictDate;
 }

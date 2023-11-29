@@ -350,6 +350,19 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 会议室API
+     *
+     * @param agentDetails the agent details
+     * @return the meeting room api
+     */
+    public MeetingRoomApi meetingRoomApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(MeetingRoomApi.class);
+    }
+
+    /**
      * 紧急通知API（限医疗行业）
      *
      * @param agentDetails the agentDetails

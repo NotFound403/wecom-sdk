@@ -13,34 +13,25 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.callback;
+package cn.felord.domain.meetingroom;
 
-import cn.felord.callback.XmlEntity;
-import cn.felord.enumeration.NodeStatus;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import cn.felord.enumeration.BookingStatus;
 import lombok.Data;
 
 import java.time.Instant;
 
 /**
+ * The type BookingSchedule.
+ *
  * @author dax
- * @since 2023/7/23
+ * @since 2021 /7/12 19:23
  */
-@XStreamAlias("Item")
 @Data
-public class OpenApprovalNodeItem implements XmlEntity {
-    @XStreamAlias("ItemName")
-    private String itemName;
-    @XStreamAlias("ItemUserid")
-    private String itemUserid;
-    @XStreamAlias("ItemParty")
-    private String itemParty;
-    @XStreamAlias("ItemImage")
-    private String itemImage;
-    @XStreamAlias("ItemStatus")
-    private NodeStatus itemStatus;
-    @XStreamAlias("ItemSpeech")
-    private String itemSpeech;
-    @XStreamAlias("ItemOpTime")
-    private Instant itemOpTime;
+public class BookingSchedule {
+    private String bookingId;
+    private String scheduleId;
+    private Instant startTime;
+    private Instant endTime;
+    private String booker;
+    private BookingStatus status;
 }

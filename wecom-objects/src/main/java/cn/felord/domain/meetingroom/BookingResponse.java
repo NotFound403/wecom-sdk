@@ -13,19 +13,21 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.callback;
+package cn.felord.domain.meetingroom;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import cn.felord.domain.WeComResponse;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * The type BookingResponse.
+ *
  * @author dax
- * @since 2023/11/28
+ * @since 2021 /7/12 19:23
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class Web {
-    @XStreamAlias("Title")
-    private String title;
-    @XStreamAlias("Url")
-    private String url;
+public class BookingResponse extends WeComResponse {
+    private String bookingId;
+    private String scheduleId;
 }

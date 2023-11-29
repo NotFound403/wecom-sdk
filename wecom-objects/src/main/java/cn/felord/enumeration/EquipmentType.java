@@ -21,31 +21,51 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The AnswerStatus
+ * The EquipmentType
  *
- * @author felord
- * @since 2021 /11/23 17:01
+ * @author dax
+ * @since 2021/9/8 10:47
  */
-public enum AnswerStatus {
-
+public enum EquipmentType {
     /**
-     * Normal form item status.
+     * 电视
      */
-    NORMAL(1),
-
+    TV(1),
     /**
-     * Deleted form item status.
+     * 电话
      */
-    DELETED(2),
+    PHONE(2),
     /**
-     * Invalid answer status.
+     * 投影仪
      */
-    INVALID(3);
+    PROJECTOR(3),
+    /**
+     * 白板
+     */
+    WHITEBOARD(4),
+    /**
+     * 视频
+     */
+    VIDEO(5);
 
     private final int type;
 
-    AnswerStatus(int type) {
+    EquipmentType(int type) {
         this.type = type;
+    }
+
+    /**
+     * Deserialize EquipmentType
+     *
+     * @param type the type
+     * @return the moment create type
+     */
+    @JsonCreator
+    public static EquipmentType deserialize(int type) {
+        return Arrays.stream(EquipmentType.values())
+                .filter(contactType -> contactType.type == type)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -58,17 +78,4 @@ public enum AnswerStatus {
         return type;
     }
 
-    /**
-     * Deserialize AnswerStatus.
-     *
-     * @param type the type
-     * @return the button type
-     */
-    @JsonCreator
-    public static AnswerStatus deserialize(int type) {
-        return Arrays.stream(AnswerStatus.values())
-                .filter(answerStatus -> answerStatus.type == type)
-                .findFirst()
-                .orElse(null);
-    }
 }

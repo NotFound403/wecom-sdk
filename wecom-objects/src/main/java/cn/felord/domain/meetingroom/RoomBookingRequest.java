@@ -13,19 +13,23 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.callback;
+package cn.felord.domain.meetingroom;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author dax
- * @since 2023/11/28
+ * @since 2023/11/29
  */
-@Data
-public class Web {
-    @XStreamAlias("Title")
-    private String title;
-    @XStreamAlias("Url")
-    private String url;
+@ToString
+@Getter
+public class RoomBookingRequest {
+    private final Integer meetingroomId;
+    private final String bookingId;
+
+    public RoomBookingRequest(int meetingroomId, String bookingId) {
+        this.meetingroomId = meetingroomId;
+        this.bookingId = bookingId;
+    }
 }
