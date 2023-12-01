@@ -19,50 +19,48 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
- * The CallType
+ * The AgreeStatus
  *
  * @author dax
- * @since 2023 /10/6
+ * @since 2021/9/8 10:47
  */
-public enum CallType {
+public enum AgreeStatus {
     /**
-     * 单人通话
+     * 同意
      */
-    SINGLE(1),
+    AGREE("Agree"),
     /**
-     * 多人通话
+     * 不同意
      */
-    MULTI(2);
+    DISAGREE("Disagree");
 
-    private final int type;
+    private final String status;
 
-    CallType(int type) {
-        this.type = type;
+    AgreeStatus(String status) {
+        this.status = status;
     }
 
-    /**
-     * Gets type.
-     *
-     * @return the type
-     */
+
     @JsonValue
-    public int getType() {
-        return type;
+    public String getStatus() {
+        return status;
     }
 
     /**
-     * Deserialize CallType
+     * Deserialize AgreeStatus
      *
-     * @param type the type
-     * @return the CallType
+     * @param status the status
+     * @return the AgreeStatus
      */
     @JsonCreator
-    public static CallType deserialize(int type) {
-        return Arrays.stream(CallType.values())
-                .filter(callType -> callType.type == type)
+    public static AgreeStatus deserialize(String status) {
+        return Arrays.stream(AgreeStatus.values())
+                .filter(contactType -> Objects.equals(status, contactType.status))
                 .findFirst()
                 .orElse(null);
     }
+
 }

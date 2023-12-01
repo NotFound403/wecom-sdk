@@ -21,24 +21,28 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The CallType
+ * The MsgAuditEditionType
  *
  * @author dax
  * @since 2023 /10/6
  */
-public enum CallType {
+public enum MsgAuditEditionType {
     /**
-     * 单人通话
+     * 办公版
      */
-    SINGLE(1),
+    OFFICE(1),
     /**
-     * 多人通话
+     * 服务版
      */
-    MULTI(2);
+    SERVICE(2),
+    /**
+     * 企业版
+     */
+    CORP(3);
 
     private final int type;
 
-    CallType(int type) {
+    MsgAuditEditionType(int type) {
         this.type = type;
     }
 
@@ -53,14 +57,14 @@ public enum CallType {
     }
 
     /**
-     * Deserialize CallType
+     * Deserialize MsgAuditEditionType
      *
      * @param type the type
-     * @return the CallType
+     * @return the MsgAuditEditionType
      */
     @JsonCreator
-    public static CallType deserialize(int type) {
-        return Arrays.stream(CallType.values())
+    public static MsgAuditEditionType deserialize(int type) {
+        return Arrays.stream(MsgAuditEditionType.values())
                 .filter(callType -> callType.type == type)
                 .findFirst()
                 .orElse(null);
