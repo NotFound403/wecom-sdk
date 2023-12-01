@@ -33,14 +33,17 @@ public enum NativeAgent {
     /**
      * 会话内容存档
      */
+    @Deprecated
     MSG_AUDIT("2000004", "会话内容存档"),
     /**
      * 公告
      */
+    @Deprecated
     ANNOUNCEMENT("3010001", "公告"),
     /**
      * 公费电话
      */
+    @Deprecated
     TELEPHONE("3010007", "公费电话"),
     /**
      * 打卡
@@ -70,22 +73,27 @@ public enum NativeAgent {
      *
      * @since 1.1.6
      */
+    @Deprecated
     STAFF_MANAGER("3010185", "人事助手"),
     /**
      * 健康上报
      */
+    @Deprecated
     HEALTH_REPORT("3010094", "健康上报"),
     /**
      * 直播
      */
+    @Deprecated
     CORP_LIVE("3010097", "直播"),
     /**
      * 对外收款
      */
+    @Deprecated
     CORP_COLLECT_BILL("3010115", "对外收款"),
     /**
      * 会议室
      */
+    @Deprecated
     MEETING_ROOM("3010116", "会议室"),
     /**
      * 微信客服
@@ -94,6 +102,7 @@ public enum NativeAgent {
     /**
      * 上下游
      */
+    @Deprecated
     CORP_CHAIN("3010168", "上下游");
 
     private final String agentId;
