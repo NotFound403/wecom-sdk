@@ -196,13 +196,8 @@ public class CallbackEventBody implements XmlEntity {
     private String chatId;
     @XStreamAlias("UpdateDetail")
     private UpdateDetailType updateDetail;
-    /**
-     * TODO 等稳定后用枚举代替
-     *
-     * @see ChatGroupJoinScene
-     */
     @XStreamAlias("JoinScene")
-    private Integer joinScene;
+    private ChatGroupJoinScene joinScene;
     @XStreamAlias("QuitScene")
     private ChatGroupQuitScene quitScene;
     @XStreamAlias("MemChangeCnt")

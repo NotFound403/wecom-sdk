@@ -117,6 +117,10 @@ public enum CallbackEvent {
      */
     CLICK("click"),
     /**
+     * 产生会话回调事件
+     */
+    MSGAUDIT_NOTIFY("msgaudit_notify"),
+    /**
      * 支付事件（自定义）
      */
     PAY_TRANSACTION("pay_transaction"),
