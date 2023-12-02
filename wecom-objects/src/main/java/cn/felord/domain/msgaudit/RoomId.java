@@ -17,15 +17,32 @@ package cn.felord.domain.msgaudit;
 
 import lombok.Data;
 
-import java.util.List;
-
 /**
- * The type AgreeInfoRequest
+ * The type Room id.
  *
  * @author dax
- * @since 2023 /12/1
+ * @since 2023 /12/2
  */
 @Data
-public class AgreeInfoRequest {
-    private final List<TwoSides> info;
+public class RoomId {
+    private final String roomid;
+
+    /**
+     * Instantiates a new Room id.
+     *
+     * @param roomid the roomid
+     */
+    RoomId(String roomid) {
+        this.roomid = roomid;
+    }
+
+    /**
+     * From room id.
+     *
+     * @param roomid the roomid
+     * @return the room id
+     */
+    public static RoomId from(String roomid) {
+        return new RoomId(roomid);
+    }
 }

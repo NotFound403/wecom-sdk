@@ -15,17 +15,41 @@
 
 package cn.felord.domain.msgaudit;
 
+import cn.felord.domain.WeComResponse;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.time.Instant;
 import java.util.List;
 
 /**
- * The type AgreeInfoRequest
+ * The type InnerChatInfoResponse
  *
  * @author dax
  * @since 2023 /12/1
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class AgreeInfoRequest {
-    private final List<TwoSides> info;
+public class InnerChatInfoResponse extends WeComResponse {
+
+    /**
+     * roomid对应的群名称
+     */
+    private String roomname;
+    /**
+     * roomid对应的群创建者userid
+     */
+    private String creator;
+    /**
+     * roomid对应的群创建时间
+     */
+    private Instant roomCreateTime;
+    /**
+     * roomid对应的群公告
+     */
+    private String notice;
+    /**
+     * roomid对应的群成员列表
+     */
+    private List<InnerChatMember> members;
 }

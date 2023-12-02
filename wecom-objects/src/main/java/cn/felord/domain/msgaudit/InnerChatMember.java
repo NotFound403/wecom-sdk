@@ -17,15 +17,22 @@ package cn.felord.domain.msgaudit;
 
 import lombok.Data;
 
-import java.util.List;
+import java.time.Instant;
 
 /**
- * The type AgreeInfoRequest
+ * The type InnerChatMember
  *
  * @author dax
  * @since 2023 /12/1
  */
 @Data
-public class AgreeInfoRequest {
-    private final List<TwoSides> info;
+public class InnerChatMember {
+    /**
+     * roomid群成员的id，userid
+     */
+    private String memberid;
+    /**
+     * roomid群成员的入群时间
+     */
+    private Instant jointime;
 }

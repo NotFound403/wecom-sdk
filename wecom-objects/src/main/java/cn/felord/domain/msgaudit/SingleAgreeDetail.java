@@ -16,16 +16,21 @@
 package cn.felord.domain.msgaudit;
 
 import lombok.Data;
-
-import java.util.List;
+import lombok.EqualsAndHashCode;
 
 /**
- * The type AgreeInfoRequest
+ * The type AgreeDetail
  *
  * @author dax
  * @since 2023 /12/1
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class AgreeInfoRequest {
-    private final List<TwoSides> info;
+public class SingleAgreeDetail extends ChatAgreeDetail {
+
+    /**
+     * 员工
+     */
+    private String userid;
+
 }
