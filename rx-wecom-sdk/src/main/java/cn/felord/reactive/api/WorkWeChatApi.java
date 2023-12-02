@@ -144,6 +144,19 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 会话内容存档
+     *
+     * @param agentDetails the agent details
+     * @return the msg audit api
+     */
+    public MsgAuditApi msgAuditApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(MsgAuditApi.class);
+    }
+
+    /**
      * 身份验证
      *
      * @param agentDetails the agent details
