@@ -17,6 +17,10 @@ package cn.felord.enumeration;
 
 /**
  * 企微内置应用
+ * <p>
+ * 企业管理后台API设置中，新增「可调用接口的应用」设置项，经企业设置的自建应用可调用对应基础应用和功能的接口。
+ * <p>
+ * 自建应用需先设置可信IP才可成功设置为可调用接口的应用，2023年12月1日0点前已设置的未配置可信IP的自建应用暂不受影响
  *
  * @author dax
  * @since 2021 /12/9 14:12
@@ -29,6 +33,7 @@ public enum NativeAgent {
     /**
      * 外部联系人
      */
+    @Deprecated
     EXTERNAL("2000003", "外部联系人"),
     /**
      * 会话内容存档
@@ -48,22 +53,27 @@ public enum NativeAgent {
     /**
      * 打卡
      */
+    @Deprecated
     ATTENDANCE("3010011", "打卡"),
     /**
      * 审批
      */
+    @Deprecated
     APPROVAL("3010040", "审批"),
     /**
      * 汇报
      */
+    @Deprecated
     WORKNOTE("3010041", "汇报"),
     /**
      * 企业支付
      */
+    @Deprecated
     PAY("3010046", "企业支付"),
     /**
      * 日程
      * <p>
+     *
      * @deprecated 日程的secret已经不对外暴漏
      */
     @Deprecated
@@ -98,6 +108,7 @@ public enum NativeAgent {
     /**
      * 微信客服
      */
+    @Deprecated
     SERVICER("3010151", "微信客服"),
     /**
      * 上下游
