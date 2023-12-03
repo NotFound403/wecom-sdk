@@ -32,6 +32,9 @@ public enum HolidayType {
      * Calendar day holiday type.
      */
     CALENDAR_DAY(0),
+    /**
+     * Business day holiday type.
+     */
     BUSINESS_DAY(1);
     private final int type;
 

@@ -37,6 +37,8 @@ public class WecomSdkConfiguration {
 
     /**
      * 企微token，ticket 缓存中继，这里使用ehcache作为例子，你可以无缝替换为redis等缓存中间件
+     * <p>
+     * wecom-sdk 不提供具体的缓存实现，只做抽象，用什么用什么实现就是了，记得设置缓存时间7200
      *
      * @return the we com token cacheable
      */
@@ -46,7 +48,7 @@ public class WecomSdkConfiguration {
     }
 
     /**
-     * 回调配置缓存
+     * 回调配置缓存，该缓存并非wecom要求，实际开发中建议安排上
      *
      * @return the ehcache we com callback settings cache
      */

@@ -37,7 +37,7 @@ public enum ChatGroupQuitScene implements CallbackNumberEnum {
      */
     SELF(0),
     /**
-     * 群主或群管理员移出  ban
+     * 群主或群管理员移出
      */
     BAN(1);
 

@@ -46,7 +46,6 @@ import cn.felord.domain.approval.ApprovalTmpDetailResponse;
 import cn.felord.domain.approval.Approver;
 import cn.felord.domain.approval.ContactValue;
 import cn.felord.domain.approval.ContentDataValue;
-import cn.felord.domain.approval.ControlConfig;
 import cn.felord.domain.approval.DateRangeValue;
 import cn.felord.domain.approval.DateValue;
 import cn.felord.domain.approval.FormulaValue;
@@ -59,7 +58,6 @@ import cn.felord.domain.approval.RelatedApprovalValue;
 import cn.felord.domain.approval.SelectorValue;
 import cn.felord.domain.approval.Summary;
 import cn.felord.domain.approval.TextValue;
-import cn.felord.domain.approval.TmpControl;
 import cn.felord.domain.callcenter.ClickMsgMenuContent;
 import cn.felord.domain.callcenter.EnterSessionKfEvent;
 import cn.felord.domain.callcenter.EventKfMessage;
@@ -107,7 +105,6 @@ import cn.felord.domain.wedoc.form.FormAnswerRequest;
 import cn.felord.domain.wedrive.BufferSource;
 import cn.felord.enumeration.AnswerReplyItemType;
 import cn.felord.enumeration.BoolEnum;
-import cn.felord.enumeration.DateRangeType;
 import cn.felord.enumeration.MediaTypeEnum;
 import cn.felord.enumeration.NativeAgent;
 import cn.felord.enumeration.RemindBeforeEventSecs;
@@ -366,15 +363,7 @@ class SpringBootWecomSdkTests {
         // 审批应用
         AgentDetails nativeAgent = DefaultAgent.nativeAgent("企业ID", "审批应用密钥", NativeAgent.APPROVAL);
         ApprovalApi approvalApi = workWeChatApi.approvalApi(nativeAgent);
-        // 模板
-        String templateId = "C4UEh71DAPh775HPfXipikZ5eAGosskDibU8hkfxJ";
-        // 查询模板配置  可以用缓存优化性能 避免直接查询企业微信
-        ApprovalTmpDetailResponse templateDetail = approvalApi.getTemplateDetail(new TemplateId(templateId));
-        Assertions.assertTrue(templateDetail.isSuccessful());
-        // 根据模板配置渲染数据
-
-        List<TmpControl<? extends ControlConfig>> controls = templateDetail.getTemplateContent()
-                .getControls();
+        // 根据模板配置渲染数据  需要按照模板表单字段进行顺序填充
         Instant now = Instant.now();
         Instant minus = now.minus(1, ChronoUnit.DAYS);
         // 按模板顺序排列 不填写用null占位  必须保证参数和模板一一对应
@@ -403,7 +392,7 @@ class SpringBootWecomSdkTests {
                 // 日期+时间
                 DateValue.dateTime(now),
                 // 时长组件
-                new DateRangeValue(DateRangeType.HALF_DAY, minus, now),
+                DateRangeValue.halfDay(minus, now),
                 // 单选
                 SelectorValue.single("option-1694586803563"),
                 // 多选
@@ -426,24 +415,28 @@ class SpringBootWecomSdkTests {
         );
         // 摘要
         List<Summary> summaryList = Collections.singletonList(new Summary(Collections.singletonList(ApprovalTitle.zhCN("测试模板"))));
-        //        审批人模式：0-通过接口指定审批人、抄送人（此时approver、notifyer等参数可用）;
-//        1-使用此模板在管理后台设置的审批流程(需要保证审批流程中没有“申请人自选”节点)，支持条件审批。
+        // 模板
+        String templateId = "C4UEh71DAPh775HPfXipikZ5eAGosskDibU8hkfxJ";
+        // 查询模板配置  可以用缓存优化性能 避免直接查询企业微信
+        ApprovalTmpDetailResponse templateDetail = approvalApi.getTemplateDetail(new TemplateId(templateId));
+        Assertions.assertTrue(templateDetail.isSuccessful());
+        // 审批人模式：0-通过接口指定审批人、抄送人（此时approver、notifyer等参数可用）;
+        // 1-使用此模板在管理后台设置的审批流程(需要保证审批流程中没有“申请人自选”节点)，支持条件审批。
         // 这里使用 0
         ApprovalApplyRequest request = ApprovalApplyRequest.approverMode(
                 "1233",
                 templateId,
                 approver,
-                controls,
+                templateDetail.getTemplateContent()
+                        .getControls(),
                 dataValues,
                 summaryList
         );
 
         GenericResponse<String> apply = approvalApi.applyEvent(request);
-
         // 按照审批号查询详情
         GenericResponse<ApprovalDetail> approvalDetail = approvalApi.getApprovalDetail(new ApprovalSpNo(apply.getData()));
         Assertions.assertTrue(approvalDetail.isSuccessful());
-
     }
 
     /**

@@ -15,6 +15,7 @@
 
 package cn.felord.domain.callback;
 
+import cn.felord.callback.XmlEntity;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
@@ -24,7 +25,7 @@ import lombok.Data;
  */
 @XStreamAlias("NotifyNode")
 @Data
-public class OpenNotifyNode {
+public class OpenNotifyNode implements XmlEntity {
     @XStreamAlias("ItemName")
     private String itemName;
     @XStreamAlias("ItemUserid")

@@ -41,5 +41,9 @@ public class MonthSummaryInfo {
      * 应打卡天数
      */
     private Integer workDays;
+    /**
+     * 正常天数
+     */
+    private Integer regularDays;
 
 }

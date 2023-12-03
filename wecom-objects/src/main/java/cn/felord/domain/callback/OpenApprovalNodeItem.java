@@ -15,6 +15,7 @@
 
 package cn.felord.domain.callback;
 
+import cn.felord.callback.XmlEntity;
 import cn.felord.enumeration.NodeStatus;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
@@ -27,7 +28,7 @@ import java.time.Instant;
  */
 @XStreamAlias("Item")
 @Data
-public class OpenApprovalNodeItem {
+public class OpenApprovalNodeItem implements XmlEntity {
     @XStreamAlias("ItemName")
     private String itemName;
     @XStreamAlias("ItemUserid")

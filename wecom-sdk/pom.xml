@@ -22,7 +22,7 @@
     <parent>
         <groupId>cn.felord</groupId>
         <artifactId>wecom</artifactId>
-        <version>1.2.4</version>
+        <version>1.2.5</version>
     </parent>
     <artifactId>wecom-sdk</artifactId>
     <packaging>jar</packaging>
@@ -88,11 +88,6 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>logging-interceptor</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mariuszgromada.math</groupId>
-            <artifactId>MathParser.org-mXparser</artifactId>
-            <version>5.2.1</version>
         </dependency>
     </dependencies>
 

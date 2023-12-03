@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Call type.
+ * The CallType
  *
  * @author dax
  * @since 2023 /10/6
@@ -53,10 +53,10 @@ public enum CallType {
     }
 
     /**
-     * Deserialize call type.
+     * Deserialize CallType
      *
      * @param type the type
-     * @return the approval notify type
+     * @return the CallType
      */
     @JsonCreator
     public static CallType deserialize(int type) {

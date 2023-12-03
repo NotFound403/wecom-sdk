@@ -144,6 +144,19 @@ public final class WorkWeChatApi {
     }
 
     /**
+     * 会话内容存档
+     *
+     * @param agentDetails the agent details
+     * @return the msg audit api
+     */
+    public MsgAuditApi msgAuditApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(MsgAuditApi.class);
+    }
+
+    /**
      * 身份验证
      *
      * @param agentDetails the agent details
@@ -182,7 +195,7 @@ public final class WorkWeChatApi {
      * @param agentDetails the agent details
      * @return the sdk ticket api
      */
-    public JsSdkApi JsSdkApi(AgentDetails agentDetails) {
+    public JsSdkApi jsSdkApi(AgentDetails agentDetails) {
         AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
         return new JsSdkApi(WorkWeChatApiClient.init(tokenApi, connectionPool, level), weComTokenCacheable);
     }
@@ -347,6 +360,19 @@ public final class WorkWeChatApi {
         return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
                 .retrofit()
                 .create(StaffManagerApi.class);
+    }
+
+    /**
+     * 会议室API
+     *
+     * @param agentDetails the agent details
+     * @return the meeting room api
+     */
+    public MeetingRoomApi meetingRoomApi(AgentDetails agentDetails) {
+        AccessTokenApi tokenApi = new AccessTokenApi(weComTokenCacheable, agentDetails);
+        return WorkWeChatApiClient.init(tokenApi, connectionPool, level)
+                .retrofit()
+                .create(MeetingRoomApi.class);
     }
 
     /**
