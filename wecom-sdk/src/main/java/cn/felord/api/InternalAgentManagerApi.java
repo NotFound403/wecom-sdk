@@ -78,7 +78,7 @@ interface InternalAgentManagerApi {
      *
      * @param agentId the agent id
      * @return the menu
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("menu/get")
     GenericResponse<List<AgentMenuBtn>> getMenu(@Query("agentid") String agentId) throws WeComException;
@@ -88,7 +88,7 @@ interface InternalAgentManagerApi {
      *
      * @param agentId the agent id
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @GET("menu/delete")
     WeComResponse deleteMenu(@Query("agentid") String agentId) throws WeComException;
@@ -100,7 +100,7 @@ interface InternalAgentManagerApi {
      *
      * @param template the template
      * @return the workbench template
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("agent/set_workbench_template")
     WeComResponse setWorkbenchTemplate(@Body WorkbenchTemplate template) throws WeComException;
@@ -110,7 +110,7 @@ interface InternalAgentManagerApi {
      *
      * @param agentId the agent id
      * @return the workbench template
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("agent/get_workbench_template")
     WorkbenchDetailResponse getWorkbenchTemplate(@Body Map<String, String> agentId) throws WeComException;
@@ -123,7 +123,7 @@ interface InternalAgentManagerApi {
      *
      * @param template the template
      * @return the workbench data
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("agent/set_workbench_data")
     WeComResponse setWorkbenchData(@Body UserWorkbenchTemplate template) throws WeComException;

@@ -58,7 +58,7 @@ interface InternalFileManagerApi {
      *
      * @param request the request
      * @return the single
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/journal/download_wedrive_file")
     FileDownloadResponse downloadWedriveFile(@Body JournalDownloadRequest request) throws WeComException;

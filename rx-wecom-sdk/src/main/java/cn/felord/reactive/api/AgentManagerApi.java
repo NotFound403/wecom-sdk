@@ -94,7 +94,7 @@ public class AgentManagerApi {
      * 创建菜单
      *
      * @param request the request
-     * @return the we com response @ the we com exception
+     * @return the we com response @ the weComException
      */
     public Single<WeComResponse> createMenu(AgentMenuBtns request) {
         return internalAgentManagerApi.createMenu(agentDetails.getAgentId(), request);
@@ -103,7 +103,7 @@ public class AgentManagerApi {
     /**
      * 获取菜单
      *
-     * @return the menu @ the we com exception
+     * @return the menu @ the weComException
      */
     public Single<GenericResponse<List<AgentMenuBtn>>> getMenu() {
         return internalAgentManagerApi.getMenu(agentDetails.getAgentId());
@@ -112,7 +112,7 @@ public class AgentManagerApi {
     /**
      * 删除菜单
      *
-     * @return the we com response @ the we com exception
+     * @return the we com response @ the weComException
      */
     public Single<WeComResponse> deleteMenu() {
         return internalAgentManagerApi.deleteMenu(agentDetails.getAgentId());
@@ -124,7 +124,7 @@ public class AgentManagerApi {
      * 该接口指定应用自定义模版类型。同时也支持设置企业默认模版数据。若type指定为 "normal" 则为取消自定义模式，改为普通展示模式
      *
      * @param setting the setting
-     * @return the workbench template @ the we com exception
+     * @return the workbench template @ the weComException
      */
     public Single<WeComResponse> setWorkbenchTemplate(WorkBenchSetting<?> setting) {
 
@@ -148,7 +148,7 @@ public class AgentManagerApi {
     /**
      * 获取应用在工作台展示的模版
      *
-     * @return the workbench template @ the we com exception
+     * @return the workbench template @ the weComException
      */
     public Single<WorkbenchDetailResponse> getWorkbenchTemplate() {
         return internalAgentManagerApi.getWorkbenchTemplate(Collections.singletonMap("agentid", agentDetails.getAgentId()));
@@ -162,7 +162,7 @@ public class AgentManagerApi {
      * 每个用户每个应用接口限制10次/分钟；
      *
      * @param userSetting the user setting
-     * @return the workbench data @ the we com exception
+     * @return the workbench data @ the weComException
      */
     public Single<WeComResponse> setWorkbenchData(@Body UserWorkBenchSetting<?> userSetting) {
         String agentId = agentDetails.getAgentId();

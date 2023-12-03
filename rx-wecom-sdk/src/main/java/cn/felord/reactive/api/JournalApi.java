@@ -47,7 +47,7 @@ public interface JournalApi {
      *
      * @param request the request
      * @return the record list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/journal/get_record_list")
     Single<JournalRecordResponse> getRecordList(@Body JournalRecordRequest request) throws WeComException;
@@ -59,7 +59,7 @@ public interface JournalApi {
      *
      * @param journalUuid the journal uuid
      * @return the record detail
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/journal/get_record_detail")
     Single<GenericResponse<JournalRecordDetail>> getRecordDetail(@Body JournalUuid journalUuid) throws WeComException;
@@ -69,7 +69,7 @@ public interface JournalApi {
      *
      * @param request the request
      * @return the stat list
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("oa/journal/get_stat_list")
     Single<JournalStatResponse> getStatList(@Body JournalStatRequest request) throws WeComException;
@@ -79,7 +79,7 @@ public interface JournalApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      * @deprecated 企业微信4.0.20版本后 ，不会有新增的文档控件数据。开发者可通过文档url进一步查看或导出文档
      */
     @Deprecated

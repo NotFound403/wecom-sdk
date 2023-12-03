@@ -60,7 +60,7 @@ public class JsSdkApi {
      *
      * @param url the url
      * @return the js ticket response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public CorpConfigResponse corpTicket(String url) throws WeComException {
         String corpId = agentDetails.getCorpId();
@@ -87,7 +87,7 @@ public class JsSdkApi {
      *
      * @param url the url
      * @return the js ticket response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public AgentConfigResponse agentTicket(String url) throws WeComException {
         String corpId = agentDetails.getCorpId();
@@ -118,7 +118,7 @@ public class JsSdkApi {
      * @param operatorUserid   the operator userid
      * @param singleChatUserId the single chat user id
      * @return the launch code
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public String getLaunchCode(String operatorUserid, String singleChatUserId) throws WeComException {
         String launchCode = jsApi.getLaunchCode(new LaunchCodeRequest(operatorUserid, singleChatUserId))
