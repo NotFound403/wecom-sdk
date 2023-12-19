@@ -34,6 +34,10 @@ public enum AttendanceType {
      */
     LEAVE(1),
     /**
+     * 补卡
+     */
+    PUNCH_CORRECTION(2),
+    /**
      * 出差
      */
     BUSINESS_TRIP(3),

@@ -51,7 +51,7 @@ public class DateValue implements ContentDataValue {
      * @return the date value
      */
     public static DateValue date(Instant sTimestamp) {
-        return new DateValue(new Wrapper(DateCtrlType.DAY, sTimestamp));
+        return new DateValue(new Wrapper(DateCtrlType.DAY, sTimestamp, null));
     }
 
     /**
@@ -61,7 +61,7 @@ public class DateValue implements ContentDataValue {
      * @return the date value
      */
     public static DateValue dateTime(Instant sTimestamp) {
-        return new DateValue(new Wrapper(DateCtrlType.HOUR, sTimestamp));
+        return new DateValue(new Wrapper(DateCtrlType.HOUR, sTimestamp, null));
     }
 
     /**
@@ -73,6 +73,7 @@ public class DateValue implements ContentDataValue {
         private final DateCtrlType type;
         @JsonProperty("s_timestamp")
         private final Instant sTimestamp;
+        private final TimezoneInfo timezoneInfo;
 
         /**
          * Instantiates a new Wrapper.
@@ -81,10 +82,12 @@ public class DateValue implements ContentDataValue {
          * @param sTimestamp the s timestamp
          */
         @JsonCreator
-        public Wrapper(@JsonProperty("type") DateCtrlType type,
-                       @JsonProperty("s_timestamp") Instant sTimestamp) {
+        Wrapper(@JsonProperty("type") DateCtrlType type,
+                @JsonProperty("s_timestamp") Instant sTimestamp,
+                @JsonProperty("timezone_info") TimezoneInfo timezoneInfo) {
             this.type = type;
             this.sTimestamp = sTimestamp;
+            this.timezoneInfo = timezoneInfo;
         }
     }
 }

@@ -107,7 +107,6 @@ import cn.felord.domain.wedoc.form.FormAnswerRequest;
 import cn.felord.domain.wedrive.BufferSource;
 import cn.felord.enumeration.AnswerReplyItemType;
 import cn.felord.enumeration.BoolEnum;
-import cn.felord.enumeration.DateRangeType;
 import cn.felord.enumeration.MediaTypeEnum;
 import cn.felord.enumeration.NativeAgent;
 import cn.felord.enumeration.RemindBeforeEventSecs;
@@ -403,7 +402,7 @@ class SpringBootWecomSdkTests {
                 // 日期+时间
                 DateValue.dateTime(now),
                 // 时长组件
-                new DateRangeValue(DateRangeType.HALF_DAY, minus, now),
+                DateRangeValue.halfDay(minus, now),
                 // 单选
                 SelectorValue.single("option-1694586803563"),
                 // 多选

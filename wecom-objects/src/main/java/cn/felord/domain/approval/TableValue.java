@@ -49,7 +49,7 @@ public class TableValue implements ContentDataValue {
     @ToString
     @Getter
     public static class Wrapper {
-        private final List<ApplyContentData<?>> list;
+        private final List<? extends ApplyContentData<? extends ContentDataValue>> list;
 
         /**
          * Instantiates a new Wrapper.
@@ -57,7 +57,7 @@ public class TableValue implements ContentDataValue {
          * @param list the list
          */
         @JsonCreator
-        Wrapper(@JsonProperty("list") List<ApplyContentData<?>> list) {
+        Wrapper(@JsonProperty("list") List<? extends ApplyContentData<? extends ContentDataValue>> list) {
             this.list = list;
         }
     }

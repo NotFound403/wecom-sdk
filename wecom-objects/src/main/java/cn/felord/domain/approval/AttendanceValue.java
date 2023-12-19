@@ -43,15 +43,17 @@ public class AttendanceValue implements ContentDataValue {
         this.attendance = attendance;
     }
 
+
     /**
      * Instantiates a new Attendance value.
      *
      * @param type      the type
      * @param dateRange the date range
      */
-    public AttendanceValue(AttendanceType type, DateRangeValue dateRange) {
+    AttendanceValue(AttendanceType type, DateRangeWrapper dateRange) {
         this.attendance = new Wrapper(type, dateRange);
     }
+
 
     /**
      * The type Wrapper.
@@ -60,10 +62,10 @@ public class AttendanceValue implements ContentDataValue {
     @Getter
     static class Wrapper {
         private final AttendanceType type;
-        private final DateRangeValue dateRange;
+        private final DateRangeWrapper dateRange;
 
         @JsonCreator
-        Wrapper(@JsonProperty("type") AttendanceType type, @JsonProperty("date_range") DateRangeValue dateRange) {
+        Wrapper(@JsonProperty("type") AttendanceType type, @JsonProperty("date_range") DateRangeWrapper dateRange) {
             this.type = type;
             this.dateRange = dateRange;
         }

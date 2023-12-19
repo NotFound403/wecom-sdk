@@ -17,7 +17,6 @@ package cn.felord.domain.approval;
 
 import cn.felord.enumeration.DateRangeType;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
@@ -34,12 +33,40 @@ import java.time.Instant;
 @ToString
 @Getter
 public class DateRangeValue implements ContentDataValue {
+    private final DateRangeWrapper dateRange;
 
-    private final DateRangeType type;
-    private final Instant newBegin;
-    private final Instant newEnd;
-    @JsonFormat(shape = JsonFormat.Shape.NUMBER, pattern = "SECONDS")
-    private final Duration newDuration;
+
+    /**
+     * Half day date range value.
+     *
+     * @param newBegin the new begin
+     * @param newEnd   the new end
+     * @return the date range value
+     */
+    public static DateRangeValue halfDay(Instant newBegin, Instant newEnd) {
+        return new DateRangeValue(DateRangeType.HALF_DAY, newBegin, newEnd);
+    }
+
+    /**
+     * Hour date range value.
+     *
+     * @param newBegin the new begin
+     * @param newEnd   the new end
+     * @return the date range value
+     */
+    public static DateRangeValue hour(Instant newBegin, Instant newEnd) {
+        return new DateRangeValue(DateRangeType.HOUR, newBegin, newEnd);
+    }
+
+    /**
+     * Instantiates a new Date range value.
+     *
+     * @param dateRange the date range
+     */
+    @JsonCreator
+    DateRangeValue(@JsonProperty("date_range") DateRangeWrapper dateRange) {
+        this.dateRange = dateRange;
+    }
 
     /**
      * Instantiates a new Date range value.
@@ -48,28 +75,9 @@ public class DateRangeValue implements ContentDataValue {
      * @param newBegin the new begin
      * @param newEnd   the new end
      */
-    public DateRangeValue(DateRangeType type,
-                          Instant newBegin,
-                          Instant newEnd) {
-        this(type, newBegin, newEnd, Duration.between(newBegin, newEnd));
-    }
-
-    /**
-     * Instantiates a new Date range value.
-     *
-     * @param type        the type
-     * @param newBegin    the new begin
-     * @param newEnd      the new end
-     * @param newDuration the new duration
-     */
-    @JsonCreator
-    DateRangeValue(@JsonProperty("type") DateRangeType type,
-                   @JsonProperty("new_begin") Instant newBegin,
-                   @JsonProperty("new_end") Instant newEnd,
-                   @JsonProperty("new_duration") Duration newDuration) {
-        this.type = type;
-        this.newBegin = newBegin;
-        this.newEnd = newEnd;
-        this.newDuration = newDuration;
+    DateRangeValue(DateRangeType type,
+                   Instant newBegin,
+                   Instant newEnd) {
+        this.dateRange = new DateRangeWrapper(type, newBegin, newEnd, Duration.between(newBegin, newEnd));
     }
 }

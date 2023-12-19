@@ -204,23 +204,22 @@ public class ApprovalApplyRequest {
             if (internalValue == null) {
                 throw new IllegalArgumentException("approval internalValue must not be null");
             }
-            List<? extends ContentDataValue> tableValues = internalValue.getValues();
+            List<List<? extends ContentDataValue>> tableValues = internalValue.getValues();
             if (CollectionUtils.isEmpty(tableValues)) {
                 throw new IllegalArgumentException("approval table values must not be empty");
             }
             TableConfig tableConfig = (TableConfig) config;
             List<TableCtrlProperty> children = tableConfig.getTable()
                     .getChildren();
-            int ctrlSize = children.size();
-            if (ctrlSize != tableValues.size()) {
-                throw new WeComException("table controls size do not match table dataValues size");
-            }
-            List<ApplyContentData<?>> applyContentData = IntStream.range(0, ctrlSize)
-                    .mapToObj(index ->
-                            ApplyContentData.from(children.get(index).getProperty(), tableValues.get(index)))
+            List<TableValue.Wrapper> collect = tableValues.stream()
+                    .map(tableVal ->
+                            IntStream.range(0, tableVal.size())
+                                    .mapToObj(index ->
+                                            ApplyContentData.from(children.get(index).getProperty(), tableVal.get(index)))
+                                    .collect(Collectors.toList()))
+                    .map(TableValue.Wrapper::new)
                     .collect(Collectors.toList());
-            TableValue.Wrapper wrapper = new TableValue.Wrapper(applyContentData);
-            return tmpControl.getProperty().toData(new TableValue(Collections.singletonList(wrapper)));
+            return tmpControl.getProperty().toData(new TableValue(collect));
         }
         return tmpControl.getProperty().toData(dataValue);
     }

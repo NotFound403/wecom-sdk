@@ -15,8 +15,10 @@
 
 package cn.felord.domain.approval;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,7 +28,18 @@ import java.util.List;
  * @see TableConfig
  * @since 2023 /7/16 17:14
  */
-@Data
+@Getter
+@ToString
 public class ListContentDataValue implements ContentDataValue {
-    private final List<? extends ContentDataValue> values;
+    private final List<List<? extends ContentDataValue>> values;
+
+    /**
+     * Instantiates a new List content data value.
+     *
+     * @param values the values
+     */
+    @SafeVarargs
+    public ListContentDataValue(List<? extends ContentDataValue>... values) {
+        this.values = Arrays.asList(values);
+    }
 }
