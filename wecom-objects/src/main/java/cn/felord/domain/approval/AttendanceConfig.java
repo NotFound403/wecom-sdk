@@ -16,19 +16,33 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.AttendanceType;
+import cn.felord.enumeration.DateRangeType;
 import lombok.Data;
 
 /**
+ * The type Attendance config.
+ *
  * @author dax
- * @since 2023/5/25 16:37
+ * @since 2023 /5/25 16:37
  */
 @Data
 public class AttendanceConfig implements ControlConfig {
     private Wrapper attendance;
 
+    /**
+     * The type Wrapper.
+     */
     @Data
     public static class Wrapper {
         private AttendanceType type;
-        private DateRange dateRange;
+        private AttendanceDateRange dateRange;
+    }
+
+    /**
+     * The type Attendance date range.
+     */
+    @Data
+    public static class AttendanceDateRange {
+        private DateRangeType type;
     }
 }

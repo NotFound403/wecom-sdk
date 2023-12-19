@@ -74,7 +74,7 @@ interface InternalAgentManagerApi {
      * 获取菜单
      *
      * @param agentId the agent id
-     * @return the menu @ the we com exception
+     * @return the menu @ the weComException
      */
     @GET("menu/get")
     Single<GenericResponse<List<AgentMenuBtn>>> getMenu(@Query("agentid") String agentId);
@@ -83,7 +83,7 @@ interface InternalAgentManagerApi {
      * 删除菜单
      *
      * @param agentId the agent id
-     * @return the we com response @ the we com exception
+     * @return the we com response @ the weComException
      */
     @GET("menu/delete")
     Single<WeComResponse> deleteMenu(@Query("agentid") String agentId);
@@ -94,7 +94,7 @@ interface InternalAgentManagerApi {
      * 该接口指定应用自定义模版类型。同时也支持设置企业默认模版数据。若type指定为 "normal" 则为取消自定义模式，改为普通展示模式
      *
      * @param template the template
-     * @return the workbench template @ the we com exception
+     * @return the workbench template @ the weComException
      */
     @POST("agent/set_workbench_template")
     Single<WeComResponse> setWorkbenchTemplate(@Body WorkbenchTemplate template);
@@ -103,7 +103,7 @@ interface InternalAgentManagerApi {
      * 获取应用在工作台展示的模版
      *
      * @param agentId the agent id
-     * @return the workbench template @ the we com exception
+     * @return the workbench template @ the weComException
      */
     @POST("agent/get_workbench_template")
     Single<WorkbenchDetailResponse> getWorkbenchTemplate(@Body Map<String, String> agentId);
@@ -115,7 +115,7 @@ interface InternalAgentManagerApi {
      * 每个用户每个应用接口限制10次/分钟；
      *
      * @param template the template
-     * @return the workbench data @ the we com exception
+     * @return the workbench data @ the weComException
      */
     @POST("agent/set_workbench_data")
     Single<WeComResponse> setWorkbenchData(@Body UserWorkbenchTemplate template);

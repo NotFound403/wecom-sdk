@@ -77,7 +77,7 @@ public class FileManagerApi {
      *
      * @param request the request
      * @return the buffer source
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public BufferSource downloadWedriveFile(JournalDownloadRequest request) throws WeComException {
         FileDownloadResponse downloadResponse = internalFileManagerApi.downloadWedriveFile(request);

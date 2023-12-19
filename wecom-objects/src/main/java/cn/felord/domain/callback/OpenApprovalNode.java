@@ -15,6 +15,7 @@
 
 package cn.felord.domain.callback;
 
+import cn.felord.callback.XmlEntity;
 import cn.felord.enumeration.ApproverNodeMode;
 import cn.felord.enumeration.NodeStatus;
 import cn.felord.enumeration.NodeType;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 @XStreamAlias("ApprovalNode")
 @Data
-public class OpenApprovalNode {
+public class OpenApprovalNode implements XmlEntity {
 
     @XStreamAlias("NodeStatus")
     private NodeStatus nodeStatus;

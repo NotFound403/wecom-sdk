@@ -78,6 +78,7 @@ public class DateRangeValue implements ContentDataValue {
     DateRangeValue(DateRangeType type,
                    Instant newBegin,
                    Instant newEnd) {
-        this.dateRange = new DateRangeWrapper(type, newBegin, newEnd, Duration.between(newBegin, newEnd));
+        this.dateRange = new DateRangeWrapper(type, newBegin, newEnd,
+                Duration.between(newBegin, newEnd), null, null);
     }
 }

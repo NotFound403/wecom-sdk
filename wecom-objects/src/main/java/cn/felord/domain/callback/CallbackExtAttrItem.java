@@ -22,7 +22,6 @@ import lombok.Data;
  * @author dax
  * @since 2022/2/7 14:55
  */
-@XStreamAlias("Item")
 @Data
 public class CallbackExtAttrItem {
     @XStreamAlias("Type")
@@ -33,18 +32,4 @@ public class CallbackExtAttrItem {
     private Web web;
     @XStreamAlias("Text")
     private Text text;
-
-    @Data
-    public static class Web {
-        @XStreamAlias("Title")
-        private String title;
-        @XStreamAlias("Url")
-        private String url;
-    }
-
-    @Data
-    public static class Text {
-        @XStreamAlias("Value")
-        private String value;
-    }
 }

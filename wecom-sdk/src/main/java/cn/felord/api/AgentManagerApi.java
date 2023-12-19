@@ -99,7 +99,7 @@ public class AgentManagerApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public WeComResponse createMenu(AgentMenuBtns request) throws WeComException {
         return internalAgentManagerApi.createMenu(agentDetails.getAgentId(), request);
@@ -109,7 +109,7 @@ public class AgentManagerApi {
      * 获取菜单
      *
      * @return the menu
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public GenericResponse<List<AgentMenuBtn>> getMenu() throws WeComException {
         return internalAgentManagerApi.getMenu(agentDetails.getAgentId());
@@ -119,7 +119,7 @@ public class AgentManagerApi {
      * 删除菜单
      *
      * @return the we com response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public WeComResponse deleteMenu() throws WeComException {
         return internalAgentManagerApi.deleteMenu(agentDetails.getAgentId());
@@ -132,7 +132,7 @@ public class AgentManagerApi {
      *
      * @param setting the setting
      * @return the workbench template
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public WeComResponse setWorkbenchTemplate(WorkBenchSetting<?> setting) throws WeComException {
 
@@ -157,7 +157,7 @@ public class AgentManagerApi {
      * 获取应用在工作台展示的模版
      *
      * @return the workbench template
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public WorkbenchDetailResponse getWorkbenchTemplate() throws WeComException {
         return internalAgentManagerApi.getWorkbenchTemplate(Collections.singletonMap("agentid", agentDetails.getAgentId()));
@@ -172,7 +172,7 @@ public class AgentManagerApi {
      *
      * @param userSetting the user setting
      * @return the workbench data
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     public WeComResponse setWorkbenchData(@Body UserWorkBenchSetting<?> userSetting) throws WeComException {
         String agentId = agentDetails.getAgentId();

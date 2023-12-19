@@ -30,7 +30,7 @@ public class WeComException extends RuntimeException {
     private final String hint;
 
     /**
-     * Instantiates a new We com exception.
+     * Instantiates a new weComException.
      *
      * @param cause the cause
      */
@@ -41,7 +41,7 @@ public class WeComException extends RuntimeException {
     }
 
     /**
-     * Instantiates a new We com exception.
+     * Instantiates a new weComException.
      *
      * @param message the message
      * @param cause   the cause
@@ -53,7 +53,7 @@ public class WeComException extends RuntimeException {
     }
 
     /**
-     * Instantiates a new We com exception.
+     * Instantiates a new weComException.
      *
      * @param errmsg the errmsg
      */
@@ -64,7 +64,7 @@ public class WeComException extends RuntimeException {
     }
 
     /**
-     * Instantiates a new We com exception.
+     * Instantiates a new weComException.
      *
      * @param errcode the errcode
      * @param errmsg  the errmsg

@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The FormItemStatus
+ * The AnswerStatus
  *
  * @author felord
  * @since 2021 /11/23 17:01
@@ -59,7 +59,7 @@ public enum AnswerStatus {
     }
 
     /**
-     * Deserialize button type.
+     * Deserialize AnswerStatus.
      *
      * @param type the type
      * @return the button type

@@ -56,7 +56,7 @@ interface JsApi {
      *
      * @param request the request
      * @return the js ticket response
-     * @throws WeComException the we com exception
+     * @throws WeComException the weComException
      */
     @POST("get_launch_code")
     LaunchCodeResponse getLaunchCode(@Body LaunchCodeRequest request) throws WeComException;

@@ -178,7 +178,7 @@ public enum CallbackChangeType {
      */
     QUOTA_EXPIRE_SOON("quota_expire_soon"),
     /**
-     * 会话存档
+     * 会话存档-客户同意进行聊天内容存档事件回调
      */
     MSG_AUDIT_APPROVED("msg_audit_approved"),
     /**
