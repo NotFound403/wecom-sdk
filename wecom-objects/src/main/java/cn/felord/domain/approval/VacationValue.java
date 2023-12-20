@@ -49,7 +49,7 @@ public class VacationValue implements ContentDataValue {
     /**
      * Instantiates a new Vacation value.
      *
-     * @param key            {@link ApprovalTmpDetailResponse#getVacationList()}
+     * @param key            {@code ApprovalTmpDetailResponse#getVacationList()}
      * @param attendanceType the attendance type
      * @param dateRange      the date range
      * @return the vacation value
