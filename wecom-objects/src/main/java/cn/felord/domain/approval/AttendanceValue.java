@@ -50,20 +50,66 @@ public class AttendanceValue implements ContentDataValue {
      * @param type      the type
      * @param dateRange the date range
      */
-    AttendanceValue(AttendanceType type, DateRangeWrapper dateRange) {
+    public AttendanceValue(AttendanceType type, DateRangeWrapper dateRange) {
         this.attendance = new Wrapper(type, dateRange);
     }
 
+
+    /**
+     * 请假
+     *
+     * @param dateRange the date range
+     * @return the attendance value
+     */
+    public static AttendanceValue leave(DateRangeWrapper dateRange) {
+        return new AttendanceValue(AttendanceType.LEAVE, dateRange);
+    }
+
+    /**
+     * 出差
+     *
+     * @param dateRange the date range
+     * @return the attendance value
+     */
+    public static AttendanceValue trip(DateRangeWrapper dateRange) {
+        return new AttendanceValue(AttendanceType.BUSINESS_TRIP, dateRange);
+    }
+
+    /**
+     * 外出
+     *
+     * @param dateRange the date range
+     * @return the attendance value
+     */
+    public static AttendanceValue goingOut(DateRangeWrapper dateRange) {
+        return new AttendanceValue(AttendanceType.GOING_OUT, dateRange);
+    }
+
+    /**
+     * 加班
+     *
+     * @param dateRange the date range
+     * @return the attendance value
+     */
+    public static AttendanceValue overtime(DateRangeWrapper dateRange) {
+        return new AttendanceValue(AttendanceType.OVERTIME_WORK, dateRange);
+    }
 
     /**
      * The type Wrapper.
      */
     @ToString
     @Getter
-    static class Wrapper {
+    public static class Wrapper {
         private final AttendanceType type;
         private final DateRangeWrapper dateRange;
 
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param type      the type
+         * @param dateRange the date range
+         */
         @JsonCreator
         Wrapper(@JsonProperty("type") AttendanceType type, @JsonProperty("date_range") DateRangeWrapper dateRange) {
             this.type = type;

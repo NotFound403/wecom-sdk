@@ -15,10 +15,11 @@
 
 package cn.felord.domain.approval;
 
+import cn.felord.utils.Assert;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,13 +34,38 @@ import java.util.List;
 public class ListContentDataValue implements ContentDataValue {
     private final List<List<? extends ContentDataValue>> values;
 
+
     /**
      * Instantiates a new List content data value.
      *
      * @param values the values
      */
-    @SafeVarargs
-    public ListContentDataValue(List<? extends ContentDataValue>... values) {
-        this.values = Arrays.asList(values);
+    ListContentDataValue(List<List<? extends ContentDataValue>> values) {
+        this.values = values;
+    }
+
+    /**
+     * Instantiates a new List content data value.
+     *
+     * @param first the first
+     * @return the list content data value
+     */
+    public static ListContentDataValue of(List<? extends ContentDataValue> first) {
+        Assert.notEmpty(first, "first value must not be empty");
+        List<List<? extends ContentDataValue>> values = new ArrayList<>();
+        values.add(first);
+        return new ListContentDataValue(values);
+    }
+
+    /**
+     * 多个相同明细分片
+     *
+     * @param value the value
+     * @return the list content data value
+     */
+    public ListContentDataValue append(List<? extends ContentDataValue> value) {
+        Assert.notEmpty(value, "value must not be empty");
+        values.add(value);
+        return this;
     }
 }

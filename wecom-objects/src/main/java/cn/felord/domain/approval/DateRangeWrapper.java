@@ -31,10 +31,12 @@ public class DateRangeWrapper {
     /**
      * Instantiates a new Wrapper.
      *
-     * @param type        the type
-     * @param newBegin    the new begin
-     * @param newEnd      the new end
-     * @param newDuration the new duration
+     * @param type           the type
+     * @param newBegin       the new begin
+     * @param newEnd         the new end
+     * @param newDuration    the new duration
+     * @param perdayDuration the perday duration
+     * @param timezoneInfo   the timezone info
      */
     @JsonCreator
     DateRangeWrapper(@JsonProperty("type") DateRangeType type,
@@ -52,6 +54,18 @@ public class DateRangeWrapper {
     }
 
     /**
+     * Instantiates a new Date range wrapper.
+     *
+     * @param type        the type
+     * @param newBegin    the new begin
+     * @param newEnd      the new end
+     * @param newDuration the new duration
+     */
+    public DateRangeWrapper(DateRangeType type, Instant newBegin, Instant newEnd, Duration newDuration) {
+        this(type, newBegin, newEnd, newDuration, null, null);
+    }
+
+    /**
      * Half day date range wrapper.
      *
      * @param newBegin the new begin
@@ -59,7 +73,7 @@ public class DateRangeWrapper {
      * @return the date range wrapper
      */
     public static DateRangeWrapper halfDay(Instant newBegin, Instant newEnd) {
-        return new DateRangeWrapper(DateRangeType.HALF_DAY, newBegin, newEnd, Duration.between(newBegin, newEnd), null, null);
+        return new DateRangeWrapper(DateRangeType.HALF_DAY, newBegin, newEnd, Duration.between(newBegin, newEnd));
     }
 
     /**
@@ -70,6 +84,6 @@ public class DateRangeWrapper {
      * @return the date range wrapper
      */
     public static DateRangeWrapper hour(Instant newBegin, Instant newEnd) {
-        return new DateRangeWrapper(DateRangeType.HOUR, newBegin, newEnd, Duration.between(newBegin, newEnd), null, null);
+        return new DateRangeWrapper(DateRangeType.HOUR, newBegin, newEnd, Duration.between(newBegin, newEnd));
     }
 }

@@ -49,13 +49,59 @@ public class VacationValue implements ContentDataValue {
     /**
      * Instantiates a new Vacation value.
      *
-     * @param key       {@link ApprovalTmpDetailResponse#getVacationList()}
-     * @param dateRange the date range
+     * @param key            {@link ApprovalTmpDetailResponse#getVacationList()}
+     * @param attendanceType the attendance type
+     * @param dateRange      the date range
+     * @return the vacation value
      */
-    public VacationValue(String key, DateRangeWrapper dateRange) {
+    public static VacationValue from(String key, AttendanceType attendanceType, DateRangeWrapper dateRange) {
         CtrlOption options = new CtrlOption();
         options.setKey(key);
-        this.vacation = new Wrapper(options, AttendanceType.LEAVE, dateRange);
+        return new VacationValue(new Wrapper(options, attendanceType, dateRange));
+    }
+
+    /**
+     * 请假
+     *
+     * @param key       the key
+     * @param dateRange the date range
+     * @return the vacation value
+     */
+    public static VacationValue leave(String key, DateRangeWrapper dateRange) {
+        return from(key, AttendanceType.LEAVE, dateRange);
+    }
+
+    /**
+     * 出差
+     *
+     * @param key       the key
+     * @param dateRange the date range
+     * @return the vacation value
+     */
+    public static VacationValue trip(String key, DateRangeWrapper dateRange) {
+        return from(key, AttendanceType.BUSINESS_TRIP, dateRange);
+    }
+
+    /**
+     * 外出
+     *
+     * @param key       the key
+     * @param dateRange the date range
+     * @return the vacation value
+     */
+    public static VacationValue goingOut(String key, DateRangeWrapper dateRange) {
+        return from(key, AttendanceType.GOING_OUT, dateRange);
+    }
+
+    /**
+     * 加班
+     *
+     * @param key       the key
+     * @param dateRange the date range
+     * @return the vacation value
+     */
+    public static VacationValue overtime(String key, DateRangeWrapper dateRange) {
+        return from(key, AttendanceType.OVERTIME_WORK, dateRange);
     }
 
     /**

@@ -47,6 +47,7 @@ import cn.felord.domain.approval.Approver;
 import cn.felord.domain.approval.ContactValue;
 import cn.felord.domain.approval.ContentDataValue;
 import cn.felord.domain.approval.DateRangeValue;
+import cn.felord.domain.approval.DateRangeWrapper;
 import cn.felord.domain.approval.DateValue;
 import cn.felord.domain.approval.FormulaValue;
 import cn.felord.domain.approval.ListContentDataValue;
@@ -58,6 +59,7 @@ import cn.felord.domain.approval.RelatedApprovalValue;
 import cn.felord.domain.approval.SelectorValue;
 import cn.felord.domain.approval.Summary;
 import cn.felord.domain.approval.TextValue;
+import cn.felord.domain.approval.VacationValue;
 import cn.felord.domain.callcenter.ClickMsgMenuContent;
 import cn.felord.domain.callcenter.EnterSessionKfEvent;
 import cn.felord.domain.callcenter.EventKfMessage;
@@ -401,12 +403,19 @@ class SpringBootWecomSdkTests {
                 new LocationValue("30.867621", "111.676726", "大润发", "xx省xx市xx区xxx路112号", Instant.now()),
                 // 审批
                 RelatedApprovalValue.from(Collections.singletonList("202309130010")),
-                // 明细
-                new ListContentDataValue(Collections.singletonList(TextValue.from("321423"))),
+                // 明细组 代表一个字段 必须有一个默认
+                ListContentDataValue.of(Arrays.asList(TextValue.from("321423"), MoneyValue.from(12121)))
+                        // 相同字段结构的多个明细    明细2
+                        .append(Arrays.asList(TextValue.from("321424"), MoneyValue.from(32446.33)))
+                        // 相同字段结构的多个明细    明细3
+                        .append(Arrays.asList(TextValue.from("321424"), MoneyValue.from(32446.33)))
+                ,
                 // 说明文字控件不显示在审批详情中，故value为空
                 TextValue.nullValue(),
                 // 国内手机号   +86 + 手机号
-                PhoneNumberValue.zhCN("182xxxxxxxxx")
+                PhoneNumberValue.zhCN("18237930011"),
+                //  key 选项从 ApprovalTmpDetailResponse#getVacationList() 获取
+                VacationValue.leave("2", DateRangeWrapper.hour(Instant.now().plusSeconds(30), Instant.now().plusSeconds(3600)))
         );
 
         // 审批人 两个节点
