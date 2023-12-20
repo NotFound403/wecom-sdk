@@ -78,8 +78,9 @@ public class DateValue implements ContentDataValue {
         /**
          * Instantiates a new Wrapper.
          *
-         * @param type       the type
-         * @param sTimestamp the s timestamp
+         * @param type         the type
+         * @param sTimestamp   the s timestamp
+         * @param timezoneInfo the timezone info
          */
         @JsonCreator
         Wrapper(@JsonProperty("type") DateCtrlType type,
