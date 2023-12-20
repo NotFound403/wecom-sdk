@@ -400,7 +400,7 @@ class SpringBootWecomSdkTests {
                 // 多选
                 SelectorValue.multiple(Arrays.asList("option-1694586805670", "option-1694586805670")),
                 // 位置
-                new LocationValue("30.867621", "111.676726", "大润发", "xx省xx市xx区xxx路112号", Instant.now()),
+                LocationValue.from("30.867621", "111.676726", "大润发", "xx省xx市xx区xxx路112号", Instant.now()),
                 // 审批
                 RelatedApprovalValue.from(Collections.singletonList("202309130010")),
                 // 明细组 代表一个字段 必须有一个默认

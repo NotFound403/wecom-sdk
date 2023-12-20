@@ -44,6 +44,16 @@ public class ListContentDataValue implements ContentDataValue {
         this.values = values;
     }
 
+
+    /**
+     * Of list content data value.
+     *
+     * @return the list content data value
+     */
+    public static ListContentDataValue of() {
+        return new ListContentDataValue(new ArrayList<>());
+    }
+
     /**
      * Instantiates a new List content data value.
      *
@@ -51,21 +61,18 @@ public class ListContentDataValue implements ContentDataValue {
      * @return the list content data value
      */
     public static ListContentDataValue of(List<? extends ContentDataValue> first) {
-        Assert.notEmpty(first, "first value must not be empty");
-        List<List<? extends ContentDataValue>> values = new ArrayList<>();
-        values.add(first);
-        return new ListContentDataValue(values);
+        return of().append(first);
     }
 
     /**
      * 多个相同明细分片
      *
-     * @param value the value
-     * @return the list content data value
+     * @param next the next
+     * @return the list content data next
      */
-    public ListContentDataValue append(List<? extends ContentDataValue> value) {
-        Assert.notEmpty(value, "value must not be empty");
-        values.add(value);
+    public ListContentDataValue append(List<? extends ContentDataValue> next) {
+        Assert.notEmpty(next, "next must not be empty");
+        values.add(next);
         return this;
     }
 }

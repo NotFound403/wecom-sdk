@@ -53,12 +53,12 @@ public class LocationValue implements ContentDataValue {
      * @param address   the address
      * @param time      the time
      */
-    public LocationValue(String latitude,
-                         String longitude,
-                         String title,
-                         String address,
-                         Instant time) {
-        this(new Wrapper(latitude, longitude, title, address, time));
+    public static LocationValue from(String latitude,
+                                     String longitude,
+                                     String title,
+                                     String address,
+                                     Instant time) {
+        return new LocationValue(new Wrapper(latitude, longitude, title, address, time));
     }
 
     /**
