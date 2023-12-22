@@ -41,7 +41,7 @@ public class OtInfo {
     /**
      * 加班信息
      */
-    private Otcheckinfo otcheckinfo;
+    private OtDetail otcheckinfo;
     /**
      * 加班更新时间
      */
