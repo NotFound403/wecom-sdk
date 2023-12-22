@@ -49,9 +49,14 @@ public enum KfMsgType {
      */
     FILE("file"),
     /**
-     * 位置
+     * 地理位置
      */
     LOCATION("location"),
+    /**
+     * 获客链接
+     * @since 1.2.6
+     */
+    CA_LINK("ca_link"),
     /**
      * 链接
      */

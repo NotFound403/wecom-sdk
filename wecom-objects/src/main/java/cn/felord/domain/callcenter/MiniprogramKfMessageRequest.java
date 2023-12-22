@@ -20,8 +20,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Miniprogram kf message request.
+ *
  * @author dax
- * @since 2023/6/4
+ * @since 2023 /6/4
  */
 @ToString
 @Getter
@@ -29,10 +31,25 @@ public class MiniprogramKfMessageRequest extends KfMessageRequest {
     private final KfMiniprogram miniprogram;
 
 
+    /**
+     * Instantiates a new Miniprogram kf message request.
+     *
+     * @param touser      the touser
+     * @param openKfid    the open kfid
+     * @param miniprogram the miniprogram
+     */
     public MiniprogramKfMessageRequest(String touser, String openKfid, KfMiniprogram miniprogram) {
         this(touser, openKfid, null, miniprogram);
     }
 
+    /**
+     * Instantiates a new Miniprogram kf message request.
+     *
+     * @param touser      the touser
+     * @param openKfid    the open kfid
+     * @param msgid       the msgid
+     * @param miniprogram the miniprogram
+     */
     public MiniprogramKfMessageRequest(String touser, String openKfid, String msgid, KfMiniprogram miniprogram) {
         super(touser, openKfid, msgid, KfMsgType.MINIPROGRAM);
         this.miniprogram = miniprogram;

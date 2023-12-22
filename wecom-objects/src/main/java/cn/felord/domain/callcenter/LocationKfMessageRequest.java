@@ -20,8 +20,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Location kf message request.
+ *
  * @author dax
- * @since 2023/6/4
+ * @since 2023 /6/4
  */
 @ToString
 @Getter
@@ -29,10 +31,25 @@ public class LocationKfMessageRequest extends KfMessageRequest {
     private final KfLocation location;
 
 
+    /**
+     * Instantiates a new Location kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param location the location
+     */
     public LocationKfMessageRequest(String touser, String openKfid, KfLocation location) {
         this(touser, openKfid, null, location);
     }
 
+    /**
+     * Instantiates a new Location kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param msgid    the msgid
+     * @param location the location
+     */
     public LocationKfMessageRequest(String touser, String openKfid, String msgid, KfLocation location) {
         super(touser, openKfid, msgid, KfMsgType.IMAGE);
         this.location = location;
