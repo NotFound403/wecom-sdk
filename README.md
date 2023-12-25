@@ -119,6 +119,41 @@ void webHooks()throws IOException{
 </dependency>
 ```
 
+- Okhttp低版本兼容依赖
+
+> 会报错NoSuchMethod的是因为你项目本身引入了Okhttp，但是版本比较低，导致不兼容的情况，可通过以下依赖引入wecom-sdk
+
+```xml
+<dependency>
+    <groupId>cn.felord</groupId>
+    <artifactId>wecom-sdk</artifactId>
+    <version>1.2.5</version>
+    <exclusions>
+        <exclusion>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>logging-interceptor</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>4.12.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>logging-interceptor</artifactId>
+    <version>4.12.0</version>
+</dependency>
+```
+
+
 ## 📚文档
 
 中文文档：[https://felord.cn/wecom/overview.html](https://felord.cn/wecom/overview.html)
