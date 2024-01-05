@@ -46,6 +46,7 @@ public class DefaultAgent implements AgentDetails {
      * @param agent  the agent
      * @return the agent details
      */
+    @Deprecated
     public static AgentDetails nativeAgent(String corpId, String secret, NativeAgent agent) {
         return new DefaultAgent(corpId, secret, agent.getAgentId());
     }
