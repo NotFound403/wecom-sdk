@@ -16,7 +16,6 @@
 package cn.felord.domain.externalcontact;
 
 import lombok.Data;
-import lombok.NonNull;
 
 import java.time.Instant;
 
@@ -47,6 +46,5 @@ public class CorpTag {
     /**
      * 标签是否已经被删除，只在指定tag_id/group_id进行查询时返回
      */
-    @NonNull
     private Boolean deleted;
 }
