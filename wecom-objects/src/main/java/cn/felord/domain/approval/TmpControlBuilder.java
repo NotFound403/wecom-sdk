@@ -271,6 +271,17 @@ public final class TmpControlBuilder<C extends ControlConfig> {
     }
 
     /**
+     * 银行账户控件
+     *
+     * @param title the title
+     * @return tmp control builder
+     * @since 1.2.6
+     */
+    public static TmpControlBuilder<EmptyConfig> bankAccount(String title) {
+        return new TmpControlBuilder<>(ApprovalCtrlType.BANK_ACCOUNT, title);
+    }
+
+    /**
      * 构建审批表单组件
      *
      * @param config the config

@@ -54,6 +54,8 @@ public class TmpControlDeserializer extends JsonDeserializer<TmpControl<?>> {
         CONTROL_MAP.put(ApprovalCtrlType.FORMULA, FormulaConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.PHONE_NUMBER, EmptyConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.DATE_RANGE, DateRangeConfig.class);
+        //TODO  DOC  WE_DRIVE_FILE
+        CONTROL_MAP.put(ApprovalCtrlType.BANK_ACCOUNT, EmptyConfig.class);
     }
 
 

@@ -16,7 +16,6 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.ApprovalCtrlType;
-import cn.felord.enumeration.BoolEnum;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -36,16 +35,12 @@ public class TextApplyContentData extends ApplyContentData<TextValue> {
      * @param id      the id
      * @param title   the title
      * @param value   the value
-     * @param hidden  the hidden
-     * @param require the require
      */
     @JsonCreator
     TextApplyContentData(@JsonProperty("control") ApprovalCtrlType control,
                          @JsonProperty("id") String id,
                          @JsonProperty("title") List<ApprovalTitle> title,
-                         @JsonProperty("value") TextValue value,
-                         @JsonProperty("hidden") Integer hidden,
-                         @JsonProperty("require") BoolEnum require) {
-        super(control, id, title, value, hidden, require);
+                         @JsonProperty("value") TextValue value) {
+        super(control, id, title, value);
     }
 }

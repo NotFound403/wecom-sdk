@@ -16,7 +16,6 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.ApprovalCtrlType;
-import cn.felord.enumeration.BoolEnum;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
@@ -72,7 +71,8 @@ import java.util.List;
         @JsonSubTypes.Type(value = RelatedApprovalApplyContentData.class, name = "RelatedApproval"),
         @JsonSubTypes.Type(value = FormulaApplyContentData.class, name = "Formula"),
         @JsonSubTypes.Type(value = PhoneNumberApplyContentData.class, name = "PhoneNumber"),
-        @JsonSubTypes.Type(value = WedriveFileApplyContentData.class, name = "WedriveFile")
+        @JsonSubTypes.Type(value = WedriveFileApplyContentData.class, name = "WedriveFile"),
+        @JsonSubTypes.Type(value = BankAccountApplyContentData.class, name = "BankAccount")
 })
 @ToString
 @Getter
@@ -81,8 +81,6 @@ public abstract class ApplyContentData<V> {
     private final String id;
     private final V value;
     private final List<ApprovalTitle> title;
-    private final Integer hidden;
-    private final BoolEnum require;
 
 
     /**
@@ -92,16 +90,12 @@ public abstract class ApplyContentData<V> {
      * @param id      the id
      * @param title   the title
      * @param value   the value
-     * @param hidden  the hidden
-     * @param require the require
      */
-    ApplyContentData(ApprovalCtrlType control, String id, List<ApprovalTitle> title, V value, Integer hidden, BoolEnum require) {
+    ApplyContentData(ApprovalCtrlType control, String id, List<ApprovalTitle> title, V value) {
         this.control = control;
         this.id = id;
         this.value = value;
         this.title = title;
-        this.hidden = hidden;
-        this.require = require;
     }
 
     /**
@@ -113,7 +107,7 @@ public abstract class ApplyContentData<V> {
      * @return the apply content data
      */
     public static <V extends ContentDataValue> ApplyContentData<V> from(CtrlProperty property, V value) {
-        return new ApplyContentData<V>(property.getControl(), property.getId(), property.getTitle(), value, null, null) {
+        return new ApplyContentData<V>(property.getControl(), property.getId(), property.getTitle(), value) {
         };
     }
 }
