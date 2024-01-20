@@ -43,6 +43,7 @@ import java.util.List;
  *     <li>假勤组件-请假组件对应 {@link VacationValue}</li>
  *     <li>假勤组件-出差/外出/加班组件对应 {@link AttendanceValue}</li>
  *     <li>补卡组件对应 {@link PunchCorrectionValue}</li>
+ *     <li>收款账户对应 {@link BankAccountValue}</li>
  * </ol>
  *
  * @param <V> the type parameter
