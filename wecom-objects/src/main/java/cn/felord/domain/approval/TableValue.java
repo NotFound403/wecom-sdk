@@ -26,7 +26,7 @@ import java.util.List;
  * 明细组件
  *
  * @author dax
- * @since 2023 /5/27 10:59
+ * @since 2024/5/27 10:59
  */
 @ToString
 @Getter
@@ -49,7 +49,7 @@ public class TableValue implements ContentDataValue {
     @ToString
     @Getter
     public static class Wrapper {
-        private final List<ApplyContentData<?>> list;
+        private final List<? extends ApplyContentData<? extends ContentDataValue>> list;
 
         /**
          * Instantiates a new Wrapper.
@@ -57,7 +57,7 @@ public class TableValue implements ContentDataValue {
          * @param list the list
          */
         @JsonCreator
-        Wrapper(@JsonProperty("list") List<ApplyContentData<?>> list) {
+        Wrapper(@JsonProperty("list") List<? extends ApplyContentData<? extends ContentDataValue>> list) {
             this.list = list;
         }
     }

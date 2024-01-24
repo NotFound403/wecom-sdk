@@ -28,7 +28,7 @@ import retrofit2.http.*;
  * 本接口适用于在 由企业微信向微信发出的小程序中使用对外收款账户进行收款。
  *
  * @author dax
- * @since 2023 /7/6 16:24
+ * @since 2024/7/6 16:24
  */
 public interface MiniAppPayApi {
 

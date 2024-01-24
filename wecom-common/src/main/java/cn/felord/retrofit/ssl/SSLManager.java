@@ -32,7 +32,7 @@ import java.util.Arrays;
  * Ssl manager.
  *
  * @author dax
- * @since 2023 /6/27
+ * @since 2024/6/27
  */
 public class SSLManager {
     private final X509TrustManager trustManager;

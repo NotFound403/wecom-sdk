@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author dax
  * @see SettingFormDetail
- * @since 2023 /3/16 11:34
+ * @since 2024/3/16 11:34
  */
 @Deprecated
 @Data

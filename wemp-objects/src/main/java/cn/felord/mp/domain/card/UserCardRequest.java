@@ -22,7 +22,7 @@ import lombok.ToString;
  * The type Card consume request.
  *
  * @author dax
- * @since 2023 /8/18
+ * @since 2024/8/18
  */
 @ToString
 @Getter

@@ -15,15 +15,37 @@
 
 package cn.felord.domain.approval;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type Empty config.
+ *
  * @author dax
- * @since 2023/5/25 15:15
+ * @since 2024/5/25 15:15
  */
-@Data
+@ToString
+@Getter
 public class EmptyConfig implements ControlConfig {
     @JsonIgnore
-    private String value;
+    private final String value;
+
+    /**
+     * Instantiates a new Empty config.
+     */
+    @JsonCreator
+    public EmptyConfig() {
+        this.value = null;
+    }
+
+    /**
+     * From empty config.
+     *
+     * @return the empty config
+     */
+    public static EmptyConfig from() {
+        return new EmptyConfig();
+    }
 }

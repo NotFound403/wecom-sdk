@@ -26,7 +26,7 @@ import retrofit2.http.POST;
  * 升级服务
  *
  * @author dax
- * @since 2023 /6/6
+ * @since 2024/6/6
  */
 public interface KfUpgradeApi {
 

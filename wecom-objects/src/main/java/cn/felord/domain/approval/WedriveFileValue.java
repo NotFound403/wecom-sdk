@@ -16,17 +16,47 @@
 package cn.felord.domain.approval;
 
 import cn.felord.domain.wedrive.FileId;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The type Wedrive file value.
  *
  * @author dax
- * @since 2023 /10/14
+ * @since 2024/10/14
  */
-@Data
+@ToString
+@Getter
 public class WedriveFileValue implements ContentDataValue {
-    private List<FileId> wedriveFiles;
+    private final List<FileId> wedriveFiles;
+
+
+    /**
+     * Instantiates a new Wedrive file value.
+     *
+     * @param wedriveFiles the wedrive files
+     */
+    @JsonCreator
+    WedriveFileValue(@JsonProperty("wedrive_files") List<FileId> wedriveFiles) {
+        this.wedriveFiles = wedriveFiles;
+    }
+
+    /**
+     * From wedrive file value.
+     *
+     * @param fileIds the file ids
+     * @return the wedrive file value
+     */
+    public static WedriveFileValue from(List<String> fileIds) {
+        List<FileId> fileIdList = fileIds.stream()
+                .map(FileId::new)
+                .collect(Collectors.toList());
+        return new WedriveFileValue(fileIdList);
+    }
+
 }

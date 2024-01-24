@@ -9,7 +9,7 @@ import java.util.Objects;
  * 企业小程序session
  *
  * @author dax
- * @since 2023 /10/12
+ * @since 2024/10/12
  */
 public class MiniprogramSession {
     private final String userid;

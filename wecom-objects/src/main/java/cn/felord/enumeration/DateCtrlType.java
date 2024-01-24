@@ -24,7 +24,7 @@ import java.util.Arrays;
  * The enum Date ctrl type.
  *
  * @author dax
- * @since 2023 /5/25 16:19
+ * @since 2024/5/25 16:19
  */
 public enum DateCtrlType {
 

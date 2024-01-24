@@ -25,6 +25,7 @@ package cn.felord.enumeration;
  * @author dax
  * @since 2021 /12/9 14:12
  */
+@Deprecated
 public enum NativeAgent {
     /**
      * 通讯录同步助手

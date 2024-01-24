@@ -24,7 +24,7 @@ import retrofit2.http.POST;
  * 电子发票
  *
  * @author dax
- * @since 2023 /7/27
+ * @since 2024/7/27
  */
 public interface InvoiceApi {
 

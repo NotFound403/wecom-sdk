@@ -19,7 +19,7 @@ package cn.felord.payment.wechat.v3.crypto;
  * 敏感信息加密解密工具
  *
  * @author dax
- * @since 2023 /8/7
+ * @since 2024/8/7
  */
 public interface WecomCipher {
 

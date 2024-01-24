@@ -19,7 +19,7 @@ package cn.felord.payment.wechat.enumeration;
  * The enum Busi favor state.
  *
  * @author dax
- * @since 2023 /8/23
+ * @since 2024/8/23
  */
 public enum BusiFavorState {
 

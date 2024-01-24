@@ -23,7 +23,7 @@ import lombok.EqualsAndHashCode;
  * The LivingShareInfoResponse
  *
  * @author dax
- * @since 2023 /11/23
+ * @since 2024/11/23
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

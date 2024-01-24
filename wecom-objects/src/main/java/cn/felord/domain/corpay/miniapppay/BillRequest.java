@@ -24,7 +24,7 @@ import java.time.LocalDate;
  * The type Bill request.
  *
  * @author dax
- * @since 2023 /7/7 10:11
+ * @since 2024/7/7 10:11
  */
 @Data
 public class BillRequest {

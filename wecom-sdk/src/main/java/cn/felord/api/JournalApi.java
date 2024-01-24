@@ -31,7 +31,7 @@ import retrofit2.http.POST;
  * 汇报API
  *
  * @author dax
- * @since 2023 /10/14
+ * @since 2024/10/14
  */
 public interface JournalApi {
 

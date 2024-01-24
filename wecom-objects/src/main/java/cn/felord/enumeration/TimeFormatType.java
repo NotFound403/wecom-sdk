@@ -24,7 +24,7 @@ import java.util.Arrays;
  * The enum Time format type.
  *
  * @author dax
- * @since 2023 /8/4 14:28
+ * @since 2024/8/4 14:28
  */
 public enum TimeFormatType {
     /**

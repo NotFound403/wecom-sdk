@@ -25,7 +25,7 @@ import java.util.List;
  * 直连模式-合单Native下单请求参数
  *
  * @author felord.cn
- * @since 2023 /8/17 11:23
+ * @since 2024/8/17 11:23
  */
 @RequiredArgsConstructor
 public class CombineNativePayRequest {

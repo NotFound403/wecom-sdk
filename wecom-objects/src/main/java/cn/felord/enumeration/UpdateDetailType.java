@@ -22,7 +22,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
  * 回调事件群变更详情
  *
  * @author dax
- * @since 2023 /7/6 8:52
+ * @since 2024/7/6 8:52
  */
 @XStreamConverter(UpdateDetailTypeConverter.class)
 public enum UpdateDetailType {

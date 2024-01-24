@@ -20,8 +20,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Menu kf message request.
+ *
  * @author dax
- * @since 2023/6/4
+ * @since 2024/6/4
  */
 @ToString
 @Getter
@@ -29,10 +31,25 @@ public class MenuKfMessageRequest extends KfMessageRequest {
     private final KfMsgMenu msgmenu;
 
 
+    /**
+     * Instantiates a new Menu kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param msgmenu  the msgmenu
+     */
     public MenuKfMessageRequest(String touser, String openKfid, KfMsgMenu msgmenu) {
         this(touser, openKfid, null, msgmenu);
     }
 
+    /**
+     * Instantiates a new Menu kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param msgid    the msgid
+     * @param msgmenu  the msgmenu
+     */
     public MenuKfMessageRequest(String touser, String openKfid, String msgid, KfMsgMenu msgmenu) {
         super(touser, openKfid, msgid, KfMsgType.MSG_MENU);
         this.msgmenu = msgmenu;

@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  * 默认签名工具
  *
  * @author dax
- * @since 2023 /8/10 16:57
+ * @since 2024/8/10 16:57
  */
 public final class WechatPaySigner {
     private static final String TOKEN_PATTERN = "mchid=\"%s\",nonce_str=\"%s\",timestamp=\"%d\",serial_no=\"%s\",signature=\"%s\"";

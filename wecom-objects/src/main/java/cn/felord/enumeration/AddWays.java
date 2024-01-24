@@ -92,6 +92,18 @@ public enum AddWays {
      */
     CUSTOMER_ACQUISITION_LINK(16),
     /**
+     * 通过定制开发添加
+     *
+     * @since 1.2.6
+     */
+    CUSTOMER_DEV(17),
+    /**
+     * 通过需求回复添加
+     *
+     * @since 1.2.6
+     */
+    REQ_REPLY(18),
+    /**
      * 内部成员共享
      */
     INTERNAL_SHARED(201),

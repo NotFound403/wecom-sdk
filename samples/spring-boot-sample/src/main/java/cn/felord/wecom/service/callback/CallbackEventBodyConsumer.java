@@ -24,7 +24,7 @@ import cn.felord.enumeration.CallbackEvent;
  * 一个{@link CallbackEvent} 对应一个实现
  *
  * @author dax
- * @since 2023 /5/30 11:16
+ * @since 2024/5/30 11:16
  */
 public interface CallbackEventBodyConsumer {
 

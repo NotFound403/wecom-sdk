@@ -19,7 +19,7 @@ package cn.felord.mp.enumeration;
  * The enum Date info type.
  *
  * @author dax
- * @since 2023 /8/18 18:05
+ * @since 2024/8/18 18:05
  */
 public enum DateInfoType {
     /**

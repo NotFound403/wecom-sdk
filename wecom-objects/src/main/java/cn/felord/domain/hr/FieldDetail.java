@@ -26,7 +26,7 @@ import lombok.ToString;
  * The type Field detail.
  *
  * @author dax
- * @since 2023 /8/3 11:35
+ * @since 2024/8/3 11:35
  */
 @EqualsAndHashCode
 @ToString

@@ -26,7 +26,7 @@ import java.time.OffsetDateTime;
  * The type Coupon detail.
  *
  * @author dax
- * @since 2023 /8/25
+ * @since 2024/8/25
  */
 @Data
 public class CouponDetail {

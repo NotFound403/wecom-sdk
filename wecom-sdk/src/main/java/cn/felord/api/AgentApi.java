@@ -19,7 +19,7 @@ package cn.felord.api;
  * 企微应用API
  *
  * @author dax
- * @since 2023 /6/9 16:33
+ * @since 2024/6/9 16:33
  */
 public class AgentApi {
     private final WorkWeChatApiClient workWeChatApiClient;

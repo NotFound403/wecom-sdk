@@ -21,7 +21,7 @@ import lombok.Data;
  * The BillResponse.
  *
  * @author dax
- * @since 2023 /7/7 10:11
+ * @since 2024/7/7 10:11
  */
 @Data
 public class BillResponse {

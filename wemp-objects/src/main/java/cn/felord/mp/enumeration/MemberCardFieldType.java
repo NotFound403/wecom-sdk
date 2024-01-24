@@ -20,7 +20,7 @@ package cn.felord.mp.enumeration;
  * 当开发者变更这类类目信息的value值时，可以选择触发系统模板消息通知用户
  *
  * @author dax
- * @since 2023 /8/18 16:42
+ * @since 2024/8/18 16:42
  */
 public enum MemberCardFieldType {
 

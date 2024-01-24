@@ -13,16 +13,21 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.checkin;
+package cn.felord.domain.approval;
 
+import cn.felord.enumeration.SliceState;
 import lombok.Data;
 
+import java.time.Duration;
+import java.util.List;
+
+/**
+ * @author dax
+ * @since 2023/12/19
+ */
 @Data
-public class Otcheckinfo {
-    private Integer otWorkingdayTimeStart;
-    private Integer otNonworkingdaySpandayTime;
-    private Integer otWorkingdayTimeMin;
-    private Integer otWorkingdayTimeMax;
-    private Integer otNonworkingdayTimeMax;
-    private Integer otNonworkingdayTimeMin;
+public class SliceInfo {
+    private Duration duration;
+    private SliceState state;
+    private List<DayItem> dayItems;
 }

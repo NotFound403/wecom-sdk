@@ -22,13 +22,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * 假勤组件-请假组件
  *
  * @author dax
- * @since 2023 /5/27
+ * @since 2024/5/27
  */
 @ToString
 @Getter
@@ -48,12 +49,59 @@ public class VacationValue implements ContentDataValue {
     /**
      * Instantiates a new Vacation value.
      *
-     * @param options   the options
-     * @param type      the type
-     * @param dateRange the date range
+     * @param key            {@code ApprovalTmpDetailResponse#getVacationList()}
+     * @param attendanceType the attendance type
+     * @param dateRange      the date range
+     * @return the vacation value
      */
-    public VacationValue(List<CtrlOption> options, AttendanceType type, DateRangeValue dateRange) {
-        this.vacation = new Wrapper(options, type, dateRange);
+    public static VacationValue from(String key, AttendanceType attendanceType, DateRangeWrapper dateRange) {
+        CtrlOption options = new CtrlOption();
+        options.setKey(key);
+        return new VacationValue(new Wrapper(options, attendanceType, dateRange));
+    }
+
+    /**
+     * 请假
+     *
+     * @param key       the key
+     * @param dateRange the date range
+     * @return the vacation value
+     */
+    public static VacationValue leave(String key, DateRangeWrapper dateRange) {
+        return from(key, AttendanceType.LEAVE, dateRange);
+    }
+
+    /**
+     * 出差
+     *
+     * @param key       the key
+     * @param dateRange the date range
+     * @return the vacation value
+     */
+    public static VacationValue trip(String key, DateRangeWrapper dateRange) {
+        return from(key, AttendanceType.BUSINESS_TRIP, dateRange);
+    }
+
+    /**
+     * 外出
+     *
+     * @param key       the key
+     * @param dateRange the date range
+     * @return the vacation value
+     */
+    public static VacationValue goingOut(String key, DateRangeWrapper dateRange) {
+        return from(key, AttendanceType.GOING_OUT, dateRange);
+    }
+
+    /**
+     * 加班
+     *
+     * @param key       the key
+     * @param dateRange the date range
+     * @return the vacation value
+     */
+    public static VacationValue overtime(String key, DateRangeWrapper dateRange) {
+        return from(key, AttendanceType.OVERTIME_WORK, dateRange);
     }
 
     /**
@@ -84,8 +132,8 @@ public class VacationValue implements ContentDataValue {
          * @param type      the type
          * @param dateRange the date range
          */
-        Wrapper(List<CtrlOption> options, AttendanceType type, DateRangeValue dateRange) {
-            this(new Selector(options), new Attendance(type, dateRange));
+        Wrapper(CtrlOption options, AttendanceType type, DateRangeWrapper dateRange) {
+            this(new Selector(Collections.singletonList(options)), new Attendance(type, dateRange, null));
         }
     }
 
@@ -116,18 +164,23 @@ public class VacationValue implements ContentDataValue {
     @Getter
     public static class Attendance {
         private final AttendanceType type;
-        private final DateRangeValue dateRange;
+        private final DateRangeWrapper dateRange;
+        private final SliceInfo sliceInfo;
 
         /**
          * Instantiates a new Attendance.
          *
          * @param type      the type
          * @param dateRange the date range
+         * @param sliceInfo the slice info
          */
         @JsonCreator
-        Attendance(@JsonProperty("type") AttendanceType type, @JsonProperty("date_range") DateRangeValue dateRange) {
+        Attendance(@JsonProperty("type") AttendanceType type,
+                   @JsonProperty("date_range") DateRangeWrapper dateRange,
+                   @JsonProperty("slice_info") SliceInfo sliceInfo) {
             this.type = type;
             this.dateRange = dateRange;
+            this.sliceInfo = sliceInfo;
         }
     }
 }

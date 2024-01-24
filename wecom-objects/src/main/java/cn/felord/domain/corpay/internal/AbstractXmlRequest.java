@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  * The type Abstract xml able.
  *
  * @author dax
- * @since 2023 /6/25 15:37
+ * @since 2024/6/25 15:37
  */
 public abstract class AbstractXmlRequest implements XmlRequest {
     private static final TypeReference<TreeMap<String, String>> TYPE_REFERENCE = new TypeReference<TreeMap<String, String>>() {

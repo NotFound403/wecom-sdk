@@ -25,7 +25,7 @@ import java.time.LocalDate;
  * 免费券数据接口参数
  *
  * @author dax
- * @since 2023 /8/20
+ * @since 2024/8/20
  */
 @ToString
 @Getter

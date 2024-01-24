@@ -40,7 +40,7 @@ import retrofit2.http.POST;
  * 会议室API
  *
  * @author dax
- * @since 2023 /11/29
+ * @since 2024/11/29
  */
 public interface MeetingRoomApi {
 

@@ -15,7 +15,6 @@
 
 package cn.felord.domain.approval;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Data;
 
 import java.util.List;
@@ -25,7 +24,6 @@ import java.util.List;
  * @since 2023/5/25 16:46
  */
 @Data
-@JsonTypeName("VacationConfig")
 public class VacationConfig implements ControlConfig {
     private Wrapper vacationList;
 

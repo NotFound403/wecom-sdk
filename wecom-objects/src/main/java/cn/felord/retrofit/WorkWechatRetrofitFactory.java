@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
  * The Retrofit factory.
  *
  * @author dax
- * @since 2023 /5/21
+ * @since 2024/5/21
  */
 public final class WorkWechatRetrofitFactory {
     private static final String BASE_URL = "https://qyapi.weixin.qq.com/cgi-bin/";

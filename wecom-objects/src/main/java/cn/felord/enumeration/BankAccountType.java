@@ -30,7 +30,7 @@ import java.util.Objects;
  * </ol>
  *
  * @author dax
- * @since 2023 /7/3 15:28
+ * @since 2024/7/3 15:28
  */
 public enum BankAccountType {
     /**

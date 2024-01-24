@@ -22,7 +22,7 @@ import lombok.Data;
  * The type Prepay response.
  *
  * @author dax
- * @since 2023 /8/11
+ * @since 2024/8/11
  */
 @Data
 public class PrepayResponse {

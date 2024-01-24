@@ -23,7 +23,7 @@ import lombok.Data;
  * The type Duration setting.
  *
  * @author dax
- * @since 2023 /8/4 14:37
+ * @since 2024/8/4 14:37
  */
 @Data
 public class DurationSetting {

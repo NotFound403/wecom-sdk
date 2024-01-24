@@ -25,7 +25,7 @@ import retrofit2.Retrofit;
  * 公众号媒体管理
  *
  * @author dax
- * @since 2023 /8/18 9:16
+ * @since 2024/8/18 9:16
  */
 public class MediaApi {
     private final InternalMediaApi internalMediaApi;

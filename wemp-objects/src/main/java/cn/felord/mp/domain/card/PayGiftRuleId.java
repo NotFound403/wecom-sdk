@@ -21,7 +21,7 @@ import lombok.Data;
  * The type Pay gift rule id.
  *
  * @author dax
- * @since 2023 /8/20
+ * @since 2024/8/20
  */
 @Data
 public class PayGiftRuleId {

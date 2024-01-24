@@ -21,7 +21,7 @@ import lombok.Data;
  * The type Room id.
  *
  * @author dax
- * @since 2023 /12/2
+ * @since 2024/12/2
  */
 @Data
 public class RoomId {

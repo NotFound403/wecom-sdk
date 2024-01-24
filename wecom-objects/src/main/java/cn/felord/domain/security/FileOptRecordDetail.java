@@ -24,7 +24,7 @@ import java.time.Instant;
  * The type File opt record detail.
  *
  * @author dax
- * @since 2023 /10/9
+ * @since 2024/10/9
  */
 @Data
 public class FileOptRecordDetail {

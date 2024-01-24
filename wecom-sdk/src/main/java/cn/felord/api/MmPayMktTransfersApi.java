@@ -25,7 +25,7 @@ import retrofit2.http.POST;
  * <a href="https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=4_3">支付证书使用说明</a>
  *
  * @author dax
- * @since 2023 /6/28 17:58
+ * @since 2024/6/28 17:58
  */
 interface MmPayMktTransfersApi {
 

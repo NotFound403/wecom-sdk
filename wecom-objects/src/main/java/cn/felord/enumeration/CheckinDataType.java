@@ -24,7 +24,7 @@ import java.util.Arrays;
  * The enum Checkin data type.
  *
  * @author dax
- * @since 2023 /9/25
+ * @since 2024/9/25
  */
 public enum CheckinDataType {
     /**

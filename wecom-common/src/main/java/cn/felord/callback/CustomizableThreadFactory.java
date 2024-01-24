@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * The type Customizable thread factory.
  *
  * @author Juergen Hoeller
- * @since 2023 /5/24
+ * @since 2024/5/24
  */
 public class CustomizableThreadFactory implements ThreadFactory, Serializable {
 

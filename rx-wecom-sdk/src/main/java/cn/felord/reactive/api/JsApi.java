@@ -28,7 +28,7 @@ import retrofit2.http.Query;
  * jsapi ticket.
  *
  * @author dax
- * @since 2023 /5/24 17:55
+ * @since 2024/5/24 17:55
  */
 interface JsApi {
 

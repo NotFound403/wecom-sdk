@@ -20,8 +20,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Kf message request.
+ *
  * @author dax
- * @since 2023/6/4
+ * @since 2024/6/4
  */
 @ToString
 @Getter
@@ -32,6 +34,14 @@ public abstract class KfMessageRequest {
     private final KfMsgType msgtype;
 
 
+    /**
+     * Instantiates a new Kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param msgid    the msgid
+     * @param msgtype  the msgtype
+     */
     public KfMessageRequest(String touser, String openKfid, String msgid, KfMsgType msgtype) {
         this.touser = touser;
         this.openKfid = openKfid;

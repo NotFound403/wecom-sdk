@@ -28,7 +28,7 @@ import java.util.List;
  * 公费电话API
  *
  * @author dax
- * @since 2023 /10/6
+ * @since 2024/10/6
  */
 public interface DialApi {
 

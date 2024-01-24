@@ -17,19 +17,62 @@ package cn.felord.domain.approval;
 
 import cn.felord.enumeration.ContactCtrlMode;
 import cn.felord.enumeration.SelectType;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type Contact config.
+ *
  * @author dax
- * @since 2023/5/25 16:31
+ * @since 2024/5/25 16:31
  */
-@Data
+@ToString
+@Getter
 public class ContactConfig implements ControlConfig {
-    private Wrapper contact;
+    private final Wrapper contact;
 
-    @Data
+    /**
+     * Instantiates a new Contact config.
+     *
+     * @param contact the contact
+     */
+    @JsonCreator
+    ContactConfig(@JsonProperty("contact") Wrapper contact) {
+        this.contact = contact;
+    }
+
+    /**
+     * From contact config.
+     *
+     * @param selectType      the select type
+     * @param contactCtrlMode the contact ctrl mode
+     * @return the contact config
+     */
+    public static ContactConfig from(SelectType selectType, ContactCtrlMode contactCtrlMode) {
+        return new ContactConfig(new Wrapper(selectType, contactCtrlMode));
+    }
+
+    /**
+     * The type Wrapper.
+     */
+    @ToString
+    @Getter
     public static class Wrapper {
-        private SelectType type;
-        private ContactCtrlMode mode;
+        private final SelectType type;
+        private final ContactCtrlMode mode;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param type the type
+         * @param mode the mode
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("type") SelectType type, @JsonProperty("mode") ContactCtrlMode mode) {
+            this.type = type;
+            this.mode = mode;
+        }
     }
 }

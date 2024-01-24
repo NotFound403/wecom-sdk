@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  * The type Selector config.
  *
  * @author dax
- * @since 2023 /5/25 16:22
+ * @since 2024/5/25 16:22
  */
 @ToString
 @Getter

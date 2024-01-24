@@ -30,4 +30,5 @@ import java.util.List;
 public class ApprovalTmpDetailResponse extends WeComResponse {
     private List<ApprovalTitle> templateNames;
     private TemplateContent templateContent;
+    private VacationConfig.Wrapper vacationList;
 }

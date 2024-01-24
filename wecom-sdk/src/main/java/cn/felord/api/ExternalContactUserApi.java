@@ -151,4 +151,20 @@ public interface ExternalContactUserApi {
      */
     @POST("externalcontact/convert_to_openid")
     GenericResponse<String> convertToOpenid(@Body ExternalUserId externalUserId) throws WeComException;
+
+    /**
+     * 获取已服务的外部联系人
+     * <p>
+     * 企业可通过此接口获取所有已服务的外部联系人，及其添加人和加入的群聊。
+     * 外部联系人分为客户和其他外部联系人，如果是客户，接口将返回外部联系人临时ID和externaluserid；
+     * 如果是其他外部联系人，接口将只返回外部联系人临时ID。
+     * <p>
+     * 企业可通过外部联系人临时ID排除重复数据，外部联系人临时ID有效期为4小时。
+     *
+     * @param request cursor具有有效期，请勿缓存后使用
+     * @return generic response
+     * @throws WeComException the we com exception
+     */
+    @POST("externalcontact/contact_list")
+    ContractListResponse contactList(@Body PageRequest request) throws WeComException;
 }

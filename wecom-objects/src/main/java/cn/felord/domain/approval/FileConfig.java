@@ -16,18 +16,59 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.BoolEnum;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type File config.
+ *
  * @author dax
- * @since 2023/5/25 16:59
+ * @since 2024/5/25 16:59
  */
-@Data
+@ToString
+@Getter
 public class FileConfig implements ControlConfig {
-    private Wrapper file;
+    private final Wrapper file;
 
-    @Data
-    public static class Wrapper {
-        private BoolEnum isOnlyPhoto;
+    /**
+     * Instantiates a new File config.
+     *
+     * @param file the file
+     */
+    @JsonCreator
+    FileConfig(@JsonProperty("file") Wrapper file) {
+        this.file = file;
     }
+
+    /**
+     * From file config.
+     *
+     * @param isOnlyPhoto the is only photo
+     * @return the file config
+     */
+    public static FileConfig from(BoolEnum isOnlyPhoto) {
+        return new FileConfig(new Wrapper(isOnlyPhoto));
+    }
+
+    /**
+     * The type Wrapper.
+     */
+    @ToString
+    @Getter
+    public static class Wrapper {
+        private final BoolEnum isOnlyPhoto;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param isOnlyPhoto the is only photo
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("is_only_photo") BoolEnum isOnlyPhoto) {
+            this.isOnlyPhoto = isOnlyPhoto;
+        }
+    }
+
 }

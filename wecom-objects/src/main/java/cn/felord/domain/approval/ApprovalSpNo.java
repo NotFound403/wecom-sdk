@@ -15,13 +15,40 @@
 
 package cn.felord.domain.approval;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
 /**
+ * The type Approval sp no.
+ *
  * @author dax
- * @since 2023/6/9 15:13
+ * @since 2024/6/9 15:13
  */
-@Data
+@ToString
+@Getter
 public class ApprovalSpNo {
     private final String spNo;
+
+    /**
+     * Instantiates a new Approval sp no.
+     *
+     * @param spNo the spNo
+     */
+    @JsonCreator
+    public ApprovalSpNo(@JsonProperty("sp_no") String spNo) {
+        this.spNo = spNo;
+    }
+
+    /**
+     * From approval sp no.
+     *
+     * @param spNo the sp no
+     * @return the approval sp no
+     */
+    public static ApprovalSpNo from(@NonNull String spNo) {
+        return new ApprovalSpNo(spNo);
+    }
 }

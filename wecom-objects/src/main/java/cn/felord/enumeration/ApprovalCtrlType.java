@@ -106,7 +106,13 @@ public enum ApprovalCtrlType {
      *
      * @since 1.2.2
      */
-    WE_DRIVE_FILE("WedriveFile");
+    WE_DRIVE_FILE("WedriveFile"),
+    /**
+     * 收款账户
+     *
+     * @since 1.2.6
+     */
+    BANK_ACCOUNT("BankAccount");
 
     private final String type;
 

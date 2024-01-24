@@ -28,7 +28,7 @@ import java.util.List;
  * The type Approval info.
  *
  * @author dax
- * @since 2023 /5/27
+ * @since 2024/5/27
  */
 @Data
 public class ApprovalInfo {

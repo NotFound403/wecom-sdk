@@ -26,7 +26,7 @@ import java.util.List;
  * The type Room update request.
  *
  * @author dax
- * @since 2023 /11/30
+ * @since 2024/11/30
  */
 @ToString
 @Getter

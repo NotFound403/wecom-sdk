@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  * The type Multipart resource.
  *
  * @author dax
- * @since 2023 /6/27 10:24
+ * @since 2024/6/27 10:24
  */
 public class MultipartResource {
     private static final Pattern pattern = Pattern.compile("\\.([^.]+)$");

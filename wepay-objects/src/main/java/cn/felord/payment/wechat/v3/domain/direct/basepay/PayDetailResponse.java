@@ -27,7 +27,7 @@ import java.util.List;
  * 支付订单详情
  *
  * @author felord.cn
- * @since 2023 /8/17 13:35
+ * @since 2024/8/17 13:35
  */
 @Data
 public class PayDetailResponse {

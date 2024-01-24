@@ -19,7 +19,7 @@ package cn.felord.enumeration;
  * The enum Notify type.
  *
  * @author dax
- * @since 2023 /7/7 11:23
+ * @since 2024/7/7 11:23
  */
 public enum NotifyType {
     /**

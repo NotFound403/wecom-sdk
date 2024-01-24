@@ -22,7 +22,7 @@ import lombok.Data;
  * 视频号消息
  *
  * @author dax
- * @since 2023 /10/5
+ * @since 2024/10/5
  */
 @Data
 public class ChannelsMsg {

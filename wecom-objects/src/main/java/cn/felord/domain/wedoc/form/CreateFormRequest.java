@@ -22,7 +22,7 @@ import lombok.Data;
  *
  * @author dax
  * @see CreateSettingFormRequest
- * @since 2023 /3/10 9:35
+ * @since 2024/3/10 9:35
  */
 @Deprecated
 @Data

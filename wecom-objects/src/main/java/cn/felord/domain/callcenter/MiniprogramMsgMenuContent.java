@@ -25,7 +25,7 @@ import lombok.ToString;
  * 小程序菜单项
  *
  * @author dax
- * @since 2023 /6/3
+ * @since 2024/6/3
  */
 @ToString
 @Getter

@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 审批抄送方式
  *
  * @author dax
- * @since 2023 /5/26
+ * @since 2024/5/26
  */
 public enum ApprovalNotifyType {
     /**

@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  * The type Kf account link request.
  *
  * @author dax
- * @since 2023 /5/24 15:25
+ * @since 2024/5/24 15:25
  */
 @Getter
 public class KfAccountLinkRequest {

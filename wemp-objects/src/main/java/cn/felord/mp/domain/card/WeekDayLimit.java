@@ -26,7 +26,7 @@ import lombok.ToString;
  * 使用时段限制
  *
  * @author dax
- * @since 2023 /8/18 16:02
+ * @since 2024/8/18 16:02
  */
 @ToString
 @RequiredArgsConstructor

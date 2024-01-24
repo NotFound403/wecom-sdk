@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 应用工作台样式
  *
  * @author dax
- * @since 2023 /10/25
+ * @since 2024/10/25
  */
 public enum WorkbenchType {
 

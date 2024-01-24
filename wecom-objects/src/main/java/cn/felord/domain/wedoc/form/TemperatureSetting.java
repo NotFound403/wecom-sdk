@@ -22,7 +22,7 @@ import lombok.Data;
  * The type Temperature setting.
  *
  * @author dax
- * @since 2023 /8/4 14:54
+ * @since 2024/8/4 14:54
  */
 @Data
 public class TemperatureSetting {

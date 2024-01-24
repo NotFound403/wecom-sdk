@@ -24,7 +24,7 @@ import java.util.List;
  * The type InvoiceUpdateBatchRequest.
  *
  * @author dax
- * @since 2023 /7/27
+ * @since 2024/7/27
  */
 @Data
 public class InvoiceUpdateBatchRequest {

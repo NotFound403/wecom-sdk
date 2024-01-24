@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter;
  * The type Year month number deserializer.
  *
  * @author dax
- * @since 2023 /9/26
+ * @since 2024/9/26
  */
 public class YearMonthNumberDeserializer extends JSR310DateTimeDeserializerBase<YearMonth> {
     /**

@@ -34,7 +34,7 @@ import java.security.NoSuchAlgorithmException;
  * 默认敏感信息加密解密工具
  *
  * @author dax
- * @since 2023 /8/7
+ * @since 2024/8/7
  */
 public class DefaultWecomCipher implements WecomCipher {
     private final CipherAlg cipherAlg;

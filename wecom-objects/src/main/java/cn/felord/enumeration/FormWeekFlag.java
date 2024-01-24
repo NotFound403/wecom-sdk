@@ -24,7 +24,7 @@ import java.util.Arrays;
  * The enum Fill out auth.
  *
  * @author dax
- * @since 2023 /3/13 17:05
+ * @since 2024/3/13 17:05
  */
 public enum FormWeekFlag {
 

@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * 每组最多指定100个标签，支持规则组标签
  *
  * @author dax
- * @since 2023 /9/28
+ * @since 2024/9/28
  */
 @ToString
 @Getter

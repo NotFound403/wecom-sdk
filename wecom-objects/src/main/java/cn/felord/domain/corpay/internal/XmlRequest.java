@@ -22,7 +22,7 @@ import cn.felord.enumeration.PaySignType;
  * The interface Xmlable.
  *
  * @author dax
- * @since 2023 /6/25 15:24
+ * @since 2024/6/25 15:24
  */
 public interface XmlRequest extends XmlEntity {
 

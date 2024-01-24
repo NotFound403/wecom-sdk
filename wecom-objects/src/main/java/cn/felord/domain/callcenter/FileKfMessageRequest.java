@@ -21,8 +21,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type File kf message request.
+ *
  * @author dax
- * @since 2023/6/4
+ * @since 2024/6/4
  */
 @ToString
 @Getter
@@ -30,12 +32,27 @@ public class FileKfMessageRequest extends KfMessageRequest {
     private final MediaId file;
 
 
-    public FileKfMessageRequest(String touser, String openKfid, MediaId file) {
-        this(touser, openKfid, null, file);
+    /**
+     * Instantiates a new File kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param mediaId  the media id
+     */
+    public FileKfMessageRequest(String touser, String openKfid, String mediaId) {
+        this(touser, openKfid, null, mediaId);
     }
 
-    public FileKfMessageRequest(String touser, String openKfid, String msgid, MediaId file) {
+    /**
+     * Instantiates a new File kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param msgid    the msgid
+     * @param mediaId  the media id
+     */
+    public FileKfMessageRequest(String touser, String openKfid, String msgid, String mediaId) {
         super(touser, openKfid, msgid, KfMsgType.FILE);
-        this.file = file;
+        this.file = new MediaId(mediaId);
     }
 }

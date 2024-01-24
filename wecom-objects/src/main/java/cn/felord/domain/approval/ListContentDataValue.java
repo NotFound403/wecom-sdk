@@ -15,8 +15,11 @@
 
 package cn.felord.domain.approval;
 
-import lombok.Data;
+import cn.felord.utils.Assert;
+import lombok.Getter;
+import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,9 +27,52 @@ import java.util.List;
  *
  * @author dax
  * @see TableConfig
- * @since 2023 /7/16 17:14
+ * @since 2024/7/16 17:14
  */
-@Data
+@Getter
+@ToString
 public class ListContentDataValue implements ContentDataValue {
-    private final List<? extends ContentDataValue> values;
+    private final List<List<? extends ContentDataValue>> values;
+
+
+    /**
+     * Instantiates a new List content data value.
+     *
+     * @param values the values
+     */
+    ListContentDataValue(List<List<? extends ContentDataValue>> values) {
+        this.values = values;
+    }
+
+
+    /**
+     * Of list content data value.
+     *
+     * @return the list content data value
+     */
+    public static ListContentDataValue of() {
+        return new ListContentDataValue(new ArrayList<>());
+    }
+
+    /**
+     * Instantiates a new List content data value.
+     *
+     * @param first the first
+     * @return the list content data value
+     */
+    public static ListContentDataValue of(List<? extends ContentDataValue> first) {
+        return of().append(first);
+    }
+
+    /**
+     * 多个相同明细分片
+     *
+     * @param next the next
+     * @return the list content data next
+     */
+    public ListContentDataValue append(List<? extends ContentDataValue> next) {
+        Assert.notEmpty(next, "next must not be empty");
+        values.add(next);
+        return this;
+    }
 }

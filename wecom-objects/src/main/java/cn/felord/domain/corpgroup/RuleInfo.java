@@ -21,7 +21,7 @@ import lombok.Data;
  * The type Rule info.
  *
  * @author dax
- * @since 2023 /10/13
+ * @since 2024/10/13
  */
 @Data
 public class RuleInfo {

@@ -21,8 +21,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Voice kf message request.
+ *
  * @author dax
- * @since 2023/6/4
+ * @since 2024/6/4
  */
 @ToString
 @Getter
@@ -30,12 +32,27 @@ public class VoiceKfMessageRequest extends KfMessageRequest {
     private final MediaId voice;
 
 
-    public VoiceKfMessageRequest(String touser, String openKfid, MediaId voice) {
-        this(touser, openKfid, null, voice);
+    /**
+     * Instantiates a new Voice kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param mediaId  the media id
+     */
+    public VoiceKfMessageRequest(String touser, String openKfid, String mediaId) {
+        this(touser, openKfid, null, mediaId);
     }
 
-    public VoiceKfMessageRequest(String touser, String openKfid, String msgid, MediaId voice) {
+    /**
+     * Instantiates a new Voice kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param msgid    the msgid
+     * @param mediaId  the media id
+     */
+    public VoiceKfMessageRequest(String touser, String openKfid, String msgid, String mediaId) {
         super(touser, openKfid, msgid, KfMsgType.VOICE);
-        this.voice = voice;
+        this.voice = new MediaId(mediaId);
     }
 }

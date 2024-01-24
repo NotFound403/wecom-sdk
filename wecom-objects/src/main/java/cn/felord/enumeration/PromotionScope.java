@@ -19,7 +19,7 @@ package cn.felord.enumeration;
  * 优惠范围
  *
  * @author dax
- * @since 2023 /7/6 17:08
+ * @since 2024/7/6 17:08
  */
 public enum PromotionScope {
 

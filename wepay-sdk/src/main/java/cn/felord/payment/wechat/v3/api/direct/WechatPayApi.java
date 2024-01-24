@@ -26,7 +26,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * 微信支付API入口
  *
  * @author dax
- * @since 2023 /8/6
+ * @since 2024/8/6
  */
 public final class WechatPayApi {
     private final WechatPayRetrofitFactory factory;

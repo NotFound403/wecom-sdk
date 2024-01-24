@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 日期类型
  *
  * @author dax
- * @since 2023 /8/4 14:28
+ * @since 2024/8/4 14:28
  */
 public enum DurationDateType {
     /**

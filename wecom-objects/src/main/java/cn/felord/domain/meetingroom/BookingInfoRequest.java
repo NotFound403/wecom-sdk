@@ -24,7 +24,7 @@ import java.time.Instant;
  * The type BookingInfoRequest.
  *
  * @author dax
- * @since 2023 /11/29
+ * @since 2024/11/29
  */
 @ToString
 @Getter

@@ -19,7 +19,7 @@ package cn.felord.payment.wechat.enumeration;
  * 支付方式
  *
  * @author dax
- * @since 2023 /8/11
+ * @since 2024/8/11
  */
 public enum PayType {
     /**

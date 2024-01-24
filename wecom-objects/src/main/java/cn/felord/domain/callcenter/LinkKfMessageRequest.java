@@ -20,8 +20,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * The type Link kf message request.
+ *
  * @author dax
- * @since 2023/6/4
+ * @since 2024/6/4
  */
 @ToString
 @Getter
@@ -29,10 +31,25 @@ public class LinkKfMessageRequest extends KfMessageRequest {
     private final KfMessageLink link;
 
 
+    /**
+     * Instantiates a new Link kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param link     the link
+     */
     public LinkKfMessageRequest(String touser, String openKfid, KfMessageLink link) {
         this(touser, openKfid, null, link);
     }
 
+    /**
+     * Instantiates a new Link kf message request.
+     *
+     * @param touser   the touser
+     * @param openKfid the open kfid
+     * @param msgid    the msgid
+     * @param link     the link
+     */
     public LinkKfMessageRequest(String touser, String openKfid, String msgid, KfMessageLink link) {
         super(touser, openKfid, msgid, KfMsgType.LINK);
         this.link = link;

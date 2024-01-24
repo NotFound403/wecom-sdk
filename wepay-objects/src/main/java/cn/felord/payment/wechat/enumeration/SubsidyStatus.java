@@ -19,7 +19,7 @@ package cn.felord.payment.wechat.enumeration;
  * The enum Subsidy status.
  *
  * @author dax
- * @since 2023 /8/25
+ * @since 2024/8/25
  */
 public enum SubsidyStatus {
     /**

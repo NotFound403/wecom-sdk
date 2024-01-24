@@ -46,12 +46,25 @@ public class DefaultAgent implements AgentDetails {
      * @param agent  the agent
      * @return the agent details
      */
-    public static AgentDetails nativeAgent(String corpId,String secret,NativeAgent agent){
-        return new DefaultAgent(corpId,secret, agent.getAgentId());
+    @Deprecated
+    public static AgentDetails nativeAgent(String corpId, String secret, NativeAgent agent) {
+        return new DefaultAgent(corpId, secret, agent.getAgentId());
+    }
+
+    /**
+     * Of agent details.
+     *
+     * @param corpId  the corp id
+     * @param secret  the secret
+     * @param agentId the agent id
+     * @return the agent details
+     */
+    public static AgentDetails of(@NonNull String corpId, @NonNull String secret, @NonNull String agentId) {
+        return new DefaultAgent(corpId, secret, agentId);
     }
 
     @Override
     public CorpGroupType getBusinessType() {
-        return null;
+        throw new WeComException("Not Support");
     }
 }

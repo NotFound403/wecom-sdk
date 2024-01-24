@@ -22,7 +22,7 @@ import cn.felord.payment.wechat.v3.crypto.TenpayKey;
  * 全局平台证书缓存抽象
  *
  * @author dax
- * @since 2023 /8/16 10:58
+ * @since 2024/8/16 10:58
  */
 public interface TenpayKeyCache {
 

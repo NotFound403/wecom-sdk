@@ -32,7 +32,7 @@ import java.util.Objects;
  * 商户基本信息
  *
  * @author dax
- * @since 2023 /8/2
+ * @since 2024/8/2
  */
 @EqualsAndHashCode
 @Getter

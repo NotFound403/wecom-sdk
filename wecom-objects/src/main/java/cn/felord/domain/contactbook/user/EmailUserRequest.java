@@ -22,7 +22,7 @@ import lombok.Getter;
  * The type Email user request.
  *
  * @author dax
- * @since 2023 /5/24 10:32
+ * @since 2024/5/24 10:32
  */
 @Getter
 public class EmailUserRequest {

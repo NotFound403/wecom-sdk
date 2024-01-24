@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -53,6 +54,7 @@ public final class JacksonObjectMapperFactory {
         javaTimeModule.addDeserializer(YearMonth.class, new YearMonthNumberDeserializer(yearMonth));
         return new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
                 // empty string error
                 .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)

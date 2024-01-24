@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 菜单类型
  *
  * @author dax
- * @since 2023 /5/25 16:19
+ * @since 2024/5/25 16:19
  */
 public enum MsgMenuContentType {
 

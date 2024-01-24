@@ -25,7 +25,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * The type Wechat mp api.
  *
  * @author dax
- * @since 2023 /8/18 9:09
+ * @since 2024/8/18 9:09
  */
 public class WechatMpApi {
     private final WeMpTokenCacheable weMpTokenCacheable;

@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 假勤组件类型
  *
  * @author dax
- * @since 2023 /5/25 16:19
+ * @since 2024/5/25 16:19
  */
 public enum AttendanceType {
 
@@ -33,6 +33,10 @@ public enum AttendanceType {
      * 请假
      */
     LEAVE(1),
+    /**
+     * 补卡
+     */
+    PUNCH_CORRECTION(2),
     /**
      * 出差
      */

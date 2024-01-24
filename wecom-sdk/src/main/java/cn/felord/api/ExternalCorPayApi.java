@@ -28,7 +28,7 @@ import java.util.List;
  * 对外收款
  *
  * @author dax
- * @since 2023 /6/29 13:53
+ * @since 2024/6/29 13:53
  */
 public interface ExternalCorPayApi {
 

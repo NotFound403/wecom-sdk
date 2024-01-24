@@ -26,7 +26,7 @@ import java.time.Instant;
  * The GroupChatMember
  *
  * @author dax
- * @since 2023 /11/22
+ * @since 2024/11/22
  */
 @Data
 public class GroupChatMember {

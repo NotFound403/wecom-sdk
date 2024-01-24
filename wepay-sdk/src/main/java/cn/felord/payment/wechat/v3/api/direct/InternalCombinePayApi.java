@@ -30,7 +30,7 @@ import retrofit2.http.Path;
  * 普通支付-直连模式-合单支付.
  *
  * @author dax
- * @since 2023 /8/11
+ * @since 2024/8/11
  */
 interface InternalCombinePayApi {
 

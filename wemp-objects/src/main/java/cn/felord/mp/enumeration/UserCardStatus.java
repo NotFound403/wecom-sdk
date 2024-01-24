@@ -21,7 +21,7 @@ package cn.felord.mp.enumeration;
  * code未被添加或被转赠领取的情况则统一报错：invalid serial code
  *
  * @author dax
- * @since 2023 /8/19
+ * @since 2024/8/19
  */
 public enum UserCardStatus {
     /**

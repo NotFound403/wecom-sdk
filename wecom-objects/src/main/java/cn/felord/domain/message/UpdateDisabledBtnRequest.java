@@ -24,7 +24,7 @@ import java.util.Set;
  * 更新按钮为不可点击状态
  *
  * @author dax
- * @since 2023 /2/7 10:16
+ * @since 2024/2/7 10:16
  */
 @Getter
 public class UpdateDisabledBtnRequest extends AbstractUpdateTemplateCardRequest {

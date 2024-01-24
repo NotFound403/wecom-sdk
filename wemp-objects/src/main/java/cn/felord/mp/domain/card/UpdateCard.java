@@ -23,7 +23,7 @@ import lombok.ToString;
  * The type Update card.
  *
  * @author dax
- * @since 2023 /8/20
+ * @since 2024/8/20
  */
 @ToString
 @Getter

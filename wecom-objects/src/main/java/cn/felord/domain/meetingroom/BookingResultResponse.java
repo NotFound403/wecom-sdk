@@ -26,7 +26,7 @@ import java.util.List;
  * The type BookingResultResponse
  *
  * @author dax
- * @since 2023 /11/29
+ * @since 2024/11/29
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

@@ -28,7 +28,7 @@ import retrofit2.http.POST;
  * The type File manager api.
  *
  * @author dax
- * @since 2023 /3/17 15:02
+ * @since 2024/3/17 15:02
  */
 interface InternalFileManagerApi {
 

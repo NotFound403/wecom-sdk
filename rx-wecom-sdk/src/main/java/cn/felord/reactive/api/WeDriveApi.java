@@ -32,6 +32,6 @@ public class WeDriveApi {
      * @return the form api
      */
     public FileManagerApi fileManagerApi() {
-        return workWeChatApiClient.retrofit().create(FileManagerApi.class);
+        return new FileManagerApi(workWeChatApiClient.retrofit());
     }
 }

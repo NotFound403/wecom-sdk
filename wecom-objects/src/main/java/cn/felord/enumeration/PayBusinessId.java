@@ -25,7 +25,7 @@ import java.util.Arrays;
  *
  * @author dax
  * @see <a href="https://developer.work.weixin.qq.com/document/path/98973#business_id">经营范围对照表</a>
- * @since 2023 /5/25 16:19
+ * @since 2024/5/25 16:19
  */
 public enum PayBusinessId {
 

@@ -25,7 +25,7 @@ import java.util.List;
  * The type Card list response.
  *
  * @author dax
- * @since 2023 /8/19
+ * @since 2024/8/19
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

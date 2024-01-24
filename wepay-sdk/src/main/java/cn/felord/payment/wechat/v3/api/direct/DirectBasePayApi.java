@@ -30,7 +30,7 @@ import java.time.Instant;
  * 直连模式-基础支付
  *
  * @author dax
- * @since 2023 /8/11
+ * @since 2024/8/11
  */
 public class DirectBasePayApi {
     private final AlternativeJdkIdGenerator idGenerator = new AlternativeJdkIdGenerator();

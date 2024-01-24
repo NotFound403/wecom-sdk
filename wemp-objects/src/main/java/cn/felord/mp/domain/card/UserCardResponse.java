@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
  * The type User card response.
  *
  * @author dax
- * @since 2023 /8/18 18:05
+ * @since 2024/8/18 18:05
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

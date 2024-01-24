@@ -19,7 +19,7 @@ package cn.felord.mp.enumeration;
  * 卡券状态
  *
  * @author dax
- * @since 2023 /8/19
+ * @since 2024/8/19
  */
 public enum CardStatus {
 

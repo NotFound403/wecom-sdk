@@ -32,7 +32,7 @@ import static cn.felord.payment.wechat.v3.WepaySdkVersion.USER_AGENT;
  * The type Abstract authorization interceptor.
  *
  * @author dax
- * @since 2023 /8/16 9:36
+ * @since 2024/8/16 9:36
  */
 public abstract class AbstractAuthorizationInterceptor implements Interceptor {
     private static final String APPLICATION_JSON_UTF_8 = "application/json; charset=UTF-8";

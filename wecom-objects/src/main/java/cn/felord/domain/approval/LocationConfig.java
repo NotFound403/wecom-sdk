@@ -15,23 +15,58 @@
 
 package cn.felord.domain.approval;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * The type Location config.
  *
  * @author dax
- * @since 2023 /5/25 17:11
+ * @since 2024/5/25 17:11
  */
-@Data
+@ToString
+@Getter
 public class LocationConfig implements ControlConfig {
-    private Wrapper location;
+    private final Wrapper location;
+
+    /**
+     * Instantiates a new Location config.
+     *
+     * @param location the location
+     */
+    @JsonCreator
+    LocationConfig(@JsonProperty("location") Wrapper location) {
+        this.location = location;
+    }
+
+    /**
+     * From location config.
+     *
+     * @param distance the distance
+     * @return the location config
+     */
+    public static LocationConfig from(Integer distance) {
+        return new LocationConfig(new Wrapper(distance));
+    }
 
     /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     public static class Wrapper {
-        private Integer distance;
+        private final Integer distance;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param distance the distance
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("distance") Integer distance) {
+            this.distance = distance;
+        }
     }
 }

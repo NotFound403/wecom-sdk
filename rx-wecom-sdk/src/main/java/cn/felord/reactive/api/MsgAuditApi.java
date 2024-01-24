@@ -32,7 +32,7 @@ import java.util.List;
  * 会话存档API
  *
  * @author dax
- * @since 2023 /12/1
+ * @since 2024/12/1
  */
 public interface MsgAuditApi {
 

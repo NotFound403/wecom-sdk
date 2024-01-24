@@ -25,7 +25,7 @@ import cn.felord.domain.authentication.AccessTokenResponse;
  * 获取下级/下游企业的access_token
  *
  * @author dax
- * @since 2023 /10/12
+ * @since 2024/10/12
  */
 public class DownStreamTokenApi extends AbstractTokenApi {
 

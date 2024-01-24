@@ -25,7 +25,7 @@ import java.util.Objects;
  * The enum File media type.
  *
  * @author dax
- * @since 2023 /6/10 17:52
+ * @since 2024/6/10 17:52
  */
 public enum FileMediaType {
     /**

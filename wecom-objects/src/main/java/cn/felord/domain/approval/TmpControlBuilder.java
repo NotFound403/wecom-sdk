@@ -28,7 +28,7 @@ import java.util.Random;
  *
  * @param <C> the type parameter
  * @author dax
- * @since 2023 /5/25 16:00
+ * @since 2024/5/25 16:00
  */
 public final class TmpControlBuilder<C extends ControlConfig> {
     private static final Random RANDOM = new SecureRandom();
@@ -166,9 +166,8 @@ public final class TmpControlBuilder<C extends ControlConfig> {
      *
      * @param title the title
      * @return the tmp control builder
-     * @see TextValue
      */
-    public static TmpControlBuilder<EmptyConfig> tips(String title) {
+    public static TmpControlBuilder<TipsConfig> tips(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.TIPS, title);
     }
 
@@ -268,6 +267,17 @@ public final class TmpControlBuilder<C extends ControlConfig> {
      */
     public static TmpControlBuilder<DateRangeConfig> dateRange(String title) {
         return new TmpControlBuilder<>(ApprovalCtrlType.DATE_RANGE, title);
+    }
+
+    /**
+     * 银行账户控件
+     *
+     * @param title the title
+     * @return tmp control builder
+     * @since 1.2.6
+     */
+    public static TmpControlBuilder<EmptyConfig> bankAccount(String title) {
+        return new TmpControlBuilder<>(ApprovalCtrlType.BANK_ACCOUNT, title);
     }
 
     /**

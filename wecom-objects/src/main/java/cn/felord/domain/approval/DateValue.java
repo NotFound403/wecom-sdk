@@ -27,7 +27,7 @@ import java.time.Instant;
  * 日期/日期+时间组件
  *
  * @author dax
- * @since 2023 /5/25 16:15
+ * @since 2024/5/25 16:15
  */
 @ToString
 @Getter
@@ -51,7 +51,7 @@ public class DateValue implements ContentDataValue {
      * @return the date value
      */
     public static DateValue date(Instant sTimestamp) {
-        return new DateValue(new Wrapper(DateCtrlType.DAY, sTimestamp));
+        return new DateValue(new Wrapper(DateCtrlType.DAY, sTimestamp, null));
     }
 
     /**
@@ -61,7 +61,7 @@ public class DateValue implements ContentDataValue {
      * @return the date value
      */
     public static DateValue dateTime(Instant sTimestamp) {
-        return new DateValue(new Wrapper(DateCtrlType.HOUR, sTimestamp));
+        return new DateValue(new Wrapper(DateCtrlType.HOUR, sTimestamp, null));
     }
 
     /**
@@ -73,18 +73,22 @@ public class DateValue implements ContentDataValue {
         private final DateCtrlType type;
         @JsonProperty("s_timestamp")
         private final Instant sTimestamp;
+        private final TimezoneInfo timezoneInfo;
 
         /**
          * Instantiates a new Wrapper.
          *
-         * @param type       the type
-         * @param sTimestamp the s timestamp
+         * @param type         the type
+         * @param sTimestamp   the s timestamp
+         * @param timezoneInfo the timezone info
          */
         @JsonCreator
-        public Wrapper(@JsonProperty("type") DateCtrlType type,
-                       @JsonProperty("s_timestamp") Instant sTimestamp) {
+        Wrapper(@JsonProperty("type") DateCtrlType type,
+                @JsonProperty("s_timestamp") Instant sTimestamp,
+                @JsonProperty("timezone_info") TimezoneInfo timezoneInfo) {
             this.type = type;
             this.sTimestamp = sTimestamp;
+            this.timezoneInfo = timezoneInfo;
         }
     }
 }

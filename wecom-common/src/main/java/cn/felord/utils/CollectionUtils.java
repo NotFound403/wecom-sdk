@@ -22,7 +22,7 @@ import java.util.Map;
  * The type Collection utils.
  *
  * @author dax
- * @since 2023 /5/24
+ * @since 2024/5/24
  */
 public abstract class CollectionUtils {
     /**

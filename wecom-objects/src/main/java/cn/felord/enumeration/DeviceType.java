@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 设备类型
  *
  * @author dax
- * @since 2023 /10/10
+ * @since 2024/10/10
  */
 public enum DeviceType {
 

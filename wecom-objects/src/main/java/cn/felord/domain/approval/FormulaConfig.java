@@ -15,7 +15,10 @@
 
 package cn.felord.domain.approval;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -25,17 +28,49 @@ import java.util.List;
  * 示例：{@code {"formula":{"tokens":["Money-26325626","+","Money-93708401","+","Money-78842584","*","2"]}}}
  *
  * @author dax
- * @since 2023 /5/27 8:44
+ * @since 2024/5/27 8:44
  */
-@Data
+@ToString
+@Getter
 public class FormulaConfig implements ControlConfig {
-    private Wrapper formula;
+    private final Wrapper formula;
+
+    /**
+     * Instantiates a new Formula config.
+     *
+     * @param formula the formula
+     */
+    @JsonCreator
+    FormulaConfig(@JsonProperty("formula") Wrapper formula) {
+        this.formula = formula;
+    }
+
+    /**
+     * From formula config.
+     *
+     * @param tokens the tokens
+     * @return the formula config
+     */
+    public static FormulaConfig from(List<String> tokens) {
+        return new FormulaConfig(new Wrapper(tokens));
+    }
 
     /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     public static class Wrapper {
-        private List<String> tokens;
+        private final List<String> tokens;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param tokens the tokens
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("tokens") List<String> tokens) {
+            this.tokens = tokens;
+        }
     }
 }
