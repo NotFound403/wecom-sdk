@@ -28,7 +28,7 @@ import java.time.Instant;
  * The LivingInfo
  *
  * @author dax
- * @since 2023 /11/23
+ * @since 2024/11/23
  */
 @Data
 public class LivingInfo {

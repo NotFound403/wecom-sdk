@@ -21,7 +21,7 @@ import lombok.Getter;
  * 单张发送
  *
  * @author dax
- * @since 2023 /8/18
+ * @since 2024/8/18
  */
 @Getter
 public class SingleQrcodeRequest extends CardQrcodeRequest {

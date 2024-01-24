@@ -23,7 +23,7 @@ import java.time.Instant;
  * The type InnerChatMember
  *
  * @author dax
- * @since 2023 /12/1
+ * @since 2024/12/1
  */
 @Data
 public class InnerChatMember {

@@ -24,7 +24,7 @@ import lombok.ToString;
  * The type Wechat channel info.
  *
  * @author dax
- * @since 2023 /8/23
+ * @since 2024/8/23
  */
 @ToString
 @Getter

@@ -26,7 +26,7 @@ import lombok.ToString;
  * The type Msg send fail kf event.
  *
  * @author dax
- * @since 2023 /6/4
+ * @since 2024/6/4
  */
 @ToString
 @Getter

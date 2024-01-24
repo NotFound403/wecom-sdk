@@ -21,7 +21,7 @@ import lombok.Data;
  * The type Info item.
  *
  * @author dax
- * @since 2023 /7/27
+ * @since 2024/7/27
  */
 @Data
 public class InfoItem {

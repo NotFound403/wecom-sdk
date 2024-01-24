@@ -19,7 +19,7 @@ package cn.felord.payment.wechat.v3.retrofit;
  * The enum Http headers.
  *
  * @author dax
- * @since 2023 /8/4
+ * @since 2024/8/4
  */
 public enum HttpHeaders {
     /**

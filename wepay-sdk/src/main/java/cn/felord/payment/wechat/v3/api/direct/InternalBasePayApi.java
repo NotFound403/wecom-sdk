@@ -41,7 +41,7 @@ import java.time.LocalDate;
  * 普通支付-直连模式.
  *
  * @author dax
- * @since 2023 /8/11
+ * @since 2024/8/11
  */
 interface InternalBasePayApi {
 

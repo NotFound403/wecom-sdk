@@ -36,7 +36,7 @@ import java.util.List;
  * 安全管理
  *
  * @author dax
- * @since 2023 /10/11
+ * @since 2024/10/11
  */
 public interface SecurityApi {
 

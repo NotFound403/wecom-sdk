@@ -25,7 +25,7 @@ import java.util.List;
  * The type Acquisition quota response.
  *
  * @author n1
- * @since 2023 /5/30 9:55
+ * @since 2024/5/30 9:55
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

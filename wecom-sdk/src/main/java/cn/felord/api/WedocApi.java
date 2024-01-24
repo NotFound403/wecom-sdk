@@ -19,7 +19,7 @@ package cn.felord.api;
  * The type Office api.
  *
  * @author dax
- * @since 2023 /3/13 16:22
+ * @since 2024/3/13 16:22
  */
 public class WedocApi {
     private final WorkWeChatApiClient workWeChatApiClient;

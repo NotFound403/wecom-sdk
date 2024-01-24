@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 审批银行账户类型
  *
  * @author dax
- * @since 2023 /7/3 15:28
+ * @since 2024/7/3 15:28
  */
 public enum ApvlBankAccountType {
     /**

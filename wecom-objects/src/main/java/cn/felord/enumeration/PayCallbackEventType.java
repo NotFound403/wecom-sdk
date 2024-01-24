@@ -27,7 +27,7 @@ import java.util.Objects;
  * The PayCallbackEventType
  *
  * @author dax
- * @since 2023 /7/7 11:27
+ * @since 2024/7/7 11:27
  */
 @XStreamConverter(PayCallbackEventTypeConverter.class)
 public enum PayCallbackEventType {

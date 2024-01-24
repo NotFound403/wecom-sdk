@@ -38,7 +38,7 @@ import java.time.Instant;
  * 普通支付-直连模式-合单支付.
  *
  * @author felord.cn
- * @since 2023 /8/17 12:16
+ * @since 2024/8/17 12:16
  */
 public class CombinePayApi {
     private final AlternativeJdkIdGenerator idGenerator;

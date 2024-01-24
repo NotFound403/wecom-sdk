@@ -19,7 +19,7 @@ package cn.felord.callback;
  * The interface Callback body.
  *
  * @author dax
- * @since 2023 /5/31 12:23
+ * @since 2024/5/31 12:23
  */
 public interface XmlEntity {
 

@@ -19,7 +19,7 @@ package cn.felord.mp.enumeration;
  * The enum Rich field type.
  *
  * @author dax
- * @since 2023 /8/20
+ * @since 2024/8/20
  */
 public enum RichFieldType {
 

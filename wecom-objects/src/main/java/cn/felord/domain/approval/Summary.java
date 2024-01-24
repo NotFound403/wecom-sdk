@@ -24,7 +24,7 @@ import java.util.List;
  * The type Summary.
  *
  * @author dax
- * @since 2023 /5/26
+ * @since 2024/5/26
  */
 @Data
 public class Summary {

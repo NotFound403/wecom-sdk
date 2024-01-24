@@ -26,7 +26,7 @@ import java.util.List;
  * The type Update base info.
  *
  * @author dax
- * @since 2023 /8/20
+ * @since 2024/8/20
  */
 @ToString
 @Getter

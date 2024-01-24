@@ -25,7 +25,7 @@ import retrofit2.http.POST;
  * 公众号素材上传
  *
  * @author dax
- * @since 2023 /8/18 9:17
+ * @since 2024/8/18 9:17
  */
 public interface InternalMediaApi {
     /**

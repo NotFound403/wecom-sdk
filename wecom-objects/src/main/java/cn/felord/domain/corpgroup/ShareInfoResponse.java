@@ -26,7 +26,7 @@ import java.util.List;
  * The type Share info response.
  *
  * @author dax
- * @since 2023 /10/12
+ * @since 2024/10/12
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

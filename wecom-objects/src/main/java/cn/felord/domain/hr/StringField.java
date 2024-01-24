@@ -21,7 +21,7 @@ import lombok.Getter;
  * The type String field.
  *
  * @author dax
- * @since 2023 /8/3 14:55
+ * @since 2024/8/3 14:55
  */
 @Getter
 public class StringField extends FieldBase {

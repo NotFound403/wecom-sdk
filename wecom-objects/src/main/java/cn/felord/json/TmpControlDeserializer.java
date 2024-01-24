@@ -32,7 +32,7 @@ import java.util.Map;
  * The type Tmp control deserializer.
  *
  * @author dax
- * @since 2023 /5/26
+ * @since 2024/5/26
  */
 public class TmpControlDeserializer extends JsonDeserializer<TmpControl<?>> {
     private static final Map<ApprovalCtrlType, Class<? extends ControlConfig>> CONTROL_MAP = new HashMap<>();
@@ -42,7 +42,7 @@ public class TmpControlDeserializer extends JsonDeserializer<TmpControl<?>> {
         CONTROL_MAP.put(ApprovalCtrlType.TEXTAREA, EmptyConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.NUMBER, EmptyConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.MONEY, EmptyConfig.class);
-        CONTROL_MAP.put(ApprovalCtrlType.TIPS, EmptyConfig.class);
+        CONTROL_MAP.put(ApprovalCtrlType.TIPS, TipsConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.DATE, DateConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.SELECTOR, SelectorConfig.class);
         CONTROL_MAP.put(ApprovalCtrlType.CONTACT, ContactConfig.class);

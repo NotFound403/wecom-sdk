@@ -21,7 +21,7 @@ import lombok.Data;
  * 控制原生消息结构体，包含各字段的消息控制字段
  *
  * @author dax
- * @since 2023 /8/18 11:15
+ * @since 2024/8/18 11:15
  */
 @Data
 public class NotifyOptional {

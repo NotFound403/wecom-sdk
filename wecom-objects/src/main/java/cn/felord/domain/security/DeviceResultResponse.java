@@ -25,7 +25,7 @@ import java.util.List;
  * The type Device result response.
  *
  * @author dax
- * @since 2023 /10/11
+ * @since 2024/10/11
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

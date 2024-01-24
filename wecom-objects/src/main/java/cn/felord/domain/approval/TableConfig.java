@@ -16,25 +16,110 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.BoolEnum;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.util.List;
 
 /**
+ * The type Table config.
+ *
  * @author dax
- * @since 2023/5/25 16:50
+ * @since 2024/5/25 16:50
  */
-@Data
-@JsonTypeName("TableConfig")
+@ToString
+@Getter
 public class TableConfig implements ControlConfig {
-    private Wrapper table;
+    private final Wrapper table;
 
-    @Data
+    /**
+     * Instantiates a new Table config.
+     *
+     * @param table the table
+     */
+    @JsonCreator
+    TableConfig(@JsonProperty("table") Wrapper table) {
+        this.table = table;
+    }
+
+    /**
+     * From table config.
+     *
+     * @param children    the children
+     * @param printFormat the print format
+     * @param statField   the stat field
+     * @param sumField    the sum field
+     * @return the table config
+     */
+    public static TableConfig from(@NonNull List<TableCtrlProperty> children, BoolEnum printFormat, List<String> statField, List<String> sumField) {
+        return new TableConfig(new Wrapper(children, printFormat, statField, sumField));
+    }
+
+    /**
+     * From table config.
+     *
+     * @param children    the children
+     * @param printFormat the print format
+     * @param statField   the stat field
+     * @return the table config
+     */
+    public static TableConfig from(@NonNull List<TableCtrlProperty> children, BoolEnum printFormat, List<String> statField) {
+        return from(children, printFormat, statField, null);
+    }
+
+    /**
+     * From table config.
+     *
+     * @param children    the children
+     * @param printFormat the print format
+     * @return the table config
+     */
+    public static TableConfig from(@NonNull List<TableCtrlProperty> children, BoolEnum printFormat) {
+        return from(children, printFormat, null);
+    }
+
+    /**
+     * From table config.
+     *
+     * @param children the children
+     * @return the table config
+     */
+    public static TableConfig from(@NonNull List<TableCtrlProperty> children) {
+        return from(children, null);
+    }
+
+    /**
+     * The type Wrapper.
+     */
+    @ToString
+    @Getter
     public static class Wrapper {
-        private BoolEnum printFormat;
-        private List<TableCtrlProperty> children;
-        private List<String> statField;
-        private List<String> sumField;
+        private final List<TableCtrlProperty> children;
+        private final BoolEnum printFormat;
+        private final List<String> statField;
+        private final List<String> sumField;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param children    the children
+         * @param printFormat the print format
+         * @param statField   the stat field
+         * @param sumField    the sum field
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("children") List<TableCtrlProperty> children,
+                @JsonProperty("print_format") BoolEnum printFormat,
+                @JsonProperty("stat_field") List<String> statField,
+                @JsonProperty("sum_field") List<String> sumField) {
+            this.printFormat = printFormat;
+            this.children = children;
+            this.statField = statField;
+            this.sumField = sumField;
+        }
+
     }
 }

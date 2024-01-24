@@ -24,7 +24,7 @@ import java.util.Arrays;
  * The enum Checkin sp type.
  *
  * @author dax
- * @since 2023 /9/26
+ * @since 2024/9/26
  */
 public enum CheckinSpType {
 

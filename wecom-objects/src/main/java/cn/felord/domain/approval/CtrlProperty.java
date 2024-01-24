@@ -27,7 +27,7 @@ import java.util.List;
  * The type Ctrl property.
  *
  * @author dax
- * @since 2023 /5/25 14:44
+ * @since 2024/5/25 14:44
  */
 @Data
 public class CtrlProperty {

@@ -26,7 +26,7 @@ import java.util.List;
  * 明细组件
  *
  * @author dax
- * @since 2023 /5/27 10:59
+ * @since 2024/5/27 10:59
  */
 @ToString
 @Getter

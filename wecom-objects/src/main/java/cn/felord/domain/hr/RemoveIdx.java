@@ -22,7 +22,7 @@ import lombok.Data;
  * The type Remove idx.
  *
  * @author dax
- * @since 2023 /8/3 18:37
+ * @since 2024/8/3 18:37
  */
 @Data
 public class RemoveIdx {

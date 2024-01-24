@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 视频号消息类型
  *
  * @author dax
- * @since 2023 /5/26
+ * @since 2024/5/26
  */
 public enum ChannelsSubType {
     /**

@@ -21,7 +21,7 @@ import cn.felord.callbacks.CallbackEventBody;
  * The interface Wecom callback event service.
  *
  * @author dax
- * @since 2023 /7/2
+ * @since 2024/7/2
  */
 public interface WecomCallbackEventService {
     /**

@@ -26,7 +26,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * 企业支付
  *
  * @author dax
- * @since 2023 /6/28
+ * @since 2024/6/28
  */
 public class PayApi {
     private final WeComTokenCacheable weComTokenCacheable;

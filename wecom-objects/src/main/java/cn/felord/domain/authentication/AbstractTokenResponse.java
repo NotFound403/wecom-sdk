@@ -23,7 +23,7 @@ import lombok.EqualsAndHashCode;
  * The type Abstract token response.
  *
  * @author dax
- * @since 2023 /5/24 17:22
+ * @since 2024/5/24 17:22
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

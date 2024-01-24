@@ -24,7 +24,7 @@ import java.util.Arrays;
  * The enum Location type.
  *
  * @author dax
- * @since 2023 /8/4 14:07
+ * @since 2024/8/4 14:07
  */
 public enum LocationType {
     /**

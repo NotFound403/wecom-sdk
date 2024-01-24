@@ -19,7 +19,7 @@ package cn.felord.enumeration;
  * 小程序对外收款-交易状态
  *
  * @author dax
- * @since 2023 /7/6 16:43
+ * @since 2024/7/6 16:43
  */
 public enum MiniPayTradeState {
 

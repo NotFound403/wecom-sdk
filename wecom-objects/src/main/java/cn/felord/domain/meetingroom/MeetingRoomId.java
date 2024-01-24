@@ -22,7 +22,7 @@ import lombok.ToString;
  * The type Meeting room id.
  *
  * @author dax
- * @since 2023 /11/29
+ * @since 2024/11/29
  */
 @ToString
 @Getter

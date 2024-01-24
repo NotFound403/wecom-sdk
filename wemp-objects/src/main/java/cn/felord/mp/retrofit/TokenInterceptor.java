@@ -26,7 +26,7 @@ import java.io.IOException;
  * The type Token interceptor.
  *
  * @author dax
- * @since 2023 /5/22 14:59
+ * @since 2024/5/22 14:59
  */
 public class TokenInterceptor implements Interceptor {
     public static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();

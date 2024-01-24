@@ -15,7 +15,10 @@
 
 package cn.felord.domain.approval;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -23,9 +26,15 @@ import java.util.List;
  * The type Template content.
  *
  * @author dax
- * @since 2023 /5/25 14:30
+ * @since 2024/5/25 14:30
  */
-@Data
+@ToString
+@Getter
 public class TemplateContent {
-    private List<TmpControl<? extends ControlConfig>> controls;
+    private final List<TmpControl<? extends ControlConfig>> controls;
+
+    @JsonCreator
+    public TemplateContent(@JsonProperty("controls") List<TmpControl<? extends ControlConfig>> controls) {
+        this.controls = controls;
+    }
 }

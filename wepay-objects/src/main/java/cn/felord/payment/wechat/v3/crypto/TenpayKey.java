@@ -32,7 +32,7 @@ import java.util.Objects;
  * 微信平台证书
  *
  * @author dax
- * @since 2023 /8/10 13:54
+ * @since 2024/8/10 13:54
  */
 public class TenpayKey {
     private final String merchantId;

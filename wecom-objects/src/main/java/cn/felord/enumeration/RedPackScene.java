@@ -19,7 +19,7 @@ package cn.felord.enumeration;
  * The enum Pay scene.
  *
  * @author dax
- * @since 2023 /6/26 13:13
+ * @since 2024/6/26 13:13
  */
 public enum RedPackScene {
     /**

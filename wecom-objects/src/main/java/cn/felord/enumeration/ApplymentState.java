@@ -19,7 +19,7 @@ package cn.felord.enumeration;
  * 申请状态
  *
  * @author dax
- * @since 2023 /7/3 16:08
+ * @since 2024/7/3 16:08
  */
 public enum ApplymentState {
     /**

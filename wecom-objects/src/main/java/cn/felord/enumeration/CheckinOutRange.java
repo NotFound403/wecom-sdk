@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 范围外打卡处理方式
  *
  * @author dax
- * @since 2023 /9/25
+ * @since 2024/9/25
  */
 public enum CheckinOutRange {
     /**

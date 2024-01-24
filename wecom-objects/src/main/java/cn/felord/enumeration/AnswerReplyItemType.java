@@ -19,7 +19,7 @@ package cn.felord.enumeration;
  * The enum Answer reply item type.
  *
  * @author dax
- * @since 2023 /3/16 15:43
+ * @since 2024/3/16 15:43
  */
 public enum AnswerReplyItemType {
 

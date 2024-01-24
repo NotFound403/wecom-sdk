@@ -19,7 +19,7 @@ package cn.felord.enumeration;
  * The enum Pay sign type.
  *
  * @author dax
- * @since 2023 /6/25 15:26
+ * @since 2024/6/25 15:26
  */
 public enum PaySignType {
     /**

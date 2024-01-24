@@ -16,19 +16,53 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.DateCtrlType;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
+ * The type Date config.
+ *
  * @author dax
- * @since 2023/5/25 16:15
+ * @since 2024/5/25 16:15
  */
-@Data
+@ToString
+@Getter
 public class DateConfig implements ControlConfig {
-    private Wrapper date;
+    private final Wrapper date;
 
+    /**
+     * Instantiates a new Date config.
+     *
+     * @param date the date
+     */
+    @JsonCreator
+    DateConfig(@JsonProperty("date") Wrapper date) {
+        this.date = date;
+    }
 
-    @Data
+    /**
+     * From date config.
+     *
+     * @param dateCtrlType the date ctrl type
+     * @return the date config
+     */
+    public static DateConfig from(DateCtrlType dateCtrlType) {
+        return new DateConfig(new Wrapper(dateCtrlType));
+    }
+
+    /**
+     * The type Wrapper.
+     */
+    @ToString
+    @Getter
     public static class Wrapper {
-        private DateCtrlType type;
+        private final DateCtrlType type;
+
+        @JsonCreator
+        Wrapper(@JsonProperty("type") DateCtrlType type) {
+            this.type = type;
+        }
     }
 }

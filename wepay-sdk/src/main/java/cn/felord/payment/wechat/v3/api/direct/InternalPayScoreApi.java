@@ -30,7 +30,7 @@ import retrofit2.http.POST;
  * 支付分API
  *
  * @author dax
- * @since 2023 /8/21
+ * @since 2024/8/21
  */
 interface InternalPayScoreApi {
 

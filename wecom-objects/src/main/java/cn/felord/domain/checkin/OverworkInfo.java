@@ -23,7 +23,7 @@ import java.time.Duration;
  * 加班情况
  *
  * @author dax
- * @since 2023 /9/26
+ * @since 2024/9/26
  */
 @Data
 public class OverworkInfo {

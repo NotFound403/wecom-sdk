@@ -63,7 +63,7 @@ import retrofit2.http.POST;
  * 微信卡券
  *
  * @author dax
- * @since 2023 /8/18 11:41
+ * @since 2024/8/18 11:41
  */
 public interface CardApi {
 

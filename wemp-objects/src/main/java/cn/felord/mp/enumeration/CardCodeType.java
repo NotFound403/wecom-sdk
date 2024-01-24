@@ -19,7 +19,7 @@ package cn.felord.mp.enumeration;
  * 卡券码型
  *
  * @author dax
- * @since 2023 /8/18 15:05
+ * @since 2024/8/18 15:05
  */
 public enum CardCodeType {
     /**

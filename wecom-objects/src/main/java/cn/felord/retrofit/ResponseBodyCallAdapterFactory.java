@@ -34,7 +34,7 @@ import java.util.concurrent.CompletableFuture;
  * Token interceptor.
  *
  * @author dax
- * @since 2023 /5/22 14:59
+ * @since 2024/5/22 14:59
  */
 final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
     /**

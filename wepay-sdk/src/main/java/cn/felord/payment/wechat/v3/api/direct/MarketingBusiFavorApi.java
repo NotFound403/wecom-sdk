@@ -57,7 +57,7 @@ import java.time.OffsetDateTime;
  * 微信支付商家券
  *
  * @author dax
- * @since 2023 /8/22
+ * @since 2024/8/22
  */
 public interface MarketingBusiFavorApi {
     /**

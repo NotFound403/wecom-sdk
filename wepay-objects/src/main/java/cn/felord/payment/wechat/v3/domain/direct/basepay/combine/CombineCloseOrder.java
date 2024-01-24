@@ -21,7 +21,7 @@ import lombok.Data;
  * 要关闭的合单子单
  *
  * @author dax
- * @since 2023 /8/17
+ * @since 2024/8/17
  */
 @Data
 public class CombineCloseOrder {

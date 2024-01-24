@@ -19,7 +19,7 @@ package cn.felord.payment.wechat.enumeration;
  * 服务订单状态
  *
  * @author dax
- * @since 2023 /8/22
+ * @since 2024/8/22
  */
 public enum PayScoreOrderState {
     /**

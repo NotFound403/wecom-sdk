@@ -21,7 +21,7 @@ import cn.felord.payment.PayException;
  * 获取商户配置信息
  *
  * @author dax
- * @since 2023 /8/6
+ * @since 2024/8/6
  */
 public interface AppMerchantService {
     /**

@@ -38,7 +38,7 @@ import retrofit2.http.Query;
  * 直播API
  *
  * @author dax
- * @since 2023 /11/23
+ * @since 2024/11/23
  */
 public interface LivingApi {
 

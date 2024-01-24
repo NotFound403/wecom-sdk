@@ -19,7 +19,7 @@ package cn.felord.mp.enumeration;
  * 商家服务类型
  *
  * @author dax
- * @since 2023 /8/18 17:46
+ * @since 2024/8/18 17:46
  */
 public enum BusinessService {
     /**

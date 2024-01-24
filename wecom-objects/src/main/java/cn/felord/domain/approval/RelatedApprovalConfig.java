@@ -15,20 +15,60 @@
 
 package cn.felord.domain.approval;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
 /**
+ * The type Related approval config.
+ *
  * @author dax
- * @since 2023/5/25 17:15
+ * @since 2024/5/25 17:15
  */
-@Data
+@ToString
+@Getter
 public class RelatedApprovalConfig implements ControlConfig {
-    private Wrapper relatedApproval;
+    private final Wrapper relatedApproval;
 
-    @Data
+    /**
+     * Instantiates a new Related approval config.
+     *
+     * @param relatedApproval the related approval
+     */
+    @JsonCreator
+    RelatedApprovalConfig(@JsonProperty("related_approval") Wrapper relatedApproval) {
+        this.relatedApproval = relatedApproval;
+    }
+
+    /**
+     * From related approval config.
+     *
+     * @param templateId the template id
+     * @return the related approval config
+     */
+    public static RelatedApprovalConfig from(List<String> templateId) {
+        return new RelatedApprovalConfig(new Wrapper(templateId));
+    }
+
+    /**
+     * The type Wrapper.
+     */
+    @ToString
+    @Getter
     public static class Wrapper {
-        private List<String> templateId;
+        private final List<String> templateId;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param templateId the template id
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("template_id") List<String> templateId) {
+            this.templateId = templateId;
+        }
     }
 }

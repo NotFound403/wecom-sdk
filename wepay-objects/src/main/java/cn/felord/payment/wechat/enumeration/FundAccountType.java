@@ -19,7 +19,7 @@ package cn.felord.payment.wechat.enumeration;
  * 优惠类型
  *
  * @author felord.cn
- * @since 2023 /8/17 13:53
+ * @since 2024/8/17 13:53
  */
 public enum FundAccountType {
 

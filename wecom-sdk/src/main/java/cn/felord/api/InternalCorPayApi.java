@@ -28,7 +28,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * 企业红包和向员工付款
  *
  * @author dax
- * @since 2023 /6/28
+ * @since 2024/6/28
  */
 public class InternalCorPayApi {
     private final String paySecret;

@@ -24,7 +24,7 @@ import java.util.Arrays;
  * 文档权限类型
  *
  * @author dax
- * @since 2023 /7/3 15:28
+ * @since 2024/7/3 15:28
  */
 public enum DocAuthType {
     /**

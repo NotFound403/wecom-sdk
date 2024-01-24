@@ -31,7 +31,7 @@ import java.security.cert.X509Certificate;
  * The type Encrypt certificate.
  *
  * @author dax
- * @since 2023 /8/6
+ * @since 2024/8/6
  */
 @Data
 public class EncryptCertificate {

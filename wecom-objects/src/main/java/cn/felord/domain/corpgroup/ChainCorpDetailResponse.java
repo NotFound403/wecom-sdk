@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
  * The type Chain corp detail response.
  *
  * @author dax
- * @since 2023 /10/12
+ * @since 2024/10/12
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

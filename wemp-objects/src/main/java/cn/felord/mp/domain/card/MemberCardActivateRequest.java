@@ -23,7 +23,7 @@ import java.time.Instant;
  * 会员卡激活
  *
  * @author dax
- * @since 2023 /8/18 16:15
+ * @since 2024/8/18 16:15
  */
 @Data
 public class MemberCardActivateRequest {

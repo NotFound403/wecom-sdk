@@ -8,7 +8,7 @@ import java.time.Instant;
  * The type Contact info.
  *
  * @author dax
- * @since 2024 /1/17
+ * @since 2024/1/17
  */
 @Data
 public class ContactInfo {

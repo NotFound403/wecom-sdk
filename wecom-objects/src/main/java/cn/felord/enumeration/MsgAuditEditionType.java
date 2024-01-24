@@ -24,7 +24,7 @@ import java.util.Arrays;
  * The MsgAuditEditionType
  *
  * @author dax
- * @since 2023 /10/6
+ * @since 2024/10/6
  */
 public enum MsgAuditEditionType {
     /**

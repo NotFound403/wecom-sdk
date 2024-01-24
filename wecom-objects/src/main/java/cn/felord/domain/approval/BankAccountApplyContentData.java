@@ -10,7 +10,7 @@ import java.util.List;
  * The type Bank account apply content data.
  *
  * @author dax
- * @since 2024 /1/20
+ * @since 2024/1/20
  */
 public class BankAccountApplyContentData extends ApplyContentData<BankAccountValue> {
     /**

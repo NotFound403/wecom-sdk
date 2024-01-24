@@ -15,13 +15,49 @@
 
 package cn.felord.domain.approval;
 
-import lombok.Data;
+import cn.felord.enumeration.DateRangeType;
+import cn.felord.enumeration.HolidayType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
+
+import java.time.Duration;
 
 /**
+ * The type Date range config.
+ *
  * @author dax
- * @since 2023/5/25 17:17
+ * @since 2024/5/25 17:17
  */
-@Data
+@ToString
+@Getter
 public class DateRangeConfig implements ControlConfig {
-    private DateRange dateRange;
+    private final DateRange dateRange;
+
+    /**
+     * Instantiates a new Date range config.
+     *
+     * @param dateRange the date range
+     */
+    @JsonCreator
+    DateRangeConfig(@JsonProperty("date_range") DateRange dateRange) {
+        this.dateRange = dateRange;
+    }
+
+    /**
+     * From date range config.
+     *
+     * @param type            the type
+     * @param officialHoliday the official holiday
+     * @param perdayDuration  the perday duration
+     * @return the date range config
+     */
+    public static DateRangeConfig from(DateRangeType type,
+                                       HolidayType officialHoliday,
+                                       Duration perdayDuration) {
+        return new DateRangeConfig(new DateRange(type, officialHoliday, perdayDuration));
+    }
+
+
 }

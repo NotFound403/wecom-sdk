@@ -27,7 +27,7 @@ import java.util.Objects;
  * The type Media util.
  *
  * @author dax
- * @since 2023 /8/18 10:00
+ * @since 2024/8/18 10:00
  */
 public final class MediaUtil {
     private MediaUtil() {

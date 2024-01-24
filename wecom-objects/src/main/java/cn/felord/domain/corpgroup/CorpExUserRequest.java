@@ -22,7 +22,7 @@ import lombok.ToString;
  * The type Corp ex user request.
  *
  * @author dax
- * @since 2023 /10/12
+ * @since 2024/10/12
  */
 @ToString
 @Getter

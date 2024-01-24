@@ -19,7 +19,7 @@ package cn.felord.mp.enumeration;
  * The enum Week day.
  *
  * @author dax
- * @since 2023 /8/18 17:36
+ * @since 2024/8/18 17:36
  */
 public enum WeekDay {
     /**

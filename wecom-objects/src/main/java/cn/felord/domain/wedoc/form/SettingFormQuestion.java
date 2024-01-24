@@ -26,7 +26,7 @@ import java.util.List;
  * 收集表问题带配置，替代{@link FormQuestion}
  *
  * @author dax
- * @since 2023 /3/13 16:33
+ * @since 2024/3/13 16:33
  */
 @ToString
 @Getter

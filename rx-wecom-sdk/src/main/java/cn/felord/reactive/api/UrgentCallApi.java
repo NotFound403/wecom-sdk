@@ -29,7 +29,7 @@ import retrofit2.http.POST;
  * 【医疗行业】的企业，可通过语音电话提醒员工查看应用推送的重要消息，以便尽快处理紧急事件
  *
  * @author dax
- * @since 2023 /5/31 12:44
+ * @since 2024/5/31 12:44
  */
 public interface UrgentCallApi {
 

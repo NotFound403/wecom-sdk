@@ -26,7 +26,7 @@ import java.util.List;
  * 直连模式-合单JSAPI下单、合单小程序下单请求参数
  *
  * @author felord.cn
- * @since 2023 /8/17 11:23
+ * @since 2024/8/17 11:23
  */
 @RequiredArgsConstructor
 public class CombineJsPayRequest {

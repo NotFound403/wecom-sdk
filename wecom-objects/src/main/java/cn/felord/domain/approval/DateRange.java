@@ -17,17 +17,39 @@ package cn.felord.domain.approval;
 
 import cn.felord.enumeration.DateRangeType;
 import cn.felord.enumeration.HolidayType;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.time.Duration;
 
 /**
+ * The type Date range.
+ *
  * @author dax
- * @since 2023/5/25 18:26
+ * @since 2024/5/25 18:26
  */
-@Data
+@ToString
+@Getter
 public class DateRange {
-    private DateRangeType type;
-    private HolidayType officialHoliday;
-    private Duration perdayDuration;
+    private final DateRangeType type;
+    private final HolidayType officialHoliday;
+    private final Duration perdayDuration;
+
+    /**
+     * Instantiates a new Date range.
+     *
+     * @param type            the type
+     * @param officialHoliday the official holiday
+     * @param perdayDuration  the perday duration
+     */
+    @JsonCreator
+    DateRange(@JsonProperty("type") DateRangeType type,
+              @JsonProperty("official_holiday") HolidayType officialHoliday,
+              @JsonProperty("perday_duration") Duration perdayDuration) {
+        this.type = type;
+        this.officialHoliday = officialHoliday;
+        this.perdayDuration = perdayDuration;
+    }
 }

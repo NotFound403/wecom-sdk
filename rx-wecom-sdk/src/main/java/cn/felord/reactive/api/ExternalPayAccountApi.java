@@ -27,7 +27,7 @@ import retrofit2.http.POST;
  * 对外收款账户API
  *
  * @author dax
- * @since 2023 /7/3 15:57
+ * @since 2024/7/3 15:57
  */
 public interface ExternalPayAccountApi {
 

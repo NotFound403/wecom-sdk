@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  * 微信支付平台证书API
  *
  * @author dax
- * @since 2023 /8/10 10:04
+ * @since 2024/8/10 10:04
  */
 class TenpayCertificateService {
 

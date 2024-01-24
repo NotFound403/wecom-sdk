@@ -27,7 +27,7 @@ import java.util.Set;
  * The type Trust device detail.
  *
  * @author dax
- * @since 2023 /10/11
+ * @since 2024/10/11
  */
 @Data
 public class TrustDeviceDetail {

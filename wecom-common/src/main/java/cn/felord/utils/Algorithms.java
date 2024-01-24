@@ -31,7 +31,7 @@ import java.util.stream.Stream;
  * The type Algorithms.
  *
  * @author dax
- * @since 2023 /6/25 13:56
+ * @since 2024/6/25 13:56
  */
 public final class Algorithms {
 

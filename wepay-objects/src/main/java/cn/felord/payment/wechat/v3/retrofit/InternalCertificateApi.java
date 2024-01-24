@@ -26,7 +26,7 @@ import java.util.List;
  * 获取平台证书列表API
  *
  * @author dax
- * @since 2023 /8/6
+ * @since 2024/8/6
  */
 interface InternalCertificateApi {
 

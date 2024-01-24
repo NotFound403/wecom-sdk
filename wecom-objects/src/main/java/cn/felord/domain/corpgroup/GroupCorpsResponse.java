@@ -23,7 +23,7 @@ import java.util.List;
  * The type Group corps response.
  *
  * @author dax
- * @since 2023 /10/12
+ * @since 2024/10/12
  */
 public class GroupCorpsResponse extends WeComResponse {
     private Boolean hasMore;

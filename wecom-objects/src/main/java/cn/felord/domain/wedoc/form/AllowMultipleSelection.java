@@ -21,7 +21,7 @@ import lombok.Data;
  * The type Allow multiple selection.
  *
  * @author dax
- * @since 2023 /8/4 15:04
+ * @since 2024/8/4 15:04
  */
 @Data
 public class AllowMultipleSelection {

@@ -26,7 +26,7 @@ import retrofit2.http.POST;
  * 应用消息
  *
  * @author dax
- * @since 2023 /6/29 9:06
+ * @since 2024/6/29 9:06
  */
 interface InternalAgentMessageApi {
 

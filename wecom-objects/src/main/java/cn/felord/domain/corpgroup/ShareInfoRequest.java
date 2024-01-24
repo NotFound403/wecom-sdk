@@ -22,7 +22,7 @@ import lombok.ToString;
  * The type Share info request.
  *
  * @author dax
- * @since 2023 /5/27
+ * @since 2024/5/27
  */
 @ToString
 @Getter

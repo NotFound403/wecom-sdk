@@ -21,7 +21,7 @@ import java.util.Optional;
  * The type Wecom user agent.
  *
  * @author dax
- * @since 2023 /10/13
+ * @since 2024/10/13
  */
 public final class WecomUserAgent {
     /**

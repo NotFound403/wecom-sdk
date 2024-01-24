@@ -22,7 +22,7 @@ import retrofit2.http.Query;
  * The interface Retrofit access token api.
  *
  * @author dax
- * @since 2023 /5/23 8:58
+ * @since 2024/5/23 8:58
  */
 interface RetrofitAccessTokenApi {
 

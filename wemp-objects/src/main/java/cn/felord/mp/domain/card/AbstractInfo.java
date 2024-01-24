@@ -26,7 +26,7 @@ import java.util.List;
  * 封面摘要结构体名称
  *
  * @author dax
- * @since 2023 /8/18 17:06
+ * @since 2024/8/18 17:06
  */
 @ToString
 @Getter

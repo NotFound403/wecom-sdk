@@ -24,7 +24,7 @@ import lombok.ToString;
  * The type Text value.
  *
  * @author dax
- * @since 2023 /5/26
+ * @since 2024/5/26
  */
 @ToString
 @Getter

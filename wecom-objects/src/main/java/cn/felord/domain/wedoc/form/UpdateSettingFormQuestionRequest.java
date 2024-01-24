@@ -22,7 +22,7 @@ import lombok.Getter;
  * The type Update setting form question request.
  *
  * @author dax
- * @since 2023 /3/10 9:35
+ * @since 2024/3/10 9:35
  */
 @Getter
 public class UpdateSettingFormQuestionRequest extends AbstractUpdateFormRequest {

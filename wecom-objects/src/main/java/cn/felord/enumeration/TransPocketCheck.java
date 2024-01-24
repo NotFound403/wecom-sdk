@@ -19,7 +19,7 @@ package cn.felord.enumeration;
  * The enum Trans pocket check.
  *
  * @author dax
- * @since 2023 /6/28
+ * @since 2024/6/28
  */
 public enum TransPocketCheck {
     /**

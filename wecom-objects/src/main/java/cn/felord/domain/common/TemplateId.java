@@ -18,6 +18,7 @@ package cn.felord.domain.common;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -32,5 +33,9 @@ public class TemplateId {
     @JsonCreator
     public TemplateId(@JsonProperty("template_id") String templateId) {
         this.templateId = templateId;
+    }
+
+    public static TemplateId from(@NonNull String templateId) {
+        return new TemplateId(templateId);
     }
 }

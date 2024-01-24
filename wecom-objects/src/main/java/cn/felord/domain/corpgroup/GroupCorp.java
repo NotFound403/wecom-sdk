@@ -22,7 +22,7 @@ import lombok.Data;
  * The type Group corp.
  *
  * @author dax
- * @since 2023 /10/12
+ * @since 2024/10/12
  */
 @Data
 public class GroupCorp {

@@ -30,7 +30,7 @@ import java.util.Objects;
  * 经办人：经商户授权办理微信支付业务的人员
  *
  * @author dax
- * @since 2023 /7/3 15:28
+ * @since 2024/7/3 15:28
  */
 public enum PayContactType {
     /**

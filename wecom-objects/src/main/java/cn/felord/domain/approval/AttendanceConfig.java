@@ -17,32 +17,82 @@ package cn.felord.domain.approval;
 
 import cn.felord.enumeration.AttendanceType;
 import cn.felord.enumeration.DateRangeType;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * The type Attendance config.
  *
  * @author dax
- * @since 2023 /5/25 16:37
+ * @since 2024/5/25 16:37
  */
-@Data
+@ToString
+@Getter
 public class AttendanceConfig implements ControlConfig {
-    private Wrapper attendance;
+    private final Wrapper attendance;
+
+
+    /**
+     * Instantiates a new Attendance config.
+     *
+     * @param attendance the attendance
+     */
+    @JsonCreator
+    AttendanceConfig(@JsonProperty("attendance") Wrapper attendance) {
+        this.attendance = attendance;
+    }
+
+    /**
+     * From attendance config.
+     *
+     * @param attendanceType the attendance type
+     * @param dateRangeType  the date range type
+     * @return the attendance config
+     */
+    public static AttendanceConfig from(AttendanceType attendanceType, DateRangeType dateRangeType) {
+        return new AttendanceConfig(new Wrapper(attendanceType, new AttendanceDateRange(dateRangeType)));
+    }
 
     /**
      * The type Wrapper.
      */
-    @Data
+    @ToString
+    @Getter
     public static class Wrapper {
-        private AttendanceType type;
-        private AttendanceDateRange dateRange;
+        private final AttendanceType type;
+        private final AttendanceDateRange dateRange;
+
+        /**
+         * Instantiates a new Wrapper.
+         *
+         * @param type      the type
+         * @param dateRange the date range
+         */
+        @JsonCreator
+        Wrapper(@JsonProperty("type") AttendanceType type, @JsonProperty("dateRange") AttendanceDateRange dateRange) {
+            this.type = type;
+            this.dateRange = dateRange;
+        }
     }
 
     /**
      * The type Attendance date range.
      */
-    @Data
+    @ToString
+    @Getter
     public static class AttendanceDateRange {
-        private DateRangeType type;
+        private final DateRangeType type;
+
+        /**
+         * Instantiates a new Attendance date range.
+         *
+         * @param type the type
+         */
+        @JsonCreator
+        AttendanceDateRange(@JsonProperty("type") DateRangeType type) {
+            this.type = type;
+        }
     }
 }

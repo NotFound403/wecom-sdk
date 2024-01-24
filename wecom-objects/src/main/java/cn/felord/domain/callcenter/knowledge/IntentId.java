@@ -21,7 +21,7 @@ import lombok.Data;
  * The type Intent id.
  *
  * @author dax
- * @since 2023 /10/5
+ * @since 2024/10/5
  */
 @Data
 public class IntentId {

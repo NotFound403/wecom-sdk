@@ -30,7 +30,7 @@ import java.time.Instant;
  * The type Text kf message.
  *
  * @author dax
- * @since 2023 /6/3
+ * @since 2024/6/3
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString

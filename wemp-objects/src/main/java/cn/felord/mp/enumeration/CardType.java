@@ -19,7 +19,7 @@ package cn.felord.mp.enumeration;
  * Card类型
  *
  * @author dax
- * @since 2023 /8/18 16:02
+ * @since 2024/8/18 16:02
  */
 public enum CardType {
     /**

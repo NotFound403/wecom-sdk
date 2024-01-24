@@ -23,7 +23,7 @@ import lombok.ToString;
  * The type Webhook article.
  *
  * @author dax
- * @since 2023 /10/6
+ * @since 2024/10/6
  */
 @ToString
 @Getter

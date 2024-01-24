@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
  * Wecom Sdk 配置
  *
  * @author dax
- * @since 2023 /5/30
+ * @since 2024/5/30
  */
 @Configuration(proxyBeanMethods = false)
 public class WecomSdkConfiguration {

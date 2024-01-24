@@ -41,7 +41,7 @@ import java.util.List;
  * 企业微信审批
  *
  * @author dax
- * @since 2023 /5/25 14:18
+ * @since 2024/5/25 14:18
  */
 public interface ApprovalApi {
 
