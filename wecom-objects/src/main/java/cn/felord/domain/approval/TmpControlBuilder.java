@@ -33,7 +33,6 @@ import java.util.Random;
 public final class TmpControlBuilder<C extends ControlConfig> {
     private static final Random RANDOM = new SecureRandom();
     private final ApprovalCtrlType control;
-    private final String id;
     private final List<ApprovalTitle> title;
     private List<ApprovalTitle> placeholder;
     private BoolEnum require;
@@ -47,7 +46,6 @@ public final class TmpControlBuilder<C extends ControlConfig> {
      */
     TmpControlBuilder(ApprovalCtrlType control, String title) {
         this.control = control;
-        this.id = control.getType().concat("-").concat(String.valueOf(RANDOM.nextInt(999999999)));
         this.title = Collections.singletonList(ApprovalTitle.zhCN(title));
     }
 
@@ -287,7 +285,10 @@ public final class TmpControlBuilder<C extends ControlConfig> {
      * @return the tmp control
      */
     public TmpControl<C> build(C config) {
-        CtrlProperty property = new CtrlProperty(this.control, this.id, this.title);
+        String id = control.getType()
+                .concat("-")
+                .concat(String.valueOf(RANDOM.nextInt(999999999)));
+        CtrlProperty property = new CtrlProperty(this.control, id, this.title);
         property.setPlaceholder(this.placeholder);
         property.setRequire(this.require);
         property.setUnPrint(this.unPrint);

@@ -46,7 +46,7 @@ public class BankAccountValue implements ContentDataValue {
     }
 
     /**
-     * From bank account value.
+     * 官方尚未支持
      *
      * @param accountType   the account type
      * @param accountName   the account name
@@ -55,7 +55,7 @@ public class BankAccountValue implements ContentDataValue {
      * @param remark        the remark
      * @return the bank account value
      */
-    public static BankAccountValue from(@NonNull ApvlBankAccountType accountType,
+    protected static BankAccountValue from(@NonNull ApvlBankAccountType accountType,
                                         @NonNull String accountName,
                                         @NonNull String accountNumber,
                                         @NonNull BankInfo bank,
@@ -64,7 +64,7 @@ public class BankAccountValue implements ContentDataValue {
     }
 
     /**
-     * From bank account value.
+     * 官方尚未支持
      *
      * @param accountType   the account type
      * @param accountName   the account name
@@ -72,7 +72,7 @@ public class BankAccountValue implements ContentDataValue {
      * @param bank          the bank
      * @return the bank account value
      */
-    public static BankAccountValue from(@NonNull ApvlBankAccountType accountType,
+    protected static BankAccountValue from(@NonNull ApvlBankAccountType accountType,
                                         @NonNull String accountName,
                                         @NonNull String accountNumber,
                                         @NonNull BankInfo bank) {
