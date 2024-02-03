@@ -18,6 +18,7 @@ package cn.felord.api;
 import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.common.OpenId;
 import cn.felord.domain.common.UserId;
 import cn.felord.domain.contactbook.user.*;
 import retrofit2.http.Body;
@@ -159,12 +160,28 @@ public interface UserApi {
      * 注：需要成员使用微信登录企业微信或者关注微工作台（原企业号）才能转成{@code openid};
      * 如果是外部联系人，请使用<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90001/90143/92292">外部联系人openid转换接口</a>转换{@code openid}
      *
-     * @param request the request
+     * @param userId the user id
      * @return OpenIdResponse generic response
      * @throws WeComException the weComException
      */
     @POST("user/convert_to_openid")
-    GenericResponse<String> converToOpenid(@Body UserId request) throws WeComException;
+    GenericResponse<String> converToOpenid(@Body UserId userId) throws WeComException;
+
+    /**
+     * openid转userid
+     * <p>
+     * 该接口主要应用于使用企业支付之后的结果查询。
+     * 开发者需要知道某个结果事件的openid对应企业微信内成员的信息时，可以通过调用该接口进行转换查询。
+     * <p>
+     * 权限说明：管理组需对openid对应的企业微信成员有查看权限。
+     *
+     * @param openId the open id
+     * @return the generic response
+     * @throws WeComException the we com exception
+     * @since 1.2.7
+     */
+    @POST("user/convert_to_userid")
+    GenericResponse<String> convertToUserid(@Body OpenId openId) throws WeComException;
 
     /**
      * 二次验证

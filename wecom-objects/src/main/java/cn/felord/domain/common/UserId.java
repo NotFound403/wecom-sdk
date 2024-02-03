@@ -18,19 +18,37 @@ package cn.felord.domain.common;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 /**
+ * The type User id.
+ *
  * @author dax
- * @since 2023/5/24 15:55
+ * @since 2023 /5/24 15:55
  */
 @ToString
 @Getter
 public class UserId {
     private final String userid;
 
+    /**
+     * Instantiates a new User id.
+     *
+     * @param userid the userid
+     */
     @JsonCreator
     public UserId(@JsonProperty("userid") String userid) {
         this.userid = userid;
+    }
+
+    /**
+     * Of userid.
+     *
+     * @param userid the userid
+     * @return the user id
+     */
+    public static UserId of(@NonNull String userid) {
+        return new UserId(userid);
     }
 }

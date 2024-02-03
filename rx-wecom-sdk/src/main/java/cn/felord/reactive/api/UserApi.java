@@ -17,8 +17,22 @@ package cn.felord.reactive.api;
 
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
+import cn.felord.domain.common.OpenId;
 import cn.felord.domain.common.UserId;
-import cn.felord.domain.contactbook.user.*;
+import cn.felord.domain.contactbook.user.BatchInviteRequest;
+import cn.felord.domain.contactbook.user.BatchInviteResponse;
+import cn.felord.domain.contactbook.user.ConvertTmpUserRequest;
+import cn.felord.domain.contactbook.user.DeptUserListResponse;
+import cn.felord.domain.contactbook.user.EmailUserRequest;
+import cn.felord.domain.contactbook.user.Mobile;
+import cn.felord.domain.contactbook.user.SimpleUser;
+import cn.felord.domain.contactbook.user.TmpUser;
+import cn.felord.domain.contactbook.user.UserDetail;
+import cn.felord.domain.contactbook.user.UserIdConvertRequest;
+import cn.felord.domain.contactbook.user.UserIdConvertResponse;
+import cn.felord.domain.contactbook.user.UserIds;
+import cn.felord.domain.contactbook.user.UserInfoRequest;
+import cn.felord.domain.contactbook.user.UserInfoResponse;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -148,11 +162,26 @@ public interface UserApi {
      * 注：需要成员使用微信登录企业微信或者关注微工作台（原企业号）才能转成{@code openid};
      * 如果是外部联系人，请使用<a target= "_blank" href= "https://work.weixin.qq.com/api/doc/90001/90143/92292">外部联系人openid转换接口</a>转换{@code openid}
      *
-     * @param request the request
+     * @param userId the user id
      * @return OpenIdResponse generic response
      */
     @POST("user/convert_to_openid")
-    Single<GenericResponse<String>> converToOpenid(@Body UserId request);
+    Single<GenericResponse<String>> converToOpenid(@Body UserId userId);
+
+    /**
+     * openid转userid
+     * <p>
+     * 该接口主要应用于使用企业支付之后的结果查询。
+     * 开发者需要知道某个结果事件的openid对应企业微信内成员的信息时，可以通过调用该接口进行转换查询。
+     * <p>
+     * 权限说明：管理组需对openid对应的企业微信成员有查看权限。
+     *
+     * @param openId the open id
+     * @return the generic response
+     * @since 1.2.7
+     */
+    @POST("user/convert_to_userid")
+    Single<GenericResponse<String>> convertToUserid(@Body OpenId openId);
 
     /**
      * 二次验证

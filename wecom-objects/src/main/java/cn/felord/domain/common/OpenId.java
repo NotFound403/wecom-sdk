@@ -13,57 +13,42 @@
  *  limitations under the License.
  */
 
-package cn.felord.domain.approval;
+package cn.felord.domain.common;
 
-import cn.felord.domain.common.FileInfo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 /**
- * 附件组件
+ * The type Open id.
  *
  * @author dax
- * @since 2024 /5/26
+ * @since 2023 /5/24 15:55
  */
 @ToString
 @Getter
-public class FileValue implements ContentDataValue {
-    private final List<FileInfo> files;
+public class OpenId {
+    private final String openid;
 
     /**
-     * Instantiates a new File value.
+     * Instantiates a new Open id.
      *
-     * @param files the files
+     * @param openid the openid
      */
     @JsonCreator
-    FileValue(@JsonProperty("files") List<FileInfo> files) {
-        this.files = files;
+    public OpenId(@JsonProperty("openid") String openid) {
+        this.openid = openid;
     }
 
     /**
-     * Instantiates a new File value.
+     * Of openid.
      *
-     * @param mediaIds the media ids
+     * @param openid the openid
+     * @return the open id
      */
-    FileValue(Set<String> mediaIds) {
-        this(mediaIds.stream()
-                .map(FileInfo::new)
-                .collect(Collectors.toList()));
-    }
-
-    /**
-     * From file value.
-     *
-     * @param mediaIds the media ids
-     * @return the file value
-     */
-    public static FileValue from(Set<String> mediaIds) {
-        return new FileValue(mediaIds);
+    public static OpenId of(@NonNull String openid) {
+        return new OpenId(openid);
     }
 }
