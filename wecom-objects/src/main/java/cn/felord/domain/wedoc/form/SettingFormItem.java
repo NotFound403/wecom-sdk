@@ -1,16 +1,16 @@
 /*
- *  Copyright (c) 2023. felord.cn
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Copyright (c) 2024. felord.cn
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *       https://www.apache.org/licenses/LICENSE-2.0
- *  Website:
+ * Website:
  *       https://felord.cn
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package cn.felord.domain.wedoc.form;
@@ -51,15 +51,15 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     /**
      * Instantiates a new Form item.
      *
-     * @param questionId            the question id
-     * @param title                 the title
-     * @param pos                   the pos
-     * @param status                the status
-     * @param replyType             the reply type
-     * @param mustReply             the must reply
-     * @param note                  the note
-     * @param placeholder           the placeholder
-     * @param optionItem            the option item
+     * @param questionId  the question id
+     * @param title       the title
+     * @param pos         the pos
+     * @param status      the status
+     * @param replyType   the reply type
+     * @param mustReply   the must reply
+     * @param note        the note
+     * @param placeholder the placeholder
+     * @param optionItem  the option item
      */
     @JsonCreator
     public SettingFormItem(@JsonProperty("question_id") int questionId,

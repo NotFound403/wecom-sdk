@@ -1,16 +1,16 @@
 /*
- *  Copyright (c) 2023. felord.cn
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Copyright (c) 2024. felord.cn
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *       https://www.apache.org/licenses/LICENSE-2.0
- *  Website:
+ * Website:
  *       https://felord.cn
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package cn.felord.domain.externalcontact;
@@ -69,4 +69,9 @@ public class GroupChatMember {
      * 如果是企业微信联系人，则返回其设置对外展示的别名或实名
      */
     private String name;
+    /**
+     * 企业自定义的state参数，用于区分不同的入群渠道。不超过30个UTF-8字符
+     * 如果有设置此参数，在调用获取客户群详情接口时会返回每个群成员对应的该参数值
+     */
+    private String state;
 }

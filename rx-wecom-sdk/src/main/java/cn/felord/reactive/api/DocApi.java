@@ -1,20 +1,21 @@
 /*
- *  Copyright (c) 2023. felord.cn
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Copyright (c) 2024. felord.cn
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *       https://www.apache.org/licenses/LICENSE-2.0
- *  Website:
+ * Website:
  *       https://felord.cn
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package cn.felord.reactive.api;
 
+import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.FormId;
@@ -27,7 +28,7 @@ import retrofit2.http.POST;
  * 文档-管理文档
  *
  * @author dax
- * @since 2024/7/19
+ * @since 2024 /7/19
  */
 public interface DocApi {
 
@@ -45,20 +46,11 @@ public interface DocApi {
     /**
      * 重命名文档
      *
-     * @param docId the doc id
+     * @param request the request
      * @return the we com response
      */
     @POST("wedoc/rename_doc")
-    Single<WeComResponse> renameDoc(@Body DocId docId);
-
-    /**
-     * 重命名收集表
-     *
-     * @param docId the doc id
-     * @return the we com response
-     */
-    @POST("wedoc/rename_doc")
-    Single<WeComResponse> renameDoc(@Body FormId docId);
+    Single<WeComResponse> renameDoc(@Body RenameDocRequest request);
 
     /**
      * 删除文档
@@ -100,6 +92,23 @@ public interface DocApi {
      */
     @POST("wedoc/doc_share")
     Single<GenericResponse<String>> docShare(@Body DocId docId);
+
+    /**
+     * 编辑文档内容
+     * <p>
+     * 该接口可以对一个在线文档批量执行多个更新操作。
+     *
+     * <ul>
+     *     <li>批量更新请求，若其中有一个操作报错则全部更新操作不生效。</li>
+     *     <li>单次批量更新操作数量不大于30。</li>
+     * </ul>
+     *
+     * @param request the request
+     * @return the we com response
+     * @throws WeComException the we com exception
+     */
+    @POST("wedoc/document/batch_update")
+    Single<WeComResponse> batchUpdateDocument(@Body DocBatchUpdateRequest request);
 
     /**
      * 获取文档权限信息

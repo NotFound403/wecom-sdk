@@ -1,21 +1,20 @@
 /*
- *  Copyright (c) 2023. felord.cn
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Copyright (c) 2024. felord.cn
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *       https://www.apache.org/licenses/LICENSE-2.0
- *  Website:
+ * Website:
  *       https://felord.cn
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package cn.felord.domain.callcenter;
 
-import cn.felord.domain.externalcontact.VideoMsgAttachment;
 import cn.felord.enumeration.KfMsgOrigin;
 import cn.felord.enumeration.KfMsgType;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -47,7 +46,6 @@ import java.time.Instant;
         @JsonSubTypes.Type(value = LinkKfMessage.class, name = "link"),
         @JsonSubTypes.Type(value = BusinessCardKfMessage.class, name = "business_card"),
         @JsonSubTypes.Type(value = MiniprogramKfMessage.class, name = "miniprogram"),
-        @JsonSubTypes.Type(value = VideoMsgAttachment.class, name = "video"),
         @JsonSubTypes.Type(value = MenuKfMessage.class, name = "msgmenu"),
         @JsonSubTypes.Type(value = ChannelsShopProductKfMessage.class, name = "channels_shop_product"),
         @JsonSubTypes.Type(value = ChannelsShopOrderKfMessage.class, name = "channels_shop_order"),

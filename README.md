@@ -96,9 +96,9 @@ void webHooks()throws IOException{
 
 ## ✍️技术栈
 
-- Retrofit2，支持最高版本号`2.9.0`
+- Retrofit2，支持最高版本号`2.11.0`
 - OkHttp4，支持最高版本号`4.12.0`
-- Rxjava3，支持最高版本号`3.0.0`
+- Rxjava3，支持最高版本号`3.1.8`
 - Jackson2，支持最高版本号`2.15.2`
 - XStream，支持最高版本号`1.4.20`
 
@@ -111,7 +111,7 @@ void webHooks()throws IOException{
 <dependency>
     <groupId>cn.felord</groupId>
     <artifactId>wecom-sdk</artifactId>
-    <version>1.2.8</version>
+    <version>1.2.9</version>
 </dependency>
 ```
 
@@ -122,7 +122,7 @@ void webHooks()throws IOException{
 <dependency>
     <groupId>cn.felord</groupId>
     <artifactId>rx-wecom-sdk</artifactId>
-    <version>1.2.8</version>
+    <version>1.2.9</version>
 </dependency>
 ```
 
@@ -134,7 +134,7 @@ void webHooks()throws IOException{
 <dependency>
     <groupId>cn.felord</groupId>
     <artifactId>wecom-sdk</artifactId>
-    <version>1.2.8</version>
+    <version>1.2.9</version>
     <exclusions>
         <exclusion>
             <groupId>com.squareup.okhttp3</groupId>
