@@ -31,7 +31,7 @@ import java.time.Instant;
  * 获客助手
  *
  * @author dax
- * @since 2024/5/30 21:28
+ * @since 2024 /5/30 21:28
  */
 public interface CustomerAcquisitionApi {
 
@@ -119,4 +119,17 @@ public interface CustomerAcquisitionApi {
     LinkStatisticResponse queryCustomerAcquisitionQuotas(@Query("link_id") String linkId,
                                                          @Query("start_time") Instant startTime,
                                                          @Query("end_time") Instant endTime) throws WeComException;
+
+
+    /**
+     * 获取成员多次收消息详情
+     * <p>
+     * 企业和服务商可通过此接口获取成员多次收消息情况，如次数、客户id等信息。
+     *
+     * @param chatKey the chat key
+     * @return the chat info
+     * @throws WeComException the we com exception
+     */
+    @POST("externalcontact/customer_acquisition/get_chat_info")
+    ChatInfoResponse getChatInfo(@Body ChatKey chatKey) throws WeComException;
 }
