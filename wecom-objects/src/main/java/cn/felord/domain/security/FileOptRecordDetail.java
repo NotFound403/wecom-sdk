@@ -41,6 +41,14 @@ public class FileOptRecordDetail {
      */
     private String fileInfo;
     /**
+     * 文件的MD5
+     */
+    private Integer fileSize;
+    /**
+     * 文件大小。单位：字节
+     */
+    private String fileMd5;
+    /**
      * 企业用户账号id，当操作者为企业内部用户时返回该字段
      */
     private String userid;
