@@ -40,6 +40,6 @@ public class Details {
     @XStreamAlias("SpTime")
     private Instant spTime;
     @XStreamImplicit(itemFieldName = "Attach")
-    private final List<String> attaches;
+    private List<String> attaches;
 }
 

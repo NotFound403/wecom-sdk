@@ -16,7 +16,7 @@
 package cn.felord.payment.wechat.v3.crypto;
 
 import cn.felord.payment.PayException;
-import cn.felord.payment.wechat.v3.retrofit.HttpHeaders;
+import cn.felord.payment.wechat.v3.retrofit.WechatHttpHeaders;
 import cn.felord.utils.AlternativeJdkIdGenerator;
 import cn.felord.utils.Base64Utils;
 import lombok.SneakyThrows;
@@ -100,10 +100,10 @@ public final class WechatPaySigner {
      * @return the boolean
      */
     public static boolean verify(Headers responseHeaders, String body, TenpayKey tenpayKey) {
-        String wechatpaySignature = Objects.requireNonNull(responseHeaders.get(HttpHeaders.WECHAT_PAY_SIGNATURE.headerName()));
-        String wechatpaySignatureType = responseHeaders.get(HttpHeaders.WECHAT_PAY_SIGNATURE_TYPE.headerName());
-        String wechatpayTimestamp = responseHeaders.get(HttpHeaders.WECHAT_PAY_TIMESTAMP.headerName());
-        String wechatpayNonce = responseHeaders.get(HttpHeaders.WECHAT_PAY_NONCE.headerName());
+        String wechatpaySignature = Objects.requireNonNull(responseHeaders.get(WechatHttpHeaders.WECHAT_PAY_SIGNATURE.headerName()));
+        String wechatpaySignatureType = responseHeaders.get(WechatHttpHeaders.WECHAT_PAY_SIGNATURE_TYPE.headerName());
+        String wechatpayTimestamp = responseHeaders.get(WechatHttpHeaders.WECHAT_PAY_TIMESTAMP.headerName());
+        String wechatpayNonce = responseHeaders.get(WechatHttpHeaders.WECHAT_PAY_NONCE.headerName());
         final String message = buildSignMessage(wechatpayTimestamp, wechatpayNonce, body);
         AuthType authType = AuthType.fromSignType(wechatpaySignatureType);
         try {

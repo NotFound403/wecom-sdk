@@ -47,7 +47,7 @@ public class InternalCorPayApi {
     InternalCorPayApi(String paySecret, String payAgentSecret, SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         this.paySecret = paySecret;
         this.payAgentSecret = payAgentSecret;
-        this.mmPayMktTransfersApi = WorkWechatRetrofitFactory.create(sslManager, connectionPool, level)
+        this.mmPayMktTransfersApi = WorkWechatRetrofitFactory.createPayRetrofit(sslManager, connectionPool, level)
                 .create(MmPayMktTransfersApi.class);
     }
 
