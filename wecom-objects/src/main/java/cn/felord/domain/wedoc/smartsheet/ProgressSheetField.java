@@ -33,15 +33,26 @@ public class ProgressSheetField extends SheetField {
     private final ProgressFieldProperty propertyProgress;
 
     /**
-     * Instantiates a new Progress sheet field.
+     * Create progress sheet field.
+     *
+     * @param fieldTitle       the field title
+     * @param progressProperty the progress property
+     * @return the progress sheet field
+     */
+    public static ProgressSheetField create(String fieldTitle, ProgressFieldProperty progressProperty) {
+        return update(null, fieldTitle, progressProperty);
+    }
+
+    /**
+     * Update progress sheet field.
      *
      * @param fieldId          the field id
-     * @param fieldType        the field type
-     * @param propertyProgress the property progress
+     * @param fieldTitle       the field title
+     * @param progressProperty the progress property
+     * @return the progress sheet field
      */
-    public ProgressSheetField(String fieldId, SheetFieldType fieldType, ProgressFieldProperty propertyProgress) {
-        super(fieldId, fieldType);
-        this.propertyProgress = propertyProgress;
+    public static ProgressSheetField update(String fieldId, String fieldTitle, ProgressFieldProperty progressProperty) {
+        return new ProgressSheetField(fieldId, SheetFieldType.FIELD_TYPE_PROGRESS, fieldTitle, progressProperty);
     }
 
     /**
@@ -50,14 +61,14 @@ public class ProgressSheetField extends SheetField {
      * @param fieldId          the field id
      * @param fieldType        the field type
      * @param fieldTitle       the field title
-     * @param propertyProgress the property progress
+     * @param progressProperty the progress property
      */
     @JsonCreator
-    public ProgressSheetField(@JsonProperty("field_id") String fieldId,
-                              @JsonProperty("field_type") SheetFieldType fieldType,
-                              @JsonProperty("field_title") String fieldTitle,
-                              @JsonProperty("property_progress") ProgressFieldProperty propertyProgress) {
+    ProgressSheetField(@JsonProperty("field_id") String fieldId,
+                       @JsonProperty("field_type") SheetFieldType fieldType,
+                       @JsonProperty("field_title") String fieldTitle,
+                       @JsonProperty("property_progress") ProgressFieldProperty progressProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyProgress = propertyProgress;
+        this.propertyProgress = progressProperty;
     }
 }

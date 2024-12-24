@@ -16,34 +16,44 @@
 package cn.felord.domain.wedoc.smartsheet;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.List;
-
 /**
- * The type Select field property.
+ * The type Cell text value.
  *
  * @author dax
- * @since 2024 /9/4
+ * @since 2024 /12/23
  */
 @ToString
 @Getter
-public class SelectFieldProperty {
-    private final Boolean isQuickAdd;
-    private final List<SelectFieldOption> options;
+public class CellTextValue {
+    private final String type;
+    private final String text;
+    private final String link;
 
     /**
-     * Instantiates a new Select field property.
+     * Instantiates a new Cell text value.
      *
-     * @param isQuickAdd the is quick add
-     * @param options    the options
+     * @param type the type
+     * @param text the text
+     * @param link the link
      */
     @JsonCreator
-    public SelectFieldProperty(@JsonProperty("is_quick_add") Boolean isQuickAdd,
-                               @JsonProperty("options") List<SelectFieldOption> options) {
-        this.isQuickAdd = isQuickAdd;
-        this.options = options;
+    CellTextValue(String type, String text, String link) {
+        this.type = type;
+        this.text = text;
+        this.link = link;
     }
+
+    /**
+     * Text cell text value.
+     *
+     * @param text the text
+     * @return the cell text value
+     */
+    public static CellTextValue text(String text) {
+        return new CellTextValue("text", text, null);
+    }
+
 }

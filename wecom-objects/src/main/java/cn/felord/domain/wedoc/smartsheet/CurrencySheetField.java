@@ -33,15 +33,26 @@ public class CurrencySheetField extends SheetField {
     private final CurrencyFieldProperty propertyCurrency;
 
     /**
-     * Instantiates a new Currency sheet field.
+     * Create currency sheet field.
+     *
+     * @param fieldTitle       the field title
+     * @param currencyProperty the currency property
+     * @return the currency sheet field
+     */
+    public static CurrencySheetField create(String fieldTitle, CurrencyFieldProperty currencyProperty) {
+        return update(null, fieldTitle, currencyProperty);
+    }
+
+    /**
+     * Update currency sheet field.
      *
      * @param fieldId          the field id
-     * @param fieldType        the field type
-     * @param propertyCurrency the property Currency
+     * @param fieldTitle       the field title
+     * @param currencyProperty the currency property
+     * @return the currency sheet field
      */
-    public CurrencySheetField(String fieldId, SheetFieldType fieldType, CurrencyFieldProperty propertyCurrency) {
-        super(fieldId, fieldType);
-        this.propertyCurrency = propertyCurrency;
+    public static CurrencySheetField update(String fieldId, String fieldTitle, CurrencyFieldProperty currencyProperty) {
+        return new CurrencySheetField(fieldId, SheetFieldType.FIELD_TYPE_CURRENCY, fieldTitle, currencyProperty);
     }
 
     /**
@@ -50,14 +61,14 @@ public class CurrencySheetField extends SheetField {
      * @param fieldId          the field id
      * @param fieldType        the field type
      * @param fieldTitle       the field title
-     * @param propertyCurrency the property Currency
+     * @param currencyProperty the currency property
      */
     @JsonCreator
-    public CurrencySheetField(@JsonProperty("field_id") String fieldId,
-                              @JsonProperty("field_type") SheetFieldType fieldType,
-                              @JsonProperty("field_title") String fieldTitle,
-                              @JsonProperty("property_currency") CurrencyFieldProperty propertyCurrency) {
+    CurrencySheetField(@JsonProperty("field_id") String fieldId,
+                       @JsonProperty("field_type") SheetFieldType fieldType,
+                       @JsonProperty("field_title") String fieldTitle,
+                       @JsonProperty("property_currency") CurrencyFieldProperty currencyProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyCurrency = propertyCurrency;
+        this.propertyCurrency = currencyProperty;
     }
 }

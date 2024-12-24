@@ -32,16 +32,28 @@ import lombok.ToString;
 public class UserSheetField extends SheetField {
     private final UserFieldProperty propertyUser;
 
+
     /**
-     * Instantiates a new User sheet field.
+     * Create progress sheet field.
+     *
+     * @param fieldTitle   the field title
+     * @param userProperty the user property
+     * @return the progress sheet field
+     */
+    public static UserSheetField create(String fieldTitle, UserFieldProperty userProperty) {
+        return update(null, fieldTitle, userProperty);
+    }
+
+    /**
+     * Update progress sheet field.
      *
      * @param fieldId      the field id
-     * @param fieldType    the field type
-     * @param propertyUser the property user
+     * @param fieldTitle   the field title
+     * @param userProperty the user property
+     * @return the progress sheet field
      */
-    public UserSheetField(String fieldId, SheetFieldType fieldType, UserFieldProperty propertyUser) {
-        super(fieldId, fieldType);
-        this.propertyUser = propertyUser;
+    public static UserSheetField update(String fieldId, String fieldTitle, UserFieldProperty userProperty) {
+        return new UserSheetField(fieldId, SheetFieldType.FIELD_TYPE_USER, fieldTitle, userProperty);
     }
 
     /**
@@ -50,14 +62,14 @@ public class UserSheetField extends SheetField {
      * @param fieldId      the field id
      * @param fieldType    the field type
      * @param fieldTitle   the field title
-     * @param propertyUser the property user
+     * @param userProperty the user property
      */
     @JsonCreator
-    public UserSheetField(@JsonProperty("field_id") String fieldId,
-                          @JsonProperty("field_type") SheetFieldType fieldType,
-                          @JsonProperty("field_title") String fieldTitle,
-                          @JsonProperty("property_user") UserFieldProperty propertyUser) {
+    UserSheetField(@JsonProperty("field_id") String fieldId,
+                   @JsonProperty("field_type") SheetFieldType fieldType,
+                   @JsonProperty("field_title") String fieldTitle,
+                   @JsonProperty("property_user") UserFieldProperty userProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyUser = propertyUser;
+        this.propertyUser = userProperty;
     }
 }

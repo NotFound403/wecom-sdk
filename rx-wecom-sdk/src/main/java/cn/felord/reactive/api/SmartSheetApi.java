@@ -13,9 +13,8 @@
  * limitations under the License.
  */
 
-package cn.felord.api;
+package cn.felord.reactive.api;
 
-import cn.felord.WeComException;
 import cn.felord.domain.GenericResponse;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.wedoc.smartsheet.AddOrUpdateFieldsRequest;
@@ -34,6 +33,7 @@ import cn.felord.domain.wedoc.smartsheet.SmartSheetProperties;
 import cn.felord.domain.wedoc.smartsheet.UpdateRecordRequest;
 import cn.felord.domain.wedoc.smartsheet.UpdateSheetRequest;
 import cn.felord.domain.wedoc.smartsheet.UpdateViewRequest;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -47,7 +47,6 @@ import java.util.List;
  */
 public interface SmartSheetApi {
 
-
     /**
      * 添加子表
      * <p>
@@ -56,10 +55,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/add_sheet")
-    GenericResponse<SmartSheetProperties> addSheet(@Body AddSheetRequest request) throws WeComException;
+    Single<GenericResponse<SmartSheetProperties>> addSheet(@Body AddSheetRequest request);
 
     /**
      * 删除子表
@@ -68,10 +66,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/delete_sheet")
-    WeComResponse deleteSheet(@Body DelSheetRequest request) throws WeComException;
+    Single<WeComResponse> deleteSheet(@Body DelSheetRequest request);
 
     /**
      * 更新子表
@@ -80,10 +77,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/update_sheet")
-    WeComResponse updateSheet(@Body UpdateSheetRequest request) throws WeComException;
+    Single<WeComResponse> updateSheet(@Body UpdateSheetRequest request);
 
     /**
      * 添加视图
@@ -92,10 +88,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return generic response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/add_view")
-    GenericResponse<SheetViewInfo> addView(@Body AddViewRequest request) throws WeComException;
+    Single<GenericResponse<SheetViewInfo>> addView(@Body AddViewRequest request);
 
     /**
      * 删除视图
@@ -104,10 +99,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/delete_views")
-    WeComResponse deleteViews(@Body DelViewRequest request) throws WeComException;
+    Single<WeComResponse> deleteViews(@Body DelViewRequest request);
 
     /**
      * 更新视图
@@ -116,10 +110,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/update_view")
-    GenericResponse<SheetViewDetail> updateView(@Body UpdateViewRequest request) throws WeComException;
+    Single<GenericResponse<SheetViewDetail>> updateView(@Body UpdateViewRequest request);
 
     /**
      * 添加字段
@@ -128,10 +121,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/add_fields")
-    GenericResponse<List<SheetField>> addFields(@Body AddOrUpdateFieldsRequest request) throws WeComException;
+    Single<GenericResponse<List<SheetField>>> addFields(@Body AddOrUpdateFieldsRequest request);
 
     /**
      * 删除字段
@@ -140,10 +132,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/delete_fields")
-    WeComResponse deleteFields(@Body DelFieldsRequest request) throws WeComException;
+    Single<WeComResponse> deleteFields(@Body DelFieldsRequest request);
 
     /**
      * 更新字段
@@ -153,10 +144,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/update_fields")
-    GenericResponse<List<SheetField>> updateFields(@Body AddOrUpdateFieldsRequest request) throws WeComException;
+    Single<GenericResponse<List<SheetField>>> updateFields(@Body AddOrUpdateFieldsRequest request);
 
     /**
      * 添加记录
@@ -166,10 +156,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the generic response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/add_records")
-    GenericResponse<List<RecordResult>> addRecords(@Body AddRecordRequest request) throws WeComException;
+    Single<GenericResponse<List<RecordResult>>> addRecords(@Body AddRecordRequest request);
 
     /**
      * 删除记录
@@ -178,10 +167,9 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/delete_records")
-    WeComResponse deleteRecords(@Body DelRecordRequest request) throws WeComException;
+    Single<WeComResponse> deleteRecords(@Body DelRecordRequest request);
 
     /**
      * 更新记录
@@ -191,8 +179,7 @@ public interface SmartSheetApi {
      *
      * @param request the request
      * @return the we com response
-     * @throws WeComException the we com exception
      */
     @POST("wedoc/smartsheet/update_records")
-    GenericResponse<List<RecordResult>> updateRecords(@Body UpdateRecordRequest request) throws WeComException;
+    Single<GenericResponse<List<RecordResult>>> updateRecords(@Body UpdateRecordRequest request);
 }

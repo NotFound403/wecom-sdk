@@ -32,16 +32,28 @@ import lombok.ToString;
 public class DateTimeSheetField extends SheetField {
     private final DateTimeFieldProperty propertyDateTime;
 
+
     /**
-     * Instantiates a new Date time sheet field.
+     * Create date time sheet field.
+     *
+     * @param fieldTitle       the field title
+     * @param dateTimeProperty the date time property
+     * @return the date time sheet field
+     */
+    public static DateTimeSheetField create(String fieldTitle, DateTimeFieldProperty dateTimeProperty) {
+        return update(null, fieldTitle, dateTimeProperty);
+    }
+
+    /**
+     * Update date time sheet field.
      *
      * @param fieldId          the field id
-     * @param fieldType        the field type
-     * @param propertyDateTime the property date time
+     * @param fieldTitle       the field title
+     * @param dateTimeProperty the date time property
+     * @return the date time sheet field
      */
-    public DateTimeSheetField(String fieldId, SheetFieldType fieldType, DateTimeFieldProperty propertyDateTime) {
-        super(fieldId, fieldType);
-        this.propertyDateTime = propertyDateTime;
+    public static DateTimeSheetField update(String fieldId, String fieldTitle, DateTimeFieldProperty dateTimeProperty) {
+        return new DateTimeSheetField(fieldId, SheetFieldType.FIELD_TYPE_DATE_TIME, fieldTitle, dateTimeProperty);
     }
 
     /**
@@ -50,14 +62,14 @@ public class DateTimeSheetField extends SheetField {
      * @param fieldId          the field id
      * @param fieldType        the field type
      * @param fieldTitle       the field title
-     * @param propertyDateTime the property date time
+     * @param dateTimeProperty the date time property
      */
     @JsonCreator
-    public DateTimeSheetField(@JsonProperty("field_id") String fieldId,
-                              @JsonProperty("field_type") SheetFieldType fieldType,
-                              @JsonProperty("field_title") String fieldTitle,
-                              @JsonProperty("property_date_time") DateTimeFieldProperty propertyDateTime) {
+    DateTimeSheetField(@JsonProperty("field_id") String fieldId,
+                       @JsonProperty("field_type") SheetFieldType fieldType,
+                       @JsonProperty("field_title") String fieldTitle,
+                       @JsonProperty("property_date_time") DateTimeFieldProperty dateTimeProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyDateTime = propertyDateTime;
+        this.propertyDateTime = dateTimeProperty;
     }
 }

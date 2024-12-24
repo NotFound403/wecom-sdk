@@ -80,9 +80,9 @@ public class AddViewRequest {
      * @param viewTitle the view title
      * @return the add view request
      */
-    public AddViewRequest grid(String docid,
-                               String sheetId,
-                               String viewTitle) {
+    public static AddViewRequest grid(String docid,
+                                      String sheetId,
+                                      String viewTitle) {
         return new AddViewRequest(docid, sheetId, viewTitle, SmartSheetViewType.VIEW_TYPE_GRID);
     }
 
@@ -94,9 +94,9 @@ public class AddViewRequest {
      * @param viewTitle the view title
      * @return add view request
      */
-    public AddViewRequest kanban(String docid,
-                                 String sheetId,
-                                 String viewTitle) {
+    public static AddViewRequest kanban(String docid,
+                                        String sheetId,
+                                        String viewTitle) {
         return new AddViewRequest(docid, sheetId, viewTitle, SmartSheetViewType.VIEW_TYPE_KANBAN);
     }
 
@@ -108,9 +108,9 @@ public class AddViewRequest {
      * @param viewTitle the view title
      * @return the add view request
      */
-    public AddViewRequest gallery(String docid,
-                                  String sheetId,
-                                  String viewTitle) {
+    public static AddViewRequest gallery(String docid,
+                                         String sheetId,
+                                         String viewTitle) {
         return new AddViewRequest(docid, sheetId, viewTitle, SmartSheetViewType.VIEW_TYPE_GALLERY);
     }
 
@@ -123,10 +123,10 @@ public class AddViewRequest {
      * @param propertyGantt the property gantt
      * @return the add view request
      */
-    public AddViewRequest gantt(String docid,
-                                String sheetId,
-                                String viewTitle,
-                                ViewDateRange propertyGantt) {
+    public static AddViewRequest gantt(String docid,
+                                       String sheetId,
+                                       String viewTitle,
+                                       ViewDateRange propertyGantt) {
         return new AddViewRequest(docid, sheetId, viewTitle, SmartSheetViewType.VIEW_TYPE_GANTT, propertyGantt, null);
     }
 
@@ -139,10 +139,10 @@ public class AddViewRequest {
      * @param propertyCalendar the property calendar
      * @return the add view request
      */
-    public AddViewRequest calendar(String docid,
-                                   String sheetId,
-                                   String viewTitle,
-                                   ViewDateRange propertyCalendar) {
+    public static AddViewRequest calendar(String docid,
+                                          String sheetId,
+                                          String viewTitle,
+                                          ViewDateRange propertyCalendar) {
         return new AddViewRequest(docid, sheetId, viewTitle, SmartSheetViewType.VIEW_TYPE_CALENDAR, null, propertyCalendar);
     }
 }

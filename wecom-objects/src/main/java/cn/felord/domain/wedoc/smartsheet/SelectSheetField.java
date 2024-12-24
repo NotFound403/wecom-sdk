@@ -32,16 +32,28 @@ import lombok.ToString;
 public class SelectSheetField extends SheetField {
     private final SelectFieldProperty propertySelect;
 
+
     /**
-     * Instantiates a new Select sheet field.
+     * Create select sheet field.
+     *
+     * @param fieldTitle     the field title
+     * @param selectProperty the select property
+     * @return the progress sheet field
+     */
+    public static SelectSheetField create(String fieldTitle, SelectFieldProperty selectProperty) {
+        return update(null, fieldTitle, selectProperty);
+    }
+
+    /**
+     * Update select sheet field.
      *
      * @param fieldId        the field id
-     * @param fieldType      the field type
-     * @param propertySelect the property select
+     * @param fieldTitle     the field title
+     * @param selectProperty the select property
+     * @return the progress sheet field
      */
-    public SelectSheetField(String fieldId, SheetFieldType fieldType, SelectFieldProperty propertySelect) {
-        super(fieldId, fieldType);
-        this.propertySelect = propertySelect;
+    public static SelectSheetField update(String fieldId, String fieldTitle, SelectFieldProperty selectProperty) {
+        return new SelectSheetField(fieldId, SheetFieldType.FIELD_TYPE_SELECT, fieldTitle, selectProperty);
     }
 
     /**
@@ -50,14 +62,14 @@ public class SelectSheetField extends SheetField {
      * @param fieldId        the field id
      * @param fieldType      the field type
      * @param fieldTitle     the field title
-     * @param propertySelect the property select
+     * @param selectProperty the select property
      */
     @JsonCreator
-    public SelectSheetField(@JsonProperty("field_id") String fieldId,
+    SelectSheetField(@JsonProperty("field_id") String fieldId,
                             @JsonProperty("field_type") SheetFieldType fieldType,
                             @JsonProperty("field_title") String fieldTitle,
-                            @JsonProperty("property_select") SelectFieldProperty propertySelect) {
+                     @JsonProperty("property_select") SelectFieldProperty selectProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertySelect = propertySelect;
+        this.propertySelect = selectProperty;
     }
 }

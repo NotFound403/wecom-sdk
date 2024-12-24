@@ -32,17 +32,30 @@ import lombok.ToString;
 public class ReferenceSheetField extends SheetField {
     private final ReferenceFieldProperty propertyReference;
 
+
     /**
-     * Instantiates a new Reference sheet field.
+     * Create reference sheet field.
+     *
+     * @param fieldTitle        the field title
+     * @param referenceProperty the reference property
+     * @return the progress sheet field
+     */
+    public static ReferenceSheetField create(String fieldTitle, ReferenceFieldProperty referenceProperty) {
+        return update(null, fieldTitle, referenceProperty);
+    }
+
+    /**
+     * Update reference sheet field.
      *
      * @param fieldId           the field id
-     * @param fieldType         the field type
-     * @param propertyReference the property reference
+     * @param fieldTitle        the field title
+     * @param referenceProperty the reference property
+     * @return the progress sheet field
      */
-    public ReferenceSheetField(String fieldId, SheetFieldType fieldType, ReferenceFieldProperty propertyReference) {
-        super(fieldId, fieldType);
-        this.propertyReference = propertyReference;
+    public static ReferenceSheetField update(String fieldId, String fieldTitle, ReferenceFieldProperty referenceProperty) {
+        return new ReferenceSheetField(fieldId, SheetFieldType.FIELD_TYPE_REFERENCE, fieldTitle, referenceProperty);
     }
+
 
     /**
      * Instantiates a new Reference sheet field.
@@ -50,14 +63,14 @@ public class ReferenceSheetField extends SheetField {
      * @param fieldId           the field id
      * @param fieldType         the field type
      * @param fieldTitle        the field title
-     * @param propertyReference the property reference
+     * @param referenceProperty the reference property
      */
     @JsonCreator
-    public ReferenceSheetField(@JsonProperty("field_id") String fieldId,
-                               @JsonProperty("field_type") SheetFieldType fieldType,
-                               @JsonProperty("field_title") String fieldTitle,
-                               @JsonProperty("property_reference") ReferenceFieldProperty propertyReference) {
+    ReferenceSheetField(@JsonProperty("field_id") String fieldId,
+                        @JsonProperty("field_type") SheetFieldType fieldType,
+                        @JsonProperty("field_title") String fieldTitle,
+                        @JsonProperty("property_reference") ReferenceFieldProperty referenceProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyReference = propertyReference;
+        this.propertyReference = referenceProperty;
     }
 }
