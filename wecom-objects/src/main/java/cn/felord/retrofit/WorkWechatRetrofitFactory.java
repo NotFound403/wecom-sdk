@@ -32,8 +32,8 @@ import java.util.concurrent.TimeUnit;
  * @since 2024/5/21
  */
 public final class WorkWechatRetrofitFactory {
-    private static final String BASE_URL = "https://qyapi.weixin.qq.com/cgi-bin/";
-    private static final String BASE_PAY_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/";
+    private static final String BASE_URL = System.getProperty("wecom.base.api.url", "https://qyapi.weixin.qq.com/cgi-bin/");
+    private static final String BASE_PAY_URL = System.getProperty("wecom.base.pay.url", "https://api.mch.weixin.qq.com/mmpaymkttransfers/");
     public static final Retrofit RETROFIT_ = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient(HttpLoggingInterceptor.Level.NONE))
@@ -74,7 +74,7 @@ public final class WorkWechatRetrofitFactory {
      * @param level          the level
      * @return the retrofit
      */
-    public static Retrofit create(SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
+    public static Retrofit createPayRetrofit(SSLManager sslManager, ConnectionPool connectionPool, HttpLoggingInterceptor.Level level) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_PAY_URL)
                 .client(okHttpClient(sslManager, connectionPool, level))

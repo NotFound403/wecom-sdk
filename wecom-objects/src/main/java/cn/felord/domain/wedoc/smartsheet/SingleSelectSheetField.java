@@ -27,37 +27,50 @@ import lombok.ToString;
  * @author dax
  * @since 2024 /9/5
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class SingleSelectSheetField extends SheetField {
     private final SelectFieldProperty propertySingleSelect;
 
+
     /**
-     * Instantiates a new Single select sheet field.
+     * Create single select sheet field.
      *
-     * @param fieldId              the field id
-     * @param fieldType            the field type
-     * @param propertySingleSelect the propertySingleSelect
+     * @param fieldTitle     the field title
+     * @param selectProperty the select property
+     * @return the progress sheet field
      */
-    public SingleSelectSheetField(String fieldId, SheetFieldType fieldType, SelectFieldProperty propertySingleSelect) {
-        super(fieldId, fieldType);
-        this.propertySingleSelect = propertySingleSelect;
+    public static SingleSelectSheetField create(String fieldTitle, SelectFieldProperty selectProperty) {
+        return update(null, fieldTitle, selectProperty);
     }
+
+    /**
+     * Update single select sheet field.
+     *
+     * @param fieldId        the field id
+     * @param fieldTitle     the field title
+     * @param selectProperty the select property
+     * @return the progress sheet field
+     */
+    public static SingleSelectSheetField update(String fieldId, String fieldTitle, SelectFieldProperty selectProperty) {
+        return new SingleSelectSheetField(fieldId, SheetFieldType.FIELD_TYPE_SINGLE_SELECT, fieldTitle, selectProperty);
+    }
+
 
     /**
      * Instantiates a new Single select sheet field.
      *
-     * @param fieldId              the field id
-     * @param fieldType            the field type
-     * @param fieldTitle           the field title
-     * @param propertySingleSelect the propertySingleSelect
+     * @param fieldId        the field id
+     * @param fieldType      the field type
+     * @param fieldTitle     the field title
+     * @param selectProperty the select property
      */
     @JsonCreator
-    public SingleSelectSheetField(@JsonProperty("field_id") String fieldId,
-                                  @JsonProperty("field_type") SheetFieldType fieldType,
-                                  @JsonProperty("field_title") String fieldTitle,
-                                  @JsonProperty("property_single_select") SelectFieldProperty propertySingleSelect) {
+    SingleSelectSheetField(@JsonProperty("field_id") String fieldId,
+                           @JsonProperty("field_type") SheetFieldType fieldType,
+                           @JsonProperty("field_title") String fieldTitle,
+                           @JsonProperty("property_single_select") SelectFieldProperty selectProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertySingleSelect = propertySingleSelect;
+        this.propertySingleSelect = selectProperty;
     }
 }

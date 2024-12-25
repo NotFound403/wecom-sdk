@@ -27,22 +27,34 @@ import lombok.ToString;
  * @author dax
  * @since 2024 /9/5
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class UrlSheetField extends SheetField {
     private final UrlFieldProperty propertyUrl;
 
     /**
-     * Instantiates a new Url sheet field.
+     * Create url sheet field.
+     *
+     * @param fieldTitle  the field title
+     * @param urlProperty the url property
+     * @return the url sheet field
+     */
+    public static UrlSheetField create(String fieldTitle, UrlFieldProperty urlProperty) {
+        return update(null, fieldTitle, urlProperty);
+    }
+
+    /**
+     * Update single select sheet field.
      *
      * @param fieldId     the field id
-     * @param fieldType   the field type
-     * @param propertyUrl the property url
+     * @param fieldTitle  the field title
+     * @param urlProperty the url property
+     * @return the progress sheet field
      */
-    public UrlSheetField(String fieldId, SheetFieldType fieldType, UrlFieldProperty propertyUrl) {
-        super(fieldId, fieldType);
-        this.propertyUrl = propertyUrl;
+    public static UrlSheetField update(String fieldId, String fieldTitle, UrlFieldProperty urlProperty) {
+        return new UrlSheetField(fieldId, SheetFieldType.FIELD_TYPE_URL, fieldTitle, urlProperty);
     }
+
 
     /**
      * Instantiates a new Url sheet field.
@@ -50,14 +62,14 @@ public class UrlSheetField extends SheetField {
      * @param fieldId     the field id
      * @param fieldType   the field type
      * @param fieldTitle  the field title
-     * @param propertyUrl the property url
+     * @param urlProperty the url property
      */
     @JsonCreator
-    public UrlSheetField(@JsonProperty("field_id") String fieldId,
-                         @JsonProperty("field_type") SheetFieldType fieldType,
-                         @JsonProperty("field_title") String fieldTitle,
-                         @JsonProperty("property_url") UrlFieldProperty propertyUrl) {
+    UrlSheetField(@JsonProperty("field_id") String fieldId,
+                  @JsonProperty("field_type") SheetFieldType fieldType,
+                  @JsonProperty("field_title") String fieldTitle,
+                  @JsonProperty("property_url") UrlFieldProperty urlProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyUrl = propertyUrl;
+        this.propertyUrl = urlProperty;
     }
 }

@@ -27,21 +27,32 @@ import lombok.ToString;
  * @author dax
  * @since 2024 /9/5
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class NumberSheetField extends SheetField {
     private final NumberFieldProperty propertyNumber;
 
     /**
-     * Instantiates a new Number sheet field.
+     * Create number sheet field.
+     *
+     * @param fieldTitle     the field title
+     * @param numberProperty the number property
+     * @return the number sheet field
+     */
+    public static NumberSheetField create(String fieldTitle, NumberFieldProperty numberProperty) {
+        return update(null, fieldTitle, numberProperty);
+    }
+
+    /**
+     * Update number sheet field.
      *
      * @param fieldId        the field id
-     * @param fieldType      the field type
-     * @param propertyNumber the property number
+     * @param fieldTitle     the field title
+     * @param numberProperty the number property
+     * @return the number sheet field
      */
-    public NumberSheetField(String fieldId, SheetFieldType fieldType, NumberFieldProperty propertyNumber) {
-        super(fieldId, fieldType);
-        this.propertyNumber = propertyNumber;
+    public static NumberSheetField update(String fieldId, String fieldTitle, NumberFieldProperty numberProperty) {
+        return new NumberSheetField(fieldId, SheetFieldType.FIELD_TYPE_NUMBER, fieldTitle, numberProperty);
     }
 
     /**
@@ -50,14 +61,14 @@ public class NumberSheetField extends SheetField {
      * @param fieldId        the field id
      * @param fieldType      the field type
      * @param fieldTitle     the field title
-     * @param propertyNumber the property number
+     * @param numberProperty the number property
      */
     @JsonCreator
-    public NumberSheetField(@JsonProperty("field_id") String fieldId,
-                            @JsonProperty("field_type") SheetFieldType fieldType,
-                            @JsonProperty("field_title") String fieldTitle,
-                            @JsonProperty("property_number") NumberFieldProperty propertyNumber) {
+    NumberSheetField(@JsonProperty("field_id") String fieldId,
+                     @JsonProperty("field_type") SheetFieldType fieldType,
+                     @JsonProperty("field_title") String fieldTitle,
+                     @JsonProperty("property_number") NumberFieldProperty numberProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyNumber = propertyNumber;
+        this.propertyNumber = numberProperty;
     }
 }

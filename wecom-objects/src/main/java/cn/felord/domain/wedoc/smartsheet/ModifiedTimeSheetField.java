@@ -27,37 +27,48 @@ import lombok.ToString;
  * @author dax
  * @since 2024 /9/5
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class ModifiedTimeSheetField extends SheetField {
     private final TimeFieldProperty propertyModifiedTime;
 
     /**
-     * Instantiates a new ModifiedTime sheet field.
+     * Create modified time sheet field.
      *
-     * @param fieldId              the field id
-     * @param fieldType            the field type
-     * @param propertyModifiedTime the property modified time
+     * @param fieldTitle   the field title
+     * @param timeProperty the time property
+     * @return the modified time sheet field
      */
-    public ModifiedTimeSheetField(String fieldId, SheetFieldType fieldType, TimeFieldProperty propertyModifiedTime) {
-        super(fieldId, fieldType);
-        this.propertyModifiedTime = propertyModifiedTime;
+    public static ModifiedTimeSheetField create(String fieldTitle, TimeFieldProperty timeProperty) {
+        return update(null, fieldTitle, timeProperty);
+    }
+
+    /**
+     * Of modified time sheet field.
+     *
+     * @param fieldId      the field id
+     * @param fieldTitle   the field title
+     * @param timeProperty the time property
+     * @return the modified time sheet field
+     */
+    public static ModifiedTimeSheetField update(String fieldId, String fieldTitle, TimeFieldProperty timeProperty) {
+        return new ModifiedTimeSheetField(fieldId, SheetFieldType.FIELD_TYPE_MODIFIED_TIME, fieldTitle, timeProperty);
     }
 
     /**
      * Instantiates a new Modified time sheet field.
      *
-     * @param fieldId              the field id
-     * @param fieldType            the field type
-     * @param fieldTitle           the field title
-     * @param propertyModifiedTime the property modified time
+     * @param fieldId      the field id
+     * @param fieldType    the field type
+     * @param fieldTitle   the field title
+     * @param timeProperty the time property
      */
     @JsonCreator
-    public ModifiedTimeSheetField(@JsonProperty("field_id") String fieldId,
-                                  @JsonProperty("field_type") SheetFieldType fieldType,
-                                  @JsonProperty("field_title") String fieldTitle,
-                                  @JsonProperty("property_modified_time") TimeFieldProperty propertyModifiedTime) {
+    ModifiedTimeSheetField(@JsonProperty("field_id") String fieldId,
+                           @JsonProperty("field_type") SheetFieldType fieldType,
+                           @JsonProperty("field_title") String fieldTitle,
+                           @JsonProperty("property_modified_time") TimeFieldProperty timeProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyModifiedTime = propertyModifiedTime;
+        this.propertyModifiedTime = timeProperty;
     }
 }

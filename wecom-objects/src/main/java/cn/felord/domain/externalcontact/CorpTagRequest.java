@@ -16,6 +16,7 @@
 package cn.felord.domain.externalcontact;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Collections;
 import java.util.Set;
@@ -26,17 +27,21 @@ import java.util.Set;
  * @author dax
  * @since 2021 /8/13 18:39
  */
+@ToString
 @Getter
-public class AllCorpTag implements CorpTagIterator {
+public class CorpTagRequest {
     private final Set<String> groupId;
     private final Set<String> tagId;
 
     /**
      * Instantiates a new All corp tag.
+     *
+     * @param groupId the group id
+     * @param tagId   the tag id
      */
-    public AllCorpTag() {
-        this.groupId = Collections.emptySet();
-        this.tagId = Collections.emptySet();
+    CorpTagRequest(Set<String> groupId, Set<String> tagId) {
+        this.groupId = groupId;
+        this.tagId = tagId;
     }
 
     /**
@@ -44,7 +49,27 @@ public class AllCorpTag implements CorpTagIterator {
      *
      * @return the all corp tag
      */
-    public static AllCorpTag query() {
-        return new AllCorpTag();
+    public static CorpTagRequest all() {
+        return new CorpTagRequest(Collections.emptySet(), Collections.emptySet());
+    }
+
+    /**
+     * Group all corp tag.
+     *
+     * @param groupId the group id
+     * @return the all corp tag
+     */
+    public static CorpTagRequest group(Set<String> groupId) {
+        return new CorpTagRequest(groupId, Collections.emptySet());
+    }
+
+    /**
+     * Tag all corp tag.
+     *
+     * @param tagId the tag id
+     * @return the all corp tag
+     */
+    public static CorpTagRequest tag(Set<String> tagId) {
+        return new CorpTagRequest(Collections.emptySet(), tagId);
     }
 }

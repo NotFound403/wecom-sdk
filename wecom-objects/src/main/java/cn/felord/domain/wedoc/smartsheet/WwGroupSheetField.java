@@ -27,21 +27,33 @@ import lombok.ToString;
  * @author dax
  * @since 2024 /9/5
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class WwGroupSheetField extends SheetField {
     private final WwGroupFieldProperty propertyWwGroup;
 
+
     /**
-     * Instantiates a new WwGroup sheet field.
+     * Create progress sheet field.
+     *
+     * @param fieldTitle      the field title
+     * @param wwGroupProperty the ww group property
+     * @return the progress sheet field
+     */
+    public static WwGroupSheetField create(String fieldTitle, WwGroupFieldProperty wwGroupProperty) {
+        return update(null, fieldTitle, wwGroupProperty);
+    }
+
+    /**
+     * Update progress sheet field.
      *
      * @param fieldId         the field id
-     * @param fieldType       the field type
-     * @param propertyWwGroup the property WwGroup
+     * @param fieldTitle      the field title
+     * @param wwGroupProperty the ww group property
+     * @return the progress sheet field
      */
-    public WwGroupSheetField(String fieldId, SheetFieldType fieldType, WwGroupFieldProperty propertyWwGroup) {
-        super(fieldId, fieldType);
-        this.propertyWwGroup = propertyWwGroup;
+    public static WwGroupSheetField update(String fieldId, String fieldTitle, WwGroupFieldProperty wwGroupProperty) {
+        return new WwGroupSheetField(fieldId, SheetFieldType.FIELD_TYPE_WWGROUP, fieldTitle, wwGroupProperty);
     }
 
     /**
@@ -50,14 +62,14 @@ public class WwGroupSheetField extends SheetField {
      * @param fieldId         the field id
      * @param fieldType       the field type
      * @param fieldTitle      the field title
-     * @param propertyWwGroup the property WwGroup
+     * @param wwGroupProperty the ww group property
      */
     @JsonCreator
-    public WwGroupSheetField(@JsonProperty("field_id") String fieldId,
-                             @JsonProperty("field_type") SheetFieldType fieldType,
-                             @JsonProperty("field_title") String fieldTitle,
-                             @JsonProperty("property_ww_group") WwGroupFieldProperty propertyWwGroup) {
+    WwGroupSheetField(@JsonProperty("field_id") String fieldId,
+                      @JsonProperty("field_type") SheetFieldType fieldType,
+                      @JsonProperty("field_title") String fieldTitle,
+                      @JsonProperty("property_ww_group") WwGroupFieldProperty wwGroupProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyWwGroup = propertyWwGroup;
+        this.propertyWwGroup = wwGroupProperty;
     }
 }

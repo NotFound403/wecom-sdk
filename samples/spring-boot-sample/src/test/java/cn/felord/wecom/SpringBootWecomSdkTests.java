@@ -105,6 +105,10 @@ import cn.felord.domain.webhook.card.UrlCardAction;
 import cn.felord.domain.webhook.card.UrlJump;
 import cn.felord.domain.wedoc.form.AnswerReplyItem;
 import cn.felord.domain.wedoc.form.FormAnswerRequest;
+import cn.felord.domain.wedoc.smartsheet.AddRecordRequest;
+import cn.felord.domain.wedoc.smartsheet.RecordResult;
+import cn.felord.domain.wedoc.smartsheet.RecordValues;
+import cn.felord.domain.wedoc.smartsheet.SelectFieldOption;
 import cn.felord.domain.wedrive.BufferSource;
 import cn.felord.enumeration.AnswerReplyItemType;
 import cn.felord.enumeration.ApvRel;
@@ -398,7 +402,7 @@ class SpringBootWecomSdkTests {
                 ProcessNode.cc(Collections.singletonList("3804"))
 
         );
-        GenericResponse<String> stringGenericResponse = approvalApi.applyEvent(ProcessApplyRequest.approverMode("3958",
+        GenericResponse<String> stringGenericResponse = approvalApi.applyEvent(ProcessApplyRequest.approveMode("3958",
                 templateId,
                 nodeList,
                 templateDetail.getTemplateContent().getControls(),
@@ -409,6 +413,7 @@ class SpringBootWecomSdkTests {
 
 
     }
+
     /**
      * 企业微信发起审批
      */
@@ -508,7 +513,7 @@ class SpringBootWecomSdkTests {
      * @throws IOException the io exception
      */
     @Test
-    public void formFiledownload() throws IOException {
+    public void formFileDownload() throws IOException {
 //           关联文档功能的自建引用
         AgentDetails agentDetailsWithDocAuth = new DefaultAgent("企业ID", "应用密钥，该应用需要关联到文档功能", "应用id");
         FormApi formApi = workWeChatApi.wedocApi(agentDetailsWithDocAuth).formApi();
@@ -668,6 +673,48 @@ class SpringBootWecomSdkTests {
         // 转换为事件对象消费
         CallbackEventBody eventBody = xStreamXmlReader.read(xmlbody, CallbackEventBody.class);
         System.out.println("eventBody = " + eventBody);
+    }
+
+
+    /**
+     * 智能表格 添加数据记录 需要先通过API建表格
+     */
+    @Test
+    void smartSheet() {
+        List<RecordValues> list = Arrays.asList(
+                // row 1
+                RecordValues.row()
+                        .option("性别", Collections.singletonList(SelectFieldOption.selectWithText("男")))
+                        .email("电子信箱", "11111@qq.com")
+                        .user("姓名", Collections.singletonList("3958"))
+                        .dateTime("出生日期", Instant.now())
+                        .dateTime("入职日期", Instant.now().minusSeconds(3600000))
+                        .number("身高（cm）", 164.5)
+                        .currency("薪资（￥）", 1233333.25)
+                        .progress("进度", 47.43)
+                        .phoneNumber("电话", "13333233333"),
+                //  row 2
+                RecordValues.row()
+                        .option("性别", Collections.singletonList(SelectFieldOption.selectWithId("0")))
+                        .email("电子信箱", "222222@qq.com")
+                        .user("姓名", Collections.singletonList("3958"))
+                        .dateTime("出生日期", Instant.now())
+                        .dateTime("入职日期", Instant.now().minusSeconds(3600000))
+                        .number("身高（cm）", 184.5)
+                        .currency("薪资（￥）", 23444.25)
+                        .progress("进度", 87.23)
+                        .phoneNumber("电话", "13333333333")
+                // row  more ...
+
+        );
+        String docid = "xxxx";
+        String sheetid = "xxxx";
+        AgentDetails externalAgent = DefaultAgent.of("你的企微企业ID", "关联文档功能的应用密钥", "应用ID");
+        GenericResponse<List<RecordResult>> objectGenericResponse = workWeChatApi.wedocApi(externalAgent)
+                .smartSheetApi()
+                // 以表头名称为基准填充智能表格   也可以换为id
+                .addRecords(AddRecordRequest.byFieldTitle(docid, sheetid, list));
+        Assertions.assertTrue(objectGenericResponse.isSuccessful());
     }
 
 }

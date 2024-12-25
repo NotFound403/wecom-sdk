@@ -40,7 +40,9 @@ import java.util.Objects;
  * @since 2024 /5/22 14:59
  */
 public class TokenInterceptor implements Interceptor {
+    private static final String ACCESS_TOKEN_KEY = "access_token";
     private static final String INVALID_ACCESS_TOKEN = "42001";
+    private static final String BAD_ACCESS_TOKEN = "40014";
     /**
      * The constant MAPPER.
      */
@@ -85,6 +87,9 @@ public class TokenInterceptor implements Interceptor {
                 response.close();
                 return doRequest(chain);
             }
+            if (Objects.equals(BAD_ACCESS_TOKEN, errorCode)) {
+                throw new WeComException(Integer.valueOf(BAD_ACCESS_TOKEN), "illegal access token");
+            }
         } else {
             ResponseBody body = response.body();
             if (body != null) {
@@ -96,10 +101,15 @@ public class TokenInterceptor implements Interceptor {
                     try (Buffer buffer = source.getBuffer().clone()) {
                         String json = buffer.readUtf8();
                         WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
-                        if (Objects.equals(INVALID_ACCESS_TOKEN, String.valueOf(weComResponse.getErrcode()))) {
+                        Integer errcode = weComResponse.getErrcode();
+                        String errCodeStr = String.valueOf(errcode);
+                        if (Objects.equals(INVALID_ACCESS_TOKEN, errCodeStr)) {
                             tokenApi.clearToken();
                             response.close();
                             return doRequest(chain);
+                        }
+                        if (Objects.equals(BAD_ACCESS_TOKEN, errCodeStr)) {
+                            throw new WeComException(errcode, "illegal access token");
                         }
                     }
                 }
@@ -133,7 +143,7 @@ public class TokenInterceptor implements Interceptor {
     private String determineTokenParam(Class<? extends TokenApi> tokenApiClazz) {
 
         if (AccessTokenApi.class.isAssignableFrom(tokenApiClazz)) {
-            return "access_token";
+            return ACCESS_TOKEN_KEY;
         }
         throw new WeComException("the api is not supported");
     }

@@ -16,6 +16,8 @@
 package cn.felord.domain.corpgroup;
 
 import cn.felord.domain.WeComResponse;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -25,6 +27,8 @@ import java.util.List;
  * @author dax
  * @since 2024/10/12
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class GroupCorpsResponse extends WeComResponse {
     private Boolean hasMore;
     private String nextCursor;

@@ -51,4 +51,13 @@ public class WedocApi {
         return workWeChatApiClient.retrofit().create(FormApi.class);
     }
 
+    /**
+     * 智能表格
+     *
+     * @return the smart sheet api
+     */
+    public SmartSheetApi smartSheetApi() {
+        return workWeChatApiClient.retrofit().create(SmartSheetApi.class);
+    }
+
 }

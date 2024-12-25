@@ -67,7 +67,7 @@ class WechatAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
         }
         Headers responseHeaders = response.headers();
         if (!response.isSuccessful()) {
-            String requestId = responseHeaders.get(HttpHeaders.REQUEST_ID.headerName());
+            String requestId = responseHeaders.get(WechatHttpHeaders.REQUEST_ID.headerName());
             String errorMessage = " Code: " + response.code() +
                     "\n Request-ID: " + requestId +
                     "\n Message: " + response.message() +
@@ -75,10 +75,10 @@ class WechatAuthorizationInterceptor extends AbstractAuthorizationInterceptor {
             response.close();
             throw new PayException(errorMessage);
         }
-        String serialNumber = responseHeaders.get(HttpHeaders.WECHAT_PAY_SERIAL.headerName());
+        String serialNumber = responseHeaders.get(WechatHttpHeaders.WECHAT_PAY_SERIAL.headerName());
         TenpayKey tenpayKey = tenpayCertificateService.getTenpayKey(serialNumber);
         if (!WechatPaySigner.verify(responseHeaders, body, tenpayKey)) {
-            String requestId = responseHeaders.get(HttpHeaders.REQUEST_ID.headerName());
+            String requestId = responseHeaders.get(WechatHttpHeaders.REQUEST_ID.headerName());
             response.close();
             throw new PayException("Wechat pay signature verify failed, Request-ID: " + requestId);
         }

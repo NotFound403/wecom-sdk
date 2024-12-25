@@ -100,6 +100,7 @@ public class GenericResponse<T> extends WeComResponse {
             "records",
             "agreeinfo",
             "properties",
+            "sheet_list",
             "lists"
     })
     private T data;

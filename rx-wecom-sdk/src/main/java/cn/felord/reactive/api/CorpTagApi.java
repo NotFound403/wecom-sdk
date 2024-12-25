@@ -39,7 +39,7 @@ public interface CorpTagApi {
      * @return the customer strategy detail response
      */
     @POST("externalcontact/get_corp_tag_list")
-    Single<GenericResponse<List<CorpTagGroup>>> corpTagList(@Body CorpTagIterator request);
+    Single<GenericResponse<List<CorpTagGroup>>> corpTagList(@Body CorpTagRequest request);
 
     /**
      * 添加企业客户标签
@@ -102,7 +102,7 @@ public interface CorpTagApi {
      * @return the generic response
      */
     @POST("externalcontact/del_strategy_tag")
-    Single<WeComResponse> delStrategyCorpTag(@Body CorpTagIterator request);
+    Single<WeComResponse> delStrategyCorpTag(@Body CorpTagRequest request);
 
     /**
      * 编辑客户企业标签

@@ -27,21 +27,35 @@ import lombok.ToString;
  * @author dax
  * @since 2024 /9/5
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class CheckboxSheetField extends SheetField {
     private final CheckboxFieldProperty propertyCheckbox;
 
     /**
-     * Instantiates a new Checkbox sheet field.
+     * Create checkbox sheet field.
+     *
+     * @param fieldTitle       the field title
+     * @param checkboxProperty the checkbox property
+     * @return the checkbox sheet field
+     */
+    public static CheckboxSheetField create(String fieldTitle,
+                                            CheckboxFieldProperty checkboxProperty) {
+        return update(null, fieldTitle, checkboxProperty);
+    }
+
+    /**
+     * Update checkbox sheet field.
      *
      * @param fieldId          the field id
-     * @param fieldType        the field type
-     * @param propertyCheckbox the property checkbox
+     * @param fieldTitle       the field title
+     * @param checkboxProperty the checkbox property
+     * @return the checkbox sheet field
      */
-    public CheckboxSheetField(String fieldId, SheetFieldType fieldType, CheckboxFieldProperty propertyCheckbox) {
-        super(fieldId, fieldType);
-        this.propertyCheckbox = propertyCheckbox;
+    public static CheckboxSheetField update(String fieldId,
+                                            String fieldTitle,
+                                            CheckboxFieldProperty checkboxProperty) {
+        return new CheckboxSheetField(fieldId, SheetFieldType.FIELD_TYPE_CHECKBOX, fieldTitle, checkboxProperty);
     }
 
     /**
@@ -50,14 +64,14 @@ public class CheckboxSheetField extends SheetField {
      * @param fieldId          the field id
      * @param fieldType        the field type
      * @param fieldTitle       the field title
-     * @param propertyCheckbox the property checkbox
+     * @param checkboxProperty the checkbox property
      */
     @JsonCreator
-    public CheckboxSheetField(@JsonProperty("field_id") String fieldId,
-                              @JsonProperty("field_type") SheetFieldType fieldType,
-                              @JsonProperty("field_title") String fieldTitle,
-                              @JsonProperty("property_checkbox") CheckboxFieldProperty propertyCheckbox) {
+    CheckboxSheetField(@JsonProperty("field_id") String fieldId,
+                       @JsonProperty("field_type") SheetFieldType fieldType,
+                       @JsonProperty("field_title") String fieldTitle,
+                       @JsonProperty("property_checkbox") CheckboxFieldProperty checkboxProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyCheckbox = propertyCheckbox;
+        this.propertyCheckbox = checkboxProperty;
     }
 }

@@ -27,21 +27,32 @@ import lombok.ToString;
  * @author dax
  * @since 2024 /9/5
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class LocationSheetField extends SheetField {
     private final LocationFieldProperty propertyLocation;
 
     /**
-     * Instantiates a new Location sheet field.
+     * Create location sheet field.
+     *
+     * @param fieldTitle       the field title
+     * @param locationProperty the location property
+     * @return the location sheet field
+     */
+    public static LocationSheetField create(String fieldTitle, LocationFieldProperty locationProperty) {
+        return update(null, fieldTitle, locationProperty);
+    }
+
+    /**
+     * Update location sheet field.
      *
      * @param fieldId          the field id
-     * @param fieldType        the field type
-     * @param propertyLocation the property location
+     * @param fieldTitle       the field title
+     * @param locationProperty the location property
+     * @return the location sheet field
      */
-    public LocationSheetField(String fieldId, SheetFieldType fieldType, LocationFieldProperty propertyLocation) {
-        super(fieldId, fieldType);
-        this.propertyLocation = propertyLocation;
+    public static LocationSheetField update(String fieldId, String fieldTitle, LocationFieldProperty locationProperty) {
+        return new LocationSheetField(fieldId, SheetFieldType.FIELD_TYPE_LOCATION, fieldTitle, locationProperty);
     }
 
     /**
@@ -50,14 +61,14 @@ public class LocationSheetField extends SheetField {
      * @param fieldId          the field id
      * @param fieldType        the field type
      * @param fieldTitle       the field title
-     * @param propertyLocation the property location
+     * @param locationProperty the location property
      */
     @JsonCreator
-    public LocationSheetField(@JsonProperty("field_id") String fieldId,
-                              @JsonProperty("field_type") SheetFieldType fieldType,
-                              @JsonProperty("field_title") String fieldTitle,
-                              @JsonProperty("property_location") LocationFieldProperty propertyLocation) {
+    LocationSheetField(@JsonProperty("field_id") String fieldId,
+                       @JsonProperty("field_type") SheetFieldType fieldType,
+                       @JsonProperty("field_title") String fieldTitle,
+                       @JsonProperty("property_location") LocationFieldProperty locationProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyLocation = propertyLocation;
+        this.propertyLocation = locationProperty;
     }
 }
