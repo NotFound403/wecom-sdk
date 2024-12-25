@@ -27,7 +27,7 @@ import lombok.ToString;
  * @author dax
  * @since 2024 /9/5
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class AttachmentSheetField extends SheetField {
     private final AttachmentFieldProperty propertyAttachment;

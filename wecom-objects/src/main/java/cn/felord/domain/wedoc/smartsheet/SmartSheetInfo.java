@@ -13,24 +13,15 @@
  * limitations under the License.
  */
 
-package cn.felord.domain.corpgroup;
+package cn.felord.domain.wedoc.smartsheet;
 
-import cn.felord.domain.WeComResponse;
+import cn.felord.enumeration.SmartSheetType;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
-/**
- * The type Group corps response.
- *
- * @author dax
- * @since 2024/10/12
- */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class GroupCorpsResponse extends WeComResponse {
-    private Boolean hasMore;
-    private String nextCursor;
-    private List<GroupCorp> groupCorps;
+public class SmartSheetInfo {
+    private String sheetId;
+    private String title;
+    private Boolean isVisible;
+    private SmartSheetType type;
 }

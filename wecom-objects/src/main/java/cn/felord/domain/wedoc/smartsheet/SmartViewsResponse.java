@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package cn.felord.domain.corpgroup;
+package cn.felord.domain.wedoc.smartsheet;
 
 import cn.felord.domain.WeComResponse;
 import lombok.Data;
@@ -22,15 +22,15 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- * The type Group corps response.
- *
  * @author dax
- * @since 2024/10/12
+ * @since 2024/12/25
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class GroupCorpsResponse extends WeComResponse {
+public class SmartViewsResponse extends WeComResponse {
+
+    private Integer total;
     private Boolean hasMore;
-    private String nextCursor;
-    private List<GroupCorp> groupCorps;
+    private Integer next;
+    private List<SmartView> views;
 }

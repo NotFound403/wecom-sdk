@@ -26,11 +26,19 @@ import cn.felord.domain.wedoc.smartsheet.DelFieldsRequest;
 import cn.felord.domain.wedoc.smartsheet.DelRecordRequest;
 import cn.felord.domain.wedoc.smartsheet.DelSheetRequest;
 import cn.felord.domain.wedoc.smartsheet.DelViewRequest;
+import cn.felord.domain.wedoc.smartsheet.QuerySheetRequest;
 import cn.felord.domain.wedoc.smartsheet.RecordResult;
 import cn.felord.domain.wedoc.smartsheet.SheetField;
 import cn.felord.domain.wedoc.smartsheet.SheetViewDetail;
 import cn.felord.domain.wedoc.smartsheet.SheetViewInfo;
+import cn.felord.domain.wedoc.smartsheet.SmartFieldsRequest;
+import cn.felord.domain.wedoc.smartsheet.SmartFieldsResponse;
+import cn.felord.domain.wedoc.smartsheet.SmartRecordsRequest;
+import cn.felord.domain.wedoc.smartsheet.SmartRecordsResponse;
+import cn.felord.domain.wedoc.smartsheet.SmartSheetInfo;
 import cn.felord.domain.wedoc.smartsheet.SmartSheetProperties;
+import cn.felord.domain.wedoc.smartsheet.SmartViewRequest;
+import cn.felord.domain.wedoc.smartsheet.SmartViewsResponse;
 import cn.felord.domain.wedoc.smartsheet.UpdateRecordRequest;
 import cn.felord.domain.wedoc.smartsheet.UpdateSheetRequest;
 import cn.felord.domain.wedoc.smartsheet.UpdateViewRequest;
@@ -195,4 +203,54 @@ public interface SmartSheetApi {
      */
     @POST("wedoc/smartsheet/update_records")
     GenericResponse<List<RecordResult>> updateRecords(@Body UpdateRecordRequest request) throws WeComException;
+
+    /**
+     * 查询子表
+     * <p>
+     * 本接口用于查询一篇在线表格中全部智能表信息。
+     *
+     * @param request the request
+     * @return the sheet
+     * @throws WeComException the we com exception
+     */
+    @POST("wedoc/smartsheet/get_sheet")
+    GenericResponse<List<SmartSheetInfo>> getSheet(@Body QuerySheetRequest request) throws WeComException;
+
+    /**
+     * 查询视图
+     * <p>
+     * 本接口用于获取 Smartsheet 中某个子表里全部视图信息。
+     *
+     * @param request the request
+     * @return the views
+     * @throws WeComException the we com exception
+     */
+    @POST("wedoc/smartsheet/get_views")
+    SmartViewsResponse getViews(@Body SmartViewRequest request) throws WeComException;
+
+    /**
+     * 查询字段
+     * <p>
+     * 本接口用于获取智能表中某个子表下字段信息，
+     * 该接口可以完成下面三种功能：获取全部字段信息、依据字段名获取对应字段、依据字段 ID 获取对应字段信息。
+     *
+     * @param request the request
+     * @return the fields
+     * @throws WeComException the we com exception
+     */
+    @POST("wedoc/smartsheet/get_fields")
+    SmartFieldsResponse getFields(@Body SmartFieldsRequest request) throws WeComException;
+
+    /**
+     * 查询记录
+     * <p>
+     * 本接口用于获取 Smartsheet 中某个子表下记录信息，
+     * 该接口可以完成下面三种功能：获取全部记录信息、依据字段名和记录 ID 获取对应记录、对记录进行排序。
+     *
+     * @param request the request
+     * @return the records
+     * @throws WeComException the we com exception
+     */
+    @POST("wedoc/smartsheet/get_records")
+    SmartRecordsResponse getRecords(@Body SmartRecordsRequest request) throws WeComException;
 }

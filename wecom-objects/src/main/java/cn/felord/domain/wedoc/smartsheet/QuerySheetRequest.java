@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2024. felord.cn
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ * Website:
+ *       https://felord.cn
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package cn.felord.domain.wedoc.smartsheet;
+
+import lombok.Getter;
+import lombok.ToString;
+
+@ToString
+@Getter
+public class QuerySheetRequest {
+    private final String docid;
+    private String sheetId;
+    private Boolean needAllTypeSheet;
+
+    public QuerySheetRequest(String docId) {
+        this.docid = docId;
+    }
+
+    public QuerySheetRequest(String docId, String sheetId) {
+        this.docid = docId;
+        this.sheetId = sheetId;
+    }
+
+    public QuerySheetRequest(String docId, Boolean needAllTypeSheet) {
+        this.docid = docId;
+        this.needAllTypeSheet = needAllTypeSheet;
+    }
+
+    public QuerySheetRequest(String docId, String sheetId, Boolean needAllTypeSheet) {
+        this.docid = docId;
+        this.sheetId = sheetId;
+        this.needAllTypeSheet = needAllTypeSheet;
+    }
+}
