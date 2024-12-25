@@ -513,7 +513,7 @@ class SpringBootWecomSdkTests {
      * @throws IOException the io exception
      */
     @Test
-    public void formFiledownload() throws IOException {
+    public void formFileDownload() throws IOException {
 //           关联文档功能的自建引用
         AgentDetails agentDetailsWithDocAuth = new DefaultAgent("企业ID", "应用密钥，该应用需要关联到文档功能", "应用id");
         FormApi formApi = workWeChatApi.wedocApi(agentDetailsWithDocAuth).formApi();
@@ -677,7 +677,7 @@ class SpringBootWecomSdkTests {
 
 
     /**
-     * 智能表格 添加数据记录 需要先建模板
+     * 智能表格 添加数据记录 需要先通过API建表格
      */
     @Test
     void smartSheet() {
@@ -689,8 +689,8 @@ class SpringBootWecomSdkTests {
                         .user("姓名", Collections.singletonList("3958"))
                         .dateTime("出生日期", Instant.now())
                         .dateTime("入职日期", Instant.now().minusSeconds(3600000))
-                        .number("身高", 164.5)
-                        .currency("薪资", 1233333.25)
+                        .number("身高（cm）", 164.5)
+                        .currency("薪资（￥）", 1233333.25)
                         .progress("进度", 47.43)
                         .phoneNumber("电话", "13333233333"),
                 //  row 2
@@ -700,8 +700,8 @@ class SpringBootWecomSdkTests {
                         .user("姓名", Collections.singletonList("3958"))
                         .dateTime("出生日期", Instant.now())
                         .dateTime("入职日期", Instant.now().minusSeconds(3600000))
-                        .number("身高", 184.5)
-                        .currency("薪资", 23444.25)
+                        .number("身高（cm）", 184.5)
+                        .currency("薪资（￥）", 23444.25)
                         .progress("进度", 87.23)
                         .phoneNumber("电话", "13333333333")
                 // row  more ...
@@ -709,12 +709,12 @@ class SpringBootWecomSdkTests {
         );
         String docid = "xxxx";
         String sheetid = "xxxx";
-        AgentDetails externalAgent = DefaultAgent.of("你的企微企业ID", "关联文档功能的应用密钥", "");
+        AgentDetails externalAgent = DefaultAgent.of("你的企微企业ID", "关联文档功能的应用密钥", "应用ID");
         GenericResponse<List<RecordResult>> objectGenericResponse = workWeChatApi.wedocApi(externalAgent)
                 .smartSheetApi()
                 // 以表头名称为基准填充智能表格   也可以换为id
                 .addRecords(AddRecordRequest.byFieldTitle(docid, sheetid, list));
-        System.out.println("objectGenericResponse = " + objectGenericResponse);
+        Assertions.assertTrue(objectGenericResponse.isSuccessful());
     }
 
 }
