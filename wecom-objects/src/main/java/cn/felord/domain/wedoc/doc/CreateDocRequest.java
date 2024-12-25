@@ -17,7 +17,8 @@
 package cn.felord.domain.wedoc.doc;
 
 import cn.felord.enumeration.DocType;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -25,9 +26,10 @@ import java.util.List;
  * 新建文档
  *
  * @author felord
- * @since 2021/10/12 16:53
+ * @since 2021 /10/12 16:53
  */
-@Data
+@ToString
+@Getter
 public class CreateDocRequest {
 
     /**
@@ -50,4 +52,69 @@ public class CreateDocRequest {
      * 空间spaceid。若指定spaceid，则fatherid也要同时指定
      */
     private String spaceid;
+
+    /**
+     * Instantiates a new Create doc request.
+     *
+     * @param docName the doc name
+     * @param docType the doc type
+     */
+    CreateDocRequest(String docName, DocType docType) {
+        this.docName = docName;
+        this.docType = docType;
+    }
+
+    /**
+     * 文档
+     *
+     * @param docName the doc name
+     * @return the create doc request
+     */
+    public static CreateDocRequest doc(String docName) {
+        return new CreateDocRequest(docName, DocType.DOC);
+    }
+
+    /**
+     * 表格
+     *
+     * @param docName the doc name
+     * @return the create doc request
+     */
+    public static CreateDocRequest sheet(String docName) {
+        return new CreateDocRequest(docName, DocType.SHEET);
+    }
+
+    /**
+     * 智能表格
+     *
+     * @param docName the doc name
+     * @return the create doc request
+     */
+    public static CreateDocRequest smartSheet(String docName) {
+        return new CreateDocRequest(docName, DocType.SMART_SHEET);
+    }
+
+    /**
+     * Admin users create doc request.
+     *
+     * @param adminUsers the admin users
+     * @return the create doc request
+     */
+    public CreateDocRequest adminUsers(List<String> adminUsers) {
+        this.adminUsers = adminUsers;
+        return this;
+    }
+
+    /**
+     * Father and space create doc request.
+     *
+     * @param fatherId the father id
+     * @param spaceId  the space id
+     * @return the create doc request
+     */
+    public CreateDocRequest fatherAndSpace(String fatherId, String spaceId) {
+        this.fatherid = fatherId;
+        this.spaceid = spaceId;
+        return this;
+    }
 }

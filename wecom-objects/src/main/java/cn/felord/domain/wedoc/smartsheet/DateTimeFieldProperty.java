@@ -30,7 +30,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class DateTimeFieldProperty {
-    private final String format;
+    private final DateTimeFieldFormatter format;
     private final Boolean autoFill;
 
     /**
@@ -40,8 +40,8 @@ public class DateTimeFieldProperty {
      * @param autoFill the auto fill
      */
     @JsonCreator
-    DateTimeFieldProperty(@JsonProperty("format") String format,
-                          @JsonProperty("autoFill") Boolean autoFill) {
+    DateTimeFieldProperty(@JsonProperty("format") DateTimeFieldFormatter format,
+                          @JsonProperty("auto_fill") Boolean autoFill) {
         this.format = format;
         this.autoFill = autoFill;
     }
@@ -54,6 +54,6 @@ public class DateTimeFieldProperty {
      * @return the date time field property
      */
     public static DateTimeFieldProperty of(DateTimeFieldFormatter formatter, boolean autoFill) {
-        return new DateTimeFieldProperty(formatter.getFormat(), autoFill);
+        return new DateTimeFieldProperty(formatter, autoFill);
     }
 }

@@ -27,21 +27,34 @@ import lombok.ToString;
  * @author dax
  * @since 2024 /9/5
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class AutoNumberSheetField extends SheetField {
     private final AutoNumberFieldProperty propertyAutoNumber;
 
     /**
-     * Instantiates a new AutoNumber sheet field.
+     * Create auto number sheet field.
+     *
+     * @param fieldTitle         the field title
+     * @param autoNumberProperty the auto number property
+     * @return the auto number sheet field
+     */
+    public static AutoNumberSheetField create(String fieldTitle, AutoNumberFieldProperty autoNumberProperty) {
+        return update(null, fieldTitle, autoNumberProperty);
+    }
+
+    /**
+     * Update auto number sheet field.
      *
      * @param fieldId            the field id
-     * @param fieldType          the field type
-     * @param propertyAutoNumber the property AutoNumber
+     * @param fieldTitle         the field title
+     * @param autoNumberProperty the auto number property
+     * @return the auto number sheet field
      */
-    public AutoNumberSheetField(String fieldId, SheetFieldType fieldType, AutoNumberFieldProperty propertyAutoNumber) {
-        super(fieldId, fieldType);
-        this.propertyAutoNumber = propertyAutoNumber;
+    public static AutoNumberSheetField update(String fieldId,
+                                              String fieldTitle,
+                                              AutoNumberFieldProperty autoNumberProperty) {
+        return new AutoNumberSheetField(fieldId, SheetFieldType.FIELD_TYPE_ATTACHMENT, fieldTitle, autoNumberProperty);
     }
 
     /**
@@ -50,14 +63,14 @@ public class AutoNumberSheetField extends SheetField {
      * @param fieldId            the field id
      * @param fieldType          the field type
      * @param fieldTitle         the field title
-     * @param propertyAutoNumber the property AutoNumber
+     * @param autoNumberProperty the auto number property
      */
     @JsonCreator
-    public AutoNumberSheetField(@JsonProperty("field_id") String fieldId,
-                                @JsonProperty("field_type") SheetFieldType fieldType,
-                                @JsonProperty("field_title") String fieldTitle,
-                                @JsonProperty("property_auto_number") AutoNumberFieldProperty propertyAutoNumber) {
+    AutoNumberSheetField(@JsonProperty("field_id") String fieldId,
+                         @JsonProperty("field_type") SheetFieldType fieldType,
+                         @JsonProperty("field_title") String fieldTitle,
+                         @JsonProperty("property_auto_number") AutoNumberFieldProperty autoNumberProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyAutoNumber = propertyAutoNumber;
+        this.propertyAutoNumber = autoNumberProperty;
     }
 }

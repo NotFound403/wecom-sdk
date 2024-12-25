@@ -21,7 +21,7 @@ package cn.felord.payment.wechat.v3.retrofit;
  * @author dax
  * @since 2024/8/4
  */
-public enum HttpHeaders {
+public enum WechatHttpHeaders {
     /**
      * Content type http headers.
      */
@@ -68,7 +68,7 @@ public enum HttpHeaders {
     WECHAT_PAY_NONCE("Wechatpay-Nonce");
     private final String headerName;
 
-    HttpHeaders(String headerName) {
+    WechatHttpHeaders(String headerName) {
         this.headerName = headerName;
     }
 

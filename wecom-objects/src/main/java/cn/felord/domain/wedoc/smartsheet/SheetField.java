@@ -31,13 +31,13 @@ import lombok.ToString;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
-        property = "fieldType", visible = true)
+        property = "field_type", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = SheetField.class, name = "FIELD_TYPE_TEXT"),
+        @JsonSubTypes.Type(value = TextSheetField.class, name = "FIELD_TYPE_TEXT"),
         @JsonSubTypes.Type(value = NumberSheetField.class, name = "FIELD_TYPE_NUMBER"),
         @JsonSubTypes.Type(value = CurrencySheetField.class, name = "FIELD_TYPE_CHECKBOX"),
         @JsonSubTypes.Type(value = DateTimeSheetField.class, name = "FIELD_TYPE_DATE_TIME"),
-        @JsonSubTypes.Type(value = SheetField.class, name = "FIELD_TYPE_IMAGE"),
+        @JsonSubTypes.Type(value = ImageSheetField.class, name = "FIELD_TYPE_IMAGE"),
         @JsonSubTypes.Type(value = AttachmentSheetField.class, name = "FIELD_TYPE_ATTACHMENT"),
         @JsonSubTypes.Type(value = UserSheetField.class, name = "FIELD_TYPE_USER"),
         @JsonSubTypes.Type(value = UrlSheetField.class, name = "FIELD_TYPE_URL"),
@@ -47,8 +47,8 @@ import lombok.ToString;
         @JsonSubTypes.Type(value = CreatedTimeSheetField.class, name = "FIELD_TYPE_CREATED_TIME"),
         @JsonSubTypes.Type(value = ModifiedTimeSheetField.class, name = "FIELD_TYPE_MODIFIED_TIME"),
         @JsonSubTypes.Type(value = ProgressSheetField.class, name = "FIELD_TYPE_PROGRESS"),
-        @JsonSubTypes.Type(value = SheetField.class, name = "FIELD_TYPE_PHONE_NUMBER"),
-        @JsonSubTypes.Type(value = SheetField.class, name = "FIELD_TYPE_EMAIL"),
+        @JsonSubTypes.Type(value = PhoneNumberSheetField.class, name = "FIELD_TYPE_PHONE_NUMBER"),
+        @JsonSubTypes.Type(value = EmailSheetField.class, name = "FIELD_TYPE_EMAIL"),
         @JsonSubTypes.Type(value = SingleSelectSheetField.class, name = "FIELD_TYPE_SINGLE_SELECT"),
         @JsonSubTypes.Type(value = ReferenceSheetField.class, name = "FIELD_TYPE_REFERENCE"),
         @JsonSubTypes.Type(value = LocationSheetField.class, name = "FIELD_TYPE_LOCATION"),
@@ -58,20 +58,10 @@ import lombok.ToString;
 })
 @ToString
 @Getter
-public class SheetField {
+public abstract class SheetField {
     private final String fieldId;
     private final SheetFieldType fieldType;
     private final String fieldTitle;
-
-    /**
-     * Instantiates a new Sheet field.
-     *
-     * @param fieldId   the field id
-     * @param fieldType the field type
-     */
-    public SheetField(String fieldId, SheetFieldType fieldType) {
-        this(fieldId, fieldType, null);
-    }
 
     /**
      * Instantiates a new Sheet field.
@@ -81,9 +71,9 @@ public class SheetField {
      * @param fieldTitle the field title
      */
     @JsonCreator
-    public SheetField(@JsonProperty("field_id") String fieldId,
-                      @JsonProperty("field_type") SheetFieldType fieldType,
-                      @JsonProperty("field_title") String fieldTitle) {
+    SheetField(@JsonProperty("field_id") String fieldId,
+               @JsonProperty("field_type") SheetFieldType fieldType,
+               @JsonProperty("field_title") String fieldTitle) {
         this.fieldId = fieldId;
         this.fieldType = fieldType;
         this.fieldTitle = fieldTitle;

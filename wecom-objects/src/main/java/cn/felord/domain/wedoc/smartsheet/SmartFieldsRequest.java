@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package cn.felord.domain.externalcontact;
+package cn.felord.domain.wedoc.smartsheet;
 
 import lombok.Data;
 
@@ -21,9 +21,15 @@ import java.util.Set;
 
 /**
  * @author dax
- * @since 2021/7/12 16:46
+ * @since 2024/12/25
  */
 @Data
-public class CorpGroupIds implements CorpTagIterator {
-    private final Set<String> groupId;
+public class SmartFieldsRequest {
+    private final String docid;
+    private final String sheetId;
+    private String viewId;
+    private Set<String> fieldIds;
+    private Set<String> fieldTitles;
+    private Integer offset;
+    private Integer limit;
 }

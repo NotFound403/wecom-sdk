@@ -27,21 +27,35 @@ import lombok.ToString;
  * @author dax
  * @since 2024 /9/5
  */
-@ToString
+@ToString(callSuper = true)
 @Getter
 public class AttachmentSheetField extends SheetField {
     private final AttachmentFieldProperty propertyAttachment;
 
     /**
-     * Instantiates a new Attachment sheet field.
+     * Create attachment sheet field.
+     *
+     * @param fieldTitle         the field title
+     * @param attachmentProperty the attachment property
+     * @return the attachment sheet field
+     */
+    public static AttachmentSheetField create(String fieldTitle,
+                                              AttachmentFieldProperty attachmentProperty) {
+        return update(null, fieldTitle, attachmentProperty);
+    }
+
+    /**
+     * Update attachment sheet field.
      *
      * @param fieldId            the field id
-     * @param fieldType          the field type
-     * @param propertyAttachment the property attachment
+     * @param fieldTitle         the field title
+     * @param attachmentProperty the attachment property
+     * @return the attachment sheet field
      */
-    public AttachmentSheetField(String fieldId, SheetFieldType fieldType, AttachmentFieldProperty propertyAttachment) {
-        super(fieldId, fieldType);
-        this.propertyAttachment = propertyAttachment;
+    public static AttachmentSheetField update(String fieldId,
+                                              String fieldTitle,
+                                              AttachmentFieldProperty attachmentProperty) {
+        return new AttachmentSheetField(fieldId, SheetFieldType.FIELD_TYPE_ATTACHMENT, fieldTitle, attachmentProperty);
     }
 
     /**
@@ -50,14 +64,14 @@ public class AttachmentSheetField extends SheetField {
      * @param fieldId            the field id
      * @param fieldType          the field type
      * @param fieldTitle         the field title
-     * @param propertyAttachment the property attachment
+     * @param attachmentProperty the attachment property
      */
     @JsonCreator
-    public AttachmentSheetField(@JsonProperty("field_id") String fieldId,
-                                @JsonProperty("field_type") SheetFieldType fieldType,
-                                @JsonProperty("field_title") String fieldTitle,
-                                @JsonProperty("property_attachment") AttachmentFieldProperty propertyAttachment) {
+    AttachmentSheetField(@JsonProperty("field_id") String fieldId,
+                         @JsonProperty("field_type") SheetFieldType fieldType,
+                         @JsonProperty("field_title") String fieldTitle,
+                         @JsonProperty("property_attachment") AttachmentFieldProperty attachmentProperty) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyAttachment = propertyAttachment;
+        this.propertyAttachment = attachmentProperty;
     }
 }

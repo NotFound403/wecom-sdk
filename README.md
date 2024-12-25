@@ -37,8 +37,6 @@
 
 1. 代码完全开源，使用前请认真尝试样例工程
 2. 在尝试步骤1的前提下遇到问题经过一系列努力无法解决，请提issue，或者通过自行扩展代码解决
-3. 不再提供任何无偿人工服务，不要把自己当上帝
-4. 会持续维护迭代
 
 ## 🏆简介
 
@@ -111,7 +109,7 @@ void webHooks()throws IOException{
 <dependency>
     <groupId>cn.felord</groupId>
     <artifactId>wecom-sdk</artifactId>
-    <version>1.2.9</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -122,7 +120,7 @@ void webHooks()throws IOException{
 <dependency>
     <groupId>cn.felord</groupId>
     <artifactId>rx-wecom-sdk</artifactId>
-    <version>1.2.9</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -134,7 +132,7 @@ void webHooks()throws IOException{
 <dependency>
     <groupId>cn.felord</groupId>
     <artifactId>wecom-sdk</artifactId>
-    <version>1.2.9</version>
+    <version>1.3.0</version>
     <exclusions>
         <exclusion>
             <groupId>com.squareup.okhttp3</groupId>

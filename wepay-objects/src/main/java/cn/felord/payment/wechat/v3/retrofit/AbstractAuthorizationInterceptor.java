@@ -53,7 +53,7 @@ public abstract class AbstractAuthorizationInterceptor implements Interceptor {
     public Response intercept(@NotNull Chain chain) throws IOException {
         Request request = chain.request();
         Headers headers = request.headers();
-        String mediaBody = headers.get(HttpHeaders.META.headerName());
+        String mediaBody = headers.get(WechatHttpHeaders.META.headerName());
         String bodyStr = Optional.ofNullable(mediaBody)
                 .orElseGet(() ->
                         Optional.ofNullable(request.body())
@@ -62,15 +62,15 @@ public abstract class AbstractAuthorizationInterceptor implements Interceptor {
         HttpUrl httpUrl = request.url();
         String authorization = WechatPaySigner.sign(appMerchant, httpUrl.uri(), request.method(), bodyStr);
         Headers.Builder headerBuilder = headers.newBuilder();
-        String contentType = HttpHeaders.CONTENT_TYPE.headerName();
+        String contentType = WechatHttpHeaders.CONTENT_TYPE.headerName();
         if (Objects.isNull(headers.get(contentType))) {
             headerBuilder.set(contentType, APPLICATION_JSON_UTF_8);
         }
         Request requestWithAuth = request.newBuilder()
                 .url(httpUrl)
-                .header(HttpHeaders.AUTHORIZATION.headerName(), authorization)
-                .header(HttpHeaders.USER_AGENT.headerName(), USER_AGENT)
-                .header(HttpHeaders.ACCEPT.headerName(), "*/*")
+                .header(WechatHttpHeaders.AUTHORIZATION.headerName(), authorization)
+                .header(WechatHttpHeaders.USER_AGENT.headerName(), USER_AGENT)
+                .header(WechatHttpHeaders.ACCEPT.headerName(), "*/*")
                 .build();
         Response response = chain.proceed(requestWithAuth);
         if (!Objects.equals(DOWNLOAD_FILE_PATH, httpUrl.encodedPath())) {

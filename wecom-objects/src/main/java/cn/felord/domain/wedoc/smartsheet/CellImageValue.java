@@ -13,11 +13,19 @@
  * limitations under the License.
  */
 
-package cn.felord.domain.externalcontact;
+package cn.felord.domain.wedoc.smartsheet;
+
+import lombok.Data;
 
 /**
  * @author dax
- * @since 2021/7/12 16:45
+ * @since 2024/12/23
  */
-public interface CorpTagIterator {
+@Data
+public class CellImageValue {
+    private String id;
+    private String title;
+    private String imageUrl;
+    private String width;
+    private String height;
 }

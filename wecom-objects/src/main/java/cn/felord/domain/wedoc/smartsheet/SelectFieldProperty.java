@@ -41,7 +41,7 @@ public class SelectFieldProperty {
      * @param options    the options
      */
     @JsonCreator
-    public SelectFieldProperty(@JsonProperty("isQuickAdd") Boolean isQuickAdd,
+    public SelectFieldProperty(@JsonProperty("is_quick_add") Boolean isQuickAdd,
                                @JsonProperty("options") List<SelectFieldOption> options) {
         this.isQuickAdd = isQuickAdd;
         this.options = options;

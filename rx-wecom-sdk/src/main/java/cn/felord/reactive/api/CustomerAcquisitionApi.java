@@ -22,6 +22,8 @@ import cn.felord.domain.externalcontact.AcquisitionLink;
 import cn.felord.domain.externalcontact.AcquisitionLinkCreateRequest;
 import cn.felord.domain.externalcontact.AcquisitionLinkUpdateRequest;
 import cn.felord.domain.externalcontact.AcquisitionQuotaResponse;
+import cn.felord.domain.externalcontact.ChatInfoResponse;
+import cn.felord.domain.externalcontact.ChatKey;
 import cn.felord.domain.externalcontact.LinkCustomersResponse;
 import cn.felord.domain.externalcontact.LinkDetailResponse;
 import cn.felord.domain.externalcontact.LinkId;
@@ -40,7 +42,7 @@ import java.time.Instant;
  * 获客助手
  *
  * @author dax
- * @since 2024/5/30 21:28
+ * @since 2024 /5/30 21:28
  */
 public interface CustomerAcquisitionApi {
 
@@ -120,4 +122,16 @@ public interface CustomerAcquisitionApi {
     Single<LinkStatisticResponse> queryCustomerAcquisitionQuotas(@Query("link_id") String linkId,
                                                                  @Query("start_time") Instant startTime,
                                                                  @Query("end_time") Instant endTime);
+
+    /**
+     * 获取成员多次收消息详情
+     * <p>
+     * 企业和服务商可通过此接口获取成员多次收消息情况，如次数、客户id等信息。
+     *
+     * @param chatKey the chat key
+     * @return the chat info
+     * @since 1.2.9
+     */
+    @POST("externalcontact/customer_acquisition/get_chat_info")
+    Single<ChatInfoResponse> getChatInfo(@Body ChatKey chatKey);
 }

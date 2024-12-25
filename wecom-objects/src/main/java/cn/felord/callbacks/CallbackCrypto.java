@@ -32,6 +32,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * 提供接收和推送给企业微信消息的加解密接口(UTF8编码的字符串).
@@ -66,9 +67,8 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
         this.callbackSettingsService = callbackSettingsService;
     }
 
-
     /**
-     * 将企业微信回复用户的消息加密打包.
+     * 将企业微信回复用户的消息加密打包 JSON格式
      * <ol>
      * 	<li>对要发送的消息进行AES-CBC加密</li>
      * 	<li>生成安全签名</li>
@@ -89,7 +89,7 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
     }
 
     /**
-     * Encrypt xml msg string.
+     * 将企业微信回复用户的消息加密打包 XML格式
      *
      * @param agentId   the agent id
      * @param corpId    the corp id
@@ -105,7 +105,22 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
     }
 
     /**
-     * 检验XML消息的真实性，并且获取解密后的明文，用于消费回调数据，并自动响应POST回调请求.
+     * 检验XML消息的真实性，并且获取解密后的明文，直接返回success
+     *
+     * @param agentId      the agent id
+     * @param corpId       the corp id
+     * @param msgSignature the msg signature
+     * @param timeStamp    the time stamp
+     * @param nonce        the nonce
+     * @param xmlBody      the xml body
+     * @return the string
+     */
+    public String accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody) {
+        return this.accept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, "success");
+    }
+
+    /**
+     * 检验XML消息的真实性，并且获取解密后的明文，用于消费回调数据，响应体自定义
      * <ol>
      * 	<li>利用收到的密文生成安全签名，进行签名验证</li>
      * 	<li>若验证通过，则提取json中的加密消息</li>
@@ -123,78 +138,26 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
      * @return the response
      */
     public <R> R accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, R response) {
-        return this.doAccept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, response);
+        return this.doAccept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, callbackEventBody -> response);
     }
 
     /**
-     * Accept string.
+     * 检验XML消息的真实性，并且获取解密后的明文，用于消费回调数据，响应根据回调请求自定义处理
+     * <p>
+     * 响应需要使用{@code encryptXmlMsg}或{@code encryptJsonMsg}进行处理
      *
+     * @param <R>          the type parameter
      * @param agentId      the agent id
      * @param corpId       the corp id
      * @param msgSignature the msg signature
      * @param timeStamp    the time stamp
      * @param nonce        the nonce
      * @param xmlBody      the xml body
-     * @return the string
-     * @throws WeComException the we com callback exception
+     * @param response     the response
+     * @return the r
      */
-    public String accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody) {
-        return this.doAccept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, "success");
-    }
-
-    private <T> T doAccept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, T response) {
-        CallbackXmlBody callbackXmlBody = this.readXml(xmlBody, CallbackXmlBody.class);
-        String encrypt = callbackXmlBody.getEncrypt();
-        CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
-        String xml = this.decryptMsg(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
-        CallbackEventBody eventBody = this.readXml(xml, CallbackEventBody.class);
-        eventBody.setAgentId(agentId);
-        // 唯一性判断
-        eventBody.setMsgSignature(msgSignature);
-        // begin 用来记录追踪
-        eventBody.setTimeStamp(timeStamp);
-        eventBody.setNonce(nonce);
-        eventBody.setEncrypt(encrypt);
-        eventBody.setXmlAgentId(callbackXmlBody.getAgentId());
-        eventBody.setOriginalXml(xml);
-        // end 用来记录追踪
-        // begin 处理支付
-        PayCallbackEventType eventType = eventBody.getEventType();
-        if (Objects.nonNull(eventType)) {
-            this.payCallback(eventBody, callbackSettings);
-        }
-        // end 处理支付
-        return this.accept(eventBody, response);
-    }
-
-    private void payCallback(CallbackEventBody eventBody, CallbackSettings callbackSettings) {
-        CallbackResource resource = eventBody.getResource();
-        String associatedData = resource.getAssociatedData();
-        String nonce = resource.getNonce();
-        String ciphertext = resource.getCiphertext();
-        String json = Algorithms.aesDecode(callbackSettings.getAesKey(), associatedData, nonce, ciphertext);
-        PayCallbackEventType eventType = eventBody.getEventType();
-
-        if (Objects.equals(eventType, PayCallbackEventType.TRANSACTION_SUCCESS)) {
-            try {
-                TransactionCallbackData transactionCallbackData = MAPPER.readValue(json, TransactionCallbackData.class);
-                eventBody.setTransactionCallbackData(transactionCallbackData);
-            } catch (JsonProcessingException e) {
-                throw new WeComException("pay transaction callback error on json conversion", e);
-            }
-        }
-        if (Objects.equals(eventType, PayCallbackEventType.REFUND_CLOSED) ||
-                Objects.equals(eventType, PayCallbackEventType.REFUND_ABNORMAL) ||
-                Objects.equals(eventType, PayCallbackEventType.REFUND_SUCCESS)) {
-            eventBody.setEvent(CallbackEvent.PAY_REFUND);
-            try {
-                RefundCallbackData refundCallbackData = MAPPER.readValue(json, RefundCallbackData.class);
-                eventBody.setRefundCallbackData(refundCallbackData);
-            } catch (JsonProcessingException e) {
-                throw new WeComException("pay refund callback error on json conversion", e);
-            }
-        }
-        eventBody.setMsgType("event");
+    public <R> R accept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, Function<CallbackEventBody, R> response) {
+        return this.doAccept(agentId, corpId, msgSignature, timeStamp, nonce, xmlBody, response);
     }
 
     /**
@@ -233,7 +196,6 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
         return decrypted.getContent();
     }
 
-
     /**
      * 不校验 receiveid
      *
@@ -242,7 +204,7 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
      * @param timeStamp        the time stamp
      * @param nonce            the nonce
      * @param encrypt          the encrypt
-     * @return string
+     * @return string callback decrypted
      */
     public CallbackDecrypted doDecryptMsg(CallbackSettings callbackSettings, String msgSignature, String timeStamp, String nonce, String encrypt) {
         String token = callbackSettings.getToken();
@@ -251,5 +213,60 @@ public class CallbackCrypto extends AbstractCallbackCrypto<CallbackEventBody> {
             throw new WeComException("callback signature not matched");
         }
         return this.decrypt(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
+    }
+
+    private <T> T doAccept(String agentId, String corpId, String msgSignature, String timeStamp, String nonce, String xmlBody, Function<CallbackEventBody, T> response) {
+        CallbackXmlBody callbackXmlBody = this.readXml(xmlBody, CallbackXmlBody.class);
+        String encrypt = callbackXmlBody.getEncrypt();
+        CallbackSettings callbackSettings = this.callbackSettingsService.loadAuthentication(agentId, corpId);
+        String xml = this.decryptMsg(callbackSettings, msgSignature, timeStamp, nonce, encrypt);
+        CallbackEventBody eventBody = this.readXml(xml, CallbackEventBody.class);
+        eventBody.setAgentId(agentId);
+        // 唯一性判断
+        eventBody.setMsgSignature(msgSignature);
+        // begin 用来记录追踪
+        eventBody.setTimeStamp(timeStamp);
+        eventBody.setNonce(nonce);
+        eventBody.setEncrypt(encrypt);
+        eventBody.setXmlAgentId(callbackXmlBody.getAgentId());
+        eventBody.setOriginalXml(xml);
+        // end 用来记录追踪
+        // begin 处理支付
+        PayCallbackEventType eventType = eventBody.getEventType();
+        if (Objects.nonNull(eventType)) {
+            this.payCallback(eventBody, callbackSettings);
+        }
+        // end 处理支付
+        return this.accept(eventBody, response.apply(eventBody));
+    }
+
+    private void payCallback(CallbackEventBody eventBody, CallbackSettings callbackSettings) {
+        CallbackResource resource = eventBody.getResource();
+        String associatedData = resource.getAssociatedData();
+        String nonce = resource.getNonce();
+        String ciphertext = resource.getCiphertext();
+        String json = Algorithms.aesDecode(callbackSettings.getAesKey(), associatedData, nonce, ciphertext);
+        PayCallbackEventType eventType = eventBody.getEventType();
+
+        if (Objects.equals(eventType, PayCallbackEventType.TRANSACTION_SUCCESS)) {
+            try {
+                TransactionCallbackData transactionCallbackData = MAPPER.readValue(json, TransactionCallbackData.class);
+                eventBody.setTransactionCallbackData(transactionCallbackData);
+            } catch (JsonProcessingException e) {
+                throw new WeComException("pay transaction callback error on json conversion", e);
+            }
+        }
+        if (Objects.equals(eventType, PayCallbackEventType.REFUND_CLOSED) ||
+                Objects.equals(eventType, PayCallbackEventType.REFUND_ABNORMAL) ||
+                Objects.equals(eventType, PayCallbackEventType.REFUND_SUCCESS)) {
+            eventBody.setEvent(CallbackEvent.PAY_REFUND);
+            try {
+                RefundCallbackData refundCallbackData = MAPPER.readValue(json, RefundCallbackData.class);
+                eventBody.setRefundCallbackData(refundCallbackData);
+            } catch (JsonProcessingException e) {
+                throw new WeComException("pay refund callback error on json conversion", e);
+            }
+        }
+        eventBody.setMsgType("event");
     }
 }

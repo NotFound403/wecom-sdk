@@ -13,17 +13,18 @@
  * limitations under the License.
  */
 
-package cn.felord.domain.externalcontact;
+package cn.felord.domain.wedoc.smartsheet;
 
 import lombok.Data;
 
-import java.util.Set;
+import java.util.Map;
 
 /**
  * @author dax
- * @since 2021/7/12 16:46
+ * @since 2024/12/24
  */
 @Data
-public class CorpTagIds implements CorpTagIterator {
-    private final Set<String> tagId;
+public class RecordResult {
+    private String recordId;
+    private Map<String, Object> values;
 }

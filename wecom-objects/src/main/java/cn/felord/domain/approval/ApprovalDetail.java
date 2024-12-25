@@ -37,6 +37,8 @@ public class ApprovalDetail {
     private String templateId;
     private Instant applyTime;
     private DeptUserMap applyer;
+    // 批量申请人信息（和applyer字段互斥）
+    private UserId batchApplyer;
     private List<SpRecordItem> spRecord;
     private List<UserId> notifyer;
     private ApplyData<ApplyContentData<?>> applyData;
