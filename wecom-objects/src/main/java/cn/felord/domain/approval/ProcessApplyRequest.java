@@ -45,12 +45,12 @@ public class ProcessApplyRequest extends AbstractApprovalApplyRequest {
      * @param summaryList   摘要不超过3行，每行不超过20个字
      * @return the approval apply request
      */
-    public static ProcessApplyRequest approverMode(String creatorUserid,
-                                                   String templateId,
-                                                   List<ProcessNode> nodeList,
-                                                   List<TmpControl<? extends ControlConfig>> controls,
-                                                   List<? extends ContentDataValue> dataValues,
-                                                   List<Summary> summaryList) {
+    public static ProcessApplyRequest approveMode(String creatorUserid,
+                                                  String templateId,
+                                                  List<ProcessNode> nodeList,
+                                                  List<TmpControl<? extends ControlConfig>> controls,
+                                                  List<? extends ContentDataValue> dataValues,
+                                                  List<Summary> summaryList) {
         return new ProcessApplyRequest(creatorUserid,
                 templateId,
                 applyData(controls, dataValues),

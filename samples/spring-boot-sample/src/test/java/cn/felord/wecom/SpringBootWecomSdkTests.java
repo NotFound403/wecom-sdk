@@ -402,7 +402,7 @@ class SpringBootWecomSdkTests {
                 ProcessNode.cc(Collections.singletonList("3804"))
 
         );
-        GenericResponse<String> stringGenericResponse = approvalApi.applyEvent(ProcessApplyRequest.approverMode("3958",
+        GenericResponse<String> stringGenericResponse = approvalApi.applyEvent(ProcessApplyRequest.approveMode("3958",
                 templateId,
                 nodeList,
                 templateDetail.getTemplateContent().getControls(),
