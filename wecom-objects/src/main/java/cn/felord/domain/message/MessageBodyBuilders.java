@@ -45,6 +45,16 @@ public final class MessageBodyBuilders {
     }
 
     /**
+     * 文本消息
+     *
+     * @param content the content
+     * @return the text message body . builder
+     */
+    public static TextMessageBody.Builder textMessageBodyBuilder(String content) {
+        return textMessageBodyBuilder(new ContentText(content));
+    }
+
+    /**
      * 图片消息
      *
      * @param image the image
@@ -55,6 +65,16 @@ public final class MessageBodyBuilders {
     }
 
     /**
+     * 图片消息
+     *
+     * @param mediaId the media id
+     * @return the image message body . builder
+     */
+    public static ImageMessageBody.Builder imageMessageBodyBuilder(String mediaId) {
+        return imageMessageBodyBuilder(MediaId.of(mediaId));
+    }
+
+    /**
      * 语音消息
      *
      * @param voice the voice
@@ -62,6 +82,16 @@ public final class MessageBodyBuilders {
      */
     public static VoiceMessageBody.Builder voiceMessageBodyBuilder(MediaId voice) {
         return new VoiceMessageBody.Builder(voice);
+    }
+
+    /**
+     * 语音消息
+     *
+     * @param mediaId the media id
+     * @return the voice message body . builder
+     */
+    public static VoiceMessageBody.Builder voiceMessageBodyBuilder(String mediaId) {
+        return voiceMessageBodyBuilder(MediaId.of(mediaId));
     }
 
     /**
@@ -85,13 +115,23 @@ public final class MessageBodyBuilders {
     }
 
     /**
+     * 文件消息
+     *
+     * @param mediaId the media id
+     * @return the file message body . builder
+     */
+    public static FileMessageBody.Builder fileMessageBodyBuilder(String mediaId) {
+        return fileMessageBodyBuilder(MediaId.of(mediaId));
+    }
+
+    /**
      * 文本卡片消息
      *
-     * @param textcard the textcard
+     * @param textCard the textCard
      * @return the text card message body . builder
      */
-    public static TextCardMessageBody.Builder textCardMessageBodyBuilder(MessageTextCard textcard) {
-        return new TextCardMessageBody.Builder(textcard);
+    public static TextCardMessageBody.Builder textCardMessageBodyBuilder(MessageTextCard textCard) {
+        return new TextCardMessageBody.Builder(textCard);
     }
 
     /**
@@ -144,6 +184,16 @@ public final class MessageBodyBuilders {
      */
     public static MarkdownMessageBody.Builder markdownMessageBodyBuilder(ContentText markdown) {
         return new MarkdownMessageBody.Builder(markdown);
+    }
+
+    /**
+     * markdown消息
+     *
+     * @param content the content
+     * @return the markdown message body . builder
+     */
+    public static MarkdownMessageBody.Builder markdownMessageBodyBuilder(String content) {
+        return markdownMessageBodyBuilder(new ContentText(content));
     }
 
     /**

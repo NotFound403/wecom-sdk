@@ -43,9 +43,6 @@ public class TokenInterceptor implements Interceptor {
     private static final String ACCESS_TOKEN_KEY = "access_token";
     private static final String INVALID_ACCESS_TOKEN = "42001";
     private static final String BAD_ACCESS_TOKEN = "40014";
-    /**
-     * The constant MAPPER.
-     */
     public static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
     private static final MediaType JSON_UTF_8 = MediaType.parse("application/json; charset=UTF-8");
     private static final MediaType JSON = MediaType.parse("application/json");
@@ -87,6 +84,7 @@ public class TokenInterceptor implements Interceptor {
                 response.close();
                 return doRequest(chain);
             }
+            // 暂时这样处理  企微异常码不纯粹
             if (Objects.equals(BAD_ACCESS_TOKEN, errorCode)) {
                 throw new WeComException(Integer.valueOf(BAD_ACCESS_TOKEN), "illegal access token");
             }
@@ -101,15 +99,15 @@ public class TokenInterceptor implements Interceptor {
                     try (Buffer buffer = source.getBuffer().clone()) {
                         String json = buffer.readUtf8();
                         WeComResponse weComResponse = MAPPER.readValue(json, WeComResponse.class);
-                        Integer errcode = weComResponse.getErrcode();
-                        String errCodeStr = String.valueOf(errcode);
+                        Integer errCode = weComResponse.getErrcode();
+                        String errCodeStr = String.valueOf(errCode);
                         if (Objects.equals(INVALID_ACCESS_TOKEN, errCodeStr)) {
                             tokenApi.clearToken();
                             response.close();
                             return doRequest(chain);
                         }
                         if (Objects.equals(BAD_ACCESS_TOKEN, errCodeStr)) {
-                            throw new WeComException(errcode, "illegal access token");
+                            throw new WeComException(errCode, "illegal access token");
                         }
                     }
                 }

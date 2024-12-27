@@ -489,7 +489,7 @@ class SpringBootWecomSdkTests {
         // 审批人模式：0-通过接口指定审批人、抄送人（此时approver、notifyer等参数可用）;
         // 1-使用此模板在管理后台设置的审批流程(需要保证审批流程中没有“申请人自选”节点)，支持条件审批。
         // 这里使用 0
-        ApprovalApplyRequest request = ApprovalApplyRequest.approverMode(
+        ApprovalApplyRequest request = ApprovalApplyRequest.approveMode(
                 "1233",
                 templateId,
                 approver,
