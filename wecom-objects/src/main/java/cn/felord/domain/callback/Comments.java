@@ -16,9 +16,11 @@
 package cn.felord.domain.callback;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Data;
 
 import java.time.Instant;
+import java.util.List;
 
 /**
  * 备注
@@ -36,5 +38,7 @@ public class Comments {
     private String commentContent;
     @XStreamAlias("CommentId")
     private String commentId;
+    @XStreamImplicit(itemFieldName = "Attach")
+    private List<String> attaches;
 }
 
