@@ -29,15 +29,15 @@ import java.util.Objects;
  */
 public enum SmartSheetType {
     /**
-     * 经营者/法人
+     * dashboard
      */
     DASHBOARD("dashboard"),
     /**
-     * 经办人
+     * external
      */
     EXTERNAL("external"),
     /**
-     * Smartsheet smart sheet type.
+     * smartsheet
      */
     SMARTSHEET("smartsheet");
 
