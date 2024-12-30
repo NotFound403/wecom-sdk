@@ -32,6 +32,7 @@ import cn.felord.domain.corpay.miniapppay.callback.RefundCallbackData;
 import cn.felord.domain.corpay.miniapppay.callback.TransactionCallbackData;
 import cn.felord.enumeration.CallbackChangeType;
 import cn.felord.enumeration.CallbackEvent;
+import cn.felord.enumeration.CallbackTagType;
 import cn.felord.enumeration.ChatGroupJoinScene;
 import cn.felord.enumeration.ChatGroupQuitScene;
 import cn.felord.enumeration.NotifyType;
@@ -211,7 +212,7 @@ public class CallbackEventBody implements XmlEntity {
 
     //  tagId -> idOrTagId;
     @XStreamAlias("TagType")
-    private String tagType;
+    private CallbackTagType tagType;
     @XStreamAlias("StrategyId")
     private Integer strategyId;
 

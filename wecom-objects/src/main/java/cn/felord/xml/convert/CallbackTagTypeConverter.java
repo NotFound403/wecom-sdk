@@ -14,7 +14,7 @@
  */
 package cn.felord.xml.convert;
 
-import cn.felord.enumeration.CallbackChangeType;
+import cn.felord.enumeration.CallbackTagType;
 import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 
 import java.util.Arrays;
@@ -27,11 +27,11 @@ import java.util.Objects;
  * @author dax
  * @since 1.1.1
  */
-public class CallbackChangeTypeConverter extends AbstractSingleValueConverter {
+public class CallbackTagTypeConverter extends AbstractSingleValueConverter {
 
     @Override
     public boolean canConvert(Class type) {
-        return type != null && CallbackChangeType.class.isAssignableFrom(type);
+        return type != null && CallbackTagType.class.isAssignableFrom(type);
     }
 
     @Override
@@ -39,13 +39,13 @@ public class CallbackChangeTypeConverter extends AbstractSingleValueConverter {
         if (Objects.isNull(obj)) {
             return null;
         }
-        CallbackChangeType changeType = (CallbackChangeType) obj;
-        return changeType.type();
+        CallbackTagType tagType = (CallbackTagType) obj;
+        return tagType.type();
     }
 
     @Override
     public Object fromString(String str) {
-        return Arrays.stream(CallbackChangeType.values())
+        return Arrays.stream(CallbackTagType.values())
                 .filter(changeType -> Objects.equals(changeType.type(), str))
                 .findFirst()
                 .orElse(null);
