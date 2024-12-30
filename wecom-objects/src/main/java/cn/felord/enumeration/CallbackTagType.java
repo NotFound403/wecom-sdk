@@ -15,26 +15,38 @@
 
 package cn.felord.enumeration;
 
+import cn.felord.xml.convert.CallbackTagTypeConverter;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+
 /**
- * TODO
+ * The enum Callback tag type.
+ *
  * @author dax
- * @since 2024/9/19
+ * @since 2024 /12/27
  */
-public enum CallbackReplyMsgType {
-    TEXT("text"),
-    IMAGE("image"),
-    VOICE("voice"),
-    VIDEO("video"),
-    LOCATION("location"),
-    LINK("link");
+@XStreamConverter(CallbackTagTypeConverter.class)
+public enum CallbackTagType {
+    /**
+     * Tag group callback tag type.
+     */
+    TAG_GROUP("tag_group"),
+    /**
+     * Tag callback tag type.
+     */
+    TAG("tag");
 
-    private final String msgType;
+    private final String type;
 
-    CallbackReplyMsgType(String msgType) {
-        this.msgType = msgType;
+    CallbackTagType(String type) {
+        this.type = type;
     }
 
-    public String value() {
-        return msgType;
+    /**
+     * Event string.
+     *
+     * @return the string
+     */
+    public String type() {
+        return type;
     }
 }

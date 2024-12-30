@@ -51,14 +51,14 @@ public class ApprovalApplyRequest extends AbstractApprovalApplyRequest {
      * @param summaryList   摘要不超过3行，每行不超过20个字
      * @return the approval apply request
      */
-    public static ApprovalApplyRequest approverMode(String creatorUserid,
-                                                    String templateId,
-                                                    List<Approver> approver,
-                                                    List<TmpControl<? extends ControlConfig>> controls,
-                                                    List<? extends ContentDataValue> dataValues,
-                                                    List<Summary> summaryList) {
+    public static ApprovalApplyRequest approveMode(String creatorUserid,
+                                                   String templateId,
+                                                   List<Approver> approver,
+                                                   List<TmpControl<? extends ControlConfig>> controls,
+                                                   List<? extends ContentDataValue> dataValues,
+                                                   List<Summary> summaryList) {
 
-        return approverMode(creatorUserid,
+        return approveMode(creatorUserid,
                 templateId,
                 approver,
                 controls,
@@ -84,14 +84,14 @@ public class ApprovalApplyRequest extends AbstractApprovalApplyRequest {
      * @param notifyType    抄送类型
      * @return the approval apply request
      */
-    public static ApprovalApplyRequest approverMode(String creatorUserid,
-                                                    String templateId,
-                                                    List<Approver> approver,
-                                                    List<TmpControl<? extends ControlConfig>> controls,
-                                                    List<? extends ContentDataValue> dataValues,
-                                                    List<Summary> summaryList,
-                                                    List<String> notifyer,
-                                                    ApprovalNotifyType notifyType) {
+    public static ApprovalApplyRequest approveMode(String creatorUserid,
+                                                   String templateId,
+                                                   List<Approver> approver,
+                                                   List<TmpControl<? extends ControlConfig>> controls,
+                                                   List<? extends ContentDataValue> dataValues,
+                                                   List<Summary> summaryList,
+                                                   List<String> notifyer,
+                                                   ApprovalNotifyType notifyType) {
         return new ApprovalApplyRequest(creatorUserid,
                 templateId,
                 applyData(controls, dataValues),

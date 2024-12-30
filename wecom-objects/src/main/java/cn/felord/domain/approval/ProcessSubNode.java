@@ -18,6 +18,7 @@ package cn.felord.domain.approval;
 import cn.felord.domain.callback.CallbackUserId;
 import cn.felord.enumeration.ProcessNodeStatus;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -53,9 +54,8 @@ public class ProcessSubNode {
     private Instant sptime;
     /**
      * 附件
-     * TODO 没有明确回调样例，暂时忽略
      */
-    @XStreamAlias("MediaIds")
+    @XStreamImplicit(itemFieldName = "MediaIds")
     private List<String> mediaIds;
     /**
      * 回调专用，不对外暴露getter
