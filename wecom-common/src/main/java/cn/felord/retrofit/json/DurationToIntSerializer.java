@@ -28,7 +28,7 @@ import java.time.temporal.ChronoUnit;
  * @author dax
  * @since 2025/1/3
  */
-public class DurationtoIntSerializer extends JsonSerializer<Duration> {
+public class DurationToIntSerializer extends JsonSerializer<Duration> {
 
     @Override
     public void serialize(Duration value, JsonGenerator gen, SerializerProvider serializers) throws IOException {

@@ -16,7 +16,7 @@
 package cn.felord.domain.approval;
 
 import cn.felord.enumeration.DateRangeType;
-import cn.felord.retrofit.json.DurationtoIntSerializer;
+import cn.felord.retrofit.json.DurationToIntSerializer;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -50,9 +50,9 @@ public class DateRangeWrapper {
     /**
      * 请假时长，单位秒 当slice_info有值时，无需填写，系统会根据slice_info 计算总时长
      */
-    @JsonSerialize(using = DurationtoIntSerializer.class)
+    @JsonSerialize(using = DurationToIntSerializer.class)
     private final Duration newDuration;
-    @JsonSerialize(using = DurationtoIntSerializer.class)
+    @JsonSerialize(using = DurationToIntSerializer.class)
     private final Duration perdayDuration;
     /**
      * 时区信息，只有在非UTC+8的情况下会返回
