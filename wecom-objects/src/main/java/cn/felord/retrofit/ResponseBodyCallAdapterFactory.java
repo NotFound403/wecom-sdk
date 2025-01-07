@@ -19,6 +19,7 @@ import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.utils.StringUtils;
 import okhttp3.Headers;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Response;
@@ -46,7 +47,7 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
     }
 
     @Override
-    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+    public CallAdapter<?, ?> get(@NotNull Type returnType, @NotNull Annotation[] annotations, @NotNull Retrofit retrofit) {
         Class<?> rawType = getRawType(returnType);
         if (Void.TYPE.isAssignableFrom(rawType)) {
             return null;
@@ -84,11 +85,13 @@ final class ResponseBodyCallAdapterFactory extends CallAdapter.Factory {
             this.returnType = returnType;
         }
 
+        @NotNull
         @Override
         public Type responseType() {
             return this.returnType;
         }
 
+        @NotNull
         @Override
         public R adapt(Call<R> call) {
 

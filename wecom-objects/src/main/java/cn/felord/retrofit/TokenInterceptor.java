@@ -44,7 +44,7 @@ public class TokenInterceptor implements Interceptor {
     private static final String INVALID_ACCESS_TOKEN = "42001";
     private static final String BAD_ACCESS_TOKEN = "40014";
     public static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
-    private static final MediaType JSON_UTF_8 = MediaType.parse("application/json; charset=UTF-8");
+    private static final MediaType JSON_UTF_8 = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType JSON = MediaType.parse("application/json");
     private static final String ERROR_CODE_HEADER = "error-code";
     private final TokenApi tokenApi;

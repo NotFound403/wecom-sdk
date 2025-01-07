@@ -124,6 +124,28 @@ void webHooks()throws IOException{
 </dependency>
 ```
 
+- 如何查找想要的API?
+
+由于实现的太全了，想要准确找到API，你可以这样：
+
+```java
+public interface TagApi {
+
+    /**
+     * 创建标签
+     *
+     * @param request the request
+     * @return GenericResponse generic response
+     * @throws WeComException the weComException
+     */
+    @POST("tag/create")
+    GenericResponse<String> createTag(@Body Tag request) throws WeComException;
+}    
+```
+
+先去企业微信API文档找到你需要的API，比如创建标签
+`https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token=ACCESS_TOKEN` ，截取 `tag/create` 全局搜索即可。
+
 - Okhttp低版本兼容依赖
 
 > 会报错NoSuchMethod的是因为你项目本身引入了Okhttp，但是版本比较低，导致不兼容的情况，可通过以下依赖引入wecom-sdk
