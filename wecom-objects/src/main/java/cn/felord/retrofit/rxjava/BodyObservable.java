@@ -15,26 +15,17 @@
  */
 package cn.felord.retrofit.rxjava;
 
-import cn.felord.WeComException;
-import cn.felord.domain.WeComResponse;
-import cn.felord.utils.StringUtils;
+import cn.felord.retrofit.WecomResponseBodyExtractor;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.exceptions.CompositeException;
 import io.reactivex.rxjava3.exceptions.Exceptions;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
-import okhttp3.Headers;
 import retrofit2.HttpException;
 import retrofit2.Response;
 
-import java.util.Objects;
-
 final class BodyObservable<T> extends Observable<T> {
-
-    private static final String ERROR_CODE_HEADER = "error-code";
-    private static final String ERROR_MSG_HEADER = "error-msg";
-    private static final String SUCCESS_CODE = "0";
 
     private final Observable<Response<T>> upstream;
 
@@ -63,24 +54,7 @@ final class BodyObservable<T> extends Observable<T> {
         @Override
         public void onNext(Response<R> response) {
             if (response.isSuccessful()) {
-
-                Headers headers = response.headers();
-                String errorCode = headers.get(ERROR_CODE_HEADER);
-                // 通常不需要解析
-                if (StringUtils.hasText(errorCode)) {
-                    if (!Objects.equals(SUCCESS_CODE, errorCode)) {
-                        throw new WeComException(Integer.parseInt(errorCode), headers.get(ERROR_MSG_HEADER));
-                    }
-                } else {
-                    R body = response.body();
-                    if (body != null && WeComResponse.class.isAssignableFrom(body.getClass())) {
-                        WeComResponse weComResponse = (WeComResponse) body;
-                        if (weComResponse.isError()) {
-                            throw new WeComException(weComResponse.getErrcode(), weComResponse.getErrmsg());
-                        }
-                    }
-                }
-                observer.onNext(response.body());
+                observer.onNext(WecomResponseBodyExtractor.extract(response));
             } else {
                 terminated = true;
                 Throwable t = new HttpException(response);
