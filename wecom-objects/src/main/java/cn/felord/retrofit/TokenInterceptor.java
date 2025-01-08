@@ -48,6 +48,7 @@ public class TokenInterceptor implements Interceptor {
     private static final MediaType JSON_UTF8 = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType JSON = MediaType.parse("application/json");
     private static final String ERROR_CODE_HEADER = "error-code";
+    private static final String USER_AGENT_HEADER = "User-Agent";
     private final TokenApi tokenApi;
     private final String tokenParam;
     private final boolean debug;
@@ -135,7 +136,7 @@ public class TokenInterceptor implements Interceptor {
                 .build();
 
         Request requestWithAccessToken = request.newBuilder()
-                .header("User-Agent", WecomUserAgent.WECOM_USER_AGENT)
+                .header(USER_AGENT_HEADER, WecomUserAgent.WECOM_USER_AGENT)
                 .url(httpUrl)
                 .build();
         return chain.proceed(requestWithAccessToken);
