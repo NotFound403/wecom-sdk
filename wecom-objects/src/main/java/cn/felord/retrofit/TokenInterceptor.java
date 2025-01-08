@@ -44,7 +44,8 @@ public class TokenInterceptor implements Interceptor {
     private static final String INVALID_ACCESS_TOKEN = "42001";
     private static final String BAD_ACCESS_TOKEN = "40014";
     public static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
-    private static final MediaType JSON_UTF_8 = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType JSON_UTF_8 = MediaType.parse("application/json; charset=UTF-8");
+    private static final MediaType JSON_UTF8 = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType JSON = MediaType.parse("application/json");
     private static final String ERROR_CODE_HEADER = "error-code";
     private final TokenApi tokenApi;
@@ -93,7 +94,9 @@ public class TokenInterceptor implements Interceptor {
             if (body != null) {
                 //application/octet-stream
                 MediaType mediaType = body.contentType();
-                if (Objects.equals(JSON_UTF_8, mediaType) || Objects.equals(JSON, mediaType)) {
+                if (Objects.equals(JSON_UTF_8, mediaType)
+                        || Objects.equals(JSON, mediaType)
+                        || Objects.equals(JSON_UTF8, mediaType)) {
                     BufferedSource source = body.source();
                     source.request(Long.MAX_VALUE);
                     try (Buffer buffer = source.getBuffer().clone()) {
