@@ -19,6 +19,7 @@ import io.reactivex.rxjava3.core.BackpressureStrategy;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
@@ -58,13 +59,15 @@ final class RxJava3CallAdapter<R> implements CallAdapter<R, Object> {
         this.isCompletable = isCompletable;
     }
 
+    @NotNull
     @Override
     public Type responseType() {
         return responseType;
     }
 
+    @NotNull
     @Override
-    public Object adapt(Call<R> call) {
+    public Object adapt(@NotNull Call<R> call) {
         Observable<Response<R>> responseObservable =
                 isAsync ? new CallEnqueueObservable<>(call) : new CallExecuteObservable<>(call);
 
