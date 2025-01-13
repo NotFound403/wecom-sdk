@@ -31,7 +31,7 @@ import java.util.List;
 @ToString
 @Getter
 public class SheetBatchUpdateResponse {
-    private final List<SheetBatchUpdateResponse> responses;
+    private final List<SheetUpdateResponse> responses;
 
     /**
      * Instantiates a new Sheet batch update response.
@@ -39,7 +39,7 @@ public class SheetBatchUpdateResponse {
      * @param responses the responses
      */
     @JsonCreator
-    SheetBatchUpdateResponse(@JsonProperty("responses") List<SheetBatchUpdateResponse> responses) {
+    SheetBatchUpdateResponse(@JsonProperty("responses") List<SheetUpdateResponse> responses) {
         this.responses = responses;
     }
 }
