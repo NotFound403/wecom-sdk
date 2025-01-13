@@ -45,8 +45,10 @@ public class TokenInterceptor implements Interceptor {
     private static final String BAD_ACCESS_TOKEN = "40014";
     public static final ObjectMapper MAPPER = JacksonObjectMapperFactory.create();
     private static final MediaType JSON_UTF_8 = MediaType.parse("application/json; charset=UTF-8");
+    private static final MediaType JSON_UTF8 = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType JSON = MediaType.parse("application/json");
     private static final String ERROR_CODE_HEADER = "error-code";
+    private static final String USER_AGENT_HEADER = "User-Agent";
     private final TokenApi tokenApi;
     private final String tokenParam;
     private final boolean debug;
@@ -93,7 +95,9 @@ public class TokenInterceptor implements Interceptor {
             if (body != null) {
                 //application/octet-stream
                 MediaType mediaType = body.contentType();
-                if (Objects.equals(JSON_UTF_8, mediaType) || Objects.equals(JSON, mediaType)) {
+                if (Objects.equals(JSON_UTF_8, mediaType)
+                        || Objects.equals(JSON, mediaType)
+                        || Objects.equals(JSON_UTF8, mediaType)) {
                     BufferedSource source = body.source();
                     source.request(Long.MAX_VALUE);
                     try (Buffer buffer = source.getBuffer().clone()) {
@@ -132,7 +136,7 @@ public class TokenInterceptor implements Interceptor {
                 .build();
 
         Request requestWithAccessToken = request.newBuilder()
-                .header("User-Agent", WecomUserAgent.WECOM_USER_AGENT)
+                .header(USER_AGENT_HEADER, WecomUserAgent.WECOM_USER_AGENT)
                 .url(httpUrl)
                 .build();
         return chain.proceed(requestWithAccessToken);

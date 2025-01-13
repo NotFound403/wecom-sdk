@@ -19,6 +19,7 @@ import cn.felord.enumeration.SliceState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.Duration;
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.List;
  * @author dax
  * @since 2023 /12/19
  */
+@ToString
 @Getter
 public class SliceInfo {
     private final Duration duration;

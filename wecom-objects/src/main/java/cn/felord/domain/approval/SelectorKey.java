@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * The type Selector key.
  *
@@ -30,7 +32,7 @@ import lombok.ToString;
 @Getter
 public class SelectorKey {
     private final String key;
-    private final ApprovalTitle value;
+    private final List<ApprovalTitle> value;
 
 
     /**
@@ -49,7 +51,7 @@ public class SelectorKey {
      * @param value the value
      */
     @JsonCreator
-    SelectorKey(@JsonProperty("key") String key, @JsonProperty("value") ApprovalTitle value) {
+    SelectorKey(@JsonProperty("key") String key, @JsonProperty("value") List<ApprovalTitle> value) {
         this.key = key;
         this.value = value;
     }

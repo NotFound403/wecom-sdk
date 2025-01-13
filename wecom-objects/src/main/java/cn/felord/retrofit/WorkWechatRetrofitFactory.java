@@ -16,6 +16,7 @@
 package cn.felord.retrofit;
 
 import cn.felord.retrofit.json.JsonConverterFactory;
+import cn.felord.retrofit.rxjava.RxJava3SingleCallAdapterFactory;
 import cn.felord.retrofit.ssl.SSLManager;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
@@ -58,7 +59,7 @@ public final class WorkWechatRetrofitFactory {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient(tokenApi, connectionPool, level))
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava3SingleCallAdapterFactory.createSynchronous())
                 .addCallAdapterFactory(ResponseBodyCallAdapterFactory.INSTANCE)
                 .addConverterFactory(JsonConverterFactory.create())
                 .build();

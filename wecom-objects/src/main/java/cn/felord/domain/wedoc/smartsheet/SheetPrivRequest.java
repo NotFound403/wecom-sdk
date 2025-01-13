@@ -20,14 +20,13 @@ import lombok.Data;
 import java.util.Set;
 
 /**
- * The type Sheet auth request.
- * todo
+ * The type Sheet priv request.
  *
  * @author dax
  * @since 2024 /12/25
  */
 @Data
-public class SheetAuthRequest {
+public class SheetPrivRequest {
     private final String docid;
     private final Integer type;
     private final Set<String> ruleIdList;
@@ -39,7 +38,7 @@ public class SheetAuthRequest {
      * @param type       the type
      * @param ruleIdList the rule id list
      */
-    SheetAuthRequest(String docid, Integer type, Set<String> ruleIdList) {
+    SheetPrivRequest(String docid, Integer type, Set<String> ruleIdList) {
         this.docid = docid;
         this.type = type;
         this.ruleIdList = ruleIdList;
@@ -51,8 +50,8 @@ public class SheetAuthRequest {
      * @param docId the doc id
      * @return the sheet auth request
      */
-    public static SheetAuthRequest all(String docId) {
-        return new SheetAuthRequest(docId, 1, null);
+    public static SheetPrivRequest all(String docId) {
+        return new SheetPrivRequest(docId, 1, null);
     }
 
     /**
@@ -62,7 +61,7 @@ public class SheetAuthRequest {
      * @param ruleIdList the rule id list
      * @return the sheet auth request
      */
-    public static SheetAuthRequest additional(String docId, Set<String> ruleIdList) {
-        return new SheetAuthRequest(docId, 2, ruleIdList);
+    public static SheetPrivRequest additional(String docId, Set<String> ruleIdList) {
+        return new SheetPrivRequest(docId, 2, ruleIdList);
     }
 }
