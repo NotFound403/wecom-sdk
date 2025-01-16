@@ -50,7 +50,7 @@ public class ProgressFieldProperty {
      * @param decimalPlaces the decimal places
      * @return the number field property
      */
-    public ProgressFieldProperty of(DecimalPlaces decimalPlaces) {
+    public static ProgressFieldProperty of(DecimalPlaces decimalPlaces) {
         return new ProgressFieldProperty(decimalPlaces.getType());
     }
 }

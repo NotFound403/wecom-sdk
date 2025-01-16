@@ -37,7 +37,17 @@ public class CheckboxFieldProperty {
      * @param checked the checked
      */
     @JsonCreator
-    public CheckboxFieldProperty(@JsonProperty("checked") Boolean checked) {
+    CheckboxFieldProperty(@JsonProperty("checked") Boolean checked) {
         this.checked = checked;
+    }
+
+    /**
+     * Of checkbox field property.
+     *
+     * @param checked the checked
+     * @return the checkbox field property
+     */
+    public static CheckboxFieldProperty of(boolean checked) {
+        return new CheckboxFieldProperty(checked);
     }
 }

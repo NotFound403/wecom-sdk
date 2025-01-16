@@ -37,7 +37,25 @@ public class WwGroupFieldProperty {
      * @param allowMultiple the allow multiple
      */
     @JsonCreator
-    public WwGroupFieldProperty(@JsonProperty("allow_multiple") Boolean allowMultiple) {
+    WwGroupFieldProperty(@JsonProperty("allow_multiple") Boolean allowMultiple) {
         this.allowMultiple = allowMultiple;
+    }
+
+    /**
+     * Allow multiple ww group field property.
+     *
+     * @return the ww group field property
+     */
+    public static WwGroupFieldProperty allowMultiple() {
+        return new WwGroupFieldProperty(true);
+    }
+
+    /**
+     * Not allow multiple ww group field property.
+     *
+     * @return the ww group field property
+     */
+    public static WwGroupFieldProperty notAllowMultiple() {
+        return new WwGroupFieldProperty(false);
     }
 }

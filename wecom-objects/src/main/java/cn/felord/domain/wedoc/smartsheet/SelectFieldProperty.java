@@ -41,9 +41,29 @@ public class SelectFieldProperty {
      * @param options    the options
      */
     @JsonCreator
-    public SelectFieldProperty(@JsonProperty("is_quick_add") Boolean isQuickAdd,
-                               @JsonProperty("options") List<SelectFieldOption> options) {
+    SelectFieldProperty(@JsonProperty("is_quick_add") Boolean isQuickAdd,
+                        @JsonProperty("options") List<SelectFieldOption> options) {
         this.isQuickAdd = isQuickAdd;
         this.options = options;
+    }
+
+    /**
+     * Quick add select field property.
+     *
+     * @param options the options
+     * @return the select field property
+     */
+    public static SelectFieldProperty quickAdd(List<SelectFieldOption> options) {
+        return new SelectFieldProperty(true, options);
+    }
+
+    /**
+     * Not quick add select field property.
+     *
+     * @param options the options
+     * @return the select field property
+     */
+    public static SelectFieldProperty notQuickAdd(List<SelectFieldOption> options) {
+        return new SelectFieldProperty(false, options);
     }
 }

@@ -53,7 +53,7 @@ public class NumberFieldProperty {
      * @param useSeparate   the use separate
      * @return the number field property
      */
-    public NumberFieldProperty of(DecimalPlaces decimalPlaces, boolean useSeparate) {
+    public static NumberFieldProperty of(DecimalPlaces decimalPlaces, boolean useSeparate) {
         return new NumberFieldProperty(decimalPlaces.getType(), useSeparate);
     }
 }
