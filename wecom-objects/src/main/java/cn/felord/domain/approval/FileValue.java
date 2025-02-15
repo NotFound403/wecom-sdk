@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -65,5 +66,14 @@ public class FileValue implements ContentDataValue {
      */
     public static FileValue from(Set<String> mediaIds) {
         return new FileValue(mediaIds);
+    }
+
+    /**
+     * Empty file value.
+     *
+     * @return the file value
+     */
+    public static FileValue empty() {
+        return from(Collections.emptySet());
     }
 }

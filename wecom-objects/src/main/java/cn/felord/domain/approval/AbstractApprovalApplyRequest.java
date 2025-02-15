@@ -119,13 +119,13 @@ public abstract class AbstractApprovalApplyRequest {
 
         List<ApprovalContentData<? extends ContentDataValue>> contents = IntStream.range(0, ctrlSize)
                 .mapToObj(index ->
-                        toControlValue(controls.get(index), dataValues.get(index))
+                        bind(controls.get(index), dataValues.get(index))
                 ).collect(Collectors.toList());
         // 业务数据
         return new ApplyData<>(contents);
     }
 
-    private static ApprovalContentData<ContentDataValue> toControlValue(TmpControl<? extends ControlConfig> tmpControl,
+    private static ApprovalContentData<ContentDataValue> bind(TmpControl<? extends ControlConfig> tmpControl,
                                                                         ContentDataValue dataValue) {
         ControlConfig config = tmpControl.getConfig();
         // 处理明细数据
