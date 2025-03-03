@@ -70,13 +70,13 @@ public abstract class AbstractCallbackCrypto<EVENT> {
         byte[] textBytes = text.getBytes(StandardCharsets.UTF_8);
         byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
         byte[] receiveidBytes = receiveid.getBytes(StandardCharsets.UTF_8);
-        int byteSize = receiveidBytes.length + textBytes.length + networkBytesOrder.length + receiveidBytes.length;
         ByteCollector byteCollector = new ByteCollector()
                 .addBytes(randomStrBytes)
                 .addBytes(networkBytesOrder)
                 .addBytes(textBytes)
-                .addBytes(receiveidBytes)
-                .addBytes(PKCS7Encoder.encode(byteSize));
+                .addBytes(receiveidBytes);
+        int byteSize = byteCollector.size();
+        byteCollector.addBytes(PKCS7Encoder.encode(byteSize));
         // 获得最终的字节流, 未加密
         byte[] unencrypted = byteCollector.toBytes();
         try {
