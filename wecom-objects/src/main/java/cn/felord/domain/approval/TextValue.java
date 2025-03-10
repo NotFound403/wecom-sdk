@@ -49,7 +49,7 @@ public class TextValue implements ContentDataValue {
      * @return the text value
      */
     public static TextValue from(String text) {
-        return StringUtils.hasText(text) ? new TextValue(text) : nullValue();
+        return StringUtils.hasText(text) ? new TextValue(text) : empty();
     }
 
     /**
@@ -57,7 +57,7 @@ public class TextValue implements ContentDataValue {
      *
      * @return the text value
      */
-    public static TextValue nullValue() {
+    public static TextValue empty() {
         return new TextValue("");
     }
 
@@ -67,6 +67,6 @@ public class TextValue implements ContentDataValue {
      * @return the text value
      */
     public static TextValue tip() {
-        return nullValue();
+        return empty();
     }
 }
