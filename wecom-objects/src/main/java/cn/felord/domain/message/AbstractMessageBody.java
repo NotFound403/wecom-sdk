@@ -18,6 +18,7 @@ package cn.felord.domain.message;
 import cn.felord.enumeration.BoolEnum;
 import cn.felord.enumeration.MessageSafe;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -30,6 +31,7 @@ import lombok.ToString;
 @Getter
 public abstract class AbstractMessageBody {
     private final String msgtype;
+    @Setter
     private String agentid;
     private final String touser;
     private final String toparty;
@@ -48,7 +50,4 @@ public abstract class AbstractMessageBody {
         this.duplicateCheckInterval = duplicateCheckInterval;
     }
 
-    public void setAgentid(String agentid) {
-        this.agentid = agentid;
-    }
 }

@@ -19,9 +19,12 @@ import cn.felord.AgentDetails;
 import cn.felord.WeComException;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.MsgId;
-import cn.felord.domain.message.*;
+import cn.felord.domain.message.AbstractMessageBody;
+import cn.felord.domain.message.AbstractUpdateTemplateCardRequest;
+import cn.felord.domain.message.MessageBodyBuilders;
+import cn.felord.domain.message.MessageResponse;
+import cn.felord.domain.message.TemplateReplaceCardBuilders;
 import retrofit2.Retrofit;
-import retrofit2.http.Body;
 
 import java.util.Objects;
 
@@ -84,7 +87,7 @@ public class AgentMessageApi {
      * @return the we com response
      * @throws WeComException the weComException
      */
-    public WeComResponse recall(@Body MsgId request) throws WeComException {
+    public WeComResponse recall(MsgId request) throws WeComException {
         return internalAgentMessageApi.recall(request);
     }
 }
