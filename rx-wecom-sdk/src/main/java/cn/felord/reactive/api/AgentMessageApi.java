@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. felord.cn
+ * Copyright (c) 2025. felord.cn
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -18,10 +18,13 @@ package cn.felord.reactive.api;
 import cn.felord.AgentDetails;
 import cn.felord.domain.WeComResponse;
 import cn.felord.domain.common.MsgId;
-import cn.felord.domain.message.*;
+import cn.felord.domain.message.AbstractMessageBody;
+import cn.felord.domain.message.AbstractUpdateTemplateCardRequest;
+import cn.felord.domain.message.MessageBodyBuilders;
+import cn.felord.domain.message.MessageResponse;
+import cn.felord.domain.message.TemplateReplaceCardBuilders;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.Retrofit;
-import retrofit2.http.Body;
 
 import java.util.Objects;
 
@@ -81,7 +84,7 @@ public class AgentMessageApi {
      * @param request the request
      * @return the we com response
      */
-    public Single<WeComResponse> recall(@Body MsgId request) {
+    public Single<WeComResponse> recall(MsgId request) {
         return internalAgentMessageApi.recall(request);
     }
 }

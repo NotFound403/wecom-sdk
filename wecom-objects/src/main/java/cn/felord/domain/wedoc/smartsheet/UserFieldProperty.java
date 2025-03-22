@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. felord.cn
+ * Copyright (c) 2025. felord.cn
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -39,9 +39,20 @@ public class UserFieldProperty {
      * @param isNotified the is notified
      */
     @JsonCreator
-    public UserFieldProperty(@JsonProperty("is_multiple") Boolean isMultiple,
-                             @JsonProperty("is_notified") Boolean isNotified) {
+    UserFieldProperty(@JsonProperty("is_multiple") Boolean isMultiple,
+                      @JsonProperty("is_notified") Boolean isNotified) {
         this.isMultiple = isMultiple;
         this.isNotified = isNotified;
+    }
+
+    /**
+     * Create user field property.
+     *
+     * @param isMultiple the is multiple
+     * @param isNotified the is notified
+     * @return the user field property
+     */
+    public static UserFieldProperty create(Boolean isMultiple, Boolean isNotified) {
+        return new UserFieldProperty(isMultiple, isNotified);
     }
 }

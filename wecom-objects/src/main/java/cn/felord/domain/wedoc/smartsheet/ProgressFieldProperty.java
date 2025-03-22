@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. felord.cn
+ * Copyright (c) 2025. felord.cn
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -50,7 +50,7 @@ public class ProgressFieldProperty {
      * @param decimalPlaces the decimal places
      * @return the number field property
      */
-    public ProgressFieldProperty of(DecimalPlaces decimalPlaces) {
+    public static ProgressFieldProperty of(DecimalPlaces decimalPlaces) {
         return new ProgressFieldProperty(decimalPlaces.getType());
     }
 }

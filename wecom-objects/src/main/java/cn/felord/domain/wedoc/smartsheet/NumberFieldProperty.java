@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. felord.cn
+ * Copyright (c) 2025. felord.cn
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -53,7 +53,7 @@ public class NumberFieldProperty {
      * @param useSeparate   the use separate
      * @return the number field property
      */
-    public NumberFieldProperty of(DecimalPlaces decimalPlaces, boolean useSeparate) {
+    public static NumberFieldProperty of(DecimalPlaces decimalPlaces, boolean useSeparate) {
         return new NumberFieldProperty(decimalPlaces.getType(), useSeparate);
     }
 }

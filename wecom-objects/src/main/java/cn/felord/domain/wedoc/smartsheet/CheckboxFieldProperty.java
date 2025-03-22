@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. felord.cn
+ * Copyright (c) 2025. felord.cn
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -37,7 +37,17 @@ public class CheckboxFieldProperty {
      * @param checked the checked
      */
     @JsonCreator
-    public CheckboxFieldProperty(@JsonProperty("checked") Boolean checked) {
+    CheckboxFieldProperty(@JsonProperty("checked") Boolean checked) {
         this.checked = checked;
+    }
+
+    /**
+     * Of checkbox field property.
+     *
+     * @param checked the checked
+     * @return the checkbox field property
+     */
+    public static CheckboxFieldProperty of(boolean checked) {
+        return new CheckboxFieldProperty(checked);
     }
 }
