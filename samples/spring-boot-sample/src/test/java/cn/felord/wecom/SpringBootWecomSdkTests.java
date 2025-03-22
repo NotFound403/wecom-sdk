@@ -468,7 +468,7 @@ class SpringBootWecomSdkTests {
                         .append(Arrays.asList(TextValue.from("321424"), MoneyValue.from(32446.33)))
                 ,
                 // 说明文字控件不显示在审批详情中，故value为空
-                TextValue.nullValue(),
+                TextValue.empty(),
                 // 国内手机号   +86 + 手机号
                 PhoneNumberValue.zhCN("18237930011"),
                 //  key 选项从 ApprovalTmpDetailResponse#getVacationList() 获取

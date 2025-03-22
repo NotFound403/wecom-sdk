@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. felord.cn
+ * Copyright (c) 2025. felord.cn
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -65,5 +66,14 @@ public class FileValue implements ContentDataValue {
      */
     public static FileValue from(Set<String> mediaIds) {
         return new FileValue(mediaIds);
+    }
+
+    /**
+     * Empty file value.
+     *
+     * @return the file value
+     */
+    public static FileValue empty() {
+        return from(Collections.emptySet());
     }
 }

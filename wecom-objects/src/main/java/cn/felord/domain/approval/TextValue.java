@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. felord.cn
+ * Copyright (c) 2025. felord.cn
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -49,7 +49,7 @@ public class TextValue implements ContentDataValue {
      * @return the text value
      */
     public static TextValue from(String text) {
-        return StringUtils.hasText(text) ? new TextValue(text) : nullValue();
+        return StringUtils.hasText(text) ? new TextValue(text) : empty();
     }
 
     /**
@@ -57,7 +57,7 @@ public class TextValue implements ContentDataValue {
      *
      * @return the text value
      */
-    public static TextValue nullValue() {
+    public static TextValue empty() {
         return new TextValue("");
     }
 
@@ -67,6 +67,6 @@ public class TextValue implements ContentDataValue {
      * @return the text value
      */
     public static TextValue tip() {
-        return nullValue();
+        return empty();
     }
 }

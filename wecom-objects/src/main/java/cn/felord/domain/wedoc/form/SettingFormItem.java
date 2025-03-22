@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. felord.cn
+ * Copyright (c) 2025. felord.cn
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -102,7 +102,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Text setting form item.
+     * 文本
      *
      * @param questionId the question id
      * @param title      the title
@@ -114,7 +114,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Radio setting form item.
+     * 单选
      *
      * @param questionId the question id
      * @param title      the title
@@ -127,7 +127,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Checkbox setting form item.
+     * 多选
      *
      * @param questionId the question id
      * @param title      the title
@@ -140,7 +140,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Location setting form item.
+     * 位置
      *
      * @param questionId the question id
      * @param title      the title
@@ -152,7 +152,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Image setting form item.
+     * 图片
      *
      * @param questionId the question id
      * @param title      the title
@@ -164,7 +164,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * File setting form item.
+     * 文件
      *
      * @param questionId the question id
      * @param title      the title
@@ -176,7 +176,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Date setting form item.
+     * 日期
      *
      * @param questionId the question id
      * @param title      the title
@@ -188,19 +188,19 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Time setting form item.
+     * 时间
      *
      * @param questionId the question id
      * @param title      the title
      * @param pos        the pos
      * @return the setting form item
      */
-    public static SettingFormItem<TextQuestionExtendSetting> time(int questionId, String title, int pos) {
+    public static SettingFormItem<TimeQuestionExtendSetting> time(int questionId, String title, int pos) {
         return new SettingFormItem<>(questionId, title, pos, FormItemReplyType.TIME, null);
     }
 
     /**
-     * Dropdown setting form item.
+     * 下拉列表
      *
      * @param questionId the question id
      * @param title      the title
@@ -213,7 +213,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Temperature setting form item.
+     * 体温
      *
      * @param questionId the question id
      * @param title      the title
@@ -225,7 +225,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Signature setting form item.
+     * 签名
      *
      * @param questionId the question id
      * @param title      the title
@@ -237,7 +237,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Department setting form item.
+     * 部门
      *
      * @param questionId the question id
      * @param title      the title
@@ -249,7 +249,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Member setting form item.
+     * M成员
      *
      * @param questionId the question id
      * @param title      the title
@@ -261,7 +261,7 @@ public class SettingFormItem<Q extends QuestionExtendSetting> {
     }
 
     /**
-     * Duration setting form item.
+     * 时长
      *
      * @param questionId the question id
      * @param title      the title

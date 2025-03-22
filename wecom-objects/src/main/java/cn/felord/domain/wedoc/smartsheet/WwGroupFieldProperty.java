@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. felord.cn
+ * Copyright (c) 2025. felord.cn
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -37,7 +37,25 @@ public class WwGroupFieldProperty {
      * @param allowMultiple the allow multiple
      */
     @JsonCreator
-    public WwGroupFieldProperty(@JsonProperty("allow_multiple") Boolean allowMultiple) {
+    WwGroupFieldProperty(@JsonProperty("allow_multiple") Boolean allowMultiple) {
         this.allowMultiple = allowMultiple;
+    }
+
+    /**
+     * Allow multiple ww group field property.
+     *
+     * @return the ww group field property
+     */
+    public static WwGroupFieldProperty allowMultiple() {
+        return new WwGroupFieldProperty(true);
+    }
+
+    /**
+     * Not allow multiple ww group field property.
+     *
+     * @return the ww group field property
+     */
+    public static WwGroupFieldProperty notAllowMultiple() {
+        return new WwGroupFieldProperty(false);
     }
 }
