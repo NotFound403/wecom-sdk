@@ -22,55 +22,59 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The type AutoNumber sheet field.
+ * The type Percentage sheet field.
  *
  * @author dax
- * @since 2024 /9/5
+ * @since 2025 /3/28
  */
 @ToString(callSuper = true)
 @Getter
-public class AutoNumberSheetField extends SheetField {
-    private final AutoNumberFieldProperty propertyAutoNumber;
+public class PercentageSheetField extends SheetField {
+    private final PercentageFieldProperty propertyPercentage;
+
 
     /**
-     * Create auto number sheet field.
+     * Create percentage sheet field.
      *
      * @param fieldTitle         the field title
-     * @param autoNumberProperty the auto number property
-     * @return the auto number sheet field
+     * @param propertyPercentage the property percentage
+     * @return the percentage sheet field
      */
-    public static AutoNumberSheetField create(String fieldTitle, AutoNumberFieldProperty autoNumberProperty) {
-        return update(null, fieldTitle, autoNumberProperty);
+    public static PercentageSheetField create(String fieldTitle,
+                                              PercentageFieldProperty propertyPercentage) {
+        return update(null, fieldTitle, propertyPercentage);
     }
 
     /**
-     * Update auto number sheet field.
+     * Update checkbox sheet field.
      *
      * @param fieldId            the field id
      * @param fieldTitle         the field title
-     * @param autoNumberProperty the auto number property
-     * @return the auto number sheet field
+     * @param propertyPercentage the property percentage
+     * @return the checkbox sheet field
      */
-    public static AutoNumberSheetField update(String fieldId,
+    public static PercentageSheetField update(String fieldId,
                                               String fieldTitle,
-                                              AutoNumberFieldProperty autoNumberProperty) {
-        return new AutoNumberSheetField(fieldId, SheetFieldType.FIELD_TYPE_AUTONUMBER, fieldTitle, autoNumberProperty);
+                                              PercentageFieldProperty propertyPercentage) {
+        return new PercentageSheetField(fieldId, SheetFieldType.FIELD_TYPE_PERCENTAGE, fieldTitle, propertyPercentage);
     }
 
     /**
-     * Instantiates a new AutoNumber sheet field.
+     * Instantiates a new Sheet field.
      *
      * @param fieldId            the field id
      * @param fieldType          the field type
      * @param fieldTitle         the field title
-     * @param autoNumberProperty the auto number property
+     * @param propertyPercentage the property percentage
      */
     @JsonCreator
-    AutoNumberSheetField(@JsonProperty("field_id") String fieldId,
+    PercentageSheetField(@JsonProperty("field_id") String fieldId,
                          @JsonProperty("field_type") SheetFieldType fieldType,
                          @JsonProperty("field_title") String fieldTitle,
-                         @JsonProperty("property_auto_number") AutoNumberFieldProperty autoNumberProperty) {
+                         @JsonProperty("property_percentage") PercentageFieldProperty propertyPercentage) {
         super(fieldId, fieldType, fieldTitle);
-        this.propertyAutoNumber = autoNumberProperty;
+        this.propertyPercentage = propertyPercentage;
     }
+
+
 }

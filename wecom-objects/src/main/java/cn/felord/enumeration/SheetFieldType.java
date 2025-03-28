@@ -110,5 +110,9 @@ public enum SheetFieldType {
     /**
      * 自动编号
      */
-    FIELD_TYPE_AUTONUMBER
+    FIELD_TYPE_AUTONUMBER,
+    /**
+     * 百分数
+     */
+    FIELD_TYPE_PERCENTAGE
 }

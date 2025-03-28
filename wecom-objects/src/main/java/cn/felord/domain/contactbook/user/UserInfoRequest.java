@@ -39,6 +39,7 @@ public class UserInfoRequest {
     private Gender gender;
     private String email;
     private String bizMail;
+    private String bizMailAlias;
     private String telephone;
     private List<Long> isLeaderInDept;
     private List<String> directLeader;
