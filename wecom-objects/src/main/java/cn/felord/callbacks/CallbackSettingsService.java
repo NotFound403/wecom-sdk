@@ -24,6 +24,7 @@ import cn.felord.callback.CallbackSettings;
  * @author felord
  * @since 2021 /11/21 12:13
  */
+@FunctionalInterface
 public interface CallbackSettingsService {
     /**
      * Load authentication callback authentication.

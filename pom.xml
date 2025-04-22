@@ -6,7 +6,7 @@
 
     <groupId>cn.felord</groupId>
     <artifactId>wecom</artifactId>
-    <version>1.3.3</version>
+    <version>1.3.4</version>
     <packaging>pom</packaging>
 
     <name>wecom</name>
@@ -94,7 +94,7 @@
         <retrofit.version>2.11.0</retrofit.version>
         <okhttp3.version>4.12.0</okhttp3.version>
         <jackson.version>2.15.2</jackson.version>
-        <xstream.version>1.4.20</xstream.version>
+        <xstream.version>1.4.21</xstream.version>
         <jose.version>9.40</jose.version>
         <lombok.version>1.18.34</lombok.version>
     </properties>
