@@ -15,14 +15,25 @@
 
 package cn.felord.json;
 
-import cn.felord.domain.approval.*;
+import cn.felord.domain.approval.AttendanceConfig;
+import cn.felord.domain.approval.ContactConfig;
+import cn.felord.domain.approval.ControlConfig;
+import cn.felord.domain.approval.CtrlProperty;
+import cn.felord.domain.approval.DateConfig;
+import cn.felord.domain.approval.DateRangeConfig;
+import cn.felord.domain.approval.EmptyConfig;
+import cn.felord.domain.approval.FormulaConfig;
+import cn.felord.domain.approval.LocationConfig;
+import cn.felord.domain.approval.RelatedApprovalConfig;
+import cn.felord.domain.approval.SelectorConfig;
+import cn.felord.domain.approval.TableConfig;
+import cn.felord.domain.approval.TipsConfig;
+import cn.felord.domain.approval.TmpControl;
+import cn.felord.domain.approval.VacationConfig;
 import cn.felord.enumeration.ApprovalCtrlType;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.TreeTraversingParser;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,7 +45,7 @@ import java.util.Map;
  * @author dax
  * @since 2024/5/26
  */
-public class TmpControlDeserializer extends JsonDeserializer<TmpControl<?>> {
+public class TmpControlDeserializer extends AbstractJsonDeserializer<TmpControl<?>> {
     private static final Map<ApprovalCtrlType, Class<? extends ControlConfig>> CONTROL_MAP = new HashMap<>();
 
     static {
@@ -63,41 +74,13 @@ public class TmpControlDeserializer extends JsonDeserializer<TmpControl<?>> {
     public TmpControl<?> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         JsonNode treeNode = p.getCodec().readTree(p);
         JsonNode property = treeNode.get("property");
-        CtrlProperty ctrlProperty = readTreeAsValue(ctxt, property, CtrlProperty.class);
+        CtrlProperty ctrlProperty = this.readTreeAsValue(ctxt, property, CtrlProperty.class);
         ApprovalCtrlType control = ctrlProperty.getControl();
         JsonNode configNode = treeNode.get("config");
         Class<? extends ControlConfig> configClazz = CONTROL_MAP.get(control);
-        ControlConfig config = configClazz != null ? readTreeAsValue(ctxt, configNode, configClazz) : new EmptyConfig();
+        ControlConfig config = configClazz != null ? this.readTreeAsValue(ctxt, configNode, configClazz)
+                : new EmptyConfig();
         return new TmpControl<>(ctrlProperty, config);
-    }
-
-
-    /**
-     * 兼容2.4版本，2.13版本请直接修改为{@link DeserializationContext#readTreeAsValue(JsonNode, Class)}
-     *
-     * @param <T>        the type parameter
-     * @param context    the context
-     * @param n          the n
-     * @param targetType the target type
-     * @return the t
-     * @throws IOException the io exception
-     */
-    public <T> T readTreeAsValue(DeserializationContext context, JsonNode n, Class<T> targetType) throws IOException {
-        if (n == null) {
-            return null;
-        }
-        try (TreeTraversingParser p = _treeAsTokens(context, n)) {
-            return context.readValue(p, targetType);
-        }
-    }
-
-    private TreeTraversingParser _treeAsTokens(DeserializationContext context, JsonNode n) throws IOException {
-        // Not perfect but has to do...
-        ObjectCodec codec = (context == null) ? null : context.getParser().getCodec();
-        TreeTraversingParser p = new TreeTraversingParser(n, codec);
-        // important: must initialize...
-        p.nextToken();
-        return p;
     }
 
 }

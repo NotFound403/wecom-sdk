@@ -55,7 +55,8 @@ import lombok.ToString;
         @JsonSubTypes.Type(value = CurrencySheetField.class, name = "FIELD_TYPE_CURRENCY"),
         @JsonSubTypes.Type(value = WwGroupSheetField.class, name = "FIELD_TYPE_WWGROUP"),
         @JsonSubTypes.Type(value = AutoNumberSheetField.class, name = "FIELD_TYPE_AUTONUMBER"),
-        @JsonSubTypes.Type(value = PercentageSheetField.class, name = "FIELD_TYPE_PERCENTAGE")
+        @JsonSubTypes.Type(value = PercentageSheetField.class, name = "FIELD_TYPE_PERCENTAGE"),
+        @JsonSubTypes.Type(value = FormulaSheetField.class, name = "FIELD_TYPE_FORMULA")
 })
 @ToString
 @Getter

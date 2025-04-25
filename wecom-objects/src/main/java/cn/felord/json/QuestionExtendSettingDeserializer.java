@@ -15,13 +15,22 @@
 
 package cn.felord.json;
 
-import cn.felord.domain.wedoc.form.*;
+import cn.felord.domain.wedoc.form.CheckboxQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.DateQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.DepartmentQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.DurationQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.FileQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.ImageQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.LocationQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.MemberQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.QuestionExtendSetting;
+import cn.felord.domain.wedoc.form.RadioQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.TemperatureQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.TextQuestionExtendSetting;
+import cn.felord.domain.wedoc.form.TimeQuestionExtendSetting;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.TreeTraversingParser;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -31,7 +40,7 @@ import java.util.Map;
  * @author dax
  * @since 2023/8/4 15:44
  */
-public class QuestionExtendSettingDeserializer extends JsonDeserializer<QuestionExtendSetting> {
+public class QuestionExtendSettingDeserializer extends AbstractJsonDeserializer<QuestionExtendSetting> {
 
     private static final Map<String, Class<? extends QuestionExtendSetting>> CLASS_HASH_MAP = new HashMap<>();
 
@@ -59,32 +68,4 @@ public class QuestionExtendSettingDeserializer extends JsonDeserializer<Question
         return configClazz != null ? readTreeAsValue(ctxt, settings, configClazz) : null;
     }
 
-
-    /**
-     * 兼容2.4版本，2.13版本请直接修改为{@link DeserializationContext#readTreeAsValue(JsonNode, Class)}
-     *
-     * @param <T>        the type parameter
-     * @param context    the context
-     * @param n          the n
-     * @param targetType the target type
-     * @return the t
-     * @throws IOException the io exception
-     */
-    public <T> T readTreeAsValue(DeserializationContext context, JsonNode n, Class<T> targetType) throws IOException {
-        if (n == null) {
-            return null;
-        }
-        try (TreeTraversingParser p = _treeAsTokens(context, n)) {
-            return context.readValue(p, targetType);
-        }
-    }
-
-    private TreeTraversingParser _treeAsTokens(DeserializationContext context, JsonNode n) throws IOException {
-        // Not perfect but has to do...
-        ObjectCodec codec = (context == null) ? null : context.getParser().getCodec();
-        TreeTraversingParser p = new TreeTraversingParser(n, codec);
-        // important: must initialize...
-        p.nextToken();
-        return p;
-    }
 }

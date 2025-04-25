@@ -114,5 +114,9 @@ public enum SheetFieldType {
     /**
      * 百分数
      */
-    FIELD_TYPE_PERCENTAGE
+    FIELD_TYPE_PERCENTAGE,
+    /**
+     * 公式
+     */
+    FIELD_TYPE_FORMULA
 }
