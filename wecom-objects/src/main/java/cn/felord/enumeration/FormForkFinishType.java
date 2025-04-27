@@ -28,23 +28,23 @@ import java.util.Arrays;
  */
 public enum FormForkFinishType {
     /**
-     * Allow form fork finish type.
+     * 允许
      */
     ALLOW(0),
     /**
-     * Same day form fork finish type.
+     * 仅当天
      */
     SAME_DAY(1),
     /**
-     * Five day form fork finish type.
+     * 最后五天内
      */
     FIVE_DAY(2),
     /**
-     * One month form fork finish type.
+     * 一个月内
      */
     ONE_MONTH(3),
     /**
-     * Next form fork finish type.
+     * 下一次生成前
      */
     NEXT(4);
 
