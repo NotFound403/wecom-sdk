@@ -29,22 +29,22 @@ import java.util.Arrays;
 public enum UserStatus {
 
     /**
-     * Activated user status.
+     * 已激活
      */
     ACTIVATED(1),
 
     /**
-     * Disabled user status.
+     * 已禁用
      */
     DISABLED(2),
 
     /**
-     * Inactivated user status.
+     * 未激活
      */
     INACTIVATED(4),
 
     /**
-     * Quit user status.
+     * 退出企业
      */
     QUIT(5);
 
