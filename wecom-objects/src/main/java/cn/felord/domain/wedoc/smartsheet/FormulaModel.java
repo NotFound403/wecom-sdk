@@ -13,25 +13,17 @@
  * limitations under the License.
  */
 
-package cn.felord.callbacks;
+package cn.felord.domain.wedoc.smartsheet;
 
-
-import cn.felord.callback.CallbackSettings;
+import lombok.Data;
 
 /**
- * The interface Callback authentication service.
- *
- * @author felord
- * @since 2021 /11/21 12:13
+ * @author dax
+ * @since 2025/4/25
  */
-@FunctionalInterface
-public interface CallbackSettingsService {
-    /**
-     * Load authentication callback authentication.
-     *
-     * @param agentId the agent id
-     * @param corpId  the corp id
-     * @return the callback authentication
-     */
-    CallbackSettings loadAuthentication(String agentId, String corpId);
+@Data
+public class FormulaModel {
+    private String type;
+    private String text;
+    private String fieldId;
 }

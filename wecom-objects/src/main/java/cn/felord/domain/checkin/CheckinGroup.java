@@ -16,6 +16,7 @@
 package cn.felord.domain.checkin;
 
 import cn.felord.enumeration.CheckinGroupType;
+import cn.felord.enumeration.CheckinMethodType;
 import cn.felord.enumeration.CheckinOutRange;
 import cn.felord.enumeration.CheckinType;
 import lombok.Data;
@@ -121,11 +122,42 @@ public class CheckinGroup {
      */
     private BukaRemind bukaRemind;
     /**
+     * TODO 进一步封装
      * 补卡指定异常类型，按比特位设置，大端模式，某位bit置位为1表示关闭某类型。
      * 从低到高四个比特位分别表示缺卡类型、迟到类型、早退类型、其他异常类型。
      * 为默认值0表示所有异常类型均允许补卡。
      */
     private Integer bukaRestriction;
+    /**
+     * 自由上下班
+     * <p>
+     * 自由上下班规则的跨天时间，表示为距离0点的秒数，必须为整分钟的秒数，且小于24小时。
+     * @since 1.3.4
+     */
+    private Integer spanDayTime;
+    /**
+     * 自由上下班
+     * <p>
+     * 自由上下班规则的工作时长（秒），-1表示不限制工作时长，
+     * 否则值应该以半小时为步长，从1小时开始递增，最多不超过24小时。
+     * 如：1小时，1.5小时，2小时，2.5小时...23小时，23.5小时，24小时。
+     *
+     * @since 1.3.4
+     */
+    private Integer standardWorkDuration;
+    /**
+     * 是否开启审批打卡
+     *
+     * @since 1.3.4
+     */
+    private Boolean openSpCheckin;
+    /**
+     * 打卡交替方式，0-多组交替，1-单组交替，2-仅记录打卡时间。
+     * 对固定上下班和排班上下班是休息才生效，自由签到都生效
+     *
+     * @since 1.3.4
+     */
+    private CheckinMethodType checkinMethodType;
     /**
      * 创建时间
      */

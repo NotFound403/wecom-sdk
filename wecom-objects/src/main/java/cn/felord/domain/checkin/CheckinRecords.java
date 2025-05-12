@@ -17,39 +17,9 @@ package cn.felord.domain.checkin;
 
 import lombok.Data;
 
-import java.time.Duration;
+import java.util.List;
 
-/**
- * @author dax
- * @since 2023/9/26
- */
 @Data
-public class MonthSummaryInfo {
-    /**
-     * 异常天数
-     */
-    private Integer exceptDays;
-    /**
-     * 实际工作时长，为统计周期每日实际工作时长之和，单位：秒
-     */
-    private Duration regularWorkSec;
-    /**
-     * 标准工作时长，为统计周期每日标准工作时长之和，单位：秒
-     */
-    private Duration standardWorkSec;
-    /**
-     * 应打卡天数
-     */
-    private Integer workDays;
-    /**
-     * 正常天数
-     */
-    private Integer regularDays;
-    /**
-     * 休息天数
-     *
-     * @since 1.3.4
-     */
-    private Integer restDays;
-
+public class CheckinRecords {
+    private final List<CheckinRecord> records;
 }

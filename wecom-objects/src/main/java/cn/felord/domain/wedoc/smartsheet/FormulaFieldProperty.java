@@ -13,25 +13,34 @@
  * limitations under the License.
  */
 
-package cn.felord.callbacks;
+package cn.felord.domain.wedoc.smartsheet;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 
-import cn.felord.callback.CallbackSettings;
+import java.util.List;
 
 /**
- * The interface Callback authentication service.
+ * The type Formula field property.
  *
- * @author felord
- * @since 2021 /11/21 12:13
+ * @author dax
+ * @since 2025 /4/25
  */
-@FunctionalInterface
-public interface CallbackSettingsService {
+@ToString
+@Getter
+public class FormulaFieldProperty {
+
+    private final List<FormulaModel> formulaModel;
+
     /**
-     * Load authentication callback authentication.
+     * Instantiates a new Formula field property.
      *
-     * @param agentId the agent id
-     * @param corpId  the corp id
-     * @return the callback authentication
+     * @param formulaModel the formula model
      */
-    CallbackSettings loadAuthentication(String agentId, String corpId);
+    @JsonCreator
+    public FormulaFieldProperty(@JsonProperty("formula_model") List<FormulaModel> formulaModel) {
+        this.formulaModel = formulaModel;
+    }
 }

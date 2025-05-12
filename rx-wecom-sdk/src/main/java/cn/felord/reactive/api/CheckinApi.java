@@ -23,6 +23,7 @@ import cn.felord.domain.checkin.CheckinMonthData;
 import cn.felord.domain.checkin.CheckinOptionRequest;
 import cn.felord.domain.checkin.CheckinOptionResponse;
 import cn.felord.domain.checkin.CheckinQueryRequest;
+import cn.felord.domain.checkin.CheckinRecords;
 import cn.felord.domain.checkin.CheckinStatisticsResponse;
 import cn.felord.domain.checkin.CheckinUserfaceRequest;
 import cn.felord.domain.checkin.DeviceCheckinDataResponse;
@@ -40,7 +41,7 @@ import retrofit2.http.POST;
  * 打卡API
  *
  * @author dax
- * @since 2024/9/25
+ * @since 2024 /9/25
  */
 public interface CheckinApi {
 
@@ -160,6 +161,18 @@ public interface CheckinApi {
      */
     @POST("checkin/punch_correction")
     Single<WeComResponse> punchCorrection(@Body PunchCorrectionRequest request);
+
+    /**
+     * 添加打卡记录
+     * <p>
+     * 可通过接口写入打卡记录，匹配打卡规则后可在企业微信打卡明细、统计中参与展示。
+     *
+     * @param checkinRecords the checkin records
+     * @return the we com response
+     * @since 1.3.4
+     */
+    @POST("checkin/add_checkin_record")
+    Single<WeComResponse> addCheckinRecord(@Body CheckinRecords checkinRecords);
 
     /**
      * 录入打卡人员人脸信息

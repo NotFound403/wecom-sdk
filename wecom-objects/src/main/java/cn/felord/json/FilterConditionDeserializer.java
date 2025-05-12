@@ -23,11 +23,8 @@ import cn.felord.domain.wedoc.smartsheet.StringFilterCondition;
 import cn.felord.domain.wedoc.smartsheet.UserFilterCondition;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.TreeTraversingParser;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -37,7 +34,7 @@ import java.util.Map;
  * @author dax
  * @since 2024/9/4
  */
-public class FilterConditionDeserializer extends JsonDeserializer<AbstractFilterCondition> {
+public class FilterConditionDeserializer extends AbstractJsonDeserializer<AbstractFilterCondition> {
 
     private static final Map<String, Class<? extends AbstractFilterCondition>> CLASS_HASH_MAP = new HashMap<>();
 
@@ -55,34 +52,7 @@ public class FilterConditionDeserializer extends JsonDeserializer<AbstractFilter
         String currentName = p.getParsingContext().getCurrentName();
         JsonNode condition = p.getCodec().readTree(p);
         Class<? extends AbstractFilterCondition> configClazz = CLASS_HASH_MAP.get(currentName);
-        return configClazz != null ? readTreeAsValue(ctxt, condition, configClazz) : null;
+        return configClazz != null ? this.readTreeAsValue(ctxt, condition, configClazz) : null;
     }
 
-    /**
-     * 兼容2.4版本，2.13版本请直接修改为{@link DeserializationContext#readTreeAsValue(JsonNode, Class)}
-     *
-     * @param <T>        the type parameter
-     * @param context    the context
-     * @param n          the n
-     * @param targetType the target type
-     * @return the t
-     * @throws IOException the io exception
-     */
-    public <T> T readTreeAsValue(DeserializationContext context, JsonNode n, Class<T> targetType) throws IOException {
-        if (n == null) {
-            return null;
-        }
-        try (TreeTraversingParser p = _treeAsTokens(context, n)) {
-            return context.readValue(p, targetType);
-        }
-    }
-
-    private TreeTraversingParser _treeAsTokens(DeserializationContext context, JsonNode n) throws IOException {
-        // Not perfect but has to do...
-        ObjectCodec codec = (context == null) ? null : context.getParser().getCodec();
-        TreeTraversingParser p = new TreeTraversingParser(n, codec);
-        // important: must initialize...
-        p.nextToken();
-        return p;
-    }
 }

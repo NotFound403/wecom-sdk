@@ -16,6 +16,7 @@
 package cn.felord.domain.contactbook.user;
 
 import cn.felord.domain.WeComResponse;
+import cn.felord.enumeration.UserStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -35,7 +36,7 @@ public class UserInfoResponse extends WeComResponse {
     private String position;
     private String gender;
     private String email;
-    private String bizEmail;
+    private String bizMail;
     private List<Long> isLeaderInDept;
     private List<String> directLeader;
     private String avatar;
@@ -43,7 +44,7 @@ public class UserInfoResponse extends WeComResponse {
     private String telephone;
     private String alias;
     private Extattr extattr;
-    private Integer status;
+    private UserStatus status;
     private String qrCode;
     private ExternalProfile externalProfile;
     private String externalPosition;

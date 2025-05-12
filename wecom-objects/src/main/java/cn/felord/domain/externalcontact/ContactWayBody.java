@@ -19,6 +19,8 @@ import cn.felord.enumeration.ContactScene;
 import cn.felord.enumeration.ContactType;
 import cn.felord.enumeration.MultiStyle;
 import cn.felord.enumeration.SingleStyle;
+import cn.felord.retrofit.json.DurationToIntSecondsSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -75,10 +77,12 @@ public class ContactWayBody {
     /**
      * 临时会话二维码有效期，以秒为单位。该参数仅在is_temp为true时有效，默认7天，最多为14天
      */
+    @JsonSerialize(using = DurationToIntSecondsSerializer.class)
     private Duration expiresIn;
     /**
      * 临时会话有效期，以秒为单位。该参数仅在is_temp为true时有效，默认为添加好友后24小时，最多为14天
      */
+    @JsonSerialize(using = DurationToIntSecondsSerializer.class)
     private Duration chatExpiresIn;
     /**
      * 是否开启同一外部企业客户只能添加同一个员工，默认为否，开启后，同一个企业的客户会优先添加到同一个跟进人

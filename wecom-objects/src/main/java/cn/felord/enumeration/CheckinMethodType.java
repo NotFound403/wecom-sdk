@@ -21,62 +21,41 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Form fork finish type.
+ * 打卡交替方式
  *
  * @author dax
- * @since 2024/3/13 17:24
+ * @since 2025/4/27
  */
-public enum FormForkFinishType {
+public enum CheckinMethodType {
     /**
-     * 允许
+     * 多组交替
      */
-    ALLOW(0),
+    MULTI_GROUP(0),
     /**
-     * 仅当天
+     * 单组交替
      */
-    SAME_DAY(1),
+    SINGLE_GROUP(1),
     /**
-     * 最后五天内
+     * 仅记录打卡时间
      */
-    FIVE_DAY(2),
-    /**
-     * 一个月内
-     */
-    ONE_MONTH(3),
-    /**
-     * 下一次生成前
-     */
-    NEXT(4);
+    ONLY_TIME(2);
 
     private final int type;
 
-    FormForkFinishType(int type) {
+    CheckinMethodType(int type) {
         this.type = type;
     }
 
-
-    /**
-     * Gets type.
-     *
-     * @return the type
-     */
     @JsonValue
     public int getType() {
         return type;
     }
 
-    /**
-     * Deserialize form fork finish type.
-     *
-     * @param type the type
-     * @return the form fork finish type
-     */
     @JsonCreator
-    public static FormForkFinishType deserialize(int type) {
-        return Arrays.stream(FormForkFinishType.values())
-                .filter(formForkFinishType -> formForkFinishType.type == type)
+    public static CheckinMethodType deserialize(int type) {
+        return Arrays.stream(CheckinMethodType.values())
+                .filter(checkinMethodType -> checkinMethodType.type == type)
                 .findFirst()
                 .orElse(null);
     }
-
 }

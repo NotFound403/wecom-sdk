@@ -54,6 +54,7 @@ public final class JacksonObjectMapperFactory {
         javaTimeModule.addDeserializer(YearMonth.class, new YearMonthNumberDeserializer(yearMonth));
         return new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
                 .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
                 // empty string error
                 .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)

@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 2021/10/10 14:16
  */
 public class XStreamXmlReader implements XmlReader {
-    private static final Map<Class<?>, XStream> X_STREAM_HOLDER = new ConcurrentHashMap<>();
+    private static final Map<Class<? extends XmlEntity>, XStream> X_STREAM_HOLDER = new ConcurrentHashMap<>();
     private static final XmlFriendlyNameCoder NAME_CODER = new XmlFriendlyNameCoder("_-", "_");
     private static final DomDriver DOM_DRIVER = new DomDriver("UTF-8", NAME_CODER);
     public static final XStreamXmlReader INSTANCE = new XStreamXmlReader();
@@ -47,7 +47,7 @@ public class XStreamXmlReader implements XmlReader {
         return X_STREAM_HOLDER.computeIfAbsent(t.getClass(), XStreamXmlReader::newXStream).toXML(t);
     }
 
-    private static XStream newXStream(Class<?> clazz) {
+    private static XStream newXStream(Class<? extends XmlEntity> clazz) {
         XStream xStream = new XStream(DOM_DRIVER);
         // 安全白名单
         xStream.allowTypeHierarchy(XmlEntity.class);

@@ -21,62 +21,41 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * The enum Form fork finish type.
+ * 打卡设备类型
  *
  * @author dax
- * @since 2024/3/13 17:24
+ * @since 2025/4/27
  */
-public enum FormForkFinishType {
+public enum CheckinDeviceType {
     /**
-     * 允许
+     * 门禁
      */
-    ALLOW(0),
+    ENTRANCE_GUARD(1),
     /**
-     * 仅当天
+     * 考勤机
      */
-    SAME_DAY(1),
+    MACHINE(2),
     /**
-     * 最后五天内
+     * 其它
      */
-    FIVE_DAY(2),
-    /**
-     * 一个月内
-     */
-    ONE_MONTH(3),
-    /**
-     * 下一次生成前
-     */
-    NEXT(4);
+    OTHERS(3);
 
     private final int type;
 
-    FormForkFinishType(int type) {
+    CheckinDeviceType(int type) {
         this.type = type;
     }
 
-
-    /**
-     * Gets type.
-     *
-     * @return the type
-     */
     @JsonValue
     public int getType() {
         return type;
     }
 
-    /**
-     * Deserialize form fork finish type.
-     *
-     * @param type the type
-     * @return the form fork finish type
-     */
     @JsonCreator
-    public static FormForkFinishType deserialize(int type) {
-        return Arrays.stream(FormForkFinishType.values())
-                .filter(formForkFinishType -> formForkFinishType.type == type)
+    public static CheckinDeviceType deserialize(int type) {
+        return Arrays.stream(CheckinDeviceType.values())
+                .filter(checkinMethodType -> checkinMethodType.type == type)
                 .findFirst()
                 .orElse(null);
     }
-
 }

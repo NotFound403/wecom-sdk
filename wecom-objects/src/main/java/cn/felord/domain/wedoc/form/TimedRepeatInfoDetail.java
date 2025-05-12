@@ -26,11 +26,29 @@ import java.time.Instant;
  */
 @Data
 public class TimedRepeatInfoDetail {
+    /**
+     * 是否开启定时重复
+     */
     private Boolean enable;
+    /**
+     * 提醒时间
+     */
     private Instant remindTime;
+    /**
+     * 重复类型。0：每周；1：每天；2：每月
+     */
     private FormRepeatType repeatType;
+    /**
+     * 自动跳过节假日，只能repeat_type = 1 时填写。
+     */
     private Boolean skipHoliday;
+    /**
+     * 规则生成时间
+     */
     private Instant ruleCtime;
+    /**
+     * 规则修改时间
+     */
     private Instant ruleMtime;
 
 }
