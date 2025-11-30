@@ -167,7 +167,11 @@ public enum CallbackEvent {
     /**
      * 会议室取消事件
      */
-    CANCEL_MEETING_ROOM("cancel_meeting_room");
+    CANCEL_MEETING_ROOM("cancel_meeting_room"),
+    /**
+     * 智能表格变更事件
+     */
+    SMART_SHEET_CHANGE("smart_sheet_change");
 
     private final String type;
 

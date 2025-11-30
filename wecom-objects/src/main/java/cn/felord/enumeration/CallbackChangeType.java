@@ -200,7 +200,31 @@ public enum CallbackChangeType {
     /**
      * 修改收集表设置事件
      */
-    FORM_SETTINGS_CHANGE("form_settings_change");
+    FORM_SETTINGS_CHANGE("form_settings_change"),
+    /**
+     * 新增字段事件
+     */
+    ADD_FILED("add_filed"),
+    /**
+     * 更新字段事件
+     */
+    UPDATE_FILED("update_filed"),
+    /**
+     * 删除字段事件
+     */
+    DELETE_FILED("delete_filed"),
+    /**
+     * 新增记录事件
+     */
+    ADD_RECORD("add_record"),
+    /**
+     * 更新记录事件
+     */
+    UPDATE_RECORD("update_record"),
+    /**
+     * 删除记录事件
+     */
+    DELETE_RECORD("delete_record");
 
     private final String type;
 
