@@ -243,6 +243,8 @@ public class CallbackEventBody implements XmlEntity {
     private List<String> docIds;
     @XStreamImplicit(itemFieldName = "FormId")
     private List<String> formIds;
+    @XStreamImplicit(itemFieldName = "FieldId")
+    private List<String> fieldIds;
 
     @XStreamAlias("Location")
     private String latitude;
